@@ -1,0 +1,224 @@
+<!doctype html>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+
+<title>SandboXP</title>
+<link rel="shortcut icon" type="image/png" href="favicon.png">
+<meta name="viewport" content="width=device-width,minimum-scale=1.0,maximum-scale=1.0,user-scalable=no">
+
+<script>
+  "use strict";
+
+  var CORE_FILES =
+    "const.js config.js log.js lib.js cpu.js debug.js " +
+    "io.js main.js ide.js pci.js floppy.js " +
+    "memory.js dma.js pit.js vga.js ps2.js pic.js rtc.js uart.js acpi.js apic.js ioapic.js hpet.js sb16.js " +
+    "ne2k.js state.js virtio.js bus.js elf.js kernel.js";
+
+  var BROWSER_FILES = "main.js screen.js keyboard.js mouse.js speaker.js serial.js lib.js network.js starter.js worker_bus.js print_stats.js filestorage.js";
+  var LIB_FILES = "";
+
+  // jor1k stuff
+  LIB_FILES += " jor1k.js 9p.js filesystem.js marshall.js utf8.js";
+
+  var BUILD_FILES = "";
+
+  var to_load = [];
+
+  load_scripts(CORE_FILES, "src/");
+  load_scripts(BROWSER_FILES, "src/browser/");
+  load_scripts(LIB_FILES, "lib/");
+  load_scripts(BUILD_FILES, "build/");
+
+  function load_scripts(resp, path) {
+    var files = resp.split(" ");
+
+    for (var i = 0; i < files.length; i++) {
+      if (!files[i]) {
+        continue;
+      }
+
+      to_load.push(path + files[i]);
+    }
+  }
+
+  load_next();
+
+  function load_next() {
+    let s = to_load.shift();
+
+    if (!s) {
+      return;
+    }
+
+    var script = document.createElement("script");
+    script.src = s;
+    script.onload = load_next;
+    script.onerror = function() {
+      console.warn("trying to ignore script " + s + ", which failed to load");
+
+      load_next();
+    };
+    document.head.appendChild(script);
+  }
+</script>
+<link rel="stylesheet" href="v86.css">
+
+<div>
+  <div id="boot_options">
+    <input type="button" value="Run Windows XP!" id="start_winxp">
+    <input type="button" value="Windows XP Boot" id="start_winxp-boot" style="display: none;">
+
+    <table style="display: none">
+      <tr>
+        <td width="350"><label for="cd_image">CD image</label></td>
+        <td>
+          <input type="file" id="cd_image">
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="floppy_image">Floppy disk image</label></td>
+        <td> <input type="file" id="floppy_image"><br></td>
+      </tr>
+
+      <tr>
+        <td><label for="hda_image">Hard drive disk image</label></td>
+        <td><input type="file" id="hda_image"><br></td>
+      </tr>
+
+      <tr>
+        <td>Slave Hard drive disk image</td>
+        <td><input type="file" id="hdb_image"><br></td>
+      </tr>
+
+      <tr>
+        <td><label for="multiboot_image">Multiboot kernel image (experimental)</label></td>
+        <td><input type="file" id="multiboot_image"><br></td>
+      </tr>
+
+      <tr>
+        <td colspan="2"><small>Disk images are not uploaded to the server</small>
+          <hr>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="memory_size">Memory size</label></td>
+        <td>
+          <input id="memory_size" type="number" value="128" min="16" max="2048" step="16"> MB<br>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="video_memory_size">Video Memory size</label></td>
+        <td>
+          <input id="video_memory_size" type="number" value="4" min="1" max="128" step="1"> MB<br>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="networking_proxy">Networking proxy (leave blank to disable)</label></td>
+        <td>
+          <input id="networking_proxy" type="text" value="wss://relay.widgetry.org/">
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <hr>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="disable_audio">Disable audio</label></td>
+        <td>
+          <input id="disable_audio" type="checkbox"><br>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="enable_acpi">Enable ACPI (experimental)</label></td>
+        <td>
+          <input id="enable_acpi" type="checkbox"><br>
+        </td>
+      </tr>
+
+      <tr>
+        <td colspan="2">
+          <hr>
+        </td>
+      </tr>
+
+      <tr>
+        <td><label for="boot_order">Boot order</label></td>
+        <td>
+          <select id="boot_order">
+            <option value="213">CD / Floppy / Hard Disk</option>
+            <option value="123">CD / Hard Disk / Floppy</option>
+            <option value="231">Floppy / CD / Hard Disk</option>
+            <option value="321">Floppy / Hard Disk / CD</option>
+            <option value="312">Hard Disk / Floppy / CD</option>
+            <option value="132">Hard Disk / CD / Floppy</option>
+          </select>
+        </td>
+      </tr>
+    </table>
+
+    <button id="start_emulation" style="display: none;">Start Emulation</button>
+  </div>
+
+  <div id="runtime_options" style="display: none">
+    <input type="button" value="Exit" id="exit">
+    <input type="button" value="Send Ctrl-Alt-Del" id="ctrlaltdel">
+    <input type="button" value="Send Alt-F4" id="alttab">
+    <input type="button" value="Get floppy image" id="get_fda_image">
+    <input type="button" value="Get second floppy image" id="get_fdb_image">
+    <input type="button" value="Get hard disk image" id="get_hda_image">
+    <input type="button" value="Get second hard disk image" id="get_hdb_image">
+    <input type="button" value="Get cdrom image" id="get_cdrom_image">
+    <input type="button" value="Save State" id="save_state">
+    <input type="button" value="Load State" id="load_state"> <input type="file" style="display: none" id="load_state_input">
+    <input type="button" value="Memory Dump" id="memory_dump">
+    <input type="button" value="Go fullscreen" id="fullscreen">
+    <input type="button" value="Take screenshot" id="take_screenshot">
+
+    <br>
+    <label id="change_fda" style="display: none">
+      Change floppy:
+      <input type="file">
+    </label>
+
+    <label id="change_cdrom" style="display: none">
+      Change CD:
+      <input type="file">
+    </label>
+
+  </div>
+
+  <pre style="display: none" id="loading"></pre>
+  <br>
+</div>
+
+<div id="screen_container" style="display: none">
+  <canvas id="vga"></canvas>
+
+  <div style="position: absolute; top: 0; z-index: 10">
+    <textarea class="phone_keyboard"></textarea>
+  </div>
+</div>
+
+
+<div id="runtime_infos" style="display: none">
+  Running: <span id="running_time">0s</span> <br>
+  Speed: <span id="speed">0</span> mIPS<br>
+  Avg speed: <span id="avg_speed">0</span> mIPS<br>
+  <br>
+  <div id="info_storage">
+    <b>IDE device (HDA or CDROM)</b><br>
+    Sectors read: <span id="info_storage_sectors_read">0</span><br>
+    Bytes read: <span id="info_storage_bytes_read">0</span><br>
+    Sectors written: <span id="info_storage_sectors_written">0</span><br>
+    Bytes written: <span id="info_storage_bytes_written">0</span><br>
+    Status: <span id="info_storage_status">Idle</span>
+  </div>
+</div>
