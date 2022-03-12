@@ -1,0 +1,4443 @@
+arCode0_plus1;
+
+        if((i<4) && (g.edtProductKey[i].value.length == 5) && CursorAtEndOfField(i) && (!g_SelectionExistsBeforeKeyPress)) {
+            TabForward(i,false);
+        }
+    }
+}
+
+function ProductIDKeyUp()
+{
+    try
+    {
+        if (g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if((!g_TabForward) && (!g_TabBackward)) {
+        return;
+    }
+
+    var i=g.event.srcElement.id.charCodeAt(3)-g_CharCode0_plus1;
+
+    if (g_TabBackward) {
+        TabBackward(i,false);
+        return;
+    } else
+        if(g_TabForward) {
+            TabForward(i,false);
+        }
+}
+
+function TabForward(currentEdit,DoSelectAll)
+{
+    g_TabForward = false;
+
+    if(currentEdit==4) {
+        
+        if(g.document.selection.type!="None") {
+            g.document.selection.empty();
+        }
+        g.btnTelephone.focus();
+        return;
+    }
+
+    currentEdit++;
+
+    g.edtProductKey[currentEdit].focus();
+
+    if(DoSelectAll) {
+        g.edtProductKey[currentEdit].select();
+        return;
+    }
+
+    var tr = g.edtProductKey[currentEdit].createTextRange();
+    tr.collapse(true);
+    tr.moveStart("word", 0);
+    tr.select();
+
+}
+
+function TabBackward(currentEdit,DoSelectAll)
+{
+    g_TabBackward = false;
+
+    if (currentEdit == 0) {
+        
+        if(g.document.selection.type!="None") {
+            g.document.selection.empty();
+        }
+        if(g.btnNext.disabled) {
+            g.btnQuit.focus();
+        } else {
+            g.btnNext.focus();
+        }
+
+        return;
+    }
+
+    currentEdit--;
+
+    g.edtProductKey[currentEdit].focus();
+
+    if(DoSelectAll) {
+        g.edtProductKey[currentEdit].select();
+        return;
+    }
+
+    var tr = g.edtProductKey[currentEdit].createTextRange();
+    tr.collapse(false);
+    tr.moveStart("word", 1);
+    tr.select();
+}
+
+function CursorAtStartOfField(currentEdit) {
+    var tr = g.edtProductKey[currentEdit].createTextRange();
+    var tr2 = g.document.selection.createRange();
+
+    tr2.moveEnd("textedit",1);
+
+    if(tr.isEqual(tr2)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function CursorAtEndOfField(currentEdit) {
+    
+
+    var tr = g.edtProductKey[currentEdit].createTextRange();
+    var tr2 = g.document.selection.createRange();
+
+    tr2.moveStart("textedit",-1);
+
+    if(tr.isEqual(tr2)){
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
+
+
+
+
+function Activation_ResetNetworking()
+{
+    if (window.external.CheckOnlineStatus)
+    {
+        ResetDialing();
+    }
+
+    if (g_InitAutodial)
+    {
+        window.external.InternetAutodialHangup();
+        g_InitAutodial = false;
+    }
+}
+
+function Activation_RetryBtnHandler()
+{
+    DisableAllButtons();
+    if ((g_ActivationStatus == ERR_ACT_INVALID_PID) ||
+        (g_ActivationStatus == ERR_ACT_USED_PID) ||
+        (g_ActivationStatus == ERR_ACT_BLOCKED_PID) ||
+        (g_ActivationStatus == ERR_ACT_DEDICATED_PID_ENTRY))
+    {
+        StorePid();
+        if (PidObj.get_PID.length != 0 && PidObj.ValidatePID())
+        {
+            window.external.ResetLicenseAgent();
+            
+            
+            
+            
+            
+            
+            if ( g_Using_Staging_Key && !g_Activation_Key_Entered ) 
+            {
+                ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, STAGING_REG_KEY, STAGING_REG_VALUE,0);
+                g_Activation_Key_Entered = true;
+                GoNavigate(CKPT_ACTIV);
+            }
+            else if (ReturnToTelephonePage)
+            {
+                
+                g_Load_InstallID = true;
+
+                
+                g_ConfirmID_A = "";
+                g_ConfirmID_B = "";
+                g_ConfirmID_C = "";
+                g_ConfirmID_D = "";
+                g_ConfirmID_E = "";
+                g_ConfirmID_F = "";
+                g_ConfirmID_G = "";
+
+                GoNavigate(CKPT_ACTIVSVC);  
+            }
+            else
+                GoNavigate(CKPT_REGDIAL);
+        }
+        else
+        {
+            
+            g_ActivationStatus = ERR_ACT_INVALID_PID;
+            GoNavigate(CKPT_ACT_MSG);
+        }
+    }
+    else
+    {
+        
+        GoNavigate(CKPT_REGDIAL);
+    }
+}
+
+
+var L_EnterNewKey_Text   = "Ange ny produktnyckel:";
+var L_EnterKey_Text      = "Ange produktnyckel:";
+var L_NewKey_Text        = "Ny produktnyckel:";
+var L_MessageNumber_Text = "Meddelandenummer: %1";
+var L_FinishButton_Text  = "OK";
+var L_UpdateButton_Text  = " <u>U</u>ppdatera ";
+function act_desktop_error_LoadMe()
+{
+    var L_AccesskeyU_Text = "U";
+    var L_AccesskeyO_Text = "E";
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    Activation_ResetNetworking();
+
+    var ndaysleft = ""
+    try
+    {
+        ndaysleft = window.external.GetActivationDaysLeft();
+    }
+    catch(e)
+    {
+        ndaysleft = "0";
+    }
+
+    if (g_ActivationStatus == ERR_ACT_SUCCESS)
+    {
+        var L_ActThankYou_Text       = "Tack!";
+        Span_WPA_MainTitle.innerText = L_ActThankYou_Text;
+        if (g_PostToMS)
+            g.acterror_description_SUCCESS1.style.display="inline";
+        else
+            g.acterror_description_SUCCESS2.style.display="inline";
+    }
+    else if (g_ActivationStatus == ERR_ACT_INACCESSIBLE)
+    {
+        var L_ActUnable1_Text        = "Det gick inte att aktivera Windows";
+        Span_WPA_MainTitle.innerText = L_ActUnable1_Text;
+
+        if (ndaysleft == "0")
+        {
+            g.acterror_description1Post.style.display="inline";
+        }
+        else
+        {
+            g.acterror_description1Pre.style.display="inline";
+            g.NumberDaysLeft1.innerText  = ndaysleft;
+        }
+    }
+    else if (g_ActivationStatus == ERR_ACT_INVALID_PID)
+    {
+        var L_ActIncorrectKey_Text  = "Felaktig produktnyckel";
+        Span_WPA_MainTitle.innerText = L_ActIncorrectKey_Text;
+
+        var WPAOEMMode01 = window.external.IsOemSKU();
+        if (WPAOEMMode01)
+        {
+            
+            g.acterror_description2_OEM.style.display="inline";
+            g.acterror_after_pid_entry_OEMText.style.display="inline";
+        }
+        else
+        {
+            
+            g.acterror_description2_RETAIL.style.display="inline";
+        }
+        g.acterror_pid_entry.style.display="inline";
+        g.acterror_after_pid_entry_text1.style.display="inline";
+        g.acterror_description_verify_key.innerHTML = L_NewKey_Text;
+    }
+    else if (g_ActivationStatus == ERR_ACT_USED_PID)
+    {
+        var L_ActProductKey_Text    = "Produktnyckel";
+        Span_WPA_MainTitle.innerText = L_ActProductKey_Text;
+
+        var WPAOEMMode02 = window.external.IsOemSKU();
+        if (WPAOEMMode02)
+        {
+            
+            g.acterror_description3OEM.style.display="inline";
+            g.acterror_after_pid_entry_OEMText.style.display="inline";
+        }
+        else
+        {
+            
+            g.acterror_description3Retail.style.display="inline";
+        }
+        g.acterror_pid_entry.style.display="inline";
+        g.acterror_description_verify_key.innerHTML = L_NewKey_Text;
+        g.acterror_after_pid_entry_text2.style.display="inline";
+    }
+    else if (g_ActivationStatus == ERR_ACT_INTERNAL_WINDOWS_ERR)
+    {
+        var L_ActUnable2_Text  = "Det gick inte att aktivera Windows";
+        Span_WPA_MainTitle.innerText = L_ActUnable2_Text;
+
+        if (ndaysleft == "0")
+        {
+            g.acterror_description4Post.style.display="inline";
+        }
+        else
+        {
+            g.acterror_description4Pre.style.display="inline";
+            g.NumberDaysLeft2.innerText  = ndaysleft;
+        }
+    }
+    else if (g_ActivationStatus == ERR_ACT_BLOCKED_PID)
+    {
+        var L_ActUnauthorKey_Text   = "OtillÂten produktnyckel";
+        Span_WPA_MainTitle.innerText = L_ActUnauthorKey_Text;
+
+        var WPAOEMMode03 = window.external.IsOemSKU();
+        if (WPAOEMMode03)
+        {
+            
+            g.acterror_description5OEM.style.display="inline";
+            g.acterror_after_pid_entry_OEMText.style.display="inline";
+        }
+        else
+        {
+            
+            g.acterror_description5Retail.style.display="inline";
+        }
+        g.acterror_pid_entry.style.display="inline";
+        g.acterror_description_verify_key.innerHTML = L_NewKey_Text;
+        g.acterror_after_pid_entry_text2.style.display="inline";
+    }
+    else if (g_ActivationStatus == ERR_ACT_CORRUPTED_PID)
+    {
+        g.acterror_description6.style.display="inline";
+        g.NumberDaysLeft3.innerText  = ndaysleft;
+    }
+    else if (g_ActivationStatus == ERR_ACT_NETWORK_FAILURE)
+    {
+        g.acterror_description7.style.display="inline";
+    }
+    else if (g_ActivationStatus == ERR_ACT_DEDICATED_PID_ENTRY)
+    {
+        var L_ActUpdateKey_Text  = "";
+
+        if ( g_Using_Staging_Key ) 
+            L_ActUpdateKey_Text  = "Ange produktnyckel";
+        else
+            L_ActUpdateKey_Text  = "Byt produktnyckel";
+
+        Span_WPA_MainTitle.innerText = L_ActUpdateKey_Text;
+
+        var WPAOEMMode04 = window.external.IsOemSKU();
+        if (WPAOEMMode04)
+        {
+            
+            g.acterror_description_dedicated_pid_OEM.style.display="inline";
+            g.acterror_after_pid_entry_OEMText.style.display="inline";
+        }
+        else
+        {
+            
+            g.acterror_description_dedicated_pid_RETAIL.style.display="inline";
+        }
+        g.acterror_pid_entry.style.display="inline";
+        g.acterror_description_verify_key.innerHTML = L_NewKey_Text;
+        g.btnNext.innerHTML = L_UpdateButton_Text;
+        g.btnNext.accessKey = L_AccesskeyU_Text;
+    }
+    else
+    {
+        g.acterror_description4.style.display="inline";
+        g.NumberDaysLeft2.innerText  = ndaysleft;
+    }
+
+
+    if (g_ActivationStatus != ERR_ACT_SUCCESS)
+    {
+        if ((g_act_specific_error != 0) && (g_act_specific_error != null))
+        {
+            g.acterror_specific_error_code.innerText = ApiObj.FormatMessage(L_MessageNumber_Text, g_act_specific_error.toString());
+            g.acterror_specific_error_code.style.display = "inline";
+        }
+    }
+
+    InitButtons();
+
+    if (g_ActivationStatus != ERR_ACT_SUCCESS)
+    {
+        if ((g_ActivationStatus == ERR_ACT_INVALID_PID) ||
+            (g_ActivationStatus == ERR_ACT_USED_PID) ||
+            (g_ActivationStatus == ERR_ACT_BLOCKED_PID) ||
+            (g_ActivationStatus == ERR_ACT_DEDICATED_PID_ENTRY))
+        {
+            if (null == PidObj)
+            {
+                PidObj = new Object;
+                PidObj = window.external.ProductID;
+            }
+
+            g_FirstFocusElement = g.edtProductKey[0];
+            ShowIFrame();
+            RetrievePid();
+
+            var rangefocus = g_FirstFocusElement.createTextRange();
+            rangefocus.collapse();
+            rangefocus.moveStart("word", 0);
+            rangefocus.select();
+
+            g_TabForward = false;
+            g_TabBackward = false;
+
+            PID_CheckLength(false);
+
+            for (i = 0; i <= 4; i++)
+            {
+                g.edtProductKey[i].onblur=PIDBox_HandleBlur;
+                g.edtProductKey[i].onfocus=PIDBox_HandleFocus;
+            }
+
+            g_LastFocusedPidBox=g.edtProductKey[0];
+        }
+        else
+        {
+            g_FirstFocusElement = g.btnNext;
+            ShowIFrame();
+        }
+
+        g.btnTelephone.onmouseover = HandleButtonMouseOver;
+        g.btnTelephone.onmouseout  = HandleButtonMouseOut;
+        g.btnTelephone.onclick = GoNext;
+        g.btnNext.onclick = Activation_RetryBtnHandler;
+    }
+    else
+    {
+        g.btnTelephone.style.visibility = "hidden";
+        g.btnQuit.style.visibility = "hidden";
+        g.btnNext.innerHTML = L_FinishButton_Text;
+        g.btnNext.accessKey = L_AccesskeyO_Text;
+        g_FirstFocusElement = g.btnNext;
+        ShowIFrame();
+    }
+
+    window.setTimeout("DoFocus();",1000);
+}
+
+
+
+
+
+
+function ValidateConfirmIDBox(Box_Number)
+{
+var Box_Value = null;
+var Box_Valid = null;
+
+    if (Box_Number=='1')
+        Box_Value = g.ActCodeBox1.value;
+
+    if (Box_Number=='2')
+        Box_Value = g.ActCodeBox2.value;
+
+    if (Box_Number=='3')
+        Box_Value = g.ActCodeBox3.value;
+
+    if (Box_Number=='4')
+        Box_Value = g.ActCodeBox4.value;
+
+    if (Box_Number=='5')
+        Box_Value = g.ActCodeBox5.value;
+
+    if (Box_Number=='6')
+        Box_Value = g.ActCodeBox6.value;
+
+    if (Box_Number=='7')
+        Box_Value = g.ActCodeBox7.value;
+
+    Box_Valid = window.external.VerifyCheckDigits(Box_Value);
+
+    if (!Box_Valid)
+    {
+        var L_ConfirmIDInvalid1_Text = "Det bekr‰ftelse-ID som angavs i det h‰r f‰ltet ‰r ogiltigt. Kontrollera numret och fˆrsˆk sedan igen.";
+        alert(L_ConfirmIDInvalid1_Text);
+
+        
+        if (Box_Number=='1')
+        {
+            g.ActCodeBox1.focus();
+            g.ActCodeBox1.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='2')
+        {
+            g.ActCodeBox2.focus();
+            g.ActCodeBox2.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='3')
+        {
+            g.ActCodeBox3.focus();
+            g.ActCodeBox3.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='4')
+        {
+            g.ActCodeBox4.focus();
+            g.ActCodeBox4.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='5')
+        {
+            g.ActCodeBox5.focus();
+            g.ActCodeBox5.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='6')
+        {
+            g.ActCodeBox6.focus();
+            g.ActCodeBox6.select();
+            g_DoFieldChecking = false;
+        }
+        if (Box_Number=='7')
+        {
+            g.ActCodeBox7.focus();
+            g.ActCodeBox7.select();
+            g_DoFieldChecking = false;
+        }
+    }
+    else
+    {
+        
+        if (Box_Number=='1')
+            g.ActCodeBox2.focus();
+        if (Box_Number=='2')
+            g.ActCodeBox3.focus();
+        if (Box_Number=='3')
+            g.ActCodeBox4.focus();
+        if (Box_Number=='4')
+            g.ActCodeBox5.focus();
+        if (Box_Number=='5')
+            g.ActCodeBox6.focus();
+        if (Box_Number=='6')
+            g.ActCodeBox7.focus();
+        if (Box_Number=='7')
+        {
+            
+            
+        }
+
+        g_DoFieldChecking = true;
+    }
+}
+
+function UpdateConfirmIDFields(FieldToEdit)
+{
+    if (FieldToEdit == '1')
+    {
+        g_ConfirmID1 = g.ActCodeBox1.value;
+    }
+
+    if (FieldToEdit == '2')
+    {
+        g_ConfirmID2 = g.ActCodeBox2.value;
+    }
+
+    if (FieldToEdit == '3')
+    {
+        g_ConfirmID3 = g.ActCodeBox3.value;
+    }
+
+    if (FieldToEdit == '4')
+    {
+        g_ConfirmID4 = g.ActCodeBox4.value;
+    }
+
+    if (FieldToEdit == '5')
+    {
+        g_ConfirmID5 = g.ActCodeBox5.value;
+    }
+
+    if (FieldToEdit == '6')
+    {
+        g_ConfirmID6 = g.ActCodeBox6.value;
+    }
+
+    if (FieldToEdit == '7')
+    {
+        g_ConfirmID7 = g.ActCodeBox7.value;
+    }
+
+    
+    if (g_DoBackSpace)
+    {
+        g_DoBackSpace = false;
+        var tr = null;
+
+        if (FieldToEdit == '1')
+        {
+            
+        }
+        else if (FieldToEdit == '2')
+        {
+            if (g.ActCodeBox2.value == "")
+                tr = g.ActCodeBox1.createTextRange();
+        }
+        else if (FieldToEdit == '3')
+        {
+            if (g.ActCodeBox3.value == "")
+                tr = g.ActCodeBox2.createTextRange();
+        }
+        else if (FieldToEdit == '4')
+        {
+            if (g.ActCodeBox4.value == "")
+                tr = g.ActCodeBox3.createTextRange();
+        }
+        else if (FieldToEdit == '5')
+        {
+            if (g.ActCodeBox5.value == "")
+                tr = g.ActCodeBox4.createTextRange();
+        }
+        else if (FieldToEdit == '6')
+        {
+            if (g.ActCodeBox6.value == "")
+                tr = g.ActCodeBox5.createTextRange();
+        }
+        else if (FieldToEdit == '7')
+        {
+            if (g.ActCodeBox7.value == "")
+                tr = g.ActCodeBox6.createTextRange();
+        }
+
+
+        
+        if ((FieldToEdit != '1') && (tr != null))
+        {
+            tr.collapse(false);
+            tr.moveStart("word", 1);
+            tr.select();
+        }
+    }
+}
+
+
+function DeleteLastCharacter(FieldToEdit)
+{
+    if (FieldToEdit == '1')
+    {
+        g.ActCodeBox1.value = g_ConfirmID1;
+    }
+
+    if (FieldToEdit == '2')
+    {
+        g.ActCodeBox2.value = g_ConfirmID2;
+    }
+
+    if (FieldToEdit == '3')
+    {
+        g.ActCodeBox3.value = g_ConfirmID3;
+    }
+
+    if (FieldToEdit == '4')
+    {
+        g.ActCodeBox4.value = g_ConfirmID4;
+    }
+
+    if (FieldToEdit == '5')
+    {
+        g.ActCodeBox5.value = g_ConfirmID5;
+    }
+
+    if (FieldToEdit == '6')
+    {
+        g.ActCodeBox6.value = g_ConfirmID6;
+    }
+
+    if (FieldToEdit == '7')
+    {
+        g.ActCodeBox7.value = g_ConfirmID7;
+    }
+
+    var L_OnlyNumbersAllowed_Text = "Du kan bara anv‰nda siffror n‰r du anger bekr‰ftelse-ID.";
+    alert(L_OnlyNumbersAllowed_Text);
+
+    if (FieldToEdit == '1')
+        g.ActCodeBox1.focus();
+    else if (FieldToEdit == '2')
+        g.ActCodeBox2.focus();
+    else if (FieldToEdit == '3')
+        g.ActCodeBox3.focus();
+    else if (FieldToEdit == '4')
+        g.ActCodeBox4.focus();
+    else if (FieldToEdit == '5')
+        g.ActCodeBox5.focus();
+    else if (FieldToEdit == '6')
+        g.ActCodeBox6.focus();
+    else if (FieldToEdit == '7')
+        g.ActCodeBox7.focus();
+}
+
+var g_ConfirmID1 = "";
+var g_ConfirmID2 = "";
+var g_ConfirmID3 = "";
+var g_ConfirmID4 = "";
+var g_ConfirmID5 = "";
+var g_ConfirmID6 = "";
+var g_ConfirmID7 = "";
+var g_DoBackSpace = false;
+
+var g_DoFieldChecking = true;
+function activate_OnKeyUp(WhatField)
+{
+    var keyCode = g.event.keyCode;
+    var str = String.fromCharCode(keyCode);
+
+    
+    
+
+    
+    
+
+    var result           = str.match(/\x60|a|b|c|d|e|f|g|h|i|1|2|3|4|5|6|7|8|9|0/);
+    var NonNumericresult = str.match(/A|B|C|D|E|F|G|H|I|J|K|L|M|N|O|P|Q|R|S|T|U|V|W|X|Y|Z/);
+    var BackSpc          = str.match(/\x08/);
+
+    var validchar = false;
+    if (null != result)
+    {
+        validchar = true;
+    }
+    else
+    {
+        validchar = false;
+
+        if (null != NonNumericresult)
+        {
+            DeleteLastCharacter(WhatField);
+        }
+        else
+        {
+            if (null != BackSpc)
+                g_DoBackSpace = true;
+
+            UpdateConfirmIDFields(WhatField);
+        }
+    }
+
+    if (validchar)
+    {
+        if (WhatField == '1')
+        {
+            g_ConfirmID1 = g.ActCodeBox1.value;
+            if (g.ActCodeBox1.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '2')
+        {
+            g_ConfirmID2 = g.ActCodeBox2.value;
+            if (g.ActCodeBox2.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '3')
+        {
+            g_ConfirmID3 = g.ActCodeBox3.value;
+            if (g.ActCodeBox3.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '4')
+        {
+            g_ConfirmID4 = g.ActCodeBox4.value;
+            if (g.ActCodeBox4.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '5')
+        {
+            g_ConfirmID5 = g.ActCodeBox5.value;
+            if (g.ActCodeBox5.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '6')
+        {
+            g_ConfirmID6 = g.ActCodeBox6.value;
+            if (g.ActCodeBox6.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (WhatField == '7')
+        {
+            g_ConfirmID7 = g.ActCodeBox7.value;
+            if (g.ActCodeBox7.value.length == 6)
+            {
+                ValidateConfirmIDBox(WhatField);
+            }
+        }
+
+        if (g_DoFieldChecking)
+            IsConfirmIDComplete();
+        
+        
+        if (!g.btnNext.disabled)
+            g.btnNext.focus();
+    }
+    else
+    {
+        IsConfirmIDComplete();
+    }
+
+}
+
+
+function IsConfirmIDComplete()
+{
+    if ((g.ActCodeBox1.value.length == 6) && (g.ActCodeBox2.value.length == 6) && (g.ActCodeBox3.value.length == 6) && (g.ActCodeBox4.value.length == 6) && (g.ActCodeBox5.value.length == 6) && (g.ActCodeBox6.value.length == 6) && (g.ActCodeBox7.value.length == 6))
+    {
+        g.btnNext.onmouseover = HandleButtonMouseOver;
+        g.btnNext.onmouseout  = HandleButtonMouseOut;
+        g.btnNext.className="buttons";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick  = ActivationSvc_NextBtnHandler;
+    }
+    else
+    {
+        g.btnNext.className="buttons-disabled";
+        g.btnNext.disabled = true;
+    }
+}
+
+var g_ActivSvc_Reload = true;
+function ActivationSvc_NextBtnHandler()
+{
+    g_Activation_CODE_ENTERED = g.ActCodeBox1.value + '-' +
+        g.ActCodeBox2.value + '-' +
+        g.ActCodeBox3.value + '-' +
+        g.ActCodeBox4.value + '-' +
+        g.ActCodeBox5.value + '-' +
+        g.ActCodeBox6.value + '-' +
+        g.ActCodeBox7.value;
+
+    g_ConfirmID_A  = g.ActCodeBox1.value;
+    g_ConfirmID_B  = g.ActCodeBox2.value;
+    g_ConfirmID_C  = g.ActCodeBox3.value;
+    g_ConfirmID_D  = g.ActCodeBox4.value;
+    g_ConfirmID_E  = g.ActCodeBox5.value;
+    g_ConfirmID_F  = g.ActCodeBox6.value;
+    g_ConfirmID_G  = g.ActCodeBox7.value;
+
+    try
+    {
+        g_Activation_CODE_ENTERED_status = window.external.SetConfirmationID(g_Activation_CODE_ENTERED);
+    }
+    catch(e)
+    {
+        g_Activation_CODE_ENTERED_status = 0;
+    }
+
+    DisableAllButtons();
+    if (g_Activation_CODE_ENTERED_status == 0)
+    {
+        GoNavigate(CKPT_DONE);
+    }
+    else
+    {
+        g_Load_InstallID = false;
+        var L_ConfirmIDInvalid_Text = "Ditt bekr‰ftelse-ID ‰r felaktigt. Kontrollera numret och fˆrsˆk sedan igen.";
+        alert(L_ConfirmIDInvalid_Text);
+        g_ActivSvc_Reload = false;
+        GoNavigate(CKPT_ACTIVSVC);
+    }
+}
+
+function ActivationSvc_ProdkeyBtnHandler()
+{
+    DisableAllButtons();
+    ReturnToTelephonePage = true;
+    g_Load_InstallID = false;
+
+    
+    g_ConfirmID_A  = g.ActCodeBox1.value;
+    g_ConfirmID_B  = g.ActCodeBox2.value;
+    g_ConfirmID_C  = g.ActCodeBox3.value;
+    g_ConfirmID_D  = g.ActCodeBox4.value;
+    g_ConfirmID_E  = g.ActCodeBox5.value;
+    g_ConfirmID_F  = g.ActCodeBox6.value;
+    g_ConfirmID_G  = g.ActCodeBox7.value;
+
+    g_ActivationStatus = ERR_ACT_DEDICATED_PID_ENTRY;
+    GoNavigate(CKPT_ACT_MSG);
+}
+
+function PhoneCountries_Changed()
+{
+    g.ChosenPhoneNumber.innerHTML = "<B>" + g_Phone_Number_Array[g.selPhoneCountry.selectedIndex] + "</B>";
+    g.ChosenTollNumber.innerHTML  = "<B>" + g_Toll_Number_Array[g.selPhoneCountry.selectedIndex]  + "</B>";
+
+    
+    g_Country_Selected_Index = g.selPhoneCountry.selectedIndex;
+}
+
+var g_Country_Selected_Index = 0;
+var g_Phone_Number_Array = new Array(500);
+var g_Toll_Number_Array =  new Array(500);
+function GetPhoneCountries()
+{
+    var g_PhoneCountries = "";
+
+    try
+    {
+        g_PhoneCountries = LangObj.get_PhoneCountries();
+
+    }
+    catch(e)
+    {
+        g_PhoneCountries = "API call error: get_PhoneCountries";
+    }
+
+    var i;
+    var PhoneOption;
+    var ModulusResult;
+    var PhoneCounter=0;
+    var TollCounter =0;
+    var regexp1=/\t/;                                                
+    var Opt_PhoneCountry_Array = g_PhoneCountries.split(regexp1);    
+    var L_SelectYourLocation_Text = "V‰lj din plats";
+
+
+    
+    PhoneOption      = g.document.createElement("OPTION");
+    PhoneOption.text = L_SelectYourLocation_Text;
+    g.selPhoneCountry.add(PhoneOption);
+    g_Toll_Number_Array[TollCounter] = "";
+    g_Phone_Number_Array[PhoneCounter] = "";
+    TollCounter = TollCounter + 1;
+    PhoneCounter = PhoneCounter + 1;
+
+    for(i=0; i < Opt_PhoneCountry_Array.length; i++)
+    {
+        ModulusResult = i % 3;
+        if (ModulusResult == 0)
+        {
+            PhoneOption      = g.document.createElement("OPTION");
+            PhoneOption.text = Opt_PhoneCountry_Array[i];
+            g.selPhoneCountry.add(PhoneOption);
+        }
+        else if (ModulusResult == 1)
+        {
+            g_Toll_Number_Array[TollCounter] = Opt_PhoneCountry_Array[i];
+            TollCounter = TollCounter + 1;
+        }
+        else
+        {
+            g_Phone_Number_Array[PhoneCounter] = Opt_PhoneCountry_Array[i];
+            PhoneCounter = PhoneCounter + 1;
+        }
+    }
+    g.ChosenPhoneNumber.innerHTML = "<B>" + g_Phone_Number_Array[g_Country_Selected_Index] + "</B>";
+    g.ChosenTollNumber.innerHTML  = "<B>" + g_Toll_Number_Array[g_Country_Selected_Index]  + "</B>";
+    g.selPhoneCountry.selectedIndex = g_Country_Selected_Index;
+
+}
+
+function BackBtnHandler()
+{
+    GoNavigate(CKPT_ACTIV);
+}
+
+var ReturnToTelephonePage = false;
+var g_ConfirmID_A = "";
+var g_ConfirmID_B = "";
+var g_ConfirmID_C = "";
+var g_ConfirmID_D = "";
+var g_ConfirmID_E = "";
+var g_ConfirmID_F = "";
+var g_ConfirmID_G = "";
+var g_Load_InstallID = true;
+var g_Activation_Install_ID_Full = "";
+function ActivationSvc_LoadMe()
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    ReturnToTelephonePage = false;
+
+
+    
+    g.ActCodeBox1.value = g_ConfirmID_A;
+    g.ActCodeBox2.value = g_ConfirmID_B;
+    g.ActCodeBox3.value = g_ConfirmID_C;
+    g.ActCodeBox4.value = g_ConfirmID_D;
+    g.ActCodeBox5.value = g_ConfirmID_E;
+    g.ActCodeBox6.value = g_ConfirmID_F;
+    g.ActCodeBox7.value = g_ConfirmID_G;
+
+
+    
+    if (g_CameFromFirstPage)
+    {
+        g.btnBack.style.display = "inline";
+    }
+
+    InitButtons();
+
+    
+    
+    if (g_CameFromFirstPage)
+    {
+        g.btnBack.onclick = BackBtnHandler;
+    }
+
+    IsConfirmIDComplete();  
+    GetPhoneCountries();
+
+    g.btnProdkey.onclick = ActivationSvc_ProdkeyBtnHandler;
+    g.btnProdkey.onmouseover = HandleButtonMouseOver;
+    g.btnProdkey.onmouseout  = HandleButtonMouseOut;
+
+
+    if (g_Country_Selected_Index==0)
+    {
+        g_FirstFocusElement = g.selPhoneCountry;
+    }
+    else if (!g.btnNext.disabled)
+    {
+        g_FirstFocusElement = g.btnNext;
+    }
+    else
+    {
+        g_FirstFocusElement = g.ActCodeBox1;
+    }
+
+    if (g_FirstFocusElement != null)
+        window.setTimeout("DoFocus();",1000);
+}
+
+
+
+
+
+
+var g_Reg1RadioSticky = null;
+function areg1_LoadMe()
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    if (g_Reg1RadioSticky == null)
+        g.btnNext.disabled = true;
+    else if (g_Reg1RadioSticky == 1)
+        g.rb_reg_1.checked = true;
+    else if (g_Reg1RadioSticky == 2)
+        g.rb_reg_2.checked = true;
+
+    InitButtons();
+
+    if (g.btnNext.disabled)
+        g_FirstFocusElement = g.btnBack;
+    else
+        g_FirstFocusElement = g.btnNext;
+    window.setTimeout("DoFocus();",1500);
+}
+
+function WPA_Reg1RadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.rb_reg_1.checked || g.rb_reg_2.checked))
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = GoNext;
+        g.btnNext.focus();
+    }
+}
+
+
+
+
+var StateAbbrevs = new Array("","AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY");
+var FullStateNames = new Array("Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Washington, D.C.","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming");
+var ProvinceNames = new Array("","Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon");
+
+
+var g_StateName2IndexMap= new ActiveXObject("Scripting.Dictionary");
+var g_ProvinceName2IndexMap= new ActiveXObject("Scripting.Dictionary");
+
+g_ProvinceName2IndexMap.CompareMode = 1;  
+g_StateName2IndexMap.CompareMode = 1;  
+
+
+var ii;
+for(ii=1;ii<=FullStateNames.length;ii++) {
+    
+  g_StateName2IndexMap.Add(FullStateNames[ii-1].toUpperCase(),ii);
+  g_StateName2IndexMap.Add(StateAbbrevs[ii].toUpperCase(),ii);
+
+  if(ii < ProvinceNames.length) {
+     g_ProvinceName2IndexMap.Add(ProvinceNames[ii].toUpperCase(),ii);
+  }
+}
+
+var L_Postal_Text = "<u>P</u>ostnummer:";
+var L_AsteriskPostal_Text = "*<u>P</u>ostnummer:";
+var L_Province_Text= "<u>R</u>egion:";
+var L_AsteriskProvince_Text= "*<u>R</u>egion:";
+
+var L_Canada_Text="Kanada";
+var L_UnitedStates_Text="USA";
+
+function Reg3UserCountryChanged() {
+
+    
+
+
+    g_Country=g.selCountry.options(g.selCountry.selectedIndex).text;
+
+    if(g_Country == L_UnitedStates_Text) {
+        if(g.selUSState.style.display!="inline") {
+          g.selUSState.style.display="inline";
+        }
+
+        g.selCAProvince.style.display="none";
+        g.UserStateTextBox.style.display="none";
+
+        
+        if(g.UserStateTextBox.value!="") {
+          var res=g_StateName2IndexMap.Item(g.UserStateTextBox.value.toUpperCase());
+          if(res!=null) {
+             g.selUSState.selectedIndex=res;
+          }
+        }
+        g.LabelZIP.innerHTML = L_AsteriskPostal_Text;
+        g.StateLabel.innerHTML = L_AsteriskProvince_Text;
+    } else if(g_Country == L_Canada_Text) {
+        g.selUSState.style.display="none";
+        g.selCAProvince.style.display="inline";
+        g.UserStateTextBox.style.display="none";
+
+        
+        if(g.UserStateTextBox.value!="") {
+          var res=g_ProvinceName2IndexMap.Item(g.UserStateTextBox.value.toUpperCase());
+          if(res!=null) {
+             g.selCAProvince.selectedIndex=res;
+          }
+        }
+        g.LabelZIP.innerHTML = L_AsteriskPostal_Text;
+        g.StateLabel.innerHTML = L_AsteriskProvince_Text;
+    } else {
+        g.selUSState.style.display="none";
+        g.selCAProvince.style.display="none";
+        g.UserStateTextBox.style.display="inline";
+        g.LabelZIP.innerHTML = L_Postal_Text;
+        g.StateLabel.innerHTML = L_Province_Text;
+    }
+
+    g_CountryIdx=g.selCountry.selectedIndex;
+
+    Reg3UserStateChanged();
+}
+
+var L_FullName_Text="*<u>F</u>ullst‰ndigt namn:";
+
+function Reg3UserStateChanged() {
+
+    
+
+    
+
+    if(g.selUSState.style.display!="none")
+    {
+        g_StateIdx=g.selUSState.selectedIndex;
+        g_State=g.selUSState.options(g.selUSState.selectedIndex).text;
+        g.StateLabel.htmlFor="selUSState";
+    }
+    else if (g.selCAProvince.style.display!="none")
+    {
+         g_StateIdx=g.selCAProvince.selectedIndex;
+         g_State=g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+         g.StateLabel.htmlFor="selCAProvince";
+    }
+    else
+    {
+        g_State = g.UserStateTextBox.value;
+        g.StateLabel.htmlFor="UserStateTextBox";
+    }
+}
+
+
+
+
+var g_FirstName=InfoObj.get_FirstName();
+
+var g_LastName=InfoObj.get_LastName();
+var g_Address1=InfoObj.get_Address1();
+var g_Address2=InfoObj.get_Address2();
+var g_City=InfoObj.get_City();
+var g_ZipCode=InfoObj.get_Zip();
+var g_EmailAddr= InfoObj.get_PrimaryEmail();
+var g_Country=InfoObj.get_Country();
+var g_CountryIdx=-1;
+var g_State=InfoObj.get_State();
+var g_StateIdx=0;
+
+function Reg3SaveSettings() {
+    g_FirstName=g.UserFirstName.value;
+    
+
+    if (IsKoreanLocale())
+        g_LastName="";
+    else
+        g_LastName=g.UserLastName.value;
+
+    g_Address1=g.UserAddress.value;
+    g_Address2=g.UserAddress2.value;
+    g_ZipCode=g.UserZipCode.value;
+    g_EmailAddr=g.UserEmailAddress.value;
+    g_City=g.UserCity.value;
+    g_Country=g.selCountry.options(g.selCountry.selectedIndex).text;
+
+    if(g.UserStateTextBox.style.display!="none")
+    {
+        g_State=g.UserStateTextBox.value;
+    }
+    else if (g.selUSState.style.display!="none")
+    {
+        g_State=g.selUSState.options(g.selUSState.selectedIndex).text;
+    }
+    else
+    {
+        g_State=g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+    }
+
+    InfoObj.set_FirstName(g_FirstName);
+    InfoObj.set_LastName(g_LastName);
+    
+    InfoObj.set_Country(g_Country);
+    InfoObj.set_State(g_State);
+    InfoObj.set_Address1(g_Address1);
+    InfoObj.set_Address2(g_Address2);
+    InfoObj.set_PrimaryEmail(g_EmailAddr);
+    InfoObj.set_Zip(g_ZipCode);
+    InfoObj.set_City(g_City);
+
+    TapiObj.set_CountryIndex(g.selCountry.selectedIndex);
+    InfoObj.set_CountryID(TapiObj.get_CountryID());
+
+    
+    InfoObj.set_MSUpdate(true);
+
+    InfoObj.set_MSOffer(false);
+    if ((g_PostToMS==true) && (g.sharems.checked))
+        InfoObj.set_MSOffer(true);
+
+    InfoObj.set_OtherOffer(false);
+    if ((g_PostToMS==true) && (g.sharemsPartners.checked))
+        InfoObj.set_OtherOffer(true);
+}
+
+
+InfoObj.set_MSOffer(false);
+InfoObj.set_OtherOffer(false);
+function Reg3_LoadMe()
+{
+    InitFrameRef();
+    CheckContrastMode();
+
+    GetPageTitle();
+
+    g_FirstFocusElement = g.UserFirstName;
+
+    if (IsFarEastLocale())
+    {
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        g.MainPageCell.style.display="none";  
+
+        
+        
+
+        g.FieldTable.moveRow(1,0);  
+        g.FieldTable.moveRow(6,2);  
+        g.FieldTable.moveRow(6,3);  
+        g.FieldTable.moveRow(6,4);  
+
+        g.FE_ZIPLabel.innerHTML=g.LabelRight.innerHTML;
+        g.FE_ZIPInput.innerHTML=g.MenuRight.innerHTML;
+        g.FE_ZIPRow.style.display="inline";
+
+        g.LabelRight.innerHTML="";
+        g.MenuRight.innerHTML="";
+
+        
+        g.UserZipCode.size=30;
+        g.UserZipCode.maxlength=120;
+
+        g.UserStateTextBox.size=30;
+        g.UserStateTextBox.maxlength=120;
+
+        g_FirstFocusElement = g.UserLastName;
+
+        if (IsKoreanLocale()) {
+            g.LastNameRow.style.display="none";
+            g.LabelFirstName.innerHTML=L_FullName_Text;
+            g_FirstFocusElement = g.UserFirstName;
+        }
+
+        g.MainPageCell.style.display="inline";
+    }
+
+    
+    g.selCountry.style.width=g.UserEmailAddress.offsetWidth;
+
+    g.UserFirstName.value=g_FirstName;
+    
+    g.UserLastName.value=g_LastName;
+    g.UserAddress.value=g_Address1;
+    g.UserAddress2.value=g_Address2;
+    g.UserZipCode.value=g_ZipCode;
+    g.UserEmailAddress.value=g_EmailAddr;
+    g.UserCity.value=g_City;
+
+    
+    
+    
+
+    g.selUSState.remove(0);
+
+    for (var i = 0; i < StateAbbrevs.length; i++) {
+       var oOption  = g.document.createElement("OPTION");
+       oOption.text = StateAbbrevs[i];
+       if (StateAbbrevs[i] == g_State)
+       {
+           g_StateIdx = i;
+       }
+       g.selUSState.add(oOption);
+    }
+
+    for (i = 0; i < ProvinceNames.length; i++) {
+       oOption  = g.document.createElement("OPTION");
+       oOption.text = ProvinceNames[i];
+       if (ProvinceNames[i] == g_State)
+       {
+           g_StateIdx = i;
+       }
+       g.selCAProvince.add(oOption);
+    }
+
+    var fTapi = TapiObj.IsTAPIConfigured();  
+
+
+
+
+
+
+
+
+
+
+    g_CountryIdx = TapiObj.get_CountryIndex();
+
+    if(g_CountryIdx>=0)
+    {
+        g.selCountry.selectedIndex=g_CountryIdx;
+        if(g_Country ==  L_UnitedStates_Text)
+        {
+            g.selUSState.selectedIndex=g_StateIdx;
+        }
+        else if(g_Country == L_Canada_Text)
+        {
+            g.selCAProvince.selectedIndex=g_StateIdx;
+        }
+        else
+            g.UserStateTextBox.value=g_State;
+    }
+    else
+    {
+        
+        g.selCountry.selectedIndex = TapiObj.get_CountryIndex();
+    }
+
+    Reg3UserCountryChanged();
+    Reg3UserStateChanged();
+
+    var MSoffer_Checked = InfoObj.get_MSOffer();
+    if (MSoffer_Checked)
+        g.sharems.checked = true;
+    else
+        g.sharems.checked = false;
+
+    var MSotheroffer_Checked = InfoObj.get_OtherOffer();
+    if (MSotheroffer_Checked)
+        g.sharemsPartners.checked = true;
+    else
+        g.sharemsPartners.checked = false;
+
+    InitButtons();
+
+    g.error_mesg.innerHTML = L_RequiredField_Text;
+    g.error_mesg.style.display="inline";
+
+    var L_CNIL_Text = "<p>";
+    var L_CnilStyleDisplay_Text = "none";
+
+    g.cnil_mesg.innerHTML = L_CNIL_Text;
+    g.cnil_mesg.style.display=L_CnilStyleDisplay_Text;
+
+    window.setTimeout("DoFocus();",1000);
+}
+function GetCurrentProvince() {
+    if(g.selCountry.options(g.selCountry.selectedIndex).text == L_UnitedStates_Text) {
+        return g.selUSState.options(g.selUSState.selectedIndex).text;
+    } else if(g.selCountry.options(g.selCountry.selectedIndex).text == L_Canada_Text) {
+        return g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+    } else return g.UserStateTextBox.value;
+}
+
+function GetCurrentCountry() {
+    return g.selCountry.options(g.selCountry.selectedIndex).text;
+}
+
+var L_Email_Text="Ange en giltig e-postadress eller l‰mna textrutan E-post tom.";
+var L_EnterValid_Text=" * Fyll i de obligatoriska f‰lten.";
+var L_RequiredField_Text="* anger att informationen ‰r obligatorisk";
+
+var g_PostToMS = false;
+var g_PostToOEM = false; 
+var POST_TO_OEM = 1;
+var POST_TO_MS = 2;
+var bPostChkBxStateSaved = false;
+
+
+function ShownavigatetoPrivacy()
+{
+    Navigate("actsetup\\aprvcyMS.htm");
+    SetTimerShowIFrame(100);
+}
+
+function navigatetoPrivacy(PrivPage)
+{
+    if (g_CurrentCKPT == CKPT_REGISTER3)
+       Reg3SaveSettings();
+
+    if (g_CurrentCKPT == CKPT_REGISTER1)
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+        else
+            g_Reg1RadioSticky = null;
+    }
+
+    ShowIFrame('False');
+    window.setTimeout("ShownavigatetoPrivacy();",500);
+}
+
+function ShownavigatetoActPolicy()
+{
+    Navigate("actsetup\\apolicy.htm");
+    SetTimerShowIFrame(100);
+}
+
+function navigatetoActPolicy()
+{
+    if (g.rb_act_1.checked)
+        g_ActivationRadioSticky = 1;
+    else if (g.rb_act_2.checked)
+        g_ActivationRadioSticky = 2;
+    else if (g.rb_act_3.checked)
+        g_ActivationRadioSticky = 3;
+    else
+        g_ActivationRadioSticky = null;
+
+    ShowIFrame('False');
+    window.setTimeout("ShownavigatetoActPolicy();",500);
+}
+
+function VerifyReg3Fields() {
+       g.error_mesg.style.display="none";
+       var LastErrorField = null;
+
+       var CurReg3ErrStringArray = new Array();
+
+       
+       
+
+       if(g.UserEmailAddress.value != "") {
+           
+           
+             var re = new RegExp("^\\s*\\S+@\\S+\\.\\S\\S+","");
+             if(re.exec(g.UserEmailAddress.value) == null) {
+                 LastErrorField = g.UserEmailAddress;
+                 g.LabelEmail.className = "text-error";
+             } else {
+                 g.LabelEmail.className = "text-primary";
+             }
+       }
+
+       var CurCountry=GetCurrentCountry();
+
+       
+       if ((CurCountry == L_UnitedStates_Text)||(CurCountry == L_Canada_Text)) {
+          if(g.UserZipCode.value == "") {
+            LastErrorField = g.UserZipCode;
+            g.LabelZIP.className = "text-error";
+          } else {
+             g.LabelZIP.className = "text-primary";
+          }
+
+          if(GetCurrentProvince() == "") {
+             if(g.selUSState.style.display!="none") {
+                LastErrorField = g.selUSState;
+             } else {
+                LastErrorField = g.selCAProvince;
+             }
+             g.StateLabel.className = "text-error";
+
+          } else {
+             g.StateLabel.className = "text-primary";
+          }
+       }
+
+
+       if(g.UserCity.value == "") {
+          LastErrorField = g.UserCity;
+          g.LabelCity.className = "text-error";
+       } else {
+          g.LabelCity.className = "text-primary";
+       }
+
+       if(g.UserAddress.value == "") {
+          LastErrorField = g.UserAddress;
+          g.LabelAddress.className = "text-error";
+       } else {
+          g.LabelAddress.className = "text-primary";
+       }
+
+       if((g.UserLastName.value == "") && (g.LastNameRow.style.display!="none")) {
+          LastErrorField = g.UserLastName;
+          g.LabelLastName.className = "text-error";
+       } else {
+          g.LabelLastName.className = "text-primary";
+       }
+
+       if(g.UserFirstName.value == "") {
+          g.LabelFirstName.className = "text-error";
+          LastErrorField = g.UserFirstName;
+       } else {
+          g.LabelFirstName.className = "text-primary";
+       }
+
+       if(LastErrorField==null) {
+           return true;
+       }
+
+       
+
+       if(LastErrorField==g.UserEmailAddress) {
+          g.error_mesg.innerText = L_Email_Text;
+       } else {
+          g.error_mesg.innerText = L_EnterValid_Text;
+       }
+
+       g.error_mesg.className = "text-error";
+       g.error_mesg.style.display="inline";
+
+        try
+        {
+            g.btnNext.disabled=false;
+        }
+        catch(e) {}
+        try
+        {
+            g.btnBack.disabled=false;
+        }
+        catch(e) {}
+        try
+        {
+            g.btnSkip.disabled=false;
+        }
+        catch(e) {}
+        InitButtons();
+
+        LastErrorField.focus();
+
+       return false;
+}
+
+
+
+
+
+
+
+
+function Start_CheckEnableNextButton()
+{
+    try
+    {
+        if (g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (Start_CheckLengthRequirement() &&
+        Start_CheckLengthNotEqualSpaces())
+    {
+        g.btnNext.disabled = false;
+    }
+    else
+    {
+        g.btnNext.disabled = true;
+    }
+    InitButtons();
+}
+
+function Start_CheckLengthRequirement()
+{
+    if ((g.edt_FirstName.value.length != 0) ||
+         (g.edt_LastName.value.length != 0))
+        return true;
+    else
+        return false;
+}
+
+function Start_CheckLengthNotEqualSpaces()
+{
+    if ((g.edt_FirstName.value.length != NumberOfSpaces(g.edt_FirstName.value)) ||
+         (g.edt_LastName.value.length != NumberOfSpaces(g.edt_LastName.value)))
+        return true;
+    else
+        return false;
+}
+
+
+
+
+
+
+
+
+
+function _Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+    CheckContrastMode();
+
+    if (g.btnNext != null)
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip != null)
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack != null)
+        g_FirstFocusElement = g.btnBack;
+
+    InitButtons(SimpleBack, SimpleNext);
+    if (g_FirstFocusElement != null)
+        window.setTimeout("DoFocus();",1000);
+    else
+        g.document.body.focus();
+}
+
+
+function New_Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    if (g.btnNext != null)
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip != null)
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack != null)
+        g_FirstFocusElement = g.btnBack;
+
+    InitButtons(SimpleBack, SimpleNext);
+
+    window.setTimeout("DoFocus();",1000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function InitCKPT()
+{
+    dnCKPT[CKPT_ACTIV]     = new CheckPoint("actsetup\\activ.htm",          0,     0,     0,     0);
+    dnCKPT[CKPT_ACTDONE]   = new CheckPoint("actsetup\\actdone.htm",        0,     0,     0,     0);
+    dnCKPT[CKPT_ACTIVERR]  = new CheckPoint("actsetup\\activerr.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACTIVSVC]  = new CheckPoint("actsetup\\activsvc.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_REGISTER1] = new CheckPoint("actsetup\\areg1.htm",          0,     0,     0,     0);
+    dnCKPT[CKPT_REGISTER3] = new CheckPoint("actsetup\\ausrinfo.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACTCONN]   = new CheckPoint("actsetup\\actconn.htm",        0,     0,     0,     0);
+    dnCKPT[CKPT_ACTLAN]    = new CheckPoint("actsetup\\actlan.htm",         0,     0,     0,     0);
+    dnCKPT[CKPT_REGDIAL]   = new CheckPoint("actsetup\\adrdyreg.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACT_MSG]   = new CheckPoint("actsetup\\adeskerr.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_DONE]      = new CheckPoint("actsetup\\aregdone.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_STGACT]    = new CheckPoint("actsetup\\stgact.htm",         0,     0,     0,     0);
+    PopCKPT();
+}
+
+function PushCKPT(ckpt)
+{
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var tos = 0;
+    try
+    {
+      tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    }
+    catch (e) {}
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString(), ckpt);
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, ++tos);
+    g_CurrentCKPT = ckpt;
+  }
+}
+
+function PopCKPT(ckptCheck)
+{
+  var ckpt = 0;
+  try
+  {
+    var tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    if (tos > 0)
+    {
+      ckpt = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, (tos - 1).toString());
+
+      if (null == ckptCheck || ckpt == ckptCheck)
+      {
+        ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, --tos);
+        ApiObj.DeleteRegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString());
+      }
+    }
+  }
+  catch (e) {}
+
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    g_CurrentCKPT = ckpt;
+  }
+  else
+    g_CurrentCKPT = null;
+}
+
+function URLFromCKPT(ckpt)
+{
+  var str = "";
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    str = dnCKPT[ckpt].strURL;
+  }
+  return str;
+}
+
+function IndexFromCKPT(ckpt, status)
+{
+  var index = 0;
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var checkpoint = dnCKPT[ckpt];
+    index = checkpoint.rgindex[status];
+  }
+  return index;
+}
+
+
+
+function IsLocalFile()
+{
+    try
+    {
+        return (-1 != g.location.protocol.indexOf("file"));
+    }
+    catch (e)
+    {
+        return false;
+    }
+}
+
+
+
+
+
+
+
+function SetBack(strURL)
+{
+    g_OEMAddBackURL = strURL;
+}
+
+function GoCancel(ckpt)
+{
+    trace("GoCancel: CurrentCKPT = " + g_CurrentCKPT);
+
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+        case CKPT_REGDIAL:
+            if (InActivation_AppMode())
+            {
+                g_DoActivation = false;
+                ShowIFrame('False');
+                window.setTimeout("ExitWPA();",1000);
+            }
+            else
+            {
+                GoNavigate(CKPT_DONE);
+            }
+            break;
+        case CKPT_REGISTER3:
+            g_PostToMS = false;
+            GoNavigate(CKPT_REGDIAL);
+            break;
+
+        case CKPT_ACTLAN:
+            ActLan();
+            break;
+    }
+}
+
+
+function GoBack(ckpt)
+{
+    trace("GoBack: CurrentCKPT = " + g_CurrentCKPT);
+
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    if (g_CurrentCKPT == g_DialCKPT)
+        ResetDialing();
+
+    if(g_CurrentCKPT == CKPT_REGISTER1)
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+        else
+            g_Reg1RadioSticky = null;
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3)
+    {
+        Reg3SaveSettings();  
+    }
+
+    var ckptPrevious = g_CurrentCKPT;
+    PopCKPT();
+
+    if (ckptPrevious == g_CurrentCKPT)
+    {
+        
+        PopCKPT();
+    }
+
+    if (g_CurrentCKPT > 0 && g_CurrentCKPT < CKPT_MAX)
+    {
+        GoNavigate(g_CurrentCKPT);
+    }
+}
+
+function StatusNavigate()
+{
+    var iMove = IndexFromCKPT(g_CurrentCKPT, g_status) - window.external.get_StatusIndex;
+    while (iMove > 0)
+    {
+        window.external.MoveNext();
+        --iMove;
+    }
+    while (iMove < 0)
+    {
+        window.external.MovePrevious();
+        ++iMove;
+    }
+}
+
+
+
+
+
+function ShowGoNavigate()
+{
+var ckptGoHere = g_ckpt_target;
+    switch (ckptGoHere)
+    {
+    case CKPT_REGDIAL:
+        trace("GoNavigate: CKPT_REGDIAL");
+
+        
+        ResetConnectedToInternetEx();
+        if (!ConnectedToInternetEx(true))
+        {
+            
+            g_InitAutodial = window.external.InternetAutodial();
+
+            if (!g_InitAutodial)
+            {
+                
+                if (HasNetwork() && HasModem())
+                {
+                    GoNavigate(CKPT_ACTCONN);
+                }
+                else if (HasNetwork())
+                {
+                    GoNavigate(CKPT_ACTLAN);
+                }
+                else if (HasModem())
+                {
+                    PushCKPT(ckptGoHere);  
+                    Navigate(URLFromCKPT(CKPT_REGDIAL));
+                }
+                else
+                {
+                    GoNavigate(CKPT_ACTIVERR);
+                }
+
+                SetTimerShowIFrame(15000);
+                break;
+            }
+            else
+            {
+                g_Internet = INTERNET_YES;
+            }
+        }
+
+        IcsConnect(ICS_CONN_TYPE_REG);
+        SetTimerShowIFrame(ACTIVATION_TIMEOUT);
+        break;
+
+    case CKPT_ACT_MSG:
+        trace("GoNavigate: CKPT_ACT_MSG");
+        PushCKPT(ckptGoHere);  
+        Navigate(URLFromCKPT(ckptGoHere));
+        SetTimerShowIFrame(5000);
+        break;
+
+    default:
+        trace("GoNavigate: default (" + ckptGoHere + " = " +
+              URLFromCKPT(ckptGoHere) + ")");
+        PushCKPT(ckptGoHere);  
+        Navigate(URLFromCKPT(ckptGoHere));
+        SetTimerShowIFrame(1200);
+        break;
+    }
+}
+
+var g_ckpt_target = null;
+var g_AfterConnectionDone = false;
+function GoNavigate(ckptGoHere)
+{
+    try
+    {
+        if (g_bStartup == false)
+        {
+            if (IsLocalFile())
+            {
+                if (g.event != null)
+                {
+                    g.event.returnValue = false;
+                    g.event.cancelBubble = true;
+                }
+            }
+        }
+        else
+            g_bStartup = false;
+
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    g_ckpt_target = ckptGoHere;
+
+    var L_GeneratingInstall_Text = "Nytt installations-ID skapas...";
+    var L_RetrievingCountry_Text = "Installations-ID h‰mtas...";
+    var L_ValidatingConn_Text    = "Aktivering kontrolleras...";
+
+
+    if (ckptGoHere==CKPT_REGDIAL)
+    {
+        ShowIFrame('False', L_CheckConnectivity_Text);
+        Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+    }
+    else  if (ckptGoHere==CKPT_ACTIVSVC)
+    {
+        if (g_ActivSvc_Reload)
+        {
+            if (g_Load_InstallID)
+                ShowIFrame('False', L_GeneratingInstall_Text);
+            else
+                ShowIFrame('False', L_RetrievingCountry_Text);
+
+            Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+        }
+        else
+        {
+            g_ActivSvc_Reload = true;
+        }
+    }
+    else if (ckptGoHere==CKPT_ACT_MSG)
+    {
+        if (g_AfterConnectionDone)
+        {
+            g_AfterConnectionDone = false;
+            ShowIFrame('False', L_ValidatingConn_Text);
+            Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+        }
+        else
+            ShowIFrame('False');
+    }
+    else
+    {
+        ShowIFrame('False');
+    }
+
+    window.setTimeout("ShowGoNavigate();",500);
+}
+
+function ExitWPA()
+{
+    window.external.Finish();
+}
+
+
+
+
+
+
+
+function DisableAllButtons()
+{
+    g.document.body.style.cursor="wait";
+    try
+    {
+        g.btnNext.className="buttons-disabled";
+        g.btnNext.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnBack.className="buttons-disabled";
+        g.btnBack.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnSkip.className="buttons-disabled";
+        g.btnSkip.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnProdkey.className="buttons-disabled";
+        g.btnProdkey.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnQuit.className="buttons-disabled";
+        g.btnQuit.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnTelephone.className="buttons-disabled";
+        g.btnTelephone.disabled=true;
+    }
+    catch(e) {}
+
+}
+
+function GoQuit()
+{
+    trace("GoQuit: CurrentCKPT = " + g_CurrentCKPT);
+
+    
+    
+    DisableAllButtons();
+    window.external.Finish();
+}
+
+function GoNext()
+{
+    trace("GoNext: CurrentCKPT = " + g_CurrentCKPT);
+    
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+        case CKPT_ACTIV:
+            if (g.rb_act_1.checked)
+            {
+                g_ActivationRadioSticky = 1;
+                g_DoActivation = true;
+
+                if (CheckForAnyConnection())
+                {
+                    if (TapiObj.IsTapiServiceRunning())
+                    {
+                        GoNavigate(CKPT_REGISTER1);
+                    }
+                    else
+                    {
+                        GoNavigate(CKPT_REGDIAL);
+                    }
+                }
+                else
+                {
+                    g_PostToMS = false;
+                    GoNavigate(CKPT_ACTIVERR);
+                }
+            }
+            else if (g.rb_act_2.checked)
+            {
+                g_ActivationRadioSticky = 2;
+                g_DoActivation = false;
+                g_CameFromFirstPage = true;
+                GoNavigate(CKPT_ACTIVSVC);
+            }
+            else
+            {
+                g_ActivationRadioSticky = 3;
+                g_DoActivation = false;
+                ShowIFrame('False');
+                window.setTimeout("ExitWPA();",1000);
+            }
+            break;
+
+        case CKPT_REGISTER1:
+            if (g.rb_reg_1.checked)
+            {
+                g_Reg1RadioSticky = 1;
+                g_PostToMS = true;
+                GoNavigate(CKPT_REGISTER3);
+            }
+            else
+            {
+                g_Reg1RadioSticky = 2;
+                g_PostToMS = false;
+                GoNavigate(CKPT_REGDIAL);
+            }
+            break;
+
+        case CKPT_ACTIVERR:
+            GoNavigate(CKPT_ACTIVSVC);
+            break;
+        case CKPT_ACTIVSVC:
+            GoNavigate(CKPT_DONE);
+            break;
+        case CKPT_REGISTER3:
+            if(VerifyReg3Fields())
+            {
+                Reg3SaveSettings();
+                GoNavigate(CKPT_REGDIAL);
+            }
+            break;
+        case CKPT_ACTCONN:
+            if (g.rb_conn_lan.checked)
+            {
+                g_ActConnRadioSticky = 1;
+                GoNavigate(CKPT_ACTLAN);
+            }
+            else
+            {
+                g_ActConnRadioSticky = 2;
+                PushCKPT(CKPT_REGDIAL);
+                Navigate(URLFromCKPT(CKPT_REGDIAL));
+            }
+            break;
+        case CKPT_ACTLAN:
+
+            ProxySettingsObj.UseAuto = g.cb_auto_detect.checked;
+            ProxySettingsObj.UseProxy = g.cb_use_proxy.checked;
+            ProxySettingsObj.Server = g.txt_proxy_url.value;
+            ProxySettingsObj.Port = g.txt_proxy_port.value;
+
+            window.external.set_ProxySettings(
+                ProxySettingsObj.UseAuto,
+                ProxySettingsObj.UseScript,
+                ProxySettingsObj.ScriptUrl,
+                ProxySettingsObj.UseProxy,
+                ProxySettingsObj.Server + ((ProxySettingsObj.Port == "") ? "" : (":" + ProxySettingsObj.Port))
+                );
+
+            ActLan();
+            break;
+        case CKPT_REGDIAL:
+            GoNavigate(CKPT_DONE);
+            break;
+        case CKPT_STGACT:
+            
+        case CKPT_ACT_MSG:
+            if ( g_ActivationStatus != ERR_ACT_SUCCESS )
+            {
+                GoNavigate(CKPT_ACTIVSVC);
+                break;
+            }
+            
+        case CKPT_DONE:
+            window.external.Finish();
+            break;
+
+        default:
+            
+            break;
+    }
+}
+
+
+
+function GoOffline()
+{
+    GoNext();
+}
+
+
+
+function SetLastButtonText()
+{
+    if (g.btnNext != null)
+        g_LastButtonText = g.btnNextText;
+    else if (g.btnBack != null)
+        g_LastButtonText = g.btnBackText;
+    else if (g.btnRestore != null)
+        g_LastButtonText = g.btnRestoreText;
+    else if (g.btnCancel != null)
+        g_LastButtonText = g.btnCancelText;
+}
+
+
+
+
+
+
+
+
+function InitFrameRef()
+{
+
+    g_LastButtonText = null;
+    g_FirstFocusElement = null;
+    g_LastKeyDown = null;
+
+    g = document.frames("msoobeMain");
+    g.document.body.style.backgroundColor = "transparent";
+
+    try
+    {
+        g.document.body.onkeydown = OnKeyDown;
+        SetLastButtonText();
+    }
+    catch(e){}
+}
+
+function HideButtons(buttons)
+{
+    if (null != g.btnBack && (buttons & HIDE_BACK))
+    {
+        g.btnBack.Hide = true;
+    }
+
+    if (null != g.btnNext && (buttons & HIDE_NEXT))
+    {
+        g.btnNext.Hide = true;
+    }
+
+
+    if (null != g.spanCancel && (buttons & HIDE_CANCEL))
+    {
+        g.btnSkip.Hide = true;
+    }
+
+    if (null != g.spanRestore && (buttons & HIDE_RESTORE))
+    {
+        g.btnRestore.Hide = true;
+    }
+
+}
+
+function HandleButtonMouseOver()
+{
+
+
+}
+
+function HandleButtonMouseOut()
+{
+
+
+}
+
+function InitButtons(SimpleBack, SimpleNext)
+{
+    if(g.btnSkip!=null) {
+      g.btnSkip.onmouseover = HandleButtonMouseOver;
+      g.btnSkip.onmouseout  = HandleButtonMouseOut;
+
+      if(!g.btnSkip.disabled) {
+          g.btnSkip.onclick = GoCancel;
+
+
+
+
+
+          g.btnSkip.className="buttons";
+      } else {
+        g.btnSkip.className="buttons-disabled";
+      }
+    }
+
+    if (g.btnNext != null)
+    {
+        g.btnNext.onmouseover = HandleButtonMouseOver;
+        g.btnNext.onmouseout  = HandleButtonMouseOut;
+
+        if (!g.btnNext.disabled)
+        {
+            if (SimpleNext == null)
+            {
+                g.btnNext.onclick = GoNext;
+            }
+            else
+            {
+                g.btnNext.onclick = SimpleNavNext;
+            }
+            g.btnNext.className="buttons";
+        }
+        else
+        {
+            g.btnNext.className="buttons-disabled";
+        }
+    }
+
+    if (g.btnBack != null)
+    {
+        g.btnBack.onmouseover = HandleButtonMouseOver;
+        g.btnBack.onmouseout  = HandleButtonMouseOut;
+
+        if (!g.btnBack.disabled)
+        {
+            if (SimpleBack == null)
+            {
+                g.btnBack.onclick = GoBack;
+            }
+            else
+            {
+                g.btnBack.onclick = SimpleNavBack;
+            }
+            g.btnBack.className="buttons";
+        }
+        else
+        {
+            g.btnBack.className="buttons-disabled";
+        }
+    }
+
+    try
+    {
+        if(g.btnQuit != null) {
+          g.btnQuit.onmouseover = HandleButtonMouseOver;
+          g.btnQuit.onmouseout  = HandleButtonMouseOut;
+
+
+          if(g.btnQuit.disabled == false) {
+              g.btnQuit.onclick = GoQuit;
+              g.btnQuit.className="buttons";
+          } else {
+            g.btnQuit.className="buttons-disabled";
+          }
+        }
+    } catch(e) {}
+
+    window.setTimeout("EnableDefaultCursor();",500);
+}
+
+function EnableDefaultCursor()
+{
+    g.document.body.style.cursor="default";
+}
+
+var g_LastKeyDown = null;
+function OnKeyDown()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (g.event.altKey)
+    {
+        g_LastKeyDown = String.fromCharCode(g.event.keyCode);
+        if (g_LastKeyDown != null)
+            g_LastKeyDown = g_LastKeyDown.toUpperCase();
+    }
+    else
+        g_LastKeyDown = null;
+}
+
+
+function KeyPressIsNumeric()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsNumeric(keyCode)
+{
+    if ((keyCode >= 48)  && (keyCode <= 57))
+        return true;
+    else
+        return false;
+}
+
+function IsSpecial(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return false;
+}
+
+function KeyPressIsValid()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode) &&
+        !IsSpecial(g.event.keyCode) &&
+        !IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function KeyPressIsAlpha()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsAlpha(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+        return true;
+
+
+}
+
+function NumberOfSpaces(strValue)
+{
+
+
+
+
+
+    var iSpaceCount = 0;
+    for (iPosition = 0; iPosition < strValue.length; iPosition ++)
+    {
+        if (strValue.charAt(iPosition) == ' ')
+        {
+            iSpaceCount++;
+        }
+    }
+    return iSpaceCount;
+}
+function KeyCodeToUpper()
+{
+    var strKeyCode = String.fromCharCode(g.event.keyCode);
+    strKeyCode = strKeyCode.toUpperCase();
+    g.event.keyCode = strKeyCode.charCodeAt(0);
+}
+
+
+
+var vCurItem = 0;
+
+function SetupPageLayout()
+{
+    var WPAWindowHeight = document.body.clientHeight;
+    var WPAWindowWidth  = document.body.clientWidth;
+
+    if(0 != window.external.Directions.get_AppMode())
+    {
+        document.all.ifrmMainFrame.style.height = WPAWindowHeight - 93;
+        document.all.ifrmMainFrame.style.width  = WPAWindowWidth;
+    }
+
+    WPABackground.src = 'images/wpaback.jpg';
+    WPAKey.src        = 'images/wpakey.jpg';
+    WPATop.src        = 'images/wpatop.jpg';
+    WPABottom.src     = 'images/wpabtm.jpg';
+    WPAFlag.src       = 'images/wpaflag.jpg';
+
+    WPABottom.style.top = WPAWindowHeight - 45;
+    WPAKey.style.left   = WPAWindowWidth - 237;
+    WPAKey.style.top    = WPAWindowHeight - 315;
+
+}
+
+function CheckForAnyConnection()
+{
+    var Capabilities = GetConnectionCapabilities();
+
+    return (Capabilities != CONNECTIONTYPE_INVALID &&
+            Capabilities != CONNECTIONTYPE_NONE);
+}
+
+
+var g_fSIFTimer = false;
+var g_iSIFTimerID;
+function SetTimerShowIFrame(iMilliSeconds)
+{
+    
+    
+    if (g_fSIFTimer)
+    {
+        try
+        {
+            window.clearTimeout(g_iSIFTimerID);
+        }
+        catch(e) {}
+        g_fSIFTimer = false;
+    }
+
+    g_iSIFTimerID = window.setTimeout("ShowIFrame();", iMilliSeconds);
+    g_fSIFTimer = true;
+}
+
+var g_ShowTransition = false;
+function ShowIFrame(ShowIt, loadingstatus)
+{
+    
+    if (g_fSIFTimer)
+    {
+        try
+        {
+            window.clearTimeout(g_iSIFTimerID);
+        }
+        catch(e) {}
+        g_fSIFTimer = false;
+    }
+
+    if (g_ShowTransition)
+    {
+        WPATransContainer.filters[0].Apply();
+    }
+
+    if (ShowIt == null)
+    {
+        
+        WPA_DIV2.style.visibility="visible";
+        WPA_DIV1.style.visibility="hidden";
+        PageStatus.style.visibility="hidden";
+        WPAProgressbar.style.visibility = "hidden";
+
+        if (g_ShowTransition)
+        {
+            WPATransContainer.filters[0].Play();
+        }
+    }
+    else
+    {
+        
+        WPA_DIV2.style.visibility="hidden";
+        WPA_DIV1.style.visibility="visible";
+
+        if (g_ShowTransition)
+        {
+            WPATransContainer.filters[0].Play();
+        }
+
+        
+        if (loadingstatus!=null)
+        {
+            PageStatus.style.visibility="visible";
+            PageStatus.innerHTML=loadingstatus;
+            WPAProgressbar.style.visibility = "hidden";  
+        }
+        else
+        {
+            PageStatus.style.visibility="hidden";
+            WPAProgressbar.style.visibility = "hidden";
+        }
+    }
+}
+
+
+
+
+
+
+function IsUsingStagingKey()
+{
+	var val = 0;
+	try 
+	{
+		val = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, STAGING_REG_KEY,STAGING_REG_VALUE);
+	}
+	catch (e){}
+	
+	return (val == 1? true: false);
+	
+}
+
+window.onresize = SetupPageLayout;
+var g_Already_Activated;
+
+
+
+
+var g_Using_Staging_Key = false;
+var g_Activation_Key_Entered = false;
+
+function InitApplication()
+{
+
+    
+    window.external.ComputerNameChangeComplete(false);
+    WPATransContainer.style.display="inline";
+
+    try
+    {
+        g_Already_Activated = window.external.NeedActivation();
+    }
+    catch(e)
+    {
+        g_Already_Activated = 999;
+    }
+
+    g_Using_Staging_Key = IsUsingStagingKey();
+
+    
+    if (g_Already_Activated == 0)
+    {
+        
+        SetupPageLayout();
+        InitFrameRef();
+        g_status = STATUS_OFF;
+        g_DoActivation = false;
+        InitCKPT();
+        if (0 != DirObj.get_AppMode)
+        {
+            do
+            {
+                PopCKPT();
+            }
+            while (null != g_CurrentCKPT);
+        }
+        GoNavigate(CKPT_ACTDONE);
+        SetTimerShowIFrame(900);
+    }
+    else if (g_Already_Activated == 999)
+    {
+        window.external.Finish();
+    }
+    else
+    {
+        SetupPageLayout();
+        g_bStartup = true;
+        InitFrameRef();
+        GetConnectionCapabilities();
+        g_status = STATUS_OFF;
+        g_DoActivation = true;
+        CheckForAnyConnection();
+        InitCKPT();
+        
+        if (0 != DirObj.get_AppMode)
+        {
+            do
+            {
+                PopCKPT();
+            }
+            while (null != g_CurrentCKPT);
+        }
+        
+        
+        
+        
+        if ( g_Using_Staging_Key) {
+            g_ActivationStatus = ERR_ACT_DEDICATED_PID_ENTRY;
+            GoNavigate(CKPT_STGACT);
+        }
+        else
+            GoNavigate(CKPT_ACTIV);
+        SetTimerShowIFrame(900);
+    }
+}
+
+function loadTransitionFilter()
+{
+    document.all.WPATransContainer.style.display = "none";
+    document.all.WPATransContainer.style.position = "absolute";
+    document.all.WPATransContainer.style.top = 0;
+    document.all.WPATransContainer.style.left = 0;
+    document.all.WPATransContainer.style.width = "100%";
+    document.all.WPATransContainer.style.height = "100%";
+
+    if ((window.screen.colordepth >= 16) && window.external.UseFadeEffect())
+    {
+        document.all.WPATransContainer.style.filter = "progid:DXImageTransform.Microsoft.Fade(duration=0.2,overlap=0.8)";
+
+        try
+        {
+            if (WPATransContainer.filters[0])
+            {
+                g_ShowTransition = true;
+            }
+        }
+        catch(e)
+        {
+        }
+    }
+}
+
+</script>
+
+</HEAD>
+
+<BODY topMargin=0 bgcolor="#4E6FD6" leftMargin=0 onload="loadTransitionFilter();InitApplication();" scroll=no tabIndex=-1 rightMargin=0>
+    <!-- WPA images, dynamic layout positioning will be done in SetupPageLayout() function  -->
+    <IMG ID=WPABackground style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-99;" alt="">
+    <IMG ID=WPAKey        style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-98;" alt="">
+    <IMG ID=WPATop        style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-97;" alt="">
+    <IMG ID=WPABottom     style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-96;" alt="">
+
+    <!-- Don't alter this table structure. It's designed to support BiDi and Non-BiDi. -->
+    <TABLE WIDTH="95%" BORDER=0 style="POSITION: absolute; LEFT: 20px; TOP: 0px;" CELLPADDING=0 CELLSPACING=0>
+    <TR>
+        <TD nowrap VALIGN=MIDDLE>
+        <SPAN id=Span_WPA_MainTitle class="title" style="height: 28px;" tabIndex=-1>
+        </SPAN>
+        </TD>
+
+        <TD WIDTH="99%">&nbsp;
+        </TD>
+
+        <TD VALIGN=TOP>
+        <IMG ID=WPAFlag alt="">
+        </TD>
+    </TR>
+    </TABLE>
+
+    <span ID="WPATransContainer">
+
+          <!-- First Content (by design, don't remove) -->
+          <span ID="WPA_DIV1" STYLE="POSITION: absolute; left:0; top:0; width=100%; height=100%; background-Color: transparent;">
+          <table border=0 width="100%" height="100%" class="text-primary">
+          <tr>
+              <td valign=middle align=center>
+                  <span id=PageStatus></span>
+                  <br>
+                  <span id=WPAProgressbar style="visibility:hidden;"><img src="images/progress.gif"></span>
+              </td>
+          </tr>
+          </table>
+          </span>
+
+          <!-- Actual Content -->
+          <span id="WPA_DIV2" style="visibility: hidden; POSITION: absolute; LEFT: 0px; TOP: 48px; width=100%; height=100%;" tabIndex=-1>
+          <IFRAME ALLOWTRANSPARENCY="true" frameBorder=no width="100%" height="100%" id=ifrmMainFrame name=msoobeMain src="about:blank" tabIndex=0></IFRAME>
+          </span>
+    </span>
+</BODY>
+</HTML>
+
+P
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>Sekretesspolicy fˆr Windows Update</ID></span>
+<br><br>
+<form name =myform>
+<textarea id=privtext1 style="display:none">
+Senast uppdaterat i december 2007
+
+Microsoft v‰rnar om din integritet. I denna sekretesspolicy beskrivs vilken information som samlas in och hur den anv‰nds av tj‰nsterna Windows Update och Microsoft Update ("uppdateringstj‰nsterna"). Denna policy g‰ller inte andra Microsoft-webbplatser, -produkter eller -tj‰nster, varken online eller offline. Den senaste versionen av denna sekretesspolicy finns i Sekretesspolicy fˆr uppdateringstj‰nsterna pÂ http://go.microsoft.com/fwlink/?LinkId=50142.
+
+Vad ‰r uppdateringstj‰nsterna?
+∑	Windows Update ‰r en tj‰nst som fˆrser dig med programvaruuppdateringar fˆr Windows-programvara och annan supportprogramvara, t.ex. drivrutiner frÂn enhetstillverkare.
+∑	Microsoft Update ‰r en tj‰nst som fˆrser dig med de Windows-uppdateringar som listas ovan samt uppdateringar fˆr annan Microsoft-programvara som Microsoft Office.
+
+Vissa uppdateringar som ‰r tillg‰ngliga via uppdateringstj‰nsterna kan endast erhÂllas av anv‰ndare med ‰kta Microsoft-program. Det finns en separat sekretesspolicy fˆr verifiering av ‰kta Microsoft-program som du hittar pÂ http://go.microsoft.com/fwlink/?LinkId=83561.
+Du kan anv‰nda uppdateringstj‰nsterna pÂ tvÂ s‰tt:
+∑	Genom att gÂ till webbplatsen fˆr Windows Update eller Microsoft Update.
+∑	Genom att anv‰nda funktionen Windows Update i Microsoft Windows.
+
+Vilken information samlas in?
+Med uppdateringstj‰nsterna samlar vi in information frÂn din dator fˆr att vi ska kunna driva och fˆrb‰ttra tj‰nsterna. Denna information kan till exempel vara:
+
+∑	Microsoft-programmet och andra supportprogram (t.ex. drivrutiner frÂn enhetstillverkare) som ‰r installerade pÂ din dator och som det finns uppdateringar fˆr i uppdateringstj‰nsterna. PÂ sÂ s‰tt kan vi fastst‰lla vilka uppdateringar du behˆver.
+∑	Dina konfigurationsinst‰llningar fˆr Windows Update och/eller Microsoft Update, t.ex. om du vill att uppdateringar ska h‰mtas eller installeras automatiskt.
+∑	Lyckade och misslyckade fˆrsˆk samt fel som uppstÂr n‰r du ansluter till eller anv‰nder uppdateringstj‰nsterna.
+∑	Plug and Play-ID-nummer fˆr maskinvaruenheter - en kod som har tilldelats av enhetstillverkaren och som identifierar enheten (till exempel tangentbordstyp).
+∑	Globally Unique Identifier (GUID) ñ ett slumpm‰ssigt genererat nummer som inte innehÂller nÂgon personlig information. GUID identifierar enskilda datorer, men inte anv‰ndarna.
+∑	BIOS-namn, revisionsnummer och revisionsdatum ñ information om den upps‰ttning viktiga programrutiner som testar din maskinvara, startar operativsystemet pÂ datorn och ˆverfˆr data mellan de maskinvaruenheter som ‰r anslutna till datorn.
+∑	Produkt-ID ñ en unik produktlicensidentifierare som finns i alla Microsoft-produkter.
+
+N‰r du anv‰nder uppdateringstj‰nsterna skickas standardinformation om din dator till Microsoft. Denna information omfattar vanligtvis IP-adress, operativsystemversion, webbl‰sarversion, maskinvaru-ID (som anger enhetens tillverkare, enhetsnamn och version) och dina nationella inst‰llningar och sprÂkinst‰llningar.
+
+Om du anv‰nder nÂgon av webbplatserna Windows Update eller Microsoft Update fˆr att fÂ Âtkomst till uppdateringstj‰nsterna, samlar vi fˆrutom den ovann‰mnda informationen ‰ven in uppgifter om vilka sidor du besˆker och vilka Âtg‰rder du vidtar.
+
+Hur anv‰nds informationen?
+Vi anv‰nder informationen som skickas till Microsoft fˆr att driva uppdateringstj‰nsterna. Informationen anv‰nds ocksÂ fˆr att skapa aggregerad statistik som hj‰lper oss att analysera trender och fˆrb‰ttra vÂra produkter och tj‰nster, inklusive uppdateringstj‰nsterna.
+
+Fˆr att vi ska kunna skapa aggregerad statistik anv‰nds GUID. Det finns flera anledningar till att vi samlar in GUID:
+
+∑	Fˆr att vi ska kunna ge vÂra kunder b‰sta mˆjliga service registreras hur mÂnga enskilda datorer som anv‰nder uppdateringstj‰nsterna och om h‰mtningen och installationen av specifika uppdateringar lyckas eller inte. Uppdateringstj‰nsterna registrerar GUID fˆr den dator som fˆrsˆker utfˆra h‰mtningen och installationen, ID fˆr det beg‰rda objektet, information om huruvida uppdateringarna var tillg‰ngliga samt konfigurationsinformation om datorn (till exempel operativsystemversion, webbl‰sarversion och maskinvaru-ID).
+∑	Uppdateringstj‰nsterna registrerar GUID fˆr datorn om du l‰mnar information om vilken hj‰lp du tycker att du haft av hj‰lpen och felsˆkningsartiklarna n‰r du fˆrsˆkt lˆsa problem. PÂ sÂ vis kan du fÂ allt b‰ttre och mer relevant hj‰lp via uppdateringstj‰nsterna.
+
+Informationen som samlas in av Microsofts programvara, webbplatser och tj‰nster kan lagras och bearbetas i USA eller nÂgot annat land d‰r Microsoft eller dess samarbetspartner, dotterbolag eller representanter bedriver verksamhet och genom att anv‰nda Microsofts program, webbplatser eller tj‰nster godk‰nner du all ˆverfˆring av information utanfˆr ditt land. Microsoft r‰ttar sig efter de skyddsramar (Safe Harbor Framework) som det amerikanska handelsdepartementet fastst‰llt med avseende pÂ insamling, anv‰ndning och lagring av data frÂn EU. Microsoft kan avslˆja den h‰r informationen n‰r detta kr‰vs enligt lag eller i god tro om att detta ‰r nˆdv‰ndigt fˆr att: (a) uppfylla lagstadgade fˆrordningar eller r‰tta sig efter en juridisk process som bedrivs mot Microsoft eller webbplatsen; (b) skydda eller fˆrsvara Microsofts r‰ttigheter (inklusive efterlevnad av vÂra avtal), eller (c) agera skyndsamt fˆr att skydda den personliga s‰kerheten fˆr Microsoft-anst‰llda, anv‰ndare av Microsoft-programvara eller -tj‰nster eller allm‰nheten.
+
+Ibland ger Microsoft andra fˆretag i uppgift att tillhandahÂlla tj‰nster i vÂrt st‰lle, till exempel ge support till kunderna, hantera transaktioner eller utfˆra statistisk analys av rapporter. Microsoft ger dessa fˆretag endast den information de behˆver fˆr att kunna utfˆra tj‰nsten. De mÂste skydda informationen och ‰r fˆrbjudna att anv‰nda den i nÂgot annat syfte.
+           </textarea>
+			<textarea id=privtext2 style="display:none;">
+
+
+Obligatoriska uppdateringar
+Om du aktiverar uppdateringstj‰nsterna fˆr att de ska fungera korrekt, mÂste eventuellt vissa programvarukomponenter i datorn, som utgˆr eller ‰r direkt relaterade till uppdateringstj‰nsterna, ocksÂ uppdateras ibland. De h‰r uppdateringarna mÂste utfˆras innan tj‰nsten kan sˆka efter, h‰mta och installera andra uppdateringar. De obligatoriska uppdateringarna Âtg‰rdar fel, tillhandahÂller kontinuerliga fˆrb‰ttringar och bevarar kompatibiliteten med de Microsoft-servrar som stˆder tj‰nsten. Om uppdateringstj‰nsterna inaktiveras behˆver du inte ta emot de h‰r uppdateringarna.
+
+Uppdateringstj‰nsterna aktiveras om du v‰ljer nÂgon av fˆljande inst‰llningar: (i) h‰mta automatiskt rekommenderade uppdateringar fˆr datorn och installera dem, (ii) h‰mta uppdateringar, men lÂt mig v‰lja n‰r de ska installeras, eller (iii) meddela mig men h‰mta eller installera dem inte automatiskt. Uppdateringstj‰nsterna inaktiveras om du v‰ljer alternativet "Inaktivera automatiska uppdateringar".
+
+Om du aktiverar uppdateringstj‰nsterna, h‰mtas och installeras uppdateringar fˆr vissa tj‰nstkomponenter automatiskt utan att du fÂr fler meddelanden om det, oavsett vilken aktiveringsinst‰llning du har valt. Om du inte vill ta emot uppdateringar av tj‰nstkomponenter ska du inaktivera uppdateringstj‰nsterna.
+
+Cookies/token
+ Token pÂminner om cookies. En token ‰r en liten fil som uppdateringstj‰nstservern placerar pÂ hÂrddisken. Den lagras endast pÂ din dator, inte pÂ servern. Denna cookie/token innehÂller information som anv‰nds fˆr att kontrollera att anslutningen ‰r giltig n‰r datorn ansluter till servern, hitta de senaste uppdateringarna (till exempel senaste sˆktid) samt best‰mma vilket innehÂll som ska h‰mtas till datorn och n‰r det ska ske. Den innehÂller ‰ven ett GUID som gˆr att servern kan identifiera datorn. Servern krypterar informationen i denna cookie/token (med undantag fˆr dess fˆrfallotid). Denna cookie/token ‰r inte en webbl‰sarcookie. Du kan inte hantera den via dina webbl‰sarinst‰llningar. Du kan inte heller ta bort den, men d‰remot anv‰nds den bara om du anv‰nder uppdateringstj‰nsterna.
+
+Om undersˆkningar
+Du kan bli erbjuden att delta i en undersˆkning om hur du anv‰nder uppdateringstj‰nsterna. Varje undersˆkning innehÂller en sekretesspolicy som anger hur Microsoft kommer att anv‰nda den information som skickas med undersˆkningen.
+
+Kontrollera uppdateringstj‰nsterna
+Det ‰r valfritt att anv‰nda uppdateringstj‰nsterna. Du v‰ljer sj‰lv om du vill fÂ uppdateringar via dessa tj‰nster eller inte. Om du vill fÂ uppdateringar kan du v‰lja om de ska h‰mtas automatiskt eller om du vill fÂ ett meddelande n‰r prioriterade eller valfria uppdateringar finns tillg‰ngliga.
+
+Du kan ‰ndra inst‰llningarna fˆr uppdateringstj‰nsterna efter installationsprogrammet fˆr Windows via Start-menyn. GÂ till Start-menyn och v‰lj Kontrollpanelen och Automatiska uppdateringar. Inaktivera uppdateringstj‰nsterna (inklusive obligatoriska uppdateringar av tj‰nstkomponenter och stˆdkomponenter som beskrivs ovan), genom att markera Inaktivera automatiska uppdateringar.
+
+N‰r Microsoft Update ‰r aktiverat, kan du inaktivera det vid ett senare tillf‰lle och bara anv‰nda Windows Update genom att gÂ till Start-menyn och v‰lja Alla program och d‰refter Windows Update eller Microsoft Update. DÂ ˆppnas ett webbl‰sarfˆnster fˆr webbplatsen Microsoft Update. PÂ webbplatsen klickar du pÂ ƒndra inst‰llningar. Markera sedan Inaktivera programvaran fˆr Microsoft Update och anv‰nd endast Windows Update.
+
+S‰kerhetspraxis
+Microsoft v‰rnar om s‰kerheten fˆr den information vi samlar in. I uppdateringstj‰nsterna anv‰nds flera s‰kerhetstekniker och s‰kerhetsprocedurer fˆr att fˆrhindra att obehˆriga kommer Ât, anv‰nder eller avslˆjar informationen. N‰r din dator genomsˆks fˆr att avgˆra vilken programvara du har anv‰nds till exempel SSL-protokoll (Secure Socket Layer) fˆr att kryptera informationen. Informationen som samlas in lagras pÂ servrar med begr‰nsad och kontrollerad Âtkomst.
+
+ƒndringar i den h‰r policyn
+Microsoft kan uppdatera den h‰r sekretesspolicyn. N‰r detta gˆrs uppdateras informationen under "Senast uppdaterad" l‰ngst upp i policyn. Du bˆr regelbundet kontrollera sekretesspolicyn fˆr att hÂlla dig informerad om hur vi arbetar med att skydda informationen som samlas in av uppdateringstj‰nsterna.
+
+Mer information
+Microsoft tar g‰rna emot kommentarer om den h‰r sekretesspolicyn. Om du tycker att Microsoft har brutit mot den h‰r policyn kan du kontakta oss via vÂrt webbformul‰r pÂ http://go.microsoft.com/fwlink/?LinkId=58564. Vi kommer att arbeta i rimlig utstr‰ckning fˆr att snabbt identifiera och Âtg‰rda problemet.
+
+Microsoft Update Privacy
+c/o the Microsoft Privacy Response Center
+Microsoft Corporation
+One Microsoft Way
+Redmond, WA, 98052 USA
+
+Kontaktinformation fˆr Microsofts dotterbolag eller samarbetspartner i ditt omrÂde finns pÂ webbplatsen Microsoft Worldwide pÂ www.microsoft.com/worldwide.
+
+
+</TEXTAREA>
+
+			<textarea ID=privtext READONLY TABINDEX=2 style="font-family: Arial; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+			</textarea>
+
+<br><br><br>
+</form>
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>Forts‰tt med knappen </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>FˆregÂende</ID></span><span><ID id=xx1>.</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="F" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text"><u>F</u>ˆregÂende</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"><u>H</u>oppa ˆver</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="H" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text"><u>N</u>‰sta</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY="N" style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+<script language="javascript">
+                 myform.privtext.value = myform.privtext1.value + myform.privtext2.value;
+	</script>
+</html>
+
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Servern hittades inte</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Sidan kan inte visas</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Sidan du sˆker efter ‰r inte tillg‰nglig fˆr tillf‰llet.
+Det kan bero pÂ tekniska problem med webbsidan eller sÂ behˆver du justera inst‰llningarna
+fˆr webbl‰saren.</font></td>
+  </tr>
+  <tr>
+    <td id="xpnetdiagInfo" align="left" colspan="2" width="400" bordercolor="#FF0000" style="border-style:solid; border-width:2px; padding-left: 0px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px">
+    <img id="xpnetdiagImg" SRC="res://xpsp3res.dll/xpnetdiag.gif"
+    width="48" height="48" align="left" hspace="8"><font style="COLOR: black; FONT: 8pt/11pt verdana">Om du vill fˆrsˆka avhj‰lpa problem med n‰tverksanslutningar klickar du pÂ 
+    <b>Verktyg</b> och sedan pÂ <b>"Diagnostisera anslutningsproblem..."</b>
+    </font>
+    </td>
+  </tr>  
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><br>
+    <p id="LID2">Andra alternativ som du kan prova:</p><ul>
+      <li id="instructionsText1">Klicka pÂ knappen 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Uppdatera</a> eller fˆrsˆk igen senare.<br>
+      </li>
+      
+      <li id="instructionsText2">Om du skrev in sidadressen i Adressf‰ltet bˆr du
+kontrollera att den ‰r korrekt.<br>
+      </li>
+      <li id="instructionsText3">Om du vill kontrollera dina anslutningsinst‰llningar klickar du pÂ <b>Internet-alternativ</b> pÂ <b>Verktyg</b>-menyn och klickar sedan pÂ <b>Inst‰llningar</b> pÂ fliken <b>Anslutningar</b>.
+Inst‰llningarna bˆr matcha de inst‰llningar som n‰tverksadministratˆren eller Internet-leverantˆren angett. </li>
+     <li ID="list4">Kontrollera om inst‰llningarna fˆr Internet-anslutningen identifieras. Du kan lÂta Windows sˆka pÂ n‰tverket och automatiskt konfigurera n‰tverksinst‰llningar (om n‰tverksadministratˆren har aktiverat den h‰r inst‰llningen).
+        <OL> 
+        <li id="instructionText6">÷ppna <b>Verktyg</b>-menyn och klicka sedan pÂ <B>Internet-alternativ</b>. </li>
+        <li id="instructionText7">÷ppna fliken <b>Anslutningar</b> och klicka pÂ <b>LAN-inst‰llningar</b>.</li> 
+        <li id="instructionText8">Markera <b>Automatisk identifiering av inst‰llningar</b> och klicka sedan pÂ <b>OK</b>.</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+       Vissa platser kr‰ver s‰kerhet fˆr 128-bitars anslutning. Klicka pÂ <b>Hj‰lp</b>-menyn och klicka sedan pÂ <b>Om Internet Explorer </b> fˆr att kontrollera hur stark s‰kerhet du har installerad.
+    </li>
+    <li id="instructionsText4">
+       Om du fˆrsˆker nÂ en s‰ker sida, kontrollerar du att s‰kerhetsinst‰llningarna kan stˆdja den. Klicka pÂ <B>Internet-alternativ</B> pÂ <B>Verktyg</B>-menyn, och klicka sedan pÂ fliken Avancerat och kontrollera inst‰llningarna fˆr SSL 2.0, SSL 3.0, TLS 1.0 och PCT 1.0 i avsnittet S‰kerhet. 
+    </li>
+     <li id="list3">Klicka pÂ knappen <a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif"> BakÂt</a> om du vill fˆrsˆka med en annan l‰nk. </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:8pt/11pt verdana; color:black">Det gÂr inte att hitta server eller ett DNS-fel har uppstÂtt<BR>Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA
+
+
+
+
+
+function ErrorSkipBtnHandler()
+{
+    if (InActivation_AppMode())
+    {
+        window.external.Hangup();
+        ShowIFrame('False');
+        window.setTimeout("ExitWPA();",1000);
+    }
+    else
+    {
+        window.external.Hangup();
+        PopCKPT();
+        GoCancel();
+    }
+}
+
+
+function DialErrorNextBtnHandler() 
+{
+    GoToDialingPage();
+}
+
+
+
+function CnncterrNextBtnHandler() 
+{
+    if (g.Callwait != null)
+    {
+        TapiObj.set_CallWaiting = g.Callwait.value;
+    }
+    window.external.set_DialAlternative(false);
+    DialErrorNextBtnHandler();
+}
+
+var L_EnterValidPhoneNumber_Text = "Det gÂr inte att ta bort hela telefonnumret.";
+function CheckPhoneNumer(phoneNumber)
+{
+    if (phoneNumber.length == 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+
+
+function ToobusyNextBtnHandler() 
+{
+    window.external.set_DialAlternative(true);
+
+    if (!(g.DialRuleYes.checked)) {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+    }
+    
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+
+    
+    DialErrorNextBtnHandler();
+}
+
+var gTooBusyHaveError1 = false;
+var gTooBusyHaveError2 = false;
+var gTooBusyHaveError3 = false;
+
+var L_altnumber_Text = "<u>S</u>lÂ detta alternativa nummer:";
+var L_altnumber01_Text = "* <u>S</u>lÂ fˆljande alternativa nummer:";
+var L_outsideline_Text = "<u>I</u>nkludera fˆljande nummer fˆr att fÂ extern linje:";
+var L_outsideline01_Text = "* <u>I</u>nkludera fˆljande nummer fˆr att fÂ extern linje:";
+var L_callwaiting_Text = "Inaktivera <u>s</u>amtal v‰ntar:";
+var L_callwaiting01_Text = "* Inaktivera s<u>a</u>mtal v‰ntar:";
+
+function NewToobusyNextBtnHandler() 
+{
+    gTooBusyHaveError1 = false;
+    gTooBusyHaveError2 = false;
+    gTooBusyHaveError3 = false;
+    g.tberrspan1.style.visibility = "hidden";
+    g.tberrspan2.style.visibility = "hidden";
+    g.tberrspan3.style.visibility = "hidden";
+
+    if (g.cb_altnumber.checked)
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        window.external.set_DialNumber(g.edt_altnumber.value);
+
+        if (g.edt_altnumber.value != "")
+        {
+            g.lbl_altnumber.innerHTML = L_altnumber_Text;
+            g.lbl_altnumber.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError1 = true;
+            g.lbl_altnumber.innerHTML = L_altnumber01_Text;
+            g.lbl_altnumber.className = "text-error";
+        }
+    }
+    else
+    {
+        g_AltnumberHolder = "";
+        window.external.set_DialAlternative(true);
+    }
+
+    if (g.cb_outsideline.checked)
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        TapiObj.set_DialOut(g.edt_outsideline.value);
+
+        if (g.edt_outsideline.value != "")
+        {
+            g.lbl_outsideline.innerHTML = L_outsideline_Text;
+            g.lbl_outsideline.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError2 = true;
+            g.lbl_outsideline.innerHTML = L_outsideline01_Text;
+            g.lbl_outsideline.className = "text-error";
+        }
+    }
+    else
+    {
+        g_OutsidelineHolder = "";
+        TapiObj.set_DialOut(g.edt_outsideline.value);    
+    }
+
+    if (g.cb_callwaiting.checked)
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        TapiObj.set_CallWaiting(g.edt_callwaiting.value);
+
+        if (g.edt_callwaiting.value != "")
+        {
+            g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+            g.lbl_callwaiting.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError3 = true;
+            g.lbl_callwaiting.innerHTML = L_callwaiting01_Text;
+            g.lbl_callwaiting.className = "text-error";
+        }
+    }
+    else
+    {
+        g_CallwaitingHolder = "";
+        TapiObj.set_CallWaiting(g.edt_callwaiting.value);
+    }
+
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+
+    if ((gTooBusyHaveError1) || (gTooBusyHaveError2) || (gTooBusyHaveError3))
+        NewToobusy_LoadMe();
+    else
+        DialErrorNextBtnHandler(); 
+}
+
+function TelError_TelephoneBtnHandler() 
+{
+    
+    PopCKPT();
+    GoNavigate(CKPT_ACTIVSVC)
+}
+
+function Enable_TelBtn_ActMode()
+{
+    if (InActivation_AppMode())
+    {
+        
+        GetPageTitle();
+
+        g.btnTelephone.style.display = "inline";
+        g.btnTelephone.onmouseover = HandleButtonMouseOver;
+        g.btnTelephone.onmouseout  = HandleButtonMouseOut;
+        g.btnTelephone.onclick     = TelError_TelephoneBtnHandler;
+
+        
+        var L_RemindMeLater_Text = "Klicka pÂ <b>PÂminn senare</b> om du vill forts‰tta utan att utfˆra den h‰r aktiviteten.";
+        g.RemindMeLaterText.innerHTML = L_RemindMeLater_Text;
+        var L_RemindMeLater01_Text = "<u>P</u>Âminn senare ";
+        var L_AccesskeyRemindM_Text = "P";
+        g.btnSkip.innerHTML   = L_RemindMeLater01_Text;
+        g.btnSkip.accessKey   = L_AccesskeyRemindM_Text;
+    }
+}
+
+function DefaultErr_LoadMe()
+{
+    InitFrameRef();
+
+    if (APP_MSN_MODE == window.external.Directions.get_AppMode())
+    {
+        var spanCollection = g.document.body.getElementsByTagName("span");
+        if (spanCollection != 0)
+        {
+            for (var i = 0; i < spanCollection.length; i++)
+            {
+                if (spanCollection[i].className == "text-primary-btndesc")
+                {
+                    var styleObj = spanCollection[i].style;
+                    styleObj.position = "relative";
+                    styleObj.top = "0";
+                    styleObj.left = "0";
+                }
+            }
+        }
+    }
+
+    InitButtons();
+
+    try
+    {
+        if(g.btnRestore != null) 
+        {
+            if (InReminderMode())
+            {
+                g.btnRestore.onmouseover = HandleButtonMouseOver;
+                g.btnRestore.onmouseout  = HandleButtonMouseOut;
+                g.btnRestore.className="buttons";
+            }
+            else
+            {
+                g.btnRestore.onmouseover = HandleNextButtonMouseOver;
+                g.btnRestore.onmouseout  = HandleNextButtonMouseOut;
+                g.btnRestore.onmousedown = HandleNextButtonMouseDown;
+                g.btnRestore.className="newbuttonsNext";
+            }
+        } 
+    } catch (e) {}
+
+    Enable_TelBtn_ActMode();
+
+    if (InActivation_AppMode())
+    {
+        g_FirstFocusElement = g.btnNext;
+        window.setTimeout("DoFocus();",1000);
+    }
+    else
+    {
+        g.btnNext.focus();
+    }
+    
+    window.external.set_DialAlternative(false);
+    g.btnNext.onclick = DialErrorNextBtnHandler;
+    g.btnSkip.onclick = ErrorSkipBtnHandler;
+}
+
+function Cnncterr_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = CnncterrNextBtnHandler;
+    if (g.Callwait != null)
+        g.Callwait.value = TapiObj.get_CallWaiting;
+}
+
+var g_AltnumberHolder   = null;
+var g_OutsidelineHolder = null;
+var g_CallwaitingHolder = null;
+
+function Toobusy_LoadMe()
+{
+    DefaultErr_LoadMe();
+    
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+    
+    g.btnNext.onclick = ToobusyNextBtnHandler;
+    
+    SelectDialRule();
+}
+
+
+function NewToobusy_LoadMe()
+{
+    DefaultErr_LoadMe();
+
+    
+    var L_tbstr1_Text = "Det gÂr inte att ansluta till det h‰r numret fˆr att aktivera och registrera datorn.";
+    var L_tbstr2_Text = "Det gÂr inte att ansluta till det h‰r numret fˆr att aktivera datorn.";
+    var L_tbstr3_Text = "Det gÂr inte att ansluta till det h‰r numret fˆr att registrera datorn.";
+
+    var L_tbstr4_Text = "Klicka pÂ <b>Hoppa ˆver</b> om du vill forts‰tta utan att aktivera och registrera datorn.";
+    var L_tbstr5_Text = "Klicka pÂ <b>Hoppa ˆver</b> om du vill forts‰tta utan att aktivera datorn.";
+    var L_tbstr6_Text = "Klicka pÂ <b>Hoppa ˆver</b> om du vill forts‰tta utan att registrera datorn.";
+    
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) || (g_PostToOEM))
+        {
+            g.tbpar1.innerHTML = L_tbstr1_Text;
+            g.tbpar2.innerHTML = L_tbstr4_Text;
+        }
+        else
+        {
+            g.tbpar1.innerHTML = L_tbstr2_Text;
+            g.tbpar2.innerHTML = L_tbstr5_Text;
+        }
+    }
+    else
+    {
+        g.tbpar1.innerHTML = L_tbstr3_Text;
+        g.tbpar2.innerHTML = L_tbstr6_Text;
+    }
+    
+
+
+    var fLoadPhoneNumber = window.external.get_DialNumber;
+    g.spanDisplayNumber.innerHTML = "&nbsp;&nbsp;<B>" + fLoadPhoneNumber + "</B>";
+
+    if (gTooBusyHaveError1)
+        g.tberrspan1.style.visibility = "visible";
+    if (gTooBusyHaveError2)
+        g.tberrspan2.style.visibility = "visible";
+    if (gTooBusyHaveError3)
+        g.tberrspan3.style.visibility = "visible";
+
+
+    if (((g_AltnumberHolder == null) || (g_AltnumberHolder == "")) && (!gTooBusyHaveError1))
+    {
+        g_AltnumberHolder = "";
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.style.disabled = true;
+        g.cb_altnumber.checked = false;
+    }
+    else
+    {
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.cb_altnumber.checked = true;
+    }
+
+    if (!gTooBusyHaveError2)
+        g_OutsidelineHolder = TapiObj.get_DialOut;
+
+    if (((g_OutsidelineHolder == null) || (g_OutsidelineHolder == "")) && (!gTooBusyHaveError2))
+    {
+        g_OutsidelineHolder = "";
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.cb_outsideline.checked = false;
+    }
+    else
+    {
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.cb_outsideline.checked = true;
+    }
+
+
+    if (!gTooBusyHaveError3)
+        g_CallwaitingHolder = TapiObj.get_CallWaiting;
+
+    if (((g_CallwaitingHolder == null) || (g_CallwaitingHolder == "")) && (!gTooBusyHaveError3))
+    {
+        g_CallwaitingHolder = "";
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.cb_callwaiting.checked = false;
+    }
+    else
+    {
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.cb_callwaiting.checked = true;
+    }
+
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NewToobusyNextBtnHandler;
+}
+
+
+function Check_cb_altnumber()
+{
+    if (g.cb_altnumber.checked == true)
+    {
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.focus();
+    }
+    else
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.disabled = true;
+        g.lbl_altnumber.innerHTML = L_altnumber_Text;
+        g.lbl_altnumber.className = "text-primary";
+    }
+}
+
+
+function Check_cb_outsideline()
+{
+    if (g.cb_outsideline.checked == true)
+    {
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.focus();
+    }
+    else
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.lbl_outsideline.innerHTML = L_outsideline_Text;
+        g.lbl_outsideline.className = "text-primary";
+    }
+}
+
+
+function Check_cb_callwaiting()
+{
+    if (g.cb_callwaiting.checked == true)
+    {
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.focus();
+    }
+    else
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+        g.lbl_callwaiting.className = "text-primary";
+    }
+}
+
+function SelectDialRule()
+{    
+    if (g.DialRuleYes.checked)
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=false;
+        g.edtOutsideLine.disabled=true;
+        g.edtCallWaiting.disabled=true;
+    }
+    else
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=true;
+        g.edtOutsideLine.disabled=false;
+        g.edtCallWaiting.disabled=false;
+    }
+}
+
+function RestoreDialRule()
+{
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    if (g.edtPhoneNumber)
+        g.edtPhoneNumber.value = window.external.get_PhBkNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+}
+
+
+function ISPInsError_NextBtnHandler() 
+{
+    PopCKPT();
+    GoNavigate(CKPT_OEMCUST);
+}
+function ISPInsError_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.ins_ISPName1.innerText = window.external.get_ISPName;
+    g.ins_ISPName2.innerText = window.external.get_ISPName;
+    g.btnNext.onclick = ISPInsError_NextBtnHandler;
+}
+
+
+
+function NoAnswNextBtnHandler() 
+{
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+    
+    if (g.DialRuleYes.checked) {
+        if (CheckPhoneNumer(g.edtPhoneNumber.value))
+        {
+            window.external.set_DialNumber(g.edtPhoneNumber.value);
+            DialErrorNextBtnHandler();
+        }
+        else
+        {
+            g.edtPhoneNumber.value = window.external.get_DialNumber;
+            g.error_mesg.innerHTML = L_EnterValidPhoneNumber_Text;
+            g.error_mesg.style.display="inline";
+        }
+    }
+    else
+    {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+        window.external.set_DialAlternative(false);
+        DialErrorNextBtnHandler();
+    }
+    
+
+    
+}
+
+function NoAnsw_LoadMe()
+{
+    DefaultErr_LoadMe();
+        
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtPhoneNumber.value = g.spanDisplayNumber.innerText;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NoAnswNextBtnHandler;
+    
+    SelectDialRule();
+
+}
+
+
+
+function NoModemBtnHandler() 
+{
+    window.external.Finish();
+}
+function NoModem_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = NoModemBtnHandler;
+}
+
+function Pulse_LoadMe()
+{
+    DefaultErr_LoadMe();
+    if (1 == TapiObj.set_PhoneSystem)
+        g.tone.checked = true;
+    else
+        g.pulse.checked = true;
+}
+
+function DesktopPbErr_LoadMe()
+{
+    InitFrameRef();
+    if (InActivation_AppMode())
+    {
+        GetPageTitle();
+    }
+
+    InitButtons();
+
+    var L_DeskpbErrOEMName_Text = g_OEMNameStr;
+    if (L_DeskpbErrOEMName_Text == "")
+    {
+        L_DeskpbErrOEMName_Text = L_MissingOEMName_Text;
+    }
+
+    var L_DeskMainPBerrMsg_Text = "";
+    var L_Title_Text = "";
+
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "Onlineregistrering och aktivering ‰r ‰nnu inte tillg‰ngligt i ditt land eller omrÂde. Kontakta %1 om du vill registrera datorn utan Internetanslutning. Du kan aktivera den h‰r Windows-kopian via Internet eller genom att ringa Microsoft.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else if ((g_PostToMS) && (!g_PostToOEM))
+        {
+            L_Title_Text = "Det gÂr inte att aktivera och registrera online"; 
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "Onlineregistrering och aktivering ‰r ‰nnu inte i ditt land eller omrÂde. Du kan aktivera den h‰r Windows-kopian via Internet eller genom att ringa Microsoft.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+        else if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "Onlineaktivering ‰r ‰nnu inte tillg‰ngligt i ditt land eller omrÂde. Du kan aktivera den h‰r Windows-kopian via Internet eller genom att ringa Microsoft. Kontakta %1 om du vill registrera din dator via telefon.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else
+        {
+            L_Title_Text = "Det gÂr inte att aktivera online";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            
+            L_DeskMainPBerrMsg_Text        = "Onlineaktivering ‰r ‰nnu inte tillg‰ngligt i ditt land eller omrÂde. Du kan aktivera den Windows-kopian via Internet eller genom att ringa Microsoft.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+    }
+    else
+    {
+        if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_Title_Text = "Det gÂr inte att registrera online";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "Onlineregistrering ‰r ‰nnu inte tillg‰ngligt i ditt land eller omrÂde. Kontakta %1 om du vill registrera din dator via telefon.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+    }
+
+    g.btnBack.focus();
+    g.btnBack.onclick = window.parent.SimpleNavBack;
+}
+PAfunction ObjectLoad()
+{
+    if ( objectDestination )
+    {
+        var bodyElement = objectDestination.parentElement;
+        
+        if ( bodyElement.objectSource )
+        {
+            bodyElement.innerHTML = "<embed width=100% height=100% fullscreen=yes>";
+            bodyElement.firstChild.src = bodyElement.objectSource;
+        }
+    }
+}
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "Fel: OEM-namn saknas i avsnittet [Branding] i filen oobeinfo.ini.";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Automatiska uppdateringar ‰r en funktion som gˆr att de senaste uppdateringarna kan hittas och installeras automatiskt. Exempel pÂ uppdateringar ‰r s‰kerhetskorrigeringar och Service Pack-versioner.";
+var L_IntroUpdate_Text = "Tack fˆr att du installerar Windows XP Service Pack 3. Innan du forts‰tter installationen bˆr du aktivera Automatiska uppdateringar. Automatiska uppdateringar ‰r en funktion som gˆr att de senaste uppdateringarna kan hittas och installeras automatiskt. Exempel pÂ uppdateringar ‰r s‰kerhetskorrigeringar och Service Pack-versioner.";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+PA
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<script>
+var g_PID_Link_URL       = "";
+
+function PID_Link_OnClick(stage)
+{
+    
+    
+    
+    
+    
+    
+    
+    if (stage == null)
+    {
+        window.parent.ShowIFrame('False', window.parent.L_CheckConnectivity_Text);
+        window.parent.ResetConnectedToInternetEx();
+        window.parent.ConnectedToInternetEx(true, "g.PID_Link_OnClick(1);");
+    }
+    else if (stage == 1)
+    {
+        var connected = window.parent.ConnectedToInternetEx(false);
+        
+        if (!connected)
+        {
+            connected = window.external.InternetAutodial();
+            window.parent.g_InitAutodial = connected;
+            
+            if (!connected)
+            {
+                if (window.external.GnsAutodial(true, "User1"))
+                {
+                    window.parent.ResetConnectedToInternetEx();
+                    connected = window.parent.ConnectedToInternetEx(true);
+                }
+            }
+        }
+
+        if (connected)
+        {
+            window.open(g_PID_Link_URL);
+        }
+
+        window.parent.ShowIFrame();
+    }
+    
+    return false;
+}
+
+function Local_LoadMe() {
+
+    if (acterror_after_pid_entry_text1.style.display == "inline" ||
+        acterror_after_pid_entry_text2.style.display == "inline") {
+        
+        var strPid = window.parent.PidObj.get_CurrentPID2();
+        var strStrippedPid = "";
+
+        var re = new RegExp("(.*)-(.*)-(.*)-(.*)","");
+        if(re.exec(strPid) == null) {
+            strStrippedPid = "";
+        }
+        else
+        {
+            strStrippedPid = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4;
+        }
+
+
+        g_PID_Link_URL = "https://pa.one.microsoft.com/portal.asp?req=" +
+            strStrippedPid + "&err=" + window.parent.g_act_specific_error;
+
+        acterror_link1.title = g_PID_Link_URL;
+        acterror_link1.onclick = PID_Link_OnClick;
+        acterror_link2.title = g_PID_Link_URL;
+        acterror_link2.onclick = PID_Link_OnClick;
+
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.act_desktop_error_LoadMe(); Local_LoadMe();" >
+
+<table valign=middle border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;">
+        <ID id=acterror_s1>Aktivera Windows</ID>
+    </span>
+
+    <br>
+
+        <!-- Retail mode -->
+        <span ID=acterror_description_dedicated_pid_RETAIL class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1">Du angav inte nÂgon giltig produknyckel Windows installerades. Om du vill forts‰tta och aktivera Windows kan du ange produktnyckeln nedan och sedan klicka pÂ <b>Uppdatera</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2">Den 25 tecken lÂnga produktnyckeln finns pÂ Windows-CD-fodralets baksida pÂ en etikett som liknar denna:</ID>
+            <br><br>
+            <center><img src="../images/prodkey.gif"></center>
+        </span>
+        
+        <!-- OEM mode -->
+        <span ID=acterror_description_dedicated_pid_OEM class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1x">Du angav inte nÂgon giltig produknyckel Windows installerades. Om du vill forts‰tta och aktivera Windows kan du ange produktnyckeln nedan och sedan klicka pÂ <b>Uppdatera</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2x">Produktnyckeln, som ‰r 25 tecken lÂng, finns pÂ ett ‰kthetsbevis som finns pÂ din dator eller pÂ Windows-dokumentationen. ƒkthetsbeviset liknar fˆljande exempel.</ID>
+            <br><br>
+            <center><img src="../images/oemcoa.jpg"></center>
+        </span>
+
+
+        <!-- PID ENTRY -->
+        <span ID=acterror_pid_entry class="text-primary" style="display:none;">
+            <br>
+            <table ID=PidBox border=0 DIR=ltr style="font-family:Courier New; FONT-SIZE: 16pt;">
+            <tr>
+                <td nowrap width=10>&nbsp;</td>
+                <td nowrap class="text-primary" >
+                <span ID=acterror_description_verify_key class="text-primary"><ID id="txtverifykey">Verifiera nyckel:</id></span>&nbsp;
+                </td>
+                <td>
+                <input style="ime-mode:disabled" id=pid1 type="text" size=6 maxlength=5 class=pid-box TABINDEX=1 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid2 type="text" size=6 maxlength=5 class=pid-box TABINDEX=2 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid3 type="text" size=6 maxlength=5 class=pid-box TABINDEX=3  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid4 type="text" size=6 maxlength=5 class=pid-box TABINDEX=4  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid5 type="text" size=6 maxlength=5 class=pid-box TABINDEX=5  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td>
+            </tr>
+            </table>
+        </span>
+
+        <!-- AFTER PID ENTRY TEXT -->
+        <span ID=acterror_after_pid_entry_OEMText class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErrOEMText">Kontakta din datorleverantˆr om du inte kan hitta ‰kthetsbeviset.</ID><br>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text1 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr14">Om du tror att du skrev in den korrekta produktnyckeln och inte borde ha fÂtt detta meddelande, var v‰nlig kontakta vÂr kundtj‰nst eller besˆk webbsidan <a href="#" id="acterror_link1"><U>Microsoft Activation Assistance Web Site</u></a> fˆr ytterligare information om extra produktnycklar. Klicka pÂ <B>Telefon</B>, om du vill se en lista med kontaktnummer i ditt omrÂde.</ID>
+        </span>
+
+
+        <span ID=acterror_after_pid_entry_text2 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr15">Om du tycker att du inte borde ha fÂtt detta meddelande, var v‰nlig kontakta vÂr kundtj‰nst eller besˆk webbsidan <a href="#" id="acterror_link2"><U>Microsoft Activation Assistance Web Site</u></a>fˆr mer information om extra produktnycklar. Klicka pÂ <B>Telefon</B> om du vill se en lista ˆver telefonnummer i din region.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text3 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr16">Varje Windows-kopia fÂr bara installeras pÂ en dator Ât gÂngen. Om du tycker att du inte borde ha fÂtt detta meddelande, var v‰nlig kontakta vÂr kundtj‰nst genom att klicka pÂ <B>Telefon</B>.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text4 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr17">Om du inte behˆver skriva in en produktnyckel kan du klicka pÂ knappen <B>Telefon</B> fˆr att Âterv‰nda till fˆregÂende sida.</ID>
+        </span>
+        
+    <!-- End -->
+    </td>
+
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=99%>
+            &nbsp;&nbsp;
+            <span ID=acterror_specific_error_code class="text-primary" style="display:none; z-index:10;">
+            </span>
+        </td>
+        <td>
+        <BUTTON ID="btnTelephone" class="buttons" TABINDEX=6 ACCESSKEY="T"><label for=btnTelephone><id id="LocalBtnTel_Text"><u>T</u>elefon</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=7 ACCESSKEY="P"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>P</u>Âminn mig senare</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=8 ACCESSKEY="÷"><label for=btnNext><id id="LocalBtnRetry_Text">F<u>ˆ</u>rsˆk igen</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+PAGIF89a0 0 ˜   1ú 9• B• Jµ Rµ ZÑ Zú c  c c) c1 cJ cs c∆ kÑ k• kŒ s  s s s1 {å {Ω {ﬁ Ñ  Ñ Ñ) Ñ9 Ñ{ Ñ• ÑÔ åî î îk îú îµ îŒ î˜JÑc!9{9•B•Zcc!îÑúsú˜B•ZJc9k÷{Œús•Z•å!9k!JÑ!J•!J•!Jµ!Zc!cJ!cs!k≠!•÷)ZÑ)cZ)k÷){∆)≠˜)≠ˇ1Jk1RΩ1cc1ck1≠•1µ1µÑ9BR9BZ9cŒ9{c9Ñc9Ñs9úﬁ9≠ˇ9µˇ9µˇBZsBcÑBcåBcúBc∆BåﬁB•JBµJJ≠JJµJc≠JcΩJcŒJkŒJ•ÁJµ˜JµˇJΩJJΩ∆JΩˇJ∆)J∆˜RRRRRZRRsRZ•RkΩRîﬁR≠BR∆)R∆RR∆kZZZZZµZZ∆Zs÷Zs÷ZÑﬁZîΩZ•ﬁZµÔZ∆JZ∆ˇccccc{cÑúcå÷cú•cŒ1cŒccŒÑcŒ÷kkåkkîkk∆kÑŒkú÷k•ÁkµÁkµÔkΩˇk∆˜kŒ9kŒ9kŒ•k÷ˇsssssÑss•ssµss∆ss∆s•ssΩZsŒJs÷cs÷ss÷å{ÑΩ{î∆{î÷{•ﬁ{≠ﬁ{µﬁ{÷Z{÷Ñ{÷Ô{÷ˇÑÑÑÑÑ≠ÑÑµÑÑ∆Ñ•ΩÑΩ{ÑﬁZÑﬁcÑﬁ•ÑﬁΩåååååîåå•åå≠ååµåå∆åîΩåî÷å•Ωå≠ﬁåµŒåΩååΩ÷å∆Áå÷˜åﬁsåﬁååﬁîîîúîîúîîΩîîŒîúΩîúŒî∆ﬁîŒÁîÁµîÁΩîÁˇú  úµ≠úÁÑúÁˇúÔú••••∆ﬁ•÷Ô•÷˜•Áå•Á••ÔŒ•Ô˜≠≠Ω≠≠Œ≠∆÷≠∆Á≠Ô≠≠ÔÁ≠Ô˜µﬁÁµ˜µΩΩ÷Ω˜µ∆∆∆∆˜Œ∆˜˜∆ˇŒ∆ˇÁŒ  Œ1 ŒŒ÷ﬁﬁﬁﬁﬁÁÁ˜˜ÔÔÔ˜˜˜ˇ1 ˇˇˇ ˇ !˘  ˇ ,    0 0 « 1ú 9• B• Jµ Rµ ZÑ Zú c  c c) c1 cJ cs c∆ kÑ k• kŒ s  s s s1 {å {Ω {ﬁ Ñ  Ñ Ñ) Ñ9 Ñ{ Ñ• ÑÔ åî î îk îú îµ îŒ î˜JÑc!9{9•B•Zcc!îÑúsú˜B•ZJc9k÷{Œús•Z•å!9k!JÑ!J•!J•!Jµ!Zc!cJ!cs!k≠!•÷)ZÑ)cZ)k÷){∆)≠˜)≠ˇ1Jk1RΩ1cc1ck1≠•1µ1µÑ9BR9BZ9cŒ9{c9Ñc9Ñs9úﬁ9≠ˇ9µˇ9µˇBZsBcÑBcåBcúBc∆BåﬁB•JBµJJ≠JJµJc≠JcΩJcŒJkŒJ•ÁJµ˜JµˇJΩJJΩ∆JΩˇJ∆)J∆˜RRRRRZRRsRZ•RkΩRîﬁR≠BR∆)R∆RR∆kZZZZZµZZ∆Zs÷Zs÷ZÑﬁZîΩZ•ﬁZµÔZ∆JZ∆ˇccccc{cÑúcå÷cú•cŒ1cŒccŒÑcŒ÷kkåkkîkk∆kÑŒkú÷k•ÁkµÁkµÔkΩˇk∆˜kŒ9kŒ9kŒ•k÷ˇsssssÑss•ssµss∆ss∆s•ssΩZsŒJs÷cs÷ss÷å{ÑΩ{î∆{î÷{•ﬁ{≠ﬁ{µﬁ{÷Z{÷Ñ{÷Ô{÷ˇÑÑÑÑÑ≠ÑÑµÑÑ∆Ñ•ΩÑΩ{ÑﬁZÑﬁcÑﬁ•ÑﬁΩåååååîåå•åå≠ååµåå∆åîΩåî÷å•Ωå≠ﬁåµŒåΩååΩ÷å∆Áå÷˜åﬁsåﬁååﬁîîîúîîúîîΩîîŒîúΩîúŒî∆ﬁîŒÁîÁµîÁΩîÁˇú  úµ≠úÁÑúÁˇúÔú••••∆ﬁ•÷Ô•÷˜•Áå•Á••ÔŒ•Ô˜≠≠Ω≠≠Œ≠∆÷≠∆Á≠Ô≠≠ÔÁ≠Ô˜µﬁÁµ˜µΩΩ÷Ω˜µ∆∆∆∆˜Œ∆˜˜∆ˇŒ∆ˇÁŒ  Œ1 ŒŒ÷ﬁﬁﬁﬁﬁÁÁ˜˜ÔÔÔ˜˜˜ˇ1 ˇˇˇ ˇ ˛ ˝	H∞†¡É*L(ÔNõD£p)˜.ﬁºpÒ∆ç∫Ñ«âç.\»aD9~ﬁÀw5jÁ–°ìGìπk´ººxQ¢ßáê0`àaÇCÑtCyO_0M∞í]ª∂ÌöÕõUì¡Zuhê7hÿ–˘· Ç®¿Ää-r∆†»•Jsg∞\π¬¶ØﬂΩi$•˙⁄,hùûdí£1%y
+ıõLŸ^?{›·€áíø|¯ôsgÆ04`•eïSHπ2¡~ı`◊√ñÚ ?y’Jπb∂Lõ+e£0%”‰Ö#”Ï÷>(èç"_Íà≤e¨z6Q£L¡“4Ë»N Ñ˛-˚`ó›|∫9Î’ÃWØaÁÿ—î∑n›∂dßíÈá≈_í°T ¡Ä8¿@'»‡Éã!±î@˜∏… ÉX¢	T¸Ae!ÖÉ<≤árÏ†K°Ç
+;¿C]tAF;†∆.˚ ‰0F§:–<‚·èûòS4æt«±‡ce	…&P9—‹Zh˜TÈiÂ†6KÑú¥Pl`Êl -wê>Ú\ÛJ.ô¡∆åXíL>f.ß9A("7ØåÛŒ8„0\`‹”xPùu$OMÄQ«%£‹í9‚(£=Î$£âFdABQAÜ‘òRïÕ4„L3˛ΩƒÍK4¥Js*à‚F—S	 HTY+OA†≠d%<—Ùå,≤Ãr
+*ıaµ!|pËl0lY,(∏D›‘œ=¨D5U}Î–«ÓT…†B…ÖñP(	„a∞@§•¬ &(!\9‰¡®?Óîcâ%¸EïToG	$î-{‡É1 ¿V  ÑºãdÏÄ!«dN4l|≈·À¢±küÄ‚	(fò1«9ÁÃ]®Ä¬Ñî´ê4ê°¥L£Åå9„N>WñÛã4Öl¢§g˚p÷ZAó¡6ê>ÓÏC-Ê‰ìœ=•—Úâ€û@„L9lVÊ@≠µÜ˛ﬁıÃf>˘t8ïÊcŒ·Cö”I™"∂e{˚&l¥	¥œ=ª‚à,œt˛L'éƒG±¿”xJ}ßﬁ76ÿ‹›Ëôh √é>˙º˛∫>ÎËíâ2¶¥2ä"Ç⁄XXr∞ÌÒCé2§(ìã8’DØ.£$“F-Ñt¡Äún;?Ííà"≠,C=Ò§≥é5ÍìH|áí∂ÎcJ§â`“ä2Ã`öN<h"≈"–Ñà¿4JQhê≤:È#h⁄`Jç‚7∏ÿ9`14¯ä ËÄ20ÅP ¶K	h‘F5+!Ó—Ö,B!æÍ	Ñ2¨0†˛«CàîÜqåcP„ÌöO}ÆA:(Õ;<)ÅÇÖÅ	,`
+`¡î‚∫Å|§9ú9û!ãh∏kSYFE)v`á„ó~@.¶ nË)G{dËzÉ‰†Ü'»QïkDES¿¿F ë8†áPêÛ |î√√(∆4¿ëD%⁄§*†@F√4a	ˇà«Ñ‚∞(a	[P]òrèñ¿Ç*Va9–x≠§bBr√!Ü-¨R-l…,±(4CU˚`Ü‘U»^≤?ê‡ÀH¯‡ XÅ ÷Ú1èÌ`sÄíîwL¬Bã',÷!åÈ!d ˛¡2±®e‡¡\Dê}∏n†PΩÍE óÅ>“C»êÑ-å!	$së¯‡‡Õ†üA∆òÜæ»,°_ëY_ÆÄ?–Bh+¬¢3‘4	< †êáº!ƒpt0p8T¢V†£9~aY†,=›à*<‡ë∑ \f§ßÿâ“*Ås|bbC'∞çŒubFw˚⁄í,S/ñÜÓ†Öih—˘HtyÄ!6Që‚M≠ìâ[Îa–ÆYn°9Lœvä1≠IUçú?`Cπhé3¸>ÿFh<„p≥ÿÑ˜^cô¿ˆol•>¢∏).mS5>á/†—*rîù‹ò*∑èrpÇnU≤Ró⁄à—=ˆKîÂ€lrπnƒby»√AàXt√t]¸ÎXw∑Ä  ;PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPAD

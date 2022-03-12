@@ -1,0 +1,746 @@
+hema definitions.  [Dev Only]
+IFCBAsyncThresholdScan_000_Help=FCB Asynchronous Threshold-Scan/sec is the number of cached  schema records (FCBs) scanned during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively scanned  to age out older schema definitions.  [Dev Only]
+IFCBAsyncThresholdPurge_000_Help=FCB Asynchronous Threshold-Purge/sec is the number of cached  schema records (FCBs) purged during asynchronous schema record  cleanup.  Cleanup was triggered by a large number of schema records  above the preferred limit.  These records are aggressively purged  to age out older schema definitions.  [Dev Only]
+IFCBAsyncPurgeConflict_000_Help=FCB Asynchronous Purge Conflicts/sec is the number of failed purge attempts on cached schema records (FCBs) during asynchronous schema  record cleanup.  The purge operation failed because exclusive ownership of the schema record could not be obtained.  [Dev Only]
+IFCBSyncPurge_000_Help=FCB Synchronous Purge/sec is the number of cached schema records  (FCBs) being synchronously purged each second.  [Dev Only]
+IFCBSyncPurgeStalls_000_Help=FCB Synchronous Purge Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to synchronously purge them.  [Dev Only]
+IFCBCacheHits_000_Help=FCB Cache % Hit is the percentage of schema records (FCBs) opened directly from the schema record cache.  No file operations were required.  [Dev Only]
+IFCBCacheRequests_000_Help=No text
+IFCBCacheStalls_000_Help=FCB Cache Stalls/sec is the number of stalls encountered while waiting for exclusive ownership of cached schema records (FCBs) in order to update their reference count.  [Dev Only]
+IFCBCacheMax_000_Help=FCB Cache Maximum is the absolute maximum number of the schema  records (FCBs) that can exist in the cache.  [Dev Only]
+IFCBCachePreferred_000_Help=FCB Cache Preferred is the preferred maximum number of the schema  records (FCBs) that should exist in the cache.  [Dev Only]
+IFCBCacheAlloc_000_Help=FCB Cache Allocated is the number of cached schema records (FCBs) currently allocated and in use.  [Dev Only]
+IFCBCacheAllocAvail_000_Help=FCB Cache Available is the number of cached schema records (FCBs) currently allocated but not in use.  These records will be used  and/or purged as required.  [Dev Only]
+IPIBInUse_000_Help=Sessions In Use is the number of database sessions currently open for use by client threads.  [Dev Only]
+IPIBUsed_000_Help=Sessions % Used is the percentage of database sessions currently open for use by client threads.  [Dev Only]
+IPIBTotal_000_Help=No text
+ITableOpenCacheHitRate_000_Help=Table Open Cache % Hit is the percentage of database tables opened using cached schema information.  If this percentage is too low, the table cache size may be too small.
+ITableOpenCacheRequests_000_Help=No text
+ITableOpenCacheHitsPerSec_000_Help=Table Open Cache Hits/sec is the number of database tables opened using cached schema information per second.  If this rate is too low, the table cache size may be too small.
+ITableOpenCacheMissesPerSec_000_Help=Table Open Cache Misses/sec is the number of database tables opened without using cached schema information per second.  If this rate is too high, the table cache size may be too small.
+ITableOpensPerSec_000_Help=Table Opens/sec is the number of database tables opened per second.
+ILGBytesWrittenPerSec_000_Help=Log Bytes Write per second is the rate bytes are written to the log.  [Dev Only]
+ILGUsersWaiting_000_Help=Log Threads Waiting is the number of threads waiting for their data to be written to the log in order to complete an update of the database.  If this number is too high, the log may be a bottleneck.
+ILGCheckpointDepth_000_Help=Log Checkpoint Depth represents the amount of work that will need to be redone or undone to the database file(s) if the process crashes.  [Dev Only]
+IUserROTrxCommit0PerSec_000_Help=User Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+IUserRWTrxCommit0PerSec_000_Help=User Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+IUserTrxCommit0PerSec_000_Help=User Transaction Commits to Level 0/sec is the count of fully committed transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+IUserROTrxRollback0PerSec_000_Help=User Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+IUserRWTrxRollback0PerSec_000_Help=User Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that modify data stored in the MS Exchange DB engine.  [Dev Only]
+IUserTrxRollback0PerSec_000_Help=User Transaction Rollbacks to Level 0/sec is the count of aborted transactions started by the calling process that access data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemROTrxCommit0PerSec_000_Help=System Read Only Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemRWTrxCommit0PerSec_000_Help=System Read/Write Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemTrxCommit0PerSec_000_Help=System Transaction Commits to Level 0/sec is the count of fully committed transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemROTrxRollback0PerSec_000_Help=System Read Only Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that do not modify any data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemRWTrxRollback0PerSec_000_Help=System Read/Write Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that modify data stored in the MS Exchange DB engine.  [Dev Only]
+ISystemTrxRollback0PerSec_000_Help=System Transaction Rollbacks to Level 0/sec is the count of aborted transactions started internally that access data stored in the MS Exchange DB engine.  [Dev Only]
+IIODatabaseFileExtensionStall_000_Help=Database Page Allocation Stalls/sec is the count of page allocations from a MS Exchange DB database file per second that are stalled due to extending the database file.  [Dev Only]
+ILGRecordPerSec_000_Help=Log Records/sec is the count of records written to the MS Exchange DB log buffers per second.  [Dev Only]
+ILGCapacityFlushPerSec_000_Help=Log Buffer Capacity Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because they are full.  [Dev Only]
+ILGCommitFlushPerSec_000_Help=Log Buffer Commit Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second because a transaction is fully committing its changes.  [Dev Only]
+ILGFlushPerSec_000_Help=Log Buffer Flushes/sec is the count of times the MS Exchange DB log buffers must be flushed per second.
+ILGWritePerSec_000_Help=Log Writes/sec is the number of times the log buffers are written to the log file(s) per second.  If this number approaches the maximum write rate for the media holding the log file(s), the log may be a bottleneck.
+ILGStallPerSec_000_Help=Log Record Stalls/sec is the number of log records that cannot be added to the log buffers per second because they are full.  If this counter is non-zero most of the time, the log buffer size may be a bottleneck.
+IVERcbucketAllocated_000_Help=Total number of version buckets allocated  [Dev Only]
+IVERcbucketDeleteAllocated_000_Help=Total number of version buckets allocated for FlagDelete RCEs  [Dev Only]
+IVERcrceHashUsage_000_Help= Standard deviation for version store hash usage  [Dev Only]
+IVERcbAverageBookmark_000_Help=Average length of bookmark in RCE  [Dev Only]
+IVERUnnecessaryCalls_000_Help=Number of times per second we look in the version store for a node whose version bit is set but which has no versions  [Dev Only]
+IBTAppendSplit_000_Help=B+ Tree Append Splits/sec is the count of times a page is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTRightSplit_000_Help=B+ Tree Right Splits/sec is the count of times a page is split right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTVerticalSplit_000_Help=B+ Tree Vertical Splits/sec is the count of times a page is split vertically in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTSplit_000_Help=B+ Tree Splits/sec is the count of times a page is appended to or split in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTEmptyPageMerge_000_Help=B+ Tree Empty Page Merges/sec is the count of empty pages removed from a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTRightMerge_000_Help=Right Merges/sec is the count of pages removed from a MS Exchange DB B+ Tree per second by moving all its records to the next page to the right.  [Dev Only]
+IBTPartialMerge_000_Help=B+ Tree Partial Merges/sec is the count of pages where some of its records are moved to a page on the right in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTMerge_000_Help=B+ Tree Merges/sec is the count of pages merged in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTSeekShortCircuit_000_Help=B+ Tree Seek Short Circuits/sec is the count of repeated seeks to the same record in a MS Exchange DB B+ Tree that are saved by jumping directly to the cached physical location of that record per second.  [Dev Only]
+IBTUnnecessarySiblingLatch_000_Help=B+ Tree Unnecessary Sibling Latches/sec is the count of sibling pages latched during a MS Exchange DB B+ Tree Delete in the hopes of performing a merge where a merge is not possible, making that latch unnecessary.  [Dev Only]
+IBTNext_000_Help=B+ Tree Move Nexts/sec is the count of times MS Exchange DB moves to the next record in a B+ Tree per second.  [Dev Only]
+IBTPrev_000_Help=B+ Tree Move Prevs/sec is the count of times MS Exchange DB moves to the previous record in a B+ Tree per second.  [Dev Only]
+IBTSeek_000_Help=B+ Tree Seeks/sec is the count of times a record is seeked to by a key in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTInsert_000_Help=B+ Tree Inserts/sec is the count of times a record is inserted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTReplace_000_Help=B+ Tree Replaces/sec is the count of times a record is replaced in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTFlagDelete_000_Help=B+ Tree Flag Deletes/sec is the count of times a record is flag deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTDelete_000_Help=B+ Tree Deletes/sec is the count of times a record is deleted in a MS Exchange DB B+ Tree per second.  [Dev Only]
+IBTAppend_000_Help=B+ Tree Appends/sec is the count of times a record is appended to a MS Exchange DB B+ Tree per second.  [Dev Only]
+ISPCreate_000_Help=B+ Tree Creates/sec is the number of B+ Trees and their corresponding space trees (if any) created per second.  This can also be viewed as the number of FDP creates per second.  [Dev Only]
+ISPCreateCum_000_Help=B+ Tree Creates (Total) is the total number of B+ Trees and their corresponding space trees (if any) created.  This can also be viewed as the total number of FDP creates.  [Dev Only]
+ISPDelete_000_Help=B+ Tree Destroys/sec is the number of B+ Trees and their corresponding space trees (if any) destroyed per second.  This can also be viewed as the number of FDP destroys per second.  [Dev Only]
+ISPDeleteCum_000_Help=B+ Tree Destroys (Total) is the total number of B+ Trees and their corresponding space trees (if any) destroyed.  This can also be viewed as the total number of FDP destroys.  [Dev Only]
+IBFPagesReadPerSec_000_Help=Database Pages Read/sec is the rate that pages are read from the database file(s) into the database cache.  [Dev Only]
+IBFPagesWrittenPerSec_000_Help=Database Pages Written/sec is the rate that pages are written to the database file (s) from the database cache.  [Dev Only]
+IBFPagesTransferredPerSec_000_Help=Database Pages Transferred/sec is the rate that pages are transferred from the database file(s) to the database cache and vice versa.  [Dev Only]
+IBFPagesPreread_000_Help=Database Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache.  [Dev Only]
+IBFCachedPagesPreread_000_Help=Database Cached Pages Preread/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that are already cached.  This is non-ideal behavior  that represents a waste of processing time.  [Dev Only]
+IBFPagesPrereadUntouched_000_Help=Database Pages Preread Untouched/sec is the rate that pages are read in anticipation of future use from the database file(s) into the database cache that were subsequently thrown out without being used. This is non-ideal behavior that represents a waste of I/O bandwidth and processing time .  [Dev Only]
+IBFPagesVersioned_000_Help=Database Pages Versioned / sec is the rate at which pages in the database cache are being copied into new pages in the cache for the purpose of being asynchronously written while the current version of that page in the database file is still being modified.  This feature is primarily used to avoid cycles, branches, or long chains of flush order dependencies without requiring the pages involved to be synchronously written to disk.  [Dev Only]
+IBFPagesOrdinarilyWritten_000_Help=Database Pages Ordinarily Written/sec is the rate that pages are written to the database file (s) from the database cache in preparation for evicting them from the cache to make room for other data.  [Dev Only]
+IBFPagesAnomalouslyWritten_000_Help=Database Pages Anomalously Written/sec is the rate that pages are written to the database file (s) from the database cache before they would ordinarily be written.  [Dev Only]
+IBFPagesOpportunelyWritten_000_Help=Database Pages Opportunely Written/sec is the rate that pages are written to the database file (s) from the database cache because they happen to be near other pages that must be written.  These additional writes are performed before they must happen in the hope that the total number of seeks required to write all the pages is reduced.  [Dev Only]
+IBFPagesRepeatedlyWritten_000_Help=Database Pages Repeatedly Written/sec is the rate that pages are written to the database file (s) from the database cache more than once in their lifetime in the cache.  These page writes represent extra writes above the theoretical minimum and can therefore be considered overhead.  [Dev Only]
+IBFPagesIdlyWritten_000_Help=Database Pages Idly Written/sec is the rate that pages are written to the database file (s) from the database cache because there is low disk activity.  [Dev Only]
+                                                                                                                                                                                                                                                                                                                                           MZ       ÿÿ  ¸       @                                   à   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       “‘è[òÿ»[òÿ»[òÿ»˜ı¢»\òÿ»[òş»Oòÿ»˜ı »Xòÿ»˜ı¡»Zòÿ»˜ıŸ»Zòÿ»˜ı¥»Zòÿ»Rich[òÿ»                        PE  L •RH        à 
+    f      U                                    {A   „                           ˆ  P    0  pb                          P                                     P  X      L                           .text   „                          `.data                            @  À.rsrc   pb   0   d                 @  @² H(   ,¡H5  ,¡HB   ¡HL           ADVAPI32.dll KERNEL32.dll NTDLL.DLL USER32.dll                                                                                                                                                                                                                                                                                                                                                          ŸjİwW×İw    úÊ|ş|n¬€|p|0®€|Û®€|4î|æƒ|·¤€|.“€|¸—€|°™€|é€|    ¶©A~            •RH       #   ,  ,  S e t u p S h u t d o w n R e q u i r e d   S e t u p T y p e   S y s t e m \ S e t u p     N t C u r r e n t T e b     T e b . L a s t S t a t u s V a l u e   =   % l x   L o a d L i b r a r y   F a i l u r e % d       L o a d L i b r a r y ( O O B E _ M A I N _ D L L )   f a i l e d .   G e t L a s t E r r o r = % d     LaunchMSOOBE    M S O B M A I N . D L L         % S y s t e m R o o t % \ s y s t e m 3 2 \ o o b e \ m s o o b e . e r r   RSDSK÷Ø³î:
+@—ßD¯s½+   msoobe.pdb       ‹ÿU‹ìì4  ¡  S‰Eü‹EVW‰…Ğûÿÿ‹E‰…Øûÿÿh  …àûÿÿP3ÿhà ‰½Ôûÿÿÿ( ‹5D ‹$ hÀ ÿ  …À‰…ÜûÿÿtKƒ¥Ìûÿÿ h° Pÿ ‹ø…ÿtÿuÿ PÿµØûÿÿÿµĞûÿÿÿ×‰…ÔûÿÿÿµÜûÿÿÿ ‹½Ìûÿÿëxÿ P…èıÿÿhH PÿÖWEèh0 PÿÖƒÄ…àûÿÿP…èıÿÿPh EèPÿÓd¡   …Àt0ÿ°ô  …èıÿÿhä PÿÖƒÄ…àûÿÿP…èıÿÿPhÈ EèPÿÓGƒ½Üûÿÿ u	ƒÿ
+ÿÿÿƒÿ
+~o…ØûÿÿPh?  j h¬ h  €Ç…Üûÿÿ   ÿ  …ÀuC‹5 j_W…ÜûÿÿPWj h˜ ÿµØûÿÿÿÖW…ÜûÿÿPWj hl ÿµØûÿÿÇ…Üûÿÿ   ÿÖÿµÔûÿÿÿ ÌÌÌÌÌÌ‹ÿU‹ìƒì¡  …Àt=@»  uMVEøPÿ< ‹uü3uøÿ8 3ğÿ4 3ğÿ0 3ğEğPÿ, ‹Eô3Eğ3Æ%ÿÿ  ^u¸@»  £  ÷Ğ£  ÉÃÌÌØ  ÿÿÿÿÿÿÿÿF     ä  ÿÿÿÿÿÿÿÿ^      ÿÿÿÿÿÿÿÿx  D                      6  $      T  b  r  €  ’  ¤  ´  Ò  î      .  D      l      üRegSetValueExW  åRegOpenKeyExW ADVAPI32.dll  ¶ ExitProcess hGetLastError  ğ FreeLibrary 
+GetCommandLineW ˜GetProcAddress  GLoadLibraryW  •WritePrivateProfileStringW  º ExpandEnvironmentStringsW ”QueryPerformanceCounter ÔGetTickCount  >GetCurrentThreadId  <GetCurrentProcessId ÀGetSystemTimeAsFileTime KERNEL32.dll  ÙwsprintfW USER32.dll                                                                                                                                                                                                                                                                                                                                                                                               ¿Dÿÿ@»                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        0  €   x  €   ˜  €   °  €                  È  €   à  €   ø  €    €   ( €   @ €   X €               ~   p €¼   ˆ €                    €                  ¸ €               	  Ğ                 	  à                 	  ğ                 	                    	                   	                    	  0                 	  @                 	  P                 	  `                 	  p  6  è          ø8  ¨           G  ¨          HP  h          °U  ¨%          X{  ¨           Œ  h          Ğ  Ğ            ‘  Ğ           h  h           €2            4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                        ğ   S t r i n g F i l e I n f o   Ì   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   h    F i l e D e s c r i p t i o n     M i c r o s o f t   O u t   o f   B o x   E x p e r i e n c e   b !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 1 )     .   I n t e r n a l N a m e   M S O O B E     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   M S O O B E . E X E     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°(       @                                      €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ p÷‡p‡‡w ‡‡÷‡w‡€÷‡÷‡³0‡‡ »€‡‡ ‡‡ƒ;¸ w‡w‡‹»€0÷‡w‡€¸‡÷‡3»€0‡‡÷ˆ‹»¸w‡wø‹»€0wˆ÷w€»¸÷wğ  »€0ø÷pˆˆ‹¸w‹»»»€0÷p‹»»»·³wp»»{{{s÷»°°··³w÷‹»»{swx‹»»°°·³w÷ ‹»ˆswp‹°p°·0wğ‡‹°p»·0÷pˆ°»sw ˆ ³0ÿğ‡€ww0ˆ€ˆˆˆ€  ÿùÿÿÿğÿÿş`ÿü ÿø ÿø ñø àü€ø  ğ  ø |ü xø pğ pğ  ø  ?ø  ğ  ÿà ÿÀ ÿ€ ÿ  ÿ  ÿ  ÿ ÿ ÿ€ÿÀ ÿà ÿğÿşsÿÿÿÿÿ(   0   `                                 È Ò¨¨ Î°° Â¦¦ áÃÃ ·¢¢ îİİ ®¥¥ š”” ˆƒƒ ÓÌÌ ÊÄÄ mkk ÖÔÔ Û»¶ šŠ‡ Ü×Ö „|z |us ¯•Œ åÓÉ €x ûÓ« Ğ±’ ³¢’ Æµ¥ pnl â½– üéÕ Ÿš” ÙÔÎ ÏËÆ ÙĞ¿ ­­¬ ›ÿÿ ‰³³ ÆÆ rƒƒ ñÿÿ ùÿÿ ™òõ ¥úü Æşÿ ”úÿ —çì ºüÿ Òıÿ İıÿ èşÿ ’øÿ óÿ ”ôş sÙæ ×õù hÎà å÷ ‰îÿ …ëÿ †ìÿ ƒàó wİô ‚èÿ M³Í €åÿ M³Ô kÑï yŞş E¨Ê nÔú uÛÿ “ãş Åâì kÑù oÕş q×ş ±èÿ Tµß kÑÿ mÒÿ tÔÿ xÖÿ «åÿ Lf ?ŸÍ ;‘½ F¬İ G[ \Âô dÊÿ fÌş hÎÿ W¬Õ %=I Áêÿ `fi f™ 	oª w¬ I¯ç U»õ _ºí 3Vi n´Ù .59 uµ 0’Ë N´ô L²î R¸ù X¾ú ]Âş 6kŒ )Pg «Óë dpw É ~À k¡ )× )Ó ]ˆ 4˜İ *{¯ "Uw I¯ò L²ø Oµ÷ S¹ÿ Tºÿ W½ÿ P˜È 7_z R…© €Ìş —Îò r’¨ Yju p}† v» #‡Î %‹Ö -Ü 5›æ >¤ñ =æ @¥ğ C©ö J°ı I¯û L²ÿ N´ş *Ja cw† r‰  „Õ $ŠÜ ,’ä 7ó : ó 5Ù G­ÿ &[… Ftš 1DS Œ·Ù (‹â -“ğ 5›ø ;¡ù =£ÿ >¤ÿ @¦ÿ W­ú g´û ±Êá Öìÿ 1—û 3™ÿ 8ş 5ã >ş Cœò K¥ı L¡ô ÈÕâ ÈÎÔ şşş úúú õõõ óóó ğğğ ííí êêê æææ ååå ããã ááá ßßß ÜÜÜ ÙÙÙ ××× ÔÔÔ ÑÑÑ ÎÎÎ ÌÌÌ ÉÉÉ ÆÆÆ ÁÁÁ ¾¾¾ ¼¼¼ ººº ¹¹¹ ··· ´´´ ³³³ ±±± ®®® ««« ©©© §§§ ¤¤¤ £££     ŸŸŸ œœœ ››› ™™™ ––– ””” ’’’  ŒŒŒ ‹‹‹ ††† ƒƒƒ  ~~~ zzz vvv sss qqq fff ddd ccc ]]] XXX VVV KKK EEE ??? === 999 666 000                                                                        ŠöıûŠ                                          ôìÖãõüŠ                                        êÒÄ¿¼Íõû                                       áÍ»ÀÄÃ»ìı                                       áà¼½ÉãÂĞø                                        äÎ¼Ğä¾Ôø            óh]W]û                      ãÀÑå½Õø           UbuDA{Wş                    ãĞÉÉ×æ¾Úú           U‡»@92U]                    éÂ¿ßİ¿çú           ƒ¥(@O2?S                     "¾ÅàŞÀçı          ép\'G²[5S                     ìÅÀæÚÁìş         UvvT0®±;7S                    êëÕËêÖÂòö         Ur^NJ§~2Uf                    áÃÎÍëØÅõó         ƒg/Nk§K8`                     êÄÆÔìÒËöó         …g/Z’9Tf                     Õ"ÁÔíĞÑ÷Š        £vT/e¦I=`Š                     õîËÔíĞÓøŠ       g\‡nZœ‘@Tq                     ëÛãÚâîÍİøê       ¥g.ol›XCbŠ                    ÛÎÈãÜåîÍãù       ŠˆT.PwFV|                     àÏËãßçíÎäû      …|vj.etlEbŠ                     áÉËáâíêÏî¤ûŠ   UM<’ª‚ŒŒNV|               äğøşûíìÍÏİãš…ƒzŒ˜şŠ  Œ44²ªucNuŠ              èŞĞÙİêóøîÒÒ"ãdZY—¢şóUV#K²ªttZcy               ÔËĞÕÌÃÙì"ÔØˆ}JO€Ocvh‹8,–²§izZtŠ              İÊÊÕØÎÇ½»Ã×ØÔzJK[¬€O;Bz>K¡²tinly               áÉÉÕÛÑÊÁ»½ÄË¥kFF—¬€O;#8XFo¡§awox‰               ÛÇÈ"ßÖÍÄ¼»ÁÉ‘FCK³¬€O;#,F[‚¡ua•}v                ÜÆÇÚãÙÏÇ¿»¿‡d@C‚²¬€O;#,@N‚`Œ–w‰                ÒÅÆØãÜÒÍÉÁ¿¶C@C³²¬€F9#,@N‚x`“v                İÒÃÄÚâàÖêê"¥:>Y²²¬€7*#,@N‚¡œª˜ñ               İÎÂÃÛàã"îòò´@9:ª²²¬z`D**@N‚¡²ª¤şñ              "ÉÁÁÙİãİò¯m39[²²²¬ps„{-.Q‚¡²ª•z¢şñ             "ÇÀÆØÜâá!¸:33«²²² ò_pg/†¡²ª–olvh             İ¾¿ÄÖÚßãï£‚,2C²²²²{„U6Lµª–oZ‘„             ç½½ÂÔÙİãŞ¶L1'1®²²²©…_„bH^ª–oZuñ             Û¼¼ÀÍ×Üââg·°(''‡µ²¬€\‰ô˜›§ª–ol¢              Û»»¼¼¾ÇÑİÛ¥µ‡'11^­¬€O<&£t§ª–o‰              æ×Ì¼¼½¾¿ÀÆËº®®010/†€O;-ò‰u±ª–{ñ              æòàÊ¾¿ÀÁÁÂÄr·R00/RP;#òòŒ²ª–„               èöçìäÒÈÂÃÄÅ¹­†+//.4)òò²ª”›ñ               èúé  ×éîäÕÆÇÈ¥­L+++$™¡²ªŸp                äøş      ßğîâÏ¯¸†+%ƒ¡²ª‰                 øşö        äïô£ˆ™‚¡²¨{                  ëõùışûóóóóóúù÷ò&*C¡²§„                   ñòôöööööôò
+™)*#3³¦                     èÉÈñ  ­Zo}Ÿ                        äò" ÉÈ	íòä                                    èèèèèèèèè                           ÿÿÿÿÿÿ  ÿÿàÿÿÿ  ÿÿÀÿÿ  ÿÿ€ÿÿ  ÿÿ ÿÿ  ÿÿ ÿÿ  ÿÿ€ø  ÿÿ€ğ  ÿÿ ğ  ÿÿ ğ  ÿÿ€à  ÿÿ€À  ÿÿ À  ÿÿ À  ÿÿ À  ÿÿ €  ÿÿ  ?  ÿş  ?  ÿü ş   ÿü ü   ÿü 8 ÿ  ş   ÿ  ü   ÿ  ü   ÿ  ø   ÿ  ø   ÿ  ø   ÿ  ø   ÿ  ø   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  ğ0  ÿ  ğ?  ÿ  øğ ÿ  ø   ÿ  ü   ?ÿ  ş  0ÿ  ÿ€ ÿÿÿ  ÿğÿÿÿ  (       @                                 omo LKL ÌËÌ ˆ‚„ ¬—˜ Ò¼¼ †}} ª¤¤ •‘‘ ¿¾¾ ³²² œ›› Ğœ Ò¦¥ Ú¢Ÿ ¾™— £‹Š Íª§ ˜‡„ Ç½º ¾·´ ³«§ ¶°­ œš™ ÑÏÎ ›™ ¡œ }wr Ÿ™” åàÜ áÜØ ØÈ¹ ëÃš ifc ‹ˆ… Û×Ó ñíé •”“ ¯®­ Ü½œ «•~ íÏ° ·£ ¥› —–” oom VVU ççæ œ ›ÿÿ Õÿÿ óÿÿ 122 9:: øùù ñòò £¤¤ •ûÿ ¡ıÿ Ëıÿ ’ùÿ Œíó ÷ş ÑÖ ¼ùÿ ‹¸½ †íÿ —íû záö ¡ïÿ }åÿ gÊå iÁÙ ƒåş pÜÿ pÖõ vİÿ j¼× F§Ê pØÿ tÙÿ xİÿ m¬Á ¶ëş ¶ßí éøı 8–º I¬Õ _Âè jÓı kËñ Ôî 7s fÌù uÓû ~Õû \z Sºï _Éû cÌş W¢É G†¥ I^h j…’ ^Š J¯é L®å V¼õ ]Ãü G“½ !BT R“¸ yº ‚Â c 8›Ø G²õ L¶÷ S½ÿ ZÀÿ aÃÿ Hfx Sp‚ o|„ #‰Î (x­ &o  5Ê C¦ë Iµÿ 'a‡ L±ø N´û P¶ú R¹ÿ U»ÿ W¼ÿ Sªç b´í kÄÿ F§ xÊÿ z³Ø `v… `mv {Ç %‰Ö "u² 3˜å 9 î ,z´ >¥ò B¨ò 1w­ '^ˆ K±ÿ M³ÿ Oµÿ M’Æ )Lg ;a~ aË \‡¨ œÔı 9¤ÿ Dªÿ G­ÿ )c’ @d …Éÿ +?O k•· Yl{ Ääı †ç !ì .“î 0–ğ 6ÿ 5›÷ 9Ÿş :¢ÿ <¢ş :ô ?¥ÿ C¨ÿ [°ÿ x»ù ‰±Ô 29? .—ş 2šş 4šÿ u°è Äë ¤Åä /49 ~ˆ’ °²´ Ÿ ¡ Œ ~€ t¦Û áåê ‘’” İŞà uvz ÅÅÆ ÿÿÿ õõõ ííí êêê ããã ÛÛÛ ÖÖÖ ÔÔÔ ÒÒÒ ÎÎÎ ÈÈÈ ÂÂÂ ÁÁÁ ¼¼¼ »»» ¹¹¹ ¶¶¶ µµµ ¯¯¯ ­­­ ««« ©©© §§§ ¤¤¤ £££ ŸŸŸ ššš ——— ””” “““ „„„ zzz rrr ppp ooo ``` YYY RRR FFF @@@ ??? <<< ::: 888 777 555                 ğò/ıó                          åİÔÔó5                          âÑÎÖ
+û                          èÎÙØ÷        goo5ï             ìĞÜáÚù       nHHaı            ÜÓå
+âú       pVDCOû             È8äİåü      eiUª‡Iø             ïÚÈÛíö      e\_¸MWï            äØØíÛÊõ      e<u˜Ea              åÎÉÜñğ     ¬WT•^O|             îï
+Éİô     eI`u•Lƒ             ĞÜäêï
+/     NF“bX{             á×åí#ö   p—k[“^s          ò/şüÊÙ'Éh¢š«ú >y·“jk­         ê
+æóñà¬vdwt ¾O=¦±rm         Ş×
+ŞÕ8ãÇŠQmœMY”[Qµ’tjz         âÎàäÚÒÑ½cRºœQ2EZx²qv~          âÕÈĞÔÑÌ‹GdÁQ:=Pˆq}™©          Ş0âëáßÃcC§ÁJ2?Q†q¸—É          
+ÓâëçñÏŠCQÁ³–WD;P‡µ´›ş         èÚ8à1Í,ÄZ=¿³‘]@F‰³¹ƒÅ        èÖÓßé&Ê‹=G¿À±­zST»¶xl›        è0Òİè¬4V¼¿ÀŸ|gf¤º‰l¡        è8ÑÓÙÈËªV4¤·‚Hhƒ¯¹x€Æ        éĞÔÑ70$Ä¼®4TŒK>{°º…¨         )).èŞÖÓ%Î¼¤3<D?Àº–­         !(÷õØ9
+ÄªA3B£¥·—          +*"ş÷ìÙ×àæÆŸBŠ¶´©           ê(*6ıùøøú@G¹“Æ            +* 1JJ„Â               -	   ®®                    èèèè                   ÿğÿÿàÿÿàÿÿàƒÿàÿÀÿà~ÿà~ÿÀ~ÿà|ÿÀøÿ€øÿ€pø  ğ  ?à  ?à  à  à  à  À  ?À  ?À  ?À  ?À  À  À  ÿÀ  ÿà  ÿğ ÿü çÿÿ‡ÿÿ(                                    ¼º¾     ²¯° « ¢ ®©© PNN FEE ÆÅÅ ª©© ›…ƒ «‹†  ƒ~ ±¤¢ âÜÚ yv áßŞ ÒĞÏ  ›— ¶«¡ Á»µ °­ª ¦¤¢ ›™— –”’ ÉÇÅ ¼º¸ µ´³ Ê°• ®œˆ ¯ª¤ £©¥ ›áæ Œõÿ ±õÿ i¥° €éÿ ‰âõ ·ñş \¦» wÁÔ rØö wŠ’ pÅé q°Í 4{Ÿ @Š° aÌÿ \®Õ m¬Ì Y[\ ¼ÀÂ @¢Ö SÂÿ U§Ó 1\s f³Ş ~Äë ;HO Æëÿ L²î <‡· 9x ]Âı rÊÿ sÊı ŸÍè ›ÂÙ I·ÿ F¨é Qµù Tºÿ 1l” “Ñü \– §Öõ Zmz ¨ÂÔ qˆ *‘Û 3šã +€¾ G±ÿ g±æ v ¿ -:D ‰• 2‹Õ 1…Ç C¬ÿ 6€¿ I¯ÿ Fbx ¨Éä r„’ 7ŒÛ ;‡Ì M«ÿ K“Ô Wˆ¶ ¼ËÙ ‰– ºÚû T[b 014 ééê ààà ßßß ÚÚÚ ØØØ ÖÖÖ ÔÔÔ ÒÒÒ ÌÌÌ ËËË ÇÇÇ ÁÁÁ ¿¿¿ »»» ··· ´´´ ±±± ¦¦¦ ¢¢¢  ‰‰‰ sss bbb ]]] YYY TTT SSS PPP OOO NNN MMM >>> === 111                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         {{{‚‰nksˆ9pqw+&ƒrrz…B8/}ut{~0@,}y€L*;6†UIgK5D3Mvu74<->N=jpxA.X #OPfmld(C^"$ZWT|ohS!`_	)RFG|ice:?'YQ[12\%
+aV|„‡]Eb JHüÿ  øÿ  ğóäØğãÛÊğÃ  ğÃ eğ‡˜EÀ  €       å Üñ    ¬W ^O€?  (   0   `                                                                                                               +   :   .      	                                                                                                                                                                    )`444¡   Œ   f   .   	                                                                                                                                                              ALLL¯óµµµÿ˜˜˜ûUUUå¯   f                                                                                                                                                         mmmT‰‰‰í¼¼¼ÿãããÿñññÿúúúÿÌÌÌÿRRRå      3                                                                                                                                                       áÌÌÌÿÿÿÿÿìììÿãããÿåååÿÿÿÿÿû©   Q                                                             	                                                                                   ŠŠŠbŸŸŸÿúúúÿöööÿÖÖÖÿ™™™ÿæææÿÁÁÁÿ===Ï   ]                                               )   4   E   N   8                                                                                    „„„æÊÊÊÿûûûÿÃÃÃÿ–––ÿóóóÿ¸¸¸ÿCCCÓ   V                                            _ ” %8³ 8UÊ )´   ‹   R                                                                                0aaaÄ˜˜˜ÿíííÿ¾¾¾ÿ”””ÿöööÿ···ÿ<<<Ê   I                                      gÇx­ÿ †·ÿA§ÎÿM³Ôÿ$…¬û /FÒ      ?                                                                       ƒƒƒD‰‰‰åÀÀÀÿÖÖÖÿ×××ÿ³³³ÿ‘‘‘ÿóóóÿªªªÿ&&&¶   B   
+                                   hÆ™Íèÿşÿÿÿ€æÿÿˆîÿÿ’øÿÿ0–¹ÿ "4¾   Z                                                                      ………!‹‹‹ÿæææÿïïïÿÕÕÕÿ   ÿ¥¥¥ÿïïïÿÿ&&&³   7                                     d™¾‚¿İÿùÿÿÿ€æÿÿmÓÿÿ’øÿÿM³Íÿ =\Õ   `                                                                         €€€¥¬¬¬ÿòòòÿàààÿÿ£££ÿìììÿÿ£   -                                    OJr¾\¬Óÿòÿÿÿ“ãşÿ2˜şÿiÏÿÿsÙæÿ>^Ô   [                                                                         AAABÿáááÿíííÿ’’’ÿªªªÿêêêÿÿ   ‘   (                              	f`”İj õDŸÏÿßûÿÿa·ùÿ0–úÿ†ìÿÿjĞáÿAbÎ   G                                                                      EEEddd¦‚‚‚ÿ···ÿĞĞĞÿ†††ÿ´´´ÿæææÿhhhÿ   „   #                              o«ÕªÛëÿÂòÿÿkÑÿÿpÖşÿ-“òÿL²øÿ’øÿÿ3™¾ÿ2L©   (                                                                       “œœœÿåååÿÊÊÊÿËËËÿ„„„ÿ±±±ÿáááÿXXXñ   |                                 l©Éx½İÿÔüÿÿkÑÿÿM³õÿ*îÿq×üÿåôÿb–ó   T                                                                           yyy"†††ÿãããÿßßßÿ¹¹¹ÿÿ¼¼¼ÿĞĞĞÿRRRì   t                                3	S€²p¹ÙÿÖÿÿÿfÌıÿ+‘èÿ?¥ğÿˆîÿÿ: Èÿ:Y±   +                                                                             mmm¤­­­ÿèèèÿ¹¹¹ÿÿÀÀÀÿ½½½ÿRRRê   f                         ^”PV‡®j¦óB›ËÿÑÿÿÿ`¸ïÿ%‹ãÿkÑùÿwİôÿešô   V                                                                                 =LLL¶xxxÿĞĞĞÿ¹¹¹ÿ|||ÿÁÁÁÿºººÿ<<<Ô   ^                         q²§SªÓÿ×íÿX¾úÿfÌÿÿ%‹İÿ9Ÿçÿ€æÿÿ?¥Ğÿ:Z·   1                                                                          dddS~~~ì¨¨¨ÿ™™™ÿ«««ÿšššÿzzzÿÌÌÌÿ¤¤¤ÿ;;;Ó   V                        i¦‘g»İÿ¿ÿÿÿ\ÂÿÿK±ïÿ…×ÿ\ÂóÿxŞúÿs«új                                                                           zzz¹ÈÈÈÿØØØÿ™™™ÿ¦¦¦ÿ”””ÿxxxÿÌÌÌÿ˜˜˜ÿ555Ë   K                     %   Q6U<šÎÿºÿÿÿuÒÿÿ%‹Õÿ(ØÿuÛÿÿDªØÿJsÆ   4                                                                        zzzÈÆÆÆÿĞĞĞÿ™™™ÿ¡¡¡ÿÿ~~~ÿÊÊÊÿ–––ÿ   ½   \             
+7W$\‘­MzÍj¦ï0’Ëÿ´ÿÿÿ]»ëÿËÿOµíÿnÔúÿu°úl                                                           @   f   g   K   ,   tttÌ×××ÿÑÑÑÿÿ›››ÿÿ†††ÿÄÄÄÿ{{{ÿ*7Î   ‘   R         lª–Tµßÿ‚ŞğÿA¥ğÿ=£ÿÿY¼ÿÿ"ˆÏÿ!‡ÏÿkÑÿÿF¬ßÿ	JtÊ   :                                                     $:::|tttİfffà888Æ       ‹   myyyöÌÌÌÿÇÇÇÿ¤¤¤ÿ™™™ÿr‰ÿVƒ§ÿH•Óÿ0–àÿ!ƒÎû3RÎ   š   d   )   }Æô•÷üÿ•õÿÿ3™ÿÿ=£ÿÿ>¤ïÿyÀÿH®éÿkÑÿÿ‚Áÿ/~                                                    ppp¯£££ÿÂÂÂÿ¯¯¯ÿ¤¤¤ÿ†††û[[[å222È{{{ÿ¼¼¼ÿ¼¼¼ÿ¬¬¬ÿ™™™ÿ.ÛÿU»ôÿeËıÿdÊÿÿN´üÿ+‘İÿS†á   ¥   vQ‚—I¯ßÿ™ÿÿÿqÖÿÿ3™ÿÿ=£ÿÿ…Êÿ‚ÅÿfÌÿÿH®æÿX‹×   =   
+                                               ¬¸¸¸ÿĞĞĞÿÀÀÀÿ···ÿÎÎÎÿåååÿÕÕÕÿ®®®ÿ€€€ÿ¬¬¬ÿ¸¸¸ÿ±±±ÿtšºÿJ°ğÿnÔÿÿlÒÿÿTºÿÿS¹ÿÿmÒÿÿJ°çÿiªîµv½ôåùÿ“ùÿÿL²ÿÿ3™ÿÿ0–ìÿs´ÿ7ÛÿfÌÿÿƒÇÿ0                                                     ”””×ÔÔÔÿÓÓÓÿ···ÿ°°°ÿÉÉÉÿİİİÿôôôÿÿÿÿÿåååÿ²²²ÿ°°°ÿ¹¹¹ÿ;•ŞÿoÕıÿq×ÿÿgÍÿÿ@¦ÿÿS¹ÿÿmÒÿÿ†ìÿÿkÑïÿ%‹Öÿ4šİÿ‚çÿÿrØÿÿG­ÿÿ3™ÿÿ~ÇÿvµÿX¾úÿM³ìÿYÙ   B   
+                                                   œœœÿ×××ÿÖÖÖÿ···ÿ©©©ÿ½½½ÿÔÔÔÿèèèÿÿÿÿÿöööÿãããÿÒÒÒÿˆ®ĞÿOµòÿvÜÿÿtÚÿÿN´ÿÿ@¦ÿÿS¹ÿÿmÒÿÿ†ìÿÿ™ÿÿÿå÷ÿ\ÂôÿvÜÿÿ_ÅÿÿG­ÿÿ-“ôÿn©ÿ+‘Öÿ\Âÿÿ*Óÿ)A   "                                                      	¨¨¨ÿÛÛÛÿÙÙÙÿ­­­ÿ¡¡¡ÿµµµÿÌÌÌÿãããÿúúúÿıııÿëëëÿ×××ÿAšåÿvÜşÿxŞÿÿrØÿÿ7ÿÿ@¦ÿÿS¹ÿÿmÒÿÿ†ìÿÿ™ÿÿÿ”úÿÿtÚÿÿhÎÿÿW½ÿÿG­ÿÿ|Åÿ	o«ÿH®úÿI¯ñÿg¤æ   I                                                       „„„J§§§ÿŞŞŞÿÜÜÜÿ«««ÿ™™™ÿ¯¯¯ÿÆÆÆÿÜÜÜÿğğğÿÿÿÿÿñññÿÄæÿUºõÿ~ãÿÿ{áÿÿV¼ÿÿ3™ÿÿ@¦ÿÿS¹ÿÿmÒÿÿ†ìÿÿ™ÿÿÿ”úÿÿ€æÿÿkÑÿÿW½ÿÿ>¤òÿhÿ"ˆĞÿL²ÿÿ)×ÿ
+4Sš   $                                                       |||M¼¼¼ÿáááÿßßßÿ°°°ÿ™™™ÿ§§§ÿ¼¼¼ÿÌÌÌÿ×××ÿéééÿğğğÿCœîÿwİıÿ€åÿÿyßÿÿ8ÿÿ3™ÿÿ@¦ÿÿS¹ÿÿvÜÿÿ‰íÿÿ™ÿÿÿ”úÿÿ€æÿÿkÑÿÿW½ÿÿ(Òÿ f™ÿ7óÿC©öÿh§é   U                                                          †††|¼¼¼ÿäääÿâââÿªªªÿšššÿÿ´´´ÿ†††ÿ‡‡‡ÿ­­­ÿ‹±ÕÿN´öÿ…ëÿÿ‚èÿÿcÉÿÿ3™ÿÿ3™ÿÿ@¦ÿÿS¹ÿÿfÌßÿ£ıÿÿŸÿÿÿ”úÿÿ€æÿÿkÑÿÿW½ÿÿG­ÿÿ#‰ßÿ=£ÿÿ-“áÿ5TÃ   ]                                                         †††ÈÈÈÿçççÿåååÿ©©©ÿÿ™™™ÿ­­­ÿyyyÿfffÿfffÿ5ãÿ~äıÿˆîÿÿ…ëÿÿ=£ÿÿ3™ÿÿ3™ÿÿ@¦ÿÿ0–Ùÿ f™ÿI©Æÿ§õùÿ¨ûÿÿ€æÿÿkÑÿÿW½ÿÿG­ÿÿ3™ÿÿ=£ÿÿ%‹Ùÿ	)BÊ   ™   _   &                                                 ‡‡‡«ÖÖÖÿëëëÿéééÿ®®®ÿ¤¤¤ÿ™™™ÿ¤¤¤ÿfffÿôêØÿ«ËæÿR¸ùÿóÿÿŠğÿÿhÎÿÿ3™ÿÿ3™ÿÿ3™ÿÿ@¦ÿÿ=pŒÿdpwÿ3f€ÿ(ƒ©ÿ›âìÿ¸÷ÿÿxÖÿÿW½ÿÿG­ÿÿ3™ÿÿ=£ÿÿI¯üÿ2˜âÿKyİ   ¢   j   %                                              ‹‹‹Èİİİÿîîîÿßßßÿ±±±ÿ¦¦¦ÿ›››ÿœœœÿonmÿÙĞ¿ÿH õÿ…ëşÿõÿÿóÿÿ>¤ÿÿ3™ÿÿ3™ÿÿ3™ÿÿ5Ùÿfffÿ³  ÿ“††ÿ`fiÿ9p‰ÿs¼ÒÿÑûÿÿ‚ĞÿÿG­ÿÿ3™ÿÿ=£ÿÿL²ÿÿ\ÂÿÿJ°íÿaé™   :                                              ŠŠŠ×óóóÿñññÿãããÿ´´´ÿ«««ÿ   ÿ™™™ÿvvvÿSyÿW½ıÿ”úÿÿ’øÿÿxŞÿÿ3™ÿÿ3™ÿÿ3™ÿÿ3™ÿÿ3y¯ÿnllÿÂ««ÿİ»»ÿ½¡¡ÿmkkÿ@fyÿD–¹ÿ×õùÿ²àÿÿ@Ÿÿÿ=£ÿÿL²ÿÿ\ÂÿÿfÌÿÿ<¢åÿ<a«   )                                              ÿöööÿôôôÿæææÿ¹¹¹ÿ®®®ÿ¤¤¤ÿ™™™ÿ¢¢¢ÿCœõÿ²ìÿÿäşÿÿôÿÿÿëùÿÿo¹ÿÿ3™ÿÿ3™ÿÿ3™ÿÿ;¡ùÿIƒ©ÿ`fiÿš‹‹ÿÚ´´ÿÏ©©ÿmjjÿ.\s÷y¦ÿÅâìÿ¿ßÿÿ=£ÿÿL²ÿÿ\ÂÿÿfÌÿÿ|Äô   `                                              ZZZ¨¨¨ÿùùùÿøøøÿìììÿÌÌÌÿ²²²ÿ§§§ÿ›››ÿ›››ÿi¢ÜÿM¦ÿÿÖìÿÿøÿÿÿóÿÿÿïÿÿÿ›Òÿÿ>Ÿÿÿ3™ÿÿ@¦ÿÿS¹ÿÿV¯Ùÿ[nvÿ{ttÿÏ©©ÿ¾››ÿaaaû9P×ƒÒÿ,’ğÿ=£ÿÿL²ÿÿ\ÂÿÿK±ïÿS†Ë   ;                                               G©©©ÿıııÿıııÿûûûÿùùùÿòòòÿÜÜÜÿ¾¾¾ÿ¤¤¤ÿ©©©ÿ™²Ìÿ=œüÿ“ÌşÿïÿÿÿìÿÿÿéÿÿÿÃìÿÿS¬ÿÿ@¦ÿÿS¹ÿÿmÒÿÿƒâõÿpƒƒÿ–„„ÿÒ¦¦ÿ||ÿCpÿÎÿ-“òÿ=£ÿÿL²ÿÿ\Âÿÿ-“àÿ2Š   "                                               ‡‡‡C’’’ÿ³³³ÿÎÎÎÿúúúÿøøøÿõõõÿóóóÿñññÿîîîÿßßßÿÑÑÑÿÈÎÔÿi¯õÿa²ıÿİùÿÿäÿÿÿàÿÿÿÒùÿÿ|ÊÿÿS¹ÿÿmÒÿÿ†ìÿÿ“ììÿfffÿÒ¦¦ÿ¼••ÿ[hpÿ|Áÿ1—üÿ=£ÿÿL²ÿÿOµøÿo´è   R                                                   ………hhhÇŒuÿƒ{sÿfffÿŸŸŸÿÔÔÔÿòòòÿğğğÿíííÿëëëÿéééÿæææÿãããÿ«ÊêÿH£ûÿªßşÿİÿÿÿÙÿÿÿÕÿÿÿ«êÿÿsÕÿÿ†ìÿÿ™ÿÿÿfffÿÅÿÏÿfffÿ$ŠÏÿ3™ÿÿ=£ÿÿL²ÿÿ7êÿGt·   -                                                      bbbÇâ½–ÿÿÔªÿ©˜†ÿSSSãdddÌwwwò•••ÿ»»»ÿÙÙÙÿçççÿåååÿâââÿàààÿÈÕâÿ\©ôÿ{ÅıÿËøÿÿÒÿÿÿÎÿÿÿ¿úÿÿ“ğÿÿ–õõÿfffÿÒ¦¦ÿÏÿfffÿ>¤òÿ3™ÿÿ=£ÿÿJ°ıÿ!ƒÖú   d                                                         bbbÆÿĞ ÿÿÔªÿŒ‚xÿ"""Â   m   $___6ddd…aaaÄyyyÿ———ÿ¶¶¶ÿßßßÿÜÜÜÿÚÚÚÿ¼èÿZ¯úÿ°ëşÿÉÿÿÿÆÿÿÿÃÿÿÿ‰³³ÿˆ{{ÿÒ¦¦ÿ¯ÿ`sƒÿG­ÿÿ3™ÿÿ=£ÿÿ;¡óÿ_šÑ   =   	                                                        ccc´Ù¶“ÿÿÔªÿ©˜†ÿAAAá      _   +         WWWCTTT”QQQÔ{{{ÿ›››ÿÅÅÅÿ¶ÉÜÿO¢óÿ…ÑıÿÃÿÿÿÆÆÿmkkÿÁ  ÿÒ¦¦ÿuuÿ[šÆÿG­ÿÿ3™ÿÿ=£ÿÿ+‘èÿ	 5Š   "                                                           dddbŸ}ÿÿÔªÿìÊ©ÿpmkÿ555Ø   ¤      V   :   )   !       /777j<<<¦RRRŞcccÿ;n ÿmŒÿmkkÿÄ¥¥ÿÖ­­ÿ£‹‹ÿi{ƒÿW½ÿÿG­ÿÿ3™ÿÿ5›øÿ t¾è   R                                                                   eeeÑÆ«‘ÿÿÙ³ÿâÇ«ÿyurÿWWWó///Ñ±   š         z   z   z   “333¿PPPéfffÿ”‰‰ÿÎ°°ÿÚ´´ÿŠŠÿsƒƒÿ¤õõÿ|İÿÿG­ÿÿ3™ÿÿ,’ğÿL|¶   -                                                                   bbb2fffğ³ ÿõ×·ÿÿâÅÿÆµ¥ÿ–‰ÿfffÿaaaûRRRîRRRìRRRìRRRìRRRìbbbúfffÿˆƒƒÿ¯¢¢ÿÔ¾¾ÿáÃÃÿÀ¦¦ÿƒzzÿ`x‹ÿœïõÿ¤ÿÿÿ ÿÿÿğÿÿ8ıÿ)‹åø   X                                                                          ```eeeÁyuqÿ³¤–ÿìÖÀÿÿêÖÿÿïßÿâÙÏÿÙÔÎÿÙ×ÕÿÙÙÙÿÖÔÔÿÓÌÌÿá××ÿïààÿìÙÙÿàËËÿµ¥¥ÿ…~~ÿbbbéPPPz'{ÌNG©øğhÊûÿ_ÃùÿH­õÿ9Ÿòÿ&Ô¡                                                                                      cccBddd³fffÿƒ{ÿŸš”ÿ³­§ÿÏËÆÿÙ×ÕÿÙÙÙÿÖÔÔÿÊÄÄÿ­§§ÿš””ÿ||ÿfffÿ^^^½VVVr          ,Œè-ìC)…İG$s¿)                                                                                                     ```bbbCbbb†aaa§bbbÆbbbÇbbbÇbbbÇbbbÇ___«\\\SSSO                                                                                                     ÿÿÀ?ÿÿ  ÿÿ ?ÿÿ  ÿÿ ÿÿ  ÿş ÿÿ  ÿÿ ø  ÿÿ ğ  ÿş à  ÿş à  ÿş à  ÿş À  ÿş €  ÿş €  ÿü €  ÿş    ÿş    ÿü    ÿü    ÿø 8   ÿ˜ 8   ş     ü    ?  ø    ?  ğ      ğ      ğ    ÿ  ğ    ÿ  ğ   ÿ  ğ   ÿ  ğ   ÿ  à   ÿ  à      à      à      à      à      à    ÿ  à    ÿ  à   ÿ  à   ÿ  à   ÿ  à   ÿ  ğ   ÿ  ğ   ÿ  ø   ÿ  ø   ÿ  ü   ÿ  ÿ  ÿ  ÿÀ ÿÿ  (       @                                                                            #>>>kkkÖKKKĞ¨   j                                                                                                  rrrŠŠŠ¹ÁÁÁûéééÿéééÿiiiê   ”   :                                                                                         „„„@²²²ûÿÿÿÿàààÿÙÙÙÿÀÀÀş²   J                          	   #   9   H   B                                                      
+vvv±ßßßÿÒÒÒÿ³³³ÿÔÔÔÿ555Ã   F                      5O, -w/F¶ .EÀ ˜   _                                              rrrE………ÄÆÆÆÿÂÂÂÿ¶¶¶ÿÎÎÎÿ&&&¶   <                     p£Ïu³ÓÿkÌçÿeÌàÿTrä   ˆ   %                                           „ËËËÿíííÿ«««ÿ¿¿¿ÿ´´´ÿ©   1                     m›Åäôúÿ—îÿÿ†îÿÿJ®Çı      (                                           [[[#‘‘‘äòòòÿ¬¬¬ÿÁÁÁÿªªªş˜   *               LwGrl[Û¶ßíÿ€ÊÿÿP¸ÿÿ`ÃÕü   …   $                                          fffAèÎÎÎÿ   ÿÈÈÈÿ”””ıˆ   %              Y:R ÈúÔîÿuÓûÿ<öÿvİÿÿ<¹ø   f                                          BBB€€€®ÔÔÔÿÔÔÔÿ”””ÿÇÇÇÿ|||ó~   !              /L:MšÂğÇûÿÿG³÷ÿ>¥òÿyßôÿ	RyÓ   ;   	                                           IIIK¥¥¥õŞŞŞÿÿÃÃÃÿoooïs              Wˆ*Z5¾ø²îüÿ3˜èÿgÍúÿB¦Ëü *                                              @@@ ]]]šƒƒƒ÷¾¾¾ÿŒŒŒÿÁÁÁÿYYYâ   i            	`™qqÀİÿ~ÕûÿG°óÿ2˜âÿpÖõÿYÖ   C                                          vvv„ÂÂÂÿ­­­ÿÿ………ÿ¾¾¾ÿNLLß   j            -*F‚i»×ıïÿÿ$ŒÚÿSºïÿH¬Öü-H“   !                                ,   M   L   3rrr«ÖÖÖÿ«««ÿ”””ÿ‹ˆ…ÿ¾·±ÿ7:<Ø   ‹   E   Em8&z«È&|³ìO®æÿnÈğÿ%‹ÓÿeË÷ÿ`Ş   F                              A]]]µGGGÅ¨   fffÔÒÒÒÿ¯®­ÿ‹ÿf‚šÿaËÿ+t«õ4À      VdŸ¬îõÿaÃÿÿ<£ÿÿ"ˆÓÿH®èÿH®ãÿ-H–   #                          lllD›››å¾¾¾ÿ³³³ÿ¨¨¨ügggæpppö¹¹¹ÿ¶°­ÿl•¶ÿI¶÷ÿcÍÿÿS½ÿÿ7™Úû7YĞ§@Íò“øÿÿDªÿÿ-“íÿ‚Âÿ]Ãøÿm¢äM                              •••¹ÕÕÕÿ¾¾¾ÿ¼¼¼ÿäääÿñññÿÌÌÌÿ¯¯¯ÿ°²´ÿR¨ãÿrÚÿÿ]ÃÿÿL²ÿÿvÜÿÿ^Âèşp²òhÎñÿtÚÿÿ8ÿÿ{Çÿ6œ×ÿJ¯éş7X¤   &                                 ×İİİÿ¸¸¸ÿ¬¬¬ÿÎÎÎÿõõõÿÿÿÿÿåàÜÿ‰±Ôÿ_ÉûÿxİÿÿC©ÿÿK±ÿÿuÚÿÿ™ÿÿÿ{âøÿkÑıÿZÀÿÿ0–ğÿt´ÿOµ÷ÿ w²ë Q                               jjj§§§áâââÿ²²²ÿ¡¡¡ÿÅÅÅÿëëëÿÿÿÿÿáåêÿb´íÿ{äÿÿeËÿÿ4šÿÿM³ÿÿtÙÿÿ•ûÿÿ’øÿÿpÖÿÿU»ÿÿ}¿ÿ#‰ÎÿB¨òÿ?e®   +                               qqq$³³³êçççÿµµµÿšššÿ¶¶¶ÿ»»»ÿáÜØÿÄëÿaÌûÿ„êÿÿG­ÿÿ3™ÿÿOµÿÿ‚æşÿœşÿÿ÷ÿÿsÙÿÿP¶úÿ{¼ÿ8ñÿ"yºï}   +                              zzz>¼¼¼ôìììÿµµµÿ™™™ÿ§§§ÿrrrÿuvzÿV¬éÿ‡ïÿÿsÙÿÿ4šÿÿ7ÿÿ9¡íÿ2™ºÿ•íôÿ¡ıÿÿoØÿÿSºÿÿ9Ÿıÿ7öÿSƒà       d   '                           {{{UËËËüğğğÿ¹¹¹ÿÿ‘’”ÿ¥›ÿ¥ÆãÿiÔıÿ’øÿÿN´ÿÿ.”ÿÿ6ŸÿÿF§ÿ`mvÿ7sÿˆÏŞÿ¤îÿÿW¼ÿÿ4ÿÿ?¥ÿÿB¦ìıV†à    O                          yyyjÛÛÛÿîîîÿ»»»ÿ£££ÿ•”“ÿ|ƒÿa³ìÿ‘ûÿÿçÿÿ-–ÿÿ1šÿÿ.’ïÿ]m{ÿË¨£ÿ®”’ÿKguÿm¬Áÿ¶èşÿ[°ÿÿ;¢ÿÿ[ÁÿÿW½öÿWˆÓ   L                          }}}†æææÿôôôÿÁÁÁÿ¤¤¤ÿŸ™”ÿq•»ÿxÊÿÿôÿÿÿêùÿÿs»ÿÿ.–ÿÿ2šıÿH”Êÿnz‚ÿ¼œ›ÿ¿š˜ÿ>ZhúC…¤õ¡ĞøÿD§ÿÿX¾ÿÿV»ôşEo´   /                          ŸòóóÿÿÿÿÿîîîÿÑÑÑÿ²±°ÿ™ §ÿt¦ÛÿŒÆÿÿìúÿÿõÿÿÿœÕÿÿ< ÿÿIµÿÿfÆèÿn‡Šÿ½™˜ÿƒ€ı"\…ó†çÿ?¥ÿÿY¿ÿÿ1Îôn                              „„„š££¢ÿÄÅÇÿêêêÿıııÿøùùÿéèæÿÛ×Óÿ£Ããÿw»ùÿÃëÿÿğÿÿÿºëÿÿkÄÿÿpÜÿÿ‹ëğÿˆ~}ÿĞœÿLnƒÿ!ìÿB¨ÿÿN´ûÿ_—Ò   ?   
+                            klna­–}ÿ©”~ÿmmkó›››ñ¼¼¼ÿÜÜÜÿííìÿñíéÿ×Şçÿ~»ôÿ–ÖÿÿÚÿÿÿÏşÿÿ˜ëÿÿöüÿƒ}|ÿÚ¢Ÿÿ_u†ÿ.œúÿC©ÿÿ9Ÿïÿ
+(B   "                               Y\^^ëÃšÿÛ»šÿ222Ñ		Œ444i___”yyyË–——èÀ¾»ÿÑÏÎÿ£Åçÿ„Ìÿÿ¼ùÿÿĞÿÿÿ¾¿ÿ£‹ŠÿÁ•’ÿ\‡¨ÿ9¤ÿÿ<¢ıÿ$w¼æ   R                                   ]^`;µ†ùöÑªÿhc`î³   Œ   d   FL333wMLLŸsnlÍq€‘õRÂÿ‡±ºÿ“ˆ†ÿÒ¦¥ÿˆ}ÿP©èÿ9¡ÿÿ3™÷ÿHv´   1                                   deekhf¥Ü¾ÿèË­ÿ|wrô>>=Ô¹ª 
+
+
+˜
+
+
+›®HEBÚnlnü©—šÿÏ««ÿ–Š‡ÿ•ÒÍÿ~ãÿÿ@¥ÿÿ&„İñ	 5j                                          ]^_lih±µ¤’ÿèĞ¹ÿØÈ¹ÿ´­¥ÿ ›úœøœ››ø¢û²ªªÿÉººÿÒ¼¼ÿ®››ÿlegÔIÃÃ„åÿÿƒãüÿL±øÿ#{Î«                                                      \^_Jnlj½Š„å°©¢øÄÀºÿĞÏÍÿÍËÌÿ½··ÿ§  ù…€€åigg½NPP`!!"K}.íG*‡àS*~Å1V                                                              †††………;ƒƒƒa‚‚‚r€€€s{{{[hhh+                                                                     ÿÀÿÿÀÿÀÿÀ ÿÀ ÿÀ ÿÀ ÿ€ ÿ€ÿ€ÿ€ ğ  à  à  À  À  À  À  À  À  À  À  €  €  À  À  À  ?À  ?À  ?à  ø  ş ÿ(                                                               #   D   =                                          ggg.{{{FFF°‚   0            (   %   
+                   „„„tÚÚÚÿÁÁÁÿ§   7   2KH &‚   e                      ŒËËËÿµµµı    .    +Eh«ÊïYªÀé   }   !                   ‰‰‰”ÇÇÇÿ£££ù
+
+   '   g”‚}ÄëıZ±Ûñ   p                    ŠŠŠ«¿¿¿ÿó‚   %+HE‘¹ÑsÊıÿ*z£á   X                +(((N‘‘‘Ü¦¤¢ÿ}wtí   ‹   AGmrpÅéÿL²îÿPnÁ   8          AAAI,,,666³¼º¸ÿ‰•ÿW|”ò®'<I¢ÑíF¨éÿ>¢Øû!4|          ttt,¯¯¯é¼¼¼üª©©õ²¯°ÿf³ŞÿSÂÿÿ2„·í7†°ê]Âıÿ*‘Ûÿ k™Ó   :   	        ‹‹‹bÌÌÌÿ±±±ÿâÜÚÿŸÍèÿaÌÿÿC¬ÿÿŒõÿÿ€éÿÿ3šãÿ$~¿ô—   :   
+        “““ØØØÿ›™—ÿ‰–ÿrØöÿI·ÿÿ7ŒÛÿi¥°ÿ‰âõÿI¯ÿÿ)€Æñ&¬   S          ¢¢¢˜ééêÿ ›—ÿv ¿ÿ±õÿÿM«ÿÿ;‡Ìÿ›…ƒÿwŠ“ıf°æıTºÿÿ"h—Ô   F           ›šš¦àààÿáßŞÿ¼ËÙÿºÚûÿÆëÿÿrÊÿÿwÁÔÿ „~ı5¿üG±ÿÿ;]¤   (           ‰t“ª–óVXZ»š—”Ø³·»ó¨Éäş·ñşÿ›áæÿ«‹†ÿK“Ôÿ-ŒÜî\               smhUÊ°•ÿYVRš##"CA@²r…”ô« ¢ÿ£©¥ÿQµùÿf«¨   )                   ytokª’à«¦ ÷¯®­ñ¡èš‹‰×kgnJ×F§ì¡W.              ø  ø   ğ   ğ   ğ   À   €   €   €  €B€ €®€Ôÿ€Ôÿ€”ÿ€ÇÿÀ|ó         è   00    ¨         ¨       h   00     ¨%          ¨        h    A c t i v a t e   W i n d o w s H P r o m p t s   y o u   t o   a c t i v a t e   t h i s   c o p y   o f   W i n d o w s   f o r   a n t i - p i r a c y   p r o t e c t i o n .                                              W i n d o w s   S e t u p K S e t u p   e n c o u n t e r e d   a n d   u n e x p e c t e d   e r r o r .  
+ P l e a s e   c o n t a c t   t h e   S e t u p H o t   a l i a s .                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             MZ       ÿÿ  ¸       @                                   Ø   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       §Ğeã±|6ã±|6ã±|6’<6à±|69’`6è±|6ã±}6¿±|6’e6è±|6t’96â±|69’a6à±|6’A6â±|6Richã±|6        PE  L ­„};        à   Œ   ^      ƒˆ                                  e]   €                           Ğ“  x      `                                                               H  |      |                          .text   j‹      Œ                    `.data   XT                        @  À.rsrc   `         ’              @  @ş};8   ş};C   ş};P  à};]   ş};g   ˆş};r           msvcrt.dll ADVAPI32.dll KERNEL32.dll NTDLL.DLL USER32.dll ESENT.dll                                                                                                                                                                                                                                                                                                                              ]İwsßw•¥İw    SBxi=9xi$Axi½xsi-gsiri !xiÄ)xisri?<tiDriDri±6xi    ;Jçw‚‹çwïwçw$‘éwc1çw¥Ãçw;çwì˜ëw4çw xçwÁ0çw
+˜çwï“çwVèwL_æwèw7¬çwu;çw±yçwäEæwı¥çw¸èw}õw`jçwuçw“Ÿçw½æwşçw(6çw•òçwªçw]çwcyçwœçwÎ|çwEšçw˜çwØèw    ×­Öw    °>ÃwX¦Äw26ÃwhëÁwJëÁwˆÓÅw`ÄwÛyÃw	éÁwäÉÅw {ÃwiÃwîzÃw{Ãwp%ÄwDãÃw€¬ÅwÎÁw ¾Áwp½ÁwœÈÃw´bÄw,ïÃw¼=Äw²<Äw 5Äw7îÁw¢!Äw£CÃwD@Ãw8ÔÂwÈÃwÜzÃwÙåÃw>Ãw                            ­„};          K  ?  r e c o v e r E n d e d     r e c o v e r S t a r t e d     r e c o v e r N o t S t a r t e d   r e c o v e r I n v a l i d              ô ä Ô À °    ˆ € t h P 8       ô ğ Ì  ô Ä œ p @  Ğ ¤ t T  ä È € h 0  Ğ ˜ ` (   ° ¨     You should only run Repair on damaged or corrupted databases. Repair will not apply information in the transaction log files to the database, and may cause information to be lost. Do you wish to proceed? Warning t 0 ğ ´ ¬   ˆ p d T @ 0 $   JetDBUtilities  JetBackup   JetRestore2 JetEndSession   JetDetachDatabase   JetBeginSession JetCompact  JetGetSystemParameter   JetSetSystemParameter   JetTerm2    JetInit Operation terminated unsuccessfully after %d.%d seconds.    Operation terminated with error %d (%s) after %d.%d seconds.    Operation completed successfully with %d (%s) after %d.%d seconds.  Operation completed successfully in %d.%d seconds.  =>      D=Defragmentation, R=Recovery, G=inteGrity, K=checKsum, P=rePair, M=file duMp   <<<<<  Press a key for more help  >>>>>             File Dump:  %s /m[mode-modifier] <filename>                Repair:  %s /p <database name> [options]              Checksum:  %s /k <database name> [options]             Integrity:  %s /g <database name> [options]              Recovery:  %s /r [options]       Defragmentation:  %s /d <database name> [options] MODES OF OPERATION:     DESCRIPTION:  Maintenance utilities for Microsoft(R) Windows databases. Usage Error: Invalid mode.  Usage Error: Old .DLL required in order to upgrade. Usage Error: Mode selection must be preceded by '-' or '/'. Usage Error: No mode specified. Usage Error: Invalid database extension size.   Usage Error: Invalid batch I/O size.        Usage Error: Invalid argument '%s'. Options must be preceded by '-' or '/'. Usage Error: Invalid option '%s'.   Usage Error: Only one type of recovery allowed. Usage Error: Duplicate %s specification.    Usage Error: Missing %s specification.  Error: Failed to load function %s from DLL.
+   Error: Failed to load DLL %s.
+     Error: Could not re-instate '%s'. It may be manually re-instated by manually copying '%s' to '%s' (this will overwrite the original copy of the file with the defragmented copy).   Error: Could not backup to '%s'.    -/  File Copy    Copying...  FAILED!     DONE!  Moving '%s' to '%s'...   Status (% complete)    Upgrading Record Format Securing    Scanning    Restore Upgrade Defragmentation TEMPSCRUB%d.EDB TEMPINTEG%d.EDB TEMPREPAIR%d.EDB    TEMPUPGD%d.EDB  TEMPDFRG%d.EDB  TEMP%d.EDB  STM .   user    Loading %s...
+ Unexpected Win32 error: %dL
+
+   %d.%d                        contain the defragmented version of the database.%c                             is preserved uncompacted, and the temporary database will%c                  NOTES:  1) If instating is disabled (ie. /p), the original database%c                   /o         - suppress logo%c                    /8         - set 8k database page size (default: auto-detect)%c                         /b<db>     - make backup copy under the specified name%c                        /p         - preserve temporary database (ie. don't instate)%c                          /i         - do not defragment streaming file%c                                  (default: TEMPDFRG*.STM)%c                     /f<file>   - set temp. streaming file name%c                    /t<db>     - set temp. database name (default: TEMPDFRG*.EDB)%c                         /s<file>   - set streaming file name (default: NONE)%c                OPTIONS:  zero or more of the following switches, separated by a space:%c            PARAMETERS:  <database name> - filename of database to compact%c            SYNTAX:  %s /d <database name> [options]%c         DESCRIPTION:  Performs off-line compaction of a database.%c DEFRAGMENTATION/COMPACTION:%c   %c                                     originally logged in log files)%c                                       if [path] not specified (default: directory%c                      /d[path]   - location of database files, or current directory%c                         /i         - ignore mismatched/missing database attachments%c                   /s<path>   - location of system files (eg. checkpoint file)%c                                (default: current directory)%c                     /l<path>   - location of log files%c           SYNTAX:  %s /r <3-character logfile base name> [options]%c                   consistent state.%c           DESCRIPTION:  Performs recovery, bringing all databases to a%c  RECOVERY:%c                      is consistent before proceeding with integrity-check.%c                         recommended that recovery is run to ensure the database%c                       a database is in an inconsistent state it is strongly%c              NOTES:  1) Integrity-check does not run database recovery.  If%c                    /o        - suppress logo%c                         /8        - set 8k database page size (default: auto-detect)%c                                      (default: <database>.integ.raw)%c                   /f<name>  - set prefix to use for name of report files%c                        /t<db>    - set temp. database name (default: TEMPINTEG*.EDB)%c                         /s<file>  - set streaming file name (default: NONE)%c      PARAMETERS:  <database name> - filename of database to verify%c             SYNTAX:  %s /g <database name> [options]%c     DESCRIPTION:  Verifies integrity of a database.%c   INTEGRITY:%c                      /o   - suppress logo%c                      /8   - set 8k database page size (default: auto-detect)%c          SYNTAX:  %s /k <database name> [options]%c     DESCRIPTION:  Verifies the individual checksum of each page of a database.%c    CHECKSUM:%c                      consistent before proceeding with repair.%c                             that recovery is run to ensure the database is%c                        is in an inconsistent state it is strongly recommended%c             NOTES:  1) Repair does not run database recovery.  If a database%c                                   (default: <database>.integ.raw)%c                          /f<name>   - set prefix to use for name of report files%c                                (default: TEMPREPAIR*.EDB)%c                   /t<db>     - set temp. database name%c             PARAMETERS:  <database name> - filename of database to repair%c             SYNTAX:  %s /p <database name> [options]%c     DESCRIPTION:  Repairs a corrupted or damaged database.%c    REPAIR:%c                     /v         - verbose%c                          /t<table>  - perform dump for specified table only%c                                      <filename> must be the name of a database).%c                                           being requested (eg. if using /mh, then%c                                       specified file should match the dump type%c                   <filename>      - name of file to dump. The type of the%c                                     s - dump space usage%c                                      m - dump meta-data%c                                            l - dump log file or set of logs%c                                      k - dump checkpoint file%c                                      h - dump database header (default)%c                                            file dump to perform. Valid values are:%c        PARAMETERS:  [mode-modifier] - an optional letter designating the type of%c             SYNTAX:  %s /m[mode-modifier] <filename> [options]%c           DESCRIPTION:  Generates formatted output of various database file types.%c  FILE DUMP:%c                         contain the upgraded version of the database.%c                         is preserved unchanged, and the temporary database will%c                    3) If instating is disabled (ie. /p), the original database%c                      state. An error will be returned if otherwise.%c                     2) Before upgrading, the database should be in a consistent%c                      Windows NT.%c                           release of a major, new revision of Microsoft(R)%c                      If necessary, this will usually only coincide with the%c                        after an internal database format change has taken place.%c                  NOTES:  1) This utility should only be used to upgrade a database%c                     /o      - suppress logo%c                       /8      - set 8k database page size (default: auto-detect)%c                    /p      - preserve temporary database (ie. don't instate)%c                     /t<db>  - set temporary database name (default: TEMPUPGD.EDB)%c                         /b<db>  - make backup copy under the specified name%c                                       Windows NT from which you are upgrading.%c                                              with the release of Microsoft(R)%c                          /d<previous .DLL> - pathed filename of the .DLL that came%c        PARAMETERS:  <database name>   - filename of the database to upgrade.%c             SYNTAX:  %s /u <database name> /d<previous .DLL> [options]%c                     Microsoft(R) Windows NT) to the current version.%c        DESCRIPTION:  Upgrades a database (created using a previous release of%c    UPGRADE:%c           PARAMETERS:  <database name> - filename of database to secure%c             SYNTAX:  %s /s <database name>%c       DESCRIPTION:  Removes all deleted records from database.%c  SECURE:%c   %s  %s%c    %c%c                          |----|----|----|----|----|----|----|----|----|----|
+            0    10   20   30   40   50   60   70   80   90  100
+           %*s%s%c%c .%c%c   temporary streaming file    temporary database  source streaming file   source database Temporary streaming file    Temporary database  Source streaming file   Source database Error: %s specification '%s' is invalid.    Error: %s '%s' cannot be the same as %s.        Error: Access to source database '%s' failed with Jet error %i. Usage Error: Source database has no streaming file but %s '%s' was specified.    ´8 œ8 ˆ8 l8  \8 D8 08 8 kernel32.dll    CopyFileExA SeBackupPrivilege   SeRestorePrivilege  % * s   % s % s     
+       Callback DLL not found  Unable to find the callback library %s (or one of its dependencies).
+Copy in the file and hit OK to retry, or hit Cancel to abort.
+   R e c o v e r   T i m e :   R e c o v e r   E r r o r :     0 x % 0 8 X     R e c o v e r   S t a t u s :   L a s t   R e s t o r e   T i m e :     L o g   f i l e s   r a n g e :     n o   l o g   f i l e s   r e s t o r e d   % s % 0 5 X . l o g   -   % s % 0 5 X . l o g   D e s t i n a t i o n   F i l e s :     % s     S o u r c e   F i l e s :   G U I D :   % 0 8 X - % 0 4 X - % 0 4 X - % 0 8 X % 0 8 X   D a t a b a s e   N a m e :     D a t a b a s e s :     % d   d a t a b a s e ( s )     R e s t o r e   I n s t a n c e   L o g   P a t h :     R e s t o r e   I n s t a n c e   S y s t e m   P a t h :   T a r g e t   I n s t a n c e :     B a c k u p   I n s t a n c e :     A n n o t a t i o n :   R e s t o r e   P a t h :   R e s t o r e   l o g   f i l e :   ESERestoreFreeEnvironment   HrESERestoreLoadEnvironment ESEBCLI2.DLL        T a r g e t   I n s t a n c e :   % s 
+     Restore log files: %s
+  HrESERestoreGetEnvironment  HrESERestoreComplete    HrESERestoreClose   HrESERestoreReopen  ServerSim   ESEBACK2.DLL    streaming file  temp. streaming file    backup database logfile path    system path database directory  report file name prefix old .DLL      You MUST delete the logfiles for this database%c%c    Warning:%c  scrub_off   Initiating SECURE mode...%c Initiating SLV Move mode...%c   Initiating CHECKSUM mode...%c%c  Streaming File: %s%c             Node: %d:%d%c           Page: %d%c          Database: %s%c          Database %s will be forced to a consistent state.%c         Checkpoint file: %s%c          Lgpos: %06X,%04X,%04X%c              Node: %d:%d:%d%c        Log file: %s%c    Initiating FILE DUMP mode...%c  database/filename     repair, the database will be rolled back to the state%c   Note:%c repair_off  Initiating REPAIR mode...%c            Table: %s%c    Temp. Database: %s%c    Streaming File: %s%c          Database: %s%c  Initiating INTEGRITY mode...%c    it was in at the time of that backup.%c%c       defragmentation, the database will be rolled back to the state%c    of this database. If you restore a backup made before the%c         It is recommended that you immediately perform a full backup%c    %cNote:%c   Temp. Streaming File: %s%c        Temp. Database: %s%c        Streaming File: %s%c              Database: %s%c  Initiating DEFRAGMENTATION mode...%c    Restoring to <current directory> from '%s'...   Restoring to '%s' from '%s'...  Performing soft recovery... on     Database Directory: %s%c          System files: %s%c             Log files: %s%c <current directory>    Temp database size: %d%c     Logfile base name: %s%c Initiating RECOVERY mode...%c   logfile base name   off ESEUTIL ESENT97.DLL     ÿÿÿÿÄ‰ Ø‰  
+         0 x % I 6 4 x   h i g h e s t   d b t i m e   ( p g n o   0 x % x )  
+     % d   w r o n g   p a g e   n u m b e r s  
+   % d   u n i n i t i a l i z e d   p a g e s  
+     % d   b a d   c h e c k s u m s  
+     % d   p a g e s   s e e n  
+    
+  
+     F A I L U R E :   S e t E v e n t :     F A I L U R E :   R e a d F i l e :         E R R O R :   p a g e   % d   c h e c k s u m   f a i l e d   (   0 x % x   /   0 x % x   )  
+         E R R O R :   p a g e   % d   r e t u r n e d   p a g e   % d  
+       F A I L U R E :   G e t Q u e u e d C o m p l e t i o n s S t a t u s   g o t   t h e   w r o n g   n u m b e r   o f   b y t e s :     F A I L U R E :   G e t Q u e u e d C o m p l e t i o n s S t a t u s :         F A I L U R E :   W a i t F o r S i n g l e O b j e c t E x :       F A I L U R E :   C r e a t e E v e n t :       F A I L U R E :   V i r t u a l A l l o c :     C h e c k s u m   S t a t u s   ( %   c o m p l e t e )     F A I L U R E :   C r e a t e T h r e a d :     F A I L U R E :   G e t F i l e S i z e :       F A I L U R E :   C r e a t e I o C o m p l e t i o n P o r t :     F A I L U R E :   C r e a t e F i l e :     F i l e :   % . 6 4 l s     < u n p r i n t a b l e >   % l s % l s                                                 | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - |  
+                       0         1 0       2 0       3 0       4 0       5 0       6 0       7 0       8 0       9 0     1 0 0  
+                         % * l s  
+  
+     .   .  
+   NB10    ­„};   esentutl.pdb    ÿt$ÿt$ÿ˜ …À‹L$‰uÿt$hÄ ÿp YY¸Ê÷ÿÿë3ÀÂ V‹5p W‹|$Wh ÿÖYYj j Wÿœ …À£è£ uWhô ÿÖYY¸Ê÷ÿÿé  h   h¬ Pè}ÿÿÿ…ÀŒ  h  h  ÿ5è£ è`ÿÿÿ…ÀŒé   h  hˆ ÿ5è£ èCÿÿÿ…ÀŒÌ   h  hp ÿ5è£ è&ÿÿÿ…ÀŒ¯   h  hd ÿ5è£ è	ÿÿÿ…ÀŒ’   h  hT ÿ5è£ èìşÿÿ…À|yh  h@ ÿ5è£ èÓşÿÿ…À|`h   h0 ÿ5è£ èºşÿÿ…À|Gh$  h$ ÿ5è£ è¡şÿÿ…À|.h(  h ÿ5è£ èˆşÿÿ…À|h,  h ÿ5è£ èoşÿÿ_^Â U‹ì‹E…À‰EtEPh   ÿuh   ÿuj h (  ëj h   ÿuh   ÿuj h   ÿ¤ …Àuÿ  Ph  ÿp YYjÿl ]Â U‹ìì   ÿu… ÿÿÿPÿuèxÿÿÿ… ÿÿÿPÿp YÉÂ U‹ìQQjjEøh@ Pÿh ƒÄj jè¯ÿÿÿEøPjè¤ÿÿÿj jè›ÿÿÿÉÃV‹5p Wj
+_Wh! ÿÖWhğ  ÿÖWh°  ÿÖWÿt$(hx  ÿÖWh0  ÿÖWhØ ÿÖWhˆ ÿÖWh0 ÿÖƒÄDWhğ ÿÖWh´ ÿÖWhp ÿÖWh ÿÖWhÈ ÿÖWhp ÿÖWh@ ÿÖWhğ ÿÖƒÄ@Wh˜ ÿÖWhH ÿÖƒÄ_^Â SV‹5p Wj
+_Wh! ÿÖWhÔ# ÿÖWh# ÿÖWhd# ÿÖWÿt$4h # ÿÖWhØ ÿÖWhè" ÿÖW»¨" SÿÖƒÄDWhX" ÿÖWSÿÖWh" ÿÖWh°! ÿÖWh`! ÿÖWh! ÿÖWhp ÿÖWh@ ÿÖƒÄ@_^[Â V‹5p Wj
+_Wh! ÿÖWhŒ' ÿÖWhT' ÿÖWÿt$(h ' ÿÖWhØ& ÿÖWhØ ÿÖWh& ÿÖWh8& ÿÖƒÄDWhè% ÿÖWh¨% ÿÖWhP% ÿÖWh% ÿÖWhĞ$ ÿÖWh€$ ÿÖWh0$ ÿÖWhà# ÿÖƒÄ@_^Â V‹5p Wj
+_Wh! ÿÖWhœ( ÿÖWhH( ÿÖWÿt$(h( ÿÖWhØ& ÿÖWhØ ÿÖWhÈ' ÿÖWhœ' ÿÖƒÄD_^Â V‹5p Wj
+_Wh! ÿÖWh¤+ ÿÖWhd+ ÿÖWÿt$(h0+ ÿÖWhè* ÿÖWhØ ÿÖWhˆ ÿÖWh¨* ÿÖƒÄDWhl* ÿÖWh * ÿÖWhØ) ÿÖWhp ÿÖWh@ ÿÖWhˆ) ÿÖWh8) ÿÖWhğ( ÿÖƒÄ@Wh¨( ÿÖYY_^Â V‹5p Wj
+_Wh! ÿÖWhø/ ÿÖWh¨/ ÿÖWÿt$(hd/ ÿÖWh/ ÿÖWhÀ. ÿÖWhp. ÿÖWh0. ÿÖƒÄDWhè- ÿÖWh¨- ÿÖWhl- ÿÖWh - ÿÖWhĞ, ÿÖWh€, ÿÖWh(, ÿÖWhØ ÿÖƒÄ@Whˆ ÿÖWhà+ ÿÖWh°+ ÿÖWhp ÿÖWh@ ÿÖƒÄ(_^Â V‹5p Wj
+_Wh! ÿÖWhˆ6 ÿÖWh86 ÿÖWhğ5 ÿÖWÿt$0h¨5 ÿÖWhX5 ÿÖWh5 ÿÖWh¸4 ÿÖƒÄDWh`4 ÿÖWhØ ÿÖWh4 ÿÖWhÀ3 ÿÖWhp3 ÿÖWh 3 ÿÖWhğ2 ÿÖWh 2 ÿÖƒÄ@WhH2 ÿÖWhø1 ÿÖWh°1 ÿÖWhˆ1 ÿÖWh81 ÿÖWhğ0 ÿÖWh 0 ÿÖWhP0 ÿÖƒÄ@Wh0 ÿÖYY_^Â V‹5p Wj
+_Wh! ÿÖWhL7 ÿÖWh7 ÿÖWÿt$(hà6 ÿÖWh˜6 ÿÖWhÈ' ÿÖWhœ' ÿÖƒÄ<_^Â QUVWèçúÿÿ‹5p h€ ÿÖj
+]UUhd7 ÿÖhh ÿÖU¿! WÿÖSh0 ÿÖUWÿÖSh ÿÖUWÿÖShĞ ÿÖƒÄDUWÿÖSh` ÿÖUWÿÖSh˜ ÿÖUWÿÖSh( ÿÖUWÿÖUWÿÖƒÄ@Uh  ¿\7 WÿÖUh° WÿÖh¨ hX7 ÿÖÿd UUhd7 ˆD$;ÿÖ¾D$;ƒÄ,_ƒød^]=t3ƒøPtmƒèDt'ƒètsƒètfHHupSèıÿÿYÃƒøRtEƒøUt8ƒøZt+YÃSè%úÿÿYÃƒègtDƒèt7HHtÑƒèt&HHtƒètƒèu.SèƒşÿÿYÃSè”ıÿÿYÃSè™úÿÿYÃSèüÿÿYÃSè¼ûÿÿYÃSèûÿÿYÃ‹D$SWj[;Ãt!ƒøtƒøtƒø	†Z  ƒøv	ƒøÿ…L  ‹L$ƒé V„  ƒétBI…1  ‹5p jdX+ô£ ;Ã|Ñè‹øh ÿÖô£ OYuïj
+j
+h8 ÿÖƒÄéö   ;ÃtBƒøt6ƒø
+t*ƒøtƒøtƒøÿt» ë'‹\$ë!»P ë»h ë»ˆ ë»€ ë»t ‹5p j
+h! ÿÖY‹ÃYxŠ@„Éuù+Ç¹8 ‹ø‹ÁUhŠ@„Òuùj
+j
+QSj3Y+Å+È+ÏÑéÏQhø7 ÿÖh¸7 ÿÖhx7 ÿÖhl7 ÿÖƒÄ$ƒ%ô£  ]ë;‹L$‹AjdZ÷âj ÿqRPèb4  +ô£ ;Ã|Ñè‹ğh ÿp ô£ NYuë^_3À[Â U‹ìƒì‹V‹p‰uô‹p‹@‰Eü‹EH‰uøÇEì ‰Uğ^tQHt%HtHuw‹ÁÁàÿtìÿ°Ä9 h`9 ëFQRh 9 ë=‹Á‹Mÿ4Ä9 Áàÿtìÿ°°9 hğ8 ÿp ƒÄë‹ÁÁàÿtìÿ°°9 hÄ8 ÿp ƒÄj
+j
+hd7 ÿp ƒÄÉÂ U‹ìì  j …üşÿÿP…øıÿÿPEPÿuÿ\ h  …üşÿÿP…øıÿÿPEPÿuÿ` ƒÄ(ÉÂ U‹ìì$  Š SVWjA[‹ğ3À‹Ë½åüÿÿˆ•äüÿÿó«‹Ë½İûÿÿˆ•Üûÿÿó«‹Ë½õşÿÿˆ•ôşÿÿó«‹Ë½íıÿÿˆ•ìıÿÿó«3ÿ9~u‹E‰F‹T h  ÿv…ÜûÿÿPÿÓƒÄ…Àu
+Wjjé¹  ‹;Çu%‹5p h\8 hœ ÿÖj
+j
+hd7 ÿÖƒÄé  h  P…äüÿÿPÿÓƒÄ…Àu
+3ÉWAQéo  »   …^0‰}üu4jjEüPÿ6è<  …Àu!¸    9EüuWPj@WWÿ  ;ÇŒÂ  	^09}‰}„   jjEPÿ6èÍ;  ‹Ø;ß}Wj‹Ë‹Æè¼ıÿÿ‹Ãé‹  9}ta9~u‹]Sÿ6èPşÿÿ‰^h  ÿv…ôşÿÿPÿT ƒÄ…Àu
+Wjjé»   ‹X …ôşÿÿP…äüÿÿPÿÓ…ÀYYuj3ÉjAéü   9~…  ‹X …ÜûÿÿP…äüÿÿPÿÓ…ÀYYujëÍ…ÜûÿÿP…ôşÿÿPÿÓ…ÀYYujjjé±   9}„·   9}„®   9~uÿuÿvè“ıÿÿ‹E‰Fh  ÿv…ìıÿÿPÿT ƒÄ…ÀuWjjY‹Æè´üÿÿ¸üÿÿé€   …ìıÿÿP…äüÿÿPÿÓ…ÀYYujé4ÿÿÿ…ìıÿÿP…ôşÿÿPÿÓ…ÀYYujébÿÿÿ…ìıÿÿP…ÜûÿÿPÿÓ…ÀYYu.jjjY‹ÆèLüÿÿ¸üûÿÿë9~tWjjY‹Æè3üÿÿ¸üÿÿë3À_^[ÉÂ ƒùÿ}ƒ0  ÿÃ¡ğ£ ;Á£0  |‰0  Ã¡0  ƒøÿt9ğ£ t
+‹ì£ ‹Ã3ÀÃ‹0  Aè³ÿÿÿéĞÿÿÿ¾ÀƒøS t6ƒè tLƒèHtGƒèt9Ht-HuÇA   ë:ƒèht.ƒèt HtHtçƒèt3ÀÃÇA   ëÇA   ëÇA
+   ëÇA   3À@Ã€ùCt&€ùMt€ùSt€ùct€ùmt€ùst3ÀÃ€H1€ë€H1@3À@ÃQQSU3íWEè.ÿÿÿƒL$ÿ‹ø‹F,ƒøuuŠG„Àt€ u‹N(è:ÿÿÿ‹èGéÎ   ¡0  ‰D$3íèÿÿÿ‹Ø…Ût0¾Phğ ÿP …ÀYYtŠC„Àt€{ u
+‹N(èòşÿÿ‹è…ítÅ…íur‹N(2ÀèŞşÿÿ‹èëdƒø…   ŠO„Ét€ u	‹Æè#ÿÿÿë¡0  ‰D$3íèšşÿÿ‹Ø…Ût/¾Phğ ÿP …ÀYYtŠK„Ét€{ u	‹Æèâşÿÿ‹è…ítÆ¡0  ‹L$‰D$èşÿÿ…í‹p uhÈ ÿÓj
+j
+hd7 ÿÓƒÄë‹p GG€? …É   é½   …ÿ„Ä   ‹D$90  „¥   ¾Phğ ÿP …ÀYYuY‹F,HHt'Ht3À9”À‹è…ít*‰>ëu3À9F”À‹è…ít‰~ëb3À9F ”À‹è…ít‰~ ëOWhĞ ÿÓj
+j
+hd7 ÿÓƒÄë7ŠG<!t0<8t(<Ot<ot3í9l$t
+VWÿT$ ‹èëWh ëÁƒN0ë€N1èZıÿÿ‹ø…í…4ÿÿÿ_‹Å][YYÂ U‹ìƒìT3ÀWjY}¬ó«‹E‰EÈ‹E‰EÌ‹E‰EĞ‹E‰EÔ‹E‰EÜ‹E‰E°‹E$‰EÄ‹E ‰EøE¬PÇE¬T   ÇE¼   ÿ,  _ÉÂ  U‹ìƒìTW3ÀjY}¬ó«‹E‰EÈ‹E‰EÌ‹E‰E°‹E‰EÄ‹E‰EøE¬PÇE¬T   ÇE¼   ÿ,  _ÉÂ U‹ìƒìW3ÿ9}u	9}„   SV‹u8ƒ>ÿu(hô jjÿWèÍöÿÿ9}uÇ   ëƒ}dÀ÷Ø@@‰‹6N‹]‹}ÇEô   t.Nt#Nu1‹E‹U±è÷,  ‰Eü‹Ç‹Ó±èé,  ‰Eøë‹E‰]øë‹E‰}ø‰Eü;}u;]uEôPjëEôPj jÿj èJöÿÿ^[3À_ÉÂ4 U‹ìQQSV‹5p Wÿu‹Øÿuh  ÿÖƒÄSÿuÿuÿ” …À…Ø   ‹=  ÿ×÷ÃşÿÿÿuRƒøxueöÃt	ÿuÿ¸ ÿuÿuÿ´ …À…¡   ÿ×ƒøu h  ÿÖY÷ÓƒãSÿuÿuÿ° …Àu|ÿ×…Àtvj
+h h\7 ÿÖƒÄ¸øûÿÿëqƒøußhè9 hØ9 ÿ¬ Pÿ˜ ƒeü ƒMøÿ…Àt$÷ÓƒãSMüQMøQhK] ÿuÿuÿĞ…Àt3À@ë3À÷ØÀ%  øûÿÿëj
+h h\7 ÿÖƒÄ3À_^[ÉÂ VW‹=¸ ‹ğÿvÿ×‹v…ötVÿ×_^ÃU‹ììh  V3ööC0 ‰uüt3ÀéK  W…˜úÿÿPÿ3ÿÄ ƒøÿ‰EøtsVV…ØûÿÿP…àüÿÿPÿ3ÿ\ VV…ØûÿÿP…àüÿÿP…èıÿÿPÿ` …ÄúÿÿƒÄ(‹ğŠ@„Éuù½èıÿÿ+ÆOŠOG„Éuøÿuø‹ÈÁéó¥‹Èƒáó¤ÿÀ 3öë‹•èıÿÿ+ĞŠˆ@„Éuö¿    …{0…¦   …˜úÿÿPÿsÿÄ ƒøÿ‰EøtyVV…àüÿÿP…ØûÿÿPÿsÿ\ VV…àüÿÿP…ØûÿÿP…ğşÿÿPÿ` …ÄúÿÿƒÄ(‹ğŠ@„Éuù½ğşÿÿ+ÆOŠOG„Éuøÿuø‹ÈÁéó¥‹Èƒáó¤ÿÀ ¿    3öë‹C•ğşÿÿ+ĞŠˆ@„Éuö‹C;ÆtiP…èıÿÿP3Àè8ıÿÿ;Æ‰Eü|0…{0uN…àüÿÿPÿsèõÿÿ…àüÿÿP…ğşÿÿP3Àèıÿÿ;Æ‰Eü}#ÿs‹5p hÌ ÿÖj
+j
+hd7 ÿÖƒÄé„   öC0u~…èıÿÿPÿs3À@èÆüÿÿ;Æ‰Eü}…èıÿÿPÿs…èıÿÿë.…{0uG…ğşÿÿPÿs3À@è–üÿÿ;Æ‰Eü}.…ğşÿÿPÿs…ğşÿÿ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄë‹Ãèıÿÿ‹Eü_^ÉÂ VW3öVjj$VS‹øÿ  ;Æ|s‹O;ÎtQVjVSÿ  ;Æ|\‹O;ÎtQVVVSÿ  ;Æ|F‹O@;ÎtV‹ÁÁàPjVSÿ  ;Æ|*‹OD;ÎtVQjVSÿ  ;Æ|‹ ;ştWVjVSÿ  _^ÃU‹ìƒ} V‹ğtƒ}ÿtj ÿuÿ   …ö|‹ğ…ö}jÿuÿ  ëjÿuÿ  ‹ğ‹Æ^]Â U‹ìƒì(S3ÛC‰]üÿÌ MøQh   Pÿ  …À„¤   VW‹= EèPh: 3öVÿ×…Àu‰uüEğPhô9 Vÿ×…Àu‰uü‹Eğ‹= j‰]Ø[V‰EÜ‹EôVV‰EàEØPVÿuø‰]äÿ×…Àu‰uü‹EèV‰EÜ‹EìVV‰EàEØPVÿuøÇEØ   ‰]äÿ×…Àu‰uüÿ  …Àt‰uüÿuøÿÈ ‹Eü_^[ÉÃ3ÀPPjÿÿt$PjÿĞ Â Vÿt$èàÿÿÿ‹ğ…öt9W6Pj@ÿØ ‹ø…ÿu3Àë!VWjÿÿt$j jÿĞ …Àu	WÿÔ ëİ‹Ç_^Â Vÿt$ÿH @YÀPj@ÿØ ‹ğ…ötÿt$VÿL YY‹Æ^Â U‹ìQƒeü V‹u…ö„‰   j j EüPh   Vÿuh   ÿ¤ …Àu!Eü‹Eü…Àt_şÿÇW‹=Ô tşÿÇt‹ğë8PŠ@„Éuù+ÂƒÀ!Pj@ÿØ ‹ğ…ötÿuÿuüVÿh ƒÄÿuüÿ×ë‹uüVÿp YVÿ×_^ÉÂ U‹ìƒ} ¸4: ¹0: u‹Èƒ} t‹EQPÿuÿuh: ÿD ƒÄ]Â U‹ìì   V‹5Ü ë6ÿu… ÿÿÿhP: Pÿh ƒÄh  h8: … ÿÿÿPj ÿä ƒøuÿuÿÖ…À‰t¿3À9^•ÀÉÂ U‹ììp  S3ÛWh> }ø‰]ğ‰]ì‰]à‰]è‰]ø‰]ü‰]äèrÿÿÿ…ÀuÇEğÊ÷ÿÿé7  V‹5˜ hü= ÿuøÿÖhà= ÿuø‰EôÿÖ;Ã‰Eät9]ôuÇEğÊ÷ÿÿé   ÿuèÌıÿÿ;Ã‰EèuÇEğüÿÿéå  3ÿGWPj^Vh¼= èÆşÿÿWSV»4: Sè¸şÿÿEüPÿuèj ÿUô‰Eìÿ  ƒ}ì ‰Eà…   ‹EüWÿ0Vh = è…şÿÿ‹EüWÿpDVhˆ= èsşÿÿ‹EüWÿpVhd= èaşÿÿ‹EüWÿpVh@= èOşÿÿ‹EüWÿpVh= è=şÿÿ‹EüWÿpVhÌ< è+şÿÿWj VSè!şÿÿ‹EüÿpEh¬< Pÿ< ƒÄWEPVh”< èùıÿÿ‹Eü3É9H‰M†  ‰Mô‹puô‹@}Ğ¥¥¥¥‹}jÁçÿ48j&ht< è¾ıÿÿÿuÚ·EÖÿuÖP·EÔPÿuĞ…ıÿÿhD< Pÿ< ƒÄj…ıÿÿPj&h8< èıÿÿ‹Eü‹@ ‹4j j j&h< èhıÿÿëVh< ÿD VÿH ƒÄtFfƒ> uà‹5D h0: ÿÖ‹Eü‹@$‹<Yj j j&hì; èıÿÿëWh< ÿÖWÿH ƒÄ|Gfƒ? uäjj j&Sèõüÿÿjj j&SèéüÿÿÿE‹Eü‹MƒEô;H‚îşÿÿj3ÿ^GWj VSèÃüÿÿWj VSè¹üÿÿ‹Eü‹H0…Étÿp,Qÿp(EQh¼; Pÿ< ƒÄëEh; Pÿ< YYWEPVhl; èrüÿÿ‹Eü‹@ ƒÀ4WPÿÓYPVhD; èUüÿÿ‹Eü‹@8ƒør3ÀWÿ4…4  Vh$; è5üÿÿ‹Eüÿp<Eh; Pÿ< ƒÄWEPVhô: èüÿÿ‹EüƒÀ@WPÿÓYPVhØ: èöûÿÿ3Û^ÿuèÿÔ 9]üt	ÿuüÿUä‰]ü9]ìtÿuøÿuàÿuìè'ûÿÿÇEğ•ÿÿÿ9]ø_[t	ÿuøÿ„ ‹EğÉÂ U‹ìƒìDSVW‹Ø3Àh> }ü‰Eø‰Eô‰Eè‰Eğ‰Eà‰Eä‰Eü‰EØ‰Eì‰EÜè«ûÿÿ…Àt_‹5˜ h¸> ÿuüÿÖh¤> ÿuü‹øÿÖhŒ> ÿuü‰EØÿÖhp> ÿuü‰EĞÿÖhà= ÿuü‰EÔÿÖ3ö;ş‰EÜt9uØt9uĞt	9uÔt;ÆuÇEøÊ÷ÿÿéà   è÷øÿÿ…ÀuÇEø•ÿÿÿéË   EÌPE¼PÇEÌ   ÿ€ …ÀuÇEø²şÿÿé¦   ÿuè¢ùÿÿ‰EèE¼Pè–ùÿÿ9uè‰Eà„;  ;Æ„3  ÿuhX> ÿp YYEäPÿuèVÿuàÿ×‹5  ‰EôÿÖƒ}ô ‰EuM‹E…À„½   €8 …§   ƒeğ ¸4: Ph(> ÿD YY÷ÛÛã   SÿuğÿuèÿuèÿuäÿUĞ‰EôÿÖ‰Eÿuè‹5Ô ÿÖÿuğÿÖÿuàÿÖ3ö9uìt	ÿuìÿUÜ‰uì9uät3À9uô•ÀPÿuäÿUØ‰uä9uôtÿuüÿuÿuôè3ùÿÿÇEø•ÿÿÿ9uü_^[t	ÿuüÿ„ ‹EøÉÂ Pèøÿÿ‰Eğ…Àë8EìPÿuäÿUÔ‰EôÿÖƒ}ô ‰E…iÿÿÿ‹Eìÿpè¯øÿÿÿuì‰EğÿUÜƒeì ƒ}ğ uÇEøüÿÿé?ÿÿÿ‹EğéÿÿÿU‹ìQSW3ÛhØ> }ü‰]üè{ùÿÿ…À‹}üthÌ> Wÿ˜ ;Ãu»Ê÷ÿÿëVÿuÿĞ‹ğÿ  …ötWPVèiøÿÿj•[^…ÿtWÿ„ _‹Ã[ÉÂ U‹ìQSV‹ğ3Û8ÇEü   u5W‹şè+îÿÿ‹ğ;ót¾Phğ ÿP …ÀYYt‹0  I‹÷èÁíÿÿ_ëF€>:tú8u9]u
+ÿuhœ ë‹E9u‰0ë!ÿuhp ‹5p ÿÖj
+j
+hd7 ÿÖƒÄ‰]ü‹Eü^[ÉÂ U‹ì‹E¾HV3öFƒùbGt3ƒùP&tXƒùBt'ƒùFtfƒùItUƒùN…‰   ‹EƒH0é  ƒéStYIëk‹Mj h? ƒÁéŞ   ƒùsQt=ƒéft&ƒétƒétÄIIuI‹EƒH0éÃ   ‹E€H1 é·   ‹Mj hø> ƒÁéš   ‹Mj hè> ƒÁéˆ   ƒéttvƒét?It ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3öëfƒÀPÿ8 …ÀY‹M‰ADQht ëƒÀPÿ8 …ÀY‹M‰A@5h¤ ‹5p ÿÖj
+j
+hd7 ÿÖƒÄë®‹Mj h08 ƒÁƒÀQè(şÿÿ‹ğ‹Æ^]Â U‹ì‹M¾Q3À@ƒúdVft
+ƒêDtƒêë]‹uƒ~ u4ƒ~ u.jh<? VAèáıÿÿ…À„©   ‹€9 …   Ç é“   ‹5p h@ ÿÖj
+j
+hd7 ÿÖƒÄë.ƒêitjƒêtVƒêt9Jt ‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3ÀëDƒÁQÿ8 Y‹M‰AT3À@ë.‹Ej h0? ƒÀPAèHıÿÿë‹Ej h ? ƒÀëæ‹MƒI4^]Â U‹ì‹M¾Q3À@ƒúbt
+ƒêBtƒêë‹M€I1ëqƒêftVƒêtHƒêt4Jt"V‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë=‹Ej h08 ƒÀë%‹Ej hè> ƒÀë‹M€I1ë‹Ej hP? ƒÀ$PAè“üÿÿ]Â U‹ì‹M¾Q3À@ƒúf$t
+ƒêFtƒêë‹Ej hP? ƒÀ$PAè[üÿÿëTƒêntHƒêt4Jt"V‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë%‹Ej h08 ƒÀë·‹Ej hè> ƒÀë¨‹M€I1]Â U‹ìì   ‹M¾AƒøaV(t
+ƒèAtƒèë‹E‹@(ƒxt3Àé±   ƒHé¥   ƒèptmƒètPHt.HHt‹5p Qh ÿÖj
+j
+hd7 ÿÖƒÄëÁ‹E‹@(€Hëj‹E‹@(‹P…Ò~¨ƒú~ƒúuƒÁ‰H(ëK‹Ej ƒÀhè> PAèSûÿÿë6A• ÿÿÿ+ĞŠˆ@„Éuö‹E‹p(… ÿÿÿPÇF   ÿ4 Y‰F43À@^ÉÂ U‹ì‹E¾HV3öFƒùatƒéAtIë‹EƒH0 é¾   ƒéb„   II„†   ƒé
+txIItkƒétWƒét ‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3öëzƒÀPÿ8 …ÀY‹M‰ADe‹5p ht ÿÖj
+j
+hd7 ÿÖƒÄëÊ‹Mj h08 ƒÁë.‹EƒH0ë0‹EƒH0ë'‹Mj hh? ÿq(ë‹Mj h? ƒÁQƒÀè1úÿÿ‹ğ‹Æ^]Â ‹D$ŠH€ùSt'€ùst"V‹5p Ph ÿÖj
+j
+hd7 ÿÖƒÄ3À^ë‹L$j hè> ƒÁQƒÀèŞùÿÿÂ Ul$ìØ  ƒMhÿSV3öW‰ul‰u ÿ¨ ‹p ƒ0  ÿ‰E‹Exj£ğ£ ‹E|Y£ì£ 3Àj}ó«Y}¤j
+ó«h! ‰ud‰uÇE\   ÇE¤T   ÿÓYYÿ| ƒ=ğ£ ‹ğ}
+hT é·  3ÉAèNçÿÿèkçÿÿ¾ Phğ ÿP …ÀYYu
+h é‹  ‹=h Vhô h¨£ ÿ×Vhä h(£ ÿ×VhÔ hh£ ÿ×VhÀ hà¡ ÿ×Vh° h ¡ ÿ×Vh  h`¡ ÿ×ƒÄHèğæÿÿ¾@ƒøZ±   „.  ƒøM8„¾   ƒø?„B  ƒøD„Ë   ƒøG„·   ƒøK…è   ÇE8   j é  ƒèP„°   HH„î   ƒè…À   €M= 3À}ø««Eøh‰p uÇE8   ‰E4è&çÿÿ…À„Ò   3ÿ9}ø…Ã   hä ÿÓj
+j
+hd7 ÿÓƒÄ3Àé§   ƒøpTtDƒèdt1ƒèt!ƒè„jÿÿÿHHuNE¤ÇE8   ‰E4ho ëkƒe8 htn ë`ÇE8   h6l ëRÇE8   ho ëDƒørt3ƒøu„EÿÿÿƒøzthÈ ÿÓj
+j
+hd7 ÿÓƒÄë(ÇE8   hwq ëÇE8   h€m uèRæÿÿ3ÿ;Çu#3Éè^åÿÿè{åÿÿPÿ$ Y‹Øè”ŞÿÿƒÈÿéå  ƒ}8uh@E èq×ÿÿ‹ğ;÷ŒR  h8E Wj"WElPÿ  ‹ğ;÷Œ5  h¨£ WjWElPÿ  ‹ğ;÷Œ  öE<uèÙÿÿöE=tWh    j@WElPÿ  ‹ğ;÷Œê  ÿ¨ ‹M8ƒù‰E#  „u  ‹Á+Ç„&  H„8  H„ˆ  HH…  WWhh£ Eè–áÿÿ‹ğ;÷Œ–  h4E Wj"WElPÿ  ‹ğ;÷Œy  WWj#WElPÿ  ‹ğ;÷Œ`  Wh   jWElPÿ  ‹ğ;÷ŒC  WWj.WElPÿ  ‹ğ;÷Œ*  Wh'  jWElPÿ  ‹ğ;÷Œ  Wh'  jWElPÿ  ‹ğ;÷Œğ  E]lÇEd   èÄëÿÿ‹ğ…öŒÎ  ElPÿ   ‹ğ…öŒº  h h EhPÿulÿ  ‹ğ…öŒm  ÿuÿuhÿ  ÿuÿ¸ ‹E<¨ ‹Mu‹MƒàÁàPEøPhHT Qÿuÿuhÿ  ‹ğ…öŒ$  ÿuh3Àÿulè¼ëÿÿ‹ğ…öŒ9  ÿuh]è®èÿÿéÆ  9},u
+h E éÖ	  j
+h E ÿÓj
+ÿu,häD ÿÓƒÄ9}`t*j
+ÿu`hÈD ÿÓƒÄWÿu`EljWPÿ  ‹ğ;÷ŒÙ  ‹E;Ç¾´D u‹Æj
+Ph˜D ÿÓ‹EƒÄ;Çu‹Æj
+j
+Ph|D ÿÓ‹EƒÄ;Çt7= u‹Æj
+j
+Ph`D ÿÓƒÄÿuElh^  j"WPÿ  ‹ğ;÷Œh  h\D Wj"WElPÿ  ‹ğ;÷ŒK  j
+h! ÿÓYYE]lèêÿÿ‹ğ…öŒ%  3ÿ9}$uJh@D ÇEd   ÿp Yÿu@ElPÿ  Wÿulènêÿÿ‹ğ;÷Œë  j
+j
+hd7 ÿp ƒÄéº  9}(ÿu$tÿu(h D ÿp ƒÄëhğC ÿp YYhHT ÿu(ÿu$ÿ$  j
+j
+hd7 ‹ğÿp ƒÄ;÷é!  öE<‰}xtÇEx    öE<tƒMx@öE= u€Mx€h ¢ hX  h(£ EèAŞÿÿ‹ğ;÷Œ  3ÿ9}u€M= €exj
+^VhÈC ÿÓVÿuh¬C ÿÓƒÄ9}tVÿuhC ÿÓƒÄVÿuhtC ÿÓƒÄ9} tVÿu hXC ÿÓƒÄh4E Wj"WElPÇEd   ÿ  ‹ğ;÷ŒÁ  WWj#WElPÿ  ‹ğ;÷Œ¨  WWE|PjWÿulÿ  ‹ğ;÷ŒŒ  ‹E|Wjd€YÑà3Ò÷ñPj WElPÿ  ‹ğ;÷Œd  ‹E|WjdY3Ò÷ñPjWElPÿ  ‹ğ;÷ŒA  Wh   jWElPÿ  ‹ğ;÷Œ$  WWj.WElPÿ  ‹ğ;÷Œ  WWj-WElPÿ  ‹ğ;÷Œò  Wh'  jWElPÿ  ‹ğ;÷ŒÕ  Wh'  jWElPÿ  ‹ğ;÷Œ¸  WjjAWElPÿ  ‹ğ;÷Œ  E]lèyçÿÿ‹ğ…öŒƒ  ElPÿ   ‹ğ…öŒo  h h EhPÿulÿ  ‹ğ…öŒ"  Eèªäÿÿ‹Eh‰E¨‹E‰EÀ‹E‰EÄ‹E‰EÌ‹E ‰EĞ‹Ex‰E¼E¤PÇE´   ÇEğHT ÿ,  ‹ğ…öŒÔ  ÿuh3Àÿulèlçÿÿ‹ğ…öŒé  ÿuh]è^äÿÿ‹ğ…öŒÔ  ‹5p j
+_WWhLC ÿÖWhC ÿÖWhÄB ÿÖWh€B ÿÖWWhPB ÿÖƒÄ0é  WhX  h ¡ Eè‚Ûÿÿ‹ğ;÷Œ‚  j
+^Vh0B ÿÓVÿuhB ÿÓƒÄ9}tVÿuh B ÿÓƒÄVÿuhèA ÿÓƒÄ9}4tVÿu4hĞA ÿÓƒÄh4E Wj"WElPÇEd   ÿ  ‹ğ;÷Œ  ÿuElWjWPÿ  ‹ğ;÷Œö
+  WWj#WElPÿ  ‹ğ;÷Œİ
+  WWj.WElPÿ  ‹ğ;÷ŒÄ
+  WWj-WElPÿ  ‹ğ;÷Œ«
+  Wh'  jWElPÿ  ‹ğ;÷Œ
+  Wh'  jWElPÿ  ‹ğ;÷Œq
+  WjjAWElPÿ  ‹ğ;÷ŒW
+  Wh   j<WElPÿ  ‹ğ;÷Œ:
+  Wh€   jWElPÿ  ‹ğ;÷Œ
+  Wh'  j
+WElPÿ  ‹ğ;÷Œ 
+  E]lèÛäÿÿ‹ğ…öŒå	  ElPÿ   ‹ğ…öŒÑ	  h h EhPÿulÿ  ‹ğ…öŒ„	  öE=¸   tƒÀöE=t   PhHT ÿu0ÿu4ÿu$ÿuÿuÿuhèQßÿÿ‹ğ…öŒD	  ÿuh3ÀÿulèÜäÿÿ‹ğ…öŒY	  é:
+  öE<ujhÄ hø Wÿä ƒø„  WhX  hà¡ EèÙÿÿ‹ğ;÷Œ	  j
+h´A ÿÓj
+ÿuhB ÿÓƒÄ9}tj
+ÿuh B ÿÓƒÄj
+ÿuhèA ÿÓƒÄh¨A Wj"WElPÇEd   ÿ  ‹ğ;÷Œ¼  ÿuElWjWPÿ  ‹ğ;÷Œ¡  WWj.WElPÿ  ‹ğ;÷Œˆ  WWj#WElPÿ  ‹ğ;÷Œo  Wh   jWElPÿ  ‹ğ;÷ŒR  WWj-WElPÿ  ‹ğ;÷Œ9  Wh'  jWElPÿ  ‹ğ;÷Œ  Wh'  jWElPÿ  ‹ğ;÷Œÿ  WjjAWElPÿ  ‹ğ;÷Œå  Wh   j<WElPÿ  ‹ğ;÷ŒÈ  Wh€   jWElPÿ  ‹ğ;÷Œ«  Wh'  j
+WElPÿ  ‹ğ;÷Œ  E]lèiâÿÿ‹ğ…öŒs  ElPÿ   ‹ğ…öŒ_  h h EhPÿulÿ  ‹ğ…öŒ  ¸   3É…E<t‹ÈöE=tƒÉQhHT ÿu0ÿu4ÿu$ÿuÿuÿuhèáÜÿÿ‹ğ…öŒÔ  ÿuh3Àÿul‰u èiâÿÿ‹ğ…öŒæ  ‹5p j
+_Wh A ÿÖWhC ÿÖWhÄB ÿÖWhdA ÿÖWWhPB ÿÖƒÄ,é’  ‹Áƒè„Ä  H„S  HH„È  HH„A  ƒù…¸  WWj-WElPÿ  ‹ğ;÷Œn  WjjAWElPÿ  ‹ğ;÷ŒT  9}u$hPA hœ ÿÓj
+j
+hd7 ÿÓƒÄ¾üÿÿé+  j
+^Vh0A ÿÓ‹E´HƒøYY‡B  ¶€qˆ ÿ$…Qˆ ExW‰E,… şÿÿPWWÿuÿ\ j… şÿÿPExPÿt ƒÄ €e{ éü   VÿuhA ÿÓVÿuÜÿuØÿu¬hü@ ÿÓVÿuèÿuäÿuàhØ@ ÿÓƒÄ4éÇ   Vÿuh¼@ é´   Vÿuh€@ é¦   WWh¨£ EèaÕÿÿ‹ğ;÷Œa  j
+ÿuhh@ ÿÓj
+ÿuØhP@ ÿÓƒÄëuWWh¨£ Eè+Õÿÿ‹ğ;÷Œ+  j
+ÿuhh@ ÿÓj
+ÿuÜÿuØh8@ ÿÓƒÄë<WWh¨£ EèòÔÿÿ‹ğ;÷Œò  j
+ÿuhh@ ÿÓƒÄ9}tj
+ÿuh @ ÿÓƒÄj
+h! ÿÓYYh4E Wj"WElPÿ  ‹ğ;÷Œ§  WWj#WElPÿ  ‹ğ;÷Œ  WWj
+WElPÿ  ‹ğ;÷Œu  E]lèPßÿÿ‹ğ…öŒZ  ‹E‰EÀ‹E‰EÄéD  WWh¨£ Eè6Ôÿÿ‹ğ;÷Œ6  h  …˜ıÿÿPjÿÿuWWÿĞ …Àu
+¾¦ıÿÿé  j
+j
+h @ ÿÓ‹E<ƒÄW%   P…˜ıÿÿPÇEd   è  …À…Ä  ÇE   éĞ  ‹E;Ç‹u(u¸ h  P…œşÿÿPÿT ƒÄ…Àu
+¾üÿÿé  ‹E<„äy‹E÷ØÀœşÿÿ#ÁPèéçÿÿëöÄ@t…œşÿÿPèÈáÿÿ‹ğ;÷Œd  éG  VœşÿÿƒàQègåÿÿëßj
+hà? ÿÓj
+ÿuhB ÿÓƒÄh\D Wj"WElPÇEd   ÿ  ‹ğ;÷Œ  WWj#WElPÿ  ‹ğ;÷Œø  WWj-WElPÿ  ‹ğ;÷Œß  WjjAWElPÿ  ‹ğ;÷ŒÅ  Wj@j<WElPÿ  ‹ğ;÷Œ«  WjjWElPÿ  ‹ğ;÷Œ‘  WWExPjWÿulÿ  ‹ğ;÷Œu  ‹ExkÀWjdY3Ò÷ñPj WElPÿ  ‹ğ;÷ŒO  ‹ExWjd€YÁà3Ò÷ñPjWElPÿ  ‹ğ;÷Œ&  E]lèİÿÿ‹ğ…öŒ  ‹E‰EÀE¤Pÿ,  ‹ğ…öŒñ  j
+h! ÿp YYéÃ  WhX  h`¡ EèÆÑÿÿ‹ğ;÷ŒÆ  j
+hÄ? ÿÓj
+ÿuhB ÿÓƒÄ9}tj
+ÿuh B ÿÓƒÄh¸? Wj"WElPÇEd   ÿ  ‹ğ;÷Œv  WWj#WElPÿ  ‹ğ;÷Œ]  WWj-WElPÿ  ‹ğ;÷ŒD  WjjAWElPÿ  ‹ğ;÷Œ*  Wj@j<WElPÿ  ‹ğ;÷Œ  WjjWElPÿ  ‹ğ;÷Œö   WWExPjWÿulÿ  ‹ğ;÷ŒÚ   ‹ExkÀWjdY3Ò÷ñPj WElPÿ  ‹ğ;÷Œ´   ‹ExWjd€YÁà3Ò÷ñPjWElPÿ  ‹ğ;÷Œ‹   E]lèfÛÿÿ‹ğ…ö|tElPÿ   ‹ğ…ö|dh h EhPÿulÿ  ‹ğ…ö|j hHT ÿuÿuÿuhègÖÿÿ‹ğ…ö}‹p ÿuh‹Æÿulè’Ûÿÿëÿuh3ÀÿulèƒÛÿÿ‹ğ…ö    ‹p ÿ¨ +E3Ò¹è  ÷ñƒ} ‹ú‰Ext'ƒ}d tj
+j
+hd7 ÿÓƒÄWÿuxh´ ÿÓƒÄé%  €¥ ıÿÿ h   … ıÿÿPE|PjFjÿÿul‰u|ÿ  ƒ}d tj
+j
+hd7 ÿÓƒÄWÿux… ıÿÿPVhğ ÿÓƒÄéÏ   ‹5p j
+_Wh¬? ÿÖWWht? ÿÖWh A ÿÖWhC ÿÖWhÄB ÿÖWhdA ÿÖWWhPB ÿÖƒÄ@‹p 3ÿÿ¨ +E3Ò¹è  ÷ñ‹u ;÷‰U|‰EtT€¥ ıÿÿ h   … ıÿÿPExPjFjÿÿul‰uxÿ  9}dtj
+j
+hd7 ÿÓƒÄÿu|… ıÿÿÿuPVh0 ÿÓƒÄëRPht ÿÓƒÄ3öj
+j
+hd7 ÿÓƒÄ‹Æ_^[ƒÅpÉÃÅ V Œ H Í€  : ‚      j(hPE èe  3ÿWÿ¬ f8MZu‹H<È9PE  u·A=  t=  t‰}äë'ƒ¹„   vò3À9¹ø   ëƒytvâ3À9¹è   •À‰Eä‰}üjÿô YƒLô ÿƒPô ÿÿø ‹¤ ‰ÿü ‹ ¤ ‰¡  ‹ £Tô è¿  9=P  uhğŠ ÿ Yè”  hˆ h„ è  ¡ü£ ‰EàEàPÿ5ø£ EÜPEØPEÔPÿ ‰EĞh€ h| èI  ‹EÜ‹ ‰ÿuÜÿuØÿuÔèèÿÿƒÄ0‹ğ‰uÌ9}äuVÿl ÿ ë-‹Eì‹‹	‰MÈPQèı   YYÃ‹eè‹uÈƒ}ä uVÿ ÿ  ƒMüÿ‹Æè1  ÃÌÌÌWVS3ÿ‹D$À}G‹T$÷Ø÷ÚƒØ ‰D$‰T$‹D$À}G‹T$÷Ø÷ÚƒØ ‰D$‰T$Àu‹L$‹D$3Ò÷ñ‹Ø‹D$÷ñ‹ÓëA‹Ø‹L$‹T$‹D$ÑëÑÙÑêÑØÛuô÷ñ‹ğ÷d$‹È‹D$÷æÑr;T$wr;D$vN3Ò‹ÆOu÷Ú÷ØƒÚ [^_Â ÌÌÌÌÌÌ€ù@s€ù s­ĞÓúÃ‹ÂÁú€áÓøÃÁú‹ÂÃÌÿ% ÿ% h   h   èQ   YYÃ3ÀÃÌhD‹ d¡    Pd‰%    ‹D$‰l$l$+àSVW‹Eø‰eèP‹EüÇEüÿÿÿÿ‰EøÃ‹Mğd‰    Y_^[ÉQÃÿ%ğ ÿ%ì ƒ|$ t Ç<¤     Ç¤    Ç¤    ëÇ<¤    Ç¤    Ç¤    ¸   ™÷=<¤ £4¤ Â h¤ ÿP H;@ô }y‹4¤ ‹8¤ W‹ù¯ø+×;Ê_|‹Ê‰N ‹4¤ ¯Ğ‰V$¯<¤ ‰N‹¤ ‹ÂVÓâj ÿvÿv‰V‹¤ ÿvÓè‰FÿL …Àu.ÿ  =å  t!h”F èe  ÿvHÿH …Àu
+hlF èN  Ãƒì0SUVWD$Pÿ\ 3íf9l$urfƒ|$<rj‹5X 3À@P‰D$ÿÖ‹=T Pÿ×9l$0‰D$v8ƒ|$ t1…ít3À@‹ÍÓàPÿÖPÿ×S¸   ¢‰T$[öD$uƒd$ E;l$0rÈÿt$ÿÖPÿ×‹D$ë3À_^][ƒÄ0ÃU‹ì‹E‹V‹uòïÍ«‰HA$‰E‹E ‹Aä3Aèƒî 3Aì3Ağ3Aô3Aø3Aü3ƒÁ 3Ğ…öuÑ‹Â^]Â ‹L$‹‹T$5ïÍ«‰ƒÁV‹qè3qìƒê 3qğ3qô3qø3qü3q31ƒÁ 3Æ…Òuİ^Â ƒ=Dô  uèÖşÿÿ…ÀÇDô ßŒ u
+ÇDô * ÿ%Dô U‹ìQQ3À3É9E‰Mü†Ú   SVë3Àÿ‹5<¤ ¯ñu9Fu9Fu9Fu9FuÿGé˜   ‹E‹VLjX;ÁÀ@ƒÁş‹Ø÷ÛÛ÷Ó#Ù;Ó‰Eøt …Àu¡, RSƒÀ@h(G Pÿ( ƒÄÿGÿ5<¤ Vè=ÿÿÿ‹;ÁtQP¡, SƒÀ@hÀF Pÿ( ƒÄÿGë!ƒ}ø u‹F‹v;wrw;Gv	‰G‰w‰_‹MüA;M‰Mü‚,ÿÿÿ^[ÉÂ U‹ìƒìSVWjÿX Pÿd ‹` ë#‹Eü‹Mø;H‹ğu4ÿp$x(ÿp ÿpèÏşÿÿèİüÿÿjÿEüPEôPEøPÿuÿÓ…ÀuÆhøG ëhpG è§  _^3À[ÉÂ QQUV‹t$3Àf‹W3í‰l$Pÿ0 …ÀY‹Æu¸J S‹D PhøI ÿÓh`F ÿÓƒÄÿt$ è
+üÿÿj3ÀY¿¤ ó«‰-8¤ ‰-@ô ‰-¤ ¸P¤ ‰h‰(‰h8‰h‰h‰h ‰h$‰h(‰h,‰h0ƒÀP=Pô |ÙUh   hjUjh   €Vÿ ƒøÿ‰D$uhÌI èá  ‹=È éƒ  UUUPÿŒ ‹ø;ı‰|$ u
+hˆI éH  ¾¤ UUWhƒ UUÿˆ ;Å‰t5ƒÆş4¤ |ßD$Pÿt$ ÿx ‹ğƒşÿuÿ  …ÀthXI éø  h(I éî  ‹¤ ‹D$Óî‹¤ Óà‹4¤ ¿T¤ ğD1ÿ™÷ù‰58¤ £@ô ë‹4¤ ‹D$‰G¡<¤ ¯Ájh   PUÿt ;Å‰tIUUUUÿp ;Å‰G4tBwìèôúÿÿƒÇPÿTô |²hìH è(  ‹=l UhÈ   ÿ5ˆ¤ ÿ×¾  ë7h¼H é<  hŒH é2  ¡¤ kÀd™÷=@ô Pè-  UhÈ   ÿ5ˆ¤ ÿ×;ÆtÙ;Å…ş   ¾¸¤ Ujÿÿv ÿ×…À…é   ‹h¤ ‹Fl¤ ‹Fp¤ ‹Ft¤ ‹F‹|¤ ;Ğ‹Nwr
+‹x¤ ;Ñs‰x¤ £|¤ ‹F£€¤ ƒÆPşhô |“èÒ  h`F ÿÓÿ5h¤ h@F ÿÓÿ5l¤ hF ÿÓÿ5p¤ häE ÿÓÿ5t¤ h´E ÿÓÿ5€¤ ÿ5|¤ ÿ5x¤ hhE ÿÓh\E ÿÓ‹L$\3ÒƒÄ8B;Ít9-l¤ u9-t¤ u‹Âë3À‰‰T$ë
+hHH èk   ÿt$‹=È ÿ×9l$ tÿt$ÿ×¾ˆ¤ [‹FÌ;Åth €  UPÿh ‹;ÅtPÿ×ƒÆPşˆô |Ø¾¤ ‹;ÅtPÿ×ƒÆş4¤ |ì‹D$_^]YYÂ U‹ìQƒeü j j EüPh   ÿ  Pj h   ÿ¼ …Àtÿuü¡, ÿuƒÀ@h0J Pÿ( ƒÄÿuüÿÔ ÉÂ Vÿt$ÿH ÿt$‹5D j3Y+ÈÑéÈQh\K ÿÖhØJ ÿÖhXJ ÿÖh@J ÿÖƒ%Hô  ƒÄ^Â ‹D$ƒød|jdX+Hô ƒø|ÑèV‹ğh„K ÿD ƒHô NYuê^Â jdèÃÿÿÿhˆK ÿD YÃÌÿ% ÿ% ÿ% ÿ% ÿ%  ÿ%$ ÿ%( ÿ%, ÿ%0 ÿ%4 ÿ%8 ÿ%< ÿ%@ ÌÌ4•  ÿÿÿÿÿÿÿÿ&—  ì  H”  ÿÿÿÿÿÿÿÿ˜—     ”  ÿÿÿÿÿÿÿÿü˜  H  ,•  ÿÿÿÿÿÿÿÿ™  ä  X”  ÿÿÿÿÿÿÿÿ š                        „—  l—  T—      $™  6™  B™  P™  `™  t™  †™  ”™  ¬™  Ä™  Ğ™  Ü™  æ™      *š  6š  Bš  Zš  rš  †š  –š  ²š  Ìš  Úš  òš  ›  ›  æ˜  Ò˜  Ä˜   ›  0›  J›  6˜  ¦—  ¸—  Ê—  Ú—  ì—  ü—  ˜  ˜  (˜  X›  D˜  P˜  b˜  p˜  „˜  š˜  ¦˜  ´˜      
+™      @—  2—  —  —  ö–  æ–  Ò–  Æ–  ¶–  ª–   –  ’–  Š–  €–  v–  
+š  š  š  n–  f–  Z–  P–  F–  <–  2–  (–  –  –  –  ö•  ì•  â•  Ú•  Ğ•  Ä•      ”_mbsnbcpy äprintf  exit  øsprintf _getch  t_makepath î_splitpath  ó_strcmpi  _fullpath ıstrchr  )wcscpy  ,wcslen  ;wprintf 4_wctime swprintf  „atol  ƒatoi  _strupr Å _c_exit ö _exit N _XcptFilter È _cexit  n __initenv m __getmainargs :_initterm š __setusermatherr  ¶ _adjust_fdiv  € __p__commode  … __p__fmode  ˜ __set_app_type  msvcrt.dll  Ö _controlfp  í _except_handler3   AdjustTokenPrivileges KLookupPrivilegeValueA ¨OpenProcessToken  ADVAPI32.dll  ‰GetProcAddress  /LoadLibraryExA  ZGetLastError  à FormatMessageA  ¾GetTickCount  gGetModuleHandleA  : CopyFileA JMoveFileA x DeleteFileA KMoveFileExA Á FindClose Å FindFirstFileA  , CloseHandle /GetCurrentProcess QMultiByteToWideChar 8LocalFree 4LocalAlloc  .LoadLibraryA  å FreeLibrary GetComputerNameA  0GetCurrentProcessId KERNEL32.dll  ÜMessageBoxA USER32.dll   JetDBUtilities   JetBackup n JetRestore2 - JetEndSession % JetDetachDatabase  JetBeginSession  JetCompact  F JetGetSystemParameter  JetSetSystemParameter Š JetTerm2  S JetInit2  R JetInit : JetGetDatabaseFileInfo  ESENT.dll «fwprintf  >_iob  Ãiswascii  ìSetEvent  ReadFile  
+InterlockedIncrement  SetThreadAffinityMask 1GetCurrentThread  ¨GetSystemInfo ™GetQueuedCompletionStatus SetThreadPriorityBoost  XVirtualFree fWaitForSingleObjectEx G CreateEventW  UVirtualAlloc  MGetFileSize e CreateThread  P CreateIoCompletionPort  M CreateFileW á FormatMessageW                                                                                                                                                        Â“ ¼“ ¶“ °“ ª“ ¤“ “ ˜“ ’“ Œ“ †“ €“ ÿÿÿÿ è È ¬                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 €   8  €                  P  €                  h  €               	  €                  	     @                           4   V S _ V E R S I O N _ I N F O     ½ïş       (
+    (
+?                        ş   S t r i n g F i l e I n f o   Ú   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   l "  F i l e D e s c r i p t i o n     S e r v e r   D a t a b a s e   S t o r a g e   U t i l i t i e s   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( x p c l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   :   I n t e r n a l N a m e   e s e n t u t l . e x e     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   B   O r i g i n a l F i l e n a m e   e s e n t u t l . e x e     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°       
+         
+        
+  
+     p  M i c r o s o f t ( R )   E x c h a n g e   S e r v e r ( T M )   D a t a b a s e   U t i l i t i e s  
+   `  M i c r o s o f t ( R )   W i n d o w s ( T M )   D a t a b a s e   U t i l i t i e s  
+      V e r s i o n   % 1  
+     €  C o p y r i g h t   ( C )   M i c r o s o f t   C o r p o r a t i o n .   A l l   R i g h t s   R e s e r v e d .  
+  
+   $                      % 0  
+     h                    C o n v e r s i o n   S t a t u s     (   % % % %   c o m p l e t e   )  
+  
+   t  0         1 0       2 0       3 0       4 0       5 0       6 0       7 0       8 0       9 0       1 0 0  
+   p  | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - | - - - - |  
+     % . % 0  
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            PDSIGeŞ %˜  èGDEFŒÕ ”   fGPOSrT– ü  ¬GSUBmb "¨  îLTSHvç   ¸  OS/2Ğñ  Ø   VVDMXZõb‹  Ä  àcmap¢«)¹  	ü  ¦cvt J/  \   ˜fpgmäyù‚  T  gasp  	  0   glyf+*œW  2è  ÉˆhdmxPØ,  !  ÔheadÔõ¢Ó  \   6hhea^Ì  ”   $hmtxQ³O=  ô   loca˜&e  ¤  maxpïú  ¸    nameò×Îœ  @  ¼postw6  üp  $prep³ÄğR  ¤   ®      ë¯@÷_<õ      ¶ïñ    ¶ójÇÿı}	ª    	          šıš  	ªÿı	ª                   €  C    / U  l   ;  š3  %š3    f  ÿ       € `@       €    SYRC @  &qšıš  šf                 ÿÿ     ê        „          „        •        œ        ­        ¾        Ê         Ú  	   Ú  	  "â  	    	  "  	  "4  	  V  	   n  	     	 	 8  	 
+zÆ  	  ’@Copyright (c) Syriac Computing Institute. For free distribution. Created by Paul Nelson and George Kiraz, 2000. All rights reserved.Estrangelo EdessaRegularEstrangelo EdessaEstrangelo EdessaVersion 1.00EstrangeloEdessa C o p y r i g h t   ( c )   S y r i a c   C o m p u t i n g   I n s t i t u t e .   F o r   f r e e   d i s t r i b u t i o n .   C r e a t e d   b y   P a u l   N e l s o n   a n d   G e o r g e   K i r a z ,   2 0 0 0 .   A l l   r i g h t s   r e s e r v e d . E s t r a n g e l o   E d e s s a R e g u l a r E s t r a n g e l o   E d e s s a E s t r a n g e l o   E d e s s a V e r s i o n   1 . 0 0 E s t r a n g e l o E d e s s a P a u l   N e l s o n   a n d   G e o r g e   K i r a z E s t r a n g e l o   E d e s s a   i s   a   U n i c o d e   e n c o d e d   O p e n T y p e   f o n t   f i l e   s u p p o r t i n g   t h e   S y r i a c   s c r i p t .   T h e   f o n t   c o n t a i n s   T r u e T y p e   c h a r a c t e r   o u t l i n e s   a n d   h a s   b e e n   o p t i m i z e d   f o r   d i s p l a y   o n   s c r e e n   a t   s m a l l   s i z e s ,   w i t h i n   s o f t w a r e   u s e r   i n t e r f a c e   e l e m e n t s   s u c h   a s   b u t t o n   d e s c r i p t i o n s   a n d   d i a l o g   b o x   t e x t .   T h e   S y r i a c   l e t t e r   f o r m s   w e r e   d e s i g n e d   b y   P a u l   N e l s o n   a n d   G e o r g e   K i r a z .   S o m e   s y m b o l s ,   i n c l u d i n g   n u m e r i c a l   s y m b o l s   a r e   b a s e d   o n   t h e   m o n o s p a c e d   C o u r i e r   t y p e   d e s i g n .                                                                                                                                      @ ÷    x~                                                  	
+ !"#                          $%&'()                          *+,-                                     629 >7                             8;      3401./A    5     :                               Œ   T @   @ ` ~   § © « ® · » × ÷ÁÉÓ
+%.1!@Vip,J     " ¬"%Ì&qÿÿ     [ {   § © « ® ¶ » × ÷ÀÉÒ
+#-0!@K`p 0     " ¬"%Ì&pÿÿÿãÿÉÿ¯ÿcÿÿÿÿÿƒÿ€ÿiÿJıƒıvısıEıCıBı+ı$  úHú:ú7ú6ú  úùşùoùnùk    àààß‰Ş!ÚîÚK                                          ,           $           0 8                 S M Y Z [ \ ] ^ _ ` a b c G ¶ · ¸ ¹  3 4 B     ! ! ! ! o ¢p“ü5W“Ïe¡ÀÜø2
+B	
+	æ
+Q
+üİ$.`³à0Ûü%Z€Ùõ+Ÿ¼0­Ü	^«Ôï
+ö=åSyËËË'BÏ8†Õ	;ƒáû[ŸºÜ\£î \ { ­!T!ª!½!æ"{"Š"¥###^#“#Ø$#$7$Z$Š$ñ%g%Î&%&y&Ñ''~'´(K(h(…(°(Û))*)R)z)¡)õ**[*Å++¦,,k,ï-”..s//g/À0;0Õ1“1»2Ğ3e3Â4=4Œ55‚5î6^6Ì7K7ª8*8œ9G9ˆ9Ô::[:¯:ä;1;‚;·;í<<8<W<ê=€=Ÿ=¶=Í=å>>1>h>Ÿ>Á>è?®@@)@i@™@ÈAïB¸C—DEDMDUD]D®EE`E÷FGCGÛHƒIBIÍJ5JĞKBK¤L2LÖMsNN©OVPPÜQ­QÕRRDSXS·SıT¢TìUAU®VFVôWqW¾XX\XãYqYçZq[[‰[Ğ\\c\Å](]”^ ^[^¹_;_|_½``¦aakaÛbcndcdwd‹dd±dÄdÄ    		,,-		",&'%      øÿ  ÿı 	 ÿü 
+ ÿü  ÿü  	ÿü  
+ÿü  
+ÿü  ÿû  ÿû  ÿû  ÿú  ÿú  ÿú  ÿù  ÿù  ÿù  ÿø  ÿø  ÿø  ÿø  ÿ÷  ÿ÷  ÿ÷  ÿö   ÿö ! ÿö " ÿõ # ÿõ $ ÿõ % ÿô & ÿô ' ÿô ( ÿó ) ÿó * ÿó + ÿò , ÿò -  ÿò .  ÿò / !ÿñ 0 "ÿñ 1 "ÿñ 2 #ÿğ 3 $ÿğ 4 %ÿğ 5 %ÿï 6 &ÿï 7 'ÿï 8 'ÿî 9 (ÿî : )ÿî ; )ÿí < *ÿí = +ÿí > ,ÿí ? ,ÿì @ -ÿì A .ÿì B .ÿë C /ÿë D 0ÿë E 1ÿê F 1ÿê G 2ÿê H 3ÿé I 3ÿé J 4ÿé K 5ÿè L 5ÿè M 6ÿè N 7ÿè O 8ÿç P 8ÿç Q 9ÿç R :ÿæ S :ÿæ T ;ÿæ U <ÿå V <ÿå W =ÿå X >ÿä Y ?ÿä Z ?ÿä [ @ÿã \ Aÿã ] Aÿã ^ Bÿâ _ Cÿâ ` Dÿâ a Dÿâ b Eÿá c Fÿá d Fÿá e Gÿà f Hÿà g Hÿà h Iÿß i Jÿß j Kÿß k KÿŞ l LÿŞ m MÿŞ n Mÿİ o Nÿİ p Oÿİ q Oÿİ r PÿÜ s QÿÜ t RÿÜ u RÿÛ v SÿÛ w TÿÛ x TÿÚ y UÿÚ z VÿÚ { VÿÙ | WÿÙ } XÿÙ ~ YÿØ  YÿØ € ZÿØ  [ÿ× ‚ [ÿ× ƒ \ÿ× „ ]ÿ× … ^ÿÖ † ^ÿÖ ‡ _ÿÖ ˆ `ÿÕ ‰ `ÿÕ Š aÿÕ ‹ bÿÔ Œ bÿÔ  cÿÔ  dÿÓ  eÿÓ  eÿÓ ‘ fÿÒ ’ gÿÒ “ gÿÒ ” hÿÒ • iÿÑ – iÿÑ — jÿÑ ˜ kÿĞ ™ lÿĞ š lÿĞ › mÿÏ œ nÿÏ  nÿÏ  oÿÎ Ÿ pÿÎ   qÿÎ ¡ qÿÍ ¢ rÿÍ £ sÿÍ ¤ sÿÍ ¥ tÿÌ ¦ uÿÌ § uÿÌ ¨ vÿË © wÿË ª xÿË « xÿÊ ¬ yÿÊ ­ zÿÊ ® zÿÉ ¯ {ÿÉ ° |ÿÉ ± |ÿÈ ² }ÿÈ ³ ~ÿÈ ´ ÿÇ µ ÿÇ ¶ €ÿÇ · ÿÇ ¸ ÿÆ ¹ ‚ÿÆ º ƒÿÆ » ƒÿÅ ¼ „ÿÅ ½ …ÿÅ ¾ †ÿÄ ¿ †ÿÄ À ‡ÿÄ Á ˆÿÃ Â ˆÿÃ Ã ‰ÿÃ Ä ŠÿÂ Å ‹ÿÂ Æ ‹ÿÂ Ç ŒÿÂ È ÿÁ É ÿÁ Ê ÿÁ Ë ÿÀ Ì ÿÀ Í ÿÀ Î ‘ÿ¿ Ï ’ÿ¿ Ğ ’ÿ¿ Ñ “ÿ¾ Ò ”ÿ¾ Ó ”ÿ¾ Ô •ÿ½ Õ –ÿ½ Ö –ÿ½ × —ÿ¼ Ø ˜ÿ¼ Ù ™ÿ¼ Ú ™ÿ¼ Û šÿ» Ü ›ÿ» İ ›ÿ» Ş œÿº ß ÿº à ÿº á ÿ¹ â Ÿÿ¹ ã  ÿ¹ ä  ÿ¸ å ¡ÿ¸ æ ¢ÿ¸ ç ¢ÿ· è £ÿ· é ¤ÿ· ê ¥ÿ· ë ¥ÿ¶ ì ¦ÿ¶ í §ÿ¶ î §ÿµ ï ¨ÿµ ğ ©ÿµ ñ ©ÿ´ ò ªÿ´ ó «ÿ´ ô ¬ÿ³ õ ¬ÿ³ ö ­ÿ³ ÷ ®ÿ² ø ®ÿ² ù ¯ÿ² ú °ÿ² û °ÿ± ü ±ÿ± ı ²ÿ± ş ³ÿ° ÿ ³ÿ°@T@F% %± B²ˆ °"QŠ#x°@Rx±
+ ˆ¸ Ux±B°!!°K KTB°K KSB°CX K°<RK°	P[X±YK¸RK°	P[X±YY°ˆ¸ T°ˆ¸ T°CZ[X¸±…¹  °K`…Y°P°dKSX°€Y°2KSX°Y ++++  @;TQPONMLKJIHGFEDCBA@?>=<;:98765/.-,(&%$#"
+	 ,E#F` °&`°&#HH-,E#F#a °&a°&#HH-,E#F`° a °F`°&#HH-,E#F#a° ` °&a° a°&#HH-,E#F`°@a °f`°&#HH-,E#F#a°@` °&a°@a°&#HH-, < <-, E# °ÍD# ¸ZQX# °D#Y °íQX# °MD#Y °&QX# °D#Y!!-,  EhD °` E°FvhŠE`D-,±
+C#Ce
+-, ±
+C#C-, °(#p±(>°(#p±(E:± -, E°%Ead°PQXED!!Y-, E° C`D-,°C°Ce
+-, i°@a° ‹ ±,ÀŠŒ¸ b`+d#da\X°aY-,ŠEŠŠ‡°+°)#D°)zä-,Ee°,#DE°+#D-,KRXED!!Y-,°%# Šõ °`#íì-,°%# Šõ °a#íì-,°%õ íì-, °` < <-, °a < <-, °C°C-,!!d#d‹¸@ b-,!°€QXd#d‹¸  b² @/+Y°`-,!°ÀQXd#d‹¸Ub² €/+Y°`-,d#d‹¸@ b`#!-,E#E`#E`#E`#vh°€b -,°&°&°%°%E#E °&`bch °&aeŠ#DD-, E° TX°@D E°@aD!!Y-,E±0/E#Ea`°`iD-,KQX°/#p°#B!!Y-,KQX °%EiSXD!!Y!!Y-,E°C° `c°`iD-,°/ED-,E# EŠ`D-,E#E`D-,K#QX¹ 3ÿà±4 ³3 4 YDD-,°CX°&EŠXdf°`d° `f X!°@Y°aY#XeY°)#D#°)à!!!!!Y-,°CX°%Ed° `f X!°@Y°a#XeY°)#D°%°% XY°%°% F°%#B<°%°% F°%°`#B< X Y°%°%°)à°%°%°)à°%°% XY°%°%CH°%°%°`CH!Y!!!!!!!-,°CX°%Ed° `f X!°@Y°a#XeY°)#D°%°% XY°%°% F°%#B<°%°%°%°% F°%°`#B< X Y°%°%°)à°) EeD°%°%°)à°%°% XY°%°%CH°%°%°%°%°`CH!Y!!!!!!!-,°%  F°%#B°%°%EH!!!!-,°% °%°%CH!!!-,E# E ° P X#e#Y#h °@PX!°@Y#XeYŠ`D-,KS#KQZX EŠ`D!!Y-,KTX EŠ`D!!Y-,KS#KQZX8!!Y-,KTX8!!Y-,-,-,-,-, Š#KSŠKQZX#8!!Y-,  ŠI° QX°@# Š84!!Y-,F#F`ŠŠF# FŠ`Ša¸ÿ€b# #Š±KKŠpE` ° PX°a¸ÿº‹°FŒY°`h:-, Š#IdŠ#SX<!Y-,± B±#ˆQ±@ˆSZX¹   ˆTX²C`BY±$ˆQX¹   @ˆTX²C`BY±$ˆTX² C`B KKRX²C`BY¹@  €ˆTX²C`BY¹@  €c¸ ˆTX²C`BY¹@  c¸ ˆTX²C`BYYYY-     ÿáç T T ÷ Ï * * È È   ‹Ôÿğ  F x x  ¸ šD                                                                                                                    % –ã –- y- –- j- –5 – – –+ –Ù –Á YÙ –Á ¥1 –- –-m- –- }- –- - –- –- –- –Á ¥Á YÍ bş –Í “ – –ƒ –1 –ƒ –1 –Í   –Ï –ƒ –Ï –ƒ –ô –ô ‹é –ç ‹ÍoÍ – –Í Í ô –Í bÍ ª‡^Í       ô –ÍÿåÙ –× –¦ –‹ V‹ V  ÿş                 ÿş              ÿş           V “Á wË ‘9 Ñÿº                                        VFª#ª Åª ªª Éª ¼ª ƒª ƒª Ù   ; Á –Á –Á –Á –œ –X –X –X –X “ –á •  ‘ – )ÿFô œ  ÿşZ 	ª 	ª ® ‘® ‘P  ú j / / Å  ú V  Ç }ğ ğ 
+ šL šB m  ? ¬ ‘¦ œ          ÿü                                     ÿş                                               )   )ÿš )   )ÿò ¤\ “s ’ “ “ô œô œ¼ÿº#ÿº´ áÿº5ÿº áÿº5ÿºİ Ñ ‘Ó ‘“ L J šİÿº´ÿºD œÿwËÿw` œÿwËÿw` ?ÿºjÿº ‡‘ yÿºšÿºm ®ÿºÿº^ åÿº5ÿºT çÿº+ÿºº ËÿºÿºB Ëÿºÿº= }ÿºãÿºf  ÿº¦ÿº‡ Ëÿº°ÿº- Ç  ;ÿº¦ÿº¨ × ‘#ÿºBÿº^ × 9 “= “® ŒÓ Œ\ÿº uÿº çÿº                                     		
+
+	                               				
+		    			                          	 		
+	
+                               					
+
+
+
+    
+
+
+	                          
+ 		
+
+
+		
+	                               				
+
+	
+
+		
+
+
+					    					
+										                         	  
+
+			
+
+	                               
+
+
+
+
+	
+					
+
+	
+
+	
+
+
+
+			    
+
+
+
+
+
+
+	
+
+
+
+
+
+
+
+
+                         
+  		
+
+
+		                               			
+	
+	
+
+
+
+
+
+
+	
+	
+   	 							
+
+											
+
+			
+
+
+
+
+
+
+
+
+		
+
+                         	
+		  			
+                               		
+
+
+
+
+	
+
+
+
+
+	
+	
+   	 																						
+			             	            
+		  
+
+
+
+                               		
+	
+
+
+
+		
+	   
+ 
+
+	
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	             	           									 
+
+
+  
+
+
+                               		
+
+		
+				
+	
+   
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	
+
+
+             	           									 
+
+  	                               
+	
+
+		
+			
+	
+    
+	
+             
+           	
+
+
+
+
+
+
+
+
+   	                               
+
+
+		
+
+
+
+
+		    
+                        
+ 	  
+                               
+
+
+
+	
+	
+    		                        
+ 	                                 
+
+	
+
+   $ 							             	            
+				 $$
+
+
+                           		
+
+
+
+
+    ' 		
+
+
+
+
+
+
+             		            
+				 ''                              		
+
+
+	!!   !( 		
+
+
+
+
+
+
+             
+	            
+
+
+
+ ((                            !!! 		
+	""   (0 				
+
+             		            				 00
+	$#'                            '(''  & 
+"))   *3 				
+
+              	
+            				 33
+  	%%) "                           )!*)!)!!("
+$++       ƒm   @		  /Í/Í/ÍÖÍ10!!%!üşş mú“kû•  –ÿå  # -@ @# 
+ ??ıÎ/]í9/]ÆqıÆ10#"'&>32##".54>332;&(&$.+&'&&'&ğ<<È/#û‚&%&&   –ªNÕ   '@  
+ ?ÀİÀ/]Şí99í9910#"'!#"'!	47	E
+ş 7	E
+îDDçş""Dç  yÿ}ÏB 3 7 ö@z3/7+6+5(4(*+0")(0"#$0"$$$	(	+	+
+/
+	0/
+F
+V
+f
+4
+)
+
+/"($$$H&$$ €¸ÿÀ@ 	H/+-&	0"($&
+ /33À22/3399//ÀıÀÀıÀÀ22/+]ÜÄ3]+‡+}Ä/////3]]]}‡ÄÄÄÄ+}ÄÜÄ10 ##32###"7##"7#"5433#"54336323632323Ï9¹¢77¨!&.!¿(.!®77´œ99¢!(-¼!&.³9ış¿ãşø+)ş+5;Ïş+5+ß)+)+Ó84ş)Ó8-ş"+)şø   –ÿ?šP Lt@‰[CkC9CIC‰C™C¤(v(†(–(Ä(¦(¶4D&†–&6F«»ËGJEL<38L$"&/*		LNE&¦JDJtJ6JJJ´JÄJ‚J’JtJ&J6JJG*´33¸ÿà³"H3¸ÿà@qH<35:::"™$¹$$$;$K$‹$Ë$ë$¹${$‹$›$"$	A50*/**-/½¯[k‹›ËÛ `p9+	¸ÿÀ³
+H	 /+3]]ÍÄıÄ]99]qqqqq?Íİ]2Äı99]]]qq]Ä]99++q99]]]]qqqq/ííÔíŞí9/íĞí99Ôíí9910 ]q]qqq]]qq]qq #"55&&'#"55432327654&'&'&547675432632#"'&&'&#"šm_Œ+)N6(++j*V-uSgSSœœ§\Q€)+9k3(++SmfMQ¥œƒ¦SGö::ö2-N7¤:+J+5>lEZ(&=¤{RKJZZJ'"17}7/)57?a}+& D­   jÿåÅú    / C WÕ@ÿ–U¦U¶UÕU–T¦T¶T–P¦P¶P–O¦O¶OÕO™K©K¹KÙK™J©J¹J™F©F¹F™E©E¹EÚE–A¦A¶AÕA–@¦@¶@–<¦<¶<–;¦;¶;Õ;™7©7¹7Ù7™6©6¹6™2©2¹2™1©1¹1Ù1-ä-ô-&-*æ*ö*)ö)å)$)	'é'ù'	&)&é&ù&	#)#é#ù#	"û"é"'©¹Šx	9IHØèæö&æö
+ô
+@må
+&
+ûê)	éùûê+M((W /YC9  P`H++R%/_oŸ>4 ?íÜ]íÔ]í?íÜ]íÔ]í/]ÄíÜ]íŞÄíÜ]í10 ]]]q]q]]]q]]]q]q]q]qqqqq]]q]q]q]q]]]q]q]]q]qqq]q]qqq]q]qqq]q]qqq]q #"'&547632 #"547%6632#"&54632 .#"32>5 .#"32>5–J%[6nIIIIn7^D'/ş`şŸ ±¿+'E_7n’’noIJşÀ4H*)G55G)*H44H*)G55G)*H4ŒO&%IMnoIL(F_7şæ	‹u	Œ::ı¾_F(˜lm˜LMl7H66H**I66I*ıI66I**H66H*  –ÿá–7 7 C³@XiCXC•?„?f?v?æ"ö!Õ!Ä!µ!¤!v!†!–!ë©D?2?K;[;k;K:[:k:ë:	"&6F¶¸ÿà@Û #H‰™©[k{™(¹(Ù(Š(v3D3(34'4¤'¤'v'Y'+'4'7$i«C»CÛCiCCÒ8„8”8¤8v8« !H87$._++0 000E$= 			+44'  #H]m+Kë30”(¤(´(†(d(t(R(4(ä(ô(C(A+9888AA5  ?í?í?İ2í2í9/qíÔ99]qqqqqí99]qq+//]/]íÔíŞ]]í]İÄ99À9+q]]]}‡ÄÄ]]]99]]]]q‡ÄÄ]]]]10 qq+qqqq]qqqq]]]]]]]]]]]]qq ##'#"'&54>7&547632632&#"66732#3327–8r@X‚ZS!<U5fIMgFD+
+)'==D"?0.-ç0R8J8 :K4ş*E0>=_oIdƒc_†6`N:¦CkFG)+7-=" fHş9„K)+Uƒ.X(ã
+);K*aGL}   – ç  @ ¿  ?Í/]]í9910#"'!Z 7	E
+Ù%%J   –ÿçğ  ¶ /?/ÍÜÀ10#"'47667632ç+%l•7-d5+9OO9üÓ#v~0aà)m·HR¥QT¤RH·m
+  –ÿçğ  @  /?/]ÍÜÀ10$#"547667654'&&'&5432ç“l'+9N//N9+5d-7ûşÜÓ+m·H¥¥ ¨H·m
+)àa0?z;  –
+˜ì . Ÿ@!$HVfvYiy¤†–¶¸ÿè@0!$H'.'" !$H"","%@!$H0 H H¸ÿğ@H	 ("% ?İÀıÀİ]À9]++++9/íĞí/Í9/9+ı9Ì9/9+10qqqq+ #"''#"5467667%&543243276632˜+şí3#V+§ª+*,3#şî+&J<L8++™;I)«ZC0l+çç+E9C-Z)::şá6)   – DDN  .@  / /ÀÍ]ıÀÍ]/]ÍÀıÀÍ10 #!#"5!"543!432!2D:ş++ş99s++r:ş\77¤+)¡::ş_)   Yÿb4 y  @    /Í]/ÍÍ910%#"5474šLyúò   –Ds 	 µ	 /í/Î10 #!"543!2D:üÅ99;:+))   ¥   y  @    ?í/]í10%#"54329==9>>>;   –ÿ^šu  <@ h	h	ˆ					 /333/333/3Î2‡+‡}Ä10]q #"547632šı]+
+¤)AúX%'¨%)   –ÿáš  (4@õ™&¹%Š%ª%9%I%I%Y%¹%›$9$I$é$”"6"F"æ"6!F!†!¦!¶!F!V!¶!– –6F†¦¶FV¶”6Fæ›9Ié9I‰©¹IY¹™Tdô¦Ædt©y[kû©Ék{ù[kû©Ék{©¦Tdô¦Ædt* # ?í?í/]íŞí10]]]qqq]]]q]]]]qqq]]]qq]q]qq]qq]qqq]q]qq]qq]qqqq #"'&&5547632'4&'&#"327665šVjÁÃj,*SiÅÁlVT" SššR "" S›˜S "5—½»M·jÏÔ›¼¼›ÔÏÅX™Dª¬D˜W¸XœDª¬DšX  m  Áú  *@¯¿  ?ıÀ?Íq99/İÄıÍ10 ##"5433#"547732Á8á99F)+ªG8++/		)@û\+   –  š 1@»„”&¶´†–+	ùk{IYYi©©
+›
+Y
+i
+y
+
+i
+y
+ù
+™	‹	³‡&$( )03(  œ$‹$$]$m$$ Hù$‹$›$»$)$I$y$³¢™Öæ$.'¤f)1  ?ıÌ?ı2]]2Í99]qqqq]]]+qqq_q/ÔííŞíĞí9910 qq_qqq]qqqqq]]]qq]q]qq]3567667654'&#"#"547632!547632–ŸË‰›]Ys5bP<&C¿—qw—†jµN_	 )}Ñ¹-$*tPN9Q2'ERšdh–:14½Œm±B%4x  }ÿá ;@88ö8F2†2–2¦2F1V1f1¤-´-F-y&™&9%©"¹"i"y";!›‰ëiÉÙtVf†–ÆÖætf´•¥†tI+;©‰™ùš  4;6¸ÿÀ³!$H6¸ÿ @2 H6;;=+6))$ P`€°À
+
+$/ ?í?í99//]í9/9/ÄŞí9/9++Ôí10 q]qqqqqqqq]]]qqq]]qqq]qqqqqq]q]q$#"&'&5432327654'&#"5432327654'&#"#"547632…~«6q9“%)’…„eo{q‰7;,hLPVPqµ_
+)Vz˜•g98Ã6T F¸ni:;)ZPU‚†YP))@AelD=n''=TV-vH½\@*Xq   –  ˜ç   ~@²¤r‚’¸ÿà@H½›«}[k¸ÿà@$Hæ		
+  ?ıÀ?í9/ÀıÀ2/ÜÀıÍÀ9]+qqqq+qqqİÀ10 ##"5433!533#32#!˜:á77FıÓÒ±K45JE:Õ+şVÕ++
+a&üÍ((şö+hı!  ÿáç - Ó@C++$+”+„*›«»ûH«‰™ HZI«™Ëët„¸ÿà@7H„”¤v»©;K»4Dtvöd#-/'o'¸ÿÀ@!$H')		&! ?í?í9///í9+/Ä]íŞíÄ10]]qqqqqqq+qq]qq]]+qq+]q]]q$#"'&54323267654'&#"#"5!2#!632qt¿ÊŒ%'	‡’N|0XNOˆ>ƒE)I::ş’~ªdeá}ƒ}"+i76d ˆW\"#	/-++şg=wo­  –ÿá ) 5#@™3„3¤3´3v3ö3+ !$H}+++++y+ù+Ö'†&–&[k‹›é‹[k‹› H™n[	&ö$tä&v¶
+¤
+$	»Ëë®K[+{›5)7/¸ÿà@@$H/" /+/{//1-´"¢"”"‚"„"”"¤""1$$1›«»1 ?í?í2q9/9]qqqqí9q/]í22+ŞÄí10 q]]]qqq]]q]q]]]]+q]]q]]]qqq+]q]$#"'&&54676632#"'&&#"632&'&#"32765aeŸÜq,*TUXÜƒ0 "$,)Û–”š¾K|3\TFMq®–Gò|MFÏs{èXÕ}†ãaeb)°«Ú4$â=<s—vXaşçş®cX  –ÿşšå  N@4 	
+©¹›9I‰+	9©Ùé	  ??ı2Ì3]qqqq/íŞí9/í10%#"54675!#"55!H)Lı¥'+)+'('K86¡…   –ÿá–  ( 9D@»Y7i7‰7™7¹7i7y7ù7V3f3†3–3¶3f3v3ö3v/†/–/t/y*‰*™*{*†–£Wggw÷©Xhˆ˜hxø¶7G&‡—§¹8H)ˆ˜	)y™ˆ&v–‡	$I¬		@"Hù	¸ÿp¶$I£¸ÿÀ³"H¸ÿ¸@)Iô	 (9; 1 	$,,55 ?í?í9/í99/]íÔíŞíÔí99]++_q+]+q+10]]q]]q]qqqq]qqq]qq]qqq_qq]q]q]q]q$#"'&547&547632'&#"32765'&#"32765–qrœŸrpÔÀoh–‘lm¾ÓkRNwrN**VQmmTV[Xx<h-][W|yYY±giif Ôen³’fb`g“²odÕËIJJ%\9mGBBGkşRI%'MwzSNPOz  –ÿãš & 6/@ßT"C"™	Y¹È'§ –0¦0‡0U0e00ö0w0ç0™,©,ˆ,	,Y,i,ù,x,6#F#ç#w &¶)¹ˆÈö&çf÷©ØyÉ¼ « ™ Š | 9 I È 6 $H6&8.§6•6†6w66*2¼©;K{*!¤
+´
+
+ ?í2q?í9/9qq_qí9qqqq/]ÄíŞí22+10 ]qqqqqq]]q]q]]q]]qqq]q]]qqq]]qqqq]]_]]]]]$#"&'&54323267654&'#"'&547632'&#"32767šşé”©4E). qºJ’‚Ğšd\^dão*(9R‡}LFFMvmW5Fğ®_&)PN›â:'è}tŸ£sï[Ü‚“Nqd\y^g`8‰  ¥  š   !@  
+  ?ıŞí/]íĞí10#"5432#"54329==99==9_>>;ş¤>>;   Yÿb4š   ,@	    /Í]Şí/]ĞíÍÍ910#"5432#"5479==9šL_>>;şßúò  b B9N  d·	¸ÿ @$H
+8H $H	¸ÿø¶ $HF¸ÿø@
+Hæ /İí]+q+33İí+q33/3+Ş22Ä2210 #"'6329"üõ )ütŒ+şPşP(úú+   –‹h 	  @	 /íŞí/ÀŞÀ10 #!"543!2#!"543!2h5ü˜55h55ü˜55h5¸+)+şª)+)  “ BjN  a@	 $H	H¶7G¸ÿø@! #H`$H	 	ç  /3İ22í]İí33/33Ä22Î2+10 +qq++7#"5467&5432ß+üõ (‹N(°°+ş  –ÿáo° " 8 ¸@ƒT!d!B!4!†!–!›«0!$Hy+ıhØèYH;v/?	 ""`"p""		8-@!$H]m}L)9¹
+3( ?í?ıŞÍ9]qqq+9/99/í9/ıÜ]íÜ]í10]q]]]]qqq+qq]qqq #"5567654'&#"#"55667632##".54>332os rS)+”CXSz|‘(+AVZ^¡Òğ'S&&S(ÒY;#R;78+OcxLJHX57#À üä&&&&  –ÿ‰ = Ll@ßöH¤D´DÄDÔD¦D8v8d877Ö7{3«3m333+3K3[3ë3Ù3;3K3›3«3Ë3‹.›.«.}.k.;.K.‹.›.«.Ë.Û.ë.. HK-*4*D*T*„ ” ´ ä ô v$v„ô%„”´+«Yù«}ë+L=(:NF
+/
+o
+
+
+ 000:J*,&¸ÿÀ@/!$H&&!»­‹› HJLJ>AJJ!5,! ?í?í99//3í23í2+qqq9/+9Ôí/]ıŞqíÜÄÍıÀÀ10qq]qq]qq]]]]]]]qqq+]qqq]]]qqq]q]]q]]q] ##5#"&'&54763254'&&#"3267632#"'&54763232&&#"327‰7”£½<d([Šk™6zEv6n7R‹<kmwªm™+)>_ëÊŒ~ŒÅ‚•H7Ë3vD<h-yD:U½§mŒAsŒI;{iK#"RQ– şµ£•"$));°¥ÄOÅªºfk|ş+P5gS,%¦  –şşîç   @
+  /í?í/]ıİÀ10 #!!2##32î6şŞ"68ÍÍ8şşé+)ú¿)   –ÿ^šu  4@hx
+
+
+ /33/33/3Î2‡+‡}Ä10q#"'&5432š)ı\
++¡¢%¨
+)%úX  –şşîç  @	  /í?íŞıİÀ10"5433#"543!Ë59ËË95#şş+)A)+ú   –ßœş  p@L˜Xhˆ@!$HzYi¼Ÿ¯}[kI		@$H HÆ ?3]++İÀ/3Í]2Í]210 qqqq_qqq+]_] #"'#"547œ+şÓşĞ+qpßş+Ïş1    ıÏÍş# 	 µ	 /í/À10 #!"543!2Í5û55c5ıÏ+))   –şì1  5¹ ÿ€³!$H¸ÿÀ@ H @$H `p ?Í]+/]Í++10 #"''&5432ì+î+†?DşË+w9@  –şú;ã - `@V)6FViiY#H$¸ÿà@ $H$"-"&$++ /í?í9/í9/]ĞíÌıÜÀ9+10+qqqqq #"'&54'&&'&54767654>32;3Z98+	( ++>+6K-3-?-ZZ-?-şú?AYhHJh.P;"+#Fş˜oCDoşšI"  –şş ìç 	 @	  /?/]í10#"5432ì(.++Ë7359  –şú;ã . \@f$f#9IYY	¸ÿğ@%#HV $H.',! /í?í9/í9/ıÜÀĞíÌ9+10q+qqqq #"547676547&54'&'&5432;+ (
++79Z3-@-[[-@-3-K5+
+( +Ò Gş˜Z@?)!JfoDDnhH!+";P.ş˜I 	   –î¼  ¢@ !H‹ËÛë›«»‚	p		¸ÿà@H€ÆÖ”¤´¸ÿà@<H” ¤ ´  $HiZ9I†–ÆÖ  /ÌíÜıÌq99/]Î99]]]]+10q+q]q+qqq]]q+ #"'&#"#"547632327632îa[:D…ƒ/L&)shI€‚2MIGFmnK%%$!‘nmLL'  –Óf  &@
+  /íÌ9//]í9/Æ210 #"'&547&$6*0¸àD2**8% 4³u  ‹Í\‰  &@
+  /íÌ9//]ıÆ29/10 4'665&54632\¶**I6,dZv5$O+9y   –ÓZ    C@" 
+
+    /ÀıÀÜÀ9/À/]Şí9/Æ2í9/Æ210 #"'&&547#"'&547&&8*1¹ş¸&$6*0¸àD2**8%*³u(D2**8% 4³u   ‹ÍR‰   A@!
+
+  /ÀÜÀ9/ÀıÀ/]ŞÆ2í9/ıÆ29/10 4'665&546324'665&54632R¸**L7,fö¶**I6,d[t5$O+9y¶v5$O+9y  o…^u  ¶ 		 /Í/]Í10 #".54>32^&C[44ZC&&CZ44[C&I[C&&C[44[C&&C[4  –!Bu 	 µ  /í/Î10"543!2#Ï999::!)++)   –#w 	 µ  /í/Î10"543!2#Ï99y99#)++)   ÿßO­ A*@@ $H@ H;?K?[?Ö=<<$<<¸ÿà@‚!$HŸ6;6K6‹6Í6d4t4¤4Ô4¤#´#†#†"Ö"Y›  HûI@Y@©@É?f7v7†7¶743t3„3”3‹#›#«#‰ÆT/((+7;C2ç%%+
+ ¸ÿÀ@-$H$4¶!%+ ,9952 ,,!5>! ?í9/?í9/ÀİÀ9/İ]ÀİÀ9/9]q+/33ÜÀí2]2ŞíÔíí9/Ì10 ]]q]]]]]]q+qq]qqq]q]qq+q]q++#"54335#"5433676325432#"'&'&#"!2#!!2#! 327632# '&‚S((PP((T
+ŒÍĞ–***'}lsÛ<G**ı¶-**ıÖ´É(ş÷ªş×¤KèZÏ”;88é93jG=Å]}Z´şÿ½'3Ìÿt  ÿ=ç B Z‹@ÍTYdY„Y”Y6YFY[MkM‹M›M9MIM´@7 !$H7ë7û7Ù7Ë7¹7‰6™6©6&**´!r!¢!¶„”¤ôÖæÄ´)	+{«É½ { « DGJ%(ZB<?9B3.B USPNB\N 9(    ´<¦<<d<„<”<ô<Ö<+<<<+G²??¸ÿà@Q #HV?$?ô?½+û #H$Skû !$HÙ$SDP?G<U%oJJ03,`UU /ıÌÜ]í?ıÍÜ]í9]]+]q]+]qq]qq+q]]]]]qqq/]ÔíÜííŞÜ9í99Ôí99í910 qq]qqqq]]]qqqqqqq]]]]q+qqqqq #!5432!267654&'&&'&547667&&54763!#"55!"&'&&'&&'"66765=KJ-#'E^6şhX*C>Z[.¦y³LJ-HFhŸş¢&F5 YY0¦v[Y=˜iaPw*?DT…#†c¨):&X-+557Y?#Ù))5L3j6eHotQ*2iGIÙ))œ1A%3e5aH6s<Me=6-R%G<_U9e)	I   –ÿé\°  # Sµ@’dK6KFKVK´KÄKÔKôKvF–FtE”E´EÄEÔEôE©0¹000‹0I0Y0¹+™*‹*y*!![!k!fTdTdi[k$dt”¤´´ÄÔv¦t´b$¸ÿà@SH&k
+»
+«
+û
+½	+	k	{	›	«		 H)	y	+k{›«» H)yûô$dt”¤´¸ÿà@&H&vS5¯::/:?::ß::#UHÀ-Ğ--¸ÿÀ³"&H-¸ÿÀ³H-¸ÿÀ@+H- 5<2Q<Q<MC	7_2o222M	 (((¸ÿÀ·H( ?ıŞ+]í?ıŞ]Äí99//9/]ıŞ+++]íŞıŞ]qíÄ10]+q]]]+q]+qq]q]+qqq]]q]]]]]]qqqq]qq]qq]qq ! '&76!2&&'&&#" 32765#"'&&5547632432#&'&&'&#"3>3\°±şÿşû¯°°®ƒ×°XCPNO¿såşÄMONÃtåœşÄ	RsyZEIj4Z&4L-M8AB^VTH®±±®°°X°×ƒs¿ONPşÄãtÃNOMœç´^n%O*VkKN"$:u,'$=R.J[GEG  b  Nd    4@ 	 /3À2İÀİÀ/İİ2À2ŞÍİ2À210 #"'632#"'632N)ş?Á)şÉ7ş+)ş?Á)şÇ9™š+ş¢ş¤+™š+ş¢ş¤  ªÿf'ç  $ ( \@8ø‰™©‰
+™
+©
+'&$$ $$$&%& /ıÀÀ?ıÀÀ9/í/_]]ÌÀŞ]ÍıŞıİÄ10]]]#!"5433$'&'54763!##323'9ş77JşÙjš›99FH9ş-şÑf,d9R®š)+y®#;dWG(+û)+ÂLhH#û)×  ^?+  @	 			 /Í/]Í10 #".54632+&%;,+;‘%&+;;+     jd   4@ 
+ /3À2İÀİÀ/ŞÍİ2À2İİ2À210%#"547&5432#"547&5432ª+:şÆ+Àük+9şÇ+Á+\^+şfşg+\^+şf   –ÿã\ª  # E PÒ@)9NINiN9GIGiG†A–AtAEA@@w=—=§=·==¸ÿğ@ÿH('8''Hˆ&˜&i!©!	!!i!¹!É!Ù!ff¦f¶ÆÖWf¦f¶ÆÖW·¸ii	i¹ÉÙ©hX·&v–væ&¦ö©
+ù
+)	y	™	)	y	é	¸¸)y™)yéù&ö&v–væ· ,,(y&&B'AAAA( EEEBP?@
+H?#R811/114J( 4@:4 4P4`44 AL''45J	;@H;)4	.B	& ..@.P.`.. ?ıŞ]ĞíıÀ?ıŞ+ıÀ9/Í9/]ıÖ]ıÀİ]ÀŞıÖ+íÖÍ_]9/]í9q9/10q]q]]qqq]q]]]]qq]qq]q]qq]]]q]]]q]]qq+]+q]_]qqqq #  76!2&&'&&#"32765###32##"5433#"543332'&##32765\°XØ‚şüş °®ƒ×X°CPNO¿sæœNÃtåœúDª%s##êF9;‘•#o/*6œs@7AC°XX`°°XX°şüsÁONOåè›OMœåşåÛö+2Ef2åÆ#!ò!;  ÿå;ç‘ 	 ´	 /í//10 #!"543!2ç5ûi66—5;+++   – ğH¢   ¦@eØ×Ø''(&)H   		 	 /3À223Ü22Ä22/]333À222Ì222‡+‡}ÄÄ222‡+‡}Ä10 +rrrqqq$#"'#"547&5432632H+şúş÷+şú+	)şüğşú++şø+şüşø   – mD!   ' #@'" /ıŞÍŞÍ/ÌĞÍİÌ10 #".54>32 #!"543!2 #"&54632¾.##.†NüíMMNşz1 $..$®/0 şL+))şS..# 0   –!u 	 µ  /í/Î10"543!2#Ï9999!)++)   VÅBß  J@	¸ÿÀ@	H 	@H	 ?ıÌ9/+93/]ıÜ+99í99Şí10 #547667654&#"'632B9	+*9-gpJ.'/'Ijd   VÅBß  P@@	H ¸ÿÀ@	H @H  	 ?ıÌ9/+93/+ıŞíÜ+í999910&#"#4'&&'&5432=H&
++
+7ujqIA (,
+0,dj Zs#  @	   /Ì]/íÜÀ10 #"547654&'&5432s-"> òX@wY-f<D-&" Zs#  @   /Ì]/íŞÀ10 #"'&546767632s- @@Z@XM%<DwXZv  ÿş  ¼  " )@"	    ?Şı2Şí9/ıÌŞí10$##"&5454547>367632&#"325¼CM6#™#	#)*!7@AR=-0K+še
+5?-1b%003      Ï  b@ $H­½)iy‰H¸ÿà@#$H/  ?ıÜıÌ9Ì9/Ì]9++]qq+10$#"'&#"#"54676323267632LD,2b_80$%%D,/ab(7$W.)=>)))))>;)'     V V 	 µ	  ?í/Í10 #!"543!2V5ş59æ7+++      š š  ´  ?Í/Í106#"&54>32š .->. -      Ç š   @€
+  ?ÀİÀ/ÍŞÍq10$#"&54>32#"&54>32Ç.  .şÓ .-... . -  ÿş  
+  # @#			  ?ıŞ]í/íŞí10$#".54>32.#"32>5&21%%12&-"%55%"i0$$01$$1 3%%3     ÿªV   	 µ	  ?í/Í10#!"543!2V5ş59æ7V+++    ÿf š    ´
+  ?Í/Í10#".54632š-. m- .    ÿfÇ     @		  ?ÀİÀ/ÍŞÍ10#".54632#".54632Ç.  .şÓ-. ] .. - .  ÿşşö    # @#		€	  ?ıŞ]í/íŞí10#".54>32.#"32>5&21%%12&-"%55%"¢0$$00$$0 3%%3       V#  H@,«
+»
+	 "H(	 "H«»44  ?Àİí99qq/3Í2Í210 q+q+q #"'&&'#"547%V+m?6 >m+V1+3V+ÏÏ   şßoÿø  M@¶äôÓ¸ÿğ¶H¶¸ÿğ³H¸ÿğ@H	 ?ÀÜí/íŞí10 ++q+]]qq#"'&5432327632oeUsvUc)%&#>N§.+¤C::Cm/1#:#5/   ÿ1    ~@Z»¬{‹›H”	¤	´	f	v	†	­½iy‰H
+/  ?ıÜ9ı9Ì99Ì99/Ì]9+]q10qq+qqq#"'&#"#"546763232676632LD,0d^82$%%D,/ab(
+&x.)>=)))));>'   “  m  @  ?Í]/ÍÍ910$#7632mJšõõü  w  RJ   +@   
+  ?ıŞÍ]/]ıÖÍÍ910#7632#"5432RLš_9==93òúıô>>;   ‘ÿãh° & : ¦@q+;y$´
+ô
+V
+†
+–
+	ô	²„”¤VD{
+&oŸ: //½Ÿ¯0!H% 5*  ?í?ıŞÍ9/999+qq/]í9/ıÜ]íÜí10 qqqqq]q]]q]q]q #"'5&&#"#"'5&&'&547632##".54>332h))H†<?f*V"kJ+(Qr skd¢`ZV?Â=,T&&T'‡9W#"$$MycO177T#=Y~£_^!ü];&&&   ÿå9ü  M¹ ÿğ³$H¸ÿà@!HH  ?İıŞí9/9/ıÄÀ99/910 +++$547&547632&#"327((şš¨³NRFN&5%V">2[¥ª:C!XEedR.;$* "  ÿº  Ñ ‹  µ   ?í//10#5!F‹‹     1m   @		€	 /ÍŞÍ/ÀŞÀ10 6776771!şğ8öşğ8ö0œ:"¢'œ;   ÿühm , 5 µ $H*¸ÿà³%5H*¸ÿğ³ $H*¸ÿà@3HÖ*æ**5'250
+
+2*"@.¸ÿÀ@
+$H.€ ?ıÄÜ+í99/í9//ıÌ9/99ŞıŞ29ıÄ99]+++10+$&&'654#"&&547632667&547632&#"665h+lk%+'$=:>!",
+"C%:n	tQ$1F	$ !L
+X))+.*.3&#°( ÿÿ  ş“1   Y  ş“ 	³  ?55      1 é  µ€ ?Í/Í10$6771şğ8öË'œ;     F   V@ 	¸ÿğ@	H	  ¸ÿÀ¶%)H  ?3Ü+ıÜí9999+/ıÎŞı999Æ2910%'#"&'667&&547632&#"65=GlF
+/_3"*=@19T-G-).37P,>	‡'ÿÿ  ÿ1   \  ÿ ²  ?5     H)  G@«»	¸ÿğ@
+"H	 ?ÜıŞ2+Æ2ı9Î2/ŞÍ2İ9ŞÍ210q$#"&'#"5467732773277H_J
+#:5	;
+	`.#e’X…0&     ø   @ ?ıŞí/ÍŞí106#"5467632&'&#"325ø%2a#;/!1%$5THw5)m"9<-(3>7'     ; …  G@ H¸@´	
+¸ÿà@$H
+	 ?Ü9Î2íı9+Î2/3Ì29+10 #"&'&&#"'632327İ8%#7".>;/]Z31Z	
+f#      )  I¹ ÿğ³ $H¸ÿÀ@H
+	 ?İı9Şí9/99/3ıÆÜ2Æ+10 +$67&54632&#"327úN9r0/.F92bH3.+f3(Cÿÿ  ş×   b  ş× @  
+
+ 
+
+
+ ?]]5 F7q 
+ ·
+
+ /Í99/Í9910 &&'6670S#ERÛ`D86c0?: #ÿğJß 
+ .¹ 	ÿà@H@	P	`		
+ ??í/Î2Í910]]+$#667J
+ùò·wPµz0`0şşt  Åÿö¼Û  y@R[kI;)™©‹y[k9I¦”€$t
+
+  ??íŞí2?/]İ9ÜÍÎ]29]]]]10]]]]]]]]]] #"&'#'&&'73273¼)y!32F#oK5‡w"‰k mwåm1¨ ÀaÇj“¬¢     Já  @3k{‹=M]k{‹_K¿/_¢¸ÿà@'H		H	  ??íŞí29/í9?À2/]3Í9Î2+9+]]Ö]Í9/]9Í10]]]qq #"'#"'#6573273327J¹I1EQDü1s^†;fb¾B\ºÇ3‘a/‡R°ª……  ÿúÕé  m@ 
+
+H¸ÿà@#HVf
+›« H  ?2+í?í9/]9]++99/ÍĞÍÎ299//99310$547667&&'&547667¦ş…D	A9<DZu-a5)”îwwJDSXaJ?1-Yx0M ™=*€‰†.Q  É Éî    F@1™©k{
+H„”¤„”¤‰	  @ P   /íŞí/ÍŞ]Í10]]]+]] #"&'&547632'&#"325î'7>p-K INX\``cDmhL1)ø¦ÓR3H)-Vd˜¨NTc#UMG ;wL   ¼ òÉ  M@ r‚Td ¸ÿÀ@	H  ?í?Ş2í2/Ü2ÍÍ29/Î+210 ]]]%&'&&'#"'&546733267áˆ
+9a(k''nQ(hA’"Æ+îÆ%h121Ds0ş˜i  ƒ 5Ë  c@@HÙHrP`
+
+  Oëû 
+H
+ ??í9]+]q?í/]İÎ9Î]210 ]_]+]q #&&'&&'77·[A!4*5wD…i:"Š¹­şùÄÖdÊd€ ê8şäDÓ‘¨Z×  ƒ  5¾  K@YÙéùH   ¸ÿà@
+H    ?í?í?9]+/]Îİ9Î]210+]%&&56676673'ƒi4@F ^?m- .!5*h‡7Œş©ş‚-Õ%¨…aÊldÉdÿ>   ÙÿİğÕ  ! Q@1‰™©™©¶Æ
+ ! !  ?í?ıŞí99/]3İ99]Î2ÜÍ10 ]]]&'&&'#"&547632#"327ÕV%\bNXVR#	`Üv3,31./CL#+İœŠT[O5NİH-bşİû&q-/1  ÿş q¸  -@–¦¶@	H		 ?3Ì/ÖÍÄÍ9/+10]6'6654'&5467q+FH4`c00R6k:    °!     ä¹ ÿè@VH(8øéØH
+ 		¯@!HÀ@
+H @HÀ¸ÿÀ@;H	
+
+@H @!HÀ  @	H  ?ı]Ş+]+í]99Ö+Ğí]99í]9999/+]Ö+í]99Ğí]99Ş+]+qí]99í]9910 +]]]qqq+'7'7'7'7!¢¢¤I¡¡¢ı¢¢¤L¢¢¢İ¢¢¢şo£¢¢££¢¢şo¢¤¤   –  @   /í/]í10 #"54329==9>;;   –ÿ‡    @   ?í/]í10#"54329==9y<==   –'   "@  	 /íŞí/]íĞí10 #"5432#"54329==99==9®>;;ş¡>;;  –şf     #@  	 ?ıŞí/]íĞí10#"5432#"54329==99==9y<==ş£<;;  –   @	 /íĞí/íŞí10 #"5432#"5432;<<;ú9==9<;;<>;;  –  Ã“   @	 ?ıŞí/íŞí10 #"5432#"54329==9·>;;>;;;ş¨;<<  –  Ã–   @	 ?ıŞí/íŞí10 #"5432#"5432Ã>;;>·9==9;<<ş¦;>>  –Ã'   @	 /íŞí/íŞí10 #"5432#"54329==9·>;;>®>;;ş£<;;   “şßÁ w   @	 ?íŞí/íŞí10 #"5432#"5432;>>;µ>99>;<<ş¤<;;  –  {ş    [@4	  	
+  /]ÀÀíŞÆ9?í9/í/]íĞÔıÎ9ıÔ99ıÎ91053753375335353–f+O+fşÚggg-T#VV##ZZ#Tş`ggşsff  •˜N    @  €  /ÍŞÍq/]ÎİÎ105!53•¹ıõ]3LL›\\   ‘‘jj  ]@: #H	èÙÈH9( v¦€ /ÍÍ9/]3q/Í99‡+‡}Ä10 ]]+]]]q+777¤Hı¥6ZI‘JZ5ı¦LË   – Çmœ    # + T@,'++"!%))	 ! /ÀıÀŞıÆÔíŞĞíıÆ/ÀıÀŞıÆĞíŞÔíıÆ10 #"5432#"5432 #"5432'#!5!3!#"5432¼-++-şî-----++-“Pş½CPDş;----˜---2.--ş¸---bş¿APDş¼P--- ÿFÿ‹ ãh  H@#					 //ÀıÀÔÀÕÀİÀÀ/ıŞ2í9/3Şí39/310#"'##&'##"543236323632ã+P)P++PP+útŒ+++  œÿçöÉ 6 |@#{0 H0%2@H26{	H
+¸ÿà@%	H%0668 %0.4.p
+
+
+).  ???í3í9/]Ì99/Í29Ä]9+9/9+]Í+9+10] #"'&'&#"#"'&&5476323 767632ö€€Çş¬w$:+)3z™NjY=.'%643.B,Z-Arª~\B`‘U„h[41ÏmA8LuvVÆU€-B''ƒmu  ÿş  3œ + Y@2©$¹$æöÄÔ$)+	$"+)"	 ?ÄÜ299İ29Ì999/3Ü9Ì299]]q]Í9910 #"'&#"#"'&&54323276676323hSŒ(IM9!TS4-D	 	L("'9G71#+ZZE!R 7;+(+4    ZR - 3@-/% + ?í?ÄÄí99//]/Ğí9/10$#!"54323!254#"#".54>3232676632Z'SüjœK#@:/íB)sN—R) )1@1O33Lğ˜BV‰}=>oÏ%''ş¤   ı¾	ª{ 0 k@GD.T.iy9(4(T(d#t#V#D#}K[k#(00#!(t.f.. /3]]?Äí99/33//9/9]]]]]]10]]] #"&'&&'&$'&$#"#"543 &&'&54632 	ªP*’m*˜mvşÙµÄşÎpRpRo¤3½;¦mşjİ=,9b=³]&ÍP«[Y>úı¾43I68j398
+	Rwşş.Š^V¼P,;mGÇgşë±Eq-DS   ı¾	ª{ - 4 @lziXIu!f!W!z
+Y
+i
+K
+9
+84w%V%f%t+b+T+B++%4
+01!--yy0v++%041
+ /?Ä99í9/9]]]//9/9]]_]]]]]]]]]]]]]]]]10 #"&'&&'&$'&$#"#"54327 54632  &'	ªP*’m*˜mvşÙµÄşÎpRpRo¤¨3¬ş=,<_ğ['ÎP«[Y>úüÈ^‰‚
+ı¾43I68j398
+	Rw""Ï…f,;mşòdşé²Eq-DSÖ¦Uª S3  ‘ÿº¬®   4 c@7 *`4p44_oßï /% Ÿ 0¸ÿÀ´H //+]3Í]999//Í/İ]Ş]İÄ]Ä29/10#"'&&'&&'&'&547632#".54>32¬\W	}g0)3CÑ:ş²""""F]dSEc'H-F(5Gd$""

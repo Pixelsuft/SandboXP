@@ -1,0 +1,2015 @@
+)>
+<element layoutpos=left content=rcbmp(101)/> 
+<element layoutpos=client accessible=true accRole=41 accName=rcstr(10) content=rcstr(10) contentalign=wrapleft />
+<element layoutpos=right layout=borderlayout()>
+<button layoutpos=top id=atom(addfromdisk) accessible=true accRole=43 accName=rcstr(11) Shortcut=rcchar(78) content=rcstr(11) />
+</element>
+</element>
+</element>
+<element id=atom(addfromMSpane) layout=borderlayout() layoutpos=top>
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(12) content=rcstr(12)/>
+<element layoutpos=top layout=borderlayout()>
+<element layoutpos=left content=rcbmp(104)/> 
+<element layoutpos=client accessible=true accRole=41 accName=rcstr(13) content=rcstr(13) contentalign=wrapleft />
+<element layoutpos=right layout=borderlayout()>
+<button layoutpos=top id=atom(addfrommsft) accessible=true accRole=43 accName=rcstr(14) Shortcut=rcchar(79) content=rcstr(14) />
+</element>
+</element>
+</element>
+<element id=atom(addfromNetworkpane) layout=borderlayout() layoutpos=client>
+<element id=atom(addcontentheader) layout=borderlayout() layoutpos=top>
+<element id=atom(label) accessible=true accRole=41 accName=rcstr(42) content=rcstr(42) layoutpos=left />
+<element layout=borderlayout() layoutpos=right>
+<element id=atom(categorylabel) layoutpos=left Shortcut=rcchar(80) accessible=true accRole=41 accName=rcstr(41) content=rcstr(41) />
+<combobox id=atom(categorycombo) accessible=true accRole=46 accName=rcstr(41) layoutpos=right width=127 />
+</element>
+</element>
+<element id=atom(publishedlistcontainer) layoutpos=client layout=borderlayout()>
+<scrollviewer id=atom(listscroller) sheet=styleref(listscroller) layoutpos=client xscrollable=false>
+<selector id=atom(publisheditemlist) sheet=styleref(itemlist) accessible=true accRole=41 accName=rcstr(57) content=rcstr(57) contentalign=wrapleft layout=borderlayout()/>
+</scrollviewer>
+</element>
+</element>
+</element>
+<element id=atom(addrmwinpane) layoutpos=none layout=filllayout()>
+<element id=atom(addrmwinoc) layout=borderlayout()>
+<element id=atom(addwincomponent) layout=borderlayout() layoutpos=top>
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(69) content=rcstr(69)/>
+<element layoutpos=top layout=borderlayout()>
+<element layoutpos=left content=rcbmp(101)/> 
+<element layoutpos=client accessible=true accRole=41 accName=rcstr(70) content=rcstr(70) contentalign=wrapleft />
+<element layoutpos=right layout=borderlayout()>
+<button layoutpos=top accessible=true accRole=41 accName=rcstr(71) content=rcstr(71) id=atom(components) />
+</element>
+</element>
+</element>
+<element id=atom(sevicespane) layout=borderlayout() layoutpos=client>
+<element id=atom(servicecontentheader) layout=borderlayout() layoutpos=top>
+<element id=atom(label) layoutpos=left accessible=true accRole=41 accName=rcstr(72) content=rcstr(72) />
+</element> 
+<element id=atom(ocsetuplistcontainer) layoutpos=client layout=borderlayout()>
+<scrollviewer id=atom(listscroller) sheet=styleref(listscroller) layoutpos=client xscrollable=false>
+<selector id=atom(ocsetupitemlist) sheet=styleref(itemlist) layout=borderlayout()/>
+</scrollviewer>
+</element>
+</element>
+</element>
+</element>
+<element id=atom(pickapppane) sheet=styleref(pickapppane) layoutpos=none layout=filllayout()>
+<element id=atom(pickappadmin) layout=borderlayout()>
+<bigelement layoutpos=top contentalign=wrapleft accessible=true accRole=41 stringresid=10042 />
+<scrollviewer id=atom(clientscroller) sheet=styleref(listscroller) layoutpos=client xscrollable=false>
+<ARPSelector id=atom(clienttypelist) sheet=styleref(pickapppane) layoutpos=client layout=borderlayout()>
+<expando id=atom(oemclients) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(header) class="padded" accessible=true accRole=45 accName=rcstr(10049,handlemap(1)) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(arrow) accessible=true accRole=64 accName=rcstr(10049,handlemap(1)) />
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) content=rcstr(10049,handlemap(1)) />
+</autobutton>
+<clipper layoutpos=top>
+<element id=atom(clipped) layout=borderlayout()>
+<gradientline class="innerheader" layoutpos=top />
+<element class="blurbtext" layoutpos=top layout=borderlayout()>
+<element id=atom(radiobutton) visible=false />
+<element class="radioindent" />
+<bigelement contentalign=wrapleft accessible=true accRole=41 stringresid=10050 layoutpos=client />
+</element>
+</element>
+</clipper>
+</expando>
+<gradientline class="interheader" layoutpos=top />
+<expando id=atom(msclients) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(header) class="padded" accessible=true accRole=45 accName=rcstr(10051,handlemap(1)) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(arrow) accessible=true accRole=64 accName=rcstr(10051,handlemap(1)) />
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) content=rcstr(10051,handlemap(1)) />
+</autobutton>
+<clipper layoutpos=top>
+<element id=atom(clipped) layout=borderlayout()>
+<gradientline class="innerheader" layoutpos=top />
+<element class="blurbtext" layoutpos=top layout=borderlayout()>
+<element id=atom(radiobutton) visible=false />
+<element class="radioindent" />
+<bigelement contentalign=wrapleft accessible=true accRole=41 stringresid=10052 layoutpos=top />
+</element>
+</element>
+</clipper>
+</expando>
+<gradientline class="interheader" layoutpos=top />
+<expando id=atom(nonmsclients) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(header) class="padded" accessible=true accRole=45 accName=rcstr(10053,handlemap(1)) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(arrow) accessible=true accRole=64 accName=rcstr(10053,handlemap(1)) />
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) content=rcstr(10053,handlemap(1)) />
+</autobutton>
+<clipper layoutpos=top>
+<element id=atom(clipped) layout=borderlayout()>
+<gradientline class="innerheader" layoutpos=top />
+<element class="blurbtext" layoutpos=top layout=borderlayout()>
+<element id=atom(radiobutton) visible=false />
+<element class="radioindent" />
+<bigelement contentalign=wrapleft accessible=true accRole=41 stringresid=10054 layoutpos=top />
+</element>
+</element>
+</clipper>
+</expando>
+<gradientline class="interheader" layoutpos=top />
+<expando id=atom(customclients) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(header) class="padded" accessible=true accRole=45 accName=rcstr(10055,handlemap(1)) layoutpos=top layout=borderlayout()>
+<autobutton id=atom(arrow) accessible=true accRole=64 accName=rcstr(10055,handlemap(1)) />
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) content=rcstr(10055,handlemap(1)) />
+</autobutton>
+<clipper layoutpos=top>
+<element id=atom(clipped) layout=borderlayout() >
+<gradientline class="innerheader" layoutpos=top />
+<element id=atom(radiobutton) visible=false />
+<element class="radioindent" />
+<element class="blurbtext" layoutpos=bottom layout=filllayout()>
+<bigelement contentalign=wrapleft layoutpos=top accessible=true accRole=41 stringresid=10056/>
+</element>
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10079,handlemap(1)) content=rcstr(10079,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="StartMenuInternet"
+windowsclient="IEXPLORE.EXE"
+othermsclients="MSN Explorer"
+keeptext=rcstr(10058,handlemap(1))
+picktext=rcstr(10059,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10080,handlemap(1)) content=rcstr(10080,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="Mail"
+windowsclient="Outlook Express"
+othermsclients="Hotmail;MSN Explorer;Microsoft Outlook"
+keeptext=rcstr(10061,handlemap(1))
+keepmstext=rcstr(10084,handlemap(1))
+picktext=rcstr(10062,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10081,handlemap(1)) content=rcstr(10081,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="Media"
+windowsclient="Windows Media Player"
+othermsclients="Media Center Music;Media Center TV;Media Center Videos"
+keeptext=rcstr(10064,handlemap(1))
+picktext=rcstr(10065,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10082,handlemap(1)) content=rcstr(10082,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="IM"
+windowsclient="Windows Messenger"
+keeptext=rcstr(10067,handlemap(1))
+picktext=rcstr(10068,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10083,handlemap(1)) content=rcstr(10083,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="JavaVM"
+windowsclient="MSJavaVM"
+keeptext=rcstr(10070,handlemap(1))
+picktext=rcstr(10071,handlemap(1)) />
+</element>
+</clipper>
+</expando>
+<gradientline class="interheader" layoutpos=top />
+</ARPSelector>
+</scrollviewer>
+<element sheet=styleref(closepane) layoutpos=bottom layout=borderlayout()
+margin=rect(0,8,0,0) >
+<element layoutpos=right layout=gridlayout(-1,2) >
+<button id=atom(ok) layoutpos=right accessible=true accRole=43 accName=rcstr(10043,handlemap(1)) content=rcstr(10043,handlemap(1)) margin=rect(8,0,8,0) />
+<button id=atom(cancel) layoutpos=right accessible=true accRole=43 accName=rcstr(10044,handlemap(1)) content=rcstr(10044,handlemap(1)) margin=rect(8,0,8,0) />
+</element>
+</element>
+</element>
+<element id=atom(pickappnonadmin) visible=false layout=borderlayout()>
+<bigelement layoutpos=top contentalign=wrapleft accessible=true accRole=41 stringresid=10076 />
+</element>
+</element>
+</element>
+</arpframe>
+<arpitem resid=installeditem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(106)/>
+<element layoutpos=top layout=borderlayout()>
+<element Layout=RowLayout(22,1,3) id=atom(row1) layoutpos=right contentalign=topright enabled=false>
+<element id=atom(sizelabel) accessible=true accRole=41 accName=rcstr(60) content=rcstr(60) />
+<button id=atom(size) />
+</element>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element layoutpos=top layout=borderlayout()>
+<element layout=flowlayout(0) layoutpos=client>
+<button id=atom(supinfo) accessible=true accRole=41 accName=rcstr(16) content=rcstr(16) />
+</element>
+<element Layout=RowLayout(22,1,3) id=atom(row2) layoutpos=right contentalign=wrapright>
+<element id=atom(freqlabel) accessible=true accRole=41 accName=rcstr(61) content=rcstr(61) />
+<button id=atom(freq) />
+</element>
+</element>
+<element Layout=BorderLayout() layoutpos=top>
+<element Layout=RowLayout(22,1,3) id=atom(row3) contentalign=wrapright layoutpos=right>
+<element id=atom(lastlabel) accessible=true accRole=41 accName=rcstr(62) content=rcstr(62) />
+<element id=atom(lastused) />
+</element>
+</element>
+<element id=atom(instruct) layoutpos=client contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<arpitem resid=publisheditem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(106)/>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+<element id=atom(installed) layoutpos=right contentalign=topright/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element id=atom(instruct) layoutpos=client accessible=true accRole=41 accName=rcstr(54) content=rcstr(54) contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<arpitem resid=ocsetupitem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(107)/>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element id=atom(instruct) layoutpos=top accessible=true accRole=41 accName=rcstr(67) content=rcstr(67) contentalign=wrapleft/>
+<element id=atom(warning) layoutpos=top accessible=true accRole=41 accName=rcstr(68) content=rcstr(68) contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<element resid=installeditemdoubleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chg) accessible=true accRole=43 accName=rcstr(17) content=rcstr(17) />
+<button id=atom(rm) accessible=true accRole=43 accName=rcstr(18) content=rcstr(18) />
+</element>
+<element resid=installeditemchangeonlyaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chg) accessible=true accRole=43 accName=rcstr(17) content=rcstr(17) />
+</element>
+<element resid=installeditemremoveonlyaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(rm) accessible=true accRole=43 accName=rcstr(18) content=rcstr(18) />
+</element>
+<element resid=installeditemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chgrm) accessible=true accRole=43 accName=rcstr(19) content=rcstr(19) />
+</element>
+<element resid=publisheditemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(add) accessible=true accRole=43 accName=rcstr(20) content=rcstr(20) />
+</element>
+<element resid=ocsetupitemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(configure) accessible=true accRole=43 accName=rcstr(66) content=rcstr(66) />
+</element>
+<element resid=oemclientshowhide layoutpos=top layout=borderlayout() >
+<element class="clientrow" id=atom(show) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10073,handlemap(1)) content=rcstr(10073,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+<element class="clientrow" id=atom(hide) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10074,handlemap(1)) content=rcstr(10074,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+</element>
+<element resid=clientcategoryblock id=atom(clipped) layoutpos=top layout=borderlayout() >
+<element layout=verticalflowlayout(0) layoutpos=top padding=rect(8rp,0,0,0) >
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10057,handlemap(1)) content=rcstr(10057,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="StartMenuInternet" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10060,handlemap(1)) content=rcstr(10060,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Mail" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10063,handlemap(1)) content=rcstr(10063,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Media" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10066,handlemap(1)) content=rcstr(10066,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="IM" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10069,handlemap(1)) content=rcstr(10069,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="JavaVM" />
+</element>
+</element>
+</element>
+<ARPSelector resid=clientblockselector layoutpos=client layout=borderlayout() padding=rect(0,6rp,0,6rp) selected=false />
+<element resid=clientitem class="customclientitem" layout=rowlayout(23) layoutpos=top contentalign=topleft selected=false>
+<autobutton id=atom(setdefault) class="padded" accessible=true accRole=45 layout=borderlayout()>
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) contentalign=wrapleft />
+</autobutton>
+<element width=20rp />
+<autobutton id=atom(show) class="padded" accessible=true accRole=44 accName=rcstr(10072,handlemap(1)) layout=borderlayout() selected=false>
+<element id=atom(checkbutton) />
+<element id=atom(checktext) content=rcstr(10072,handlemap(1)) />
+</autobutton>
+</element>
+<arphelp resid=sizehelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(21) content=rcstr(21) />
+</element>
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(22) content=rcstr(22) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element>
+</arphelp>
+<arphelp resid=freqhelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(23) content=rcstr(23) />
+</element>
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(24) content=rcstr(24) />
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(25) content=rcstr(25) />
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(26) content=rcstr(26) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element> 
+</arphelp>
+<arphelp resid=suphelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(prodname) layoutpos=bottom contentalign=wrapleft />
+<element layoutpos=bottom contentalign=wrapleft accessible=true accRole=41 accName=rcstr(27) content=rcstr(27) />
+<element content=" " />
+<element id=atom(title) layoutpos=left contentalign=wrapleft />
+</element>
+<element layoutpos=client layout=VerticalFlowLayout(0,0,3) padding=rect(0,10,0,10)>
+<ARPSupportItem id=atom(publisher) accessible=true accRole=41 AccName=rcstr(28) />
+<ARPSupportItem id=atom(version) accessible=true accRole=41 AccName=rcstr(29) />
+<ARPSupportItem id=atom(contact) accessible=true accRole=41 AccName=rcstr(30) />
+<ARPSupportItem id=atom(support) accessible=true accRole=41 AccName=rcstr(31) />
+<ARPSupportItem id=atom(readme) accessible=true accRole=41 AccName=rcstr(32) />
+<ARPSupportItem id=atom(update) accessible=true accRole=41 AccName=rcstr(33) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(productID) accessible=true accRole=41 AccName=rcstr(34) />
+<ARPSupportItem id=atom(regCompany) accessible=true accRole=41 AccName=rcstr(35) />
+<ARPSupportItem id=atom(regOwner) accessible=true accRole=41 AccName=rcstr(36) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(comments) accessible=true accRole=41 AccName=rcstr(37) />
+</element>
+<Element layoutpos=bottom layout=borderlayout()>
+<Button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</Element>
+<Element layoutpos=bottom id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Element layoutpos=bottom id=atom(repairblock) layout=borderlayout()>
+<Element layoutpos=top id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Button id=atom(repair) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(39) content=rcstr(39) />
+<element id=atom(repairDesc) layoutpos=left contentalign=wrapleft accessible=true accessible=true accRole=41 accName=rcstr(38) content=rcstr(38) />
+</Element>
+</arphelp>
+PAD<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(21,7,19,5);
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+button [enabled=false]
+{
+background: dfc(4, 0x0010 | 0x0100);
+foreground: graytext;
+fontstyle: shadow;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: appworkspace;
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+bordercolor: appworkspace;
+borderthickness: rect(2,2,2,2);
+foreground: captiontext;
+margin: rect(5,5,5,5);
+padding: rect(2,2,2,4);
+}
+button [keyfocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [mousefocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [pressed]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+button [selected]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dfc(4, 0x0010); 
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dfc(3, 0x0000);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dfc(3, 0x0000 | 0x0200);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dfc(3, 0x0001);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dfc(3, 0x0001 | 0x0200);
+}
+repeatbutton [class="Page"]
+{ 
+background: scrollbar;
+}
+repeatbutton [class="Page"][pressed]
+{ 
+background: buttonshadow;
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0004);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dfc(4, 0x0004 | 0x0400);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,3,-1,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,3,-1,0,0,0,0,handlemap(2));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+PAD<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(3), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(5), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(5), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(5), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(4), 3, 1);
+content: dtb(handlemap(4), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+content: dtb(handlemap(4), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(4), 3, 3);
+content: dtb(handlemap(4), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(4), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(4), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(4), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(4), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(4), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(4), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(4), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(4), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(4), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(4), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(3), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(3), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(3), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(3), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(3), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(3), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(3), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(3), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(3), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(3), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+PA   ¹    L   Ÿ  ¡  /  £  ¤  T3  ”  ”  @9  ö Àö ÀT9  q Àr À˜<  |  O   s e r v i ç o   d e   c o n f i g u r a ç ã o   s e m   f i o   f o i   i n i c i a d o   c o m   ê x i t o  
+     p  F a l h a   a o   i n i c i a r   o   s e r v i ç o   d e   c o n f i g u r a ç ã o   s e m   f i o .  
+   <  A d i c i o n a n d o   i n t e r f a c e   % 1 .  
+   l  F a z e n d o   r e i n i c i a l i z a ç ã o   p e r m a n e n t e   d a   i n t e r f a c e .  
+     X  I n i c i a n d o   v e r i f i c a ç ã o   d e   r e d e s   s e m   f i o .  
+      F a l h a   d o   d r i v e r   a o   v e r i f i c a r ,   r e a g e n d a n d o   o u t r a   v e r i f i c a ç ã o   e m   5   s e g u n d o s .  
+     8  V e r i f i c a ç ã o   c o n c l u í d a .  
+     |  N e n h u m a   a l t e r a ç ã o   d e   c o n f i g u r a ç ã o .   P a u s a   a s s o c i a d a   a   % 1 .  
+     €  S S I D   d a   c o n f i g u r a ç ã o   d e   i n s e r ç ã o :   % 1 ,   t i p o   d e   r e d e :   % 2 ! d ! .  
+     h  N ã o   h á   m a i s   c o n f i g u r a ç õ e s   n a   l i s t a   d e   s e l e ç ã o .  
+     `  F a l h a   a o   a s s o c i a r   a   q u a l q u e r   r e d e   s e m   f i o .  
+     d  E x c l u i n d o   c o n f i g u r a ç ã o   % 1   e   s e g u i n d o   a d i a n t e .  
+     I g n o r a n d o   c o n f i g u r a ç ã o   % 1   n o   m o m e n t o ,   t e n t e   a u t e n t i c a r   m a i s   t a r d e .  
+     t  I n t e r f a c e   s e m   f i o   a s s o c i a d a   c o m   ê x i t o   a   % 1   [ M A C   % 2 ] .  
+     ì  C o n f i g u r a ç ã o   % 1   p o s s u i   c h a v e   W E P   a l e a t ó r i a   p a d r ã o .   A u t e n t i c a ç ã o   e s t á   d e s a t i v a d a .   A s s u m i n d o   c o n f i g u r a ç ã o   i n v á l i d a .  
+   x  R e c e b i d a   n o t i f i c a ç ã o   d e   c h e g a d a   d e   d i s p o s i t i v o   p a r a   % 1 .  
+   x  R e c e b i d a   n o t i f i c a ç ã o   d e   r e m o ç ã o   d e   d i s p o s i t i v o   p a r a   % 1 .  
+   \  R e c e b i d a   n o t i f i c a ç ã o   d e   c o n e x ã o   d e   m í d i a .  
+   d  R e c e b i d a   n o t i f i c a ç ã o   d e   d e s c o n e x ã o   d e   m í d i a .  
+     T  R e c e b i d a   n o t i f i c a ç ã o   d e   t e m p o   l i m i t e .  
+   h  P r o c e s s a n d o   a t u a l i z a ç ã o   d e   c o m a n d o   d o   u s u á r i o .  
+     h  P r o c e s s a n d o   r e d e f i n i ç ã o   d e   c o m a n d o   d o   u s u á r i o .  
+     d  P r o c e s s a n d o   p r ó x i m a   c o n f i g u r a ç ã o   d o   c o m a n d o .  
+     h  P r o c e s s a n d o   r e m o ç ã o   d e   c o n f i g u r a ç ã o   d o   c o m a n d o .  
+   d  P r o c e s s a n d o   d a d o s   d e   a t u a l i z a ç ã o   d o   c o m a n d o .  
+      E x c l u i n d o   c o n f i g u r a ç ã o   % 1   e   s e g u i n d o   a d i a n t e .   S e   n ã o   f o r   e n c o n t r a d a   u m a   c o r r e s p o n d ê n c i a   m e l h o r ,   a   c o n f i g u r a ç ã o   s e r á   r e s t a u r a d a .  
+      A   c o n f i g u r a ç ã o   s e m   f i o   f o i   a l t e r a d a   p o r   m e i o   d e   u m a   c h a m a d a   a d m i n i s t r a t i v a .  
+   œ  [ A t i v a d o = % 1 ;   T o l e r ê n c i a   a   f a l h a s = % 2 ;   M o d o = % 3 ;   V o l á t i l = % 4 ;   D i r e t i v a = % 5 % ] % n  
+   ¤  { S s i d = % 1 ;   I n f r a - e s t r u t u r a = % 2 ;   P r i v a c i d a d e = % 3 ;   [ V o l á t i l = % 4 % ;   D i r e t i v a = % 5 % ] } . % n  
+   ¸  F a l h a   a o   o b t e r   o   e n d e r e ç o   M A C   d o   p o n t o   d e   e x t r e m i d a d e   r e m o t o .   O   c ó d i g o   d e   e r r o   é   % 1 ! d ! .  
+   ˜  F a l h a   a o   g e r a r   a s   c h a v e s   d e   s e s s ã o   i n i c i a i s .   O   c ó d i g o   d e   e r r o   é   % 1 ! d ! .  
+     œ  A   l i s t a   d e   r e d e s   b l o q u e a d a s   f o i   a l t e r a d a .   A g o r a   e l a   c o n t é m   % 1 ! d !   r e d e ( s ) .  
+   „  F a l h a   a o   i n s e r i r   a   c o n f i g u r a ç ã o   % 1 .   O   c ó d i g o   d e   e r r o   é   % 2 ! d ! .  
+   l  T r a n s i ç ã o   d e   e s t a d o   E A P O L :   [ % 1 ! w s ! ]   p a r a   [ % 2 ! w s ! ]  
+   X  T e m p o   l i m i t e   d e   e s t a d o   E A P O L :   [ % 1 ! w s ! ]  
+     t  P r o c e s s a n d o   e v e n t o   d e   c o n e x ã o   d e   m í d i a   p a r a   [ % 1 ! w s ! ]  
+     x  P r o c e s s a n d o   e v e n t o   d e   d e s c o n e x ã o   d e   m í d i a   p a r a   [ % 1 ! w s ! ]  
+   x  P r o c e s s a n d o   e v e n t o   d e   a d i ç ã o   d e   i n t e r f a c e   p a r a   [ % 1 ! w s ! ]  
+   |  P r o c e s s a n d o   e v e n t o   d e   r e m o ç ã o   d e   i n t e r f a c e   p a r a   [ % 1 ! w s ! ]  
+     |  P r o c e s s a n d o   e v e n t o   d e   l i g a ç ã o   d e   a d a p t a d o r   p a r a   [ % 1 ! w s ! ]  
+     ˆ  P r o c e s s a n d o   e v e n t o   d e   d e s v i n c u l a ç ã o   d e   a d a p t a d o r   p a r a   [ % 1 ! w s ! ]  
+     Œ  P r o c e s s a n d o   e v e n t o   d e   l o g o n   d e   u s u á r i o   p a r a   a   i n t e r f a c e   [ % 1 ! w s ! ]  
+     Œ  P r o c e s s a n d o   e v e n t o   d e   l o g o f f   d e   u s u á r i o   p a r a   a   i n t e r f a c e   [ % 1 ! w s ! ]  
+   °  P r o c e s s a n d o   e v e n t o   d e   a l t e r a ç ã o   d e   p a r â m e t r o s   d e   c o n f i g u r a ç ã o   8 0 2 . 1 X   p a r a   [ % 1 ! w s ! ]  
+     ˜  N ã o   é   p o s s í v e l   l o c a l i z a r   u m   c e r t i f i c a d o   v á l i d o   p a r a   a u t e n t i c a ç ã o   8 0 2 . 1 X  
+   \  E r r o   a o   o b t e r   i d e n t i d a d e   % 1 ! w s !   0 x % 2 ! 0 x !  
+     €  E r r o   n o   p r o c e s s a m e n t o   d e   p r o t o c o l o   d e   a u t e n t i c a ç ã o   0 x % 1 ! 0 x !  
+     P a c o t e   % 1 ! w s ! :   D e s t : [ % 2 ! w s ! ]   O r i g : [ % 3 ! w s ! ]   E A P O L - P k t - t i p o : [ % 4 ! w s ! ]  
+     Œ P a c o t e   % 1 ! w s ! : % n   D e s t : [ % 2 ! w s ! ] % n   O r i g : [ % 3 ! w s ! ] % n   T i p o   E A P O L - P k t : [ % 4 ! w s ! ] % n   C o m p r i m e n t o   d e   d a d o s : [ % 5 ! l d ! ] % n   T i p o   E A P - P k t : [ % 6 ! w s ! ] % n   I D   E A P : [ % 7 ! l d ! ] % n   C o m p r i m e n t o   d e   d a d o s   E A P : [ % 8 ! l d ! ] % n   % 9 ! w s ! % n  
+   °  A   á r e a   d e   t r a b a l h o   i n t e r a t i v a   é   n e c e s s á r i a   p a r a   a   s e l e ç ã o   d e   c r e d e n c i a i s   d e   u s u á r i o  
+   ¨  A   á r e a   d e   t r a b a l h o   i n t e r a t i v a   é   n e c e s s á r i a   p a r a   p r o c e s s a r   i n f o r m a ç õ e s   d e   l o g o n  
+     ´  N ã o   é   p o s s í v e l   i n t e r a g i r   c o m   a   á r e a   d e   t r a b a l h o   d u r a n t e   a   a u t e n t i c a ç ã o   d o   c o m p u t a d o r  
+     œ  A g u a r d a n d o   e n q u a n t o   a   á r e a   d e   t r a b a l h o   i n t e r a t i v a   d o   u s u á r i o   é   c a r r e g a d a  
+     ¨  A g u a r d a n d o   e n q u a n t o   o   m ó d u l o   d e   u s u á r i o   8 0 2 . 1 X   o b t é m   a s   c r e d e n c i a i s   d e   u s u á r i o  
+     ¨  A g u a r d a n d o   e n q u a n t o   o   m ó d u l o   d e   u s u á r i o   8 0 2 . 1 X   p r o c e s s a   a s   i n f o r m a ç õ e s   d e   l o g o n  
+   œ  E r r o   n o   m ó d u l o   d e   u s u á r i o   8 0 2 . 1 X   a o   o b t e r   c r e d e n c i a i s   d e   u s u á r i o   0 x % 1 ! 0 x !  
+      E r r o   n o   m ó d u l o   d e   u s u á r i o   8 0 2 . 1 X   a o   p r o c e s s a r   i n f o r m a ç õ e s   d e   l o g o n   0 x % 1 ! 0 x !  
+   |  P r o c e s s a n d o   r e s p o s t a   r e c e b i d a   d o   m ó d u l o   d e   u s u á r i o   8 0 2 . 1 X  
+   D I d e n t i d a d e   E A P : [ % 1 ! S ! ] % n   E s t a d o : [ % 2 ! w s ! ] % n   T i p o   d e   a u t e n t i c a ç ã o : [ % 3 ! w s ! ] % n   M o d o   d e   a u t e n t i c a ç ã o : [ % 4 ! l d ! ] % n   T i p o   E A P : [ % 5 ! l d ! ] % n   C o n t a g e m   d e   f a l h a s : [ % 6 ! l d ! ] % n  
+     L  M e n s a g e m   i n v á l i d a   d a   c h a v e   E A P O L  
+     l  E r r o   a o   p r o c e s s a r   m e n s a g e m   d e   c h a v e   E A P O L   % 1 ! l d !  
+       P a c o t e   i n v á l i d o   t i p o   E A P = % 1 ! l d !   r e c e b i d o .   T i p o   E A P   e s p e r a d o = % 2 ! l d !  
+     °  N ã o   é   p o s s í v e l   l o c a l i z a r   u m   c e r t i f i c a d o   d e   u s u á r i o   v á l i d o   p a r a   a u t e n t i c a ç ã o   8 0 2 . 1 X  
+     ´  N ã o   é   p o s s í v e l   l o c a l i z a r   u m   c e r t i f i c a d o   d e   c o m p u t a d o r   v á l i d o   p a r a   a u t e n t i c a ç ã o   8 0 2 . 1 X  
+   ˆ  A u t e n t i c a ç ã o   8 0 2 . 1 X   d o   c l i e n t e   c o n c l u í d a   c o m   ê x i t o   c o m   s e r v i d o r  
+    N ã o   f o i   e x e c u t a d a   a   a u t e n t i c a ç ã o   8 0 2 . 1 X ,   p o i s   n ã o   h o u v e   r e s p o s t a   d o   s e r v i d o r   p a r a   p a c o t e s   8 0 2 . 1 X .   E n t r a n d o   e m   e s t a d o   A U T E N T I C A D O .  
+   ”  F a l h a   n a   a u t e n t i c a ç ã o   8 0 2 . 1 X   d o   c l i e n t e .   O   c ó d i g o   d e   e r r o   é   0 x % 1 ! 0 x !  
+     à  F a l h a   n a   a u t e n t i c a ç ã o   8 0 2 . 1 X   d o   c l i e n t e .   H o u v e   p r o b l e m a s   d e   c o n e x ã o   d e   r e d e   c o m   o   s e r v i d o r   d e   a u t e n t i c a ç ã o .  
+   4 U m   c e r t i f i c a d o   % 1 ! w s !   f o i   u s a d o   p a r a   a u t e n t i c a ç ã o   8 0 2 . 1 X % n  
+  
+ V e r s ã o :   % 2 ! w s ! % n  
+ N ú m e r o   d e   s é r i e :   % 3 ! w s ! % n  
+ E m i s s o r :   % 4 ! w s ! % n  
+ N o m e   a m i g á v e l :   % 5 ! w s ! % n  
+ U P N :   % 6 ! w s ! % n  
+ U s o   a v a n ç a d o   d a   c h a v e :   % 7 ! w s ! % n  
+ V á l i d o   a   p a r t i r   d e :   % 8 ! w s ! % n  
+ V á l i d o   a t é :   % 9 ! w s ! % n  
+ I m p r e s s ã o   d i g i t a l :   % 1 0 ! w s !  
+   ˜  N o t i f i c a ç ã o   d e   a l t e r a ç ã o   d e   d i r e t i v a   r e c e b i d a   d o   m e c a n i s m o   d e   d i r e t i v a  
+     ä  C o n f i g u r a ç õ e s   d e   d i r e t i v a   l o c a l   a t u a l i z a d a s   c o m   c o n f i g u r a ç õ e s   a l t e r a d a s   f o r n e c i d a s   p e l o   m e c a n i s m o   d e   d i r e t i v a  
+   À  8 0 2 . 1 X   n ã o   e s t á   a t i v a d o   p a r a   a   c o n f i g u r a ç ã o   d e   r e d e   a t u a l .   O   p a c o t e   r e c e b i d o   f o i   r e j e i t a d o .  
+    F a l h a   n a   a u t e n t i c a ç ã o   8 0 2 . 1 X   d o   c l i e n t e .   P o s s í v e i s   e r r o s :  
+ 1 .   N o m e   d e   u s u á r i o   i n v á l i d o   f o i   d i g i t a d o  
+ 2   C e r t i f i c a d o   i n v á l i d o   f o i   e s c o l h i d o  
+ 3 .   A   c o n t a   d e   u s u á r i o   n ã o   t e m   p r i v i l é g i o s   p a r a   a u t e n t i c a ç ã o  
+  
+ C o n t a c t e   o   a d m i n i s t r a d o r   d o   s i s t e m a   p a r a   o b t e r   m a i s   d e t a l h e s  
+     è  N e n h u m a   c h a v e   f o i   c o n f i g u r a d a   p a r a   a   c o n e x ã o   s e m   f i o .   A   f u n c i o n a l i d a d e   d e   r e c r i a ç ã o   d e   c h a v e   n ã o   i r á   f u n c i o n a r .  
+   p N e n h u m a   c h a v e   d e   t r a n s m i s s ã o   W E P   f o i   r e c e b i d a   p a r a   a   c o n e x ã o   s e m   f i o   a p ó s   a   a u t e n t i c a ç ã o   8 0 2 . 1 x .   A   c o n f i g u r a ç ã o   a t u a l   f o i   m a r c a d a   c o m o   f a l h a   e   a   c o n e x ã o   s e m   f i o   s e r á   d e s c o n e c t a d a .  
+     e n d .  
+  
+      D e s d e   q u e   o   W i n d o w s   f o i   a t i v a d o   n e s t e   c o m p u t a d o r ,   o   h a r d w a r e   f o i   a l t e r a d o   d e   f o r m a   s i g n i f i c a t i v a .   D e v i d o   a   e s s a s   a l t e r a ç õ e s ,   o   W i n d o w s   d e v e   s e r   r e a t i v a d o   e m   % u   d i a ( s ) .   N ã o   é   p o s s í v e l   r e a t i v a r   o   W i n d o w s   e m   m o d o   d e   s e g u r a n ç a .   R e i n i c i e   o   c o m p u t a d o r   e m   m o d o   n o r m a l   p a r a   r e a t i v a r   o   W i n d o w s . \ n D e s e j a   r e i n i c i a r   o   c o m p u t a d o r   a g o r a ?  
+     D e s d e   q u e   o   W i n d o w s   f o i   a t i v a d o   n e s t e   c o m p u t a d o r ,   o   h a r d w a r e   f o i   a l t e r a d o   d e   f o r m a   s i g n i f i c a t i v a .   D e v i d o   a   e s s a s   a l t e r a ç õ e s ,   o   W i n d o w s   d e v e   s e r   r e a t i v a d o   e m   % u   d i a ( s ) . . \ n D e s e j a   r e a t i v a r   o   W i n d o w s   a g o r a ?  
+     ( D e s d e   q u e   o   W i n d o w s   f o i   a t i v a d o   n e s t e   c o m p u t a d o r ,   o   h a r d w a r e   f o i   a l t e r a d o   d e   f o r m a   s i g n i f i c a t i v a .   D e v i d o   a   e s s a s   a l t e r a ç õ e s ,   o   W i n d o w s   d e v e   s e r   r e a t i v a d o   e m   % u   d i a ( s ) .   P a r a   e v i t a r   q u e   o   a c e s s o   s e j a   r e c u s a d o ,   p e ç a   a o   a d m i n i s t r a d o r   p a r a   r e a t i v a r   o   W i n d o w s   n e s t e   c o m p u t a d o r .  
+   Ä A   c h a v e   d o   p r o d u t o   ( P r o d u c t   K e y )   u s a d a   p a r a   i n s t a l a r   o   W i n d o w s   é   i n v á l i d a .   C o n t a c t e   o   a d m i n i s t r a d o r   d o   s i s t e m a   o u   f o r n e c e d o r   i m e d i a t a m e n t e   p a r a   o b t e r   u m a   c h a v e   d o   p r o d u t o   ( P r o d u c t   K e y )   v á l i d a .   V o c ê   t a m b é m   p o d e   c o n t a c t a r   a   e q u i p e   d e   p r o t e ç ã o   c o n t r a   p i r a t a r i a   d a   M i c r o s o f t   e n v i a n d o   u m   e m a i l   p a r a   p i r a t a @ m i c r o s o f t . c o m ,   c a s o   a c h e   q u e   a d q u i r i u   s o f t w a r e   M i c r o s o f t   p i r a t a .   Q u a l q u e r   i n f o r m a ç ã o   p e s s o a l   e n v i a d a   à   e q u i p e   d e   p r o t e ç ã o   c o n t r a   p i r a t a r i a   d a   M i c r o s o f t   s e r á   m a n t i d a   e m   s i g i l o .  
+       e n d .  
+     D O   W i n d o w s   n ã o   c a r r e g o u   s e u   p e r f i l   m ó v e l   e   e s t á   t e n t a n d o   f a z e r   l o g o n   c o m   s e u   p e r f i l   l o c a l .   A l t e r a ç õ e s   n o   p e r f i l   n ã o   s e r ã o   c o p i a d a s   n o   s e r v i d o r   q u a n d o   v o c ê   f i z e r   l o g o f f .   O   W i n d o w s   n ã o   c a r r e g o u   s e u   p e r f i l   p o r q u e   j á   h á   u m a   c ó p i a   d a   p a s t a   d o   p e r f i l   n o   s e r v i d o r   e   e l a   n ã o   p o s s u i   a   s e g u r a n ç a   c o r r e t a .   O   p r o p r i e t á r i o   d a   p a s t a   d e v e   s e r   o   u s u á r i o   a t u a l   o u   o   g r u p o   d e   a d m i n i s t r a d o r e s .   C o n t a c t e   o   a d m i n i s t r a d o r   d a   r e d e .   % n % n  
+     È O   s e r v i d o r   T e l n e t   f a l h o u   a o   i n i c i a l i z a r   u m a   s e s s ã o   T e l n e t   d e v i d o   a   r e c u r s o s   d o   s i s t e m a   i n s u f i c i e n t e s .   L i b e r e   m e m ó r i a   f e c h a n d o   q u a i s q u e r   c o n e x õ e s   t e l n e t   o c i o s a s   o u   o u t r o s   a p l i c a t i v o s   e   t e n t e   n o v a m e n t e .   E r r o   d e   s i s t e m a   :   % 1  
+  
+   ì  A   s e s s ã o   T e l n e t   s e r á   e n c e r r a d a   d e v i d o   a   u m   e r r o   i n t e r n o   a o   c h a m a r   a   f u n ç ã o   R e v e r t T o S e l f ( )   .   E r r o   d e   s i s t e m a :   % 1  
+  
+      	 00   h        è      (   00    ¨         ¨       h   00     ¨%          ¨        h  	          è            è  
+ è4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                           S t r i n g F i l e I n f o   ì   0 4 1 6 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   `   F i l e D e s c r i p t i o n     M e n s a g e n s   d o   S e r v i c e   P a c k   1   d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 1 r e s . d l l     ’ 7  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   T o d o s   o s   d i r e i t o s   r e s e r v a d o s .     D   O r i g i n a l F i l e n a m e   x p s p 1 r e s . d l l     p (  P r o d u c t N a m e     S i s t e m a   o p e r a c i o n a l   M i c r o s o f t ®   W i n d o w s ®   @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   |    V a r F i l e I n f o     $    T r a n s l a t i o n     °8    R e s o u r c e C h e c k s u m   6Ñ®®oá!¡Å}<®ì¨Q*
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <title>configuração inicial pelo usuário</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<script>
+
+
+
+
+
+
+
+var g_Activation_Install_ID         = "";
+var g_Activation_Install_ID_Full    = "";
+
+function Local_LoadMe() {
+
+    if (window.parent.g_Load_InstallID)
+    {
+        try
+        {
+            g_Activation_Install_ID = window.external.GetInstallationID();
+        }
+        catch(e)
+        {
+            g_Activation_Install_ID = "NOT FOUND.";
+        }
+
+        var i;
+        g_Activation_Install_ID_Full = "";
+
+        for (i = 0; i < g_Activation_Install_ID.length-6; i += 6)
+        {
+            
+            
+            
+            g_Activation_Install_ID_Full += g_Activation_Install_ID.substring(i,i+6) + "-";
+        }
+
+        
+        
+        
+        g_Activation_Install_ID_Full += g_Activation_Install_ID.substring(i,g_Activation_Install_ID.length);
+
+        spn_install_id.innerText = g_Activation_Install_ID_Full;
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.ActivationSvc_LoadMe(); Local_LoadMe();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;"><ID id="txtActiveSvc">Ativar o Windows por telefone</ID></span>
+
+    <br>
+    <span id="act_spn01" class="text-primary"><ID id="txtActiveSvc1"><B>Faltam só quatro etapas para você terminar...</B></ID></span>
+    <BR>
+
+    <TABLE BORDER=0 WIDTH="100%" CELLSPACING=5 CELLPADDING=5>
+    <TR class="text-primary">
+        <TD VALIGN=TOP width="10%" nowrap>
+            <ID id="txtActiveSvc2"><B><u>E</u>tapa 1:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <select TABINDEX=1 class="editbox-text-primary" id=selPhoneCountry size=1 ACCESSKEY="S" onfocus="window.parent.OnFocus();" onchange="window.parent.PhoneCountries_Changed();">
+            </select>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc4"><B>Etapa 2:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn03"><ID id="txtActiveSvc5">Ligue para qualquer número abaixo para falar com um representante do Atendimento Microsoft:</ID></span>
+            <TABLE BORDER=0>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt05">Telefone gratuito: </id><ID ID="act_txt05x"><span ID=ChosenTollNumber></span></ID></TD><TD>&nbsp;</TD>
+            </TR>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt06">Telefone não-gratuito: </id><ID ID="act_txt06x"><span ID=ChosenPhoneNumber DIR=LTR></span></ID></TD><TD>&nbsp;</TD>
+            </TR>
+            </TABLE>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc6"><B>Etapa 3:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn04"><ID id="txtActiveSvc7">Forneça a identificação de instalação a seguir ao representante do Atendimento Microsoft: </ID></span>
+            <BR>
+            <TABLE BORDER=0>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt07"><B><span id="spn_install_id"></span></B></ID></TD>
+            </TR>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt07b">(Clique em <B>Alterar chave do produto (Product Key)</B> somente se for solicitado pelo representante do Atendimento Microsoft)</B></ID></TD>
+            </TR>
+            </TABLE>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc71"><B>Etapa 4:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn05"><ID id="txtActiveSvc8">Digite a identificação de confirmação fornecida pelo representante do Atendimento Microsoft:</ID></span>
+        </TD>
+    </TR>
+    </TABLE>
+
+    <TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+    <TR>
+    <TD WIDTH="20%">&nbsp;</TD>
+    <TD><TABLE BORDER=0 DIR=LTR><TR>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableA><B>A</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox1" tabindex=2 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('1');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenA>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableB><B>B</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox2" tabindex=3 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('2');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenB>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableC><B>C</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox3" tabindex=4 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('3');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenC>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableD><B>D</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox4" tabindex=5 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('4');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenD>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableE><B>E</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox5" tabindex=6 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('5');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenE>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableF><B>F</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox6" tabindex=7 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('6');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenF>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableG><B>G</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox7" tabindex=8 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('7');" onfocus="window.parent.OnFocus();"></TD>
+    </TR></TABLE></TD>
+    </TR>
+    </TABLE>
+
+    <br>
+    <table border="0">
+    <tr class="text-primary">
+        <td><span id="act_spn06"><id id="txtNextExpl">Para continuar, clique em 'Avançar'.</id></span></td>
+    </tr>
+    </table>
+
+    </td>
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=1%>&nbsp;</td>
+        <td>
+        <BUTTON ID="btnBack" class="buttons" TABINDEX=9 ACCESSKEY="P" style="display:none;"><label for=btnBack><id id="LocalBtnBack_Text"><U>V</U>oltar</id></label></BUTTON>
+        </td>
+        <td width=99%>&nbsp;</td>
+        <td>
+        <BUTTON ID="btnProdkey" class="buttons" TABINDEX=10 ACCESSKEY="d"><label for=btnProdkey><id id="LocalBtnProdkey_Text">Alterar chave do <u>p</u>roduto</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=11 ACCESSKEY="L"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>L</u>embrar mais tarde</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=12 ACCESSKEY="N"><label for=btnNext><id id="LocalBtnNext_Text"><U>A</U>vançar</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+
+PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDING                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                MZ       ÿÿ  ¸       @                                   À   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       iÑÚ-s¿‰-s¿‰-s¿‰î|á‰,s¿‰î|å‰,s¿‰Rich-s¿‰                        PE  L JEH        à !
+     æ                                                                                 @ä                                                                                                         .rsrc   @ä     æ                @  @                                             	    X  €   ˆ  €   ğ  €   ¸ €
+   x €     €   ¸ €   à €   ø €              d    €È   ( €É   @ €  X €                 p €   ˆ €     €   ¸ €   Ğ €   è €     €    €	   0 €
+   H €   ` €              2   x €e    €Ñ  ¨ €@  À €t'  Ø €u'  ğ €ˆ'   €‰'    €Š'  8 € 2  P €8  h €˜:  € €š:  ˜ €œ:  ° €:  È €¿:  à €Œ<  ø €<   €<  ( €<  @ €<  X €‘<  p €‡>  ˆ €                   €   ¸ €‚   Ğ €½   è €9    €r   €s  0 €t  H €u  ` €v  x €w   €°  ¨ €­  À €Ğ  Ø €é  ğ €ğ   €ñ    €  8 €ã  P €é  h €ï  € €?	  ˜ €              d   ° €e   È €f   à €                 ø €              d   	 €l   (	 €á1  @	 €                 X	 €              Ø €p	 €                ˆ	                  ˜	                  ¨	                  ¸	                  È	                  Ø	                  è	                  ø	                  
+                  
+                  (
+                  8
+                  H
+                  X
+                  h
+                  x
+                  ˆ
+                  ˜
+                  ¨
+                  ¸
+                  È
+                  Ø
+                  è
+                  ø
+                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È                  Ø                  è                  ø                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È                  Ø                  è                  ø                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È  ô  (  ä      &  (  ä      D)  (  ä      l,  h¯  ä      ÔÛ  h  ä      <â  è  ä      $å  (  ä      Læ  ¨  ä      ôô  ¨  ä      œı  h  ä       ¨%  ä      ¬( ¨  ä      T9 h  ä      ¼= è  ä      ¤@ è  ä      ŒC È  ä      TK    ä      ôP   ä      üX À  ä      ¼^ Œ  ä      Hd ä  ä      ,g ¬  ä      Øn <  ä      s ˜  ä      ¬t ”  ä      @y ¼  ä      ü|    ä      œ ˜  ä      4 0  ä      dƒ ä  ä      H† ¸  ä       ‹ ¨  ä      ¨Œ    ä      È ¸   ä      € Ø  ä      X“ œ  ä      ô• ¬  ä       ™ $  ä      Ä L  ä        P  ä      `¦ (  ä      ˆ© @   ä      È© d  ä      ,µ ğ  ä      ¹ Ğ   ä      ì¹ @  ä      ,½ ğ  ä      Ä 0  ä      LÊ <  ä      ˆÌ P  ä      ØÎ ,  ä      Ğ d  ä      h× D   ä      ¬× \  ä      Ú D  ä      LÜ Ì  ä      à ˆ	  ä       é ô  ä      ”ğ    ä      ´ñ $   ä      Øñ I]  ä      $O q  ä      ˜n ò%  ä      Œ” €:  ä      Ï „   ä      Ï    ä      ¤Ï    ä      ¸Ï È  ä      €Ó À   ä       A C T I V S V C . H T M   (                                        €  €   €€ €   € € €€  ÀÀÀ ÀÜÀ ğÊ¦       """ ))) UUU MMM BBB 999 €|ÿ PPÿ “ Ö ÿìÌ ÆÖï Öçç ©­   3   f   ™   Ì  3   33  3f  3™  3Ì  3ÿ  f   f3  ff  f™  fÌ  fÿ  ™   ™3  ™f  ™™  ™Ì  ™ÿ  Ì   Ì3  Ìf  Ì™  ÌÌ  Ìÿ  ÿf  ÿ™  ÿÌ 3   3 3 3 f 3 ™ 3 Ì 3 ÿ 33  333 33f 33™ 33Ì 33ÿ 3f  3f3 3ff 3f™ 3fÌ 3fÿ 3™  3™3 3™f 3™™ 3™Ì 3™ÿ 3Ì  3Ì3 3Ìf 3Ì™ 3ÌÌ 3Ìÿ 3ÿ3 3ÿf 3ÿ™ 3ÿÌ 3ÿÿ f   f 3 f f f ™ f Ì f ÿ f3  f33 f3f f3™ f3Ì f3ÿ ff  ff3 fff ff™ ffÌ f™  f™3 f™f f™™ f™Ì f™ÿ fÌ  fÌ3 fÌ™ fÌÌ fÌÿ fÿ  fÿ3 fÿ™ fÿÌ Ì ÿ ÿ Ì ™™  ™3™ ™ ™ ™ Ì ™   ™33 ™ f ™3Ì ™ ÿ ™f  ™f3 ™3f ™f™ ™fÌ ™3ÿ ™™3 ™™f ™™™ ™™Ì ™™ÿ ™Ì  ™Ì3 fÌf ™Ì™ ™ÌÌ ™Ìÿ ™ÿ  ™ÿ3 ™Ìf ™ÿ™ ™ÿÌ ™ÿÿ Ì   ™ 3 Ì f Ì ™ Ì Ì ™3  Ì33 Ì3f Ì3™ Ì3Ì Ì3ÿ Ìf  Ìf3 ™ff Ìf™ ÌfÌ ™fÿ Ì™  Ì™3 Ì™f Ì™™ Ì™Ì Ì™ÿ ÌÌ  ÌÌ3 ÌÌf ÌÌ™ ÌÌÌ ÌÌÿ Ìÿ  Ìÿ3 ™ÿf Ìÿ™ ÌÿÌ Ìÿÿ Ì 3 ÿ f ÿ ™ Ì3  ÿ33 ÿ3f ÿ3™ ÿ3Ì ÿ3ÿ ÿf  ÿf3 Ìff ÿf™ ÿfÌ Ìfÿ ÿ™  ÿ™3 ÿ™f ÿ™™ ÿ™Ì ÿ™ÿ ÿÌ  ÿÌ3 ÿÌf ÿÌ™ ÿÌÌ ÿÌÿ ÿÿ3 Ìÿf ÿÿ™ ÿÿÌ ffÿ fÿf fÿÿ ÿff ÿfÿ ÿÿf ! ¥ ___ www ††† ––– ËËË ²²² ××× İİİ ããã êêê ñññ øøø ğûÿ ¤   €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ııııııııııııııııııııııııııııııııııııııııııııımmmmmııııııııııııııııııııııııııìíÿÿÿÿmmmmmııııııııııııııııııııı÷ïğÿõÿÿÿÜÜ³mmmmıııııııııııııııııííñÿO'O»ÜÜÛÜÿïmııııııııııııııııïğÿ—--''3Ã™ÿğmııııııııııııııııõñÿ—U4'-~åå^åÜmııııııııııııııımóñôV3'—Ãzzå Ümııııııııııımmımµöñ[Uš zzz ÛmııııııııııìµÖì‘‹öñÜ}WzùL zzzåÛmıııııııııı‹ìİİ	‘öòÛS,Y%åzzz Ûmııııııııìıì´İİİ¶ÓôÜ	™LYYYY^Ûmıııııııì®ì	µİİİ´ÇöÜÜÛÛáÖÖµ™Y^Ômııııııı®ÖİİİİÖÖ¶´ÇöÛÜÜÜÜÛÖÖæÕÛ³mııııııı®µİÖÖÖÖııîğöÔÓÔÚÛÛÛÖ¶ÖÛ³mıııııııı‘µÖÖÖııız	ÍÜÛÓÍÍÓÓÓÔÔ²mııııııııµÖÖııııöááÿÿÿööğÛÔÔÓÍmııııııµÖÖÖÖÖııııñÿ¶ñõÿÿÿÃÃğğıııııı‘ÖÖÖÖÖııııöfeeeef®Ïµğóóïıııııı‘æÖÖÖÖııı¼ööÓÛÜÜµÏ®§ğÿÿóìııııııııµµÖæıııÿÛÛµİİÿìııııııııı´ÖÏıııÍÓÜÜÜİİİïòÿÿóııııııı®ÏÖÖæıııııııı’ïÜñÜµığÿÿıııııııı®æÖÖÖæııııııııÏæÏııııııııııııııı‘ÏææÖÖæııııııæÖÖææııııııııııııııııııµæÖæÏ§§ÏÏæÖææ§Öııııııııııııııııı´ÏÏÏÏææÏÏÏÏï‹§ııııııııııııııııı´ÏÏÏÏÏÏÏÏÏÏÏıııııııııııııııııııı‘Ï§Ïı´ÏÏÏ´Ï§µııııııııııııııııııııµÏıı´§§ıµ§Çµııııııııııııııııııııııııµ§§ııµÇıııııııııııııııııııııııııııııııııııııııııııııı(                                  Ã®•Ò›QÒ˜HÎšZ¾¡~Ç»®¶¦–§‘}¦’}ª™ƒ¹­ÑËÄÑËÄÑËÄÑËÄÑËÄÚ¨^­‰^ÑËÄÑËÄ»‹Q›l?pJ+dB%bB&X>)\D/}iK«ˆÑËÄÑËÄÑËÄèª@²™|À´§—{_‡T'Â}3Ş”<ê¨Gğ´Tß³d¨†P`E*ZC/œpÑËÄÑËÄæ¬E£r:fC&µt(ç˜7ğ›9ï—7ïš7ò§=÷½RúÔwêÊŠvZ7YB/«œ…ÑËÄ×¥Vİ™.º|*ò¦7ë›2ç“/ç0³m'¹r*æ•1ô±BûÔlôØ”lP4gJ¹­Ê±öµ=ó¬4ê /å–+ÚŠ)T(ÑËÄÑËÄÇ¦‡Ô†2ô¨<üÑnÓ²x{`A¶¦•ÎÇ¾ÖªXô´6è +â•&¤g L0dH.iL4vO0‰V*ˆW)^,Œg<yY= †nÑËÄ½¯™ô½?í«.å'Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,_B,š€hÈ¾°ÑËÄÓ»ˆôÄCì¬.åŸ'Ş–(à•)ß“,Ú’3ç“.é•2ğš:í¡BgF.§”…ËÂ·¾¡nÑËÄİÂqõÆB·ƒ(iE"ÑËÄÑËÄ }V¿ƒ.è–.î›5ÎŠ6y\A²¦šÑËÄÃ¬zæÊ‹ÑËÄßÌ‹ß®:mM%T<(jN/µx$æ˜*ç—-ñ¤9¡j-¦‘}ÉÁ·ÑËÄÑËÄÎ½’àÄ„ÓÇªåÌ~á²;µ€$Í%å )äœ(ê .é¦:”tR¾±¤ÑËÄÑËÄÑËÄÅ¹¦ÜÏ›óÚíÔ”æÓföÑGñ·2í¬+î­0è¦7§‚Uµ}Ê½¬ÏÆ¼ÑËÄÑËÄÑËÄÅº¨Ò¿‰ëØúéûékôÌEøÏKÚ°L¨Š`»¬˜ÑËÄÙ¹xÄ³ÑËÄÑËÄÑËÄÑËÄÑËÄÄ¸¦¿¯•¸ |µštÂœWâÄuá¼rÄ¬|É·˜Ó²tÄµ¢ÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑÈ¼Ê¼¦İ½xØº…Á®”ÑËÄ(                                  ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿf3Ì 3€  ™ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿf3ÿ™fÿ™fÿf3™ 3ÿffÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀ€  ÕÏÀÿf3ÿÌfÿ™fÌ 3ÕÏÀÿ™f™ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀffffff€  €  ÿÿfÿÌfÌ 3ffffffÌÿÿ€  ÿÿfÿÿfÌ 3ÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿfffÿÿÿ€  ÿÿfÿÿfÌ 3ÌÿÿÌÿÿ™f ™f ™f ™f ™f ™f Ìÿÿfffÿÿÿ€  ÿf3ÿf3ÿf3Ì 3ÌÿÿÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÿÿfffÿÿÿÿÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿ™f ™f ™f ™f ™f ™f ÌÿÿfffÿÿÿÿÿÿÿÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿfffÿÿÿ™Ìÿ™Ìÿ™Ìÿ™ÌÿÌÿÿ€  €  €  €  €  Ìÿÿ  Ì  ™fffÿÿÿ f™ f™ f™ f™ÌÿÿÌÿÿ€  Ì™ ÿf3Ì 3Ìÿÿf ÿ  ÌfffÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌÿÿÌÿÿÌ 3Ì™ Ì™ Ì 3ÌÿÿÌÿÿÌÿÿfffffffffffffffffffffÌ 3ÿÌfÌ™ €  Ì 3fffffffffÕÏÀÕÏÀÕÏÀ™ 3ÿ™fÕÏÀÿf3ÿÿfÿÌfÿf3ÕÏÀÌ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿ™f™ 3ÿf3ÿÿfÿÌfÿ™fÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿÿfÿÿfÿÌfÿ™fÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀ(   ?  ‰         @«                  ˜é 
+o ö  LÔs Ì•” ı»E .É] `˜ ¶iQ írY È‡† ù’{ İÉÇ Éª¦ ÏgQ ş²2 š˜ ÿÍ¼ ÿİ‡ Õm  Rd ìkQ öŠs Í‰u Š ÿå– íyb Æ|| Ò¨– ×¶´ ÿì¤ ç]A ÿÅ´ çdJ ¬ îŠt Ó§¥ ¬W0 ÿ¼¬ ÿ¢ ÿ­› şÅU kà‹ èÚÚ ÿµ£ ¶“Œ ÿÍe ó‚i ®: ÿš… Ê çjQ æY; ÜR4 ÿ² ”Ïj îƒk ³O æqZ ­XF ²/ UQ ÿ×w ÿ¦’ ŞI* ôéæ ÿö· ÿüÅ æQ3 ¼te ¿®§ ¸‡v —K7 æ|  şüù °g6 Ò\D »us Ù–„ ÇB& ç›Š ÿª– –he Ù´« æU7 İÃ¾ ÿÏÃ ëeJ óy ò|d åËÇ ıÛ¸ 2‹ æª— c·E çyc ×«S ÿ×Ë ÿÃ­ Ê‘‹ !½F ÙM/ ¦sg 7²* Ï‹ çaE °‹I ëÇº Á×‰ ìiM ş÷ë ì´b ÇŒ/ ş£ §ia şÊ› ÙõÏ şíÛ ìqU –aX Äzj Î´p x-	 "² û–€ Ë”O ²o åÓÏ ÿÕ¨ ÔB$ ¸mc ÌÏm Ïœ ¸¦j Öua Ù­2 G ççç ÿ‰ ÿæÈ é£‹ tV@ Æò® Ä\  â»© ŠµB ‡r  š ì}g ëaE øæ» çÈ™ ÿº¥ Ëä˜ ô†o ô¥“ ÿÿÓ ìÖ¸ ÍK0 ª{t öÏ‰ …G ¯·C ß½¹ ÇÄT g5 ÷Ês ÕI, öÜ‘ —»o çiM å·‰ ãÊ¬ ï‘} ÉV: ¾=# ÛE( ìÅd áÈˆ ò­œ Ñ£ çu^ Áv) ô³¢ ó‹ ÖE( ô«” Ã·· çG íu] ç™) º¦” ÿÇº äÙ‡ ÿğ¯ ´ö» ìë¡ ÿŞÃ ë[< éıÆ ã¸˜ âÃx ïy] †j íÙ¦ ìÙ• ş™ ëæÚ âéÊ õº« å}h öš† Ò²¦ ôÌ¾ íıÛ çøå ÿ¥› øÃ´ ğ–‚ æmU íÕw ôÚÖ ôº ó×Ã ×| 7 öÇ¹ ûğñ ã÷º óÒÍ ú¾¯ èÑm ÿÓÇ ÿÓÃ ÿ×Ç âM, áM0 ÛE$ ûy øu û×Ç ÿÓo çqU úÓÁ ûÓÇ ÿ×Â û×Ã ÿ¢¡ ëmU ÿ¦ ğŞÁ º\ ß ’ >À ç¡b ğßÎ Š11ŠŠŠŠŠŠŠŠŠŠŠŠŠ'Š'''''''''''''''''''''''''''''''''''''''''''''''''''''''''Š'Š'ŠŠŠŠŠŠŠŠŠŠŠŠŠ1111111Ó11Ó1||||||||||îXîïïïïšššššššššššššššYšYYYYYYYY””ÊÊÊÊ½½½½½½½½vvøøøøøøøøÛøªªªªªWª!!!!!i!iiiiiL44444L44454545D55D555D55ìì5ììì@ì@ì@@@@@@@@§°¹¹¹¹OOOOOOO¹¹¹¹¹¹¹°¹°°°°°°@°@°@°@°°@°@°@°@°@°@°@°@°@°°@° ŠŠŠŠŠŠŠŠŠŠŠ'Š''''''''''''''''''''?'''?'''??''?'''??'?'?''''?''''''''''''''''''Š'Š'ŠŠŠŠŠŠŠŠŠŠŠ11111111Ó11|||||||||||îîXïïXïšššššššššššššššššYYYYY”Y””ÊÊÊÊÊ½½½½½½½½vvøøøøøøÛÛÛÛªªªªª!ª!!!!!!iiiii4444454445D5D5555555ì55ìì@ì@@ì@@@@@@@@§°§¹¹OOOOOOO¯OOOOOOOOOO¹¹¹¹¹¹¹¹°°°°°°°@°@°°@°@°@°@°@°@°@°@°@°°@ ŠŠŠŠŠŠŠ'ŠŠ''''''''''''''''''''??''?'?????????????????????????'?''''''''''''''''''Š'ŠŠŠŠŠŠŠŠŠŠŠŠŠŠ1111111Ó11|||||||||îîîïîïïšššššššššššššššYšYYYYYYY””Ê”Ê½Ê½½½½½½½vvvvøøøøøøøÛÛÛªªªª!ª!!!!!i!iiiiL44444444545D5D5555555ì5ì5ììì@@ì@@@@@@§§§¹OOOO¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯OOOOOO¹¹¹¹¹¹°¹°°°°°°@°@°@°@°@°@°@°@°@°°@° ŠŠŠŠŠŠ'Š'''''''''''''''''??'?????????????????????????????????????'??''''''''''''''''''ŠŠŠŠŠŠŠŠŠŠŠ1Š1111Ó11Ó|||||||||||îXïïïïïšššššššššššššššYšYYYYY”””ÊÊÊÊ½½½½½½½½v½øvøøøøøÛøÛÛmªªªªW!!!!!!iiiii444444454545D5D55D5555ì55ì@ììì@ì@ì@@§§§¹OOO¯¯¯¯¯¯¯0000¯00¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹¹°¹°°°°°@°@°@°@°@°@°@°°@ ŠŠŠŠŠ''''''''''''''''?'???????????????????????????????????????????????'?'''''''''''''''Š'ŠŠŠŠŠŠŠŠŠŠŠ1Š11111111|||||||||îîXîïïïïšššššššššššššššYYYYYYY”Ê”ÊÊÊÊ½½½½½½½vvøøøøøøøÛÛÛªªªª!ª!ª!!!!i!iiiii4L4444454D45D5D555555ììì@ì@ì@@@@@@§§§OOOOOO¯¯¯¯¯0¯¯¯¯¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹°°°°°°°°@°@°@°@°°@° ŠŠ'''''''''''''''?????????????????????????????????????????????????????????'?''''''''''''''ŠŠŠŠŠŠŠŠŠŠŠŠ111111Ó11||||||||||îîïïîïïïššššššššššššššššYYYYYY””Ê”ÊÊ½Ê½½½½½½½vvvøøøøøøÛøªÛªªªªª!!!!!!iiiiiiL444444445545D55D555D55ììììì@ì@@@§§¹OO®LLLLLLLLL5O¯000000¯¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹¹°¹°°°°@°@°@°°@ '''''''''''''?'??????????????????Q??Q?QQ?Q?QQ?Q?Q?Q?Q??Q?Q?????????????????????'?'''''''''''''ŠŠŠŠŠŠŠŠŠŠ111111Ó11|||||||||îîïïïïïšššššššššššššYšYšYYYYYY””ÊÊÊÊ½½½½½½½½vvvøøøøøøÛøªªªªª!ªª!!!!!i!iiii444L4444544545D555D555ì555ì@ì@@@§§§LLi!!!!!!!!!!!!iiL®®OOO¯¯¯00¯0¯¯¯¯¯¯¯OOOOOOO¹¹¹¹¹¹°¹°°°°°°°@° ''''''''''?'????????????????QQ??QQQQQQQQQQQQQQQQQQQQQQQQQQQQQ????????????????????''''''''''''''ŠŠŠŠŠŠŠŠŠŠ1111111Ó11|||||||||îîXïXïïšššššššššššššššYYYYYYYY””ÊÊÊ½½½½½½½½v½øvøøøøøÛÛøÛªªªªW!!!!!!!iiiii44444455455D55D55555ìì5ììì@@@§OLi!!!!!!!!i!!!!!!!!!iiL4®O¯0000000¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹°¹°¹°°° '''''''?'???????????????Q?QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ??Q????????????????'''''''''''''ŠŠŠŠŠŠŠŠŠ1Š1111Ó11|||||||||îXïïïïïšššššššššššššYššYYYYY”Y””ÊÊÊÊÊ½½½½½½vvøøøøøøÛøÛÛªªªªª!ª!!!!!!iiiiL4444L44445D45D555555ì55ììì@@@¹5L!!!!!!!i!i!iiiiiiiiiiiiiiii4L5O¯¯¯00¯¯¯¯¯¯¯¯¯OOOOOO¹¹¹¹¹¹¹¹° ''''?'???????????????Q?QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ?Q?Q???????????????'''''''''''Š'ŠŠŠŠŠŠŠ1111111Ó1|1|||||||îXîïXïïššššššššššššššYšYYYYYY”””ÊÊ½½½½½½½½½vvøvøøøøøÛÛÛªªªªª!ª!!!!!!iiiii44444454445D555D55D5ì555@@§§®i!!!!!i!iiiiii45O¯¯0000¯0¯¯¯¯¯¯¯¯OOOOO¹¹¹¹ ''?'???????????????QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ??Q??????????????''''''''''ŠŠŠŠŠŠŠŠŠŠ1111111|1||||||||îîîïïïïïššššššššššššššYšYYYYY”””ÊÊÊÊ½½½½½½½vvvøøøøøøøÛÛÛªªªªªª!!!!!!!iii44444454545DD555555555@@§@®!!!!!!!iiii4555O¯¯0000¯¯¯¯¯¯¯¯OOOOOO ????????????Q?Q?QQQQQQQQQQQQQQQQQQQQ(QQ((Q(((((((((QQQQQQQQQQQQQQQQQQQQQQQQQQQ?Q???????????'?''''''''''ŠŠŠŠŠŠŠŠŠ1Š11Ó111|||||||||îîïïïïššššššššššššššYšYYYYY”””ÊÊÊ½Ê½½½½½½v½vøvøøøøÛÛøªÛªªªª!!!!!!iiiiiiL4L4444454545D55555555@@@®i!iiiiiiiiiiiiiiiiiiÆ45O¯0¯00¯0¯¯¯¯¯¯¯¯¯OO ?????????Q?Q?QQQQQQQQQQQQQQQ((QQQ(((((((((((((((((((((((((((Q(QQQQQQQQQQQQQQQQQQQQQ???????????'''''''''''ŠŠŠŠŠŠŠŠŠ1111Ó111||||||||îîîïïïïššššššššššššššššYYYYY”Y”ÊÊÊ½½½½½½½½vvvøøøøøøÛÛÛªªªªWª!!!!!!iiiiii444444444545DD555555@4i!iiiiii!ªÛòòòòòÛª!!4D444444Æ4444444444444D555@O¯¯0000¯0¯¯¯¯¯ ????????QQQQQQQQQQQQQQQQQQ((((((((((((((((((((((((((((((((((((((((Q((QQQQQQQQQQQQQQQ????????????'?''''''''ŠŠŠŠŠŠŠŠŠ11111Ó1Ó||||||||ïïïïïšššššššššššššYšYYYYYY”””ÊÊÊ½½½½½½½vvvøvøøøøøÛÛøªªªªWª!!!!!!iiiii4444444545D55D555@@5Liiiiiii!ªÛòµµÒÒÒÒÒÒµµòÛª!!ii4444444444444444444444455¯¯¯¯0¯00¯¯ ?????Q?QQQQQQQQQQQQQQ(((((((((((((((((((((((((((((((((((((((((((((((((((QQQQQQQQQQQQQQQ????????????'''''''''Š'ŠŠŠŠŠŠŠŠ111111||||||||îîîïïïïšššššššššššššYYYYYYY””ÊÊÊÊ½½½½½½½½vvøøøøøøøÛÛªªªªªª!!!!!i!iiiiiL44L454445DD5D555@@@®iiiiiiiÛµµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµÛª!4DDD444444444444444444444DD55@O¯¯00 ??QQ?QQQQQQQQQQQQ(((((((((((((((((((((((((6(6(6(6((6(((((((((((((((((((((((QQQQQQQQQQQQQQQ???????????''''''''''ŠŠŠŠŠŠŠ1111Ó1Ó||||||||îXïïïïšššššššššššššššYYYYY”””ÊÊÊÊ½½½½½½½½vvøøøøøøÛÛªmªªªª!!!!!!!iiiii4L44444444455D5555®iiiiªòµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµÛÛª!!i4DDDDD4D444444444444444D5@OO Q?QQQQQQQQQQQ(Q((((((((((((((6(((6((6(6(6(((((((((6(((((((³((((((((((((((((((QQQQQQQQQQQQQQQ??????????'?''''''''ŠŠŠŠŠŠŠ1Š111111||||||||îîîïïïïïšššššššššššššYšYYYYY”Ò½µµµµµµµ½½½½vvøøøøøøøÛøÛªªªªª!!!!!!!!iii444445454455554!ÛµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµòÛª!i44444444DDDD4444D4D4D4DDDDD5 QQQQQQQQQQ(((((((((((((((((6((666(6(66(66666666666(((³ºº›››››››ººQ³((((((((((((((Q(QQQQQQQQQQ?Q?????????'''''''''ŠŠŠŠŠŠŠ1Š1111Ó1||||||||îïXïïšššššššššššššY”Y””ÒµµµµµµµÛµòòµµò½vvøøøøøøÛÛÛªªªªªª!!!!!!iiiiii4L444444455555®4i!ÛµÒÒÒÒÒÒÒÒÒÒÒÒÒÒµÒµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµµòÛÛª!i4DDDDDDDD4444444444DDD QQQQQQQQQ((((((((((((((6(66((666666666666666666666((º››üŒüüPüüŒŒ]›››ºº³(((((((((((((QQQQQQQQQQQQ??????????''''''''ŠŠŠŠŠŠŠ1Š11Ó11Ó1|||||||îîïïïïïšššššššššš”””Ò”Òµµµµ†µÛÛÛÛÛvvvøøøøøøÛøªªªªª!ªª!!!!i!iiii444L444545555®iiiiªòµµÒµµµµµµµµµµµµÒÒµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµÛÛ!i444444DDDDDDDDDDDDD QQQQQQ((((((((((((((((6(6666666666666666666666666(³ºüüPNNNNàNNNNPüüŒ›Œ›º›Q³((Q((((((((Q(QQQQQQQQQ???????????'''''''ŠŠŠŠŠŠŠŠ1111111|||||||îXïïïïšššš888”””ÒÒµ††††ÛÛÛòvvøøøøøøÛÛÛÛªªªªW!!!!!!!iiiL44444545®55iii!ÛòµÒÒµÒµµµµµµµµµµµµµµµµµµµµµµµµµµÒÒÒÒÒÒÒÒÒÒÒÒµµµµòÛª!!i4DDDDDDDDDDDD QQQQ((((((((((6((6(6(666666666666666666666666666³³›üPNcGG
+ààNNNüPŒüŒ›››Qº³Q(((((((QQQQQQQQQQQQ???????'?'''''''Š'ŠŠŠŠŠŠŠ11111Ó1|||||||îîîïïïšššš888”ÒÒÒ††††;;;;;;;;;ÛÛòòvvøøøøøÛøÛªªªªª!!!!!!!iiiii4444444555®Liii!ÛµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµÒÒµµµµµÒÒÒÒÒÒÒÒµòÛªªi44444DDDDDD Q(((((((((((6(((66666666666666666666666666,,666(³›üNà
+GGŸŸŸŸŸŸGGGGGàNNNPPüŒü››››ºººQ((Q((QQQQQQQQQQ?????????''''''''ŠŠŠŠŠŠŠ111Ó111|||||||îXîïï####88ÒÒÒÒ†††††;;;;;;;;;;;;;;LÛÛòøøøøøøøÛøªªªªªª!!!!!!!iiiii444L5®®@®4••iWøµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµòÛÛÛÛòµµµÒÒÒÒÒÒµµµµµòÛªii4DììD ((((((((((6((6(6666666666666,666,,,,6,,,,,,,66³³ŒüN
+GGGGGŸffffffŸŸŸGGGGGàcNNNPPŒüŒ›››º›ºQQQQQQQQQQQQQQ????????''''''''ŠŠŠŠŠŠŠ1Š111111|||||||îXXX###888ÒÒÒÒ††††‚;;;;;rrrwHHHH;;;;ÛÛòòøøøøøÛÛÛªªªªªª!!!!!i!iii4L44555®i••iªøµµµµµµµµòµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµòÛª!!!ªªÛÛÛÛòµµµµµÒÒÒÒÒµµòÛª!i (((((((((6(666666666666666666,,,,,,,,,,,,,,,6³³üüNc$$$$$$$„GŸffffffŸŸŸxGGàNNNPPPŒŒ››››››QQQQQQQQQQQQ?????????'''''''ŠŠŠŠŠŠ1111Ó11|||||||XXX###888ÒÒ††††‚‚;;;;;rMc„$$$$$$„GwHHH;;;LÛÛÛòøøøøøøÛøªªªª!ª!!!!!iiiiii44®®5®Li•i•!Ûòµµ½½µµµµµµµòµòòòòòòòòòòÛÛÛÛòòòòòòµµµµµµÛª!!!!!!!!!!!!!ªÛÛòòµµµµµµµµµµµµµÛ (((((((6(66666666666666,,,,,,,,,,,,,,,,,,,,6³³üPc„$„„„„„„„„„„„
+ŸfffffŸfŸŸGGGGàNNNNPPŒŒŒ›››º›?QQQQQQQ???????'?'''''''ŠŠŠŠŠŠ1Š111111|||­­XX##à8ÒÒÒ††††‚‚;;;r‚c„„„„„„„„„„„„$„HHHH;;LÛÛÛòòòøøÛÛÛªªªªªª!!!!!!iiiii4L455®4•ii•iWøò½µµòµòòòòòòòòÛÛÛòÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛòòòòÛÛª!!iiiiiiiiiiiiii!!!ªªªÛÛÛòµµµÒÒÒÒµ ((((6(666666666666666,,,,,,,,,,,,,,,,,,,,,·³]üNc„„„„c
+ŸŸffffffŸŸŸGGGààNNNPPPŒ¸Œ››››????????????'''''Š¸ŠŠŠŠŠŠŠŠŠ1111||Ú­­­###8ÒÒ†††E‚‚;;rEc„„„„
+=HHH;;;LÛÛÛøøøøÛÛøªªªª!!!!!!!iiiiiLL5®®®ii••••iWøòòòòòòòÛÛøÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛª!iiiiiiiiiiiiiiiiiiiiiiii!!!ªÛÛòµµµµ (((6(6666666666666,,,,,,,,,,,,,,˜,,,,˜,,,·³]üNccccccccc
+
+
+
+
+
+
+
+
+
+
+ŸfffffffŸŸŸGxG
+ààNNNPPP¸¸Œ›››››››'›'¸¸¸¸¸¸¸ÓÓÓÓÓÓÓÓÓ1ÓÓÓÚÚ­­­###8ÒÒx†xE‚‚;r‚M
+
+
+
+
+
+
+
+
+
+
+ccccccccc=HHH;;;LÛÛÛøøøøÛÛÛªªªª!ª!!!!!iiiii44®5Li•i••i!ªøòòòòøÛªÛÛÛøÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛª!iii!!!!ªªª (66(66666666666,,,,,,,,,,,,,,,˜,,˜,˜˜,,,·³]ücccccc
+cSUA+A£$
+
+
+
+
+
+MŸfffffffŸŸŸxGGG
+ààNNPPPPP¸¸¸¸¸ÓPÓPÚÚÚÚÚÚÚ­ÚÚÚÚÚÚÚÚ­­­X#à#Òxx†EE‚‚rr‚M
+
+
+
+
+
+$£A+AS
+ccccrHHH;;;LLÛÛÛÛøøÛÛªªªªªª!!!!!!!iiiiLLL5®Li•i•iiWªøòøøÛÛªªWªªªÛÛÛÛÛÛÛÛÛÛÛÛÛÛªÛªÛªªªªªÛªªªª!! (66666666666,,,,,,,,,,,,,˜,,,˜,˜˜˜,˜˜,,·³üüNc
+
+
+
+
+cUAãããJJJJJJASMMfffffffffMŸxGGGàààNàNNNNNNààààààààààààà#à#à#à#ÒxxxEE‚‚rr‚EMSAJJJJJJãããAUc
+
+
+
+
+EHHHH;;;ªÛÛÛÛøÛÛÛªªªªª!!!!!i!ii4®®LiiiiiiWÛøøòøøÛW!!W!!ii!!ªªªªÛÛÛÛªªªªªªªªªªª!iÆi! 6666666666,,,,,,,,,,,,,,,,˜˜˜˜˜˜˜˜˜˜,,·³]üc
+$ÏAAAAAAAAAAãããããJİU$cMxMMMMxxMMffffffffEŸxŸxŸxGxGxGxGxxxxxxxxxEEE‚‚‚rr‚‚ExMxMMMxc$£+JãããããAAAAAAAAAAÏ$MHHHH;;®LªÛÛÛøÛøªªªªª!!!!!!!iLLL®LLi!iiii•WøøøøøÛªW!WÛòÛÛª!!!!iii!ii!!!!!ªªªªªªªªª!i4Æ4Æ4!ªÛ 6666666,6,,,,,,,,˜,,,˜,,˜˜˜˜˜˜˜˜˜˜˜˜··]]Nc
+++İ+İ+AÏAAAAAAAAAAAAAAZSxMxxMxxMEMEEEEE‚fffrffffffRfrfrfffMExEEEEEEfEEEEEEEE‚rrrrrr‚‚EEEEEMEMxMxMxMxMSUAAAAAAAAAAAAAAAÏİ+İ++İ
+M=HHHH;;LÛÛÛøÛÛøªªªWª!!!!!ii4L®LiiiiiiiWªmøøÛøªmiimµÒÒÒÒÒÒµµø!iÆiii!!!!!!!!!!!iiÆ4444444444444444444444444i!ÛÛÛ 666666,,,,,,,,,,,,˜˜˜˜˜˜˜˜˜˜˜˜&˜&˜˜··]ü
+
+Uİ++++İ+İ+++İ+AAAAAAAAAA£$cEEEEEEEEEEEEEEEE‚rrwwwww===w=wrRfrfffrffrrrfrrrrwww===wEEEEEEEEEEEEEEEEc$£AAAAAAAAÏAİ+İ+İ+İ+++++İU
+;HHH;;;LLªÛÛÛÛÛªªªªªª!!!iiiLLLL!i!iii•WmøÛøømªW!WÛµ”88888ÒÒµÛi!ÛÛª!!!!!iÆii!!ª!!!!ii4444444444444444Æi!ªÛÛÛ 6,66,,,,,,,,,˜,˜,˜˜˜˜˜˜˜&&˜˜&˜&˜˜˜··]üMMM£UUUUUZZZZ++İ+++İ+U$UZ+ÏAAAAAZEEEE‚‚‚E‚‚E‚E‚‚rw=Hˆû9û999999û%%;;ww==ww‚E‚‚‚‚E‚‚‚‚EEEE„SZAAAAAÏ+ZU£$U++++++++ZZZZUUUUU£MxMxHHHH;;LLªªÛªÛªªªªª!ª!!!iLLLLi!!!iiii•WøøÛøÛøªWiimµÒ”””””””Òò!iªµÒÒÒÒµµòÛ!44444iii!i!!!!!!!ii44444444444Æ!!Ûªªªªª 66,,,,,,,,,,˜,˜˜˜˜˜˜˜˜˜&˜&˜&&&&˜Ñ·³]ücMMx„£££UUUUUUUUUUUUUZZZZZ$„„„„„„„$£U+++İ+İU$cE‚‚‚‚‚‚‚;Hˆzˆˆˆ99999999999ˆ0ˆHH‚‚‚‚‚‚‚‚Ec$k++İ+İ+Z$„„„„„„„$ZZZZZUUUUUUUUUUUU£££„xMMrHHHH;;®LªÛªÛªªªªª!!!LLLLLi!!iiiiiWWmømmmmWWWWWÛøøÛÛøòµµòª!ªòµÒÒÒÒÒÒÒò!!ªÛªª!!!i4ii!!!!!!iiiii44Æ!!ªªªªªªª ,,,,,,,,,,,,˜˜˜˜˜˜˜˜&˜&˜&&&&&&˜Ñ·³ücxMxEE$SSS££££UUUUUUUU$„„„„„„„$UİİZScˆˆˆˆ%%KKLûû99ˆˆSZ+++ZU$„„„„„„„„$UUUUUUU£££££SS$EExM‚HHHHH;;LLªªªÛªªª!!!iLLLL!!!iiiiiWmmmmmmWWWmøµµòª!i•!WªÛ!ªµÒÒÒÒÒÒÒòÛi!òÒÒÒµµÛªi44Æii!i!!!!!!!iiii!!!!!!!ªªª ,,,,,,,,˜˜˜˜˜˜˜˜˜˜&˜&&˜&&&&&&˜Ñ·³]ücEEEEE
+„$$„„$SSSS„$Z+++++UÔcxKKHHH=;†††††††Ò††%KxcÔU++++İZ$„SSSS$„„$$„
+EEEEEHHHHH;®®Lªªªªªª!!LLLLii!!!!ii!WmmmmmWWWWø½ÒÒÒÒÒÒµµÛW!iiiii!WWªÛµòª!!ªòµÒÒÒÒÒÒò!4iªòÛªªª!i444ii!!!!i!!!i!!!!!!!!!!! ,,,,,˜,˜˜˜˜˜˜&˜˜&&&&&&&&&&&&ÑÑ·]]EEEEEc$„
+
+
+c„$ÔÔSSSS„
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UUUZZZZ+İ+„E;HHH;;††††KEGü£++ZZZZUUU
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+„SSÔSÔÔ$„c
+
+
+„$cEEEEE;HHHH;;;LLªªª!!!LLLi!!!!!i!WWmmmmmmWWWmµ”88#888”µøW!ªÛÛÛª!i!!!!!i!Ûµµµµµµòª!i!ÛµÒÒµµµÛi44iiiiiiii!!!!!!!!!!!! ,,,,˜,˜˜˜˜˜&˜&˜&˜&&&&&&&&&&Ñ··]x‚‚‚‚Ecc‰‰‰+c
+c„$$$$Ô„„c
+
+$£UUUUUUUUUUUUUZZZZZÔàHH=;;LàÔZZZZZUUUUUUUUUUUU££$
+
+
+$Ô$$$$„c
+c‰‰‰‰ccE‚‚‚‚;HHHH;®;LL!!!LLL!!!!!ii!WmmmmmmWW••mø½Ò”88888µÛWWøµÒÒÒÒµµòªii!ªÛÛ!!òµÒÒÒÒÒÒµÛD!ÛÛÛªª!!i4444Æiii!!!!!i! ,,˜˜˜˜˜˜˜˜˜˜&&&&&&&&&&&&&&ÑÑ·]ücx‚‚‚‚xc-
++‰‰‰+$
+‰‰$
+cc„„$$$$„„c
+
+
+„S£££UUUUUUUUUUU£H=H%®;®L;L;LE£UUUUUUUUUU£U£££„
+
+
+c„$$$$„„c
+
+$‰‰
++‰‰‰+
+--x‚‚‚‚HHHHH®;LLLLLLL!!!!ii!!WmmmmmWWWmøøøøò½½µµµµvª•!Ûµ”8Ò88ÒÒÛ!i!ªÛÛª!!!!ii44!ÛòµµµµÛªª!!ÛµÒÒÒµµÛ!44iii ,,˜˜˜˜˜&˜&˜&&&&&&&&&&&&&&ÑÑ·]ücExG
+G
+„$
+
+c+‰‰‰‰
+$++
+c„$$$$$„c
+c$$ÔÔÔSS£££UUUS%%O%®®%®®®®®®LUUUU££SSSSSÔÔÔ$$c
+c„$$$$$„c
+£++
+‰‰‰‰+c
+
+$„
+G
+GxHHHHH;®®LLLLL!!!!ii!WmmøømmmWWø½Ò”Ò½½òømWWW!•!mòµÒ”Ò”ÒµÛ!iªµÒÒÒÒÒµò!4Æi!ªª!iªµµÒÒÒÒÒµòªiªÛòÛÛªi444Æ ,˜˜˜˜˜˜˜&&&&&&&&&&&&&&&&&Ñ·]‚
+
+
+
+
+‰‰‰‰c
+c
+„Sc‰‰‰+
+‰
+
+
+c„„$$$$$$$$ÔSÔSSSSS“H%%%%%%%%%®®ÔSSSÔSSÔÔÔ$$$$$„„„c
+
+
+‰
++‰‰‰cc„
+c
+‰‰‰‰
+
+
+
+
+‚HHHHHH®;®LL!!!!!!!mmøøøømmWø½”Ò8#8Ò”Ò½øi•ªÛÛÛøøøÛÛÛÛ!iiÛµÒÒÒÒÒµª!i!ÛÛòÛª!!!444iªÛÛòµµÛª!!!ÛòµÒÒµµµªi444i!i ˜˜˜˜&˜&&&&&&&&&&&&&&&&&&&Ñ³x‚„+‰
++‰‰‰c
+
+$
++‰‰‰+Ô+$c
+
+c„„„„„$$$$ÔÔÔÔ-¥¥0%0%0%%¯%%%%%%c„„„„„„„„„„„„„„„„„c
+
+$+S+‰‰‰+
+$
+
+c‰‰‰+
+‰+„‚HHHHHH®®LL!!!!!!møøøømmmmWø½88888888Ò½mªòÒÒµòøÛªiÆ!ªòµµµµµÛ!ªµÒÒÒÒÒµòª4i!i4i!ª!44iÛµµÒµµµµµÛ!!ÛòÛª!!i ˜˜˜&˜&&&&&&&&&&&&&&&&&&&Ñ·]EKE$S$
+
++‰
++‰‰+
+
+
+$$
+„+‰‰‰+
+$
+
+
+
+c„„„„„„$$$„„„„-;ˆ000ˆ00ˆ0ˆ00H0H----„-------
+
+
+
+F„
++‰‰‰+„
+Ô$
+
+
++‰‰+c‰+
+
+$S$EK;HHHHH;LLi!!!ªøøøøøøømmmmøøø½½½”””½øÛµ½Ò88””Ò½ÛiÆiªÛÛÛÛÛÛª!!!iªµµÒÒÒÒò!!ÛòµòÛÛª!Æ444!ÛÛÛòÛª!!!ªÛµµµµµµÛª ˜˜&˜&&&&&&&&&&&&&&&&&b&&Ñüx‰‰‰‰
+$c++Ô
+S‰‰‰+
+
+$
+‰‰‰+
+U$
+
+c---c-c--G%ˆ0ˆzzˆz0ˆz0ˆ0ˆ0ˆ0H00=f“G“G“ŸG“GGGŸŸMM--»»-++‰‰
+$
+
++‰‰‰S
+$++
+$
+‰‰‰‰M;;HHHH®LL!ªWøøvøøøøøøv½½½øÛøøøvvøm!WvÒ””””””µøWWÛµÒÒµòÛ!44!!ªÛÛÛòòÛi44iÛµÒÒÒÒµòªi!!ii!!iD4iÛµµµµµµòÛª &˜&&&&&&&&&&&&&&&&&b&b&Ñ]K;K
+c
+$‰‰‰‰
+$Ô++„
+‰‰‰„ccc„$
+‰‰‰‰U
+»Ô
+
+----GrˆzzzzzzzzzzzzzzzzzzzˆzHˆHHwfŸŸŸËŸRRŸ““¿ŸŸF»-„-
+M-c„‰‰‰
+„++Ô$
+‰‰‰‰$
+c
+K;K;HHH%;LL!ªøøvøøøømv½”8888”””½øWWmmW•Wªø½µµøW!Ûµ””Ò””ÒµªiÛÛÛÛªª!!iÆ44!ÛÛµµÒµÛi!Ûµµµµµòªi4444DD4!!ªªª! &&&&&&&&&&&&&&&&bbb&b&&ÑxK;KE$‰‰‰c
+$U‰‰‰
+$U
+
+U‰‰‰U
+$Ô+++»-MMŸŸŸfHzzzzzzzzzzzzzzzzzzzzzzzzzzzzHHRRwRwRŸ“»»F¿ŸR---ŸfŸŸf
+»+»
+
+$
+‰‰‰£$
+‰‰‰$EK;K%HHH®Lªøvøvøøøøø½”8#####8”vøø½µµ½øøøÛªmªWiWøµµµÒµµª!!ªµÒÒÒµµÛ!44i!!ªª!ªª!44ªµµÒÒÒµÛ!i!!!iiÆ44DìD &&&&&&&&&&&&&&&&b&&b b&˜E%KMc‰‰‰‰+„
+‰‰‰U
+S
+„S
+‰‰+U
+-M-„
+MMfffRˆzzzzzzzzzzzzzzzzzzzzzzzzˆzzzˆzzzzH=w====RŸ“RRRRRR“F»»FŸf„»»-MMM»
+U‰‰‰
+„+‰‰‰‰cMK%H0HH;®Ûøvvøvøøøv½””88š#š”ømø”8888Ò”ÒøWi•ªªWWiiWªÛªiiÛµÒÒÒÒÒÒò!4iÛòÛÛªªªi444D4iªÛòµµòª4iªÛµµòÛÛªDDDDDDìì &&&&&&&&&&&&bb&bbb &b&&]Ec$
+‰‰‰„
+c„‰‰+„
++U
+»
+c»+-frrRrR=zzzzzzzzzzzzˆ¥ËËËŸG--G---¿-¿--GGGGŸfffwwRRww===R““¿“Rw““““ŸRRRr-F»¿+‰U„c
+„‰‰‰c$c%HHH%LÛÛvøvøøøøv½½½½½½”½vmmv”88888”½øªøµ½µµµøWiiii!ÛÛÛÛµµÛ!ii!ÛÒÒÒµµÛ!44!!i!ªª!iii4DD4iªÛòµòÛªi4DD44 &&&&&&&&&&b&b&b &bb  b&E%c„c
+
+
+c„c
+‰‰‰+$
+$„c
+
++‰Uc‰£„ŸMŸ-„-frRRwwzzzzzˆHH¥wGG-¿ÔU+ÏAãJJJJJJJnJnnnuuuuÿÿßßÕk¬-GffŸ“ËRR===R““F“ŸR-»»F-ŸMM-„F
+„+‰‰‰
+c„c
+
+
+c„c%HHH;®ÛÛvvvøøøøøøøøøømmmmmøø½½””””øWmøÒ”Ò8Ò”Òµªi!ÛÛòª!!iiÆ!ÛµµÒÒµµÛi!òµµµÛÛªi4D44D44ii!!!4DDD!!!!!i &&&&&&&&&bbb&b&bb b  bÑKK„„„„cc
+
+
+$$
+c+‰‰+$$c-M„»»-RRRwww=HzˆHwfG-ÔUİİÏAAnãJJJJJJJJJJnnnnnunuuuuuu‹‹‹‹ÅÅ[[[[bÈÈN¿¿¿“Ÿ=R“““ËR=RwŸ““F“M„+++
+$
+
+
+
+cc„„„„„K%H;;òv½vvøøøøømmmmWWWWmmøøøøøøøW•WøµÒÒÒÒµøÛªòµÒÒÒµµòªiÆ!i!i!ª!!ª!!!ÛµÒÒµµÛiÆ44!!iii4DDDDìììD4iiD &&&&&&&b&b&bb& b     b]K„„„„„„cccc
+
+
+
+c
+
+U+‰‰U
+
+»MMMŸ-¿FŸRwwww==¥wŸGÔUÕÿ+ÿİÏÏAAAAããnãJJJJJJJnJnnnnnuuuuuu‹u‹‹‹‹‹ÅÅÅ[[[[[[€€—È-fRwRRË“ËwR“FF»¿fM-
+MM
+
+
+
+cccc„„„„„KHH;;Ûµ½½½½½vvøøøøøøøømmmWWWW•••••WWmWÛøòøWªµÒÒÒÒÒÒµÛª!!ªòòÛª!44444!ªÛÛòòÛÛ!44!ÛòòÛªi4DììììDDDDDDDDDìë &&&&&&b&b& b         &à%G„„„„„„ccccc
+
+
+
+
+
+
+
+UU+»Ÿ-»F-ŸRwwwRRfGG££kUZkßÿİ+İ+AAAããããJJJJJJJJJJãJnnãnnnnuuuu‹‹‹Å‹ÅÅÅ[[[[€€€€€€ss—È«G-“““==w=wwRRrrMMMM
+
+
+
+
+
+
+cccc„„„„„„G%%=;;µµÊ½½½½½½vvøøøøøømmWWWWWWW••WWW!WWWW!••WÛòòµµò!!!ÛÒÒÒÒÒµò!Æ4!!!i!!!iÆ44D4!ªÛÛÛªDDìD44Dììììëëë &&&&&b&b& bbb        &E%$„„„„„cc
+c
+
+
+
+
+
+MMMMMMM‚r-“¿“RwwrŸG-ÈÔÔ¬UkkZZååİİ+AAãããAãJãã×n××××××t×tĞĞĞĞĞĞÏĞuuuAãAAu‹ÅÅÅ[[[[[[€€€€€s€sss««üfw=======wRrrrMMMM
+
+
+
+
+cccc„„„„„„$%;H;;µµ½ÊÊ½½½½½½vvvøøømmmmmWWWWWW!••!•i••i•i!WWª!iÛµµµµµµÛ!iiªòµµÛª!4DD4D44iiDììDDii4Dì@@@ëìì &&b&b&b bb           ÑKK$$$„üoşşNNccc
+
+
+
+
+
+
+MMMMM‚‚MM‚M‚MM‚frRRwwwRrGG¿ÔÈÔ££kZÕZİß™l   777^^^^^^^^^^^^^^^©©7©©7ll¬Å[[[[[[€€€€€€€ssssssssŞ«PGf=======wrrMMM
+
+
+
+
+
+ccccNNşo¼N„$$$K%H;;Ûµ½ÊÊ½½½½½½vvvøvøøøømmmWWWWWW•!ii•i•ii•i!!!!iªÛµµÒµµò!DD4i!i4DDììììììDD44DìììììDDDD &&&b b&&b            ]%E$$$„o¼şşàà
+
+
+
+MMMMM‚‚rrr=w====wrfGG…NNÈÔÈSU¬Ul»ll777^^dı<ı{{"2"2""""""""""""""""""""{ágágág^©©©l¬¬¬¬¬Ì€€€€ssssss˜ssŞ«NEw===wwRrfM
+
+
+ààşş¼o$$$$E%H=;;†µ½Ê½Ê½½½½½½½vvøvøøøøømmmWWWWW!••!•ii•ii4444iªªªªªª!44iªÛÛ!4DìììDDDDDDDDDDDDDDDDD44 &b &bb            À  à%$$$$¼şşMMMMM‚‚rrww=====fGGNNN¿NüÈÔÔÔl©©©^^ggı{{""22""""""2"""""""""""""""""""""""""""áá^‘©y²²—s€sssssss˜˜˜6«Nxw====wRREj}¼¼„$$$%;H;;µµ”Ê½½½½½½½v½vvøøøøøømmmmWWWWW•!•i•ii•i•Æ44444444D44DDD4i!i!ª!DìììD444DDDììDDD4444 &bb&b b           À &E%$$$¼¼}}†‚‚rww====wEGà…NNN¿©©^^gg{2"2"""2"2"""2"2"2""""""""""""""""""""""""""""""""áá^‘©y²—sssssssŞs˜ººNxw¥¥K¶pp¾¾¼$$$%%H;;µµ½”ÊÊ½½½½½vvvvvøøøøømmmmmWWWWWW!•ii•i•ÆÆ4Æ4Æ444DDDDDDDììDD44D44DDìììDD444DDDDDDD444Æ b&b            À  À  KK$$$$«q¾¾´h¶¶KK;ExGàNcN…©^^g{2"2"22"2"222"2"22"""""""""""""\\\\\\\\\\\\\\""""áá^‘©y²˜sbs˜s6sŞºŒş}¶K~¶pppp‡‡«$$$$K%=;;µµ½ÊÊÊ½½½½½½½vvvøøøøøømmmmmWWWWW!!•ii•ÆÆÆÆ4444444DDDDDDDìììììë@ë@@@ìDDDDDDDDD44444444 & bb           ÀÀÀÀ ]%E$$$$o))¾¾¾pp¶¶¶jxjxx
+à…‘‘gı{"22222222"222"""{{{\\’~9~9~9’’ˆ’’’\"áá^‘yÈ˜b˜˜666ŞŒÚşj¶¥¶pppp‡¼))o$$$$E%HH;;µ½½½½½½½½½½½vvvvøøøøømmmmmWWWWW!•ii•i•ÆÆ444444DDDDDDDDDììììììì@ë@@@ëëììDDDDDDDD4D444444Æ bb         À  À À À à%G$$$$))))))))))‡‡¾¾p¶¶¶jExx……^gg{222222"2"2"2"{{\\’’’~~~~\~99999999ˆˆˆˆá\áá‘…«˜&,66ººŒŒ}K¶¥¶pp}‡`))))))))$$$$G%;=;;Ûµ½½½½½½½½½vvvvvvøøøøøømmmmWWWW!!•ii•iÆ444DDDDDDDDììììììëë@ë@ë@@ëììììDDDDDDDD4D4444444 b           ÀÀÀÀÀÀÀ E%$$$)))))))))))))))))‡¼¾pp¶¶¶jE†xxxj¡^g{222222222222{{\’’’~~~999999990¥¥¥¥\""á^‘y,˜66º((›}j¶¡¶jpp‡`o)))))))))))))$$$%%H;;Ûµ½½½½½½½½½½vvøvøvøøøøømmmmªWWWW!!!•iiÆÆ4444DDD5DDìììì@@@@°@°@@ëëìììDDDDDDDDDD444444444Æ        À   À ÀÀÀÀÀÀ&KK$$$«)))))))))))))))))))))¼‡¾ppKEE†jj¡^g{2222222222"{\\’’’99\99999999¥¥¥¥w¥ˆˆ¥¥\\\á^…³˜66((QP}K¶jpj}`‡)))))))))))))))«$$$$K%=;;;Ûµ½½½½½½½½½½½vvvvvøøøøøøømmmmªWWWW!i•i•Æ4444DDDDDìììì@@@@°°°°@@ëììììDDDDDDDDDDDDD4444444       À ÀÀÀÀÀÀÀÀÀÀÀÈ%E$$$$Ş))))))))..)..).)))))))‡‡}p¶KKK¡^g{2222222222{\\’’99999\\~99999¥¥¥w%ˆ%rrrw¡\á""á…º6((QQ¸}j¶jjp}``o)).)..).))))))Ş$$$EKHH;;µ½Ê½½½½½½½½½½½vvvvøøøøøøøømªmªmWWW!!!iiÆÆ444DDD5Dìì@@@@@°@@@ëëììììDDDDDDDDDDDDDDD4444444Æ4      À À  ÀÀÀÀÀÀÀÀ à%G$$$±)))..............)))))o¼}pKKKKj¡gı222222222{g^‘ˆˆ99999I’’~9999¥¥¥¥90w‚‚‚rfË‘"á…(((QQ¸jj¶j}```±±).......))))±$$$G%%=;;µµÊÊ½Ê½½½½½½½½½vvvvvøøøøøøøømªªªªWWWW!!ii4444D5Dìììì@@@@@@@@ëììììDDDDDDDDDDDDD44444ÆÆÆÆ44      À ÀÀÀÀÀÀÀÀÀÀ x%$))......ñ..ñ.ñ.......±)`}¶%%KK¡ı22222222"{á¡Ë¡…pˆˆ9999III\’~I’’99ˆˆ¥¥¥ˆ9wr‚‚‚M‚M—´´ááá…ºQØØ¸jjjj}``o±±.¦ñ........)$$%;H;;µµ½½ÊÊ½½½½½½½½½vvvvvøøøøøøøøÛmmªmªWªªWW!!i44DDDDìì@ì@@@@@@ëììììììììDìDDDDDDD4444Æ44     À À ÀÀÀÀÀÀÀÀ KK$«.....ñ.ñ.ññ.ñ.ñ.ñ.ñ..)o`pK%KK%K¥ı22222222ıg¡¡frŸj…¶ˆ9999IIIIIII’\IIII¥¥û9;r‚‚M‚MMkq´"á¡ØØØ¸jjjj}``±±...ñ.ñ.ñ....«$$K%H;;Ûµ½Ê½Ê½½½½½½½½½½½vvøøøøøøøøøøÛømªªmWWW!!!i444D55ììì@@@ë@ëìëììììììììììDDDDD44ÆÆ4      ÀÀÀÀÀÀÀÀÀÀÈ%E$Ş..ññ.ñ.ñññññññññ.ñ.ñ.±opK%%%K¡áı22222222ı‘©fM‚‚‚Ë}yûˆ9999IIIIIIIIh\’IIIIIIII’¥¥ˆ9%r‚‚‚MMM£q‡"…›ØØ¸àjjjj}`o±¦ññññ.ñ.ñ...Ş$E%;H;;Ûµ½ÊÊÊÊ½Ê½½½½½½½½½vøvøøøøøøøÛøøÛÛmªªWWWW!iÆ44DDDDìììì@@ì@ìììììììììììDDDD44  ÀÀÀÀ ÀÀÀÀÀÀÀÀâà%G¦.ñ..ññ>>>>>>>>>>>ññ.¦±p%%%%¥áı2222222ıı‡o„MMMMMG…`ûˆ99IIIIIIIIh\\\IIIIIIIIIII’¥¥¥9%‚MMMMM„±‡‘á¡]›Ø¸àjjj…`y±¦¦>>>>ññ.ññ.¦$G%H=;;µµ””ÊÊÊ½Ê½½½½½½½½½½vvvøøøøøøÛøøªªªmWWW!ii444DD5Dìì@ì@ìììììììëëëììDDD44 À   ÀÀÀÀÀÀÀÀÀ x%ññ.ñ>>>>>>>>>>>>>>>>>.}%%%Kı2222222ı‘‡‡¾—
+MMMŸG…y9999IIIIIIIII\hI\\IIIIIIIIIIIII~ˆ9%r‚EMMM—¤á\¡ü÷ÎÎPjjj…`É¦Ü>>>>>>ññ.ñ.%%H;;µµÊ”Ê””ÊÊÊ½½½½½½½½½½½vvøøøøøøÛøøªmªªWW!i444DDDììì@@@@ì@@ì@ìëìììDD44iiii4444DD  ÀÀÀÀÀÀÀÀÀÀÀ KKÈ.ññ>>>>>>>>>>>>>±KOû{22222ııı‘‡MMMMMGGy`ˆ99IIIIIIhh\"\hIhhIIIIIIIIIIIII~ˆ¥9ûrMMMM))¤‘¡ü÷ÎÎP}……yÉ¦ >>>>>>>ññ.ÈK%H;;†µ”Ê”Ê”ÊÊÊ½Ê½½½½½½½½vvvvøøøøøøÛøªªmªWW!•Æ44DD5ìì@@@ë@ì@ë@ìììììDD4iiiiii4444Dììììë  ÀÀÀÀÀÀÀÀÀÀÈ%E«ññ>>>>>>>>>¦%¥á22222ıı^¢‡UMMMŸ…y}99IIIIIh~\\"\hhhhhIIIIIhII\ˆ¥99r‚xMMMMU))))¤‘áN÷Î¸à…yyÉÜ>>>>>>ñ«EKHH;Ûµ”Y””””Ê”Ê½½½½½½½½½½½½øøøøøøøøÛøªªWWWiiÆ44DD5ì@@@@@@@@@ì@ììDD4iiiiiiiiii4DDDììì@°°°°° À ÀÀÀÀÀÀÀâà%G¦>>>>>>>’{222222‘¢‡o±MMG…y`99IIIII\""á""h""IIII’I~ˆ¥99r‚EMM±)))).)±¢á¡ü÷ÎPyyÉÜ ¨>>>>¦G%%=;;†µÒY”””Ê”Ê”Ê½½½½½½½½½½½vvøøøøøøøÛmªW!i•Æ4D5Dì@@@@@@@@@ììDDD4ii!iiiii4555ii4ì@°°°°í

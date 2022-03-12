@@ -1,0 +1,730 @@
+bj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Pomocí automatickıch aktualizací mùe systém Windows pravidelnì vyhledávat nejnovìjší dùleité aktualizace pro váš poèítaè a automaticky je instalovat. Mohou to bıt aktualizace zabezpeèení, dùleité aktualizace a aktualizace Service Pack.";
+var L_IntroUpdate_Text = "Dìkujeme vám za instalaci aktualizace Windows XP Service Pack 3. Pøed dokonèením instalaèního procesu se pøihlaste k odbìru automatickıch aktualizací. Pomocí automatickıch aktualizací mùe systém Windows pravidelnì vyhledávat nejnovìjší dùleité aktualizace pro váš poèítaè a automaticky je instalovat. Mohou to bıt aktualizace zabezpeèení, dùleité aktualizace a aktualizace Service Pack.";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+PA
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1250"/>
+    <title>Poèáteèní nastavení poèítaèe</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<script>
+var g_PID_Link_URL       = "";
+
+function PID_Link_OnClick(stage)
+{
+    
+    
+    
+    
+    
+    
+    
+    if (stage == null)
+    {
+        window.parent.ShowIFrame('False', window.parent.L_CheckConnectivity_Text);
+        window.parent.ResetConnectedToInternetEx();
+        window.parent.ConnectedToInternetEx(true, "g.PID_Link_OnClick(1);");
+    }
+    else if (stage == 1)
+    {
+        var connected = window.parent.ConnectedToInternetEx(false);
+        
+        if (!connected)
+        {
+            connected = window.external.InternetAutodial();
+            window.parent.g_InitAutodial = connected;
+            
+            if (!connected)
+            {
+                if (window.external.GnsAutodial(true, "User1"))
+                {
+                    window.parent.ResetConnectedToInternetEx();
+                    connected = window.parent.ConnectedToInternetEx(true);
+                }
+            }
+        }
+
+        if (connected)
+        {
+            window.open(g_PID_Link_URL);
+        }
+
+        window.parent.ShowIFrame();
+    }
+    
+    return false;
+}
+
+function Local_LoadMe() {
+
+    if (acterror_after_pid_entry_text1.style.display == "inline" ||
+        acterror_after_pid_entry_text2.style.display == "inline") {
+        
+        var strPid = window.parent.PidObj.get_CurrentPID2();
+        var strStrippedPid = "";
+
+        var re = new RegExp("(.*)-(.*)-(.*)-(.*)","");
+        if(re.exec(strPid) == null) {
+            strStrippedPid = "";
+        }
+        else
+        {
+            strStrippedPid = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4;
+        }
+
+
+        g_PID_Link_URL = "https://pa.one.microsoft.com/portal.asp?req=" +
+            strStrippedPid + "&err=" + window.parent.g_act_specific_error;
+
+        acterror_link1.title = g_PID_Link_URL;
+        acterror_link1.onclick = PID_Link_OnClick;
+        acterror_link2.title = g_PID_Link_URL;
+        acterror_link2.onclick = PID_Link_OnClick;
+
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.act_desktop_error_LoadMe(); Local_LoadMe();" >
+
+<table valign=middle border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;">
+        <ID id=acterror_s1>Aktivovat systém Windows</ID>
+    </span>
+
+    <br>
+
+        <!-- Retail mode -->
+        <span ID=acterror_description_dedicated_pid_RETAIL class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1">Bìhem instalace systému Windows jste nezadali platnı kód Product Key. Chcete-li pokraèovat v aktivaci systému Windows, zadejte kód Product Key do zobrazenıch polí a pak klepnìte na tlaèítko <b>Aktualizovat</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2">25místnı kód Product Key naleznete na zadní èásti obalu disku CD-ROM systému Windows na štítku, kterı vypadá podobnì jako tento:</ID>
+            <br><br>
+            <center><img src="../images/prodkey.gif"></center>
+        </span>
+        
+        <!-- OEM mode -->
+        <span ID=acterror_description_dedicated_pid_OEM class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1x">Bìhem instalace systému Windows jste nezadali platnı kód Product Key. Chcete-li pokraèovat v aktivaci systému Windows, zadejte kód Product Key do zobrazenıch polí a pak klepnìte na tlaèítko <b>Aktualizovat</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2x">25místnı kód Product Key naleznete na Certifikátu pravosti (COA), kterı je dodáván s poèítaèem nebo s dokumentací k systému Windows. Tento certifikát vypadá podobnì jako v následujícím pøíkladu.</ID>
+            <br><br>
+            <center><img src="../images/oemcoa.jpg"></center>
+        </span>
+
+
+        <!-- PID ENTRY -->
+        <span ID=acterror_pid_entry class="text-primary" style="display:none;">
+            <br>
+            <table ID=PidBox border=0 DIR=ltr style="font-family:Courier New; FONT-SIZE: 16pt;">
+            <tr>
+                <td nowrap width=10>&nbsp;</td>
+                <td nowrap class="text-primary" >
+                <span ID=acterror_description_verify_key class="text-primary"><ID id="txtverifykey">Ovìøit klíè:</id></span>&nbsp;
+                </td>
+                <td>
+                <input style="ime-mode:disabled" id=pid1 type="text" size=6 maxlength=5 class=pid-box TABINDEX=1 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid2 type="text" size=6 maxlength=5 class=pid-box TABINDEX=2 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid3 type="text" size=6 maxlength=5 class=pid-box TABINDEX=3  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid4 type="text" size=6 maxlength=5 class=pid-box TABINDEX=4  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid5 type="text" size=6 maxlength=5 class=pid-box TABINDEX=5  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td>
+            </tr>
+            </table>
+        </span>
+
+        <!-- AFTER PID ENTRY TEXT -->
+        <span ID=acterror_after_pid_entry_OEMText class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErrOEMText">Jestlie nemùete nalézt Certifikát pravosti (COA), obrate se na vırobce poèítaèe.</ID><br>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text1 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr14">Pokud se domníváte e jste zadali správnı kód Product Key a tato zpráva by nemìla bıt zobrazena, obrate se na odbornou pomoc spoleènosti Microsoft. Další informace získáte také na <a href="#" id="acterror_link1"><U>webovém serveru pomoci pøi aktivaci</u></a>. Kontaktní telefonní èíslo zobrazíte klepnutím na tlaèítko <b>Telefon</b>.</ID>
+        </span>
+
+
+        <span ID=acterror_after_pid_entry_text2 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr15">Pokud se domníváte e by tato zpráva by nemìla bıt zobrazena, obrate se na odbornou pomoc spoleènosti Microsoft. Další informace získáte také na <a href="#" id="acterror_link2"><U>webovém serveru pomoci pøi aktivaci</u></a>. Kontaktní telefonní èíslo zobrazíte klepnutím na tlaèítko <b>Telefon</b>.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text3 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr16">Kadá kopie systému Windows smí bıt nainstalována v jednom okamiku pouze na jediném poèítaèi. Pokud jste tuto zprávu obdreli omylem, obrate se klepnutím na tlaèítko <B>Telefon</B> na pracovníka slueb pro zákazníky.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text4 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr17">Pokud nemusíte zadávat kód Product Key, vrate se klepnutím na tlaèítko <B>Telefon</B> na pøedchozí obrazovku prùvodce.</ID>
+        </span>
+        
+    <!-- End -->
+    </td>
+
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=99%>
+            &nbsp;&nbsp;
+            <span ID=acterror_specific_error_code class="text-primary" style="display:none; z-index:10;">
+            </span>
+        </td>
+        <td>
+        <BUTTON ID="btnTelephone" class="buttons" TABINDEX=6 ACCESSKEY="T"><label for=btnTelephone><id id="LocalBtnTel_Text"><u>T</u>elefon</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=7 ACCESSKEY="P"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>P</u>øipomenout pozdìji</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=8 ACCESSKEY="O"><label for=btnNext><id id="LocalBtnRetry_Text"><u>O</u>pakovat</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+PGIF89a0 0 ÷   1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ !ù  ÿ ,    0 0 Ç 1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ ş ı	H° Áƒ*L(ïN›D£p)÷.Ş¼pñÆº„Ç‰.\ÈaD9~ŞËw5jçĞ¡“G“¹k«¼¼xQ¢§‡0`ˆa‚C„tCyO_0M°’]»¶íšÍ›U“ÁZuh7hØĞùá ‚¨À€Š-rÆ È¥Jsg°\¹Â¦¯ß½i$¥úÚ,hd’£1%y
+õ›LÙ^?{İáÛ‡’¿|øğ™sg®04`¥e•SH¹2Á~õ`×Ã–ò ?yÕJ¹b¶L›+e£0%Óä…#ÓìÖ>("_êˆ²e¬z6Q£LÁÒ4èÈN „ş-û`—İ|ğº9ëÕÌW¯açØÑ”·nİ¶d§’é‡Å_’¡T Á€8À@'Èàƒ‹!±”@÷¸É ƒX¢	TüAe!…ƒ<²‡rì K¡‚
+;ğÀC]tAF; ğÆ.û ä0F¤:Ğ<âá˜S4¾tÇ±àce	É&P9ÑÜZh÷Téiå 6K„œ´Pl`ælÊ-w>ò\óJ.™ÁÆŒX’L>f.§9A("7¯ŒóÎ8ã0\`ÜğÓxPu$OM€QÇ%£Ü’9â(£=ë$£‰FğdABQA†Ô˜R•Í4ãL3ş½ÄêK4´Js*ˆâFÑS	 HTY+OA ­d%<ÑôŒ,²Ìr
+*õaµ!|pèl0lY,(¸DİÔÏ=¬D5U}ëĞÇîTÉ BÉ…–P(	ãa°@¤¥Â &(!\9äÁ¨?î”c‰%üE•ToG	$”-{ğàƒ1 ÀV  „¼‹dì€!ÇdN4l|ÅáË¢±kŸ€â	(f˜1Ç9çÌ]¨€Â„”«4¡´L£Œ9ãN>W–ó‹4…l¢¤gûpÖZA—Á6>îìC-æä“Ï=¥Ñò‰Û@ãL9ğlVæ@­µ†şŞõÌf>ùt8•æcÎáCšÓIª"¶e{û&l´	´Ï=»âˆ,ÏtşL'ÄG±ÀÓxJ}§Ş76ØÜİè™hÊÃ>ú¼şº>ëè’‰2¦´2Š"‚ÚXXr°íñC2¤(“‹8ÕD¯.£$ÒF-„tÁ€œn;?ê’ˆ"­,C=ñ¤³5ê“H|ğ‡’¶ëcJ¤‰`ÒŠ2Ì`šN<h"Å"Ğ„ˆÀ4JQh²:é#hÚ`Jâ7¸Ø9`14øŠ è€20P ¦K	hÔF5+!îÑğ…,B!¾ê	„2¬0 şÇCˆ”†qŒcPãíšO}®A:(Í;<)‚…	,`
+`Á”âº|¤9œ9!‹h¸kSYFE)v`‡ã—~@.¦ nè)G{dèzƒä †'ÈQ•kDESÀÀF ‘8 ‡Pó |”ÃÃ(Æ4À‘D%Ú¤* @FÃ4a	ÿˆÇ„â°(a	[P]˜r–À‚*Va9Ğx­¤bBrÃ!†ğ-¬R-lÉ,±(4CUû`†ÔUÈ^²?àËHøà X Öò1í`s€’”wLÂB‹',Ö!Œé!d şğÁğ2±¨eàÁ\D}¸n P½êEÊ—>ÒCÈ„-Œ!	$s‘øààÍ ŸAÆ˜†¾È,¡_‘Y_®€?ĞBh+Â¢3Ô4	<  ‡¼!Äpt0p8T¢V £9~aY ,=İˆ*<à‘·Ê\f¤§Ø‰Ò*s|bbC'°ÎubFwûÚ’,S/–†î …ihÑùHty€!6Q‘âM­“‰[ëaĞ®Yn¡9LÏvŠ1­IUœ?`C¹h3ü>ØFh<ãp³Ø„÷^c™Àöol¥>¢¸).mS5>‡/ Ñ*r”Ü˜*·rp‚nU²R—ÚˆÑ=öK”åÛlr¹nÄbyÈÃAˆXtÃt]üëXw·€  ;PPADDINGXXPADDINGPADD                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                COM+     $     c               À      F   0  è  3_0      3_1 $  X  3_2 |  <   3_3 ¸  è  3_4    (   3_5 È  (   3_6 ğ  (   3_7   ˆ  3_8    ¨	  3_9 H)  <  3_10    „-    3_11    .     3_12    ¨.     3_16    ¼.    #Schema L=     #Strings    lK  ü  #Blob   hN    #GUID      ¸                              @                                                                                                  ÿÿ
+ÿÿ}~|ÿÿµ~~  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿÿÿ                          @                                                                                             $
+    ÿÿ
+ÿÿ$
+||ÿÿ‚~|  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿ                             @                                                                                             a
+    ÿÿ
+ÿÿ4~|ÿÿµ~~  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿH                          @                                                                                            !    ı	ÿÿÿÿR|~ÿÿ‚~~  ÿÿÿÿ|	¿	   ÿÿÿÿÿÿÿC      ¿
+                     ÿÿ                ÿÿ               ÿÿ                ÿÿ                                                                 ÿÿ                                                                                                   	                                                                                                                                    
+                                   X          4   <                       ¿
+  ÿÿ~ÿÿ  ||ÿÿ~|~~ X   ¨                                                              `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿG
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                            `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                             `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿ§ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                             `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿzÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                             `ê                                                         	 ÿÿÿÿÿÿÿÿÿÿÔÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ>                                                              `ê                                                          
+ ÿÿÿÿÿÿÿÿÿÿ¨ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‘                                                          `ê  `                                                       ÿÿû ÿÿÿÿ èÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿC                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ ˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿE                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ Ë
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿF                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ mÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿH                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ YÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿI                                                            `ê                                                           ÿÿÿÿÿÿÿÿÿÿ¹ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿL        p 
+  o
+á jš  ˜û          Ö  
+  j  ˜        _  ˜¯  o
+'  
+¯  j¯   g   (                        —ÿÿÿÿÿÿÿÿÿ                      —ÿÿ	ÿÿÿÿ                       : —ÿÿŠ	ÿÿÿÿ                      ; —ÿÿ¸ÿÿ                        < —ÿÿÂÿÿÿÿ         `            = Kÿÿ—ÿÿ         `            = Kÿÿ‹ÿÿÿÿ        `            = Kÿÿ9ÿÿ         `            = KÿÿHÿÿÿÿ        `            = Kÿÿ¼ÿÿÿÿ        `            = Kÿÿiÿÿÿÿ	 	       `            = Kÿÿ@ÿÿÿÿ
+         `            > Kÿÿ¼ÿÿÿÿ        `            > Kÿÿ¨ÿÿÿÿ        `            > Kÿÿpÿÿ                       ? Kÿÿpÿÿÿÿ                      ? Kÿÿ¬	ÿÿ                       ? Kÿÿi	ÿÿÿÿ                      ? Kÿÿzÿÿÿÿ                      ? Kÿÿ	ÿÿÿÿ                      @ Kÿÿßÿÿ                       A KÿÿÍÿÿÿÿ                      A Kÿÿñÿÿ                       A KÿÿGÿÿÿÿ                      A Kÿÿÿÿ                       B Kÿÿğÿÿ                       B Kÿÿÿÿÿ          `            C Kÿÿ
+ÿÿ         `            C ›4 /ÿÿ         `            C KÿÿÒÿÿ          `            D Kÿÿ™ÿÿ         `            D Kÿÿıÿÿ         `            D KÿÿÇÿÿÿÿ        `            D Kÿÿ¹ÿÿ	          `            D ÿÿÿÿ&ÿÿ !         `            E ÿÿÿÿê	ÿÿ "        `            E ÿÿÿÿĞÿÿ #        `            E ÿÿÿÿàÿÿ $        `            E ÿÿÿÿ•ÿÿ %         `            F ÿÿÿÿÿÿ# &        `            F ÿÿÿÿÿÿ$ '        `            F ÿÿÿÿ%ÿÿ% (        `            F ÿÿÿÿÿÿ& )        `            F ÿÿÿÿñÿÿ *        `            F ÿÿÿÿî
+ÿÿ +         `            G ÿÿÿÿZÿÿ ,        `            G ÿÿÿÿCÿÿ' -                      H ÿÿÿÿÖÿÿ .                      H ÿÿÿÿÂÿÿ  /                      H ÿÿÿÿæÿÿ 0                      H ÿÿÿÿ™ÿÿ" 1                      H ÿÿÿÿLÿÿ 2         `            I ÿÿÿÿ>ÿÿ, 3        `            I ÿÿÿÿÿÿ
+ 4        `            I ÿÿÿÿÿÿÿ 5        `            I ÿÿÿÿÏÿÿ 6        `            I ÿÿÿÿ¿ÿÿÿÿ7        `            I ÿÿÿÿèÿÿ! 8         `            J ÿÿÿÿYÿÿ8 9        `            J ÿÿÿÿrÿÿ :                      K ÿÿÿÿL	ÿÿ( ;         `            N ÿÿÿÿ
+ÿÿ3 <        `            N ÿÿÿÿóÿÿ4 =         `            L ÿÿÿÿ‚ÿÿÿÿÿÿ       `            L ÿÿÿÿ!ÿÿ6 ?        `            L ÿÿÿÿåÿÿ. @        `            L ÿÿÿÿÿÿ: A        `            L ÿÿÿÿ¤ÿÿ5 B         `            O ÿÿÿÿ«ÿÿÿÿC         `            P ÿÿÿÿY	ÿÿÿÿD         `             ÿÿÿÿ«
+ÿÿB ÿÿ       `             ÿÿÿÿÿÿ; F        `             ÿÿÿÿ´
+ÿÿ* G         `            M ÿÿÿÿ1ÿÿD H        `            M ÿÿÿÿÎÿÿ) I        `            M ÿÿÿÿªÿÿ/ J        `            M ÿÿÿÿ€ÿÿ+ K        `            M ÿÿÿÿ`	ÿÿ< L        `            M ÿÿÿÿèÿÿ? M 	       `            M ÿÿÿÿıÿÿ- N 
+       `            M ÿÿÿÿÿÿE O                       ÿÿÿÿ2ÿÿ= ÿÿ                      ÿÿÿÿËÿÿA Q 	                      ÿÿÿÿzÿÿI R                       ÿÿÿÿßÿÿ9 ÿÿ                      ÿÿÿÿNÿÿC T        `            N ÿÿÿÿÍÿÿN > 	       `            I ÿÿÿÿğÿÿ2 V 
+       `            I ÿÿÿÿ/ÿÿK W        `             ÿÿÿÿ(ÿÿR P        `            D ÿÿÿÿ=ÿÿ@ X        `            O ÿÿÿÿ·ÿÿJ E                       ÿÿÿÿÿÿ> [                       ÿÿÿÿùÿÿM \ 	                      ÿÿÿÿëÿÿ[ ] 	       `            D ÿÿÿÿ¤ÿÿY Z        `            N ÿÿÿÿ(ÿÿÿÿ_                      H ÿÿÿÿ=ÿÿ_ ` 
+       `            D ÿÿÿÿWÿÿF a        `            D ÿÿÿÿ„ÿÿU b                      K ÿÿÿÿbÿÿW c                      K ÿÿÿÿòÿÿQ d                      Q ÿÿÿÿ[ÿÿb e XZ S H ] X T e 1 P V 7 c a G L ^  d 0 ` \ O f   XÿÿU ÿÿÿÿÿÿÿÿÿÿf ÿÿÿÿY ÿÿÿÿ^ ÿÿÿÿÿÿS ÿÿÿÿÿÿÿÿÿÿ  c                —ÿÿÿÿ            —ÿÿ              : —ÿÿ ÿÿ          ; —ÿÿ             < —ÿÿ    `       = Kÿÿ   `       = Kÿÿ    `       = K  ÿÿ `       = K     `       = K     `       = Kÿÿ	   `       = Kÿÿ
+     `       > Kÿÿ ÿÿ `       > Kÿÿ    `       > Kÿÿ            ? K	             ? K              ? Kÿÿ ÿÿ          ? K              ? K  
+           @ Kÿÿ            A K              A K  ÿÿ          A K              A K             B K             B K      `       C K  ÿÿ `       C ›
+     `       C K     `       D Kÿÿ   `       D K     `       D Kÿÿ ÿÿ `       D ÿÿ       `       E ÿÿ !   `       E ÿÿ "   `       E ÿÿ #    `       E ÿÿ" $ ÿÿ  `       F ÿÿÿÿ%    `       F ÿÿ  &   `       F ÿÿÿÿ'   `       F ÿÿ& (    `       F ÿÿ ) ÿÿ `       F ÿÿ *     `       G ÿÿ +   `       G ÿÿ ,            H ÿÿ' -             H ÿÿ . 4           H ÿÿ /             H ÿÿ 0            H ÿÿ+ 1    `       I ÿÿ! 2    `       I ÿÿ0 3 ÿÿ `       I ÿÿ. 4    `       I ÿÿ3 5   `       I ÿÿ1 6   `       I ÿÿ( 7     `       J ÿÿ- 8 ÿÿ `       J ÿÿ 9             K ÿÿ* : "   `       N ÿÿ2 ;   `       N ÿÿ7 <     `       L ÿÿ) ÿÿÿÿ `       L ÿÿ5 >    `       L ÿÿ8 ? %  `       L ÿÿ> @   `       L ÿÿ; A     `       O ÿÿ B ÿÿ  `       P ÿÿA C     `        ÿÿ6 ÿÿ(  `        ÿÿ4 E   `        ÿÿ? F     `       M ÿÿE G ÿÿ `       M ÿÿF H    `       M ÿÿG I +  `       M ÿÿH J   `       M ÿÿ= K    `       M ÿÿ@ L ÿÿ `       M ÿÿ< M    `       M ÿÿL N .            ÿÿ# ÿÿ            ÿÿ9 P              ÿÿ, Q ÿÿ           ÿÿM ÿÿ             ÿÿK S 1  `       N ÿÿB =   `       I ÿÿN U    `       I ÿÿO V ÿÿ `        ÿÿT O    `       D ÿÿW W 4  `       O ÿÿ$ D             ÿÿD Z              ÿÿI [ ÿÿ           ÿÿX \    `       D ÿÿS Y 7  `       N ÿÿV ^            H ÿÿ[ _    `       D ÿÿ_ ` ÿÿ          Q ÿÿ a   X% ] : C ` R ÿÿY P \ U Z J Q  ^ b / a   Xb ] ÿÿÿÿÿÿÿÿÿÿR ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿX T      $                     3' ÿÿÿÿÿÿ                   : x	3' ÿÿÿÿ                     ; ÿ3! ÿÿ                     < 3" ÿÿÿÿ                    = ¥û, ÿÿÿÿ                    > ·û$ ÿÿ                      ? xû- ÿÿÿÿ                    @ ƒû  ÿÿ                     A 8û+ ÿÿ                     B ª
+û& ÿÿ                     C lû( ÿÿ 	                    D œû) ÿÿ 
+                    E 
+ÿÿ. ÿÿ	                     F ˆÿÿ/ ÿÿ
+                     G cÿÿ3 ÿÿ                     H ƒÿÿ1 ÿÿ                     I Mÿÿ% ÿÿ                     J Xÿÿ0 ÿÿ                     K ªÿÿ+ ÿÿ                     L á
+ÿÿ8 ÿÿ ÿÿ                    ÿÿ7 ÿÿ ÿÿ                   M ©ÿÿ6 ÿÿ                      
+ÿÿ5 ÿÿ                      İ	ÿÿ2 ÿÿ ÿÿ                   N tÿÿ9 ÿÿ                     O ÿÿ8 ÿÿ                     P Úÿÿÿÿÿÿ                      ÿÿ8 ÿÿ                     Q Æÿÿ- ÿÿ  X       Xÿÿ              ÿÿ!  ÿÿ"  ÿÿ#  ÿÿ$  ÿÿ%  ÿÿ&  ÿÿ'    (   )   *   +   ,   -   .   /   0  	 1  
+ 2   ! 
+  " 
+  # 
+  3 
+  ' 
+  4 
+  5 
+  6 
+  7 j  8 ˜  9   X                   	  
+     
+    1	ÿÿ~|      –  |  @     8  Ğ  $  ¬	   
+  d
+  ¸
+  À  h  `  ´         (: T  ÿÿ¸ Ä   H „  ÿÿÿC    ‚ †   ÿC$         ÿC*   ‚ ˆ   ÿC5        ÿCA   ‚ Š   ÿCM   ‚ Œ  ÿ ÿCY        ÿCg   	‚    ÿCq   
+€   ÿÿÿC‚   ‚ ’   ÿC    ‚ ”   ÿC—        ÿC¦        ÿC´    ‚ –   ÿC¿   ‚ ˜  P ÿCÉ   ‚ š   ÿCÔ    ‚ œ   ÿCß    ‚    ÿCê   ‚    ÿ ÿCô   € ¢  ÿÿÿCş        ÿC       ÿC2  € ¤  ÿÿÿCE       ÿCX        ÿCq    $   ÿC|    (   ÿC    ,   ÿC—   ‚ ¦   ÿC©    0   ÿC·     4   ÿCÄ  !  8   ÿCÎ  "  <   ÿCÙ  #‚ ¨   ÿCä  $  @   ÿCğ  %  D   ÿC   &  H   ÿC  '  L   ÿC  (‚ ª   ÿC%  )  P   ÿC/  * H ¬  ÿÿÿC?  +  T   ÿCN  ,  X   ÿCc  -  \   ÿCt  .  `   ÿC‹  /  d   ÿC  0  h   ÿC·  1  l   ÿCÌ  2  p   ÿCß  3‚ ®   ÿCğ  4  t   ÿCû  5  x   ÿC  6  |   ÿC  7‚ °   ÿC   8‚ ²   ÿC+  9‚ ´   ÿC7  :  €   ÿCB  nè &X[   (  T  ÿÿ 4 o  ‚     ÿCt  n  X      T  ÿÿ ˜ ¥  ‚H   ÿÿÿC¯  ‚H   ÿÿÿC¿  ‚H   ÿÿÿCÏ  ‚     ÿCÕ  ‚    ÿCÛ  ‚    ÿCã   H   ÿÿÿCò       ( T  ÿÿ4 To  ‚    ÿC‚   ‚    ÿC"        ÿC5  ‚    ÿCH   ‚    ÿC_  ‚     ÿCp  ‚ "   ÿC       ÿC  	     ÿC§  
+‚ $   ÿCÁ  ‚ &   ÿCÊ  ‚ (   ÿCÕ       ÿCğ       ÿC
+  ‚ *   ÿC!       ÿC1  ‚ ,   ÿC=  ‚ .   ÿCY  ‚ 0   ÿCr  nL %X    4 T  ÿÿ¨ ˆ¤  ‚H |  ÿÿÿCª  ‚H ~  ÿÿÿC¶  ‚H €  ÿÿÿCÛ  ‚     ÿC   H ‚  ÿÿÿCÂ  H „  ÿÿÿCÌ       ÿCÙ       ÿCæ  	     ÿCó  
+     ÿC       ÿC
+       ÿC       ÿC        ÿC.    $   ÿC;    (   ÿCI    ,   ÿCY    0   ÿC    4   ÿC2  € †  ÿÿÿCg  H ˆ  ÿÿÿCq    8   ÿC}    <   ÿC‰    @   ÿC™  ‚ Š   ÿC©    D   ÿC´  H Œ  ÿÿÿCÅ    H   ÿCİ  ‚    ÿCé  H   ÿÿÿCø  ‚ ’  ôÿC     L   ÿC  !‚ ”   ÿC.  "  P   ÿCC  #‚ –   ÿCQ  $‚ ˜   ÿCd  %‚ š   ÿCt  &  T   ÿC…  '  X   ÿC‘  (‚ œ   ÿC  )H   ÿÿÿC¬  *  \   ÿCÃ  +  `   ÿCÑ  ,  d   ÿCä  -‚     ÿC"  .  h   ÿCù  /  l   ÿC%  0  p   ÿC  1  t   ÿC   2  x   ÿC3  3‚ ¢   ÿCD  4‚ ¤   ÿCQ  .Ğ    l  (Ô # X}  (Ø % X     T  ÿÿ T ¶  ‚H    ÿÿÿC  ‚‚    ÿC‚   ‚    ÿC¦  . X¹     T  ÿÿ d ¶  ‚H    ÿÿÿC  ‚‚    ÿCË  ‚‚    ÿC×  €   + ÿCß  . õ     T  ÿÿ T ¶  ‚H    ÿÿÿC  ‚‚    ÿC2  €   ÿÿÿC	  . X	     T  ÿÿ( 5	  ‚H   ÿÿÿCª  ‚H   ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCK	  ‚     ÿCÛ  ‚    ÿC2  €   ÿÿÿCg  H   ÿÿÿCW	  	 ‚     ÿCb	  
+     ÿC$        ÿCi	       ÿC‚   ‚ "   ÿCv	  $  	  &  	  	   T  ÿÿ ¨ 5	  ‚H   ÿÿÿCª  ‚H 
+  ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCb	  ‚     ÿCÛ  ‚    ÿC2  €   ÿÿÿC¼	    	   Ü	  
+   T  ÿÿ$ ø 5	  ‚H   ÿÿÿCª  ‚H   ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCÛ  ‚     ÿCò	   ‚    ÿC2  €   ÿÿÿC 
+  H   ÿÿÿC
+
+  	     ÿC
+  
+     ÿC%
+       ÿC‚   ‚    ÿC9
+      	  " S
+      T  ÿÿ T g  ‚H    ÿÿÿC  ‚‚    ÿC¶   H   ÿÿÿCb
+   Xu
+      T  ÿÿ T Š
+  ‚H    ÿÿÿCš
+  ‚H   ÿÿÿC§
+  . X	  (  X—   ( T  ÿÿ
+ t /  H    ÿÿÿC³   ‚    ÿCÅ  ‚    ÿC×   ‚    ÿCï   ‚    ÿC  n  X Members of this role are allowed to examine the configuration of COM+ applications and view information related to active objects and their performance. This role should include the identities under which COM+ server applications run on your system. This role should include the identities under which any COM+ application (library or server) may run on your system. Members of this role are allowed to modify the configuration of COM+ applications and components on this system. Members of this role are trusted to faithfully transmit messages for queued components on behalf of other users. Manages the configuration and tracking of Component Object Model (COM)+-based components. If the service is stopped, most COM+-based components will not function properly. If this service is disabled, any services that explicitly depend on it will fail to start. Pdump.ProcessDump.1 Mts.MtsGrp.1 QC.Recorder.1 EventPublisher.EventPublisher.1 QC.DLQListener.1 COMEXPS.CTrkEvntListener.1 QC.ListenerHelper.1 Catsrv.CatalogServer.1 ICatalogTableRead1 ICatalogTableWrite1 GetEventClassesForIID2 RegisterModule2 IApplicationControl2 QueryApplication2 ICatalogSetup2 IRegister2 IEventServer2 ICatalogUtils2 AddProcess2 RemoveProcess2 IComExport2 GetEventClassesForIID GetInstanceIDFromPID GetPIDFromInstanceID GetPartitionIDFromInstanceID GetInstanceIDFromApplID GetFileTypeAndAppID ExportPartitionAsMSI ExportAsMSI N Y GetCLSIDData IReceiveAppData PushAppData IGetAppData Inproc IsServiceInstalled IsProcessPaused IsSupported EnumTraceGuid StopTraceGuid StartTraceGuid IEventServerTrace StopRegDBService InstallService UninstallService CreateApplicationService DeleteApplicationService StopService StartService FlushPartitionCache ReadTable WriteTable WriteExistingUsersInRolesToInfFile RegisterModule UnregisterModule Everyone CreateShare RemoveShare SetPushRate IsSafeToDelete RegisterExe INTServiceConfig IsServiceRunning Refresh Local IReplicationUtil RegisterDll ICSServiceControl IApplicationControl Item MarkAppAsSystem MarkAppAsNotSystem GetSecAdmin InitializeSession ICatalogSession System Application Com+ Explorer Tracking Event Subscription Application Server Application COM+ Utilities Application Any Application ShutdownApplication StartApplication ImportApplication ExportApplication QueryApplication GetServerInformation %systemroot%\Registration Base Application Partition SetPartition ProcessShutdown GetTypeLibInfo ICatalogTableInfo GetClientTableInfo GetPSClassInfo GetRemoteClassInfo %systemroot%\system32\com\dmp IProcessDump ConfigureSystemApp COMSysApp IMtsGrp ICatalogSetup Reader COM+ QC Dead Letter Queue Listener RemoteHelper.RemoteHelper COM+ Explorer QC Trusted User Interactive User ValidateUser GetDispenser IRegister Unregister My Computer COMSVCS.TrackerServer IEventServer CreateReplicationDir CreateEmptyDir Administrator COM+ Utilities WaitForEndWrites RefreshServiceSettings EnumerateSAFERLevels ICatalogUtils GetPSDlls GetComponentVersions CopyApplications IAppImportPartitions GetRunningApps GetApps Administrators AddProcess RecycleProcess ResumeProcess PauseProcess RemoveProcess RecycleCallingProcess ShutdownProcess DumpProcess SupportsWOWComponents RefreshComponents DispatchManyEvents SysprepComplus GetCallFactoryObject MoveComponent AliasComponent ImportComponent PromoteLegacyComponent CopyComponent MakeNewReplicaCurrent DispatchOneEvent Count IAppImport Initialize64BitQueryCellSupport ICatalog64BitSupport IComExport IAppExport TcCtx.TransactionContext TcCtx.TransactionContextEx ImportComponentAsLegacy IProcessTerminateNotify GetDefaultAppInstallDirectory SetAppIdentity                             4 €           ,                           L €4   @                                                   H €0   <                                               4 „   (                                  ` „H   T           4                                                     ` „H   T           4                                                     L „4   @                                                   L „4   @                                                   ` „H   T           4                                                   >éAÁV3FÃn‹¬‹İp,¶³¢yÒ˜‘ ÀOy¯Q<N{§Ò£6 ÀOyxàEYˆ,aSJ¤yéuE9&ñ³ÔˆıÑ– €_Ç’5ñ³ÔˆıÑ– €_Ç’5ó*7QçÊÏ¾ ª ¢ú%¾°«ìÒ—  øu~*,¶³¢yÒ˜‘ ÀOy¯Q<N{§Ò£6 ÀOyxà|¯#ä-üÒ±& €_Ç2>éAÁV3FÃn‹¬‹İp%ü™yÆÓÏ¬«  $¥Zïpf¶\ÔÓÏ¬«  $¥ZïÂ¯«ìÒ—  øu~*Ä¯«ìÒ—  øu~*Ê¯«ìÒ—  øu~*ğ@,ä2Ğ‹  É#)ú@,ä2Ğ‹  É#)¼¯«ìÒ—  øu~*¸Ÿš¯€«G¥y5êWrSp¹¯«ìÒ—  øu~*°¯=Aô¼Ñ† €Ç)&M•.K“Ñ±« ª º2XŒ•.K“Ñ±« ª º2XÄ°«ìÒ—  øu~*&İÉ#U#âO„Ş÷y¢8­½>,zÑB²ªÓCP
+ÏEYˆ,aSJ¤yéuE9&®¯«ìÒ—  øu~*°¯«ìÒ—  øu~*ùôû4%Ôu ÀOyäµ‘ùôû4%Ôu ÀOyäµ’ùôû4%Ôu ÀOyäµ“ùôû4%Ôu ÀOyäµ”ùôû4%Ôu ÀOyäµ•ùôû4%Ôu ÀOyäµ–ùôû4%Ôu ÀOyäµ—ùôû4%Ôu ÀOyäµ˜ùôû4%Ôu ÀOyäµ™ùôû4%Ôu ÀOyäµšùôû4%Ôu ÀOyäµ›ùôû4%Ôu ÀOyäµœùôû4%Ôu ÀOyäµùôû4%Ôu ÀOyäµùôû4%Ôu ÀOyäµŸùôû4%Ôu ÀOyäµ ùôû4%Ôu ÀOyäµ¡ùôû4%Ôu ÀOyäµ¢ùôû4%Ôu ÀOyäµ¦ùôû4%Ôu ÀOyäµ¨ùôû4%Ôu ÀOyäµ©ùôû4%Ôu ÀOyäµªùôû4%Ôu ÀOyäµ«ùôû4%Ôu ÀOyäµ¬ùôû4%Ôu ÀOyäµ£ùôû4%Ôu ÀOyäµAz’¨ÎÓÑ„r `°åÊ0f=k´Ñ- `°åÊ1f=k´Ñ- `°åÊ¡éÍGöÒ€ ÀO¹˜†;?¾ÛÑ¦ €_…Ïã„¬­Ï,áÑ³L ÀO™T¯ë=¾ŞÑ‹‡ ÀO×©$pi¾ÂßÑ‹‡ ÀO×©$²)½Ñ‹~ ÀO×©$â)aExÒ°ù €_Ç2Nt&Ç5WO‚†Åîc¶÷d˜³,Ò°ş €_Ç2Y1˜å{Ò­Á  $cÖç‰³”dJŸ¦íC&f§¹Üh—şÃ¡N–Cr0ô”¡IV“l¦0B†‡ÄÈ>_áÇ ´CWM»Éke÷¨‰—{²ì»LŠuÄ'ô¦ğËñìÑ“® ª º2Xà@ ¶ó¼Ñ† €Ç)&MªucÖ-úCˆ>¿òÊ$§<7$½HÃ^^ÎÊ×Ï´”12ïÑ“® ª º2X>ê1ñ¾·H¦QË'…w                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        COM+     $     c               À      F   0  è  3_0      3_1 $  X  3_2 |  <   3_3 ¸  è  3_4    (   3_5 È  (   3_6 ğ  (   3_7   ˆ  3_8    ¨	  3_9 H)  <  3_10    „-    3_11    .     3_12    ¨.     3_16    ¼.    #Schema L=     #Strings    lK  ü  #Blob   hN    #GUID      ¸                              @                                                                                                  ÿÿ
+ÿÿ}~|ÿÿµ~~  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿ                           @                                                                                             $
+    ÿÿ
+ÿÿ$
+||ÿÿ‚~|  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿ                            @                                                                                             a
+    ÿÿ
+ÿÿ4~|ÿÿµ~~  ÿÿÿÿ|  ¿	   ÿÿÿÿÿÿˆ                         @                                                                                            !    ı	ÿÿÿÿR|~ÿÿ‚~~  ÿÿÿÿ|	¿	   ÿÿÿÿÿÿ       ¿
+                     ÿÿ                ÿÿ               ÿÿ                ÿÿ                                                                 ÿÿ                                                                                                   	                                                                                                                                    
+                                   X          4   <                       ¿
+  ÿÿ~ÿÿ  ||ÿÿ~|~~ X   ¨                                                              `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿG
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                            `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                            `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿ§ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                            `ê                                                          	 ÿÿÿÿÿÿÿÿÿÿzÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ                                                            `ê                                                         	 ÿÿÿÿÿÿÿÿÿÿÔÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ>                                                              `ê                                                          
+ ÿÿÿÿÿÿÿÿÿÿ¨ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ@                                                           `ê  `                                                       ÿÿû ÿÿÿÿ èÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿC                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ ˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿE                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ Ë
+ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿF                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ mÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿH                                                              `ê  `                                                       ÿÿÿÿÿÿÿÿ YÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿI                                                            `ê                                                           ÿÿÿÿÿÿÿÿÿÿ¹ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿL        p 
+  o
+á jš  ˜û          Ö  
+  j  ˜        _  ˜¯  o
+'  
+¯  j¯   g   (                        —ÿÿÿÿÿÿÿÿÿ                      —ÿÿ	ÿÿÿÿ                       : —ÿÿŠ	ÿÿÿÿ                      ; —ÿÿ¸ÿÿ                        < —ÿÿÂÿÿÿÿ         `            = Kÿÿ—ÿÿ         `            = Kÿÿ‹ÿÿÿÿ        `            = Kÿÿ9ÿÿ         `            = KÿÿHÿÿÿÿ        `            = Kÿÿ¼ÿÿÿÿ        `            = Kÿÿiÿÿÿÿ	 	       `            = Kÿÿ@ÿÿÿÿ
+         `            > Kÿÿ¼ÿÿÿÿ        `            > Kÿÿ¨ÿÿÿÿ        `            > Kÿÿpÿÿ                       ? Kÿÿpÿÿÿÿ                      ? Kÿÿ¬	ÿÿ                       ? Kÿÿi	ÿÿÿÿ                      ? Kÿÿzÿÿÿÿ                      ? Kÿÿ	ÿÿÿÿ                      @ Kÿÿßÿÿ                       A KÿÿÍÿÿÿÿ                      A Kÿÿñÿÿ                       A KÿÿGÿÿÿÿ                      A Kÿÿÿÿ                       B Kÿÿğÿÿ                       B Kÿÿÿÿÿ          `            C Kÿÿ
+ÿÿ         `            C ›4 /ÿÿ         `            C KÿÿÒÿÿ          `            D Kÿÿ™ÿÿ         `            D Kÿÿıÿÿ         `            D KÿÿÇÿÿÿÿ        `            D Kÿÿ¹ÿÿ	          `            D ÿÿÿÿ&ÿÿ !         `            E ÿÿÿÿê	ÿÿ "        `            E ÿÿÿÿĞÿÿ #        `            E ÿÿÿÿàÿÿ $        `            E ÿÿÿÿ•ÿÿ %         `            F ÿÿÿÿÿÿ# &        `            F ÿÿÿÿÿÿ$ '        `            F ÿÿÿÿ%ÿÿ% (        `            F ÿÿÿÿÿÿ& )        `            F ÿÿÿÿñÿÿ *        `            F ÿÿÿÿî
+ÿÿ +         `            G ÿÿÿÿZÿÿ ,        `            G ÿÿÿÿCÿÿ' -                      H ÿÿÿÿÖÿÿ .                      H ÿÿÿÿÂÿÿ  /                      H ÿÿÿÿæÿÿ 0                      H ÿÿÿÿ™ÿÿ" 1                      H ÿÿÿÿLÿÿ 2         `            I ÿÿÿÿ>ÿÿ, 3        `            I ÿÿÿÿÿÿ
+ 4        `            I ÿÿÿÿÿÿÿ 5        `            I ÿÿÿÿÏÿÿ 6        `            I ÿÿÿÿ¿ÿÿÿÿ7        `            I ÿÿÿÿèÿÿ! 8         `            J ÿÿÿÿYÿÿ8 9        `            J ÿÿÿÿrÿÿ :                      K ÿÿÿÿL	ÿÿ( ;         `            N ÿÿÿÿ
+ÿÿ3 <        `            N ÿÿÿÿóÿÿ4 =         `            L ÿÿÿÿ‚ÿÿÿÿÿÿ       `            L ÿÿÿÿ!ÿÿ6 ?        `            L ÿÿÿÿåÿÿ. @        `            L ÿÿÿÿÿÿ: A        `            L ÿÿÿÿ¤ÿÿ5 B         `            O ÿÿÿÿ«ÿÿÿÿC         `            P ÿÿÿÿY	ÿÿÿÿD         `             ÿÿÿÿ«
+ÿÿB ÿÿ       `             ÿÿÿÿÿÿ; F        `             ÿÿÿÿ´
+ÿÿ* G         `            M ÿÿÿÿ1ÿÿD H        `            M ÿÿÿÿÎÿÿ) I        `            M ÿÿÿÿªÿÿ/ J        `            M ÿÿÿÿ€ÿÿ+ K        `            M ÿÿÿÿ`	ÿÿ< L        `            M ÿÿÿÿèÿÿ? M 	       `            M ÿÿÿÿıÿÿ- N 
+       `            M ÿÿÿÿÿÿE O                       ÿÿÿÿ2ÿÿ= ÿÿ                      ÿÿÿÿËÿÿA Q 	                      ÿÿÿÿzÿÿI R                       ÿÿÿÿßÿÿ9 ÿÿ                      ÿÿÿÿNÿÿC T        `            N ÿÿÿÿÍÿÿN > 	       `            I ÿÿÿÿğÿÿ2 V 
+       `            I ÿÿÿÿ/ÿÿK W        `             ÿÿÿÿ(ÿÿR P        `            D ÿÿÿÿ=ÿÿ@ X        `            O ÿÿÿÿ·ÿÿJ E                       ÿÿÿÿÿÿ> [                       ÿÿÿÿùÿÿM \ 	                      ÿÿÿÿëÿÿ[ ] 	       `            D ÿÿÿÿ¤ÿÿY Z        `            N ÿÿÿÿ(ÿÿÿÿ_                      H ÿÿÿÿ=ÿÿ_ ` 
+       `            D ÿÿÿÿWÿÿF a        `            D ÿÿÿÿ„ÿÿU b                      K ÿÿÿÿbÿÿW c                      K ÿÿÿÿòÿÿQ d                      Q ÿÿÿÿ[ÿÿb e XZ S H ] X T e 1 P V 7 c a G L ^  d 0 ` \ O f   XÿÿU ÿÿÿÿÿÿÿÿÿÿf ÿÿÿÿY ÿÿÿÿ^ ÿÿÿÿÿÿS ÿÿÿÿÿÿÿÿÿÿ  c                —ÿÿÿÿ            —ÿÿ              : —ÿÿ ÿÿ          ; —ÿÿ             < —ÿÿ    `       = Kÿÿ   `       = Kÿÿ    `       = K  ÿÿ `       = K     `       = K     `       = Kÿÿ	   `       = Kÿÿ
+     `       > Kÿÿ ÿÿ `       > Kÿÿ    `       > Kÿÿ            ? K	             ? K              ? Kÿÿ ÿÿ          ? K              ? K  
+           @ Kÿÿ            A K              A K  ÿÿ          A K              A K             B K             B K      `       C K  ÿÿ `       C ›
+     `       C K     `       D Kÿÿ   `       D K     `       D Kÿÿ ÿÿ `       D K       `       E ÿÿ !   `       E ÿÿ "   `       E ÿÿ #    `       E ÿÿ" $ ÿÿ  `       F ÿÿÿÿ%    `       F ÿÿ  &   `       F ÿÿÿÿ'   `       F ÿÿ& (    `       F ÿÿ ) ÿÿ `       F ÿÿ *     `       G ÿÿ +   `       G ÿÿ ,            H ÿÿ' -             H ÿÿ . 4           H ÿÿ /             H ÿÿ 0            H ÿÿ+ 1    `       I ÿÿ! 2    `       I ÿÿ0 3 ÿÿ `       I ÿÿ. 4    `       I ÿÿ3 5   `       I ÿÿ1 6   `       I ÿÿ( 7     `       J ÿÿ- 8 ÿÿ `       J ÿÿ 9             K ÿÿ* : "   `       N ÿÿ2 ;   `       N ÿÿ7 <     `       L ÿÿ) ÿÿÿÿ `       L ÿÿ5 >    `       L ÿÿ8 ? %  `       L ÿÿ> @   `       L ÿÿ; A     `       O ÿÿ B ÿÿ  `       P ÿÿA C     `        ÿÿ6 ÿÿ(  `        ÿÿ4 E   `        ÿÿ? F     `       M ÿÿE G ÿÿ `       M ÿÿF H    `       M ÿÿG I +  `       M ÿÿH J   `       M ÿÿ= K    `       M ÿÿ@ L ÿÿ `       M ÿÿ< M    `       M ÿÿL N .            ÿÿ# ÿÿ            ÿÿ9 P              ÿÿ, Q ÿÿ           ÿÿM ÿÿ             ÿÿK S 1  `       N ÿÿB =   `       I ÿÿN U    `       I ÿÿO V ÿÿ `        ÿÿT O    `       D ÿÿW W 4  `       O ÿÿ$ D             ÿÿD Z              ÿÿI [ ÿÿ           ÿÿX \    `       D ÿÿS Y 7  `       N ÿÿV ^            H ÿÿ[ _    `       D ÿÿ_ ` ÿÿ          Q ÿÿ a   X% ] : C ` R ÿÿY P \ U Z J Q  ^ b / a   Xb ] ÿÿÿÿÿÿÿÿÿÿR ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿX T      $                     3' ÿÿÿÿÿÿ                   : x	3' ÿÿÿÿ                     ; ÿ3! ÿÿ                     < 3" ÿÿÿÿ                    = ¥û, ÿÿÿÿ                    > ·û$ ÿÿ                      ? xû- ÿÿÿÿ                    @ ƒû  ÿÿ                     A 8û+ ÿÿ                     B ª
+û& ÿÿ                     C lû( ÿÿ 	                    D œû) ÿÿ 
+                    E 
+ÿÿ. ÿÿ	                     F ˆÿÿ/ ÿÿ
+                     G cÿÿ3 ÿÿ                     H ƒÿÿ1 ÿÿ                     I Mÿÿ% ÿÿ                     J Xÿÿ0 ÿÿ                     K ªÿÿ+ ÿÿ                     L á
+ÿÿ8 ÿÿ ÿÿ                    ÿÿ7 ÿÿ ÿÿ                   M ©ÿÿ6 ÿÿ                      
+ÿÿ5 ÿÿ                      İ	ÿÿ2 ÿÿ ÿÿ                   N tÿÿ9 ÿÿ                     O ÿÿ8 ÿÿ                     P Úÿÿÿÿÿÿ                      ÿÿ8 ÿÿ                     Q Æÿÿ- ÿÿ  X       Xÿÿ              ÿÿ!  ÿÿ"  ÿÿ#  ÿÿ$  ÿÿ%  ÿÿ&  ÿÿ'    (   )   *   +   ,   -   .   /   0  	 1  
+ 2   ! 
+  " 
+  # 
+  3 
+  ' 
+  4 
+  5 
+  6 
+  7 j  8 ˜  9   X                   	  
+     
+    1	ÿÿ~|     Ğ¿  |  @     8  Ğ  $  ¬	   
+  d
+  ¸
+  À  h  `  ´         (: T  ÿÿ¸ Ä   H „  ÿÿÿC    ‚ †   ÿC$         ÿC*   ‚ ˆ   ÿC5        ÿCA   ‚ Š   ÿCM   ‚ Œ  ÿ ÿCY        ÿCg   	‚    ÿCq   
+€   ÿÿÿC‚   ‚ ’   ÿC    ‚ ”   ÿC—        ÿC¦        ÿC´    ‚ –   ÿC¿   ‚ ˜  P ÿCÉ   ‚ š   ÿCÔ    ‚ œ   ÿCß    ‚    ÿCê   ‚    ÿ ÿCô   € ¢  ÿÿÿCş        ÿC       ÿC2  € ¤  ÿÿÿCE       ÿCX        ÿCq    $   ÿC|    (   ÿC    ,   ÿC—   ‚ ¦   ÿC©    0   ÿC·     4   ÿCÄ  !  8   ÿCÎ  "  <   ÿCÙ  #‚ ¨   ÿCä  $  @   ÿCğ  %  D   ÿC   &  H   ÿC  '  L   ÿC  (‚ ª   ÿC%  )  P   ÿC/  * H ¬  ÿÿÿC?  +  T   ÿCN  ,  X   ÿCc  -  \   ÿCt  .  `   ÿC‹  /  d   ÿC  0  h   ÿC·  1  l   ÿCÌ  2  p   ÿCß  3‚ ®   ÿCğ  4  t   ÿCû  5  x   ÿC  6  |   ÿC  7‚ °   ÿC   8‚ ²   ÿC+  9‚ ´   ÿC7  :  €   ÿCB  nè &X[   (  T  ÿÿ 4 o  ‚     ÿCt  n  X      T  ÿÿ ˜ ¥  ‚H   ÿÿÿC¯  ‚H   ÿÿÿC¿  ‚H   ÿÿÿCÏ  ‚     ÿCÕ  ‚    ÿCÛ  ‚    ÿCã   H   ÿÿÿCò       ( T  ÿÿ4 To  ‚    ÿC‚   ‚    ÿC"        ÿC5  ‚    ÿCH   ‚    ÿC_  ‚     ÿCp  ‚ "   ÿC       ÿC  	     ÿC§  
+‚ $   ÿCÁ  ‚ &   ÿCÊ  ‚ (   ÿCÕ       ÿCğ       ÿC
+  ‚ *   ÿC!       ÿC1  ‚ ,   ÿC=  ‚ .   ÿCY  ‚ 0   ÿCr  nL %X    4 T  ÿÿ¨ ˆ¤  ‚H |  ÿÿÿCª  ‚H ~  ÿÿÿC¶  ‚H €  ÿÿÿCÛ  ‚     ÿC   H ‚  ÿÿÿCÂ  H „  ÿÿÿCÌ       ÿCÙ       ÿCæ  	     ÿCó  
+     ÿC       ÿC
+       ÿC       ÿC        ÿC.    $   ÿC;    (   ÿCI    ,   ÿCY    0   ÿC    4   ÿC2  € †  ÿÿÿCg  H ˆ  ÿÿÿCq    8   ÿC}    <   ÿC‰    @   ÿC™  ‚ Š   ÿC©    D   ÿC´  H Œ  ÿÿÿCÅ    H   ÿCİ  ‚    ÿCé  H   ÿÿÿCø  ‚ ’  ôÿC     L   ÿC  !‚ ”   ÿC.  "  P   ÿCC  #‚ –   ÿCQ  $‚ ˜   ÿCd  %‚ š   ÿCt  &  T   ÿC…  '  X   ÿC‘  (‚ œ   ÿC  )H   ÿÿÿC¬  *  \   ÿCÃ  +  `   ÿCÑ  ,  d   ÿCä  -‚     ÿC"  .  h   ÿCù  /  l   ÿC%  0  p   ÿC  1  t   ÿC   2  x   ÿC3  3‚ ¢   ÿCD  4‚ ¤   ÿCQ  .Ğ    l  (Ô # X}  (Ø % X     T  ÿÿ T ¶  ‚H    ÿÿÿC  ‚‚    ÿC‚   ‚    ÿC¦  . X¹     T  ÿÿ d ¶  ‚H    ÿÿÿC  ‚‚    ÿCË  ‚‚    ÿC×  €   + ÿCß  . õ     T  ÿÿ T ¶  ‚H    ÿÿÿC  ‚‚    ÿC2  €   ÿÿÿC	  . X	     T  ÿÿ( 5	  ‚H   ÿÿÿCª  ‚H   ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCK	  ‚     ÿCÛ  ‚    ÿC2  €   ÿÿÿCg  H   ÿÿÿCW	  	 ‚     ÿCb	  
+     ÿC$        ÿCi	       ÿC‚   ‚ "   ÿCv	  $  	  &  	  	   T  ÿÿ ¨ 5	  ‚H   ÿÿÿCª  ‚H 
+  ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCb	  ‚     ÿCÛ  ‚    ÿC2  €   ÿÿÿC¼	    	   Ü	  
+   T  ÿÿ$ ø 5	  ‚H   ÿÿÿCª  ‚H   ÿÿÿC¶  ‚H   ÿÿÿCA	  ‚H   ÿÿÿCÛ  ‚     ÿCò	   ‚    ÿC2  €   ÿÿÿC 
+  H   ÿÿÿC
+
+  	     ÿC
+  
+     ÿC%
+       ÿC‚   ‚    ÿC9
+      	  " S
+      T  ÿÿ T g  ‚H    ÿÿÿC  ‚‚    ÿC¶   H   ÿÿÿCb
+   Xu
+      T  ÿÿ T Š
+  ‚H    ÿÿÿCš
+  ‚H   ÿÿÿC§
+  . X	  (  X—   ( T  ÿÿ
+ t /  H    ÿÿÿC³   ‚    ÿCÅ  ‚    ÿC×   ‚    ÿCï   ‚    ÿC  n  X Members of this role are allowed to examine the configuration of COM+ applications and view information related to active objects and their performance. This role should include the identities under which COM+ server applications run on your system. This role should include the identities under which any COM+ application (library or server) may run on your system. Members of this role are allowed to modify the configuration of COM+ applications and components on this system. Members of this role are trusted to faithfully transmit messages for queued components on behalf of other users. Manages the configuration and tracking of Component Object Model (COM)+-based components. If the service is stopped, most COM+-based components will not function properly. If this service is disabled, any services that explicitly depend on it will fail to start. Pdump.ProcessDump.1 Mts.MtsGrp.1 QC.Recorder.1 EventPublisher.EventPublisher.1 QC.DLQListener.1 COMEXPS.CTrkEvntListener.1 QC.ListenerHelper.1 Catsrv.CatalogServer.1 ICatalogTableRead1 ICatalogTableWrite1 GetEventClassesForIID2 RegisterModule2 IApplicationControl2 QueryApplication2 ICatalogSetup2 IRegister2 IEventServer2 ICatalogUtils2 AddProcess2 RemoveProcess2 IComExport2 GetEventClassesForIID GetInstanceIDFromPID GetPIDFromInstanceID GetPartitionIDFromInstanceID GetInstanceIDFromApplID GetFileTypeAndAppID ExportPartitionAsMSI ExportAsMSI N Y GetCLSIDData IReceiveAppData PushAppData IGetAppData Inproc IsServiceInstalled IsProcessPaused IsSupported EnumTraceGuid StopTraceGuid StartTraceGuid IEventServerTrace StopRegDBService InstallService UninstallService CreateApplicationService DeleteApplicationService StopService StartService FlushPartitionCache ReadTable WriteTable WriteExistingUsersInRolesToInfFile RegisterModule UnregisterModule Everyone CreateShare RemoveShare SetPushRate IsSafeToDelete RegisterExe INTServiceConfig IsServiceRunning Refresh Local IReplicationUtil RegisterDll ICSServiceControl IApplicationControl Item MarkAppAsSystem MarkAppAsNotSystem GetSecAdmin InitializeSession ICatalogSession System Application Com+ Explorer Tracking Event Subscription Application Server Application COM+ Utilities Application Any Application ShutdownApplication StartApplication ImportApplication ExportApplication QueryApplication GetServerInformation %systemroot%\Registration Base Application Partition SetPartition ProcessShutdown GetTypeLibInfo ICatalogTableInfo GetClientTableInfo GetPSClassInfo GetRemoteClassInfo %systemroot%\system32\com\dmp IProcessDump ConfigureSystemApp COMSysApp IMtsGrp ICatalogSetup Reader COM+ QC Dead Letter Queue Listener RemoteHelper.RemoteHelper COM+ Explorer QC Trusted User Interactive User ValidateUser GetDispenser IRegister Unregister My Computer COMSVCS.TrackerServer IEventServer CreateReplicationDir CreateEmptyDir Administrator COM+ Utilities WaitForEndWrites RefreshServiceSettings EnumerateSAFERLevels ICatalogUtils GetPSDlls GetComponentVersions CopyApplications IAppImportPartitions GetRunningApps GetApps Administrators AddProcess RecycleProcess ResumeProcess PauseProcess RemoveProcess RecycleCallingProcess ShutdownProcess DumpProcess SupportsWOWComponents RefreshComponents DispatchManyEvents SysprepComplus GetCallFactoryObject MoveComponent AliasComponent ImportComponent PromoteLegacyComponent CopyComponent MakeNewReplicaCurrent DispatchOneEvent Count IAppImport Initialize64BitQueryCellSupport ICatalog64BitSupport IComExport IAppExport TcCtx.TransactionContext TcCtx.TransactionContextEx ImportComponentAsLegacy IProcessTerminateNotify GetDefaultAppInstallDirectory SetAppIdentity                             4 €           ,                           L €4   @                                                   H €0   <                                               4 „   (                                  ` „H   T           4                                                     ` „H   T           4                                                     L „4   @                                                   L „4   @                                                   ` „H   T           4                                                   >éAÁV3FÃn‹¬‹İp,¶³¢yÒ˜‘ ÀOy¯Q<N{§Ò£6 ÀOyxàEYˆ,aSJ¤yéuE9&ñ³ÔˆıÑ– €_Ç’5ñ³ÔˆıÑ– €_Ç’5ó*7QçÊÏ¾ ª ¢ú%¾°«ìÒ—  øu~*,¶³¢yÒ˜‘ ÀOy¯Q<N{§Ò£6 ÀOyxà|¯#ä-üÒ±& €_Ç2>éAÁV3FÃn‹¬‹İp%ü™yÆÓÏ¬«  $¥Zïpf¶\ÔÓÏ¬«  $¥ZïÂ¯«ìÒ—  øu~*Ä¯«ìÒ—  øu~*Ê¯«ìÒ—  øu~*ğ@,ä2Ğ‹  É#)ú@,ä2Ğ‹  É#)¼¯«ìÒ—  øu~*¸Ÿš¯€«G¥y5êWrSp¹¯«ìÒ—  øu~*°¯=Aô¼Ñ† €Ç)&M•.K“Ñ±« ª º2XŒ•.K“Ñ±« ª º2XÄ°«ìÒ—  øu~*&İÉ#U#âO„Ş÷y¢8­½>,zÑB²ªÓCP
+ÏEYˆ,aSJ¤yéuE9&®¯«ìÒ—  øu~*°¯«ìÒ—  øu~*ùôû4%Ôu ÀOyäµ‘ùôû4%Ôu ÀOyäµ’ùôû4%Ôu ÀOyäµ“ùôû4%Ôu ÀOyäµ”ùôû4%Ôu ÀOyäµ•ùôû4%Ôu ÀOyäµ–ùôû4%Ôu ÀOyäµ—ùôû4%Ôu ÀOyäµ˜ùôû4%Ôu ÀOyäµ™ùôû4%Ôu ÀOyäµšùôû4%Ôu ÀOyäµ›ùôû4%Ôu ÀOyäµœùôû4%Ôu ÀOyäµùôû4%Ôu ÀOyäµùôû4%Ôu ÀOyäµŸùôû4%Ôu ÀOyäµ ùôû4%Ôu ÀOyäµ¡ùôû4%Ôu ÀOyäµ¢ùôû4%Ôu ÀOyäµ¦ùôû4%Ôu ÀOyäµ¨ùôû4%Ôu ÀOyäµ©ùôû4%Ôu ÀOyäµªùôû4%Ôu ÀOyäµ«ùôû4%Ôu ÀOyäµ¬ùôû4%Ôu ÀOyäµ£ùôû4%Ôu ÀOyäµAz’¨ÎÓÑ„r `°åÊ0f=k´Ñ- `°åÊ1f=k´Ñ- `°åÊ¡éÍGöÒ€ ÀO¹˜†;?¾ÛÑ¦ €_…Ïã„¬­Ï,áÑ³L ÀO™T¯ë=¾ŞÑ‹‡ ÀO×©$pi¾ÂßÑ‹‡ ÀO×©$²)½Ñ‹~ ÀO×©$â)aExÒ°ù €_Ç2Nt&Ç5WO‚†Åîc¶÷d˜³,Ò°ş €_Ç2Y1˜å{Ò­Á  $cÖç‰³”dJŸ¦íC&f§¹Üh—şÃ¡N–Cr0ô”¡IV“l¦0B†‡ÄÈ>_áÇ ´CWM»Éke÷¨‰—{²ì»LŠuÄ'ô¦ğËñìÑ“® ª º2Xà@ ¶ó¼Ñ† €Ç)&MªucÖ-úCˆ>¿òÊ$§<7$½HÃ^^ÎÊ×Ï´”12ïÑ“® ª º2X>ê1ñ¾·H¦QË'…w

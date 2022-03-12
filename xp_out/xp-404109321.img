@@ -1,0 +1,2103 @@
+WChar[256]
+    TransactionGuid, ItemGUID
+    TSID, ItemGUID
+    Root, ItemBool
+}
+
+DA92FF99-95C0-43d5-9A7D-6C23C15E2FE7 TransactionPrepare
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+    VoteYes, ItemBool
+}
+
+BE2B8AA1-1FEF-4ded-907D-CDCE5849008E TransactionAbort
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+}
+
+C67F7946-4630-4c77-B4F6-88C6ABE65F12 TransactionCommit
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+}
+
+BAC5C1AE-009D-4e09-9A0A-FD88BB31A1E8 MethodCall
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+}
+
+F0B30BEC-DB18-478c-9221-EAA208CBB5AE MethodReturn
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    HResult, ItemLong
+}
+
+91D068A5-0B98-48f1-A0CF-AB8626CA5147 MethodException
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+}
+
+8FE5F194-CF29-4eff-A5AA-A54AD7F4F131 DisableCommit
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+}
+
+37276016-0EBD-432a-8333-D84821AB3863 EnableCommit
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+}
+
+AB095D80-3E83-4597-8007-00803D50DF86 SetComplete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+}
+
+9A39AA4F-63DB-42ec-A59E-DD116F57A247 SetAbort
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+}
+
+A6D75196-3DDC-4f35-9AB9-3CB121F28BAE Deactivate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+    ObjectID, ItemULongLong
+}
+
+B0CE0D5B-05EC-4380-B225-2EEDA3903042 Activate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+    ObjectID, ItemULongLong
+}
+
+7649AF3C-3E56-47b7-9596-876FADD36B5D ResourceCreate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ResourceID, ItemULongLong
+    ResType, ItemWChar[64]
+    Enlisted, ItemBool
+}
+
+5BA81729-A69D-473e-B656-56C9C393A862 ResourceAllocate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ResourceID, ItemULongLong
+    ResType, ItemWChar[64]
+    Enlisted, ItemBool
+    NumRated, ItemULong
+    Rating, ItemULong
+}
+
+4F0B170E-9065-4d5a-AD2C-7BFC0DAA0C93 ResourceRecycle
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ResourceID, ItemULongLong
+    ResType, ItemWChar[64]
+}
+
+58CDFE25-2DC0-485b-981C-7A0B39B96FAB ResourceDestroy
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ResourceID, ItemULongLong
+    HResult, ItemLong
+    ResType, ItemWChar[64]
+}
+
+F96DE808-C2D7-43b3-8593-6BC1E772DB9B ResourceTrack
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ResourceID, ItemULongLong
+    ResType, ItemWChar[64]
+    Enlisted, ItemBool
+}
+
+CD6D18FC-31F0-4304-A5DF-BA2A15840266 Authenticate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    ObjectID, ItemULongLong
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    CurrentUserImpersonationInproc, ItemBool
+    LengthOrigUserSID, ItemULong
+    LengthCrtUserSID, ItemULong
+    SIDsBuffer, ItemVariant
+}
+
+03148C79-11DC-4b43-ACA3-65B11682CFF4 AuthenticateFail
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    ObjectID, ItemULongLong
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    CurrentUserImpersonationInproc, ItemBool
+    LengthOrigUserSID, ItemULong
+    LengthCrtUserSID, ItemULong
+    SIDsBuffer, ItemVariant
+}
+
+9B3359DC-2B4C-46b4-A03A-7339AF71B765 ObjectConstruct
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectGuid, ItemGUID
+    ObjectID, ItemULongLong
+    ConstructString, ItemWChar[64]
+}
+
+C49B4FA9-20DF-4f48-82B2-C448DEF02DFC UserEvent
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Buffer, ItemVariant
+}
+
+90B8FED5-7EEF-4107-B791-8CF15B2117F3 ActivityCreate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+}
+
+EDC039B9-84E7-4f69-937B-A08942719651 ActivityDestroy
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+}
+
+43B68014-2B7E-47ae-AFC2-E54184CFF71F ActivityEnter
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Current, ItemGUID
+    Entered, ItemGUID
+    SystemThread, ItemULong
+}
+
+E7D21C91-3CBE-4340-B605-0EBB0FE32E2F ActivityTimeout
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Current, ItemGUID
+    Entered, ItemGUID
+    SystemThread, ItemULong
+    Timeout, ItemULong
+}
+
+F2013085-1572-490b-93BE-BE3AB406955C ActivityReenter
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Current, ItemGUID
+    SystemThread, ItemULong
+    CallDepth, ItemULong
+}
+
+C589CFD4-D3AC-4cdd-B157-22C53234A63A ActivityLeave
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Current, ItemGUID
+    Left, ItemGUID
+}
+
+53F94E5B-7F22-4d2b-A1CC-510BEF6FA833 ActivityLeaveSame
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Current, ItemGUID
+    CallDepth, ItemULong
+}
+
+7172CA53-633A-4f56-A947-07567258849E IISRequestInfo
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    ClientIP, ItemWChar[16]
+    ServerIP, ItemWChar[16]
+    URL, ItemWChar[128]
+}
+
+4F0960DD-568B-4391-9F72-134C5670E7C8 QCRecord
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    Queue, ItemWChar[60]
+    MsgID, ItemGUID
+    Workflow, ItemGUID
+    MSMQhresult, ItemLong
+}
+
+71925AE2-8133-425d-BF0D-21662BAFF1FC QCQueueOpen
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Queue, ItemWChar[60]
+    QueueID, ItemULongULong
+    MSMQhresult, ItemLong
+}
+
+71955D87-4448-4e7b-BA4E-7873C11AABA3 QCReceive
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    QueueID, ItemULongULong
+    MsgID, ItemGUID
+    Workflow, ItemGUID
+    MSMQhresult, ItemLong
+}
+
+A00DC142-ED4F-49b1-8DAD-0241C08DFE1B QCReceiveFail
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    QueueID, ItemULongULong
+    MSMQhresult, ItemLong
+}
+
+2C0D5D35-ED91-4c05-B7D2-0C833EAC7CF5 QCMoveToRetry
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MsgID, ItemGUID
+    Workflow, ItemGUID
+    RetryIndex, ItemULong
+}
+
+C03BB7FF-6A7A-4019-B290-F4D07A873187 QCMoveToDead
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MsgID, ItemGUID
+    Workflow, ItemGUID
+}
+
+648D7C88-D207-4f90-8DE9-DA3159F25FF8 QCPlayback
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    MsgID, ItemGUID
+    Workflow, ItemGUID
+    MSMQhresult, ItemLong
+}
+
+4DFA5983-B413-45b3-AD0D-6493E903A645 ExceptionUser
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    Code, ItemULong
+    Address, ItemULongULong
+    StackTrace, ItemWChar[512]
+}
+
+57709B60-0EF0-4ea6-B415-CDDA1CDD35A9 CRMRecoveryStart
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+}
+
+C45B18D3-FD16-4120-B396-58E9D64D59AB CRMRecoveryDone
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+}
+
+C93490AC-B23F-408f-9C17-809B0EB86631 CRMCheckpoint
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+}
+
+AB8FC323-CBB2-40b7-AFD3-558054E55848 CRMBegin
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+    ActivityGuid, ItemGUID
+    TransactionGuid, ItemGUID
+    ProgIdCompensator, ItemWChar[64]
+    Description, ItemWChar[64]
+}
+
+3F50C4A1-D7F2-4e4e-BE35-BE31447D6316 CRMPrepare
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+6461B223-574D-42bc-A5B5-C42BC0A1BB1E CRMCommit
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+AA814AA8-2FF1-4e23-8279-3D024C817327 CRMAbort
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+E37629F4-3358-44e4-89C6-C0B7EB82A4B1 CRMInDoubt
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+B7BB1AE1-D8D5-469a-BF49-EF1AC3E73A9A CRMDone
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+7968E4E4-1E00-4e37-9BE4-8553FB661E16 CRMRelease
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+04876E17-C180-47e3-B855-5E0A1255EFA5 CRMAnalyze
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+    RecordType, ItemULong
+    RecordSize, ItemULong
+}
+
+A1ECBE0E-FA1F-47d3-91DD-99AB5B92D3A1 CRMWrite
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+    Variants, ItemBool
+    RecordSize, ItemULong
+}
+
+EE5D2FF2-811C-4fb1-9861-D44EA6E1E6A7 CRMForget
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+D7428814-30D3-4b7a-8C34-898722FCFA3A CRMForce
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+}
+
+12DF1221-2D16-41de-B31F-0E03BBEFD448 CRMDeliver
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ClerkCLSID, ItemGUID
+    Variants, ItemBool
+    RecordSize, ItemULong
+}
+
+39AEDB9B-D2CE-4ffe-A0EC-F95DB80BAD27 AdmAppInstall
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    InstalledAppID, ItemGUID
+    MSIPath, ItemWChar[256]
+    DestinationPath, ItemWChar[256]
+    UserName, ItemWChar[256]
+    WithUsers, ItemBool
+    WithSecurity, ItemBool
+    Queued, ItemBool
+    HResult, ItemLong
+}
+
+B36E4627-D28D-485f-A35C-29E08C4F4753 AdmAppCreate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    CreatedAppID, ItemGUID
+    AppName, ItemWChar[512]
+    HResult, ItemLong
+}
+
+45046ADC-3B2E-4e79-9208-6992EB00C4A5 AdmAppDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    DeletedAppID, ItemGUID
+    HResult, ItemLong
+}
+
+0A750C63-CD91-4ee6-8091-867B86924E09 AdmAppUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    UpdatedAppID, ItemGUID
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+4EF3D7D1-2A21-4a81-89E1-98B2A5DF4C55 AdmAppPaused
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    PausedAppID, ItemGUID
+    Paused, ItemBool
+    HResult, ItemLong
+}
+
+D77C881C-18E1-4165-9D9C-CA02DD4B7A0E AdmCompInstall
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    CompAppID, ItemGUID
+    DLLPath, ItemWChar[256]
+    TLBPath, ItemWChar[256]
+    PSDLLPath, ItemWChar[256]
+    CLSID, ItemGUID
+    HResult, ItemLong
+}
+
+4DC56F75-D3AE-4e63-9CE0-3142CF4E4080 AdmCompImport
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    CompAppID, ItemGUID
+    CLSID, ItemGUID
+    ProgID, ItemWChar[64]
+    HResult, ItemLong
+}
+
+7CF60AC4-6C26-495b-934E-47CCAE111BCF AdmCompDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    CompAppID, ItemGUID
+    CLSID, ItemGUID
+    HResult, ItemLong
+}
+
+7CD5BF83-CE9C-4a9d-936E-C8A751CAAB4F AdmCompUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    CompAppID, ItemGUID
+    CLSID, ItemGUID
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+C08BE4A9-79F4-46d4-949F-FBB73311EC13 AdmItfUpdate
+#version        0
+#type Event     0
+{
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ItfAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+B2CD5095-BCE0-42b5-B550-59E5E1146F54 AdmMetUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MetAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+910BB3FA-E353-4953-A97F-A72E2574922C AdmRoleAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+8A28125E-D216-4d30-88A5-80B442F80216 AdmRoleDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+9B2A3DAD-2AA7-4beb-9EEE-5E7162B2E8EA AdmUserAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+    UserSID, ItemVariant
+}
+
+6EBEA049-5AD9-4b2a-AD28-F0375726AA23 AdmUserDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+    UserSID, ItemVariant
+}
+
+B6AB05B2-084A-4cfc-9E57-5C95E3A0889F AdmCompRoleAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+7B42E65E-1CAC-418b-B21C-43256A29B008 AdmCompRoleDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+7040B74F-A240-4251-8218-443F1270B971 AdmItfRoleAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+94F8892C-520A-4816-895A-F62A2EA99B7F AdmItfRoleDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+79677BFD-1AC0-455f-B2C1-A8983DA78AA2 AdmMetRoleAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+F5FB4B1F-11FA-44c1-88BD-750F4CC2C8EC AdmMetRoleDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    RoleAppID, ItemGUID
+    CLSID, ItemGUID
+    IID, ItemGUID
+    MethodIndex, ItemULong
+    RoleName, ItemWChar[256]
+    HResult, ItemLong
+}
+
+780B22BD-5244-4302-86BE-D57962CFD79A AdmMachineAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MachineName, ItemWChar[512]
+    HResult, ItemLong
+}
+
+09D87E55-022D-4851-8219-54ED25C4A5C6 AdmMachineDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MachineName, ItemWChar[512]
+    HResult, ItemLong
+}
+
+415FF65E-117D-488b-9A81-C6923E3ED8BE AdmMachineUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    MachineName, ItemWChar[512]
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+A8BA53C5-3399-447d-B64F-09D50A9DFEAD AdmPermSubscriberAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscrAppID, ItemGUID
+    SubscriptionID, ItemGUID
+    ECclsid, ItemGUID
+    IID, ItemGUID
+    MethodName, ItemWChar[256]
+    Enabled, ItemBool
+    SubscriberCLSID, ItemGUID
+    HResult, ItemLong
+}
+
+DE05C3C4-ACEE-4fd7-B2C9-9A0764419E9B AdmPermSubscriberDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscrAppID, ItemGUID
+    SubscriptionID, ItemGUID
+    HResult, ItemLong
+}
+
+5E47D7F3-6A36-4221-8033-5DF1B66B2A3B AdmPermSubscriberUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscrAppID, ItemGUID
+    SubscriptionID, ItemGUID
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+C40DFD24-7B49-48eb-A21F-DB3235D1B4F6 AdmTransSubscriberAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscriptionID, ItemGUID
+    ECclsid, ItemGUID
+    IID, ItemGUID
+    MethodName, ItemWChar[256]
+    Enabled, ItemBool
+    HResult, ItemLong
+}
+
+1E49DDB6-C883-4cb3-9BC4-1332EDDBAE78 AdmTransSubscriberDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscriptionID, ItemGUID
+    HResult, ItemLong
+}
+
+3E6E2249-A249-4f54-A0D7-A97FB6162EFB AdmTransSubscriberUpdate
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    SubscriptionID, ItemGUID
+    PropertyName, ItemWChar[64]
+    NewValue, ItemWChar[1024]
+    HResult, ItemLong
+}
+
+51B057F9-ACB8-4c8d-BE40-E9ED750EF034 AdmPartitionAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AddPartitionID, ItemGUID
+    PartitionName, ItemWChar[512]
+    HResult, ItemLong
+}
+
+8566E9C5-F387-4ecf-AA8D-D065B691732C AdmPartitionDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    DelPartitionID, ItemGUID
+    HResult, ItemLong
+}
+
+12E58202-E6CD-4e17-B366-5AC3F37C00A8 AdmPartitionSetAdd
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AddPartitionSetID, ItemGUID
+    PartitionSetName, ItemWChar[512]
+    HResult, ItemLong
+}
+
+D55F48FD-17C6-4b12-AFD7-DEFC834CC488 AdmPartitionSetDelete
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    DelPartitionSetID, ItemGUID
+    HResult, ItemLong
+}
+
+DC28009B-DA4E-4efa-9F95-205B21469A13 AppActivation2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+    InstanceID, ItemGUID
+}
+
+AE10D5F2-31B7-4a27-9B57-7A81E4BCDF4D AppShutdown2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+}
+
+4B78B80C-494E-45e6-B7A6-BAFE5D7D9FF1 AppForceShutdown2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+}
+
+AB4DF7DB-DB12-4139-8898-BD66C7D776DA AppPaused2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+    Paused, ItemBool
+}
+
+7D4287E8-23B2-41f5-B7FC-817634218A9E AppRecycle2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    AppID, ItemGUID
+    InstanceID, ItemGUID
+    Reason, ItemLong
+}
+
+E34AA4CB-32C4-4b62-8C05-B4762B217E68 TransactionStart2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+    TSID, ItemGUID
+    Root, ItemBool
+    IsolationLevel, ItemLong
+}
+
+F509A56C-5CFF-421f-8AA2-08A94323755C TransactionPrepare2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+    VoteYes, ItemBool
+}
+
+C9715D69-6CA8-4da7-9A28-A8E4FDEA5099 TransactionAbort2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+}
+
+ABB8DCE4-6EAE-4f41-BF53-B70BDA428567 TransactionCommit2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    TransactionGuid, ItemGUID
+}
+
+25D668F5-15A1-4741-B72F-104C25FCB662 ObjPoolPutObject2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectGuid, ItemGUID
+    Reason, ItemLong
+    AvailableObjects, ItemULong
+    ObjectID, ItemULongLong
+}
+
+E971B116-854E-420b-926E-AF6088AA07D8 ObjPoolGetObject2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    ObjectGuid, ItemGUID
+    AvailableObjects, ItemULong
+    ObjectID, ItemULongLong
+    ForPartitionID, ItemGUID
+}
+
+5BF0E5EE-493F-4808-978D-C8001CAEA1A3 ObjPoolRecycleToTx2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    ObjectGuid, ItemGUID
+    TransactionGuid, ItemGUID
+    ObjectID, ItemULongLong
+}
+
+D7454176-0346-40b8-91FE-5923C67CBA42 ObjPoolGetFromTx2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    ObjectGuid, ItemGUID
+    TransactionGuid, ItemGUID
+    ObjectID, ItemULongLong
+    ForPartitionID, ItemGUID
+}
+
+8FB0E7B4-97ED-410d-B988-16922032A368 ObjectConstruct2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectGuid, ItemGUID
+    ObjectID, ItemULongLong
+    ConstructString, ItemWChar[64]
+    ForPartitionID, ItemGUID
+}
+
+085121E8-A3F7-4fa9-A9C4-07BC2B2C696F CreateInstance2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ActivityGuid, ItemGUID
+    CLSID, ItemGUID
+    TSID, ItemGUID
+    ContextID, ItemULongLong
+    ObjectID, ItemULongLong
+    ForPartitionID, ItemGUID
+}
+
+773BA00D-0EFD-4a57-A309-86D3B4BEB114 DestroyInstance2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ContextID, ItemULongLong
+}
+
+CE0A98AB-6001-4552-A58E-B88313308A74 MethodCall2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    SystemThread, ItemULong
+    MethodIndex, ItemULong
+}
+
+BCD15EFB-C30C-4a51-957F-1D89E984763A MethodReturn2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    SystemThread, ItemULong
+    MethodIndex, ItemULong
+    HResult, ItemLong
+}
+
+2A56A5E4-962C-4a78-BEFB-CFCD965F7B34 MethodException2
+#version        0
+#type Event     0
+{
+    ProcessId, ItemULong
+    ApplicationID, ItemGUID
+    PartitionID, ItemGUID
+    AppInstanceID, ItemGUID
+    ComputerName, ItemWChar[256]
+    ObjectID, ItemULongLong
+    CLSID, ItemGUID
+    IID, ItemGUID
+    SystemThread, ItemULong
+    MethodIndex, ItemULong
+}
+
+//******************************************
+// PERFLIB and LoadPerf events
+// 51af3adb-28b1-4ba5-b59a-3aeec16deb3c
+// 275a79bb-9980-42ba-bafe-a92ded1192cf
+//******************************************
+51af3adb-28b1-4ba5-b59a-3aeec16deb3c PERFLIB
+{
+    FileLine,   ItemULong,
+    RtnStatus,  ItemULongX,
+    OptArgs,    ItemOptArgs
+}
+
+275a79bb-9980-42ba-bafe-a92ded1192cf LoadPerf
+{
+    FileLine,   ItemULong,
+    RtnStatus,  ItemULongX,
+    OptArgs,    ItemOptArgs
+}
+
+//******************************************
+// Exchange Events
+// 2EACCEDF-8648-453e-9250-27F0069F71D2
+//******************************************
+
+31F5A811-6EA0-4321-93D9-CDB9A70D50A1 RPC
+#version 0
+#type None  0
+#type Release   1
+#type OpenFolder    2
+#type OpenMessage   3
+#type GetHierarchyTable 4
+#type GetContentsTable  5
+#type CreateMessage 6
+#type GetPropsSpecific  7
+#type GetPropsAll   8
+#type GetPropList   9
+#type SetProps  10
+#type DeleteProps   11
+#type SaveChangesMessage    12
+#type NukeRecipients    13
+#type FlushRecipients   14
+#type ReadRecipients    15
+#type ReloadCachedInfo  16
+#type SetReadFlag   17
+#type SetColumns    18
+#type SortTable 19
+#type Restrict  20
+#type QueryRows 21
+#type GetStatus 22
+#type QueryPosition 23
+#type SeekRow   24
+#type SeekRowBookmark   25
+#type SeekRowApprox 26
+#type CreateBookmark    27
+#type CreateFolder  28
+#type DeleteFolder  29
+#type DeleteMessages    30
+#type GetMessageStatus  31
+#type SetMessageStatus  32
+#type GetAttachmentTable    33
+#type OpenAttach    34
+#type CreateAttach  35
+#type DeleteAttach  36
+#type SaveChangesAttach 37
+#type SetReceiveFolder  38
+#type GetReceiveFolder  39
+#type SpoolerRules  40
+#type RegisterNotification  41
+#type Notify    42
+#type OpenStream    43
+#type ReadStream    44
+#type WriteStream   45
+#type SeekStream    46
+#type SetSizeStream 47
+#type SetSearchCriteria 48
+#type GetSearchCriteria 49
+#type SubmitMessage 50
+#type MoveCopyMessages  51
+#type AbortSubmit   52
+#type MoveFolder    53
+#type CopyFolder    54
+#type QueryColumnsAll   55
+#type Abort 56
+#type CopyTo    57
+#type CopyToStream  58
+#type CloneStream   59
+#type RegisterTableNotification 60
+#type DeregisterTableNotification   61
+#type GetACLTable   62
+#type GetRulesTable 63
+#type ModifyACL 64
+#type ModifyRules   65
+#type GetOwningMDBs 66
+#type LtidFromId    67
+#type IdFromLtid    68
+#type FGhosted  69
+#type OpenMessageProp   70
+#type SetSpooler    71
+#type SpoolerLockMsg    72
+#type AddressTypes  73
+#type TransportSend 74
+#type FXSrcCopyMessages 75
+#type FXSrcCopyFolder   76
+#type FXSrcCopyTo   77
+#type FXSrcGetBuffer    78
+#type FindRow   79
+#type Progress  80
+#type XportNewMail  81
+#type ValidAttachs  82
+#type FXDstCopyConfig   83
+#type FXDstPutBuffer    84
+#type GetNamesFromIDs   85
+#type GetIDsFromNames   86
+#type UpdateDAMs    87
+#type EmptyFolder   88
+#type ExpandRow 89
+#type CollapseRow   90
+#type LockRegionStream  91
+#type UnlockRegionStream    92
+#type CommitStream  93
+#type GetStreamSize 94
+#type QryNamedProps 95
+#type GetPerUserLtids   96
+#type GetPerUserGuid    97
+#type FlushPerUser  98
+#type GetPerUser    99
+#type SetPerUser    100
+#type CacheCcnRead  101
+#type SetReadFlags  102
+#type CopyProps 103
+#type GetReceiveFolderTable 104
+#type FXSrcCopyProps    105
+#type FXDstCopyProps    106
+#type GetCollapseState  107
+#type SetCollapseState  108
+#type SetXport  109
+#type Pending   110
+#type OptionsData   111
+#type IncrCfg   112
+#type IncrState 113
+#type ImportMsgChange   114
+#type ImportHierChange  115
+#type ImportDelete  116
+#type UpldStStrmBegin   117
+#type UpldStStrmContinue    118
+#type UpldStStrmEnd 119
+#type ImportMsgMove 120
+#type SetPropsNoReplicate   121
+#type DeletePropsNoReplicate    122
+#type GetStoreState 123
+#type GetRights 124
+#type GetAllPerUserLtids    125
+#type OpenCollect   126
+#type GetLrepIds    127
+#type ImportReads   128
+#type ResetTable    129
+#type FXGetIncrState    130
+#type OpenAdvisor   131
+#type RegICSNotifs  132
+#type OpenCStream   133
+#type TellVersion   134
+#type OpenFolderByName  135
+#type SetICSNotifGUID   136
+#type FreeBookmark  137
+#type DeleteFolderByName    138
+#type ConfigNntpNewsfeed    139
+#type CheckMsgIds   140
+#type BeginNntpArticle  141
+#type WriteNntpArticle  142
+#type SaveNntpArticle   143
+#type WriteCommitStream 144
+#type HardDeleteMessages    145
+#type HardEmptyFolder   146
+#type SetLocalRepMidsetDeleted  147
+#type End 200
+#type BookmarkReturned  251
+#type FidReturned   252
+#type HsotReturned  253
+#type Logon 254
+#type BufferTooSmall    255
+
+BBED5A34-6447-47c3-864A-6ED959545973 TaskQ
+#version 0
+#type Start     1
+#type End       2
+#type Dequeue   7
+
+AC0D888F-D1B2-45c1-8CC9-2269FDD0DAA5 EIF
+#version 0
+#type Start     1
+{
+    HSOT, ItemULong
+    UserName, ItemWString
+    Function, ItemString
+}
+#type End       2
+{
+    Error Code, ItemULongX
+}
+#type LogonStart    10
+{
+    Guid 1, ItemULongLongX
+    Guid 2, ItemULongLongX
+}
+#type LogonEnd      11
+{
+    HSOT, ItemULong
+    UserName, ItemWString
+    Error Code, ItemULongX
+}
+#type DoConnect     12
+{
+    Guid1, ItemULongX
+    Guid2, ItemULongX
+    Guid3, ItemULongX
+    Guid4, ItemULongX
+}
+#type OpenFdrStart  14
+{
+    HSOT, ItemULong
+    UserName, ItemWString
+    Function, ItemString
+}
+#type OpenFdrEnd    15
+{
+    Error Code, ItemULongX
+    HSOT, ItemULong
+}
+#type OpenURL       16
+{
+    HSOT, ItemULong
+    UserName, ItemWString
+    Function, ItemString
+    URL, ItemWString
+}
+
+
+//******************************************
+// PDH counter logfile events
+// 933f3bb3-943e-490d-9ced-3cbb14c14479
+//******************************************
+933f3bb3-943e-490d-9ced-3cbb14c14479 PDH
+#type Header    32
+#type DataBlock 34
+#type Catalog   35
+#type Perflib   36
+{
+    LogFileGuid, ItemGUID
+    BlockID,     ItemULong
+    BlockCount,  ItemULong
+}
+
+//******************************************
+// BROWSER Events
+// Control guid is 5576F62E-4142-45a8-9516-262A510C13F0
+//******************************************
+
+2B992163-736F-4a68-9153-95BC5F34D884 Browse
+#type UserInputReturn    10
+#type UserInputBack      11
+#type UserInputLButtonUp 12
+#type UserInputPageDown  13
+#type UserInputPageUp    14
+#type StartFrame         16
+{
+}
+#type LoadedParsed     18
+#type LayoutExec       19
+#type LayoutBackground 20
+#type Paint            21
+#type Address          22
+{
+    Url,  ItemWString
+}
+
+//******************************************
+// Heap Events
+// Control guid is 222962ab-6180-4b88-a825-346b75f2a24a
+//******************************************
+
+
+222962ab-6180-4b88-a825-346b75f2a24a Heap
+#type Create 32
+{
+  HeapHandle,ItemPtr
+  Flags,ItemULong
+}
+#type Alloc 33
+{
+  HeapHandle,ItemPtr
+  Size, ItemULong
+  Address, ItemPtr
+  Source, ItemULong
+}
+#type ReAlloc 34
+{
+  HeapHandle, ItemPtr
+  NewAddress, ItemPtr
+  OldAddress, ItemPtr
+  NewSize, ItemULong
+  OldSize, ItemULong
+  Source, ItemULong
+}
+#type Destroy 35
+{
+    HeapHandle,ItemPtr
+}
+#type Free 36
+{
+  HeapHandle, ItemPtr
+  Address, ItemPtr
+  Source, ItemULong
+}
+#type Expand 37
+{
+  HeapHandle, ItemPtr
+  CommittedSize, ItemULong
+  Address, ItemPtr
+  FreeSpace, ItemULong
+  CommittedSpace, ItemULong
+  ReservedSpace, ItemULong
+  NoOfUCRs, ItemULong
+}
+#type Contract 42
+{
+  HeapHandle, ItemPtr
+  DeCommitSize, ItemULong
+  DeCommitAddress, ItemPtr
+  FreeSpace, ItemULong
+  CommittedSpace, ItemULong
+  ReservedSpace, ItemULong
+  NoOfUCRs, ItemULong
+}
+#type Lock 43
+{
+  HeapHandle,ItemPtr
+}
+#type Unlock 44
+{
+  HeapHandle,ItemPtr
+}
+#type Validate 45
+{
+  HeapHandle,ItemPtr
+}
+#type Walk 46
+{
+  HeapHandle,ItemPtr
+}
+
+//******************************************
+// Critical Section Events
+// Control guid is 3AC66736-CC59-4cff-8115-8DF50E39816B
+//******************************************
+
+
+3AC66736-CC59-4cff-8115-8DF50E39816B CriticalSection
+#type Collision 34
+{
+  LockCount,ItemULong	
+  SpinCount,ItemPtr	
+  OwningThread,ItemPtr
+  Address,ItemPtr	
+}
+
+//******************************************
+// PerfInfo Events
+// Control guid is CE1DBFB4-137E-4DA6-87B0-3F59AA102CBC
+//******************************************
+
+CE1DBFB4-137E-4DA6-87B0-3F59AA102CBC PerfInfo
+#type ISR 67
+{
+    InitialTime,ItemWmiTime
+    Routine,ItemPtr
+    ReturnValue,ItemByte
+}
+
+#type DPC 68
+#type TimerDPC 69
+{
+    InitialTime,ItemWmiTime
+    Routine,ItemPtr
+}
+            ø T r a c e r p t   p r o c e s s e s   b i n a r y   E v e n t   T r a c e   S e s s i o n   l o g   f i l e s   o r   r e a l - t i m e   s t r e a m s   f r o m   i n s t r u m e n t e d   E v e n t   T r a c e   p r o v i d e r s   a n d   c r e a t e s   a   r e p o r t   o r   a   t e x t   ( C S V )   f i l e   d e s c r i b i n g   t h e   e v e n t s   g e n e r a t e d .  d e b u g ` d ` l e v e l ` D e b u g & h ` ? ` * ` D i s p l a y s   c o n t e x t   s e n s i t i v e   h e l p .  v a l u e  f i l e n a m e  [ [ h h : ] m m : ] s s  d a t e         6 i n i ` c o n f i g ` * ` S e t t i n g s   f i l e   c o n t a i n i n g   c o m m a n d   o p t i o n s .    y                                                 * D u p l i c a t e   a r g u m e n t   f o u n d   f o r   % 1 ! s ! :   % 2 ! s ! 
+  I n v a l i d   s y n t a x :    U n k n o w n   p a r a m e t e r   " % 1 ! s ! " 
+  a n d   	 r e q u i r e s    M i s s i n g   p a r a m e t e r :    M i s s i n g   V E R B % n  U n k n o w n 
+  
+ E r r o r : 
+  a r e   m u t u a l l y   e x c l u s i v e . 
+      V E R B    V e r b s : 
+  [ o p t i o n s ] 
+ 
+  P a r a m e t e r s : 
+  % 1 ! s ! O p t i o n s : 
+ & 
+     L o n g   S y n t a x                     S h o r t   S y n t a x 
+    U s a g e : 
+ 3 W a r n i n g :   I g n o r i n g   " % 1 ! s ! "   a s s u m i n g   2 4   h o u r   f o r m a t . 
+ ) 
+ T h e   s y n t a x   o f   t h e   c o m m a n d   i s   i n c o r r e c t . 
+ 2 T h e   f i l e   " % 1 ! s ! "   a l r e a d y   e x i s t s ,   o v e r w r i t e ?   [ y / n ]    M i c r o s o f t   Æ $ T h e   c o m m a n d   c o m p l e t e d   s u c c e s s f u l l y . 
+  D e f a u l t p 
+ N o t e : 
+     W h e r e   [ - ]   i s   l i s t e d ,   a n   e x t r a   -   n e g a t e s   t h e   o p t i o n . 
+     F o r   e x a m p l e   - - % 1 ! s !   t u r n s   o f f   t h e   - % 1 ! s !   o p t i o n . 
+    
+ E r r o r :   0 x % 1 ! 0 8 x ! 
+  
+ W a r n i n g :   0 x % 1 ! 0 8 x ! 
+ 
+ 
+ W a r n i n g : 
+  
+ E x a m p l e s : 
+                                               , l o g f i l e ` * ` * ` E v e n t   T r a c e   l o g   f i l e   t o   p r o c e s s . ; o u t p u t ` o ` * ` T e x t   ( C S V )   o u t p u t   f i l e .   D e f a u l t   i s   d u m p f i l e . c s v . 5 d e f i n e ` d f ` * ` M i c r o s o f t   s p e c i f i c   e v e n t   d e f i n i t i o n   f i l e . < r e p o r t ` * ` * ` T e x t   o u t p u t   r e p o r t   f i l e .   D e f a u l t   i s   w o r k l o a d . t x t .   C r e a l t i m e ` r t ` s e s s i o n _ n a m e ` R e a l - t i m e   E v e n t   T r a c e   S e s s i o n   d a t a   s o u r c e .      e x t e n d e d ` e x ` * ` E x t e n d e d   f o r m a t   H s u m m a r y ` * ` * ` S u m m a r y   r e p o r t   t e x t   f i l e   ( C S V )   f i l e .   D e f a u l t   i s   s u m m a r y . t x t . > m e r g e ` g ` * ` M e r g e   E v e n t   T r a c e   S e s s i o n   f i l e s   i n t o   s p e c i f i e d   f i l e . @ c o m p ` i n t ` * ` D u m p   i n t e r p r e t e d   e v e n t   s t r u c t u r e   i n t o   s p e c i f i e d   f i l e . 8 f o r c e ` y ` * ` A n s w e r   y e s   t o   a l l   q u e s t i o n s   w i t h o u t   p r o m p t i n g .                                            d u m p f i l e . c s v  m o f d a t a . g u i d  w o r k l o a d . t x t  s u m m a r y . t x t 
+ m e r g e d . e t l 
+ r e s u l t . t x t                                
+ I n p u t 
+ - - - - - - - - - - - - - - - - 
+  
+ O u t p u t 
+ - - - - - - - - - - - - - - - - 
+ D E r r o r : 
+ A   f i l e   s p e c i f i e d   i s   n o t   a n   E v e n t   T r a c e   S e s s i o n   ( * . e t s )   f i l e . 
+  L o g g e r ( s ) : 
+ 	 F i l e ( s ) : 
+  E v e n t   D e f i n i t i o n s :     % 1 ! s ! 
+  T e x t   ( C S V ) :                   % 1 ! s ! 
+  R e p o r t :                           % 1 ! s ! 
+  S u m m a r y :                         % 1 ! s ! 
+    R e s o u r c e  M e r g e d :                           % 1 ! s ! 
+  I n t e r p r e t e d   M O F :         % 1 ! s ! 
+                     - t r a c e r p t   l o g f i l e 1 . e t l   l o g f i l e 2 . e t l   - o   - r e p o r t I t r a c e r p t   l o g f i l e . e t l   - o   l o g d m p . c s v   - s u m m a r y   l o g d m p . t x t   - r e p o r t   l o g r p t . t x t ; t r a c e r p t   - r t   E V E N T _ S E S S I O N _ 1   E V E N T _ S E S S I O N _ 2   - o   l o g f i l e . c s v                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ``‡¿¿ÄÄÄ                ??<0p```p8?               Ä‡p88p¿                 ?p`p??p`p?                 Ä¿‡`     p‡Ä               8ppppp8?          0p‡¿         Äx8‡           7?8000000000                  ¿¿```````````````      80```````08             ¿‡`0000000`‡¿                  0000000000<                 0137>?;11000                 ‡¿Ä   ÄÄ¿‡`p                          ‡8¯¯                 0000000008?70000             `````````‡0                 ¿¿‡`q11;                 ``‡¿¿ÄÄÄ                ??800<8ppp<          ¯¯Ä     ¿¿     Äx8‡           ?8p````p8?                 ¿p88p¿                 ``````````                 0000000000                 ?8p````pxo``````           ¿p88p¿                 ?8pppppp8?               ¿‡p0      ¿88¿           ?8p````p8?                 ¸¸p88p¿                                  ¯¯        ¿¿                 ````````p8?                 8p¿                911119          Ä‡¯∏úååååú∏¯‡ÄÄÄÄÄÄ           ¿‡q;;q‡¿                 `‡¿Ä    Ä¿‡`                 111111119           ååååååååú∏¯‡ÄÄÄÄÄÄ           <0`aaaaas>                 0<ÜÜÜÜÜŒ¸x             ÃÃ 00000000000<               ````````p8?             ``  8p¿               ?8p````p8?            ‡¿   ¿p88p¿               ````````p8?            ‡¿   8p¿                <0`aaaaas>            p‡Ä  0<ÜÜÜÜÜŒ¸x               ??                    Ä¿‡‡‡¿¿Ä                                        MS Sans Serif           ‹M  (c) Copyright Microsoft Corp. 1987-98. All rights reserved.    x x        ê°  $ !   ˇa     ŒM      ˙  Ω ˙  B ä ˆ b Ú ^
+ Ç
+    Z ∆
+ Í 2 V z Ê R	 æ	 *
+ ñ
+  n ⁄ F ≤ ÷ ˙ f “ > ™ : ¶  ~ Í V ¬ . ö æ  r ﬁ n ⁄ F ≤  ä ˆ b Œ :   6 ¢  2 V
+ z ¬
+ . v æ * r ﬁ & J ∂ " F j ≤ ÷ B Æ   Ü 
+ Ú  :! Ç! ¶! " Z" ∆" # V#
+ û# Ê#
+ 
+$
+ R$ ö$ *% ñ% ∫% ﬁ% & && J& n& í& ∂& ⁄& ˛& "' F' j' é' ≤' ÷' ˙' ( B( f( ä( Æ( “( ˆ( ) >) b) Ü) ™) Œ) Ú) * ^*  * 6+ ¢+ , 2,
+ û, Ê, R- ö- .
+ r. ∫. &/ í/ ⁄/
+ F0
+ é0
+ ÷0 1 ä1 “1 ˆ1 b2	 Œ2 3 Ç3 Ó3 ~4 Í4
+ V5 û5 
+6 v6 ‚6 N7 ∫7 &8 í8 ˛8 "9 é9 ˙9 ä: ˆ: b; Œ; :< ¶< Ó< Z= ∆= 2> û> 
+? v? ‚? *@ ñ@ A JA ∂A ˛A jB ÷B BC äC ˆC >D ÜD ÚD ^E ¶E ÓE 6F ¢F ÍF 2G ûG 
+H vH æH *I rI ﬁI JJ íJ ˛J jK ≤K L äL ˆL bM ™M                                                             qqqqqqqq                            ¿¿¿¿¿¿¿¿                            ??               ˇˇ00˛˛000````                                                =9qqqy??qqy=         ÄÄÄ¸ºûééÄÄÄ‡¯¸æéáááéæ¸ÄÄÄ                                                0000                      Ä‡`0001a„á1qa¡¿Ä                0p`¿¿Ä   <ˇ√ÅÅÅÅ√ˇ<                             ÄÄÄÄ                  888               ‡¯¯<8¯¿·Òy?˝¯‡                         ¿¿¿ÄÄ Ä¿‡p               88888888                                     ¿ÄÄ                      ÄÄ¿        ¿``0880``¿                                             Fˇ9p                              ‡ Ä¿‡@                                                  ÄÄÄÄÄÄÄ˛˛ÄÄÄÄÄÄÄ                                                                                                                               ÄÄ                                                      0000````¿¿            88xpppppppx88               ‡¯<<¯‡                                                                                    ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                                                   >8ppp     <8p               ¸><x¿Ä    ˇˇ                                                   88       pp8               ¸<<¯¸<¸‡                                                     88                    x¯¯¯∏∏88888888ˇˇ88888                                                   88;?>8    p88               ˛˛     ‡¸<<¸‡                                                   880s~xxpppp88               ¸  ¸¸                                                                          ˇˇ88p‡‡¿¿ÄÄ                                                         888>8pppp8<               ‡¯<|¸>¸                                                   <8xppppx8<  pp<               ‡¯<?ˇÁ<¯‡                                                                                                                    |p|                        |¿     ¿|                                                                                            ˛˛    ˛˛                                                             0<     <0                        ¿||¿                                                      888                       ‡¯<8p‡‡¿¿¿  ¿¿¿                                                     800008            ?x‡Ä  80p```p1?  Ä          ¸  Äÿ¯80000``Ûø >¯¿             Ä¿‡`p00000p`‡¿Ä    Ä                  888pp               xx¸¸ŒŒáááˇˇˇ                              ÄÄ¿¿¿‡‡ppp88                              ¸ˇˇˇˇˇ    ˇˇ˛                 ÄÄ¿¿¿ÄÄ Ä¿¿‡‡‡‡¿¿Ä                88888888               |ˇˇÉ              Éˇˇ|                ¿‡‡pp        pp‡‡¿                                ¯ˇˇ           ˇˇ¯                 Ä¿‡‡ppppppp‡‡¿Ä                                ˇˇˇ      ˇˇˇ      ˇˇˇ               ‡‡‡      ¿¿¿      ‡‡‡                              ˇˇˇ      ˇˇˇ                        ¿¿¿      ÄÄÄ                        88888888               |ˇˇÉ           Éˇˇ|                ¿‡‡pp   ¯¯¯88xx¯¯∏88                                       ˇˇˇ                        ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                                           pppp8?               88888888888888888p‡Ä                              <x‡‡x<                ‡¿Ä             ÄÄ¿‡                                                ˇˇˇ                                 ÄÄÄ                                ÄÄÄ¿¿¿¿··ass3??               >>~~~ÓÓÓŒŒŒééé                                                                     ÄÄ¿‡‡pp8                 pppppppppppppppp               88888888               |ˇˇÉ              Éˇˇ|                ¿‡‡pp88888888pp‡‡¿                                ˛ˇˇ    ˇˇ˛                         Ä¿¿‡‡‡‡¿¿Ä                         88888888               |ˇˇÉ           Éˇˇ|                ¿‡‡pp88888888pp‡‡8                             ˇˇˇ      ˇˇˇ                        Ä‡p8888p‡‡‡pp888888              <88<    88<              ˛ˇ Ä˛ˇ  ˇˇ¸                 ÄÄ¿¿    Ä¿¿‡‡‡‡¿¿                                                  ˇˇˇ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡               ¿¿¿                                                                  Éˇˇ|               ppppppppppppppp‡‡¿Ä                pp888                          áááŒŒ¸¸xx               88ppp‡‡¿¿¿ÄÄ                        pp888               8888ppp‡‡‡¿¿               ÄÄ¿¿¿‡‡‡‡qqqq;;;               88ppp‡‡‡‡¿¿¿¿ÄÄÄ                    8<     <x                 áœ˛¸xx¸¸Œèá                 p‡¿Ä          Ä¿¿‡x               px<                           èﬁ‹¸¯ppppppppp               p‡¿¿Ä                              ???        8               ˇˇˇ<xp‡‡¿Ä    ˇˇˇ               ¿¿¿¿Ä             ¿¿¿               ??88888888888888888888888??         ¿¿````0000            ¸¸¸¸        ?s·                                  Ä¿                                                       ˇˇ                                  ˇˇ                                  ÄÄ          8                                                                          <8  <ppp8?                     ‡¯<<¸‹<¸ﬁ               8888889?><8888888<>?9                     ‡¯<<¯‡                                                         88ppppp88                     ‡¯<       <¯‡                     88ppppp88               Œ˛>>˛Œ                                                         88ppp88                     ‡¯<˛˛   <¯‡               888ˇˇ8888888888888                     88ppppp88 00<               Ó˛>>˛Ó¸                                             8888888;?<88888888888                     ¸                                                    888  888888888888888                888  8888888888888888888‡         88888888889;??<888888                     8p‡¿Ä¿¿‡‡p88               888888888888888888888                     ;?<888888888888                     √ˇ|888888888888                     ¿p888888888888                     8;?<88888888888                     ¸                                                         88ppppp88                     ‡¯<<¯‡                                                         9?><8888888<>?9888888               ‡¯<<¯‡                                                         88ppppp88                     Œ˛>>˛Œ                                                   9?><88888888888                     ¿¿                                  ?8px??  pp<?                     ¿x8  ‡¯xx¯‡                 8888ˇˇ8888888888<?                     888888888888                     ~Óé                                                         ‡‡pp088                     88pp‡‡¿¿ÄÄ                     ‡‡pp088                     00xxx¸ÃÃŒŒÜáá                     880pp`‡‡¿¿¿ÄÄ                     p88p                     8pp‡¿¿¿‡pp8                     ‡‡pp888<8               888pp‡‡¿¿ÄÄ                        <xp                     ¸¸<x‡¿Ä     ¸¸               xx         ¿¿                       ¿¿               ¯88¯                     ÄÄ                     g                                 ¿¿                                 ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯      >>>>>¡¡¡¡¡>>>>>¡¡¡¡¡>>>>>¡¡¡¡¡            ÄÄÄÄÄ|||||ÄÄÄÄÄ|||||ÄÄÄÄÄ|||||       888ppˇˇppˇˇpp888              ‡8 ÄÄ     <¯‡                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 00888                             8880                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              vpp                              ‡¿ ppp                                 0000113888pp               xx¸¸ŒŒáááˇˇˇ                              ÄÄ¿¿¿‡‡ppp88               <8pppp8<;|                ¸>   ‡‡     ¿Û                                                    p99p                     Á˛<<˛Á                     Ä            Ä                     px8<ˇˇ               <8‡ˇ¿¿¿¿¿¿¿¿¿               Ä       Ä  Ä                                     88<   88            ‡¯< Ä‡|>œ˛¸|<¸                                                sss                                 ÄÄÄ                                  891sssss198                ˛ˇÉ |˛«√ÄÄÄÄÄ√«˛| Éˇ˛                Ä‡‡p8888p‡‡Ä                 a?qc<                          ÄÄÄÄÄÄ¿¿  ¿¿                                                        8ppp8                                                               ??                                  ˇˇ                                                                                                      ÄÄ                     991qqqqq199                ˛ˇÉ ¸˛œ««˛˛Œ««««  Éˇ˛                Ä‡‡p8888p‡‡Ä             ˇˇ                                  ˇˇ                                  ÄÄ                                      00                             ÄÄ¿¿ÄÄ                                                        ÄÄÄÄÄ˛˛ÄÄÄÄÄ  ˛˛                                                   a¡¡<p`ˇˇ                          ÄÄÄ     ÄÄ                        c¡„                          ÄÄÄ  ÄÄÄ                                                       Ä                                           888<?sp``‡‡‡               |ÔŒ                     ÄÄ                            ????               ˛                                                ggggggg               ˇˇˇ      ˇˇˇ      ˇˇˇ               ¯¯¯            ¯¯¯               nnnnnnn                        ˇˇˇ                        pppppppppppppppppp               nnnnnnn                                                                                    @`p88p`@                                                     `cggnn|                >ˇˇ¡              ¡ˇˇ>               Ä‡p8888p‡Ä                >>                          00`¿¿Ä                 00`¿¿Ä   a¡¡<p`ˇˇ                          ÄÄÄ     ÄÄ               nnoggca                                Ä¡¡„˜w>               88xp‡¿¿Ä                           `accggn              ˇ‡Ä            Ä¿‡‡‡               ¿¯88x˛˛             ˇ˚„               Ä  ÄÄÄ             ÄÄÄ                    888pp               xx¸¸ŒŒáááˇˇˇ                              ÄÄ¿¿¿‡‡ppp88                              ¸ˇˇˇˇˇ    ˇˇ˛                 ÄÄ¿¿¿ÄÄ Ä¿¿‡‡‡‡¿¿Ä                               ˇˇˇ                                 ¿¿¿                                     88?               xx¸¸ŒŒááá    ˇˇˇ                        ÄÄ¿¿¿‡‡pp¯¯                              ˇˇˇ      ˇˇˇ      ˇˇˇ               ‡‡‡      ¿¿¿      ‡‡‡               ???        8               ˇˇˇ<xp‡‡¿Ä    ˇˇˇ               ¿¿¿¿Ä             ¿¿¿                                       ˇˇˇ                        ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡               88???888               p¸ˇè  ˇˇˇ   èˇ¸p                 ÄÄ¿¿‡‡‡‡‡‡‡‡¿¿ÄÄ                                                <x‡‡x<                ‡¿Ä             ÄÄ¿‡                   888pp               xx¸¸ŒŒááá                               ÄÄ¿¿¿‡‡ppp88                                ÄÄÄ¿¿¿¿··ass3??               >>~~~ÓÓÓŒŒŒééé                                                                     ÄÄ¿‡‡pp8                 pppppppppppppppp                                          ˇˇˇ      ˇˇˇ      ˇˇˇ               ‡‡‡      ¿¿¿      ‡‡‡               88888888               |ˇˇÉ              Éˇˇ|                ¿‡‡pp88888888pp‡‡¿                                ˇˇˇ                                 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                              ˛ˇˇ    ˇˇ˛                         Ä¿¿‡‡‡‡¿¿Ä                          ????                          Ä‡‡‡‡Ä                                             ˇˇˇ   Ä¿‡p8p‡¿Ä   ˇˇˇ               ‡‡‡               ‡‡‡                                                ˇˇˇ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡               ¿¿¿                                 px<                           èﬁ‹¸¯ppppppppp               p‡¿¿Ä                              88888888               |ˇˇª88888888888888ªˇˇ|88888           ¿‡‡pp88888888pp‡‡¿                 8<     <x                 áœ˛¸xx¸¸Œèá                 p‡¿Ä          Ä¿¿‡x               88888888888888                88888888888888888ªˇˇ|88888          88888888888888pp‡‡¿                 88pppppppp88              ¯˛ˇ                            Ä¿¿‡‡pppppppp‡‡¿¿Ä           ‡‡‡            ‡‡‡                                  px<                        èﬁ‹¸¯ppppppppp               p‡¿¿Ä                                  88ppppp88               x¿Ä  „˚??˚·                                 Ä¿¿                   88<888               x¿Ä  ¯   ÄÄ   ¯‡                    8;?<88888888888               <x‡¿  ¸                                                               ¿Ä               ÄÄÄ                ;??  pppppppppp88              ¯‡ú  <¯‡                                                       88ppppp88               x¿Ä  „˚??˚·                                 Ä¿¿              888888??8888888<>?9888888        ‡x88p¯8¯‡                                                         ‡‡pp888                888pp‡‡¿¿ÄÄÄÄÄÄÄ         ??  88ppppp88              ¸¸ Ä¿‡p¯¸<<¯‡                                                         88<888                     ¯   ÄÄ   ¯‡              ??  8888888<            ¸¸8p‡Ä             Ä¯<¯‡                8;?<88888888888                     ¸                                               888??888               `¯˛üˇˇü˛¯`                   ÄÄ¿¿¿¿¿¿¿¿ÄÄ                                                          ÄÄÄ                      88889;??<888888                     8p‡¿Ä¿¿‡‡p88                  888888888888              ¯¸Œ˛>                     888888888888<??88888                ~ÁÉ                                  ÄÄ                     ‡‡pp088                     88pp‡‡¿¿ÄÄ              ??8888            ¯¯¿Ä    ‡‡         Ä¯<¯‡                88ppppp88                     ‡¯<<¯‡                                                         ??8888888888888                     ˛˛                                                         88pppppxx~sppppp                ‡¯<<¯‡                                                         88ppppp88                   ‡¯8          ¯x8x‡                88ppppp88                     ˇˇ<<¯‡                     ÄÄ                                                        ¸¸ÄÄÄÄÄÄÄÄÄê‡                     pppppppppp88                     <¯‡                                                         99qqqqq99                ‡¯¸ŒŒ«««««ŒŒ¸¯‡¿¿¿¿¿                                                    p88p                     8pp‡¿¿¿‡pp8                     qqqqqqqqqq99                ««««««««««ŒŒ¸¯‡¿¿¿¿¿                                                    881qqqqqq9;                     ««««««∆ŒÓ|8                                                    ppp                  ‡‡‡             @¿¿Ä                  pppppppppp88                888  <¯‡                                                       88ppppp88               x¿Ä  ‡¯<<¯‡                                                       pppppppppp88               x¿Ä  <¯‡                                                       881qqqqqq9;               x¿Ä  ««««««∆ŒÓ|8                                                    ????                          Ä‡‡‡‡Ä                                                     MS Sans Serif      Dz  (c) Copyright Microsoft Corp. 1987-98. All rights reserved.    x x %       ê°  . ! (  ˇa í    6z      ˙  Ω ˙ V ≤  ò# " 	 ¿  x ‘ 0	 ∫	 
+ r
+ Œ
+ * ¥ > » R ‹ f  z  é Í F – Z ‰( n T  ƒ | 4 Ï v .
+ Ê B Ã Ñ!  Ù ¨ d  ‘ å  D! Œ! Ü"& ># $$ ‹$ î% & z& ÷& 2' é' ( t( ˛( à) * ú* &+ Ç+ ,	 ñ,
+ Ú, N-	 ÿ-! 4. / §/ .0 ∏0 B1 û1 (2 Ñ2 3 ò3 P4 ⁄4 d5 Ó5
+ J6 ¶6 7' ^7 D8 Œ8 *9 Ü9 ‚9 >: ö: ˆ: R; Æ; 
+< f< ¬< = z= ÷= 2>	 é>	 Í> F? ¢? ˛? Z@ ∂@ A nA  A &B ÇB ﬁB :C ñC ÚC ND ™D bE ÏE vF
+  G \G ÊG BH ˙H VI ‡I jJ ∆J ~K L dL ÓL JM ¶M N åN O rO *P ‚P >Q »Q! ÄR fS  T ÷T 2U ÍU ¢V ,W ‰W úX &Y ﬁY
+ ñZ ÚZ ™[! b\ H]  ^ ∏^ p_ (` ‡` <a ∆a Pb c ¿c xd 0e Ëe Df ¸f Üg h
+ öh ˆh Äi 
+j îj k ®k 2l él m
+ ¢m ˛m àn o úo &p Çp q ñq  r ™r 4s æs Ht  u äu Bv ˙v Vw ‡w jx Ùx ¨y z                                                                                                                                                                                                         ‡‡‡‡‡‡‡‡‡‡‡                                      888                 ‡‡‡¿¿¿¿ÅÅˇˇˇˇˇˇ                 ppp‡‡‡‡¿¿¯¯¯ÄÄÄ  ‡‡‡                           ><<<>>     xx|<>              000˛ˇˇ∑1000000∞¸ˇˇ?30000000≥ˇˇ˛0000              Ä¿‡‡      Ä¿¯¯xxx‡¿Ä                  8888                                ‡¯¸¸¯‡  80p`¿                   80p`¿√áè                  `‡¿¿Ä          ¸˛˛¸                                     ÄÄÄÄ                        ><<<>                 ~ˇˇ√ÅÅÅÉ√«Ôˇ˛¸¸˛ü   áˇˇ¸                   ¿¿‡‡‡‡¿¿Ä    èﬁ˛˛¸|˛˛ˇœ                                           Ä¿‡                                                                                                                   8pp‡‡‡¿¿¿ÄÄÄÄÄ          ÄÄÄÄÄ¿¿¿‡‡‡pp8        ‡pp88<<88pp‡                      ÄÄÄÄÄÄÄÄÄÄ                       C˚ˇ?<8                               ÄÄÄÄÑæ˛¯¿‡‡x80                                            ???                                  888888888ˇˇˇ888888888                                  ¯¯¯                                                                                                                                 ???                                           ‡‡‡                                                                                                                     8880pp`‡‡‡             ‡‡‡¿¿¿ÄÄÄÄ                                      <<<xxxxxxxxxxx<<<                  ¯˛ˇè           èˇ˛¯                    Ä¿¿‡‡‡‡‡‡¿¿Ä                                                               >˛˛˛˛                                                               ><|xxx        ><xxˇˇˇ                 ¸ˇˇ     ?¸¯‡¿     ˇˇˇ                   ¿‡‡‡‡¿Ä                           ><<<           xx|<>                 ¸ˇˇè   èˇˇ¸                   Ä¿¿‡‡‡‡‡¿¿Ä  ¿‡‡‡‡¿Ä                          <8                         ??˜ÁÁ««ááˇˇˇ                 ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ¯¯¯ÄÄÄÄÄÄÄÄ                 ??<       <<                  ˇˇˇ       ¸ˇˇ     èˇˇ¯                 ¿¿¿         Ä¿‡‡‡‡¿Ä                    <<<xx{~||xxx8<<                  ¸ˇˇ«     ¸ˇˇè    èˇˇ¸                   ¿¿‡‡     ¿¿‡‡‡‡¿Ä                                                   ˇˇˇ <<xxx‡‡‡¿¿¿¿ÄÄÄÄ                 ‡¿Ä                                        <<<<<<<xxxx<<                 ¯ˇˇèˇˇˇ    ˇˇ¸                   Ä¿¿‡‡‡‡‡¿¿¿  Ä¿‡‡‡‡¿¿                   ><|xxxx|<>   xx<<                 ¯˛ˇè    èˇ˛¯ ˇ˛¯                   Ä¿¿‡‡‡‡‡‡¿¿ÄÄ                                                                                                                                                                                                >>                                  ~¯‡Ä  Ä‡¯~                            p‡Ä          Ä‡p                               ???     ???                                   ˇˇˇ     ˇˇˇ                                   ¯¯¯     ¯¯¯                                                                     ¿¸?  ?¸¿                                    ¿¯¯¿                             ><<                                     ~ˇˇˇÉ   <<xxxx    xxxx                 Ä¿‡‡‡‡¿Ä                                                        x‡¿ÄÄ  Ä¿‡|             ˇÄ      >ˇÛ¿Ä      ﬂ¸     Äˇˇ            ‡¸?     ∏p`‡‡‡‡¿¿¡Áˇ>   ~¯¿               Ä¿‡p8888p‡¿Ä   ÄÄ                           <<xx¯                 ???{{ÒÒÒ‡‡¿¿¿ÄÄˇˇˇˇ                           ÄÄÄ¿¿‡‡‡xxx<<˛˛˛ˇ                                        ÄÄ¿¿‡‡                                  ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ¿¯¸˛~~¯¯˛ˇ??˛˛¯¿                                  ÄÄÄÄÄÄ                         ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ            ˇ˛¸‡                   Ä¿‡‡          ‡‡¿¿Ä                                     ˇˇˇˇ                     ˇˇˇˇ                 Ä¯˛˛¯Ä                       Ä¿¿¿‡‡‡‡‡‡‡‡‡¿¿¿Ä                                        ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ˇˇˇˇ        ˛˛˛˛         ˇˇˇˇ                 ÄÄÄÄ                     ÄÄÄÄ                                  ˇˇˇˇ        ˇˇˇˇ                              ¸¸¸¸                                        ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ     ˇˇˇˇ   ˇ˛¸‡                   Ä¿‡‡     ppp                                              ˇˇˇˇ                              ˇˇˇˇ                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                                                                                                   xxxx|>?                 ˇ˛¸                 ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                                              >~ˇˇÁ«É                          >|¯‡¿Ä    ÄÄ¿‡‡¯|<>                 ¿Ä                        Ä¿¿                                                           ˇˇˇˇ                                          ¸¸¸¸                                  ÄÄ¿¿‡‡‡pxxx8<<                   <<8xx‡‡¿¿                 ¸¸¸¸¸¸ººº<<<<<<<<<<<<<<<<<<<<                                                                                 ÄÄ¿¿‡xx<>                           ÉÉ√„„ÛÛ{?                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                   ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ            ˇ˛¸‡                   Ä¿¿‡¯xxxxxxxx¯‡¿¿Ä                                     ˇˇˇˇ        ˇˇˇˇ                              ‡¸˛ˇ??ˇ˛¸‡                                   ÄÄÄÄÄÄ                                     ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ            1y?ˇˇ˝‡                   Ä¿¿‡¯xxxxxxxx¯‡¿¿¿‡¯p                                 ˇˇˇˇ        ˇˇˇˇ                              ˛ˇˇˇˇ˛ˇ                    ÄÄ¿¿¿¿¿¿ÄÄ    ÄÄÄÄÄ¿¿¿¿¿¿‡                 ><<<>     x|<>                 ˇˇˇ¿      Ä¸ˇˇˇ        ¿ˇˇˇ                Ä‡¯¸˛    ¿¸˛˛¸¿                                   ÄÄÄÄÄ                       ˇˇˇˇ                                          ˇˇˇˇ<<<<<<<<<<<<<<<<<<<<<<<<<                 ˇˇˇˇ                                                                                    Äˇˇˇ                 ˇ˛¯¿                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿ÄÄ                     ¯x|<<                                      ÄÄÄ¿¿¿‡‡ÒÒÒ{{???                 ><<xxx‡‡‡¿¿ÄÄÄ                   ‡‡¿¿ÄÄ                                        xxx<<<                        èèéûﬁ‹¸¸¯¯¯                 xx¸¸¸˛˛˛œœœááá                                 ÉÉÉ√«««ÁÔÔˇ˛~~~<<                 <<xxx‡‡‡‡¿¿¿¿ÄÄÄÄ                          |>          >|¯                     Ä¿¿‡ÒÒˇ??ÛÒ‡¿¿Ä                      ><x¯‡¿¿Ä  Ä¿¿‡¯x|>                 ¿ÄÄ                       Ä¿‡                 ¯x<>                                         Ä¿¿·ÛÛ??                 ><x¯‡‡¿ÄÄ                               ¿Ä                                            ????              >?                 ˇˇˇˇ   <|¯‡‡¿Ä   ˇˇˇˇ                 ˛˛˛˛|x¯‡¿ÄÄ             ˛˛˛˛                         ‡‡‡                                ‡‡‡       ‡‡‡`pp0888                                        ÄÄÄÄ¿¿¿‡‡‡              ˇˇˇˇˇˇ                                                     =x‡                                        Ä¿‡x8                                                                        ˇˇˇ                                           ˇˇˇ                                           ¸¸¸          <                                            ÄÄ¿                                                 <<  ?<xxxx>?                         ¸ˇˇˇˇÒ˝˘‡                          Ä¿¿‡‡‡‡‡‡‡‡‡‡‡‡‡‡¯¯p                 <<<<<<<<<=??><<<<<<<<<<<>??=<                         xˇˇè       èˇˇx                           Ä¿‡‡‡‡‡‡¿Ä                            ><<xxxxxxx<<>                          ¯ˇˇè       èˇˇ¯                           Ä¿‡‡‡       ‡‡‡¿Ä                            ><<xxxxxxx<<>                  Ò˝ˇèèˇ˝Ò                 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                          ><<xxxx<<>                          ¯ˇˇè ˇˇˇ   èˇˇ¯                           Ä¿‡‡‡   ‡‡‡¿Ä                   ˇˇˇ                 ‡‡‡      ‡‡‡                                           ><<xxxxxxx<<>   <>                  ˝ˇèèˇ˝Òèˇˇ¯                  ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä           <<<<<<<<<=??>><<<<<<<<<<<<<<<                         |ˇˇá                           Ä¿¿‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                 <<<<     <<<<<<<<<<<<<<<<<<<<                                                                    ¸¸                                                       <<<<<<<<<<<<<<<=???><<<<<<<<<                          <x‡xx<<                          Ä                ÄÄ¿                 <<<<<<<<<<<<<<<<<<<<<<<<<<<<<                                                                        =??>><<<<<<<<<<<<<<<                         ¯˛ˇ                         ˇ‡‡¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                         Ä‡¯x<<<<<<<<<<<<<<<<                                                                        =??>><<<<<<<<<<<<<<<                         |ˇˇá                           Ä¿¿‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                          ><<xxxxxxx<<>                          ¸ˇˇá           áˇˇ¸                          Ä¿‡xxxxxxx‡¿Ä                           =??><<<<<<<<<<<>??=<<<<<<<<<                 xˇˇè       èˇˇx                           Ä¿‡‡‡‡‡‡¿Ä                            ><<xxxxxxx<<>                          ˝ˇèèˇ˝Ò                  ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                  =??>><<<<<<<<<<<<<<<                         pÄ                                          ??|xx~?   xx|??                         ¯˛ˇ  ‡¸ˇˇˇ˛¯                            ÄÄÄ     ÄÄ¿¿¿¿ÄÄ                     ˇˇˇ                          ¿¿¿              ¿¿¿                          <<<<<<<<<<<<<<<                          ˇ˝Ò                          ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                          ‡pxx<<                          <8¯¯‡‡                          ¿¿¿ÄÄÄ                                        xxx8<<                          ?999yppp‡‡‡¿¿¿                            ÄÅÅ¡¡√√„ÁÁÁˇ~~<<<                          ‡‡‡¿¿¿ÄÄÄ                                  |<<x¯                          èû‹¯¯¯¸ºû                          ‡¿Ä            ÄÄ¿‡                          pxx8<< ??>                  º∏¯¯‡‡‡¿¿ÄÄ                   ¿¿¿ÄÄÄ                                        ???       >|                          ˇˇˇ>|¯‡¿Ä   ˇˇˇ                          ¿¿¿¿¿Ä           ‡‡‡                 |         x¯¯‡¿¿¿¿¿¿¿¿¿¿¿ÄÄ   ÄÄ¿¿¿¿¿¿¿¿¿¿¿¿‡¯¯x                                                            ¸¸>>¸¸                        ¿¿                         ?c                                          ¯¿                                         ˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛˛      ¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯            ???????¿¿¿¿¿¿???????¿¿¿¿¿¿¿???????¿¿¿¿¿¿      ÄÄÄÄÄÄÄ~~~~~~ÄÄÄÄÄÄÄ~~~~~~~ÄÄÄÄÄÄÄ~~~~~~         <<ˇˇˇ<<<ˇˇˇ<>                  ˛ˇˇ√         ¿¿¿    Éˇˇ˛                  Ä¿‡xx          xxx‡¿Ä                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  <<<<80                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       aÛ˜f                                       ‡∆è                                          8888000   <<xx¯                 ???{{ÒÒÒ‡‡¿¿¿ÄÄˇˇˇˇ                           ÄÄÄ¿¿‡‡‡xxx<<˛˛˛ˇ                                        ÄÄ¿¿‡‡                  <<<<<?<                 ˛ˇˇÉ          ˛˛¿¿¿¿ÄÄ  ˇˇ                  Ä‡¯xxxx              ¯¯¯‡                  p88p                             ¸ˇá        áˇ¸                            8p‡¿¿¿‡````‡¿¿¿‡p8                          ¯x|<ˇˇ ˇˇ                                  ááœœ˛¸ˇˇxxxxxxxxxxxxx                 |x¯‡‡¿¿ÄÄ¸¸  ¸¸                                                                                            >>                   ¯˛ˇˇáÄÄ¿¯˛ˇ?Å·Ûˇˇˇˇ˛¯                ÄÄÄ       Ä¿¿‡‡‡‡¿¿Ä  ÄÄÄÄ                 xxxx                                                                                       8xpp·······ppx8                   ˇˇ‡  ?¯‡‡¿¿¿¿¿‡‡¯?  ‡ˇˇ                 ¿¯¸?Å‡x8       8x‡Å?¸¯¿                     Ä¿¿‡pp8888888pp‡¿¿Ä                     88                              ¿88¯¯¯8x¯‹  ¯¯¯                                                                             @¿√«èè«√¿@                                 @¿¿¿Ä   Ä¿¿¿@                                ???                                           ˇˇˇ                                           ¯¯¯8888888                                           ???                                           ‡‡‡                            8xpp‡‡‡‡‡‡‡ppx8                   ˇˇ‡  pppqpppppp   ‡ˇˇ                 ¿¯¸?·¯¯<<¯¯‡‡‡px8<?¸¯¿                     Ä¿¿‡pp8888888pp‡¿¿Ä               ˇˇˇ                                           ˇˇˇ                                           ¸¸¸                                                                                    ¿88¿                                                ???          ???                       8888888ˇˇˇ8888888   ˇˇˇ                              ¯¯¯          ¯¯¯                 ?˘‡‡ >|pˇˇˇ                               ¿‡‡pp‡‡¿Ä                                 Ò‡ ‡?                               ¿‡‡‡‡¿¿‡pp‡‡Ä                                                                    ‡¿Ä                                                    ??;8xxxpp                 ÄÄÄÄÄÄ        ﬂ˛¸                         <<88xxxpp‡‡‡¯¯x                 ????                                ˇˇÒÒÒÒÒÒÒÒÒÒÒÒ111111111111111                 ‡‡ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                                                                                                        wwwwggg                 ˇˇˇˇÄÄÄÄÄÄÄÄˇˇˇˇÄÄÄÄÄÄÄÄÄˇˇˇˇ                 ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ‡‡‡‡        ÄÄÄÄ         ‡‡‡‡                 wwwwggg                 ÄÄÄÄÄÄÄÄÄÄÄÄˇˇˇˇÄÄÄÄÄÄÄÄÄÄÄÄÄ                             ˇˇˇˇ                                               wwwwggg                 ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ                                                              è«¡¿¡«è                                    Ä¿¿¿¿¿Ä                        ‡‡‡„««œ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ            ˇ˛¸‡                   Ä¿¿‡¯xxxxxxxx¯‡¿¿Ä                    ???                            ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÅ80p‡‡¿Ä                  80p‡„«èé                     `‡¿¿Ä        ¸˛û|¯‡¿ ˇˇˇ                                                               wsqq```                                       ¿¿‡¯x<>                                  üû¸¸¯¯                 <<x¯‡¿¿Ä                                   pppqccg                   ?ˇ¯‡¿ÄÄ          Ä¿¸¸<<¸¸¸¸                ˛ˇˇ                                ¿‡‡¯¯x|<<<<<<<|¯¯‡Ä  ¯¯¯¯                                x‡¿Ä                   0‡¿                           <<xx¯                 ???{{ÒÒÒ‡‡¿¿¿ÄÄˇˇˇˇ                           ÄÄÄ¿¿‡‡‡xxx<<˛˛˛ˇ                                        ÄÄ¿¿‡‡                                  ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ¿¯¸˛~~¯¯˛ˇ??˛˛¯¿                                  ÄÄÄÄÄÄ                                        ˇˇˇˇ                                          ¸¸¸¸                                                    <<ˇˇ                 ???{{ÒÒÒ‡‡¿¿¿ÄÄ        ˇˇˇˇ                   ÄÄÄ¿¿‡‡‡xxx<<ˇˇˇˇ                                        ÄÄ¿¿‡‡                                  ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ˇˇˇˇ        ˛˛˛˛         ˇˇˇˇ                 ÄÄÄÄ                     ÄÄÄÄ                 ????              >?                 ˇˇˇˇ   <|¯‡‡¿Ä   ˇˇˇˇ                 ˛˛˛˛|x¯‡¿ÄÄ             ˛˛˛˛                                              ˇˇˇˇ                              ˇˇˇˇ                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                   ><<????<<>                   ˇˇ¿Ä      ˇˇˇˇ      Ä¿ˇˇ                ‡¸˛ˇ    ˇˇˇˇ    ˇ˛¸‡                   Ä¿¿‡¯xx¯¯¯¯xx¯‡¿¿Ä                                                                                                          >~ˇˇÁ«É                          >|¯‡¿Ä    ÄÄ¿‡‡¯|<>                 ¿Ä                        Ä¿¿                           <<xx¯                 ???{{ÒÒÒ‡‡¿¿¿ÄÄ                               ÄÄÄ¿¿‡‡‡xxx<<                                        ÄÄ¿¿‡‡                                  ÄÄ¿¿‡‡‡pxxx8<<                   <<8xx‡‡¿¿                 ¸¸¸¸¸¸ººº<<<<<<<<<<<<<<<<<<<<                                                                                 ÄÄ¿¿‡xx<>                           ÉÉ√„„ÛÛ{?                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                                                   ˇˇˇˇ        ˇˇˇˇ         ˇˇˇˇ                 ˇˇˇˇ        ˛˛˛˛         ˇˇˇˇ                 ÄÄÄÄ                     ÄÄÄÄ                   ><<<<<<<<>                   ˇˇ¿Ä                Ä¿ˇˇ                ‡¸˛ˇ            ˇ˛¸‡                   Ä¿¿‡¯xxxxxxxx¯‡¿¿Ä                                     ˇˇˇˇ                                          ˇˇˇˇ                 ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                                  ˇˇˇˇ        ˇˇˇˇ                              ‡¸˛ˇ??ˇ˛¸‡                                   ÄÄÄÄÄÄ                                            ????                                     ¿¿‡‡‡‡¿¿                            ?>       >?                 ˇˇˇˇ   Ä¿‡‡¯|>|¯‡‡¿Ä   ˇˇˇˇ                 ˛˛˛˛                     ˛˛˛˛                 ˇˇˇˇ                                          ˇˇˇˇ<<<<<<<<<<<<<<<<<<<<<<<<<                 ˇˇˇˇ                                          ¯x<>                                         Ä¿¿·ÛÛ??                 ><x¯‡‡¿ÄÄ                               ¿Ä                                                                       ˇˇˇ««ˇˇˇ                 ÄÄÄ¯˛ˇˇèÉÉÅÅÅÅÅÅÅÉÉèˇˇ˛¯ÄÄÄÄÄ                       Ä¿¿‡‡‡‡‡‡‡‡‡¿¿Ä                         |>          >|¯                     Ä¿¿‡ÒÒˇ??ÛÒ‡¿¿Ä                      ><x¯‡¿¿Ä  Ä¿¿‡¯x|>                 ¿ÄÄ                       Ä¿‡                                         áÁˇˇˇ?                 ÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÅÉÉáüˇˇ¸ÄÄÄÄÄ                 ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä                           ><<<<<<                   ˇˇ¿Ä             Ä‡¯xx¯¯¯¯                ‡¸˛ˇ         ?><<????                   Ä¿¿‡¯xxxxx‡‡¿Ä                              <<<<ÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄÄ             ¯x<>                              ¿¿¿¿       Ä¿¿·ÛÛ??             ><x¯‡‡¿ÄÄ                               ¿Ä                                                     ><<xxxxxxx<<>                80`   ¸˛è       è˛¸               Ä         ¸|<                        ?|xxx>?<xxx<>               <8p‡¿Ä   ¯ˇˇ      ˇˇ¯                           Ä¿¿¿         ¿¿¿Ä                           <=??>><<<<<<<<<<<<<<<               8p`¿   |ˇˇá                       Ä¿¿‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡            0   <<<<<<<<<<<<<<<<<                ¿Ä                                               <<<<   <<<<<<<<<<<<<<<                9qa¡   ˇˇ¸                   ‡‡‡‡   ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä                            ><<xxxxxxx<<>                          ¸˛è       è˛¸                         ¸|<                  ><<<<<<<<<<<<<<<<<<>??=<<<<              ˛ˇˇá   ˇˇˇ        áˇˇ˛                  Ä¿‡‡‡‡¿Ä¿‡¯xxxx¯‡¿Ä                          <<<<                                áááœˇˇ¸¸xxxxxxxxx                 ‡‡‡‡¿¿¿¿ÄÄÄ                          ><<xxxxxx<<>                  ˇˇˇÄ¿‡x<˛ˇˇá          áˇˇ¸                 ‡‡‡       Ä¿‡xxxxxx‡¿Ä                          ?|xxx>?<xxx<>                         ¯ˇˇ      ˇˇ¯                           Ä¿¿¿         ¿¿¿Ä                      <<<xxxxxxxx|>?              ˛˛˛<x‡¿Ä                 ¸¸¸¸                   <=??>><<<<<<<<<<<<<<<                         |ˇˇá                       Ä¿¿‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                                <ˇˇÁÅ        ˇˇˇ        ÅÁˇˇ<                  Ä¿‡xxxxxx¯¯¯xxxxxx¯‡¿Ä                           <<<<<<<<<<<<<<<<<?                                                                        <<<<<<=???><<<<<<<<<                          <x‡xx<<                          Ä                ÄÄ¿                                         ˛ˇˇˇˇˇÅ                   ÄÄ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿                          <<<<<<<<<<<<<<<>???=<<<<<<<<                  ˇ¸                          ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¯¯x                          ‡pxx<<                          <8¯¯‡‡                          ¿¿¿ÄÄÄ                               <<<><<xxxxx|>?              ˛˛˛¿        ¸¸¸          ¸¸¸¸                    ><<xxxxxxx<<>                          ¸ˇˇá           áˇˇ¸                          Ä¿‡xxxxxxx‡¿Ä                           ???<<<<<<<<<<<<<<<<<                          ˇˇˇ                          ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡                          ><<xxxxxxx||~{xxxxxxxxx                 ¸ˇˇá           áˇˇ¸                          Ä¿‡xxxxxxx‡¿Ä                           ><<xxxxxxx<<>                          ¸ˇˇá            Äˇˇˇ???                    Ä¿‡            ¿¿‡‡‡¿¿                     ><<xxxxxxx<<>                          ˇˇˇá           áˇˇ¸                         ¯¯¯¿‡xxxxxxx‡¿Ä                          ˇˇˇ                                           ˇˇˇ¯~~>                                                                    <<<<<<<<<<<<<<<<                         ˇˇ¸                         ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä                           ><<xxxxxxx<<>                         ˇˇˇˇ<<<<<<<<<<<<<ˇˇˇˇ<<<<<<<<                 Ä‡¯|<<<<|¯‡Ä                                                                        |<<x¯                          èû‹¯¯¯¸ºû                          ‡¿Ä            ÄÄ¿‡                          <<<<<<<<<<<<<<<                          ˇˇˇ                  >¸¯‡                                                                        <<<<<<<<<<                          ÄÄ     ?ˇ˘‡                          áœˇ˛x                             ÄÄ¿¿¿¿¿¿¿¿¿¿ÄÄ                      ÒÒÒÒ                      ‡‡‡‡                    ÄÄÄ                      <<<<<<<<<<<<<<<                      ˇˇ¸                   ÄÄÄÄ   ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä                            ><<xxxxxxx<<>                0   ¸ˇˇá           áˇˇ¸               ¿Ä         Ä¿‡xxxxxxx‡¿Ä                           <<<<<<<<<<<<<<<                80`   ˇˇ¸                ¿Ä        ‡‡‡‡‡‡‡‡‡‡‡‡‡‡‡¿¿Ä                            <<<<<<<<<<                    ÄÄ     ?ˇ˘‡                 ‡¿Ä     áœˇ˛x                             ÄÄ¿¿¿¿¿¿¿¿¿¿ÄÄ                             ????                                     ¿¿‡‡‡‡¿¿                                                                  MS Sans Serif             4 VS_VERSION_INFO ΩÔ˛   
+  ô  
+  ô  ?                      ö  StringFileInfo  Ü  040904E4    &  CompanyName Microsoft Corporation   6 " FileDescription 8514 (1024x768) MS Sans Serif Font   
+ FileVersion 4.10.1689   F 2 InternalName    MS Sans Serif Font 8,10,12,14,18,24 (8514) - Greek  1  LegalCopyright  © MicrosoftÆ Corp. 1991-1995    #  OriginalFilename    SSERIFF.FON 9 ) ProductName Microsoft(R) Windows(R) Operating System     
+ ProductVersion  4.10.1689   $   VarFileInfo   Translation 	‰                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        COUNT Return Value = 15
+DTC Setup[10:22:44]: Start OC_ABOUT_TO_COMMIT_QUEUE Component = dtc Subcomponent = 
+DTC Setup[10:22:44]: No PendingFileRenameOperations
+DTC Setup[10:22:44]: End OC_ABOUT_TO_COMMIT_QUEUE Return Value = 0
+DTC Setup[10:22:44]: Start OC_ABOUT_TO_COMMIT_QUEUE Component = dtc Subcomponent = dtc
+DTC Setup[10:22:44]: Subcomponent dtc state: O-,C+,R-
+DTC Setup[10:22:44]: Stopping MSDTC...
+DTC Setup[10:22:44]: Stopping service MSDTC...
+DTC Setup[10:22:44]: Stopping service MSSQLServer...
+DTC Setup[10:22:44]: End OC_ABOUT_TO_COMMIT_QUEUE Return Value = 0
+DTC Setup[10:23:27]: Start OC_COMPLETE_INSTALLATION Component = dtc Subcomponent = 
+DTC Setup[10:23:27]: No PendingFileRenameOperations
+DTC Setup[10:23:27]: End OC_COMPLETE_INSTALLATION Return Value = 0
+DTC Setup[10:23:45]: Start OC_COMPLETE_INSTALLATION Component = dtc Subcomponent = dtc
+DTC Setup[10:23:45]: Subcomponent dtc state: O-,C+,R+
+DTC Setup[10:23:45]: Queuing reg ops for component dtc, Section Name: dtc_install
+DTC Setup[10:23:45]: Registering C:\WINDOWS\system32\msdtctm.dll.
+DTC Setup[10:23:45]: Before call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtctm.dll
+DTC Setup[10:23:45]: After call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtctm.dll
+DTC Setup[10:23:45]: Before call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtctm.dll
+DTC Setup[10:23:45]: After call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtctm.dll
+DTC Setup[10:23:49]: Registering C:\WINDOWS\system32\msdtcprx.dll.
+DTC Setup[10:23:49]: Before call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtcprx.dll
+DTC Setup[10:23:49]: After call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtcprx.dll
+DTC Setup[10:23:49]: Before call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtcprx.dll
+DTC Setup[10:23:49]: After call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtcprx.dll
+DTC Setup[10:23:49]: Registering C:\WINDOWS\system32\mtxoci.dll.
+DTC Setup[10:23:49]: Before call to LoadLibraryEx - Module: C:\WINDOWS\system32\mtxoci.dll
+DTC Setup[10:23:49]: After call to LoadLibraryEx - Module: C:\WINDOWS\system32\mtxoci.dll
+DTC Setup[10:23:49]: Before call to DllRegisterServer - Module: C:\WINDOWS\system32\mtxoci.dll
+DTC Setup[10:23:49]: After call to DllRegisterServer - Module: C:\WINDOWS\system32\mtxoci.dll
+DTC Setup[10:23:50]: Registering C:\WINDOWS\system32\msdtcuiu.dll.
+DTC Setup[10:23:50]: Before call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtcuiu.dll
+DTC Setup[10:23:50]: After call to LoadLibraryEx - Module: C:\WINDOWS\system32\msdtcuiu.dll
+DTC Setup[10:23:50]: Before call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtcuiu.dll
+DTC Setup[10:23:50]: After call to DllRegisterServer - Module: C:\WINDOWS\system32\msdtcuiu.dll
+DTC Setup[10:23:50]: Running command: unlodctr "MSDTC"
+DTC Setup[10:23:51]: Running command: lodctr "C:\WINDOWS\system32\msdtcprf.ini"
+DTC Setup[10:23:51]: Running command: "C:\WINDOWS\system32\msdtc.exe" -install  -d "C:\WINDOWS\system32" -l "C:\WINDOWS\system32\MSDtc" -silentinstall
+DTC Setup[10:23:59]: Starting service MSDTC.
+DTC Setup[10:24:1]: Service started MSDTC successfully.
+DTC Setup[10:24:1]: Writing persistent registry values
+DTC Setup[10:24:1]: Finished writing persistent registry values, retval = 0x0
+DTC Setup[10:24:1]: End OC_COMPLETE_INSTALLATION Return Value = 0
+DTC Setup[10:24:1]: Start OC_QUERY_STATEComponent = dtc Subcomponent = dtc
+DTC Setup[10:24:1]: Subcomponent dtc state: O-,C+,R+
+DTC Setup[10:24:1]: End OC_QUERY_STATE Return Value = 1
+DTC Setup[10:24:58]: Start OC_CLEANUP Component = dtc
+DTC Setup[10:24:58]: End OC_CLEANUP Return Value = 0
+DTC Setup[10:29:53]: ********************************************************************************
+DTC Setup[10:29:53]: Setup finished - [DATE:03,10,2022 TIME: 10:29 am]
+DTC Setup[10:29:53]: ********************************************************************************
+                                                                                                                               MZ˝       ˇˇ  ∏       @                                   Ä   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$        NEî  íıL É                  / @ @ à î î               
+ Ä       P@     Ä      0Ä    Ä     $ 0Ä      FONTDIROEMFONTS     +FONTRES 100,96,96 : Terminal (737) (Set #6)                 o  Copyright (c) Computer Logic R&D S.A. - 1994. reserved.        ` ` 
+        êˇ  0  ˛ˇ     f       Terminal   o  Copyright (c) Computer Logic R&D S.A. - 1994. reserved.        ` ` 
+        êˇ  0  ˛ˇ     f      r    r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z f r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+	 	 "	 .	 :	 F	 R	 ^	 j	 v	 Ç	 é	 ö	 ¶	 ≤	 æ	  	 ÷	 ‚	 Ó	 ˙	 
+ 
+ 
+ *
+ 6
+ B
+ N
+ Z
+ f
+ r
+ ~
+ ä
+ ñ
+ ¢
+ Æ
+ ∫
+ ∆
+ “
+ ﬁ
+ Í
+ ˆ
+    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z f r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z ~√Å•ÅΩô√~   ~ˇˇ€ˇ√Áˇ~    DÓ˛˛˛|8   8|˛˛|8    <<ˇÁÁ~   <~ˇˇ~~      <~~<    ˇˇˇˇ√ÅÅ√ˇˇˇˇ  <~fBBf~<  ˇˇ√ÅôΩΩôÅ√ˇˇ >:r¯ÃÃÃx   <fff<~   x¯p   ccccgÁÊ¿   €~ÁÁ~€   Ä¿‡¯˛¯‡¿Ä   >˛>   <~~<   fffff  ff   €€€{   ~c0<ff<∆~        ˛˛˛   <~~<~  <~   ~<     ˛       0`˛`0        ¿¿¿˛       $fˇf$      88||˛˛    ˛˛||88               0xxx00 00   fff$        ll˛lll˛ll  00|¿¿x¯00    ƒÃ0`Ãå   pÿÿp˙ﬁÃ‹v   000`        0```0   `00`     f<ˇ<f       ~            88`      ˛              88    0`¿Ä   |∆Œﬁ÷ˆÊ∆|   000000¸   xÃÃ0`Ã¸   xÃ8Ãx   <lÃ˛   ¸¿¿¿¯Ãx   8`¿¿¯ÃÃÃx   ˛∆∆000   xÃÃÏx‹ÃÃx   xÃÃÃ|0p     88  88      88  880  0`¿`0      ~ ~      `00`   xÃ00 00   |∆∆ﬁﬁﬁ¿¿|   0xÃÃÃ¸ÃÃÃ   ¸fff|fff¸   <f∆¿¿¿∆f<   ¯lfffffl¯   ˛b`d|d`b˛   ˛fbd|d``   <f∆¿¿Œ∆f>   ÃÃÃÃ¸ÃÃÃÃ   x0000000x   ÃÃÃx   ÊfllxllfÊ   ````bff˛   ∆Ó˛˛÷∆∆∆∆   ∆∆Êˆ˛ﬁŒ∆∆   8l∆∆∆∆∆l8   ¸fff|```   8l∆∆∆Œﬁ|  ¸fff|lffÊ   xÃÃ¿pÃÃx   ¸¥000000x   ÃÃÃÃÃÃÃÃx   ÃÃÃÃÃÃÃx0   ∆∆∆∆÷÷lll   ÃÃÃx0xÃÃÃ   ÃÃÃÃx000x   ˛Œò0`b∆˛   <0000000<    Ä¿`0   <<  8l∆                  ˇ 00             x|ÃÃv   ‡``|ffff‹      xÃ¿¿Ãx   |ÃÃÃÃv      xÃ¸¿Ãx   8l``¯```      vÃÃÃ|Ãx ‡``lvfffÊ    x~    <ÃÃx ‡``flxlfÊ   x~      ¸÷÷÷÷∆      ¯ÃÃÃÃÃ      xÃÃÃÃx      ‹ffff|`    vÃÃÃÃ|    Ïnv``      xÃ`Ãx     `¸```l8      ÃÃÃÃÃv      ÃÃÃÃx0      ∆∆÷÷ll      ∆l88l∆      ffff<    ¸å`ƒ¸   00`¿`00       ‡0000‡   s⁄Œ           8l∆∆˛    0xÃÃÃ¸ÃÃÃ   ¸fff|fff¸   ˛b``````   0xÃÃÃÃÃÃ¸   ˛b`d|d`b˛   ˛∆é8p‚∆˛   ÃÃÃÃ¸ÃÃÃÃ   8l∆∆˛∆∆l8   x0000000x   Êfl|x|lfÊ   0xÃÃÃÃÃÃÃ   ∆Ó˛˛÷∆∆∆∆   ∆∆Êˆ˛ﬁŒ∆∆   ˛˛Ç(8(Ç˛˛   8l∆∆∆∆∆l8   ¸ÃÃÃÃÃÃÃÃ   ¸fff|```   ˛¬`00`¿¬˛   ¸¥000000x   ÃÃÃÃx000x   |÷÷÷÷÷|   ÃÃÃx0xÃÃÃ   ÷÷÷÷÷÷|   |∆∆∆∆∆l™Ó      zÃÃÃÃz    xÃÃÿÃÃÃ¯¿¿    fff<  ¸`0xÃÃÃx      xƒp¿ƒx    ¸0`¿¿x8    Ïvffff  xÃÃ¸ÃÃÃx      ````l8      flxxlf    xÃ|ÃÃÃÃ      ÃÃÃÃÃ˛¿¿    ÃÃÃÃx0    ¸0``8``88    xÃÃÃÃx      |lllll      xÃÃÃÃ¯¿¿    ~ÃÃÃÃx      xÃ¿¿¿xx    ¸0006      ÃÃÃÃÃx      |÷÷÷÷|    ÃÃx0xÃÃ     ÷÷÷÷÷|$íI$íI$íI$íIU™U™U™U™U™U™m€∂m€∂m€∂m€∂¯¯¯fffffÊffffff     ˛ffffff    ¯¯ffffÊÊffffffffffffffff    ˛ÊffffffffÊ˛    fffff˛      ¯¯         ¯      ˇ           ˇ     ˇ      ˇfffffgffffffffffg``        ``gffffffffÁ  ˇ        ˇ  Áffffffffg``gffff    ˇ  ˇ    ffffÁ  Áffffˇ  ˇ    fffffˇ          ˇ  ˇ     ˇfffffffffff                   fffffffffffÁffffffˇ  ˇ¯           ˇˇˇˇˇˇˇˇˇˇˇˇ      ˇˇˇˇˇˇˇˇˇˇˇˇ          l∆÷÷÷l   0  zÃÃÃÃz   0  xƒp¿ƒx    Ïvffff  Ã 00004    00004    xÃÃÃÃx   0  ÃÃÃÃÃx    Ã ÃÃÃÃÃx    l∆÷÷÷l   òºÊÊf~fff   ˇ±∞≤>201   ÊÊÊÊ~ffff   ºòòò<   ú∂„„ccc6   ÊÊÊÊ<<   æ„„„cc6Uw    00¸00 ¸    `00` ¸    0``0 ¸   Ãx0000000x  <ffff<<    00 ¸ 00     s€Œ s€Œ    <fff<                            Dd4   ÿllll       x0|         <<<<<<               Terminal  ‰4 VS_VERSION_INFO ΩÔ˛   
+  g   
+  g   ?                       v  StringFileInfo  b  040904E4    '  CompanyName Microsoft Corporation   ; ' FileDescription VGA (640x480) resolution terminal font    FileVersion 3.10     	 InternalName    OEMFONTS    ; ' LegalCopyright  Copyright © Microsoft Corp. 1991-1992   #  OriginalFilename    VGA&#&.FON  9 ) ProductName MicrosoftÆ Windows(TM) Operating System       ProductVersion  3.10    $   VarFileInfo   Translation 	‰                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            MZ˝       ˇˇ  ∏       @                                   Ä   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$        NEî  íˆ!N É                  / @ @ à î î               
+ Ä       P@     Ä      0Ä    Ä     $  0Ä      FONTDIROEMFONTS     +FONTRES 100,96,96 : Terminal (869) (Set #6)                 o  Copyright (c) Computer Logic R&D S.A. - 1994. reserved.        H ` 
+        êˇ  0  ˛ˇ     f       Terminal   o  Copyright (c) Computer Logic R&D S.A. - 1994. reserved.        H ` 
+        êˇ  0  ˛ˇ     f      r    r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z f r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+	 	 "	 .	 :	 F	 R	 ^	 j	 v	 Ç	 é	 ö	 ¶	 ≤	 æ	  	 ÷	 ‚	 Ó	 ˙	 
+ 
+ 
+ *
+ 6
+ B
+ N
+ Z
+ f
+ r
+ ~
+ ä
+ ñ
+ ¢
+ Æ
+ ∫
+ ∆
+ “
+ ﬁ
+ Í
+ ˆ
+    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z f r ~ ä ñ ¢ Æ ∫ ∆ “ ﬁ Í ˆ    & 2 > J V b n z Ü í û ™ ∂ ¬ Œ ⁄ Ê Ú ˛ 
+  " . : F R ^ j v Ç é ö ¶ ≤ æ   ÷ ‚ Ó ˙    * 6 B N Z ~√Å•ÅΩô√~   ~ˇˇ€ˇ√Áˇ~    DÓ˛˛˛|8   8|˛˛|8    <<ˇÁÁ~   <~ˇˇ~~      <~~<    ˇˇˇˇ√ÅÅ√ˇˇˇˇ  <~fBBf~<  ˇˇ√ÅôΩΩôÅ√ˇˇ >:r¯ÃÃÃx   <fff<~   x¯p   ccccgÁÊ¿   €~ÁÁ~€   Ä¿‡¯˛¯‡¿Ä   >˛>   <~~<   fffff  ff   €€€{   ~c0<ff<∆~        ˛˛˛   <~~<~  <~   ~<     ˛       0`˛`0        ¿¿¿˛       $fˇf$      88||˛˛    ˛˛||88               0xxx00 00   fff$        ll˛lll˛ll  00|¿¿x¯00    ƒÃ0`Ãå   pÿÿp˙ﬁÃ‹v   000`        0```0   `00`     f<ˇ<f       ~            88`      ˛              88    0`¿Ä   |∆Œﬁ÷ˆÊ∆|   000000¸   xÃÃ0`Ã¸   xÃ8Ãx   <lÃ˛   ¸¿¿¿¯Ãx   8`¿¿¯ÃÃÃx   ˛∆∆000   xÃÃÃxÃÃÃx   xÃÃÃ|0p     88  88      88  880  0`¿`0      ~ ~      `00`   xÃ00 00   |∆∆ﬁﬁﬁ¿¿|   0xÃÃÃ¸ÃÃÃ   ¸fff|fff¸   <f∆¿¿¿∆f<   ¯lfffffl¯   ˛b`d|d`b˛   ˛fbd|d``   <f∆¿¿Œ∆f>   ÃÃÃÃ¸ÃÃÃÃ   x0000000x   ÃÃÃx   ÊfllxllfÊ   ````bff˛   ∆Ó˛˛÷∆∆∆∆   ∆∆Êˆ˛ﬁŒ∆∆   8l∆∆∆∆∆l8   ¸fff|```   8l∆∆∆Œﬁ|  ¸fff|lffÊ   xÃÃ¿pÃÃx   ¸¥000000x   ÃÃÃÃÃÃÃÃx   ÃÃÃÃÃÃÃx0   ∆∆∆∆÷÷lll   ÃÃÃx0xÃÃÃ   ÃÃÃÃx000x   ˛Œò0`b∆˛   <0000000<    Ä¿`0   <<  8l∆                  ˇ 00             x|ÃÃv   ‡``|ffff‹      xÃ¿¿Ãx   |ÃÃÃÃv      xÃ¸¿Ãx   8l``¯```      vÃÃÃ|Ãx ‡``lvfffÊ    x~    <ÃÃx ‡``flxlfÊ   x~      ¸÷÷÷÷∆      ¯ÃÃÃÃÃ      xÃÃÃÃx      ‹ffff|`    vÃÃÃÃ|    Ïnv``      xÃ`Ãx     `¸```l8      ÃÃÃÃÃv      ÃÃÃÃx0      ∆∆÷÷ll      ∆l88l∆      ffff<    ¸å`ƒ¸   00`¿`00       ‡0000‡   s⁄Œ           8l∆∆˛                                                                            òºÊÊf~fff                            ~~                        ˛‚‡‰|d`b˛   ~           ÊÊÊÊ~ffff   ºòòò<  √<<   ∏Ï∆∆∆∆∆l8                           ÊÊÊÊ<<  f fff<<   |∆ﬁÊÊÊﬁ∆|   º∆∆∆∆∆l™Ó   6>       66        zÃÃÃÃz  <f```¸``¿˛    xƒp¿ƒx    Ïvffff  00004    Ã 00004   ÷ 00004    xÃÃÃÃx    ÃÃÃÃÃx   0xÃÃÃ¸ÃÃÃ   ¸fff|fff¸   ˛b``````   0xÃÃÃÃÃÃ¸   ˛b`d|d`b˛   ˛∆é8p‚∆˛   ÃÃÃÃ¸ÃÃÃÃ   bÊlx0n√Ü  8l∆∆˛∆∆l8   x0000000x      3fÃÃf3      Ãf33fÃ  $íI$íI$íI$íIU™U™U™U™U™U™m€∂m€∂m€∂m€∂¯ Êfl|x|lfÊ   0xÃÃÃÃÃÃÃ   ∆Ó˛˛÷∆∆∆∆   ∆∆Êˆ˛ﬁŒ∆∆  ffffÊÊffffffffffffffff    ˛ÊffffffffÊ˛     ˛˛Ç(8(Ç˛˛   8l∆∆∆∆∆l8       ¯      ˇ           ˇ     ˇ      ˇ ¸ÃÃÃÃÃÃÃÃ   ¸fff|```  ffffg``        ``gffffffffÁ  ˇ        ˇ  Áffffffffg``gffff    ˇ  ˇ    ffffÁ  Áffff ˛¬`00`¿¬˛   ¸¥000000x   ÃÃÃÃx000x   |÷÷÷÷÷|   ÃÃÃx0xÃÃÃ   ÷÷÷÷÷÷|   |∆∆∆∆∆l™Ó      zÃÃÃÃz    xÃÃÿÃÃÃ¯¿¿    ∆∆l8lll8¯           ˇˇˇˇˇˇˇˇˇˇˇˇ      ˇˇˇˇˇˇ  ¸`0xÃÃÃx      xƒp¿ƒx  ˇˇˇˇˇˇ        ¸0`¿¿x8    Ïvffff  xÃÃ¸ÃÃÃx      ````l8      flxxlf    xÃ|ÃÃÃÃ      ÃÃÃÃÃ˛¿¿    ÃÃÃÃx0    ¸0``<``88    xÃÃÃÃx      |lllll      xÃÃÃÃ¯¿¿    ~ÃÃÃÃx      xÃ¿¿¿xx    ¸0006  0              ¸        00¸00 ¸       ÃÃÃÃÃx      |÷÷÷÷|    ÃÃx0xÃÃ  ~c0<ff<∆~     ÷÷÷÷÷| Ï          <fff<       Ã              l∆÷÷÷l    Ã ÃÃÃÃÃx   Ï ÃÃÃÃÃx    l∆÷÷÷l     ¸¸¸¸¸¸               Terminal   4 VS_VERSION_INFO ΩÔ˛   
+  g   
+  g   ?                       í  StringFileInfo  ~  040904E4    '  CompanyName Microsoft Corporation   X D FileDescription VGA (640x480) resolution terminal font ( Portuguese code page 860)    FileVersion 3.10     	 InternalName    OEMFONTS    ; ' LegalCopyright  Copyright © Microsoft Corp. 1991-1992   #  OriginalFilename    VGA869.FON  9 ) ProductName MicrosoftÆ Windows(TM) Operating System       ProductVersion  3.10    $   VarFileInfo   Translation 	‰                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                MZÙ       ˇˇ  ∏       @                                   Ä   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$        NEî  ˜k€◊ É                  & @ @ à î î               
+ Ä       P@     Ä      B0Ä    Ä     ^  0Ä      FONTDIRFIXFONTS     "FONTRES 100,96,96 : Fixedsys (VGA)          2  (c) Copyright Microsoft Corp. 1987-95. All rights reserved.    ` `        ê°      ˇ` ·     )       Fixedsys   2  (c) Copyright Microsoft Corp. 1987-95. All rights reserved.    ` `        ê°      ˇ` ·     )      ˙    ˙ 	  ' 6 E T c r Å ê ü Æ Ω Ã € Í ˘   & 5 D S b q Ä è û ≠ º À ⁄ È ¯   % 4 C R a p  é ù ¨ ª   Ÿ Ë ˜   $ 3 B Q ` o ~ ç ú ´ ∫ … ÿ Á ˆ   # 2 A P _ n } å õ ™ π » ◊ Ê ı 	 	 "	 1	 @	 O	 ^	 m	 |	 ã	 ö	 ©	 ∏	 «	 ÷	 Â	 Ù	 
+ 
+ !
+ 0
+ ?
+ N
+ ]
+ l
+ {
+ ä
+ ô
+ ®
+ ∑
+ ∆
+ ’
+ ‰
+ Û
+     / > M \ k z â ò ß ∂ ≈ ‘ „ Ú    . = L [ j y à ó ¶ µ ƒ ” ‚ Ò     - < K Z i x á ñ • ¥ √ “ ·  ˇ   , ; J Y h w Ü ï § ≥ ¬ — ‡ Ô ˛   + : I X g v Ö î £ ≤ ¡ – ﬂ Ó ˝   * 9 H W f u Ñ ì ¢ ± ¿ œ ﬁ Ì ¸                    <<<       fff            6666666    <f`0f<   pÿ⁄v0n[     8ll8`off;                  00000    00      66          ~                       ~                       00``     3773;;3      |      <ff0`~      <ffff<      00666f      ~```|x      0|ffff<      ~000      <ffv<nff<      <ffff>8                          0`0         ~ ~         `00`      <ff       ~√√œ€€œ¿      <fff~fff      |fff|fff|      <ff```ff<      xlffffflx      ~```|```~      ~```|````      <ff``nff>      ffff~ffff      <<      ff<      ffllxllff      ````````~      ccwkkkccc      ccs{ogccc      <fffffff<      |fff|````      <fffffff<    |fff|lfff      <f`0f<      ~      ffffffff<      fffffff<      ccckkk666      ff4,fff      ffff<      ~0``~      <0000000000<   ``00     << <f                         ˇ 8                <>ff>      ``|fffff|        <f```f<      >fffff>        <ff~``<      000~0000        >fffff>|   ``|ffffff      x~      <x   ``fflxlff      x~        ~kkkkkc        |ffffff        <fffff<        |fffff|```     >fffff>     fnp````        >``<|      00~00000        ffffff>        fffff<        ckkkk66        ff<<ff        ffffff<     ~0`~      0`0       00    q€é            ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~                            ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~      ~~~~~~~~~                    €√             òºÊff~fff      <f``¸``¿˛       f<ff<f        fff<~~           <f`8<ff<f<  ff              ~√ô•°•ô√~      <>f> ~            3fÃf3          ~            ~          ~√π••π•√~   ˇ                <ff<              ~ ~      80<          88        0                ffffff{``¿   >~~~>                ø∞∞0>000?      ≥≥≥3?3333      ºòò<          Ãf3fÃ      û≥≥33333     `‡cfl>c∆     ≥≥≥3      æ„„ccc66w     €√      <fff~fff      |fff|fff|      ~````````      <ffffff~      ~```|```~      ~0``~      ffff~ffff      <fff~fff<      <<      ffllxllff      <fffffff      ccwkkkccc      ccs{ogccc      ~~  <  ~~      <fffffff<      ~ffffffff      |fff|````                   ~`00`~      ~      ffff<      >kkkkk>      ff4,fff      kkkkkk>      >ccccc66w    ff<<    <<ffff<      >fffff?      <f`8`f<      |ffffff       ~v ffffff<        >fffff?      <fff|fff|```     fffff<   ~0<ffff<        <f`8`f<      ˛0````<<     |ffffff   333?333                fflxlff      <f>fffff        ffffff~```     fffff<      ˛0``8``<<     <fffff<        ~ffffff        <fffff|```     <f````<<     ?fffff<        ~        ffffff<      >kkkkk>     ff<<ff      kkkkkk>     6cckkk6     ff      ff ffffff<      <fffff<      ffffff<      6cckkk6                               Fixedsys Greek        ~`00`~       ~       ffff<       >kkkkk>       ff4,fff       kkkkkk>       >ccccc66w     ff<<     <<ffff<       >fffff?       <f`8`f<       |ffffff         ~v ffffff<         >fffff?       <fff|fff|```      fffff<    ~0<ffff<         <f`8`f<       ˛0````<<      |ffffff    333?333                  fflxlff       <f>fffff         ffffff~```      fffff<       ˛0``8``<<      <fffff<         ~ffffff         <fffff|```      <f````<<      ?fffff<         ~         ffffff<       >kkkkk>      ff<<ff       kkkkkk>      6cckkk6      ff       ff ffffff<       <fffff<       ffffff<       6cckkk6                                      Ù4 VS_VERSION_INFO ΩÔ˛      ∂     ∂  ?                       Ö  StringFileInfo  q  040904E4

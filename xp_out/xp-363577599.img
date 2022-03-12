@@ -1,0 +1,2652 @@
+>
+<ARPSupportItem id=atom(support) accessible=true accRole=41 AccName=rcstr(31) />
+<ARPSupportItem id=atom(telephone) accessible=true accRole=41 AccName=rcstr(4115,handlemap(2)) />
+<ARPSupportItem id=atom(readme) accessible=true accRole=41 AccName=rcstr(32) />
+<ARPSupportItem id=atom(update) accessible=true accRole=41 AccName=rcstr(33) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(productID) accessible=true accRole=41 AccName=rcstr(34) />
+<ARPSupportItem id=atom(regCompany) accessible=true accRole=41 AccName=rcstr(35) />
+<ARPSupportItem id=atom(regOwner) accessible=true accRole=41 AccName=rcstr(36) />
+<ARPSupportItem id=atom(updateid) accessible=true accRole=41 AccName=rcstr(4114,handlemap(2)) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(comments) accessible=true accRole=41 AccName=rcstr(37) />
+</element>
+<Element layoutpos=bottom layout=borderlayout()>
+<Button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</Element>
+<Element layoutpos=bottom id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Element layoutpos=bottom id=atom(repairblock) layout=borderlayout()>
+<Element layoutpos=top id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Button id=atom(repair) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(39) content=rcstr(39) />
+<element id=atom(repairDesc) layoutpos=left contentalign=wrapleft accessible=true accessible=true accRole=41 accName=rcstr(38) content=rcstr(38) />
+</Element>
+</arphelp>
+<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(21,7,19,5);
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+button [enabled=false]
+{
+background: dfc(4, 0x0010 | 0x0100);
+foreground: graytext;
+fontstyle: shadow;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: appworkspace;
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+bordercolor: appworkspace;
+borderthickness: rect(2,2,2,2);
+foreground: captiontext;
+margin: rect(5,5,5,5);
+padding: rect(2,2,2,4);
+}
+button [keyfocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [mousefocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [pressed]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+button [selected]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dfc(4, 0x0010); 
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dfc(3, 0x0000);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dfc(3, 0x0000 | 0x0200);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dfc(3, 0x0001);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dfc(3, 0x0001 | 0x0200);
+}
+repeatbutton [class="Page"]
+{ 
+background: scrollbar;
+}
+repeatbutton [class="Page"][pressed]
+{ 
+background: buttonshadow;
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(30,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0004);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dfc(4, 0x0004 | 0x0400);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,3,-1,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,3,-1,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(4), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(6), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(6), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(6), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(6), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(5), 3, 1);
+content: dtb(handlemap(5), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(5), 3, 2);
+content: dtb(handlemap(5), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(5), 3, 3);
+content: dtb(handlemap(5), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(5), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(5), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(5), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(5), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(5), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(5), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(5), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(5), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(5), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(20,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(4), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(4), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+P/   	  	  8      $  &  '  €  P  ]  Ё  и  м  t(       L,    	  \-  м  т  X.  ѓ  љ  м5  ™'  љ'  фT  ]f  ^f  ђU  “j  “j  W  -  @-  @xW   @ @ьX  Њ	 @Ќ	 @ДY   @ @Ё_  а @а @,d  D @D @ e  њ' @њ' @Xf   ( @Ґ( @¬h  џ: @ : @р{  §: @§: @4}  ­ @­ @8~  
+  Ђ
+  ЂШ‡    Ђ  Ђh‰  ы Ђы Ђ¬Џ   Ђ Ђdђ  ¤ Ђ« Ђ„‘  ю Ђю Ђ<–  ‰	 Ђ‰	 Ђxі  ‚ Ђ‚ Ђ ґ  г Ђг Ђаґ  ›' Ђ›' Ђдё  н Ан А8»  ш Ащ АЁЕ  ь Аь АаЖ  T АV АЂЗ  щ Ащ А4Л  
+ А АЊН  Љ	 А‹	 А¤Т  б Ав АhШ   А АґЭ  ' А(' Аа  : Аћ: АДч  Ў: А¦: А  ,V А,V А @њ АDњ А0! м  5  C405BAO  70=5AB8  A>1KB8O  2  6C@=0;  157>?0A=>AB8: % n  
+ % t >4  A>AB>O=8O: % t % t % 1 % n  
+ % t =0G5=85  C r a s h O n A u d i t F a i l : % t % 2 % n  
+   d  @>F5=B  70?>;=5=8O  6C@=0;0  157>?0A=>AB8:     % 1 .  
+   М  >;8B8:0  0C48B0  =0  ?>;L7>20B5;O  >1=>2;5=0. % n  
+ % t >;8G5AB2>  M;5<5=B>2: % t % 1 % n  
+ % t I D   ?>;8B8:8: % t % 2 % n  
+   T >;8B8:8  0C48B0  =0  ?>;L7>20B5;O  7040=0  4;O  ?>;L7>20B5;O: % n  
+ % t >=5G=K9  ?>;L7>20B5;L: % t % 1 % n  
+ % t I D   ?>;8B8:8: % t % 2 % n  
+ % t 0@0<5B@K  :0B53>@88: % n  
+ % t   !8AB5<0: % t % 3 % n  
+ % t   E>4  2  A8AB5<C: % t % 4 % n  
+ % t   >ABC?  :  >1J5:BC% t % 5 % n  
+ % t   A?>;L7>20=85  ?@828;5388: % t % 6 % n  
+ % t   >4@>1=K5  A2545=8O: % t % 7 % n  
+ % t   7<5=5=85  ?>;8B8:8: % t % 8 % n  
+ % t   #?@02;5=85  CG5B=K<8  70?8AO<8: % t % 9 % n  
+ % t   >ABC?  :  A;C615  :0B0;>3>2: % t % 1 0 % n  
+ % t   E>4  ?>4  CG5B=>9  70?8ALN: % t % 1 1 % n  
+     !;54CNI0O  ?>;8B8:0  1K;0  0:B82=0  ?@8  70?CA:5  1@0=4<0CM@0  W i n d o w s .  
+ % n  
+ % n @8<5=5==0O  3@C??>20O  ?>;8B8:0:   % 1  
+ % n A?>;L7C5<K9  ?@>D8;L:   % 2  
+ % n =B5@D59A:   % 3  
+ % n  01>G89  @568<:   % 4  
+ % n !;C61K 
+ % n           1I89  4>ABC?  :  D09;0<  8  ?@8=B5@0<:   % 5  
+ % n           #40;5==K9  @01>G89  AB>;:   % 6  
+ % n           U P n P - 8=D@0AB@C:BC@0:   % 7  
+ % n  07@5H0BL  C40;5==KE  04<8=8AB@0B>@>2:   % 8  
+ % n  07@5H0BL  >B25BK  4;O  <=>3>04@5A=>3>  8  H8@>:>25I0B5;L=>3>  B@0D8:0:   % 9  
+ % n 545=85  6C@=0;0  157>?0A=>AB8:  
+ % n           0?8AK20BL  >B1@>H5==K5  ?0:5BK:   % 1 0  
+ % n           0?8AK20BL  CA?5H=K5  ?>4:;NG5=8O:   % 1 1  
+ % n I C M P :  
+ % n            07@5H0BL  70?@>A  2E>4OI53>  ME0:   % 1 4  
+ % n            07@5H0BL  70?@>A  2E>4OI53>  HB0<?0  2@5<5=8:   % 1 9  
+ % n            07@5H0BL  70?@>A  2E>4OI59  <0A:8:   % 2 0  
+ % n            07@5H0BL  70?@>A  2E>4OI53>  <0@H@CB870B>@0:   % 1 8  
+ % n            07@5H0BL  A>>1I5=85  " AE>4OI55  =07=0G5=85  =54>ABC?=>" :   % 1 2  
+ % n            07@5H0BL  A=865=85  A:>@>AB8  8AB>G=8:0  8AE>4OI8E  A>>1I5=89:   % 1 7  
+ % n            07@5H0BL  A>>1I5=85  " @>1;5<0  8AE>4OI53>  ?0@0<5B@0" :   % 1 6  
+ % n            07@5H0BL  ?@52KH5=85  8AE>4OI53>  2@5<5=8:   % 1 5  
+ % n            07@5H0BL  ?5@5=0?@02;5=85:   % 1 3  
+ % n            07@5H0BL  A>>1I5=85  " AE>4OI89  ?0:5B  A;8H:><  25;8:" :   % 2 1  
+   p !;54CNI55  ?@8;>65=85  1K;>  0:B82=>  ?@8  70?CA:5  1@0=4<0CM@0  W i n d o w s .  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n A?>;L7C5<K9  ?@>D8;L:   % 2  
+ % n <O:   % 3  
+ % n CBL:   % 4  
+ % n !>AB>O=85:   % 5  
+ % n 1;0ABL:   % 6  
+     И !;54CNI89  ?>@B  1K;  2  A?8A:5  8A:;NG5=89  ?@8  70?CA:5  1@0=4<0CM@0  W i n d o w s .  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n A?>;L7C5<K9  ?@>D8;L:   % 2  
+ % n =B5@D59A:   % 3  
+ % n <O:   % 4  
+ % n ><5@  ?>@B0:   % 5  
+ % n @>B>:>;:   % 6  
+ % n !>AB>O=85:   % 7  
+ % n 1;0ABL:   % 8  
+   ° =5A5=>  87<5=5=85  2  A?8A>:  8A:;NG5=89  ?@8;>65=89  1@0=4<0CM@0  W i n d o w s .  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n "8?  87<5=5=8O:   % 3  
+ % n >2K5  ?0@0<5B@K:  
+ % n           <O:   % 4  
+ % n           CBL:   % 5  
+ % n           !>AB>O=85:   % 6  
+ % n           1;0ABL:   % 7  
+ % n !B0@K5  ?0@0<5B@K:  
+ % n           <O:   % 8  
+ % n           CBL:   % 9  
+ % n           !>AB>O=85:   % 1 0  
+ % n           1;0ABL:   % 1 1  
+     @ =5A5=>  87<5=5=85  2  A?8A>:  8A:;NG5=89  ?>@B>2  1@0=4<0CM@0  W i n d o w s .  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n =B5@D59A:   % 3  
+ % n "8?  87<5=5=8O:   % 4  
+ % n >2K5  ?0@0<5B@K:  
+ % n           <O:   % 5  
+ % n           ><5@  ?>@B0:   % 6  
+ % n           @>B>:>;:   % 7  
+ % n           !>AB>O=85:   % 8  
+ % n           1;0ABL:   % 9  
+ % n !B0@K5  ?0@0<5B@K:  
+ % n           <O:   % 1 0  
+ % n           ><5@  ?>@B0:   % 1 1  
+ % n           @>B>:>;:   % 1 2  
+ % n           !>AB>O=85:   % 1 3  
+ % n           1;0ABL:   % 1 4  
+     ¤  01>G89  @568<  1@0=4<0CM@0  W i n d o w s   87<5=5=.  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n =B5@D59A:   % 3  
+ % n >2K9  ?0@0<5B@:  
+ % n            01>G89  @568<:   % 4  
+ % n !B0@K9  ?0@0<5B@:  
+ % n            01>G89  @568<:   % 5  
+   ђ 0@0<5B@K  2545=8O  6C@=0;0  1@0=4<0CM@0  W i n d o w s   87<5=5=K.  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n >2K5  ?0@0<5B@K:  
+ % n           0?8AK20BL  >B1@>H5==K5  ?0:5BK:   % 3  
+ % n           0?8AK20BL  CA?5H=K5  ?>4:;NG5=8O:   % 4  
+ % n !B0@K5  ?0@0<5B@K:  
+ % n           0?8AK20BL  >B1@>H5==K5  ?0:5BK:   % 5  
+ % n           0?8AK20BL  CA?5H=K5  ?>4:;NG5=8O:   % 6  
+   | 0@0<5B@K  I C M P   1@0=4<0CM@0  W i n d o w s   87<5=5=K.  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n =B5@D59A:   % 3  
+ % n >2K9  ?0@0<5B@:  
+ % n           % 4 :   % 5  
+ % n !B0@K9  ?0@0<5B@:  
+ % n           % 4 :   % 6  
+   М 0@0<5B@  "  07@5H0BL  >B25BK  4;O  <=>3>04@5A=>3>  8  H8@>:>25I0B5;L=>3>  B@0D8:0"   1@0=4<0CM@0  W i n d o w s   87<5=5=.  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n >2K9  ?0@0<5B@:  
+ % n            07@5H0BL  >B25BK  4;O  <=>3>04@5A=>3>  8  H8@>:>25I0B5;L=>3>  B@0D8:0:   % 3  
+ % n !B0@K9  ?0@0<5B@:  
+ % n            07@5H0BL  >B25BK  4;O  <=>3>04@5A=>3>  8  H8@>:>25I0B5;L=>3>  B@0D8:0:   % 4  
+     ` 0@0<5B@  "  07@5H0BL  C40;5==KE  04<8=8AB@0B>@>2,   @07@5H0NI8E  ?>@B  1 3 5   8  D C O M / R P C "   1@0=4<0CM@0  W i n d o w s   87<5=5=.  
+ % n  
+ % n AB>G=8:  ?>;8B8:8:   % 1  
+ % n 7<5=5==K9  ?@>D8;L:   % 2  
+ % n >2K9  ?0@0<5B@:  
+ % n            07@5H0BL  C40;5==KE  04<8=8AB@0B>@>2:   % 3  
+ % n !B0@K9  ?0@0<5B@:  
+ % n            07@5H0BL  C40;5==KE  04<8=8AB@0B>@>2:   % 4  
+     Ђ  @8<5=5=K  ?0@0<5B@K  3@C??>2>9  ?>;8B8:8  1@0=4<0CM@0  W i n d o w s .  
+   |  #40;5=K  ?0@0<5B@K  3@C??>2>9  ?>;8B8:8  1@0=4<0CM@0  W i n d o w s .  
+   ¬  @0=4<0CM@  W i n d o w s   87<5=8;  ?@>D8;L  0:B82=>9  ?>;8B8:8.  
+ % n  
+ % n :B82=K9  ?@>D8;L:   % 1  
+   Ђ @0=4<0CM@  W i n d o w s   >1=0@C68;  ?@8;>65=85,   ?@>A;CH820NI55  2E>4OI89  B@0D8:.  
+ % n  
+ % n <O:   % 1  
+ % n CBL:   % 2  
+ % n >4  ?@>F5AA0:   % 3  
+ % n #G5B=0O  70?8AL  ?>;L7>20B5;O:   % 4  
+ % n ><5=  ?>;L7>20B5;O:   % 5  
+ % n !;C610:   % 6  
+ % n R P C - A5@25@:   % 7  
+ % n I P - 25@A8O:   % 8  
+ % n I P - ?@>B>:>;:   % 9  
+ % n ><5@  ?>@B0:   % 1 0  
+ % n  07@5H5=>:   % 1 1  
+ % n >;L7>20B5;L  8725I5=:   % 1 2  
+   d  K?>;=O5BAO  A?5F80;L=>5  A>1KB85  4;O  [ % 1 ! w s ! ]  
+     € 1<5=  W E P - :;NG0  =5  7025@H8;AO  CAB0=>2:>9  157>?0A=>3>  ?>4:;NG5=8O  ?>A;5  ?@>25@:8  ?>4;8==>AB8  8 0 2 . 1 x .     "5:CI0O  =0AB@>9:0  1C45B  ?><5G5=0  :0:  >H81>G=0O  8  15A?@>2>4=>5  ?>4:;NG5=85  1C45B  @07>@20=>.  
+   Ш  >;CG5=  =54>?CAB8<K9  P E A P - T L V .   >;65=  1KBL  B>;L:>  >48=  P E A P - T L V ,   B8?  :>B>@>3>  @025=  845=B8D8:0B>@C  U R L .  
+   h  H81:0  >1@01>B:8  ?>;CG5==>3>  P E A P - T L V   ( % 1 ! l d ! )  
+     ¬  H81:0  A>740=8O  @57C;LB8@CNI53>  P E A P - T L V   2  >B25B  =0  ?>;CG5==K9  P E A P - T L V     ( % 1 ! l d ! )  
+   €  #A?5H=>  >B:@KBK  I K E - ?>@BK  ( U D P   5 0 0 / 4 5 0 0 )   2  1@0=4<0CM@5  W i n d o w s .  
+   €  #A?5H=>  70:@KBK  I K E - ?>@BK  ( U D P   5 0 0 / 4 5 0 0 )   2  1@0=4<0CM@5  W i n d o w s .  
+   |  !;C610  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   70?CI5=0.  
+     Ђ  !;C610  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   >AB0=>2;5=0.  
+   < #40;5==K9  ?><>I=8:.   $09;  % 1   A  @07<5@><  % 2   1K;  CA?5H=>  ?>;CG5=  G5@57    ( ;>:0;L=>3>  ?>;L7>20B5;O)   % 3   ( C40;5==><C  ?>;L7>20B5;N)   % 4   ( C40;5==K9  I P - 04@5A:   % 5 ) .  
+     < #40;5==K9  ?><>I=8:.   $09;  % 1   A  @07<5@><  % 2   1K;  CA?5H=>  ?>;CG5=  G5@57    ( ;>:0;L=>3>  ?>;L7>20B5;O)   % 3   ( C40;5==><C  ?>;L7>20B5;N)   % 4   ( C40;5==K9  I P - 04@5A:   % 5 ) .  
+     ь  #40;5==K9  ?><>I=8:.   H81:0  >1@01>B:8  X M L   4;O  ( ;>:0;L=>3>  ?>;L7>20B5;O)   % 1   2>7=8:;0  ?@8  >B:@KB88  18;5B0  C40;5==>9  ?><>I8.  
+      #40;5==K9  ?><>I=8:.   ?KB=K9  ?>;L7>20B5;L  ( C40;5==K9  ?>;L7>20B5;L  % 1 )   =0G0;  :>=B@>;8@>20BL  =>28G:0  ( ;>:0;L=K9  ?>;L7>20B5;L  % 2 ) .  
+      #40;5==K9  ?><>I=8:.   ?KB=K9  ?>;L7>20B5;L  ( C40;5==K9  ?>;L7>20B5;L  % 1 )   :>=G8;  :>=B@>;8@>20BL  =>28G:0  ( ;>:0;L=K9  ?>;L7>20B5;L  % 2 ) .  
+    #40;5==K9  ?><>I=8:.   ?KB=K9  ?>;L7>20B5;L  ( ;>:0;L=K9  ?>;L7>20B5;L  % 1 )   =0G0;  :>=B@>;8@>20BL  =>28G:0  ( C40;5==K9  ?>;L7>20B5;L  % 2 ) .  
+      #40;5==K9  ?><>I=8:.   ?KB=K9  ?>;L7>20B5;L  ( ;>:0;L=K9  ?>;L7>20B5;L  % 1 )   :>=G8;  :>=B@>;8@>20BL  =>28G:0  ( C40;5==K9  ?>;L7>20B5;L  % 2 ) .  
+   ¤ #G5B=0O  70?8AL  " H e l p A s s i s t a n t "   >B:;NG5=0,   CB5@O=0  8;8  ?0@>;L  CG5B=>9  70?8A8  =5  <>65B  1KBL  ?@>25@5=.   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@  2  157>?0A=><  @568<5  8  22548B5  2  :><0=4=>9  AB@>:5  A;54CNICN  :><0=4C:   s e s s m g r . e x e   - s e r v i c e .   A;8  MB>  =5  CAB@0=8B  ?@>1;5<C,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8  M i c r o s o f t .  
+     ` W i n d o w s   =5  <>65B  >B:@KBL  B01;8FC  18;5B>2  A?@02:8  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@  2  157>?0A=><  @568<5  8  22548B5  2  :><0=4=>9  AB@>:5  A;54CNICN  :><0=4C:   s e s s m g r . e x e   - s e r v i c e .   A;8  MB>  =5  CAB@0=8B  ?@>1;5<C,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8  M i c r o s o f t .  
+     x H81:0  70?CA:0  H8D@>20=8O/ @0AH8D@>2:8  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@.   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+   0 H81:0  ?@8  CAB0=>2:5  C40;5==>3>  ?><>I=8:0.   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@  2  157>?0A=><  @568<5  8  22548B5  2  :><0=4=>9  AB@>:5  A;54CNICN  :><0=4C:   s e s s m g r . e x e   - s e r v i c e .   A;8  MB>  =5  CAB@0=8B  ?@>1;5<C,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8  M i c r o s o f t .  
+   p H81:0  70?CA:0  181;8>B5:8  W i n s o c k   ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@.   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+   ” H81:0  ?@8  70?CA:5  48A?5BG5@0  A50=A0  A?@02:8  4;O  C40;5==>3>  @01>G53>  AB>;0  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@  2  157>?0A=><  @568<5  8  22548B5  2  :><0=4=>9  AB@>:5  A;54CNICN  :><0=4C:   s e s s m g r . e x e   - s e r v i c e .   A;8  MB>  =5  CAB@0=8B  ?@>1;5<C,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8  M i c r o s o f t .  
+      H81:0  70?CA:0  @0A?>7=020B5;O  A5AA89  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.    0A?>7=020B5;L  A5AA89  A;C61K  A?@02:8  8  ?>445@6:8  =5?@028;L=>  =0AB@>5=.   >2B>@=>  CAB0=>28B5  W i n d o w s   X P .   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+     ђ 5  C405BAO  70@538AB@8@>20BL  @0A?>7=020B5;L  A5AA89  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@.   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+   t 5  C405BAO  70?CAB8BL  181;8>B5:C  I C S   ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@.   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+   м 5  C405BAO  =0AB@>8BL  :>=B@>;L  4>ABC?0  :  48A?5BG5@C  A50=A0  A?@02:8  4;O  C40;5==>3>  @01>G53>  AB>;0  ( :>4  >H81:8  % 1 ) .   #40;5==K9  ?><>I=8:  1C45B  >B:;NG5=.   5@5703@C78B5  :><?LNB5@.   A;8  ?@>1;5<0  A>E@0=8BAO,   >1@0B8B5AL  2  A;C61C  B5E=8G5A:>9  ?>445@6:8.  
+   €  >;L7>20B5;L  % 1 \ % 2   ?@8=O;  A50=A  % 3   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 ) .  
+   ”  !50=A  % 3   4;O  ?>;L7>20B5;O  % 1 \ % 2   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 )   7025@H5=.  
+   „  >;L7>20B5;L  % 1 \ % 2   =5  ?@8=O;  A50=A  % 3   ( 2848<K9  I P - 04@5A  % 5 ) .  
+     д  >;L7>20B5;L  % 1 \ % 2   =5  >B25B8;  =0  A50=A  % 3   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 ) .   @52KH5=>  2@5<O  >6840=8O  ?@83;0H5=8O.  
+       !50=A  % 3   4;O  ?>;L7>20B5;O  % 1 \ % 2   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 )   =5  ?@8=OB,   B0:  :0:  ?>;L7>20B5;L  =5  2>H5;  2  A8AB5<C  8;8  8<55BAO  0:B82=K9  A50=A.  
+     м  !50=A  % 3   4;O  ?>;L7>20B5;O  % 1 \ % 2   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 )   =5  ?@8=OB,   B0:  :0:  ?>;L7>20B5;L  C65  ?>;CG05B  ?><>IL.  
+     Ф  !50=A  % 3   4;O  ?>;L7>20B5;O  % 1 \ % 2   >B  % 4   ( 2848<K9  I P - 04@5A  % 5 )   =5  ?@8=OB  87- 70  =58725AB=>9  >H81:8:   % 6 . .  
+     ш  >28G>:  ( ;>:0;L=K9  ?>;L7>20B5;L  % 1 \ % 2 )   CAB0=>28;  >1@0B=>5  A>548=5=85  A  C40;5==K<  ?><>I=8:><  % 3   ( 2848<K9  I P - 04@5A:   % 4 ) .  
+     ь  >4:;NG5=85  C40;5==>3>  ?><>I=8:0  A  % 1   ( 2848<K9  % 2 )   =5  ?@8=OB>,   ?>A:>;L:C  18;5B  =0  ?><>IL  =5?@028;5=,   CAB0@5;  8;8  C40;5=.  
+     ¬  !>740=  18;5B  C40;5==>3>  ?><>I=8:0  A  4;8B5;L=>ABLN  % 1   G0A  4;O  ?>;L7>20B5;O  % 2 \ % 3 .  
+     |  #40;5=  18;5B  C40;5==>3>  ?><>I=8:0  4;O  ?>;L7>20B5;O  % 1 \ % 2 .  
+    % 1   A>740;  18;5B  M:A?5@B0  C40;5==>3>  ?><>I=8:0  4;O  8A?>;L7>20=8O  A  >1@0B=K<  ?>4:;NG5=85<.     0@0<5B@K  ?>4:;NG5=8O  4;O  18;5B0  M:A?5@B0:   % 2 .  
+     , #40;5==K9  ?><>I=8:  ( ;>:0;L=K9  ?>;L7>20B5;L  % 1 )   >B:@K;  =0  :><?LNB5@5  :0=0;  ?>ABC?0NI8E  40==KE  4;O  A50=A0  C40;5==>3>  ?><>I=8:0.   >@B  2E>4OI8E:   % 2 .  
+     Њ  ?KB=K9  ?>;L7>20B5;L  ( ;>:0;L=K9  ?>;L7>20B5;L  % 1 )   >B:@K;  18;5B  % 2 .  
+   L  f t p :   % 1 ! I 6 4 d !   109B  ?>;CG5=>  70  % 0  
+   P  f t p :   % 1 ! I 6 4 d !   109B  >B?@02;5=>  70  % 0  
+   p  #40;5=>  =54>?CAB8<>5  8<O  D09;0  % 1   ( % 3 )   2  ?0?:5  % 2 .  
+      $09;  % 1   1K;  ?>B5@O=,   ?>A:>;L:C  2A5  53>  8<5=0  1K;8  =54>?CAB8<K,   D09;  1C45B   
+ 2>AAB0=>2;5=  =0  MB0?5  2>AAB0=>2;5=8O  ?>B5@O==KE  D09;>2.  
+   h  525@=K9  0B@81CB  8<5=8  D09;0  N T F S   2  D09;5  0 x % 1 .  
+   „ @0925@  CAB@>9AB20  ?@>?CA:05B  1;>:8@>20==K5  AB@0=8FK  22>40- 2K2>40,   GB>  ?>=8605B  ?@>872>48B5;L=>ABL  A8AB5<K.     ;O  ?>8A:0  8  >1=0@C65=8O  ?@8G8=K  02B><0B8G5A:8  2:;NG5=0  ?@>3@0<<0  >BA;56820=8O.  
+     И  !;C610  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  >AB0=>2;5=0.     AB0=>2:0  ?@>872545=0  3@C??>2>9  ?>;8B8:>9.  
+   , M S   D T C   70?CAB8;AO  A>  A;54CNI8<8  =0AB@>9:0<8: % r % r  
+  
+ 0AB@>9:0  157>?0A=>AB8  ( O F F   =   0   8  O N   =   1 ) : % r  
+           !5B52>5  04<8=8AB@8@>20=85  B@0=70:F89  =   % 1 , % r  
+           !5B52K5  :;85=BK  =   % 2 , % r  
+           E>4OI85  @0A?@545;5==K5  B@0=70:F88  ?>  ?@>B>:>;C  N a t i v e   M S D T C   P r o t o c o l   =   % 3 , % r  
+           AE>4OI85  @0A?@545;5==K5  B@0=70:F88  ?>  ?@>B>:>;C  N a t i v e   M S D T C   P r o t o c o l   =   % 4 , % r  
+           @>B>:>;  T I P   =   % 5 , % r  
+           "@0=70:F88  X A   =   % 6 % 0  
+     ё =0G5=8O  =0AB@>9:8  157>?0A=>AB8  D T C   ( O F F   =   0   a n d   O N   =   1 ) :  
+ 	 !5B52>5  04<8=8AB@8@>20=85  B@0=70:F89  =   % 1 , % r  
+ 	 !5B52K5  :;85=BK  =   % 2 , % r  
+ 	 E>4OI85  @0A?@545;5==K5  B@0=70:F88  ?>  ?@>B>:>;C  N a t i v e   M S D T C   P r o t o c o l   =   % 3 , % r  
+           	 AE>4OI85  @0A?@545;5==K5  B@0=70:F88  ?>  ?@>B>:>;C  N a t i v e   M S D T C   P r o t o c o l   =   % 4 , % r  
+ 	 @>B>:>;  T I P   =   % 5 , % r  
+ 	 "@0=70:F88  X A   =   % 6 % 0  
+     „ A?>;L7C5BAO  25@A8O  A5@25@0  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   8;8  M i c r o s o f t   S Q L  
+ S e r v e r   2 0 0 0   D e s k t o p   E n g i n e   ( B0:  =07K205<K9  M S D E ) ,   8<5NI0O  8725AB=CN 
+ CO728<>ABL  ?@8  8A?>;L7>20=88  A  MB>9  25@A859  A8AB5<K  W i n d o w s .  
+ 'B>1K  C<5=LH8BL  CO728<>ABL  :><?LNB5@0  ?@8  0B0:0E  =5:>B>@KE  28@CA>2,   A5B52K5 
+ ?>@BK  T C P / I P   8  U D P   A5@25@0  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   8;8  M S D E   1K;8 
+ >B:;NG5=K.     'B>1K  2:;NG8BL  40==K5  ?>@BK,   =5>1E>48<>  CAB0=>28BL  8A?@02;5=85 
+ 8;8  =081>;55  ?>74=89  ?0:5B  >1=>2;5=8O  4;O  A5@25@0  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0  
+ 8;8  M S D E   A  251- C7;0  h t t p : / / w w w . m i c r o s o f t . c o m / s q l / d o w n l o a d s / d e f a u l t . a s p  
+     t !;C610  W i n M g m t   >1=0@C68;0  =5A>3;0A>20==>ABL  107K  40==KE  2  :0B0;>35  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y  
+ 8  =5  A<>3;0  CAB@0=8BL  55.   !>45@68<>5  1K;>  C40;5=>,   8  A>740=0  =>20O  1070  40==KE.  
+   ё  #40;5==K9  A50=A  5480- F5=B@0  ?@5@20=,   ?>B><C  GB>  =5  C40;>AL  2K?>;=8BL  ?@>25@:C  A8AB5<K.  
+   T { 845>4@0925@,   2>AAB0=>2;5==K9  ?>A;5  A1>O}  
+ 845>4@0925@  % h s   >1=0@C65=  8  2>AAB0=>2;5=  ?>A;5  A1>O.   >7<>6=>,   ?@>87>H;8  >H81:8  2  =5:>B>@KE  3@0D8G5A:8E  >?5@0F8OE.   >A;5  A;54CNI59  ?5@5703@C7:8  ?>O28BAO  480;>3>2>5  >:=>,   A  ?><>ILN  :>B>@>3>  <>6=>  1C45B  A>>1I8BL  >1  MB><  A1>5  2  :>@?>@0F8N  09:@>A>DB.  
+     `      5  C405BAO  ?>;CG8BL  A2545=8O  >  2;045;LF5 
+     @  
+ B>1@065=85  AB0B8AB8:8  ?@>B>:>;0  8  B5:CI8E  A5B52KE  ?>4:;NG5=89  T C P / I P .  
+  
+ N E T S T A T   [ - a ]   [ - b ]   [ - e ]   [ - n ]   [ - o ]   [ - p   ?@>B>:>;]   [ - r ]   [ - s ]   [ - v ]   [ 8=B5@20;]  
+  
+     - a                         B>1@065=85  2A5E  ?>4:;NG5=89  8  >6840NI8E  ?>@B>2.  
+     - b                         B>1@065=85  8A?>;=O5<>3>  D09;0,   CG0AB2CNI53>  2  A>740=88  :064>3> 
+                                 ?>4:;NG5=8O,   8;8  >6840NI53>  ?>@B0.   =>340  8725AB=K5  8A?>;=O5<K5 
+                                 D09;K  A>45@60B  <=>65AB25==K5  =57028A8<K5  :><?>=5=BK.   ">340 
+                                 >B>1@0605BAO  ?>A;54>20B5;L=>ABL  :><?>=5=B>2,   CG0AB2CNI8E  2 
+                                 A>740=88  ?>4:;NG5=8O,   ;81>  >6840NI89  ?>@B.     MB><  A;CG05  8<O 
+                                 8A?>;=O5<>3>  D09;0  =0E>48BAO  A=87C  2  A:>1:0E  [ ] ,   A25@EC  -  
+                                 :><?>=5=B,   :>B>@K9  8<  2K7K205BAO,   8  B0:  4>  B5E  ?>@,   ?>:0  =5 
+                                 4>AB8305BAO  T C P / I P .   0<5BLB5,   GB>  B0:>9  ?>4E>4  <>65B  70=OBL 
+                                 <=>3>  2@5<5=8  8  B@51C5B  4>AB0B>G=KE  @07@5H5=89.  
+     - e                         B>1@065=85  AB0B8AB8:8  E t h e r n e t .   =  <>65B  ?@8<5=OBLAO  2<5AB5 
+                                 A  ?0@0<5B@><  - s .  
+     - n                         B>1@065=85  04@5A>2  8  =><5@>2  ?>@B>2  2  G8A;>2><  D>@<0B5.  
+     - o                         B>1@065=85  :>40  ( I D )   ?@>F5AA0  :064>3>  ?>4:;NG5=8O.  
+     - p   ?@>B>:>;      B>1@065=85  ?>4:;NG5=89  4;O  ?@>B>:>;0,   7040205<KE  MB8< 
+                                 ?0@0<5B@><.   >?CAB8<K5  7=0G5=8O:   T C P ,   U D P ,   T C P v 6   8;8  U D P v 6 .  
+                                 A?>;L7C5BAO  2<5AB5  A  ?0@0<5B@><  - s   4;O  >B>1@065=8O  AB0B8AB8:8 
+                                 ?>  ?@>B>:>;0<.   >?CAB8<K5  7=0G5=8O:   I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,  
+                                 T C P ,   T C P v 6 ,   U D P   8;8  U D P v 6  
+     - r                         B>1@065=85  A>45@68<>3>  B01;8FK  <0@H@CB>2.  
+     - s                         B>1@065=85  AB0B8AB8G5A:8E  40==KE  ?>  ?@>B>:>;0<.   >  C<>;G0=8N 
+                                 40==K5  >B>1@060NBAO  4;O  I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,   T C P ,   T C P v 6 ,   U D P  
+                                 8  U D P v 6 .   0@0<5B@  - p   ?>72>;O5B  C:070BL  ?>4<=>65AB2>  2K2>4OI8EAO 
+                                 40==KE.  
+     - v                         @8  8A?>;L7>20=88  A  ?0@0<5B@><  - b ,   >B>1@0605B  ?>A;54>20B5;L=>ABL 
+                                 :><?>=5=B>2,   CG0AB2CNI8E  2  A>740=88  ?>4:;NG5=8O,   8;8  >6840NI89 
+                                 ?>@B  4;O  2A5E  8A?>;=O5<KE  D09;>2.  
+     8=B5@20;            >2B>@=K9  2K2>4  AB0B8AB8G5A:8E  40==KE  G5@57  C:070==K9 
+                                 ?@><56CB>:  2@5<5=8  2  A5:C=40E.     ;O  ?@5:@0I5=8O  2K2>40  40==KE 
+                                 =06<8B5  :;028H8  C T R L + C .   A;8  ?0@0<5B@  =5  7040=,   A2545=8O  > 
+                                 B5:CI59  :>=D83C@0F88  2K2>4OBAO  >48=  @07.    
+     $      [ !8AB5<0]  
+  
+   H      - -   =58725AB=K5  :><?>=5=BK  - -  
+           % 1 ! s !  
+          [ % 1 ! s ! ]  
+  
+   ¤   575@28@>20=85  ?@>AB@0=AB20  8<5=  U R L   A  ?@5D8:A><  " % 2 "   1K;>  4>102;5=>  CA?5H=>.  
+       575@28@>20=85  ?@>AB@0=AB20  8<5=  U R L   A  ?@5D8:A><  " % 2 "   1K;>  C40;5=>  CA?5H=>.  
+    5  C405BAO  ?@5>1@07>20BL  2A5  M;5<5=BK  A?8A:0  I P - 04@5A>2  B>;L:>  4;O  ?@85<0.   @0925@  1C45B  ?@8=8<0BL  2A5  4>ABC?=K5  8=B5@D59AK.  
+     $  A u d i t u s r   1 . 0  
+     p  2548B5  " a u d i t u s r   / ? "   4;O  ?>;CG5=8O  ?>4@>1=>AB59. % n  
+   \ A u d i t u s r   -   0405B  ?>;8B8:C  0C48B0  =0  ?>;L7>20B5;O.  
+ / ?   K2>48B  A?@02:C.  
+ A;8  ?0@0<5B@K  =5  C:070=K,   B>  >B>1@060NBAO  B5:CI85  ?0@0<5B@K.  
+ #:068B5  >48=  87  ?0@0<5B@>2:  
+ / i s   < CG0AB=8:  157>?0A=>AB8> : < A?8A>:  :0B53>@89,   @0745;5==KE  70?OBK<8>  
+         4>102;O5B  8;8  87<5=O5B  M;5<5=B  A?8A:0  " i n c l u d e - s u c c e s s "  
+ / i f   < CG0AB=8:  157>?0A=>AB8> : < A?8A>:  :0B53>@89,   @0745;5==KE  70?OBK<8>  
+         4>102;O5B  8;8  87<5=O5B  M;5<5=B  A?8A:0  " i n c l u d e - f a i l u r e "  
+ / e s   < CG0AB=8:  157>?0A=>AB8> : < A?8A>:  :0B53>@89,   @0745;5==KE  70?OBK<8>  
+         4>102;O5B  8;8  87<5=O5B  M;5<5=B  A?8A:0  " e x c l u d e - s u c c e s s "  
+ / e f   < CG0AB=8:  157>?0A=>AB8> : < A?8A>:  :0B53>@89,   @0745;5==KE  70?OBK<8>  
+         4>102;O5B  8;8  87<5=O5B  M;5<5=B  A?8A:0  " e x c l u d e - f a i l u r e "  
+ / r     < CG0AB=8:  157>?0A=>AB8>  
+         C40;O5B  2A5  M;5<5=BK  A?8A:0  0C48B0  =0  ?>;L7>20B5;O  4;O  C:070==>3> 
+         CG0AB=8:0  157>?0A=>AB8 
+ / r a   C40;O5B  2A5  M;5<5=BK  A?8A:0  0C48B0  =0  ?>;L7>20B5;O 
+ / e     < 8<O_ D09;0>  
+         M:A?>@B8@C5B  2A5  B5:CI85  ?0@0<5B@K  0C48B0  =0  ?>;L7>20B5;O  2  D09; 
+ / i     < 8<O_ D09;0>  
+         8<?>@B8@C5B  B5:CI85  ?0@0<5B@K  0C48B0  =0  ?>;L7>20B5;O  87  D09;0 
+ >?CAB8<K5  :0B53>@88:  
+   ,  i n c l u d e : s u c c e s s :  
+     ,  i n c l u d e : f a i l u r e :  
+     ,  e x c l u d e : s u c c e s s :  
+     ,  e x c l u d e : f a i l u r e :  
+     ђ   ?>4A8AB5<5  K e r b e r o s   2>7=8:;0  >H81:0  ?@8  ?>;CG5=88  18;5B>2  A 
+ :>=B@>;;5@0  4><5=0  ?>  A5B52><C  ?@>B>:>;C  U D P .     1KG=>  MB> 
+ 1K205B  2K720=>  >H81:0<8  2  A5B8.     1@0B8B5AL  :  A8AB5<=><C 
+ 04<8=8AB@0B>@C.  
+   L @8  8A?>;L7>20=88  A<0@B- :0@BK  G5@57  V P N - ?>4:;NG5=85  ?>4A8AB5<>9  K e r b e r o s    
+ >1=0@C65=0  >H81:0.     1KG=>  MB>  >7=0G05B,   GB>  :0@B0  1K;0  872;5G5=0  87 
+ CAB@>9AB20  GB5=8O  2  E>45  A50=A0  V P N .     4=8<  87  2>7<>6=KE  @5H5=89  O2;O5BAO 
+ 70:@KB85  V P N - ?>4:;NG5=8O,   2AB02:0  :0@BK  8  2>7>1=>2;5=85  ?>4:;NG5=8O.  
+     t @8  8A?>;L7>20=88  A<0@B- :0@BK  2  48A?5BG5@5  CG5B=KE  40==KE  ?>4A8AB5<0  K e r b e r o s  
+ >1=0@C68;0  >H81:C,   ?@8G8=>9  :>B>@>9  <>65B  O2;OBLAO  =525@=K9  8;8  =5C:070==K9 
+ P I N - :>4  A<0@B- :0@BK.     B:@>9B5  >1J5:B»   !>E@0=5=85  8<5=  ?>;L7>20B5;59  8  ?0@>;59"  
+ =0  ?0=5;8  C?@02;5=8O  8  A=>20  22548B5  P I N - :>4  4;O  CG5B=KE  40==KE  % 1 % 2 % 3 .  
+     „   48A?5BG5@5  CG5B=KE  40==KE  1K;  22545=  ?0@>;L  A  >H81:>9.  
+ B:@>9B5  >1J5:B  " !>E@0=5=85  8<5=  ?>;L7>20B5;59  8  ?0@>;59"   =0  ?0=5;8 
+ C?@02;5=8O  8  A=>20  22548B5  - :>4  4;O  CG5B=KE  40==KE  % 1 % 2 % 3 .  
+     ё  W i n d o w s   X P   S t a r t e r   E d i t i o n :   5?>445@68205<>5  A>AB>O=85  2>AAB0=>2;5=>  ( ?>4@>1=>AB8:   % 2 ) .  
+   ђ  5  C405BAO  >B:@KBL  I K E - ?>@BK  ( U D P   5 0 0 / 4 5 0 0 )   2  1@0=4<0CM@5  W i n d o w s .  
+     ђ  5  C405BAO  70:@KBL  I K E - ?>@BK  ( U D P   5 0 0 / 4 5 0 0 )   2  1@0=4<0CM@5  W i n d o w s .  
+     Р  5B  ;>:0;L=>3>  A5@B8D8:0B0  E F S   4;O  H8D@>20=8O  40==>3>  D09;0.   5B 
+ @575@2=>9  :>?88  A5@B8D8:0B0  E F S .  
+     |  5B  @575@2=>9  :>?88  B5:CI53>  ;>:0;L=>3>  A5@B8D8:0B0  E F S .  
+     T K;8  A>740=K  @575@2=K5  :>?88  20H8E  A5@B8D8:0B>2  8  A>>B25BAB2CNI8E  :;NG59.   A;8  =5  B@51C5BAO  ?@>4>;65=85  ?@>F5AA0,   =06<8B5  " B<5=0" .   'B>1K  ?>4B25@48BL,   =06<8B5  " O K " .  
+     l  #A?5H=>  A>740=K  @575@2=K5  :>?88  A5@B8D8:0B0  E F S .  
+     t  5C40G0  ?@8  A>740=88  @575@2=KE  :>?89  A5@B8D8:0B0  E F S .  
+   \   575@2=0O  :>?8O  A5@B8D8:0B0  E F S   8  :;NG0.  
+     D  2548B5  8<O  D09;0  0@E820  P F X .  
+     CBL  2K2>40  D09;0  P F X   >G5=L  4;8==K9.   #:>@>B8B5  53>  8  ?>2B>@8B5  ?>?KB:C.  
+   < >:07K205B  8;8  87<5=O5B  H8D@>20=85  ?0?>:  8  D09;>2  2  N T F S - @0745;0E.  
+  
+     C I P H E R   [ / E   |   / D ]   [ / S : < ?0?:0> ]   [ / A ]   [ / I ]   [ / F ]   [ / Q ]   [ / H ]   [ < ?CBL>   [ . . . ] ]  
+  
+     C I P H E R   / K  
+  
+     C I P H E R   / R : < 8<O_ D09;0>  
+  
+     C I P H E R   / U   [ / N ]  
+  
+     C I P H E R   / W : < ?0?:0>  
+  
+     C I P H E R   / X [ : < E F S - D09;> ]   [ < 8<O_ D09;0> ]  
+         / A           K?>;=O5B  >?5@0F8N  :0:  4;O  D09;>2,   B0:  8  4;O  ?0?>:.   0H8D@>20==K9 
+                       D09;  <>65B  1KBL  @0AH8D@>20=  ?@8  53>  87<5=5=88,   5A;8  ?0?:0,   2 
+                       :>B>@0O  53>  A>45@68B,   =5  70H8D@>20=0.    5:><5=4C5BAO  H8D@>20BL 
+                       D09;  8  ?0?:C.  
+         / D            0AH8D@>2K205B  C:070==K5  ?0?:8.   0?:8  <0@:8@CNBAO  B0:8<  >1@07><,  
+                       GB>  D09;K,   4>102;5==K5  2?>A;54AB288,   =5  1C4CB  70H8D@>20=K.  
+         / E           0H8D@>2K205B  C:070==K5  ?0?:8.   0?:8  <0@:8@CNBAO  B0:8<  >1@07><,  
+                       GB>  D09;K,   4>102;5==K5  2?>A;54AB288,   1C4CB  B0:65  70H8D@>20=K.  
+         / F           @8=C48B5;L=>  H8D@C5B  2A5  2K1@0==K5  >1J5:BK,   4065  5A;8  >=8 
+                       C65  70H8D@>20=K.   >  C<>;G0=8N,   @0=55  70H8D@>20==K5  >1J5:BK 
+                       ?>2B>@=>  =5  H8D@CNBAO.  
+         / H           B>1@0605B  A:@KBK5  8;8  A8AB5<=K5  D09;K.   >  C<>;G0=8N  MB8  D09;K 
+                       =5  >B>1@060NBAO.  
+         / I           @>4>;605B  2K?>;=5=85  C:070==>9  >?5@0F88  4065  ?>A;5  >1=0@C65=8O 
+                       >H81>:.   >  C<>;G0=8N,   C I P H E R   ?@5:@0I05B  @01>BC  ?@8  2>7=8:=>25=88 
+                       >H81>:.  
+         / K           !>7405B  =>2K9  :;NG  H8D@>20=8O  D09;>2  4;O  ?>;L7>20B5;O,  
+                       70?CAB82H53>  C I P H E R .   A;8  7040=  MB>B  ?0@0<5B@,   2A5  ?@>G85 
+                       ?0@0<5B@K  83=>@8@CNBAO.  
+         / N           A?>;L7C5BAO  B>;L:>  A  / U .   -B>B  ?0@0<5B@  70?@5I05B  >1=>2;5=85 
+                       :;NG59  8  8A?>;L7C5BAO  4;O  ?>8A:0  2A5E  70H8D@>20==KE  D09;>2  =0 
+                       ;>:0;L=KE  48A:0E.  
+         / Q           K2>48B  B>;L:>  =081>;55  206=CN  8=D>@<0F8N.  
+         / R           5=5@8@C5B  :;NG  8  A5@B8D8:0B  035=B0  2>AAB0=>2;5=8O  E F S ,   0  70B5< 
+                       70?8AK205B  8E  2  P F X - D09;  ( :>B>@K9  A>45@68B  8  A5@B8D8:0B,   8  :;NG)  
+                       8  C E R - D09;  ( :>B>@K9  A>45@68B  B>;L:>  A5@B8D8:0B) .  
+                       4<8=8AB@0B>@  <>65B  4>1028BL  A>45@68<>5  C E R - D09;0  2  ?>;8B8:C 
+                       2>AAB0=>2;5=8O  E F S ,   GB>1K  A>740BL  035=B  2>AAB0=>2;5=8O  4;O 
+                       ?>;L7>20B5;59  8  8<?>@B8@>20BL  P F X - D09;  4;O  2>AAB0=>2;5=8O 
+                       8=48284C0;L=KE  D09;>2.  
+         / S           K?>;=O5B  2K1@0==CN  >?5@0F8N  2  C:070==>9  ?0?:5  8  2A5E  ?>4?0?:0E.  
+         / U           1@0I05BAO  :>  2A5<  70H8D@>20==K<  D09;0<  =0  ;>:0;L=KE  48A:0E.  
+                       -B>  ?@82>48B  :  >1=>2;5=8N  ?>;L7>20B5;LA:>3>  :;NG0  H8D@>20=8O 
+                       D09;>2  8;8  :;NG0  H8D@>20=8O  035=B0  2>AAB0=>2;5=8O  4>  8A?>;L7C5<KE 
+                       2  40==K9  <><5=B  :;NG59,   5A;8  >=8  1K;8  87<5=5=K.   -B>B  ?0@0<5B@ 
+                       =5  8A?>;L7C5BAO  =8  A  :0:8<8  4@C38<8  ?0@0<5B@0<8,   :@><5  / N .  
+         / W           #40;O5B  2AN  8=D>@<0F8N  2  =58A?>;L7C5<><  48A:>2><  ?@>AB@0=AB25  =0 
+                       C:070==><  B><5.   A;8  7040=  MB>B  ?0@0<5B@,   2A5  ?@>G85  ?0@0<5B@K 
+                       83=>@8@CNBAO.   #:070==0O  ?0?:0  <>65B  =0E>48BLAO  2  ;N1><  <5AB5 
+                       ;>:0;L=>3>  B><0.   A;8  MB>  B>G:0  ?>4:;NG5=8O,   C:07K20NI0O  =0  4@C3>9 
+                       B><,   B>  1C45B  C40;5=0  8=D>@<0F8O  2  =58A?>;L7C5<><  ?@>AB@0=AB25 
+                       MB>3>  B><0.  
+         / X           @E820F8O  A5@B8D8:0B0  E F S   8  :;NG59  2  D09;  A  C:070==K<  8<5=5<.  
+                       A;8  C:070=  E F S - D09;,   B>  4;O  H8D@>20=8O  0@E828@C5<>3>  D09;0 
+                       8A?>;L7C5BAO  A5@B8D8:0B  B5:CI53>  ?>;L7>20B5;O.   =0G5,   1C4CB 
+                       0@E828@>20=K  A5@B8D8:0B  E F S   8  :;NG8  B5:CI53>  ?>;L7>20B5;O.  
+  
+  
+         < ?0?:0>               0405B  ?CBL  :  ?0?:5.  
+         < 8<O_ D09;0>       <O  D09;0  157  C:070=8O  @0AH8@5=8O  8<5=8  D09;0.  
+         < ?CBL>                 0405B  H01;>=,   D09;  8;8  ?0?:C.  
+         < E F S - D09;>         CBL  :  70H8D@>20==><C  D09;C.  
+  
+         @8  2K7>25  157  ?0@0<5B@>2  C I P H E R   ?>:07K205B  A>AB>O=85  H8D@>20=8O 
+         B5:CI59  ?0?:8  8  A>45@60I8EAO  2  =59  D09;>2.   >6=>  8A?>;L7>20BL  =5A:>;L:> 
+         8<5=  ?0?>:  8  8A?>;L7>20BL  2  8<5=0E  ?>4AB0=>2>G=K5  A8<2>;K.   0@0<5B@K 
+         @0745;ONBAO  ?@>15;0<8.  
+     €  M S   D T C   ?>;CG8;  =525@=>5  A>>1I5=85.   =D>@<0F8O  >  A>1KB88:   % 1 . % 0  
+     а  >AB83=CB  ?@545;  157>?0A=>AB8  4;O  T C P / I P ,   =0;0305<K9    =0  :>;8G5AB2>  ?>?KB>:  >4=>2@5<5==KE  T C P - ?>4:;NG5=89.  
+      >AB02I8:  % 1   70@538AB@8@>20=  2  ?@>AB@0=AB25  8<5=  W M I   % 2 ,   =>  =5  C:070;  A2>9AB2>  H o s t i n g M o d e l .       ;O  70?CA:0  ?>AB02I8:0  1C45B  8A?>;L7>20BLAO  CG5B=0O  70?8AL  L o c a l S y s t e m .     -B>  ?@828;538@>20==0O  CG5B=0O  70?8AL,   8  5A;8  ?>AB02I8:C  =5  C40ABAO  >;8F5B2>@8BL  70?@>A  ?>;L7>20B5;O,   MB>  <>65B  ?@825AB8  :  =0@CH5=8N  157>?0A=>AB8.       @>25@LB5,   GB>  ?>AB02I8:  =5  C3@>605B  157>?0A=>AB8,   8  >1=>28B5  A2>9AB2>  @538AB@0F88  ?>AB02I8:0  H o s t i n g M o d e l   4>  CG5B=>9  70?8A8  A  =08<5=LH8<8  ?@828;538O<8,   =5>1E>48<K5  4;O  40==>9  DC=:F8>=0;L=>AB8.  
+   T { @0925@  M:@0=0  ?5@5AB0;  >B25G0BL}  
+ @0925@  M:@0=0  % h s   ?@5:@0B8;  ?@028;L=>  @01>B0BL.     !>E@0=8B5  @01>BC  8  ?5@570?CAB8B5  A8AB5<C,   GB>1K  ?>;=>ABLN  2>AAB0=>28BL  @01>BC  M:@0=0.   @8  A;54CNI59  ?5@5703@C7:5  :><?LNB5@0  >B:@>5BAO  480;>3>2>5  >:=>,   ?@54;030NI55  A>>1I8BL  >1  >H81:5  2  :>@?>@0F8N  09:@>A>DB.  
+   p
+ 5B  4>ABC?0  :  D09;C  % 1   ?>  >4=>9  87  A;54CNI8E  ?@8G8=:  
+ ;81>  2>7=8:;8  ?@>1;5<K  A  A5B52K<  ?>4:;NG5=85<,   48A:><  A  D09;><  8;8  E@0=8;8I5<  A  4@0925@0<8,  
+ CAB0=>2;5==K<8  =0  MB><  :><?LNB5@5,   ;81>  >BACBAB2C5B  48A:.    
+ @>3@0<<0  % 2   1K;0  70:@KB0  2A;54AB285  >H81:8. % n % n @>3@0<<0:   % 2 % n $09;:   % 1 % n % n =0G5=85  >H81:8  =0E>48BAO  2  @0745;5  4>?>;=8B5;L=KE  40==KE. % n 59AB285  ?>;L7>20B5;O% n 1 .   !=>20  >B:@>9B5  D09;.    
+ @>1;5<0  <>65B  1KBL  2@5<5==>9  8  8A?@028BAO  A0<0  A>1>9,   :>340  ?@>3@0<<0  A=>20  1C45B  70?CI5=0. % n 2    
+ A;8  D09;  2A5  5I5  =5  C405BAO  >B:@KBL  8% n % t -   >=  =0E>48BAO  2  A5B8,  
+ B>  A5B52>9  04<8=8AB@0B>@  4>;65=  C1548BLAO,   GB>  A5BL  @01>B05B  8  <>6=>  ?>4:;NG8BLAO  :  A5@25@C. % n % t -   >=  =0E>48BAO  =0  AJ5<=><  48A:5,   =0?@8<5@,   =0  48A:5B5  8;8  :><?0:B- 48A:5,   C1548B5AL,   GB>  48A:  ?>;=>ABLN  2AB02;5=  2  :><?LNB5@. % n 3 .   @>25@LB5  8  2>AAB0=>28B5  D09;>2CN  A8AB5<C,   2K?>;=OO  :><0=4C  C H K D S K .   'B>1K  70?CAB8BL  :><0=4C  C H K D S K ,   I5;:=8B5  " CA:" ,   " K?>;=8BL" ,   =0?5G0B09B5  " C M D "   8  =06<8B5  " " .     :><0=4=>9  AB@>:5  22548B5  " C H K D S K   / F "   8  =06<8B5  " " . % n 4 .   A;8  ?@>1;5<0  2A5  5I5  ACI5AB2C5B,   2>AAB0=>28B5  D09;  87  0@E82=>9  :>?88. % n 5 .   @>25@LB5,   <>6=>  ;8  >B:@KBL  4@C385  D09;K  =0  MB><  65  48A:5.   A;8  =5B,   B>  48A:  <>65B  1KBL  ?>2@5645=.   A;8  MB>  65AB:89  48A:,   >1@0B8B5AL  70  ?><>ILN  :  A8AB5<=><C  04<8=8AB@0B>@C  8;8 
+ ?@>872>;8B5;N. % n >?>;=8B5;L=K5  40==K5% n =0G5=85  >H81:8:   % 3 % n "8?  48A:0:   % 4  
+     Њ  W i n d o w s   X P   S t a r t e r   E d i t i o n :   5?>445@68205<>5  A>AB>O=85  ( B8?:   % 1 ) .  
+   ¬  W i n d o w s   X P   S t a r t e r   E d i t i o n :   5?>445@68205<>5  A>AB>O=85  2>AAB0=>2;5=>    ( B8?:   % 1 ) .  
+        W i n d o w s   X P   S t a r t e r   E d i t i o n :   5?>445@68205<>5  A>AB>O=85    ( ?>4@>1=>AB8:   % 2 ) .  
+       5  C40;>AL  ?@>G5ABL  ?>;8B8:C  ?>;L7>20B5;O  @568<0  70<K:0=8O  =0  A51O    4;O  ?@8<5=5=8O  ?>;8B8:8.   ( % 1 ) .   1@01>B:0  3@C??>2>9  ?>;8B8:8  ?@5:@0I5=0.  
+     % 1   87  4@C3>3>  ;5A0  2K?>;=8;  2E>4  =0  40==><  :><?LNB5@5.   1@01>B:0  3@C??>2>9  ?>;8B8:8  @07;8G=KE  ;5A>2  >B:;NG5=0,   8  ?@8<5=O5BAO  70<:=CB0O  =0  A51O  >1@01>B:0  2  MB><  ;5AC  4;O  MB>9  CG5B=>9  70?8A8  ?>;L7>20B5;O.  
+     ф  @8  ?>?KB:5  ?@>25@8BL,   ?@8=04;560B  ;8  CG5B=K5  70?8A8  ?>;L7>20B5;O  8  :><?LNB5@0  >4=><C  4><5=C,   ?@>87>H;0  >H81:0  ( % 1 ) .  
+     X 1@01>B:0  ?5@5<5I05<KE  ?@>D8;59  ?>;L7>20B5;O  87  4@C3>3>  ;5A0  >B:;NG5=0.   5  C40;>AL  703@C78BL  20H  ?5@5<5I05<K9  ?@>D8;L  ?>;L7>20B5;O,   2K?>;=O5BAO  2E>4  2  A8AB5<C  A  ?><>ILN  ;>:0;L=>3>  ?@>D8;O.   7<5=5=8O  MB>3>  ?@>D8;O  =5  1C4CB  A:>?8@>20=K  =0  A5@25@  ?@8  2KE>45.     1@0B8B5AL  :  A5B52><C  04<8=8AB@0B>@C.  
+     h !;C615  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   =5  C405BAO  CAB0=>28BL  70?@>AK  A>1KB89  A  W M I   4;O  =01;N45=8O  70  0=B828@CA=K<  A@54AB20<  8  1@0=4<0CM@><  ?>AB>@>==8E  ?@>872>48B5;59.  
+     ё  !;C615  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   =5  C405BAO  703@C78BL  1@0=4<0CM@K  87  W M I .  
+   Р  !;C615  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   =5  C405BAO  703@C78BL  0=B828@CA=K5  ?@>3@0<<K    87  W M I .  
+    !;C610  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   >1=0@C68;0  ?@>3@0<<C  AB>@>==59  >@30=870F88  A  :>4><,   =5  O2;ONI8<AO  G U I D .     >4= % 1 .  
+     !;C615  F5=B@0  >15A?5G5=8O  157>?0A=>AB8  W i n d o w s   =5  C405BAO  CAB0=>28BL  70?@>AK  A>1KB89  A  W M I   4;O  =01;N45=8O  70  70?CA:><  8  >AB0=>2:>9  A;C61K.  
+     Ђ 8A?5BG5@  B@0=70:F89  X A   =0E>48BAO  2  =5A>3;0A>20==><  A>AB>O=88  8  =5  <>65B  ?@>4>;60BL  @01>BC.    
+ "@0=70:F88  X A   2K?>;=OBLAO  =5  1C4CB.   1@0B8B5AL  2  A;C61C  ?>445@6:8  ?@>4C:B>2  M i c r o s o f t .   % 1   % 0  
+     D 8A?5BG5@  B@0=70:F89  X A   =5  <>65B  703@C78BL  B@51C5<CN  X A   D l l ,   B0:  :0:  4;O  MB>9  >?5@0F88  =5>1E>48<    M;5<5=B  A8AB5<=>3>  @55AB@0.    
+ !>7409B5  AB@>:>2K9  ?0@0<5B@  2  @55AB@5  ?>4  :;NG><   
+ H K L M \ S o f t w a r e \ M i c r o s o f t \ M S D T C \ X A D L L ,    
+ 345  8<O  ?0@0<5B@0  -   MB>  8<O  d l l   2  D>@<0B5  d l l n a m e . d l l ,   8  MB>B  ?0@0<5B@  1C45B  C:07K20BL  ?>;=K9  ?CBL  :  D l l .    
+ A;8  2K  =5  C25@5=K  2  8<5=8  A2>59  X A   D l I   8;8  ?CB8  :  =59,   >1@0B8B5AL  :  4>:C<5=B0F88  ?>AB02I8:0  X A .  
+ A;8  <0H8=0  O2;O5BAO  G0ABLN  :;0AB5@0,  
+ 40==K9  M;5<5=B  @55AB@0  4>;65=  1KBL  A>740= 
+ 4;O  :064>3>  C7;0  2  :;0AB5@5.   % 1   % 0  
+     ф !;C615  W i n M g m t   =5  C405BAO  703@C78BL  D09;K  107K  40==KE  2  :0B0;>3  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y .     @8G8=>9  MB>3> 
+ <>3CB  1KBL  ?>2@5645=85  D09;>2  107K  40==KE,   ?0@0<5B@K  157>?0A=>AB8  :0B0;>30,   =54>AB0B>:  <5AB0  =0  48A:5  8  4@C385 
+ =5?>;04:8  2  @5AC@A0E  A8AB5<K,   B0:85  :0:  =5E20B:0  ?0<OB8.     A;8  MB0  >H81:0  ?@>8AE>48B  2AO:89  @07  ?>A;5  ?5@5703@C7:8  :><?LNB5@0,   B> 
+ 04<8=8AB@0B>@  :><?LNB5@0  4>;65=  >AB0=>28BL  A;C61C  W i n M g m t ,   C40;8BL  87  MB>3>  @0A?>;>65=8O  2A5  D09;K  8  ?0?:8 
+ 8  A=>20  70?CAB8BL  A;C61C  W i n M g m t .  
+     X 5  C405BAO  >1=>28BL  107C  40==KE  A;C61K  W i n M g m t   2  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   2>  2@5<O  CAB0=>2:8.      
+ =0  1K;0  ?5@5=5A5=0  2  ?0?:C  % 1 ,   8  A>740=0  =>20O  1070  40==KE.  
+     X !1>9  ?@8  ?5G0B8  4>:C<5=B0  % 1   2;045;LF0  % 2   =0  ?@8=B5@5  % 3 .   "8?  40==KE:   % 4 .    07<5@  D09;0  >G5@548  2  109B0E:   % 5 .   '8A;>  =0?5G0B0==KE  109B>2:   % 6 .   1I55  G8A;>  AB@0=8F  2  4>:C<5=B5:   % 7 .   '8A;>  =0?5G0B0==KE  AB@0=8F:   % 8 .   ;85=BA:89  :><?LNB5@:   % 9 .   >4  >H81:8  W i n 3 2 ,   2>72@0I5==>9  ?@>F5AA>@><  ?5G0B8:   % 1 0 .   % 1 1  
+     д 0AB@>9:8  >3@0=8G5=89,   7040==K5  =0  C@>2=5  <0H8=K,   =5  ?@54>AB02;ONB  @07@5H5=85  % 1   % 2   4;O  ?@8;>65=8O  A5@25@0  C O M   S e r v e r  
+ ?>;L7>20B5;N  % 3 \ % 4   S I D   ( % 5 ) .     -B>  @07@5H5=85  <>6=>  87<5=8BL  A  ?><>ILN 
+ A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+      0AB@>9:8  >3@0=8G5=89,   7040==K5  =0  C@>2=5  <0H8=K,   =5  ?@54>AB02;ONB  @07@5H5=85  % 1   % 2   4;O  ?@8;>65=8O    A5@25@0  C O M   S e r v e r  
+ A  C L S I D   % n % 3 % n   ?>;L7>20B5;N  % 4 \ % 5   S I D   ( % 6 ) .     -B>  @07@5H5=85  <>6=>   
+ 87<5=8BL  A  ?><>ILN  A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+   Ф 0AB@>9:8  @07@5H5=89    % 1   =5  ?@54>AB02;ONB  @07@5H5=85  % 2   % 3   4;O  ?@8;>65=8O    A5@25@0  C O M   S e r v e r  
+ A  C L S I D   % n % 4 % n   ?>;L7>20B5;N  % 5 \ % 6   S I D   ( % 7 ) .     -B>  @07@5H5=85   
+ <>6=>  87<5=8BL  A  ?><>ILN  A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+     Д 0AB@>9:8  @07@5H5=89    % 1   =5  ?@54>AB02;ONB  @07@5H5=85  % 2   4;O  4>ABC?0  :  ?@8;>65=8N 
+ % 3   A5@25@0  C O M   S e r v e r   ?>;L7>20B5;N  % 4 \ % 5   S I D   ( % 6 ) .   -B>  @07@5H5=85  <>6=>  87<5=8BL  A  ?><>ILN   
+ A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+   < 0AB@>9:8  @07@5H5=89  4;O  :>=:@5B=KE  ?@8;>65=89  =5  ?@54>AB02;ONB  @07@5H5=85  % 1   4;O  4>ABC?0  :  ?@8;>65=8N  % 2  
+ A5@25@0  C O M   S e r v e r   ?>;L7>20B5;N  % 3 \ % 4   S I D   ( % 5 ) .   @8;>65=85  CAB0=>28;>  MB>   
+ @07@5H5=85  ?@>3@0<<=K<  ?CB5<.    
+ 'B>1K  87<5=8BL  MB>  @07@5H5=85,   >1@0B8B5AL  :  ?>AB02I8:C  ?@8;>65=8O.  
+   ш 0AB@>9:8  >3@0=8G5=89,   7040==K5  =0  C@>2=5  <0H8=K,   =5  ?@54>AB02;ONB  @07@5H5=85    % 1   4;O  4>ABC?0  :  ?@8;>65=8N  % 2   A5@25@0  C O M   S e r v e r  
+ ?>;L7>20B5;N  % 3 \ % 4   S I D   ( % 5 ) .   -B>  @07@5H5=85  <>6=>  87<5=8BL  A  ?><>ILN  A@54AB20 
+ 04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+     < 5?@028;L=K9  45A:@8?B>@  157>?0A=>AB8  % 1   % 2   =0  C@>2=5  <0H8=K.   =  A>45@68B   
+ M;5<5=BK  C?@02;5=8O  4>ABC?><  A c c e s s   C o n t r o l   A  =5?@028;L=K<8  @07@5H5=8O<8.   >MB><C  70?@>H5==>5  459AB285  =5  2K?>;=5=>.  
+ -B>  @07@5H5=85  <>6=>  8A?@028BL  A  ?><>ILN  A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+      5?@028;L=K9  45A:@8?B>@  157>?0A=>AB8  70?CA:0  8  0:B820F88  4;O  ?@8;>65=8O  A5@25@0  C O M   S e r v e r   A  C L S I D   % n % 1 % n .    
+ =  A>45@68B  M;5<5=BK  C?@02;5=8O  4>ABC?><  A c c e s s   C o n t r o l   A  =5?@028;L=K<8  @07@5H5=8O<8.  
+ >MB><C  70?@>H5==>5  459AB285  =5  2K?>;=5=>.   -B>  @07@5H5=85  <>6=>  8A?@028BL  A  ?><>ILN 
+ A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+   h 5?@028;L=K9  45A:@8?B>@  157>?0A=>AB8  4>ABC?0  % 1   4;O  ?@8;>65=8O  % 2   A5@25@0  C O M   S e r v e r .  
+ =  A>45@68B  M;5<5=BK  C?@02;5=8O  4>ABC?><  A c c e s s   C o n t r o l   A  =525@=K<8  @07@5H5=8O<8.    
+ >MB><C  70?@>H5==>5  459AB285  =5  2K?>;=5=>.   -B>  @07@5H5=85  <>6=>  8A?@028BL  A  ?><>ILN   
+ A@54AB20  04<8=8AB@8@>20=8O  C o m p o n e n t   S e r v i c e s .  
+   ¬ 5?@028;L=K9  45A:@8?B>@  157>?0A=>AB8  4>ABC?0  4;O  ?@8;>65=8O  % 1   A5@25@0  C O M   S e r v e r .  
+ =  A>45@68B  M;5<5=BK  C?@02;5=8O  4>ABC?><  A c c e s s   C o n t r o l   A  =525@=K<8  @07@5H5=8O<8.  
+ >MB><C  70?@>H5==>5  459AB285  =5  2K?>;=5=>.   @8;>65=85  CAB0=>28;>  MB>   
+ @07@5H5=85  ?@>3@0<<=K<  >1@07><.   'B>1K  87<5=8BL  MB>  @07@5H5=85,   >1@0B8B5AL  :  ?>AB02I8:C  ?@8;>65=8O.  
+      5?@028;L=K9  45A:@8?B>@  157>?0A=>AB8  % 1   =0  C@>2=5  <0H8=K.   =  >?@545;5=  :0:  =5459AB28B5;L=0O  AB@>:0  O7K:0  D>@<0B0  S D D L .   >MB><C  B@51C5<>5  459AB285  =5  2K?>;=5=>.   1@0B8B5AL  :  04<8=8AB@0B>@C  A  ?@>AL1>9  8A?@028BL  45A:@8?B>@  157>?0A=>AB8  2  ?0@0<5B@0E  3@C??>2>9  ?>;8B8:8.  
+    5  C40;>AL  A>740BL  D09;  6C@=0;0  % 2 .   @>25@LB5,   GB>  ?@028;L=>  7040=  :0B0;>3  6C@=0;>2  8  GB>  :><?LNB5@  8<55B  4>ABC?  :  MB><C  :0B0;>3C.    
+   D 5  C40;>AL  A>740BL  D09;  6C@=0;0  4;O  A09B0  W 3 S V C % 2 .   @>25@LB5,   GB>  ?@028;L=>  7040=  :0B0;>3  6C@=0;>2  4;O  A09B0  8  GB>  :><?LNB5@  8<55B  4>ABC?  :  MB><C  :0B0;>3C.    
+     D 5  C40;>AL  A>740BL  D09;  6C@=0;0  % 2   4;O  A09B0  W 3 S V C % 3 .   >7<>6=>,   =5B  <5AB0  =0  48A:5.   A;8  7040=  A5B52>9  ?CBL,   ?@>25@LB5,   GB>  A5B52>5  ?>4:;NG5=85  =5  =0@CH5=>.  
+     4 5  C40;>AL  A>740BL  F5=B@0;L=K9  42>8G=K9  D09;  6C@=0;0.   @>25@LB5,   GB>  ?@028;L=>  7040=  :0B0;>3  6C@=0;>2  8  GB>  :><?LNB5@  8<55B  4>ABC?  :  MB><C  :0B0;>3C.  
+     ` 5  C40;>AL  2K?>;=8BL  70?8AL  2  F5=B@0;L=K9  42>8G=K9  D09;  6C@=0;0  % 2 .   >7<>6=>,   =5B  <5AB0  =0  48A:5.   A;8  7040=  A5B52>9  ?CBL,   ?@>25@LB5,   GB>  A5B52>5  ?>4:;NG5=85  =5  =0@CH5=>.  
+       5  C405BAO  2K?>;=8BL  ?@82O7:C  :  8A?>;L7C5<><C  B@0=A?>@BC  4;O  % 2 .   !?8A>:  I P - 04@5A>2  B>;L:>  4;O  ?@85<0  A>45@68B  AAK;:C  =0  8=B5@D59A,   =5  ACI5AB2CNI89  =0  40==><  :><?LNB5@5.   >;5  40==KE  A>45@68B  =><5@  >H81:8.  
+    5459AB28B5;L=K9  2;045;5F  D09;0  6C@=0;0  8;8  :0B0;>3  % 2 .   >7<>6=>,   4@C3>9  ?>;L7>20B5;L  C65  A>740;  D09;  6C@=0;0  2  MB><  :0B0;>35.  
+       >7=8:;0  >H81:0  ?@8  8=8F80;870F88  @575@28@>20=8O  ?@>AB@0=AB20  8<5=.     >4  A>AB>O=8O  >H81:8  =0E>48BAO  2  2>72@0I5==KE  40==KE.  
+     D >7=8:;0  >H81:0  ?@8  8=8F80;870F88  @575@28@>20=8O  ?@>AB@0=AB20  8<5=,   >?@545;5==KE  U R L   A  ?@5D8:A><  " % 2 " .     >4  A>AB>O=8O  >H81:8  =0E>48BAO  2  2>72@0I5==KE  40==KE.  
+   д  5  C40;>AL  A>740BL  D09;  6C@=0;0  >H81>:.   #1548B5AL,   GB>  2K1@0=0  ?@028;L=0O  ?0?:0  4;O  ?@>B>:>;8@>20=8O  >H81>:.  
+     М  5  C405BAO  70?8A0BL  D09;  6C@=0;0  >H81>:.     >7<>6=>,   48A:  70?>;=5=.   0==K5  A>45@60B  =><5@  >H81:8.  
+        !1>9  =0AB@>9:8  ?@>B>:>;8@>20=8O  >H81>:.   >;5  40==KE  A>45@68B  =><5@  >H81:8.  
+     д  5  C405BAO  ?@5>1@07>20BL  M;5<5=B  " % 2 "   A?8A:0  I P - 04@5A>2  B>;L:>  4;O  ?@85<0.   >;5  40==KE  A>45@68B  =><5@  >H81:8.  
+     >?8@>20=85  D09;>2  8  45@520  ?0?>:.  
+  
+ X C O P Y   s o u r c e   [ d e s t i n a t i o n ]   [ / A   |   / M ]   [ / D [ : d a t e ] ]   [ / P ]   [ / S   [ / E ] ]   [ / V ]   [ / W ]  
+                                                       [ / C ]   [ / I ]   [ / Q ]   [ / F ]   [ / L ]   [ / G ]   [ / H ]   [ / R ]   [ / T ]   [ / U ]  
+                                                       [ / K ]   [ / N ]   [ / O ]   [ / X ]   [ / Y ]   [ / - Y ]   [ / Z ]  
+                                                       [ / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . . ]  
+  
+     s o u r c e               #:07K205B  D09;  4;O  :>?8@>20=8O.  
+     d e s t i n a t i o n     #:07K205B  @07<5I5=85  8  8<O  =>2KE  D09;>2.  
+     / A                       >?8@C5B  D09;K  B>;L:>  A  0B@81CB><  " @E82=K9" ,  
+                               ?@8  MB><  7=0G5=85  0B@81CB0  =5  87<5=O5BAO.  
+     / M                       >?8@C5B  D09;K  B>;L:>  A  0B@81CB><  " @E82=K9" ,  
+                               ?@8  MB><  0B@81CB  " @E82=K9"   >B:;NG05BAO.  
+     / D : m - d - y           >?8@C5B  D09;K,   87<5=5==K5  ;81>  2  C:070==K9  45=L,   ;81>  ?>A;5.  
+                               A;8  40B0  =5  C:070=0,   :>?8@CNBAO  B>;L:>  B5  D09;K,  
+                               :>B>@K5  =>255  2  8AE>4=>9  ?0?:5.  
+     / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . .  
+                               #:07K205B  A?8A>:  D09;>2,   A>45@60I8E  AB@>:8.   0640O  AB@>:0 
+                               4>;6=0  =0E>48BLAO  2  >B45;L=>9  ;8=88  2  D09;0E.     A;8  >4=0  87 
+                               AB@>:  A>2?0405B  A  ;N1>9  G0ABLN  01A>;NB=>3>  ?CB8  :>?8@C5<>3> 
+                               D09;0,   B>  B0:>9  D09;  :>?8@>20BLAO  =5  1C45B.     0?@8<5@,  
+                               C:07K20=85  B0:8E  AB@>:,   :0:  \ \ o b j \ \   8;8  . o b j ,   8A:;NG05B 
+                               87  :>?8@>20=8O  2A5  D09;K  2  ?0?:5  o b j   8,   A>>B25BAB25==>,   2A5 
+                               D09;K  A  @0AH8@5=85<  . o b j .  
+     / P                       0?@0H8205B,   ?@5645  G5<  A>740BL  :>=5G=K9  D09;.  
+     / S                       >?8@C5B  2A5  ?0?:8  8  ?>4?0?:8,   :@><5  ?CABKE.  
+     / E                       >?8@C5B  2A5  ?0?:8  8  ?>4?0?:8,   2:;NG0O  ?CABK5.  
+                               ">  65  A0<>5,   GB>  8  / S   / E .   >6=>  8A?>;L7>20BL  4;O  87<5=5=8O  / T .  
+     / V                       @>25@O5B  :064K9  =>2K9  D09;.  
+     / W                       0?@0H8205B  =060B85  :;028H8,   ?@5645  G5<  =0G0BL  :>?8@>20=85.  
+     / C                       @>4>;605B  :>?8@>20=85,   4065  5A;8  ?@>87>H;0  >H81:0.  
+     / I                       A;8  :>=5G=0O  ?0?:0  =5  ACI5AB2C5B  8  :>?8@C5BAO  1>;55  >4=>3> 
+                               D09;0,   ?>4@07C<5205BAO,   GB>  <5AB><  =07=0G5=8O  4>;6=0  1KBL  ?0?:0.  
+     / Q                       5  >B>1@0605B  8<5=0  D09;>2  2>  2@5<O  :>?8@>20=8O.  
+     / F                       B>1@0605B  8<5=0  8AE>4=KE  8  :>=5G=KE  D09;>2  2>  2@5<O  :>?8@>20=8O.  
+     / L                       B>1@0605B  D09;K,   :>B>@K5  1C4CB  A:>?8@>20=K.  
+     / G                        07@5H05B  :>?8@>20=85  H8D@>20==KE  D09;>2  2  :>=5G=CN  ?0?:C,  
+                               =5  ?>445@6820NICN  H8D@>20=85.  
+     / H                       >?8@C5B  A:@KBK5  8  A8AB5<=K5  D09;K.  
+     / R                       0<5=O5B  D09;K,   4>ABC?=K5  B>;L:>  4;O  GB5=8O.  
+     / T                       !>7405B  AB@C:BC@C  ?0?>:,   =>  =5  :>?8@C5B  D09;K.   5  ?>445@68205B 
+                               ?CABK5  ?0?:8  8  ?>4?0?:8.   !>G5B0=85  / T   / E  
+                               ?>445@68205B  ?CABK5  ?0?:8  8  ?>4?0?:8.  
+     / U                       >?8@C5B  B>;L:>  D09;K,   :>B>@K5  C65  ACI5AB2CNB  2  :>=5G=>9  ?0?:5.  
+     / K                       >?8@C5B  0B@81CBK.   @>AB0O  :><0=40  X c o p y   A1@0AK205B  0B@81CB 
+                               " ">;L:>  GB5=85" .  
+     / N                       >?8@C5B  A  8A?>;L7>20=85<  A35=5@8@>20==KE  :>@>B:8E  8<5=.  
+     / O                       >?8@C5B  ?@020  2;045;LF0  D09;><  8  A2545=8O  B01;8FK  C?@02;5=8O 
+                               4>ABC?><  ( A C L ) .  
+     / X                       >?8@C5B  ?0@0<5B@K  0C48B0  D09;0  ( 2:;NG05B  459AB285  / O ) .  
+     / Y                       >402;O5B  70?@>A  =0  ?>4B25@645=85  ?5@570?8A8 
+                               ACI5AB2CNI53>  :>=5G=>3>  D09;0.  
+     / - Y                     K7K205B  70?@>A  =0  ?>4B25@645=85  ?5@570?8A8 
+                               ACI5AB2CNI53>  :>=5G=>3>  D09;0.  
+     / Z                       >?8@C5B  A5B52K5  D09;K  A  2>7>1=>2;5=85<.  
+  
+ 0@0<5B@  / Y   <>6=>  CAB0=>28BL  G5@57  ?5@5<5==CN  A@54K  C O P Y C M D .  
+ 0@0<5B@  / - Y   :><0=4=>9  AB@>:8  ?5@5>?@545;O5B  B0:CN  CAB0=>2:C.  
+     њ  @>25@:0  AE5<K  4;O  % 2   7025@H8;0AL  >H81:>9  2>  2@5<O  D07K  2 .   @8G8=0:   " % 1 " .  
+   Ь  @>25@:0  AE5<K  4;O  % 2   7025@H8;0AL  >H81:>9  2>  2@5<O  D07K  2 .   @8G8=0:   0B@81CB  " % 1 "   =5  A>2?0405B  A>  AE5<>9.  
+     њ  @>25@:0  AE5<K  4;O  % 2   7025@H8;0AL  >H81:>9  2>  2@5<O  D07K  1 .   @8G8=0:   " % 1 " .  
+   ђ  5  C405BAO  A>740BL  @0A?8A0=85  703@C7:8  4;O  D09;0  % 2 .   @8G8=0:   " % 1 " .  
+   ¤  @52KH5=K  ?@545;L=K5  >3@0=8G5=8O  @07<5@0  D09;0  4;O  4><5=0  % 2 .   @8G8=0:   " % 1 " .  
+     ь4   V S _ V E R S I O N _ I N F O     Ѕпю     €(
+  €(
+?                        $   S t r i n g F i l e I n f o       0 4 1 9 0 4 B 0   L   C o m p a n y N a m e     >@?>@0F8O  09:@>A>DB  d   F i l e D e s c r i p t i o n     !>>1I5=8O  ?0:5B0  >1=>2;5=8O  2   d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 2 r e s . d l l       >  L e g a l C o p y r i g h t   ©   >@?>@0F8O  09:@>A>DB  ( M i c r o s o f t   C o r p . )   A5  ?@020  70I8I5=K.   D   O r i g i n a l F i l e n a m e   x p s p 2 r e s . d l l     t )  P r o d u c t N a m e     ?5@0F8>==0O  A8AB5<0  M i c r o s o f t ®   W i n d o w s ®     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   |    V a r F i l e I n f o     $    T r a n s l a t i o n     °8    R e s o u r c e C h e c k s u m   /µЇD#Я\ЩќґOU a    <HTML id=dlgAbout STYLE="width: 25.8em; height: 22.6em">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1251">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<TITLE>
+О программе
+</TITLE>
+<style>
+.versionformat {
+color: black;
+font-family: MS Sans Serif;
+font-size: 8pt;
+position: absolute;
+left: 0em;
+top: 0em;
+height: 2em;
+width:25em;
+z-index: 20;
+}
+.textformat {
+color: black;
+font-family: Verdana;
+font-size:8pt;
+position: absolute;
+left: 10.2em;
+top: 19.8em;
+height: 3em;
+width:26.5em;
+}
+.logo {
+color: LIGHTGREY;
+font-family: MS Sans Serif;
+font-size:40pt;
+position: absolute;
+left: 1.9em;
+top: 4.5em;
+height: 0.5em;
+width:1em;
+z-index: -1;
+}
+.button {
+width: 7em;
+height: 2.2em;
+color: buttontext;
+font-family: MS Sans Serif;
+font-size:8pt;
+cursor: hand;
+}
+</style>
+<SCRIPT>
+var platIs64=false;
+function fnShow64Flag(){
+if(navigator.userAgent.indexOf("Win64")>-1){
+platIs64=true;
+}
+if(platIs64==true){
+o64bitFlag.innerText='64-bit Edition';
+}
+}
+</SCRIPT>
+<script>
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "В этом диалоговом окне произошла ошибка.";
+var L_ErrorNumber_Text = "Ошибка: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function OnPageLoad()
+{
+var L_PreCipherStrength_Text = "";
+var L_PostCipherStrength_Text = "-разр.";
+var L_UpdateInfo_Text = "Об обновлениях";
+var L_Unknown_Text = "Неизвестно";
+L_UpdateVersions_Text = "Выпуски обновления:";
+L_updateWidth_number= "9em";
+L_updateFontSize_number="8pt";
+L_UpdateFont_Fontname ="Tahoma, MS Shell Dlg";
+updateUrl = "";
+var cipherStrength = "";
+if ((null != window.dialogArguments))
+{
+arrArgs = window.dialogArguments.split("~");
+spaVersion.innerText = arrArgs[0];
+if (arrArgs[3] == "168")
+cipherStrength = 128;
+else if (arrArgs[3] == "128")
+cipherStrength = 40;
+else
+cipherStrength = arrArgs[3];
+spaCipher.innerText = L_PreCipherStrength_Text + cipherStrength + L_PostCipherStrength_Text;
+pID.innerText=arrArgs[4];
+if (null != arrArgs[6])
+spaIEAKInfo.innerText = arrArgs[6];
+updateUrl = arrArgs[5];
+}
+else
+{
+spaVersion.innerText = L_Unknown_Text;
+spaCipher.innerText = L_Unknown_Text;
+pID.innerText = L_Unknown_Text;
+}
+if ("" == updateUrl)
+updateUrl = "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=128bit";
+var mv=window.navigator.appMinorVersion;
+var temp_mv_string = "";
+if(mv!="0")
+{
+for(ictr=0;ictr<mv.length;ictr++)
+{
+if(mv.charAt(ictr)==";")
+{
+temp_mv_string = temp_mv_string + "; "
+}
+else
+{
+temp_mv_string = temp_mv_string + mv.charAt(ictr)
+}
+}
+mv = temp_mv_string
+}
+minorversion.innerText=L_UpdateVersions_Text + mv;
+}
+window.onerror = HandleError;
+</script>
+</head>
+<BODY bgcolor="#FFFFFF" onload="OnPageLoad(); fnShow64Flag();" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)"
+scroll=no>
+<table border=0>
+<TR height=10>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD id=Logo colspan=3 align=left><img src="res://shdoclc.dll/ie5.gif"></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=ProdInfoAlign colspan=2 align=left>
+<ID id=ProductInfo1>
+<span id=ProdInfoStyle style="WIDTH: 25em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg">
+<BR>
+<ID id=ProductInfo2>
+Версия:</id> <SPAN id=spaVersion></SPAN> <span id="o64bitFlag" style="padding-left:10px"></span><br>
+<ID id=ProductInfo3>
+Стойкость шифра: </id><SPAN id=spaCipher ></SPAN>&nbsp;<br>
+<ID id=ProductInfo4>
+Код продукта:</id><SPAN id=pID></SPAN><br>
+<span id=minorversion></SPAN><br>
+<ID id=ProductInfo6></id>
+<SPAN id=spaIEAKInfo>&nbsp;</SPAN>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=copyrightAlign colspan=2 align=left> <TEXTAREA style="WIDTH: 28em; Font: 8pt Tahoma, MS Shell Dlg" id=copyrightText border=0 cols=55 rows=4 readonly>
+Программа основана на NCSA Mosaic. NCSA Mosaic(TM) была разработана в Национальном суперкомпьютерном центре Иллинойского университета (Urbana-Champaign).  
+Распространяется в рамках лицензионного соглашения с компанией  Spyglass Inc. 
+Содержит модули безопасности, лицензированные у корпорации RSA Data Security.
+Часть программного  обеспечения основана на разработках независимой группы JPEG.
+Программные компоненты мультимедиа, включая Indeo® video, Indeo® audio, и Web Design Effects, предоставлены корпорацией Intel.
+Версия Unix содержит лицензионные  программы корпорации Mainsoft. (c) Mainsoft Corporation, 1998-1999. Все права защищены. Mainsoft -  торговая марка корпорации Mainsoft. 
+Внимание! Данный программный продукт защищен законами об авторских правах и международными соглашениями. Незаконное воспроизведение или распространение данной программы или ее части влечет гражданскую и уголовную ответственность.
+</TEXTAREA>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD width=80><img src="res://shdoclc.dll/flag.gif"></TD>
+<TD id=ProductInfo5><a style="WIDTH: 20em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg" href="http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6.0&ar=aboutie&sba=copyr" id="copyright"><ID id=copyrghtText>&copy;(с)  Корпорация Майкрософт, 1995-2004</ID></a>
+</TD>
+<TD id=ok-button align=right><BUTTON tabindex=1 type=submit align=right id="okButton" class=button onClick="window.close();" >ОК</BUTTON>
+</TD>
+<Td></TD>
+</TR>
+</table>
+</span>
+</BODY>
+</HTML>
+PA
+
+
+
+function Agent_AutoUpdateAddCommandsHelper() 
+{
+    var L_AutoUpdateCommand1_Text = "&Каково назначение \"Автоматического обновления\"?";
+    var L_AutoUpdateCommand2_Text = "Как выполняется &загрузка обновлений?";
+    var L_AutoUpdateCommand3_Text = "Когда выполняется ус&тановка обновлений?";
+    var L_AutoUpdateCommand4_Text = "Как задать нужные &параметры \"Автоматического обновления\"?";
+    var L_AutoUpdateCommand5_Text = "Нужны ли еще &какие-нибудь действия?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhatDoesAuDo",   L_AutoUpdateCommand1_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowDownloaded",  L_AutoUpdateCommand2_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhenInstalled",  L_AutoUpdateCommand3_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowChange",      L_AutoUpdateCommand4_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateAnythingElse",   L_AutoUpdateCommand5_Text);
+}
+
+function Agent_AutoUpdateAddCommands() 
+{
+    Agent_AutoUpdateAddCommandsHelper();
+    
+    var L_AutoUpdateCommand6_Text = "Почему н&едоступна кнопка \"Далее\"?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhereIsNextButton",  L_AutoUpdateCommand6_Text);
+        
+    Agent_AddAssistantanceCommand();
+}
+
+function Agent_OnAutoUpdatePreDisplayMenu() 
+{
+    if (g.btnNext.disabled) 
+    {
+        var L_AutoUpdateMenuCommand6_Text = "Почему н&едоступна кнопка \"Далее\"?";
+
+        try 
+        {
+            g_AgentCharacter.Commands.Insert("Agent_AutoUpdateWhereIsNextButton", "Agent_AutoUpdateAlreadyInstalled",false,L_AutoUpdateMenuCommand6_Text);
+        }
+        catch (e) 
+        {
+        }
+    }
+
+    else 
+    {
+        try 
+        {
+            g_AgentCharacter.Commands.Remove("Agent_AutoUpdateWhereIsNextButton");
+        }
+        catch (e) 
+        {
+        }
+    }
+}
+
+function Agent_AutoUpdateWhatDoesAuDo() 
+{    
+    var L_AutoUpdateWhatDoesAuDo1_Text = "Автоматическое обновление позволяет получать и устанавливать на компьютере важные обновления безопасности.";
+    Agent_Speak(L_AutoUpdateWhatDoesAuDo1_Text);     
+}
+
+function Agent_AutoUpdateHowDownloaded() 
+{    
+    var L_AutoUpdateHowDownloaded1_Text = "Используя свободную пропускную способность линии в то время, когда компьютер подключен к Интернету.";
+    Agent_Speak(L_AutoUpdateHowDownloaded1_Text);     
+}
+
+function Agent_AutoUpdateWhenInstalled() 
+{    
+    var L_AutoUpdateWhenInstalled1_Text = "Ежедневно, можно указать наиболее подходящее время.";
+    Agent_Speak(L_AutoUpdateWhenInstalled1_Text);     
+}
+
+function Agent_AutoUpdateHowChange() 
+{    
+    var L_AutoUpdateHowChange1_Text = "Выберите значок \"Система\" в панели управления и затем откройте вкладку \"Автоматическое обновление\".";
+    Agent_Speak(L_AutoUpdateHowChange1_Text);     
+}
+
+function Agent_AutoUpdateAnythingElse() 
+{    
+    var L_AutoUpdateAnythingElse1_Text = "Для некоторых обновлений бывает нужно принять лицензионное соглашение или перезагрузить компьютер.";
+    Agent_Speak(L_AutoUpdateAnythingElse1_Text);     
+}
+
+function Agent_AutoUpdateWhereIsNextButton() 
+{       
+    var L_AutoUpdateWhereIsNextButton1_Text = "Она станет доступна после того, как будет сделан выбор.";
+    Agent_Speak(L_AutoUpdateWhereIsNextButton1_Text);
+}
+
+P
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <title>Microsoft Out-of-Box Experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.AutoUpdateLoadMe(); window.parent.Agent_Activate('AutoUpdate');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=7%></td>
+    <td ID=maincell valign=middle class="text-primary">
+
+    <br><br>
+    <span class="title">
+        <ID id=AutoUpdateTitle>Помогите защитить свой компьютер</ID>
+    </span>
+
+    <br><br><br>
+    <table border=0 width="95%">
+    <tr>
+        <td ID="AU_par1" class="text-primary">
+            <span ID=AutoUpdateIntro class="text-primary"><ID id="txtAUPar1"></ID></span>
+        </td>
+    </tr>
+    </table>
+
+    <br>
+    <table border=0 width="95%">
+
+    <!-- AU Radio Buttons -->
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="4">
+            <img src="../images/greenshd.gif">
+        </td>
+    </tr>
+    
+    <tr>
+        <br>
+    </tr>
+    
+    <tr>
+        <td valign="center">
+            <input TABINDEX=3 ID="radioAgree" name="Agreement" type="radio" onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="З" id="AU_Agree" for="radioAgree">
+                <span ID="AU_accept" class="emphasis-greater">
+                    <ID id="txtAU13a"><u>З</u>ащитить компьютер сейчас, включив автоматическое обновление</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_accept_explanation" class="text-primary">
+                <ID id="txtAU13b">(рекомендуется)</ID>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="3">
+            <img src="../images/redshd.gif">
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="center">
+            <input TABINDEX=4 ID="radioDisAgree" name="Agreement" type="radio" value=false onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="О" id="AU_DisAgree" for="radioDisAgree">
+                <span ID="AU_decline" class="emphasis-greater">
+                    <ID id="txtAU15a"><u>О</u>тложить это действие</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_decline_explanation" class="text-primary">
+                <ID id="txtAU15b">Если автоматическое обновление не включено, это приводит к повышенной уязвимости компьютера для вирусных атак и других опасностей.</ID>
+            </span>
+        </td>
+    </tr>
+
+    </table>
+
+
+    <table ID=tabl2 tabindex=-1 border=0 width=80% style="position:absolute; left:7.5%; top:84%">
+    <tr>
+        <td class="text-primary" ID=PrivacyPolicyText>
+        <ID id="au_privacy_policy"><B>Не собирается никаких сведений, позволяющих идентифицировать пользователей.</B><BR>Ознакомьтесь с <a id=au_privacy_policy_link TABINDEX=4 style="text-decoration:underline;" href="javascript:window.parent.navigatetoPrivacy('AutoUpdate_Policy');">заявлением о конфиденциальности Windows Update</a>.</id>
+        </td>
+    </tr>
+    </table>
+
+    <!-- Navigation buttons -->
+
+    <table id=tabl3 border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=6  ACCESSKEY="Н" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text"><u>Н</u>азад</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"><u>П</u>ропустить</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="П" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary">
+            <span id="NextBtnLocalText" style="display:none;"><label for=btnNext><id id="LocalBtnNext_Text"><u>Д</u>алее</id></label></span>
+            <span id="FiniBtnLocalText" style="display:none;"><label for=btnFinish><id id="LocalBtnFini_Text"><u>Г</u>отово</id></label></span>
+        </td>
+        <td>
+            <BUTTON ID="btnNext"   class="newbuttonsNext" TABINDEX=7  ACCESSKEY="Д" style="display:none;"></BUTTON>
+            <BUTTON ID="btnFinish" class="newbuttonsNext" TABINDEX=7  ACCESSKEY="Г" style="display:none;"></BUTTON>
+        </td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+PA
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1251">
+    <title>Microsoft Out-of-Box Experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>Заявление о конфиденциальности Windows Update</ID></span>
+
+<br><br>
+<TEXTAREA ID=privtext READONLY TABINDEX=2 style="font-family: Arial; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+Дата обновления: 15/04/2004
+
+С последней версией этого заявления о конфиденциальности можно ознакомиться на веб-узле Windows Update по адресу:
+windowsupdate.microsoft.com
+
+Корпорация Майкрософт прилагает все усилия, чтобы защитить конфиденциальность пользователей.
+
+Какие данные собираются и почему
+Программа Windows Update каждый раз собирает общие системные сведения о компьютере, чтобы затем предложить обновления, наиболее подходящие для этого компьютера.   Эта информация также используется для генерации совокупной статистики о том, как используется веб—узел Windows Update и какая система нуждается в поддержке. Эти сведения включают:
+•    Модель и имя изготовителя компьютера
+•    Номер версии операционной системы Windows
+•    Номер версии обозревателя Internet Explorer
+•    Номера версий других программ, для которых предоставляются обновления на веб—узле Windows Update
+•    Номера кодов устройств Plug—and—Play
+•    Язык и региональные стандарты
+•    Код GUID (Globally Unique Identifier)
+•    Код продукта и ключ продукта
+•    BIOS—имя,  name, номер и дату редакции
+При подключении к веб—узлу Windows Update используется ваш IP—адрес; но он используется только для генерации совокупной статистики.
+
+Как используется эта информация?
+Код продукта и ключ продукта собираются для подтверждения, что используется действительная лицензионная копия Windows. Код продукта и ключ продукта не сохраняются после отключения от веб—узла Windows Update. Они будут сохраняться только в случае недопустимого кода продукта.
+
+Для правильной статистики Windows Update проверяет код GUID, который хранится в компьютере и является уникальным для него. Код GUID не может быть использован для идентификации пользователя. Код GUID назначается и отслеживается в следующих случаях:
+
+•    Чтобы обеспечить высокое качество обслуживания пользователей, программа Windows Update отслеживает и записывает данные о количестве посещений этого веб—узла с отдельных компьютеров, а также о состоянии загрузки и установки определенных обновлений (успешное завершение или нет). Windows записывает код GUID компьютера, выполняющего загрузку; код запрошенного обновления; сведения о конфигурации компьютера, перечисленные выше; проверяет, была ли необходимость в установке обновления.
+
+•    Windows Update записывает дополнительный код GUID, если пользователь отвечает на запросы о пользе справки и статей по устранению неполадок при разрешении возникших проблем. Эти данные помогают обновить и улучшить сведения, предоставляемые Windows Update.
+
+•    Корпорация Майкрософт собирает сведения о том, какие веб—страницы посещаются пользователями в пределах узла microsoft.com, включая веб—узел Windows Update. Такие сведения включают: IP—адрес, тип обозревателя, операционную систему, имя домена, время подключения к веб—узлу, адреса ссылающихся веб—узлов. Данные посещаемости узла определяются только по уникальному коду, использующемуся исключительно для этой цели.
+
+Опросы пользователей
+Время от времени вы можете получать приглашение на участие в опросе об использовании веб—узла Windows Update. Опрос содержит заявление о конфиденциальности, определяющее условия использования информации, полученной в результате опроса.
+</TEXTAREA>
+
+<br><br><br>
+
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>Для продолжения щелкните </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>Назад</ID></span><span><ID id=xx1>.</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="Н" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text"><u>Н</u>азад</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"><u>П</u>ропустить</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="П" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text"><u>Д</u>алее</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY="Д" style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1251">
+<title>Сервер не найден</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Невозможно отобразить страницу</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Эта страница сейчас недоступна.
+    Возможно, это вызвано техническими проблемами на веб-узле, или требуется 
+    изменение параметров обозревателя.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Попробуйте следующее:</p><ul>
+      <li id="instructionsText1">Нажмите кнопку 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Обновить</a> или повторите попытку позже.<br>
+      </li>
+      
+      <li id="instructionsText2">Проверьте правильность адреса страницы
+ в строке адреса.<BR>
+      </li>
+      <li id="instructionsText3">Чтобы проверить настройку подключения, выберите в меню <b>Сервис</b> пункт
+        <b>Свойства обозревателя</b>. На вкладке <b>Подключение</b> щелкните <b>Настройка сети</b>.
+        Настройка должна соответствовать сведениям, предоставленным администратором локальной сети или поставщиком услуг Интернета. </li>
+     <li ID="list4">Проверьте, что параметры подключения к Интернету обнаружены. Можно настроить Microsoft Windows на проверку сети и автоматическое обнаружение параметров сетевых подключений (если они были включены сетевым администратором).
+        <OL> 
+        <li id="instructionText6">Щелкните меню <b>Сервис</b> и выберите <B>Свойства обозревателя</b>. </li>
+        <li id="instructionText7">На вкладке <b>Подключения</b> выберите <b>Настройка LAN...</b>.</li> 
+        <li id="instructionText8">Выберите <b>Автоматическое определение параметров</b> и щелкните кнопку <b>ОК</b>.</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+       Для некоторых узлов требуется 128-разрядное шифрование. Чтобы определить установленную степень шифрования, выберите в меню <b>Справка</b> пункт <b> О программе</b>.
+    </li>
+    <li id="instructionsText4">
+       Перед соединением с безопасным узлом проверьте правильность установки параметров безопасности. В меню <B>Сервис</b> выберите  <b>Свойства обозревателя</b>.  На вкладке ''Дополнительно'' найдите раздел ''Безопасность'' и установите флажок для  SSL 2.0, SSL 3.0, TLS 1.0, PCT 1.0. 
+    </li>
+     <li id="list3">Нажмите кнопку <a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif"> Назад</a>, чтобы использовать другую ссылку. </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:8pt/11pt verdana; color:black">Не удается найти сервер или ошибка DNS<BR> Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt Verdana; color:red}
+a:visited		{font:8pt/11pt Verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1251">
+<title>HTTP 400 - Ошибочный запрос</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgColor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt Verdana"><span id="pageNotFound">Невозможно найти страницу</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">Возможно, эта страница была удалена,
+    переименована, или она временно недоступна.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt Verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Попробуйте следующее:</p><ul>
+      <li ID="list1">Проверьте правильность адреса страницы
+ в строке адреса.<br>
+      </li>
+      <li ID="list2">Откройте <span id="homepageContainer"></span>&nbsp;домашнюю страницу, затем найдите там ссылки
+        на нужные данные. </li>
+		 <li id="list3">Нажмите кнопку 
+		 <a href="javascript:history.back(1)">
+		 <img valign=bottom border=0 src="back.gif"> Назад</a>, чтобы использовать другую ссылку. </li>
+
+      <li ID="list4">Нажмите кнопку <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Поиск</a> для поиска сведений в Интернете. </li>
+    </ul>
+    <p><br>
+    </p>
+    <h2 ID="errortext" style="COLOR: black; FONT: 8pt/11pt Verdana">HTTP 400 - Ошибочный запрос<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</TBODY>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link                  {font:8pt/11pt Verdana; color:red}
+a:visited               {font:8pt/11pt Verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1251">
+<title>HTTP 403 (Запрещено)</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt Verdana"><span id="errorText">У вас нет прав для просмотра этой страницы</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">Возможно, просмотр этого каталога или страницы
+    с использованием указанных вами личных данных не разрешен.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt Verdana"><hr color="#C0C0C0" noshade>
+    <p ID="term3"> Если вы уверены, что этот каталог или страница должны быть доступны для просмотра, попробуйте обратиться на
+  веб-узел, используя любой из адресов электронной почты или номеров телефона, указанных на <span id="homepageContainer"></span>&nbsp;домашней 
+ странице.</p>
+    <p id="term4">Нажмите кнопку <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Поиск</a> для поиска сведений в Интернете.</p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:8pt/11pt Verdana; color:black">HTTP Ошибка 403 -
+    Запрещено <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt Verdana; color:red}
+a:visited		{font:8pt/11pt Verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1251">
+<title>HTTP 404 Не найдено</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt Verdana"><span id="errorText">Невозможно найти страницу</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Возможно, эта страница была удалена,
+ переименована, или она временно недоступна. </font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt Verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Попробуйте следующее:</p><ul>
+      <li id="list1">Проверьте правильность адреса страницы
+ в строке адреса.<br>
+      </li>
+      <li id="list2">Откройте <span id="homepageContainer"></span>&nbsp;домашнюю страницу, затем найдите там ссылки
+        на нужные данные. </li>
+      <li id="list3">Нажмите кнопку <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> Назад</a>, чтобы использовать другую ссылку. </li>    
+      <li ID="list4">Нажмите кнопку <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Поиск</a> для поиска сведений в Интернете. </li>
+</ul>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt Verdana; color:black">HTTP 404 - Файл не найден<br>
+    Internet Explorer <BR>
+    </h2>
+    </font></td>
+
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt Verdana; color:red}
+a:visited		{font:8pt/11pt Verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1251">
+<title>HTTP 410 Потеряно</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pa

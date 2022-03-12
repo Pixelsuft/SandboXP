@@ -1,0 +1,2343 @@
+
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(4), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(6), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(6), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(6), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(6), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(5), 3, 1);
+content: dtb(handlemap(5), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(5), 3, 2);
+content: dtb(handlemap(5), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(5), 3, 3);
+content: dtb(handlemap(5), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(5), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(5), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(5), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(5), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(5), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(5), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(5), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(5), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(5), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(20,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(4), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(4), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+P/   	  	  8      $  &  '  €  P  ]  8  è  ì  ˜'       ˜+    	  ”,  ì  ò  d-  ƒ  š  3  ™'  š'  ˆQ  ]f  ^f   R  “j  “j  |S  -  @-  @ôS   @ @hU  Œ	 @	 @LV   @ @x\  à @à @ a  D @D @¬b  œ' @œ' @hc   ( @¥( @Øe  Ÿ: @ : @|x  §: @§: @ày  ­ @­ @Àz  
+  €
+  €p„    €  €ü…  û €û €ÈŒ   € €\  ¤ €« €p  ş €ş €“  ‰	 €‰	 €Ä²  ‚ €‚ €p³  ã €ã €\´  ›' €›' €H¸  í Àí À º  ø Àù ÀÔÅ  ü Àü ÀÜÆ  T ÀV À\Ç  ù Àù À°Ê  
+ À À˜Ì  Š	 À‹	 À(Ñ  á Àâ ÀÜÖ   À À<Ü  ' À(' ÀˆŞ  ˜: À: Àøõ  ¡: À¦: Àÿ  ,V À,V Àh @œ ÀDœ À| ì  H æ n d e l s e r n e   k a n   i k k e   l o g f ø r e s   t i l   s i k k e r h e d s l o g g e n : % n  
+ % t S t a t u s k o d e : % t % t % 1 % n  
+ % t V æ r d i   f o r   C r a s h O n A u d i t F a i l : % t % 2 % n  
+   \  S i k k e r h e d s l o g g e n   e r   n u   % 1   p r o c e n t   f y l d t .  
+     Ğ  P o l i t i k k e n   O v e r v å g n i n g   p r .   b r u g e r   b l e v   o p d a t e r e t . % n  
+ % t A n t a l   e l e m e n t e r : % t % 1 % n  
+ % t P o l i t i k - i d : % t % 2 % n  
+     è P o l i t i k k e n   O v e r v å g n i n g   p r .   b r u g e r   i n d s t i l l e t   f o r   b r u g e r e n : % n  
+ % t D e s t i n a t i o n s b r u g e r : % t % 1 % n  
+ % t P o l i t i k - i d : % t % 2 % n  
+ % t K a t e g o r i i n d s t i l l i n g e r : % n  
+ % t   S y s t e m : % t % 3 % n  
+ % t   L o g o n : % t % 4 % n  
+ % t   O b j e k t a d g a n g % t % 5 % n  
+ % t   A d g a n g s a n v e n d e l s e : % t % 6 % n  
+ % t   D e t a l j e r e t   s p o r i n g : % t % 7 % n  
+ % t   P o l i t i k s k i f t : % t % 8 % n  
+ % t   K o n t o a d m i n i s t r a t i o n : % t % 9 % n  
+ % t   K a t a l o g t j e n e s t e a d g a n g : % t % 1 0 % n  
+ % t   K o n t o l o g o n : % t % 1 1 % n  
+   l F ø l g e n d e   p o l i t i k   v a r   a k t i v ,   d a   W i n d o w s   F i r e w a l l   s t a r t e d e .  
+ % n  
+ % n A n v e n d t   g r u p p e p o l i t i k :   % 1  
+ % n A n v e n d t   p r o f i l :   % 2  
+ % n G r æ n s e f l a d e :   % 3  
+ % n F u n k t i o n e l   t i l s t a n d :   % 4  
+ % n T j e n e s t e r :  
+ % n           F i l -   o g   u d s k r i f t s d e l i n g :   % 5  
+ % n           F j e r n s k r i v e b o r d :   % 6  
+ % n           U P n P - s t r u k t u r :   % 7  
+ % n T i l l a d   f j e r n a d m i n i s t r a t i o n   % 8  
+ % n T i l l a d   u n i c a s t - s v a r   t i l   m u l t i c a s t / b r o a d c a s t - t r a f i k :   % 9  
+ % n S i k k e r h e d s l o g f ø r i n g :  
+ % n           L o g f ø r   m i s t e d e   p a k k e r :   % 1 0  
+ % n           L o g f ø r   o p r e t t e l s e   a f   f o r b i n d e l s e r   % 1 1  
+ % n I C M P :  
+ % n           T i l l a d   i n d g å e n d e   e k k o a n m o d n i n g :   % 1 4  
+ % n           T i l l a d   i n d g å e n d e   t i d s s t e m p e l a n m o d n i n g e r :   % 1 9  
+ % n           T i l l a d   i n d g å e n d e   m a s k e a n m o d n i n g :   % 2 0  
+ % n           T i l l a d   i n d g å e n d e   r o u t e r a n m o d n i n g e r :   % 1 8  
+ % n           T i l l a d   u d g å e n d e   d e s t i n a t i o n   k a n   i k k e   n å s :   % 1 2  
+ % n           T i l l a d   u n d e r t r y k k e l s e   a f   u d g å e n d e   k i l d e :   % 1 7  
+ % n           T i l l a d   p r o b l e m   i   u d g å e n d e   p a r a m e t e r :   % 1 6  
+ % n           T i l l a d ,   a t   u d g å e n d e   t i d   o v e r s k r i d e s :   % 1 5  
+ % n           T i l l a d   o m d i r i g e r i n g :   % 1 3  
+ % n           T i l l a d   a t   u d g å e n d e   p a k k e   e r   f o r   s t o r :   % 2 1  
+   „ E t   p r o g r a m   v a r   o p f ø r t   p å   l i s t e n   o v e r   u n d t a g e l s e r ,   d a   W i n d o w s   F i r e w a l l   s t a r t e d e .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n A n v e n d t   p r o f i l :   % 2  
+ % n N a v n :   % 3  
+ % n S t i :   % 4  
+ % n T i l s t a n d :   % 5  
+ % n O m r å d e :   % 6  
+     Ğ E n   p o r t   v a r   o p f ø r t   p å   l i s t e n   o v e r   u n d t a g e l s e r ,   d a   W i n d o w s   F i r e w a l l   s t a r t e d e .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n A n v e n d t   p r o f i l :   % 2  
+ % n G r æ n s e f l a d e :   % 3  
+ % n N a v n :   % 4  
+ % n P o r t n u m m e r :   % 5  
+ % n P r o t o k o l :   % 6  
+ % n T i l s t a n d :   % 7  
+ % n O m r å d e :   % 8  
+   Ô D e r   e r   b l e v e t   f o r e t a g e t   e n   æ n d r i n g   i   l i s t e n   o v e r   p r o g r a m u n d t a g e l s e r   f o r   W i n d o w s   F i r e w a l l .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n S k i f t   t y p e :   % 3  
+ % n N y e   i n d s t i l l i n g e r :  
+ % n           N a v n :   % 4  
+ % n           S t i :   % 5  
+ % n           T i l s t a n d :   % 6  
+ % n           O m r å d e :   % 7  
+ % n G a m l e   i n d s t i l l i n g e r :  
+ % n           N a v n :   % 8  
+ % n           S t i :   % 9  
+ % n           T i l s t a n d :   % 1 0  
+ % n           O m r å d e :   % 1 1  
+     h D e r   e r   b l e v e t   f o r e t a g e t   e n   æ n d r i n g   i   l i s t e n   o v e r   p o r t u n d t a g e l s e r   f o r   W i n d o w s   F i r e w a l l .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n G r æ n s e f l a d e :   % 3  
+ % n S k i f t   t y p e :   % 4  
+ % n N y e   i n d s t i l l i n g e r :  
+ % n           N a v n :   % 5  
+ % n           P o r t n u m m e r :   % 6  
+ % n           P r o t o k o l :   % 7  
+ % n           T i l s t a n d :   % 8  
+ % n           O m r å d e :   % 9  
+ % n G a m l e   i n d s t i l l i n g e r :  
+ % n           N a v n :   % 1 0  
+ % n           P o r t n u m m e r :   % 1 1  
+ % n           P r o t o k o l :   % 1 2  
+ % n           T i l s t a n d :   % 1 3  
+ % n           O m r å d e :   % 1 4  
+   ô D e n   f u n k t i o n e l l e   t i l s t a n d   f o r   W i n d o w s   F i r e w a l l   e r   b l e v e t   æ n d r e t .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n G r æ n s e f l a d e :   % 3  
+ % n N y   i n d s t i l l i n g :  
+ % n           F u n k t i o n e l   t i l s t a n d :   % 4  
+ % n G a m m e l   i n d s t i l l i n g :  
+ % n           F u n k t i o n e l   t i l s t a n d :   % 5  
+     ” L o g f ø r i n g s i n d s t i l l i n g e r n e   f o r   W i n d o w s   F i r e w a l l   e r   b l e v e t   æ n d r e t .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n N y e   i n d s t i l l i n g e r :  
+ % n           L o g f ø r   m i s t e d e   p a k k e r :   % 3  
+ % n           L o g f ø r   o p r e t t e l s e   a f   f o r b i n d e l s e r :   % 4  
+ % n G a m l e   i n d s t i l l i n g e r :  
+ % n           L o g f ø r   m i s t e d e   p a k k e r :   % 5  
+ % n           L o g f ø r   o p r e t t e l s e   a f   f o r b i n d e l s e r :   % 6  
+   ¤ E n   I C M P - i n d s t i l l i n g   f o r   W i n d o w s   F i r e w a l l   e r   b l e v e t   æ n d r e t .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n G r æ n s e f l a d e :   % 3  
+ % n N y   i n d s t i l l i n g :  
+ % n           % 4 :   % 5  
+ % n G a m m e l   i n d s t i l l i n g :  
+ % n           % 4 :   % 6  
+       W i n d o w s   F i r e w a l l - i n d s t i l l i n g e n   t i l   a t   t i l l a d e   u n i c a s t - s v a r   t i l   m u l t i c a s t / b r o a d c a s t - t r a f i k   e r   b l e v e t   æ n d r e t .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n N y   i n d s t i l l i n g :  
+ % n           T i l l a d   u n i c a s t - s v a r   t i l   m u l t i c a s t / b r o a d c a s t - t r a f i k :   % 3  
+ % n G a m m e l   i n d s t i l l i n g :  
+ % n           T i l l a d   u n i c a s t - s v a r   t i l   m u l t i c a s t / b r o a d c a s t - t r a f i k :   % 4  
+     h W i n d o w s   F i r e w a l l - i n d s t i l l i n g e n   t i l   a t   t i l l a d e   f j e r n a d m i n i s t r a t i o n ,   s o m   d e r m e d   t i l l a d e r   p o r t   T C P   1 3 5   o g   D C O M / R P C ,   e r   b l e v e t   æ n d r e t .  
+ % n  
+ % n P o l i t i k k e n s   o p r i n d e l s e :   % 1  
+ % n Æ n d r e t   p r o f i l :   % 2  
+ % n N y   i n d s t i l l i n g :  
+ % n           T i l l a d   f j e r n a d m i n i s t r a t i o n   % 3  
+ % n G a m m e l   i n d s t i l l i n g :  
+ % n           T i l l a d   f j e r n a d m i n i s t r a t i o n   % 4  
+   ”  G r u p p e p o l i t i k i n d s t i l l i n g e r n e   f o r   W i n d o w s   F i r e w a l l   e r   b l e v e t   a n v e n d t .  
+     ”  G r u p p e p o l i t i k i n d s t i l l i n g e r n e   f o r   W i n d o w s   F i r e w a l l   e r   b l e v e t   f j e r n e t .  
+     ¤  W i n d o w s   F i r e w a l l   h a r   æ n d r e t   d e n   a k t i v e   p o l i t i k p r o f i l .  
+ % n  
+ % n A k t i v   p r o f i l :   % 1  
+   d W i n d o w s   F i r e w a l l   h a r   r e g i s t r e r e t   e t   p r o g r a m ,   d e r   l y t t e r   e f t e r   i n d g å e n d e   t r a f i k .  
+ % n  
+ % n N a v n :   % 1  
+ % n S t i :   % 2  
+ % n P r o c e s - i d :   % 3  
+ % n B r u g e r k o n t o :   % 4  
+ % n B r u g e r d o m æ n e :   % 5  
+ % n T j e n e s t e :   % 6  
+ % n R P C - s e r v e r :   % 7  
+ % n I P - v e r s i o n :   % 8  
+ % n I P - p r o t o k o l :   % 9  
+ % n P o r t n u m m e r :   % 1 0  
+ % n T i l l a d t :   % 1 1  
+ % n B e s k e d   g i v e t   t i l   b r u g e r :   % 1 2  
+     d  M e d i e s p e c i f i k   h æ n d e l s e   b e h a n d l e s   f o r   [ % 1 ! w s ! ]  
+   x W E P - n ø g l e u d v e k s l i n g   r e s u l t e r e d e   i k k e   i   e n   s i k k e r   f o r b i n d e l s e   e f t e r   8 0 2 . 1 x - g o d k e n d e l s e .   D e n   a k t u e l l e   i n d s t i l l i n g   e r   b l e v e t   m a r k e r e t   s o m   m i s l y k k e t ,   o g   d e n   t r å d l ø s e   f o r b i n d e l s e   a f b r y d e s .  
+   ´  D e r   b l e v   m o d t a g e t   e n   u g y l d i g   P E A P - T L V .   D e r   s k a l   k u n   v æ r e   é n   P E A P - T L V   m e d   t y p e = U R L - i d .  
+   ”  D e r   o p s t o d   e n   f e j l   v e d   b e h a n d l i n g e n   a f   d e n   m o d t a g n e   P E A P - T L V   ( % 1 ! l d ! )  
+   Ü  D e r   o p s t o d   e n   f e j l   v e d   o p r e t t e l s e n   a f   r e s u l t a t e t   f o r   P E A P - T L V   s o m   s v a r   t i l   d e n   m o d t a g n e   P E A P - T L V   ( % 1 ! l d ! )  
+   |  I K E - p o r t e n e   ( U D P   5 0 0 / 4 5 0 0 )   b l e v   å b n e t   i   W i n d o w s   F i r e w a l l .  
+   €  I K E - p o r t e n e   ( U D P   5 0 0 / 4 5 0 0 )   b l e v   l u k k e t   i   W i n d o w s   F i r e w a l l .  
+     h  T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   e r   s t a r t e t .  
+     h  T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   e r   s t o p p e t .  
+     ô  F J E R N S U P P O R T :   F i l e n   % 1   m e d   f i l s t ø r r e l s e n   % 2   b y t e   b l e v   s e n d t   a f   ( l o k a l   b r u g e r )   % 3   t i l   ( f j e r n b r u g e r )   % 4   ( f j e r n - I P :   % 5 ) .  
+   ô  F J E R N S U P P O R T :   F i l e n   % 1   m e d   s t ø r r e l s e n   % 2   b y t e   b l e v   m o d t a g e t   f r a   ( f j e r n b r u g e r )   % 3   ( f j e r n - I P :   % 4 )   a f   ( l o k a l   b r u g e r )   % 5 .  
+    F J E R N S U P P O R T :   D e r   o p s t o d   e n   f e j l   u n d e r   X M L - p a r s i n g   f o r   ( l o k a l   b r u g e r )   % 1   u n d e r   f o r s ø g   p å   a t   b e h a n d l e   e n   b i l l e t   f r a   f j e r n s u p p o r t .  
+     À  F J E R N S U P P O R T :   E k s p e r t b r u g e r e n   ( f j e r n b r u g e r :   % 1 )   k o n t r o l l e r e r   b e g y n d e r e n   ( l o k a l   b r u g e r :   % 2 )  
+     Ü  F J E R N S U P P O R T :   E k s p e r t b r u g e r e n   ( f j e r n b r u g e r :   % 1 )   k o n t r o l l e r e r   i k k e   l æ n g e r e   b e g y n d e r e n   ( l o k a l   b r u g e r :   % 2 ) .  
+     À  F J E R N S U P P O R T :   E k s p e r t e n   ( l o k a l   b r u g e r :   % 1 )   k o n t r o l l e r e r   b e g y n d e r b r u g e r e n   ( f j e r n b r u g e r :   % 2 ) .  
+   Ü  F J E R N S U P P O R T :   E k s p e r t e n   ( l o k a l   b r u g e r :   % 1 )   k o n t r o l l e r e r   i k k e   l æ n g e r e   b e g y n d e r b r u g e r e n   ( f j e r n b r u g e r :   % 2 ) .  
+     P K o n t o e n   f o r   H j æ l p e a s s i s t e n t e n   e r   d e a k t i v e r e t   e l l e r   m a n g l e r ,   e l l e r   a d g a n g s k o d e n   k u n n e   i k k e   g o d k e n d e s .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n   i   f e j l s i k r e t   t i l s t a n d ,   o g   s k r i v   f ø l g e n d e   i   k o m m a n d o p r o m p t e n :   s e s s m g r . e x e   - s e r v i c e .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+      W i n d o w s   k u n n e   i k k e   å b n e   t a b e l l e n   m e d   h j æ l p e b i l l e t t e r   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n   i   f e j l s i k r e t   t i l s t a n d ,   o g   s k r i v   f ø l g e n d e   i   k o m m a n d o p r o m p t e n :   s e s s m g r . e x e   - s e r v i c e .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+   ` K r y p t e r i n g / d e k r y p t e r i n g   e r   i k k e   s t a r t e t   k o r r e k t   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+     ø D e r   o p s t o d   e n   f e j l   u n d e r   i n s t a l l a t i o n e n   a f   F j e r n s u p p o r t .   F j e r n s u p p o r t   d e a k t i v e r e s .     G e n s t a r t   c o m p u t e r e n   i   f e j l s i k r e t   t i l s t a n d ,   o g   s k r i v   f ø l g e n d e   i   k o m m a n d o p r o m p t e n :   s e s s m g r . e x e   - s e r v i c e .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+   \ W i n s o c k - b i b l i o t e k e t   b l e v   i k k e   s t a r t e t   k o r r e k t   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+     , H j æ l p   t i l   S e s s i o n s s t y r i n g   t i l   F j e r n s k r i v e b o r d   s t a r t e d e   i k k e   k o r r e k t   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n   i   f e j l s i k r e t   t i l s t a n d ,   o g   s k r i v   f ø l g e n d e   i   k o m m a n d o p r o m p t e n :   s e s s m g r . e x e   - s e r v i c e .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+      S e s s i o n s f o r t o l k e r e n   b l e v   i k k e   s t a r t e t   k o r r e k t   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   S e s s i o n s f o r t o l k e r e n   t i l   t j e n e s t e n   H j æ l p   o g   S u p p o r t   e r   i k k e   k o n f i g u r e r e t   k o r r e k t .   K ø r   W i n d o w s   X P   I n s t a l l a t i o n   i g e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+     | W i n d o w s   e r   i k k e   i   s t a n d   t i l   a t   r e g i s t r e r e   s e s s i o n s f o r t o l k e r e n   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+     D I C S - b i b l i o t e k e t   k u n n e   i k k e   s t a r t e s   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+   ° A d g a n g s k o n t r o l l e n   f o r   H j æ l p   t i l   s e s s i o n s s t y r i n g   f o r   F j e r n s k r i v e b o r d   k a n   i k k e   i n s t a l l e r e s   ( f e j l k o d e   % 1 ) .   F j e r n s u p p o r t   d e a k t i v e r e s .   G e n s t a r t   c o m p u t e r e n .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t ,   h v i s   p r o b l e m e t   f o r t s æ t t e r .  
+      B r u g e r e n   % 1 \ % 2   h a s   a c c e p t e r e t   e n   % 3 - s e s s i o n   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 ) .  
+   ¨  S e s s i o n e n   % 3   f o r   b r u g e r e n   % 1 \ % 2   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 )   b l e v   a f s l u t t e t .  
+     œ  B r u g e r e n   % 1 \ % 2   h a r   i k k e   a c c e p t e r e t   s e s s i o n e n   % 3   ( s y n l i g   I P - a d r e s s e :   % 5 ) .  
+     Ô  B r u g e r e n   % 1 \ % 2   s v a r e d e   i k k e   p å   s e s s i o n e n   % 3   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 ) .   I n v i t a t i o n e n   f i k   t i m e o u t .  
+   L S e s s i o n e n   % 3   f o r   b r u g e r   % 1 \ % 2   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 )   b l e v   i k k e   a c c e p t e r e t ,   f o r d i   b r u g e r e n   i k k e   e r   l o g g e t   p å   i   ø j e b l i k k e t ,   e l l e r   s e s s i o n e n   i k k e   e r   a k t i v .  
+      S e s s i o n e n   % 3   f o r   b r u g e r e n   % 1 \ % 2   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 )   b l e v   i k k e   a c c e p t e r e t ,   f o r d i   b r u g e r e n   a l l e r e d e   h a r   f å e t   h j æ l p .  
+     ğ  S e s s i o n e n   % 3   f o r   b r u g e r e n   % 1 \ % 2   f r a   % 4   ( s y n l i g   I P - a d r e s s e :   % 5 )   b l e v   i k k e   a c c e p t e r e t   p g a .   f ø l g e n d e   u k e n d t e   f e j l :   % 6 .  
+   ì  E n   b e g y n d e r   ( l o k a l   b r u g e r :   % 1 \ % 2 )   h a r   s t a r t e t   e n   o m v e n d t   f j e r n s u p p o r t f o r b i n d e l s e   t i l   % 3   ( s y n l i g   I P - a d r e s s e :   % 4 ) .  
+      F j e r n s u p p o r t f o r b i n d e l s e n   f r a   % 1   ( s y n l i g   I P - a d r e s s e :   % 2 )   b l e v   i k k e   a c c e p t e r e t ,   f o r d i   h j æ l p e b i l l e t t e n   e r   u g y l d i g ,   u d l ø b e t   e l l e r   s l e t t e t .  
+     ¼  D e r   b l e v   o p r e t t e t   e n   b i l l e t   f r a   f j e r n s u p p o r t   m e d   v a r i g h e d e n :   % 1 t i m e r   f o r   b r u g e r e n   % 2 \ % 3 .  
+     ˆ  D e r   b l e v   s l e t t e t   e n   b i l l e t   f r a   f j e r n s u p p o r t   f o r   b r u g e r e n   % 1 \ % 2 .  
+   L % 1   h a r   o p r e t t e t   e n   e k s p e r t b i l l e t   f r a   f j e r n s u p p o r t ,   s o m   s k a l   b r u g e s   t i l   o p r e t t e l s e   a f   e n   o m v e n d t   f o r b i n d e l s e .   T i l s l u t n i n g s p a r a m e t r e n e   f o r   e k s p e r t b i l l e t t e n   e r   % 2 .  
+       F j e r n s u p p o r t   ( l o k a l   b r u g e r :   % 1 )   h a r   å b n e t   e n   k a n a l   t i l   i n d g å e n d e   d a t a   p å   d e n n e   c o m p u t e r   t i l   f j e r n s u p p o r t s e s s i o n .   D e n   i n d g å e n d e   p o r t   e r   % 2 .  
+     ˆ  S u p e r b r u g e r e n   ( l o k a l   b r u g e r :   % 1 )   h a r   å b n e t   f ø l g e n d e   b i l l e t :   % 2 .  
+   P  f t p :   % 1 ! I 6 4 d !   b y t e   m o d t a g e t   p å   % 0 .  
+     H  f t p :   % 1 ! I 6 4 d !   b y t e   s e n d t   p å   % 0 .  
+   p  S l e t t e d e   d e t   u g y l d i g e   f i l n a v n   % 1   ( % 3 )   i   m a p p e n   % 2 .  
+     ì  F i l e n   % 1   e r   b l e v e t   f j e r n e t ,   d a   a l l e   d e n s   f i l n a v n e   v a r   u g y l d i g e .  
+ W i n d o w s   g e n d a n n e r   f i l e n   u n d e r   g e n d a n n e l s e s f a s e n .  
+   x  N T F S - f i l n a v n s a t t r i b u t t e t   i   f i l e n   0 x % 1   e r   i k k e   k o r r e k t .  
+     t E n   e n h e d s d r i v e r   l æ k k e r   l å s t e   I / O - s i d e r ,   h v i l k e t   f o r å r s a g e r   s y s t e m d e g r a d e r i n g .     S y s t e m e t   h a r   a u t o m a t i s k   a k t i v e r e t   s p o r i n g s k o d e   f o r   a t   p r ø v e   a t   f a s t s l å   h v i l k e n   d r i v e r ,   d e r   e r   t a l e   o m .  
+   ä  S i k k e r h e d s c e n t e r   e r   b l e v e t   s t o p p e t .     S i k k e r h e d s c e n t r e t   b l e v   f o r h i n d r e t   i   a t   k ø r e   a f   e n   s o f t w a r e g r u p p e p o l i t i k .  
+   P M S   D T C   e r   s t a r t e t   m e d   f ø l g e n d e   i n d s t i l l i n g e r : % r % r  
+  
+ S i k k e r h e d s k o n f i g u r a t i o n   ( F R A   =   0 ,   T I L   =   1 ) : % r  
+           N e t v æ r k s a d m i n i s t r a t i o n   a f   t r a n s a k t i o n e r   =   % 1 , % r  
+           N e t v æ r k s k l i e n t e r   =   % 2 , % r  
+           I n d g å e n d e   d i s t r i b u e r e d e   t r a n s a k t i o n e r   m e d   N a t i v e   M S D T C   P r o t o c o l   =   % 3 , % r  
+           U d g å e n d e   d i s t r i b u e r e d e   t r a n s a k t i o n e r   m e d   N a t i v e   M S D T C   P r o t o c o l   =   % 4 , % r  
+           T r a n s a c t i o n   I n t e r n e t   P r o t o c o l   ( T I P )   =   % 5 , % r  
+           X A - t r a n s a k t i o n e r   =   % 6 % 0  
+     Ü K o n f i g u r a t i o n s v æ r d i e r   f o r   D T C - s i k k e r h e d   ( F R A   =   0 ,   T I L   =   1 ) :  
+ 	 N e t v æ r k s a d m i n i s t r a t i o n   a f   t r a n s a k t i o n e r   =   % 1 , % r  
+ 	 N e t v æ r k s k l i e n t e r   =   % 2 , % r  
+ 	 I n d g å e n d e   d i s t r i b u e r e d e   t r a n s a k t i o n e r   m e d   N a t i v e   M S D T C   P r o t o c o l   =   % 3 , % r  
+           	 U d g å e n d e   d i s t r i b u e r e d e   t r a n s a k t i o n e r   m e d   N a t i v e   M S D T C   P r o t o c o l   =   % 4 , % r  
+ 	 T r a n s a c t i o n   I n t e r n e t   P r o t o c o l   ( T I P )   =   % 5 , % r  
+ 	 X A - t r a n s a k t i o n e r   =   % 6 % 0  
+     ¨ D u   k ø r e r   e n   v e r s i o n   a f   M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   e l l e r   M i c r o s o f t   S Q L  
+ S e r v e r   2 0 0 0   D e s k t o p   E n g i n e   ( o g s å   k a l d e t   M S D E ) ,   d e r   h a r   k e n d t e   s i k k e r h e d s p r o b l e m e r ,  
+ n å r   d e   b r u g e s   s a m m e n   m e d   d e n n e   v e r s i o n   a f   W i n d o w s .  
+ F o r   a t   f o r m i n d s k e   d i n   c o m p u t e r s   s å r b a r h e d   o v e r   f o r   v i s s e   v i r u s a n g r e b ,  
+ e r   T C P / I P -   o g   U D P - n e t v æ r k s p o r t e n e   f o r   M i c r o s o f t   S Q L   S e r v e r   2 0 0 0 ,  
+ M S D E   e l l e r   b e g g e   p r o g r a m m e r   b l e v e t   d e a k t i v e r e t .     H v i s   d u   v i l   a k t i v e r e   d i s s e   p o r t e ,   s k a l   d u   i n s t a l l e r e  
+ e n   p r o g r a m r e t t e l s e   e l l e r   d e n   n y e s t e   s e r v i c e   p a c k   t i l   M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   e l l e r  
+ M S D E   f r a   h t t p : / / w w w . m i c r o s o f t . c o m / s q l / d o w n l o a d s / d e f a u l t . a s p  
+   Œ T j e n e s t e n   W i n M g m t   f a n d t   e n   u o v e r e n s s t e m m e l s e   i n d e n   f o r   l a g e r e t   i   m a p p e n   % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y .  
+ o g   k u n n e   i k k e   g e n d a n n e   d e n .     I n d h o l d e t   e r   b l e v e t   s l e t t e t   o g   e t   n y t   l a g e r   e r   o p r e t t e t .  
+   ¼  R M C - s e s s i o n   ( R e m o t e   M e d i a   C e n t e r )   b l e v   l o g g e t   a f ,   f o r d i   s y s t e m b e k r æ f t e l s e n   i k k e   l y k k e d e s .  
+   p { S k æ r m d r i v e r   b l e v   g e n o p r e t t e t   e f t e r   f e j l e n }  
+ S k æ r m d r i v e r e n   % h s   h a r   r e g i s t r e r e t   e n   f e j l   o g   e r   b l e v e t   g e n o p r e t t e t .   D e r   o p s t o d   m u l i g v i s   f e j l   i   n o g l e   g r a f i s k e   h a n d l i n g e r .   N æ s t e   g a n g   d u   g e n s t a r t e r   c o m p u t e r e n   v i l   d e r   b l i v e   v i s t   e n   d i a l o g b o k s ,   s o m   g i v e r   d i g   m u l i g h e d   f o r   a t   s e n d e   d a t a   o m   d e n n e   f e j l   t i l   M i c r o s o f t .  
+     `      D e r   k a n   i k k e   h e n t e s   o p l y s n i n g e r   o m   e j e r e n  
+   ¨  
+ V i s e r   p r o t o k o l s t a t i s t i k k e r   o g   n u v æ r e n d e   T C P / I P - n e t v æ r k s f o r b i n d e l s e r .  
+  
+ N E T S T A T   [ - a ]   [ - b ]   [ - e ]   [ - n ]   [ - o ]   [ - p   p r o t o ]   [ - r ]   [ - s ]   [ - v ]   [ i n t e r v a l ]  
+  
+     - a                         V i s e r   a l l e   f o r b i n d e l s e s -   o g   l y t t e p o r t e .  
+     - b                         V i s e r   d e n   e k s e k v e r b a r e   i n v o l v e r e t   i   o p r e t t e l s e n   a f   h v e r   f o r b i n d e l s e s -   e l l e r  
+                                 l y t t e p o r t .   I   n o g l e   t i l f æ l d e   e r   v e l k e n d t e   e k s e k v e r b a r e   f i l e r   v æ r t  
+                                 f o r   i n d t i l   f l e r e   u a f h æ n g i g e   k o m p o n e n t e r   o g   i   d i s s e   t i l f æ l d e  
+                                 v i s e s   r æ k k e f ø l g e n   a f   k o m p o n e n t e r n e ,   d e r   e r   i n v o l v e r e d e   i   o p r e t t e l s e n   a f   f o r b i n d e l s e s -  
+                                 e l l e r   l y t t e p o r t e n .   I   d e t t e   t i l f æ l d e   e r   n a v n e t  
+                                 p å   d e n   e k s e k v e r b a r e   f i l   i   f i r k a n t p a r e n t e s e r   ( [ ] )   i   b u n d e n ,   I   t o p p e n   e r   d e n   k a l d t e   k o m p o n e n t ,  
+                                 o g   s å   v i d e r e   i n d t i l   T C P / I P   b l e v   n å e t .   B e m æ r k ,   a t   d e n n e   i n d s t i l l i n g  
+                                 k a n   v æ r e   t i d s k r æ v e n d e   o g   v i l   m i s l y k k e s ,   h v i s   d u   i k k e   h a r   t i l s t r æ k k e l i g e  
+                                 t i l l a d e l s e r .  
+     - e                         V i s e r   e t h e r n e t - s t a t i s t i k .   D e t t e   k a n   k o m b i n e r e s   m e d  
+                                 p a r a m e t e r e n   - s .  
+     - n                         V i s e r   a d r e s s e r   o g   p o r t n u m r e   i   n u m e r i s k   f o r m a t .  
+     - o                         V i s e r   d e t   p r o c e s e j e r s k a b - i d ,   d e r   e r   t i l k n y t t e t   t i l   h v e r   f o r b i n d e l s e .  
+     - p   p r o t o             V i s e r   f o r b i n d e l s e r   f o r   p r o t o k o l l e n ,   d e r   e r   a n g i v e t   m e d   p r o t o .   P r o t o  
+                                 k a n   v æ r e :   T C P ,   U D P ,   T C P v 6   e l l e r   U D P v 6 .     H v i s   p a r a m e t e r n  
+                                 - s   b r u g e s   t i l   a t   v i s e     p e r - p r o t o k o l - s t a t i s t i k ,   k a n   p r o t o :  
+                                 I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,   T C P ,   T C P v 6 ,   U D P   e l l e r   U D P v 6 .  
+     - r                         V i s e r   r u t e t a b e l l e n .  
+     - s                         V i s e r   p e r - p r o t o k o l - s t a t i s t i k .     S o m   s t a n d a r d   v i s e s  
+                                 s t a t i s t i k   f o r   I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,   T C P ,   T C P v 6 ,   U D P   o g   U D P v 6 .  
+                                 p a r a m e t e r e n   - p   k a n   b r u g e s   t i l   a t   a n g i v e   e t   u n d e r s æ t   a f   s t a n d a r d i n d s t i l l i n g e r n e .  
+     - v                         N å r   p a r a m e t e r e n   b r u g e s   s a m m e n   m e d   - b ,   v i s e s   r æ k k e f ø l g e n   a f  
+                                 k o m p o n e n t e r ,   d e r   e r   i n v o l v e r e t   i   o p r e t t e l s e n   a f   f o r b i n d e l s e s -   e l l e r   l y t t e p o r t e n  
+                                 f o r   a l l e   e k s e k v e r b a r e   f i l e r .  
+     i n t e r v a l             V i s e r   d e   v a l g t e   s t a t i s t i k k e r   i g e n   m e d   p a u s e r  
+                                 m e l l e m   h v e r   v i s n i n g .     T r y k   C t r l + C   f o r   a t   s t a n d s e   d i s s e  
+                                     v i s n i n g e r .     H v i s   d e t   u d e l a d e s ,   v i l   n e t s t a t   v i s e   d e   a k t u e l l e  
+                                 k o n f i g u r a t i o n s o p l y s n i n g e r   é n   g a n g .    
+     $      [ S y s t e m ]  
+  
+     @      - -   u k e n d t e   k o m p o n e n t e r   - -  
+         % 1 ! s !  
+          [ % 1 ! s ! ]  
+  
+   ´  N a v n e o m r å d e r e s e r v a t i o n e n ,   d e r   b l e v   i d e n t i f i c e r e t   a f   U R L - p r æ f i k s e t   % 2 ,   b l e v   t i l f ø j e t .  
+     °  N a v n e o m r å d e r e s e r v a t i o n e n ,   d e r   b l e v   i d e n t i f i c e r e t   a f   U R L - p r æ f i k s e t   % 2 ,   b l e v   s l e t t e t .  
+   à  A l l e   p o s t e r   p å   I P   L i s t e n - O n l y   k a n   i k k e   k o n v e r t e r e s .     D r i v e r e n   v i l   l y t t e   p å   a l l e   t i l g æ n g e l i g e   g r æ n s e f l a d e r .  
+     $  A u d i t u s r   1 . 0  
+     x  S k r i v   " a u d i t u s r   / ? "   f o r   a t   f å   y d e r l i g e r e   o p l y s n i n g e r . % n  
+   d A u d i t u s r   -   i n d s t i l l e r   o v e r v å g n i n g s p o l i t i k     p r .   b r u g e r .  
+ / ?   v i s e r   h j æ l p   t i l   k o m m a n d o l i n j e k o m m a n d o e r .  
+ H v i s   d e r   i k k e   a n g i v e s   n o g e n   p a r a m e t r e ,   v i l   d e   a k t u e l l e   i n d s t i l l i n g e r  
+ b l i v e   v i s t .   A n g i v   e n   a f   f ø l g e n d e :  
+ / i s   < e k s t e r n   s i k k e r h e d s k o n t o > : < l i s t e   m e d   k o m m a s e p a r e r e d e   k a t e g o r i e r >  
+       t i l f ø j e r   e l l e r   æ n d r e r   e n   i n c l u d e - s u c c e s s - p o s t  
+ / i f   < e k s t e r n   s i k k e r h e d s k o n t o > : < l i s t e   a f   k o m m a s e p a r e r e d e   k a t e g o r i e r >  
+       t i l f ø j e r   e l l e r   æ n d r e r   e n   i n c l u d e - f a i l u r e - p o s t  
+ / e s   < e k s t e r n   s i k k e r h e d s k o n t o > : < l i s t e   a f   k o m m a s e p a r e r e d e   k a t e g o r i e r >  
+       t i l f ø j e r   e l l e r   æ n d r e r   e n   e x c l u d e - s u c c e s s - p o s t  
+ / e f   < e k s t e r n   s i k k e r h e d s k o n t o > : < l i s t e   a f   k o m m a s e p a r e r e d e   k a t e g o r i e r >  
+       t i l f ø j e r   e l l e r   æ n d r e r   e n   e x c l u d e - f a i l u r e - p o s t  
+ / r   < e k s t e r n   s i k k e r h e d s k o n t o >  
+       f j e r n e r   a l l e   i n d i v i d u e l l e   o v e r v å g n i n g s p o s t e r   f o r   d e n n e   e k s t e r n e  
+       s i k k e r h e d s k o n t o  
+ / r a  
+       f j e r n e r   a l l e   i n d i v i d u e l l e   o v e r v å g n i n g s p o s t e r  
+ / e   < f i l n a v n >  
+       e k s p o r t e r e r   a k t u e l l e   o g   i n d i v i d u e l l e   o v e r v å g n i n g s i n d s t i l l i n g e r   t i l  
+       e n   f i l  
+ / i   < f i l e a v n >  
+       i m p o r t e r e r   a k t u e l l e     o g   i n d i v i d u e l l e   o v e r v å g n i n g s i n d s t i l l i n g e r   f o r  
+       e n   f i l  
+ G y l d i g e   k a t e g o r i e r   e r :  
+   ,  i n c l u d e : s u c c e s s :  
+     ,  i n c l u d e : f a i l u r e :  
+     ,  e x c l u d e : s u c c e s s :  
+     ,  e x c l u d e : f a i l u r e :  
+     Œ K e r b e r o s - u n d e r s y s t e m e t   h a r   p r o b l e m e r   m e d   a t   h e n t e   b i l l e t t e r   f r a  
+ d i n   d o m æ n e c o n t r o l l e r   v i a   U D P - n e t v æ r k s p r o t o k o l l e n .     D e t t e   s k y l d e s  
+ n o r m a l t   n e t v æ r k s p r o b l e m e r .     K o n t a k t   d i n  
+ s y s t e m a d m i n i s t r a t o r .  
+     ( K e r b e r o s - u n d e r s y s t e m e t   f a n d t   e n   f e j l ,   d a   c h i p k o r t e t   b l e v   a n v e n d t   p å   e n  
+ V P N - f o r b i n d e l s e .   D e t t e   b e t y d e r   t y p i s k ,   a t   k o r t e t   e r   b l e v   t a g e t   u d   a f  
+ k o r t l æ s e r e n   u n d e r   V P N - s e s s i o n e n .   E n   m u l i g   l ø s n i n g   e r   a t   a f b r y d e  
+ V P N - f o r b i n d e l s e n ,   g e n i n d s æ t t e   k o r t e t   o g   g e n o p r e t t e   f o r b i n d e l s e n .  
+   Ì K e r b e r o s - u n d e r s y s t e m e t   f a n d t   e n   f e j l ,   s o m   t i l s y n e l a d e n d e   s t a m m e r   f r a   e n   m a n g l e n d e    
+ e l l e r   f o r k e r t   P I N - k o d e   f o r   c h i p k o r t e t ,   d a   c h i p k o r t e t   b l e v   a n v e n d t    
+ u n d e r   k o n t r o l   a f   l e g i t i m a t i o n s o p l y s n i n g e r n e .   K ø r   u n d e r p r o g r a m m e t   G e m t e   b r u g e r n a v n e   o g    
+ a d g a n g s k o d e r   i   K o n t r o l p a n e l ,   o g   a n g i v   P I N - k o d e n   f o r   l e g i t i m a t i o n s o p l y s n i n g e r n e   f o r   % 1 % 2 % 3   f o r   a t   l ø s e   p r o b l e m e t .  
+     Ø D e r   o p s t o d   a d g a n g s k o d e f e j l   u n d e r   k o n t r o l   a f   l e g i t i m a t i o n s o p l y s n i n g e r n e .  
+ K ø r   u n d e r p r o g r a m m e t   G e m t e   b r u g e r n a v n e   o g   a d g a n g s k o d e r   i   K o n t r o l p a n e l ,   o g  
+ a n g i v   a d g a n g s k o d e n   f o r   l e g i t i m a t i o n s o p l y s n i n g e r n e   f o r   % 1 % 2 % 3   f o r   a t   l ø s e   p r o b l e m e t .  
+     ”  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 )   r e p a i r e d .  
+     ˆ  I K E - p o r t e n e   ( U D P   5 0 0 / 4 5 0 0 )   k u n n e   i k k e   å b n e s   i   W i n d o w s   F i r e w a l l .  
+   Œ  I K E - p o r t e n e   ( U D P   5 0 0 / 4 5 0 0 )   k u n n e   i k k e   l u k k e s   i   W i n d o w s   F i r e w a l l .  
+      D e r   e r   i n g e n   l o k a l e   E F S - c e r t i f i k a t e r ,   d e r   b r u g e s   t i l   a t   k r y p t e r e   d e n n e   f i l .   D e r   t a g e r  
+ s i k k e r h e d s k o p i   a f   l o k a l e   E F S - c e r t i f i k a t e r .  
+   ”  D e r   e r   i n g e t   l o k a l t   E F S - c e r t i f i k a t ,   d e r   k a n   t a g e s   s i k k e r h e d s k o p i   a f .  
+     L D e r   l a v e s   s i k k e r h e d s k o p i   a f   d i n e   c e r t i f i k a t e r   o g   d e   t i l s v a r e n d e   n ø g l e r .   H v i s   d u   i k k e   s t a r t e d e   h a n d l i n g e n ,   s k a l   d u   t r y k k e   p å   A N N U L L E R .   T r y k   p å   O K   f o r   a t   b e k r æ f t e .  
+   x  D e r   b l e v   t a g e t   e n   s i k k e r h e d s k o p i   a f   E F S - c e r t i f i k a t e r n e .  
+   |  S i k k e r h e d s k o p i e r i n g e n   a f   E F S - c e r t i f i k a t e t   l y k k e d e s   i k k e .  
+     l  S i k k e r h e d s k o p i e r i n g   a f   E F S - c e r t i f i k a t   o g   - n ø g l e .  
+     @  S k r i v   n a v n e t   p å   P F X - f i l e n .  
+     ”  P F X - f i l s t i e n   f o r   o u t p u t   e r   f o r   l a n g .   G ø r   s t i e n   k o r t e r e ,   o g   p r ø v   i g e n .  
+   4 V i s e r   e l l e r   æ n d r e r   k r y p t e r i n g e n   a f   m a p p e r   [ f i l e r ]   p å   N T F S - p a r t i t i o n e r .  
+  
+     C I P H E R   [ / E   |   / D ]   [ / S : m a p p e ]   [ / A ]   [ / I ]   [ / F ]   [ / Q ]   [ / H ]   [ s t i n a v n   [ . . . ] ]  
+  
+     C I P H E R   / K  
+  
+     C I P H E R   / R : f i l n a v n  
+  
+     C I P H E R   / U   [ / N ]  
+  
+     C I P H E R   / W : m a p p e  
+  
+     C I P H E R   / X [ : e f s - f i l ]   [ f i l n a v n ]  
+  
+         / A                 G æ l d e r   f o r   b å d e   f i l e r   o g   m a p p e r .   D e n   k r y p t e r e d e   f i l  
+                             k a n   b l i v e   d e k r y p t e r e t ,   n å r   d e n   æ n d r e s ,   h v i s   d e n   o v e r o r d n e d e  
+                             m a p p e   i k k e   e r   k r y p t e r e t   D e t   a n b e f a l e s ,   a t   d u   k r y p t e r e r  
+                             f i l e n   o g   d e n   o v e r o r d n e d e   m a p p e .  
+         / D                 D e k r y p t e r e r   d e   a n g i v n e   m a p p e r .   M a p p e r   b l i v e r   m a r k e r e t ,  
+                             s å   f i l e r ,   d e r   t i l f ø j e s   s e n e r e ,   i k k e   v i l   b l i v e   k r y p t e r e t .  
+         / E                 K r y p t e r e r   d e   a n g i v n e   m a p p e r .   M a p p e r   b l i v e r   m a r k e r e t ,  
+                             s å   f i l e r ,   d e r   t i l f ø j e s   s e n e r e ,   v i l   b l i v e   k r y p t e r e t .  
+         / F                 G e n n e m t v i n g e r   k r y p t e r i n g s h a n d l i n g   p å   a l l e   a n g i v n e   o b j e k t e r ,   s e l v  
+                             d e   o b j e k t e r ,   d e r   a l l e r e d e   e r   k r y p t e r e d e .     O b j e k t e r ,   d e r   a l l e r e d e  
+                             e r   k r y p t e r e d e   s p r i n g e s   o v e r   s o m   s t a n d a r d .  
+         / H                 V i s e r   f i l e r   m e d   s k j u l t e   a t t r i b u t t e r   e l l e r   s y s t e m a t t r i b u t t e r .  
+                             D i s s e   f i l e r   u d e l a d e s   s o m   s t a n d a r d .  
+         / I                 F o r t s æ t t e r   u d f ø r s l e n   a f   d e n   a n g i v n e   h a n d l i n g ,   s e l v   e f t e r  
+                             o p s t å e d e   f e j l .     S o m   s t a n d a r d   s t o p p e r   C I P H E R ,   n å r   d e r   o p s t å r  
+                             e n   f e j l .  
+         / K                 O p r e t t e r   e n   n y   f i l k r y p t e r i n g s n ø g l e   f o r   b r u g e r e n ,   d e r   k ø r e r  
+                             C I P H E R .   H v i s   d e n n e   i n d s t i l l i n g   v æ l g e s ,   v i l   a l l e   a n d r e                                                         i n d s t i l l i n g e r   b l i v e   i g n o r e r e t .  
+         / N                 D e n n e   i n d s t i l l i n g   v i r k e r   k u n   m e d   / U .   D e t t e   v i l   f o r h i n d r e ,   a t                                           n ø g l e r   o p d a t e r e s .   D e t t e   b r u g e s   t i l   a t   f i n d e   a l l e   d e   k r y p t e r e d e                                       f i l e r   p å d e   l o k a l e   d r e v .  
+         / Q                 K u n   d e   v i g t i g s t e   o p l y s n i n g e r   r a p p o r t e r e s .  
+         / R                 O p r e t t e r   n ø g l e   o g   c e r t i f i k a t   t i l   d e n   b e t r o e d e   b r u g e r   t i l                                                   g e n o p r e t t e l s e   a f   k r y p t e r e d e   d a t a     ( E F S   R e c o v e r y   A g e n t )   o g  
+                             s k r i v e r   d e r e f t e r   t i l   e n   . P F X - f i l   ( i n d e h o l d e n d e   c e r t i f i k a t   o g                                           p r i v a t   n ø g l e )   o g   e n   . C E R - f i l   ( s o m   k u n   i n d e h o l d e r   c e r t i f i k a t e t ) .  
+                             E n   a d m i n i s t r a t o r   k a n   t i l f ø j e   i n d h o l d e t   a f   . C E R - f i l e n   t i l  
+                             E F S - g e n o p r e t t e l s e s p o l i t i k k e n   f o r   a t   o p r e t t e   d e n   b e t r o e d e   b r u g e r  
+                             f o r   b r u g e r e ,   o g   i m p o r t e r e   . P F X - f i l e n   f o r   a t   g e n o p r e t t e   b e s t e m t e  
+                             f i l e r .  
+         / S                 U d f ø r e r   d e n   a n g i v n e   h a n d l i n g   p å   m a p p e r   i   d e n   a n g i v n e  
+                             m a p p e   o g   a l l e   u n d e r m a p p e r .  
+         / U                 F o r s ø g e r   a t   b e r ø r e   a l l e   k r y p t e r e d e   f i l t e r   p å   d e   l o k a l e   d r e v .  
+                             D e t t e   v i l   o p d a t e r e   b r u g e r e n s   f i l k r y p t e r i n g s n ø g l e   e l l e r   d e n  
+                             b e t r o e d e   b r u g e r s   n ø g l e   t i l   d e   a k t u e l l e   n ø g l e r ,   h v i s   d e   e r   æ n d r e t .                                 D e n n e   i n d s t i l l i n g   v i r k e r   i k k e   m e d   a n d r e   i n d s t i l l i n g e r   u n d t a g e n  
+                             / N .  
+         / W                 F j e r n e r   d a t a   f r a   t i l g æ n g e l i g   l e d i g   p l a d s   p å   h e l e  
+                             d i s k e n h e d e n .   H v i s   d e n n e   i n d s t i l l i n g   v æ l g e s ,   i g n o r e r s   a l l e   a n d r e  
+                             i n d s t i l l i n g e r .   D e n   a n g i v n e   m a p p e   k a n   v æ r e   h v o r   s o m   h e l s t   p å   e n  
+                             d i s k e n h e d .   H v i s   d e t   e r   e t   t i l s l u t n i n g s p u n k t   e l l e r   r e f e r e r e r   t i l  
+                             e n   m a p p e   p å   e n   a n d e n   d i s k e n h e d ,   v i l   d a t a e n e   p å   d e n   d i s k e n h e d   i k k e                                 b l i v e   f j e r n e t .  
+         / X                 F o r e t a g e r   s i k k e r h e d s k o p i e r i n g   a f   E F S - c e r t i f i k a t   o g   - n ø g l e r   t i l  
+                             f i l n a v n .   H v i s   e f s f i l e   a n g i v e s ,   v i l   d e n   a k t u e l l e   b r u g e r s  
+                             c e r t i f i k a t ( e r )   b l i v e   b r u g t   t i l   a t   k r y p t e r e   f i l e n ,   d e r   v i l   b l i v e  
+                             s i k k e r h e d s k o p i e r e t .   E l l e r s   v i l   d e n   a k t u e l l e   b r u g e r s   E F S -  
+                             c e r t i f i k a t   o g   - n ø g l e r   b l i v e r   s i k k e r h e d s k o p i e r e t .  
+  
+  
+         d i r e c t o r y   E n   m a p p e s t i .  
+         f i l e n a m e     E t   f i l n a v n   u d e n   f i l t y p e n a v n .  
+         p a t h n a m e     A n g i v e r   e t   m o n s t e r ,   e n   f i l   e l l e r   e n   m a p p e .  
+         e f s f i l e       E n   k r y p t e r e t   f i l s t i .  
+  
+         H v i s   C I P H E R   b r u g e s   u d e n   p a r a m e t e r   v i s e s   k r y p t e r i n g s t i l s t a n d e n  
+         f o r   d e n   a k t u e l l e   m a p p e   o g   a l l e   f i l e r ,   d e r   f i n d e s   i   d e n n e   m a p p e .  
+         D u   k a n   b r u g e   f l e r e   m a p p e n a v n e   o g   j o k e r t e g n .     D u   s k a l   i n d s æ t t e   m e l l e m r u m  
+         m e l l e m   p a r a m e t r e ,   n å r   d u   a n g i v e r   f l e r e   p a r a m e t r e .  
+     ¬  M S   D T C   h a r   m o d t a g e t   e n   u g y l d i g   m e d d e l e l s e .   H æ n d e l s e s s p e c i f i k k e   o p l y s n i n g e r :   % 1 . % 0  
+   ì  T C P / I P   h a r   n å e t   s i k k e r h e d s g r æ n s e n ,   d e r   e r   p å l a g t   a n t a l l e t   a f   s a m t i d i g e   f o r s ø g   p å   o p r e t t e l s e   a f   T C P - f o r b i n d e l s e r .  
+     ì U d b y d e r e n   % 1   e r   b l e v e t   r e g i s t r e r e t   i   W M I - n a v n e o m r å d e t   % 2 ,   m e n   a n g a v   i k k e   e g e n s k a b e n   H o s t i n g M o d e l .     D e n n e   u d b y d e r   v i l   b l i v e   k ø r t   v h a .   k o n t o e n   L o c a l S y s t e m .     D e n n e   k o n t o   e r   p r i v i l e g e r e t ,   o g   u d b y d e r e n   k a n   f o r å r s a g e   e n   s i k k e r h e d s f e j l ,   h v i s   d e n   i k k e   r e p r æ s e n t e r e r   b r u g e r a n m o d n i n g e r n e   k o r r e k t .     K o n t r o l l e r ,   a t   u d b y d e r e n   e r   b l e v e t   k o n t r o l l e r e t   f o r   s i k k e r h e d s o p f ø r s e l   o g   o p d a t e r   e g e n s k a b e n   H o s t i n g M o d e l   f o r   u d b y d e r r e g i s t r e r i n g e n   t i l   e n   k o n t o   m e d   m i n d s t   m u l i g e   a d g a n g s t i l l l a d e l s e r   f o r   d e n   k r æ v e d e   f u n k t i o n .  
+     X { S k æ r m d r i v e r e n   s v a r e r   i k k e }  
+ S k æ r m d r i v e r e n   % h s   v i r k e r   i k k e   n o r m a l t .   G e m   d i t   a r b e j d e ,   o g   g e n s t a r t   c o m p u t e r e n   f o r   a t   g e n d a n n e   d e n   f u l d e   s k æ r m f u n k t i o n a l i t e t .   N æ s t e   g a n g   d u   g e n s t a r t e r   c o m p u t e r e n   v i l   d e r   b l i v e   v i s t   e n   d i a l o g b o k s ,   s o m   g i v e r   d i g   m u l i g h e d   f o r   a t   s e n d e   d a t a   o m   d e n n e   f e j l   t i l   M i c r o s o f t .  
+     4 W i n d o w s   k a n   i k k e   f å   a d g a n g   t i l   f i l e n   % 1   p å   g r u n d   a f   e n   a f   f ø l g e n d e   å r s a g e r :    
+ d e r   e r   e t   p r o b l e m   m e d   n e t v æ r k s f o r b i n d e l s e n ,   d i s k e n   h v o r   f i l e n   e r   p l a c e r e t   p å ,   l a g e r d r i v e r n e    
+ i n s t a l l e r e t   p å   c o m p u t e r e n   e l l e r   d i s k e n   m a n g l e r .    
+ W i n d o w s   l u k k e d e   p r o g r a m m e t   % 2   p å   g r u n d     a f   d e n n e   f e j l . % n % n P r o g r a m :   % 2 % n F i l :   % 1 % n % n F e j l v æ r d i e n   s t å r   p å   l i s t e n   u n d e r   a f s n i t t e t   Y d e r l i g e r e   d a t a . % n B r u g e r h a n d l i n g % n 1 .   Å b n e r   f i l e n   i g e n .    
+ D e t t e   p r o b l e m   e r   m u l i g v i s   m i d l e r t i d i g t ,   d e r   r e t t e r   s i g   s e l v ,   n å r   p r o g r a m m e t   k ø r e r   i g e n . % n 2 .    
+ H v i s   d e r   s t a d i g   i k k e   k a n   o p n å s   a d g a n g   t i l   f i l e n   o g % n % t -   f i l e n   e r   p å   n e t v æ r k e t ,    
+ s k a l   d i n   n e t v æ r k s a d m i n i s t r a t o r   k o n t r o l l e r e ,   a t   d e r   i k k e   e r   e t   p r o b l e m   m e d   n e t v æ r k e t   o g   a t   s e r v e r e n   k a n   k o n t a k t e s . % n % t -   f i l e n   e r   p å   e n   f l y t b a r   d i s k ,   f . e k s .   e n   f l o p p y d i s k   e l l e r   c d - r o m ,   s k a l   d u   k o n t r o l l e r e ,   a t   d i s k e n   e r   k o r r e k t   i n d s a t   i   c o m p u t e r e n s   d r e v . % n 3 .   K o n t r o l l e r   o g   r e p a r e r   f i l s y s t e m e t   v e d   a t   k ø r e   C H K D S K .   H v i s   d u   v i l   k ø r e   C H K D S K ,   s k a l   d u   k l i k k e   p å   S t a r t ,   k l i k k e   p å   K ø r ,   s k r i v e   C M D ,   o g   d e r e f t e r   k l i k k e   p å   O K .   S k r i v   C H K D S K   / F   p å   k o m m a n d o p r o m p t e n ,   o g   t r y k   d e r e f t e r   p å   E N T E R . % n 4 .   H v i s   p r o b l e m e t   e r   v e d v a r e n d e ,   s k a l   d u   g e n d a n n e   f i l e n   f r a   e n   s i k k e r h e d s k o p i . % n 5 .   F a s t s l å ,   o m   a n d r e   f i l e r   p å   d e n   s a m m e   d i s k   k a n   å b n e s .   H v i s   a n d r e   f i l e r   h e l l e r   i k k e   k a n   å b n e s ,   e r   d i s k e n   m u l i g v i s   b e s k a d i g e t .   H v i s   d e t   e r   e n   h a r d d i s k ,   s k a l   d u   k o n t a k t e   s y s t e m a d m i n i s t r a t o r e n   e l l e r   c o m p u t e r f o r h a n d l e r e n   f o r   a t  
+ f å   y d e r l i g e r e   h j æ l p . % n Y d e r l i g e r e   d a t a % n F e j l v æ r d i :   % 3 % n D i s k t y p e :   % 4  
+   |  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 ) .  
+     Œ  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 )   r e p a i r e d .  
+   €  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 ) .  
+   $ W i n d o w s   k a n   i k k e   l æ s e   b r u g e r p o l i t i k k e n s   t i l b a g e k o b l i n g s t i l s t a n d   f o r   p o l i t i k p r o g r a m m e t .   ( % 1 ) .   B e h a n d l i n g e n   a f   g r u p p e p o l i t i k k e n   b l e v   a f b r u d t . .  
+     l % 1   f r a   e n   a n d e n   s k o v   l o g g e d e   p å   d e n n e   m a s k i n e .   B e h a n d l i n g   a f   g r u p p e p o l i t i k   p å   t v æ r s   a f   s k o v e   e r   d e a k t i v e r e t ,   o g   d e r   e r   i n d f ø r t   t i l b a g e k o b l i n g   i   d e n n e   s k o v   f o r   d e n n e   b r u g e r k o n t o .  
+   Ä  F o r s ø g e t   p å   a t   a f g ø r e ,   o m   b r u g e r -   o g   m a s k i n k o n t i   b e f i n d e r   s i g   i   s a m m e   s k o v ,   m i s l y k k e d e s   ( % 1 ) .  
+   è G l o b a l e   b r u g e r p r o f i l e r   p å   t v æ r s   a f   s k o v e   e r   d e a k t i v e r e t .   W i n d o w s   i n d l æ s t e   i k k e   d i n   g l o b a l e   p r o f i l   o g   l o g g e r   d i g   p å   m e d   d i n   l o k a l e   p r o f i l .   Æ n d r i n g e r   i   p r o f i l e n   k o p i e r e s   i k k e   t i l   s e r v e r e n ,   n å r   d e r   l o g g e s   a f .     K o n t a k t   n e t v æ r k s a d m i n i s t r a t o r e n .  
+   8 T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   k u n n e   i k k e   o p r e t t e   h æ n d e l s e s f o r e s p ø r g s l e r   t i l   W M I   f o r   a t   o v e r v å g e   a n t i v i r u s -   o g   f i r e w a l l - p r o g r a m m e r   f r a   t r e d j e p a r t .  
+     Ä  T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   k u n n e   i k k e   i n d l æ s e   f o r e k o m s t e r   a f   F i r e w a l l P r o d u c t   f r a   W M I .  
+   Ä  T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   k u n n e   i k k e   i n d l æ s e   f o r e k o m s t e r   a f   F i r e w a l l P r o d u c t   f r a   W M I .  
+   Ì  W i n d o w s   S i k k e r h e d s c e n t e r   f a n d t   e t   t r e d j e p a r t s p r o d u k t   m e d   e t   i n s t a n c e I D   u d e n   g u i d .     I n s t a n c e I D = % 1 .  
+    T j e n e s t e n   W i n d o w s   S i k k e r h e d s c e n t e r   k u n n e   i k k e   o p r e t t e   h æ n d e l s e s f o r e s p ø r g s l e r   t i l   W M I   f o r   a t   o v e r v å g e   s t a r t / s t o p   a f   t j e n e s t e r .  
+   0 X A   T r a n s a c t i o n   M a n a g e r   k ø r e r   i   e n   u s t a b i l   t i l s t a n d   o g   k a n   i k k e   f o r t s æ t t e .   D e r   u d f ø r e s   i k k e   X A - t r a n s a k t i o n e r .   K o n t a k t   M i c r o s o f t   P r o d u k t s u p p o r t   % 1   % 0  
+   „ X A   T r a n s a c t i o n   M a n a g e r   k a n   i k k e   i n d l æ s e   d e n   ø n s k e d e   X A   D L L ,   f o r d i   h a n d l i n g e n   k r æ v e r   e n   p o s t   i   r e g i s t r e r i n g s d a t a b a s e n .   O p r e t   e n   s t r e n g v æ r d i   i   r e g i s t r e r i n g s d a t a b a s e n     u n d e r   H K L M \ S o f t w a r e \ M i c r o s o f t \ M S D T C \ X A D L L ,   h v o r   v æ r d i e n s   n a v n   e r   n a v n e t   p å   D L L - f i l e n   i   f o r m a t e t   d l l n a v n . d l l ,   o g   v æ r d i e n   e r   d e n   f u l d s t æ n d i g e   s t i   t i l   D L L - f i l e n .   H v i s   d u   i k k e   e r   s i k k e r   p å   n a v n e t   e l l e r   s t i e n   f o r   d i n   X A - d l l - f i l ,   s k a l   d u   k o n t r o l l e r e   v e j l e d n i n g e n   f r a   d i n   X A - u d v y d e r .   B e m æ r k ,   a t   h v i s   d e n n e   c o m p u t e r   e r   e n   d e l   a f   e n   k l y n g e ,   s k a l   d e n n e   r e g i s t r e r i n g s d a t a b a s e p o s t   o p r e t t e s   f o r   h v e r   n o d e   i   k l y n g e n .   % 1 % 0  
+     ì T j e n e s t e n   W i n M g m t   k u n n e   i k k e   i n d l æ s e   l a g e r f i l e r   u n d e r   m a p p e n   % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y .     D e t t e    
+ k a n   s k y l d e s   e n   b e s k a d i g e l s e   i   l a g e r f i l e r n e ,   s i k k e r h e d s i n d s t i l l i n g e r n e   f o r   d e n n e   m a p p e ,   m a n g e l   p å   d i s k p l a d s   e l l e r   a n d r e    
+ s y s t e m r e s s o u r c e p r o b l e m s   s o m   m a n g e l   p å   h u k o m m e l s e .     H v i s   d e n n e   f e j l   o p s t å r   h v e r   g a n g   c o m p u t e r e n   s t a r t e s ,    
+ e r   a d m i n i s t r a t o r e n   p å   d e n n e   c o m p u t e r   m u l i g v i s   n ø d t   t i l   a t   s t o p p e   t j e n e s t e n   W i n M g m t ,   s l e t t e   a l l e   f i l e r   o g   m a p p e r   p å   d e n n e   p l a c e r i n g ,    
+ o g   g e n s t a r t e   t j e n e s t e n   W i n M g m t .  
+   t L a g e r e t   f o r   t j e n e s t e n   W i n M g m t   i   % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   k u n n e   i k k e   o p g r a d e r e s   u n d e r   i n s t a l l a t i o n .      
+ L a g e r e t   b l e v   f l y t t e t   t i l   m a p p e n   % 1   o g   e t   n y t   l a g e r   e r   b l e v e t   o p r e t t e t .  
+   L D o k u m e n t e t   % 1   e j e t   a f   % 2   b l e v   i k k e   u d s k r e v e t   p å   p r i n t e r e n   % 3 .   D a t a t y p e :   % 4 .   S p o o l f i l e n s   s t ø r r e l s e   i   b y t e :   % 5 .   A n t a l   b y t e   u d s k r e v e t :   % 6 .   S a m l e t   a n t a l   s i d e r   i   d o k u m e n t e t :   % 7 .   A n t a l   s i d e r   u d s k r e v e t :   % 8 .   K l i e n t c o m p u t e r :   % 9 .   W i n 3 2 - f e j l k o d e ,   d e r   b l e v   r e t u r n e r e t   a f   u d s k r i f t s p r o c e s s o r e n :   % 1 0 .   % 1 1  
+   ¸ D e   m a s k i n s p e c i f i k k e   g r æ n s e i n d s t i l l i n g e r   g i v e r   i k k e   % 1   % 2 - t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e r   f o r   b r u g e r e n   % 3 \ % 4   S I D   ( % 5 ) .     D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e d i g e r e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+     Ø D e   m a s k i n s p e c i f i k k e   g r æ n s e i n d s t i l l i n g e r   g i v e r   i k k e   % 1   % 2 - t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e t   m e d   C L S I D   % n % 3 % n   f o r   b r u g e r e n   % 4 \ % 5   S I D   ( % 6 ) .     D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e d i g e r e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+   ä D e   i n d s t i l l i n g e r   f o r   t i l l a d e l s e r ,   d e r   e r   % 1 ,   g i v e r   i k k e   % 2   % 3 - t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e t   m e d   C L S I D   % n % 4 % n   f o r   b r u g e r e n   % 5 \ % 6   S I D   ( % 7 ) .     D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e d i g e r e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+     Ì D e   i n d s t i l l i n g e r   f o r   t i l l a d e l s e r ,   d e r   e r   % 1 ,   g i v e r   i k k e   % 2   a d g a n g s t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e t   % 3   f o r   b r u g e r e n   % 4 \ % 5   S I D   ( % 6 ) .   D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e d i g e r e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+   @ D e   p r o g r a m s p e c i f i k k e   i n d s t i l l i n g e r   f o r   t i l l a d e l s e r   g i v e r   i k k e   % 1   a d g a n g s t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e t   % 2   f o r   b r u g e r e n   % 3 \ % 4   S I D   ( % 5 ) .   P r o g r a m m e t   a n g i v e r   d e n n e   s i k k e r h e d s t i l l a d e l s e   v i a   p r o g r a m k o d e n .   H v i s   d u   v i l   æ n d r e   s i k k e r h e d s t i l l a d e l s e n ,   s k a l   d u   k o n t a k t e   p r o g r a m l e v e r a n d ø r e n .  
+   Ä D e   m a s k i n s p e c i f i k k e   g r æ n s e i n d s t i l l i n g e r   g i v e r   i k k e   % 1   a d g a n g s t i l l a d e l s e   t i l   C O M   S e r v e r - p r o g r a m m e t   % 2   f o r   b r u g e r e n   % 3 \ % 4   S I D   ( % 5 ) .     D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e d i g e r e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+    D e n   m a s k i n s p e c i f i k k e   % 1 - s i k k e r h e d s b e s k r i v e l s e   f o r   % 2   e r   u g y l d i g .   D e n   i n d e h o l d e r   a d g a n g s k o n t r o l p o s t e r   m e d   u g y l d i g e   t i l l a d e l s e r .   D e n   ø n s k e d e   h a n d l i n g   b l e v   d e r f o r   i k k e   u d f ø r t .   D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e t t e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+     \ S i k k e r h e d s b e s k r i v e l s e n   f o r   s t a r t   o g   a k t i v e r i n g   f o r   C O M   S e r v e r - p r o g r a m m e t   m e d   C L S I D   % n % 1 % n   e r   u g y l d i g .   D e n   i n d e h o l d e r   a d g a n g s k o n t r o l p o s t e r   m e d   u g y l d i g e   t i l l a d e l s e r .   D e n   ø n s k e d e   h a n d l i n g   b l e v   d e r f o r   i k k e   u d f ø r t .   D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e t t e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+   < D e n   a d g a n g s s i k k e r h e d s b e s k r i v e l s e ,   d e r   e r   % 1 ,   f o r   C O M   S e r v e r - p r o g r a m m e t   % 2   e r   u g y l d i g .   D e n   i n d e h o l d e r   a d g a n g s k o n t r o l p o s t e r   m e d   u g y l d i g e   t i l l a d e l s e r .   D e n   ø n s k e d e   h a n d l i n g   b l e v   d e r f o r   i k k e   u d f ø r t .   D e n n e   s i k k e r h e d s i n d s t i l l i n g   k a n   r e t t e s   m e d   a d m i n i s t r a t i o n s v æ r k t ø j e t   K o m p o n e n t t j e n e s t e r .  
+   Ğ D e n   p r o g r a m s p e c i f i k k e   a d g a n g s s i k k e r h e d s b e s k r i v e l s e   f o r   C O M   S e r v e r - p r o g r a m m e t   % 1   e r   u g y l d i g .   D e n   i n d e h o l d e r   a d g a n g s k o n t r o l p o s t e r   m e d   u g y l d i g e   t i l l a d e l s e r .   D e n   ø n s k e d e   h a n d l i n g   b l e v   d e r f o r   i k k e   u d f ø r t .     P r o g r a m m e t   i n d s t i l l e d e   d e n n e   s i k k e r h e d s t i l l a d e l s e   p r o g r a m m e r i n g s m æ s s i g t .   H v i s   d u   v i l   æ n d r e   d e n n e   s i k k e r h e d s t i l l a d e l s e ,   s k a l   d u   k o n t a k t e   p r o g r a m u d b y d e r e n .  
+     ° D e n   m a s k i n s p e c i f i k k e   g r u p p e p o l i t i k   % 1   b e g r æ n s e r   s i k k e r h e d s b e s k r i v e l s e n   e r   u g y l d i g .   S i k k e r h e d s b e s k r i v e l s e n   e r   d e f i n e r e t   s o m   e n   u g y l d i g   S D D L - s t r e n g   ( S e c u r i t y   D e s c r i p t o r   D e f i n i t i o n s   L a n g u a g e ) .   D e n   ø n s k e d e   h a n d l i n g   b l e v   d e r f o r   i k k e   u d f ø r t .   K o n t a k t   a d m i n i s t r a t o r e n   f o r   a t   f å   s i k k e r h e d s b e s k r i v e l s e n   r e t t e t   i   i n d s t i l l i n g e r n e   f o r   g r u p p e p o l i t i k k e n .  
+     L o g f i l e n   % 2   k u n n e   i k k e   o p r e t t e s .   K o n t r o l l e r ,   a t   l o g f ø r i n g s m a p p e n   e r   k o r r e k t   o g   a t   c o m p u t e r e n   h a r   s k r i v e a d g a n g   d e n n e   m a p p e .    
+   D L o g f i l e n   k u n n e   i k k e   o p r e t t e s   f o r   w e b s t e d e t   W 3 S V C % 2 .   K o n t r o l l e r ,   a t   l o g f ø r i n g s m a p p e n   e r   k o r r e k t   f o r   w e b s t e d e t   o g   a t   c o m p u t e r e n   h a r   s k r i v e a d g a n g   d e n n e   m a p p e .    
+     d D e r   k a n   i k k e   s k r i v e s   t i l   l o g f i l e n   % 2   f o r   w e b s t e d e t e   W 3 S V C % 3 .   D i s k e n   e r   m u l i g v i s   f y l d t .   H v i s   d e t t e   e r   e n   n e t v æ r k s s t i ,   s k a l   d u   k o n t r o l l e r e   a t   n e t v æ r k s f o r b i n d e l s e n   e r   i   o r d e n .  
+     4 D e n   c e n t r a l i s e r e d e ,   b i n æ r e   l o g f i l   k u n n e   i k k e   o p r e t t e s .   K o n t r o l l e r ,   a t   l o g f ø r i n g s m a p p e n   e r   k o r r e k t   o g   a t   c o m p u t e r e n   h a r   s k r i v e a d g a n g   t i l   d e n n e   m a p p e .  
+     l D e r   k u n n e   i k k e   s k r i v e s   t i l   d e n   c e n t r a l i s e r e d e ,   b i n æ r e   l o g f i l   % 2 .   D i s k e n   e r   m u l i g v i s   f y l d t .   H v i s   d e t t e   e r   e n   n e t v æ r k s s t i ,   s k a l   d u   k o n t r o l l e r e   a t   n e t v æ r k s f o r b i n d e l s e n   e r   i   o r d e n .  
+     À D e r   k u n n e   i k k e   f o r e t a g e s   b i n d i n g   f o r   d e n   u n d e r l i g g e n d e   t r a n s p o r t   f o r   % 2 .   L i s t e n   I P   L i s t e n - O n l y   i n d e h o l d e r   m u l i g v i s   e n   r e f e r e n c e   t i l   e n   g r æ n s e f l a d e ,   d e r   i k k e   f i n d e s   p å   d e n n e   c o m p u t e r .     D a t a f e l t e t   i n d e h o l d e r   f e j l n u m m e r e t .  
+    E j e r e n   a f   l o g f i l e n   e l l e r   - m a p p e n   % 2   e r   u g y l d i g .   D e t t e   e r   m u l i g v i s   f o r d i   e n   a n d e n   b r u g e r   a l l e r e d e   h a r   o p r e t t e t   l o g f i l e n   e l l e r   - m a p p e n .  
+    D e r   o p s t o d   e n   f e j l   u n d e r   i n i t i a l i s e r i n g e n   a f   r e s e r v a t i o n e r n e   f o r   n a v n e o m r å d e r n e .     S t a t u s f e j l k o d e n   e r   i n d e h o l d t   i   d e t   r e t u r n e r e d e   d a t a .  
+     X D e r   o p s t o d   e n   f e j l   u n d e r   i n i t i a l i s e r i n g e n   a f   r e s e r v a t i o n e n   f o r   n a v n e o m r å d e d e r n e ,   i d e n t i f i c e r e t   a f   U R L - p r æ f i k s e t   % 2 .   S t a t u s f e j l k o d e n   e r   i n d e h o l d t   i   d e   r e t u r n e r e d e   d a t a .  
+   ¨  F e j l l o g f i l e n   k a n   i k k e   o p r e t t e s .   K o n t r o l l e r ,   a t   f e j l l o g f ø r i n g s m a p p e n   e r   k o r r e k t .  
+   Ô  D e r   k a n   i k k e   s k r i v e s   t i l   f e j l l o g f i l e n .   D i s k e n   e r   m u l i g v i s   f y l d t .   D a t a f e l t e t   i n d e h o l d e r   f e j l n u m m e r e t .  
+     ¬  K o n f i g u r a t i o n e n   a f   f e j l l o g f ø r i n g   m i s l y k k e d e s .   D a t a f e l t e t   i n d e h o l d e r   f e j l n u m m e r e t .  
+   ¼  L i s t e p o s t e n   % 2   i   I P   L i s t e n - O n l y   k a n   i k k e   k o n v e r t e r e s .   D a t a f e l t e t   i n d e h o l d e r   f e j l n u m m e r e t .  
+    K o p i e r e r   f i l e r   o g   m a p p e t r æ e r .  
+  
+ X C O P Y   k i l d e   [ d e s t i n a t i o n ]   [ / A   |   / M ]   [ / D [ : d a t o ] ]   [ / P ]   [ / S   [ / E ] ]   [ / V ]   [ / W ]  
+                                                       [ / C ]   [ / I ]   [ / Q ]   [ / F ]   [ / L ]   [ / G ]   [ / H ]   [ / R ]   [ / T ]   [ / U ]  
+                                                       [ / K ]   [ / N ]   [ / O ]   [ / X ]   [ / Y ]   [ / - Y ]   [ / Z ]  
+                                                       [ / E X C L U D E : f i l 1 [ + f i l 2 ] [ + f i l 3 ] . . . ]  
+  
+     k i l d e                 A n g i v e r   f i l e n   e l l e r   f i l e r n e ,   d e r   s k a l   k o p i e r e s .  
+     d e s t i n a t i o n     A n g i v e r   p l a c e r i n g e n   a f   o g / e l l e r   n a v n e t   p å   n y e   f i l e r .  
+     / A                       K o p i e r e r   k u n   f i l e r   m e d   a r k i v a t t r i b u t t e t   a n g i v e t ,  
+                               m e n   æ n d r e r   i k k e   a t t r i b u t t e t .  
+     / M                       K o p i e r e r   k u n   f i l e r   m e d   a r k i v a t t r i b u t t e t   a n g i v e t ,  
+                               d e a k t i v e r e r   a r k i v a t t r i b u t t e t .  
+     / D : m - d - å           K o p i e r e r   f i l e r   æ n d r e t   p å   e l l e r   e f t e r   d e n   a n g i v n e   d a t o .  
+                               H v i s   d e r   i k k e   e r   a n g i v e t   e n   d a t o ,   k o p i e r e s   k u n   f i l e r   m e d  
+                               e t   k i l d e t i d s p u n k t ,   d e r   l i g g e r   e f t e r   d e s t i n a t i o n s t i d s p u n k t e t .  
+     / E X C L U D E : f i l 1 [ + f i l 2 ] [ + f i l 3 ] . . .  
+                               A n g i v e r   e n   l i s t e   m e d   f i l e r ,   d e r   i n d e h o l d e r   s t r e n g e .   H v e r   s t r e n g  
+                               s k a l   v æ r e   p å   e n   s e p a r a t   l i n j e   i   f i l e r n e .     H v i s   e n   a f  
+                               s t r e n g e n e   s v a r e r   t i l   e n   d e l   a f   d e n   a b s o l u t t e   s t i   t i l   f i l e n ,  
+                               d e r   s k a l   k o p i e r e s ,   k o p i e r e s   f i l e n   i k k e .   H v i s   d e r   f . e k s .  
+                               a n g i v e s   e n   s t r e n g   s o m   \ o b j \   e l l e r   . o b j ,   u d e l a d e s   a l l e   f i l e r  
+                               u n d e r   m a p p e n   o b j   e l l e r   a l l e   f i l e r   m e d   f i l t y p e n a v n e t   . o b j .  
+     / P                       S p ø r g e r ,   i n d e n   d e   e n k e l t e   d e s t i n a t i o n s f i l e r   o p r e t t e s .  
+     / S                       K o p i e r e r   m a p p e r   o g   u n d e r m a p p e r ,   d o g   i k k e   t o m m e   m a p p e r .  
+     / E                       K o p i e r e r   m a p p e r   o g   u n d e r m a p p e r ,   o g s å   t o m m e   m a p p e r .  
+                               S v a r e r   t i l   / S   / E .   K a n   b r u g e s   t i l   a t   æ n d r e   / T .  
+     / V                       V e r i f i c e r e r   h v e r   e n k e l t   n y   f i l .  
+     / W                       B e d e r   d i g   t r y k k e   p å   e n   t a s t ,   f ø r   d e r   k o p i e r e s .  
+     / C                       F o r t s æ t t e r   k o p i e r i n g e n ,   s e l v o m   d e r   o p s t å r   f e j l .  
+     / I                       H v i s   d e s t i n a t i o n e n   i k k e   f i n d e s ,   o g   d e r   k o p i e r e s   m e r e   e n d   é n  
+                               f i l ,   t a g e s   d e r   u d g a n g s p u n k t   i ,   a t   d e s t i n a t i o n e n   s k a l   v æ r e   e n  
+                               m a p p e .  
+     / Q                       V i s e r   i k k e   f i l n a v n e   u n d e r   k o p i e r i n g e n .  
+     / F                       V i s e r   k i l d e -   o g   d e s t i n a t i o n s f i l e r n e s   f u l d e   n a v n   u n d e r  
+                               k o p i e r i n g .  
+     / L                       V i s e r   f i l e r ,   d e r   v i l   b l i v e   k o p i e r e t .  
+     / G                       T i l l a d e r   k o p i e r i n g   a f   k r y p t e r e d e   f i l e r   t i l   e n   d e s t i n a t i o n ,   s o m  
+                               i k k e   u n d e r s t ø t t e r   k r y p t e r i n g .  
+     / H                       K o p i e r e r   o g s å   s k j u l t e   f i l e r   o g   s y s t e m f i l e r .  
+     / R                       O v e r s k r i v e r   s k r i v e b e s k y t t e d e   f i l e r .  
+     / T                       O p r e t t e r   m a p p e s t r u k t u r ,   m e n   k o p i e r e r   i k k e   f i l e r .   M e d t a g e r  
+                               i k k e   t o m m e   m a p p e r   e l l e r   u n d e r m a p p e r .   / T   / E   m e d t a g e r  
+                               t o m m e   m a p p e r   o g   u n d e r m a p p e r .  
+     / U                       K o p i e r e r   k u n   f i l e r ,   d e r   f i n d e s   i   d e s t i n a t i o n e n   i   f o r v e j e n .  
+     / K                       K o p i e r e r   a t t r i b u t t e r .   N o r m a l   X c o p y   n u l s t i l l e r   a t t r i b u t t e r  
+                               f o r   s k r i v e b e s k y t t e t .  
+     / N                       K o p i e r e r   v h a .   d e   o p r e t t e d e   k o r t e   n a v n e .  
+     / O                       K o p i e r e r   o p l y s n i n g e r   o m   f i l e n s   e j e r s k a b   o g   A C L .  
+     / X                       K o p i e r e r   i n d s t i l l i n g e r   f o r   f i l o v e r v å g n i n g   ( / O   e r  
+                               u n d e r f o r s t å e t ) .  
+     / Y                       U n d e r t r y k k e r   a n m o d n i n g   o m   a t   b e k r æ f t e ,   a t   f i l e n   m å   o v e r s k r i v e  
+                               e n   e k s i s t e r e n d e   d e s t i n a t i o n s f i l .  
+     / - Y                     M e d f ø r e r   a n m o d n i n g   o m   a t   b e k r æ f t e ,   a t   f i l e n   m å   o v e r s k r i v e   e n  
+                               e k s i s t e r e n d e   d e s t i n a t i o n s f i l .  
+     / Z                       K o p i e r e r   n e t v æ r k s f i l e r   i   g e n s t a r t s t i l s t a n d .  
+  
+ P a r a m e t e r e n   / Y   k a n   v æ r e   f o r u d i n d s t i l l e t   i   m i l j ø v a r i a b l e n   C O P Y C M D .  
+ D e t t e   k a n   t i l s i d e s æ t t e s   v e d   a t   a n g i v e   / - Y   p å   k o m m a n d o l i n j e n .  
+     œ  S k e m a b e k r æ f t e l s e   f o r   % 2   m i s l y k k e d e s   u n d e r   2 .   f a s e .   Å r s a g e n   s k y l d e s   ' % 1 ' .  
+     ô  S k e m a b e k r æ f t e l s e   f o r   % 2   m i s l y k k e d e s   u n d e r   2 .   f a s e .   Å r s a g e n   v a r ,   a t   a t t r i b u t t e t   ' % 1 '   i k k e   s t e m m e r   o v e r e n s   m e d   s k e m a e t .  
+   œ  S k e m a b e k r æ f t e l s e   f o r   % 2   m i s l y k k e d e s   u n d e r   1 .   f a s e .   Å r s a g e n   s k y l d e s   ' % 1 ' .  
+       P l a n l a g t   h e n t n i n g   a f   f i l e n   % 2   l y k k e d e s   i k k e .   Å r s a g e n   s k y l d e s   ' % 1 ' .  
+     ¸  D e n   m a k s i m a l e   f i l s t ø r r e l s e   f o r   d o m æ n e t   % 2   e r   b l e v e t   o v e r s k r e d e t .   Å r s a g e n   s k y l d e s   ' % 1 ' .  
+     à4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                           S t r i n g F i l e I n f o   ä   0 4 0 6 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   `   F i l e D e s c r i p t i o n     S e r v i c e   P a c k   2 - m e d d e l e l s e r     d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 2 r e s . d l l     ’ 7  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l e   r e t t i g h e d e r   f o r b e h o l d e s .     D   O r i g i n a l F i l e n a m e   x p s p 2 r e s . d l l     h #  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i v s y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   |    V a r F i l e I n f o     $    T r a n s l a t i o n     °8    R e s o u r c e C h e c k s u m   /µ¯D#ß\Ù˜´OU a<HTML id=dlgAbout STYLE="width: 25.8em; height: 22.6em">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<TITLE>
+Om Internet Explorer
+</TITLE>
+<style>
+.versionformat {
+color: black;
+font-family: MS Sans Serif;
+font-size: 8pt;
+position: absolute;
+left: 0em;
+top: 0em;
+height: 2em;
+width:25em;
+z-index: 20;
+}
+.textformat {
+color: black;
+font-family: Verdana;
+font-size:8pt;
+position: absolute;
+left: 10.2em;
+top: 19.8em;
+height: 3em;
+width:26.5em;
+}
+.logo {
+color: LIGHTGREY;
+font-family: MS Sans Serif;
+font-size:40pt;
+position: absolute;
+left: 1.9em;
+top: 4.5em;
+height: 0.5em;
+width:1em;
+z-index: -1;
+}
+.button {
+width: 7em;
+height: 2.2em;
+color: buttontext;
+font-family: MS Sans Serif;
+font-size:8pt;
+cursor: hand;
+}
+</style>
+<SCRIPT>
+var platIs64=false;
+function fnShow64Flag(){
+if(navigator.userAgent.indexOf("Win64")>-1){
+platIs64=true;
+}
+if(platIs64==true){
+o64bitFlag.innerText='64-bit Edition';
+}
+}
+</SCRIPT>
+<script>
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "Der opstod en fejl i denne dialogboks.";
+var L_ErrorNumber_Text = "Fejl: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function OnPageLoad()
+{
+var L_PreCipherStrength_Text = "";
+var L_PostCipherStrength_Text = "-bit";
+var L_UpdateInfo_Text = "Opdateringsoplysninger";
+var L_Unknown_Text = "Ukendt ";
+L_UpdateVersions_Text = "Opdateringsversioner:";
+L_updateWidth_number= "9em";
+L_updateFontSize_number="8pt";
+L_UpdateFont_Fontname ="Tahoma, MS Shell Dlg";
+updateUrl = "";
+var cipherStrength = "";
+if ((null != window.dialogArguments))
+{
+arrArgs = window.dialogArguments.split("~");
+spaVersion.innerText = arrArgs[0];
+if (arrArgs[3] == "168")
+cipherStrength = 128;
+else if (arrArgs[3] == "128")
+cipherStrength = 40;
+else
+cipherStrength = arrArgs[3];
+spaCipher.innerText = L_PreCipherStrength_Text + cipherStrength + L_PostCipherStrength_Text;
+pID.innerText=arrArgs[4];
+if (null != arrArgs[6])
+spaIEAKInfo.innerText = arrArgs[6];
+updateUrl = arrArgs[5];
+}
+else
+{
+spaVersion.innerText = L_Unknown_Text;
+spaCipher.innerText = L_Unknown_Text;
+pID.innerText = L_Unknown_Text;
+}
+if ("" == updateUrl)
+updateUrl = "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=128bit";
+var mv=window.navigator.appMinorVersion;
+var temp_mv_string = "";
+if(mv!="0")
+{
+for(ictr=0;ictr<mv.length;ictr++)
+{
+if(mv.charAt(ictr)==";")
+{
+temp_mv_string = temp_mv_string + "; "
+}
+else
+{
+temp_mv_string = temp_mv_string + mv.charAt(ictr)
+}
+}
+mv = temp_mv_string
+}
+minorversion.innerText=L_UpdateVersions_Text + mv;
+}
+window.onerror = HandleError;
+</script>
+</head>
+<BODY bgcolor="#FFFFFF" onload="OnPageLoad(); fnShow64Flag();" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)"
+scroll=no>
+<table border=0>
+<TR height=10>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD id=Logo colspan=3 align=left><img src="res://shdoclc.dll/ie5.gif"></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=ProdInfoAlign colspan=2 align=left>
+<ID id=ProductInfo1>
+<span id=ProdInfoStyle style="WIDTH: 25em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg">
+<BR>
+<ID id=ProductInfo2>
+Version:</id> <SPAN id=spaVersion></SPAN> <span id="o64bitFlag" style="padding-left:10px"></span><br>
+<ID id=ProductInfo3>
+Krypteringsgrad: </id><SPAN id=spaCipher ></SPAN>&nbsp;<br>
+<ID id=ProductInfo4>
+Produkt-id:</id><SPAN id=pID></SPAN><br>
+<span id=minorversion></SPAN><br>
+<ID id=ProductInfo6></id>
+<SPAN id=spaIEAKInfo>&nbsp;</SPAN>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=copyrightAlign colspan=2 align=left> <TEXTAREA style="WIDTH: 28em; Font: 8pt Tahoma, MS Shell Dlg" id=copyrightText border=0 cols=55 rows=4 readonly>
+Baseret på NCSA Mosaic. NCSA Mosaic(TM). Programmet blev udviklet på National Center for Supercomputing Applications ved University of Illinois, Urbana-Champaign.
+Distribueret i henhold til en licensaftale med Spyglass, Inc.
+Indeholder sikkerhedssoftware givet i licens af RSA Data Security Inc.
+Dele af dette program er baseret på den uafhængige JPEG-gruppes arbejde.
+Multimediekomponenter, herunder Indeo(R); video, Indeo(R) -lyd og webdesigneffekter er leveret af Intel Corp.
+Unix-versionen indeholder software, der er givet i licens af Mainsoft Corporation. Copyright (c) 1998-1999 Mainsoft Corporation. Alle rettigheder forbeholdes. Mainsoft er et varemærke tilhørende Mainsoft Corporation.
+Advarsel! Dette computerprogram er beskyttet i henhold til ophavsretlige love og internationale traktater. Uautoriseret reproduktion eller distribution af dette program, eller dele heraf, er ulovlig og vil blive retsforfulgt.
+</TEXTAREA>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD width=80><img src="res://shdoclc.dll/flag.gif"></TD>
+<TD id=ProductInfo5><a style="WIDTH: 20em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg" href="http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6.0&ar=aboutie&sba=copyr" id="copyright"><ID id=copyrghtText>Copyright &copy;1995-2004 Microsoft Corp.</ID></a>
+</TD>
+<TD id=ok-button align=right><BUTTON tabindex=1 type=submit align=right id="okButton" class=button onClick="window.close();" >OK</BUTTON>
+</TD>
+<Td></TD>
+</TR>
+</table>
+</span>
+</BODY>
+</HTML>
+PA
+
+
+
+function Agent_AutoUpdateAddCommandsHelper() 
+{
+    var L_AutoUpdateCommand1_Text = "&Hvad gør automatiske opdateringer?";
+    var L_AutoUpdateCommand2_Text = "Hvordan hentes &opdateringer?";
+    var L_AutoUpdateCommand3_Text = "Hvordan &installeres opdateringer?";
+    var L_AutoUpdateCommand4_Text = "Hvordan kan jeg ændre in&dstillingerne for automatiske opdateringer?";
+    var L_AutoUpdateCommand5_Text = "Er der &andre ting, jeg bør gøre?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhatDoesAuDo",   L_AutoUpdateCommand1_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowDownloaded",  L_AutoUpdateCommand2_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhenInstalled",  L_AutoUpdateCommand3_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowChange",      L_AutoUpdateCommand4_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateAnythingElse",   L_AutoUpdateCommand5_Text);
+}
+
+function Agent_AutoUpdateAddCommands() 
+{
+    Agent_AutoUpdateAddCommandsHelper();
+    
+    var L_AutoUpdateCommand6_Text = "Hvorfor er &knappen Næste ikke tilgængelig?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhereIsNextButton",  L_AutoUpdateCommand6_Text);
+        
+    Agent_AddAssistantanceCommand();
+}
+
+function Agent_OnAutoUpdatePreDisplayMenu() 
+{
+    if (g.btnNext.disabled) 
+    {
+        var L_AutoUpdateMenuCommand6_Text = "Hvorfor er &knappen Næste ikke tilgængelig?";
+
+        try 
+        {
+            g_AgentCharacter.Commands.Insert("Agent_AutoUpdateWhereIsNextButton", "Agent_AutoUpdateAlreadyInstalled",false,L_AutoUpdateMenuCommand6_Text);
+        }
+        catch (e) 
+        {
+        }
+    }
+
+    else 
+    {
+        try 
+        {
+            g_AgentCharacter.Commands.Remove("Agent_AutoUpdateWhereIsNextButton");
+        }
+        catch (e) 
+        {
+        }
+    }
+}
+
+function Agent_AutoUpdateWhatDoesAuDo() 
+{    
+    var L_AutoUpdateWhatDoesAuDo1_Text = "Webstedet kan automatisk sende sikkerhedsopdateringer og andre vigtige opdateringer til din computer.";
+    Agent_Speak(L_AutoUpdateWhatDoesAuDo1_Text);     
+}
+
+function Agent_AutoUpdateHowDownloaded() 
+{    
+    var L_AutoUpdateHowDownloaded1_Text = "Via uanvendt båndbredde, når du har forbindelse til Internettet.";
+    Agent_Speak(L_AutoUpdateHowDownloaded1_Text);     
+}
+
+function Agent_AutoUpdateWhenInstalled() 
+{    
+    var L_AutoUpdateWhenInstalled1_Text = "Dagligt, men du kan angive hvornår på døgnet.";
+    Agent_Speak(L_AutoUpdateWhenInstalled1_Text);     
+}
+
+function Agent_AutoUpdateHowChange() 
+{    
+    var L_AutoUpdateHowChange1_Text = "Åbn kontrolpanelet System fra skrivebordet og klik derefter på fanen Automatiske opdateringer.";
+    Agent_Speak(L_AutoUpdateHowChange1_Text);     
+}
+
+function Agent_AutoUpdateAnythingElse() 
+{    
+    var L_AutoUpdateAnythingElse1_Text = "Du skal muligvis acceptere en licensaftale for nogle opdateringstyper eller genstarte computeren.";
+    Agent_Speak(L_AutoUpdateAnythingElse1_Text);     
+}
+
+function Agent_AutoUpdateWhereIsNextButton() 
+{       
+    var L_AutoUpdateWhereIsNextButton1_Text = "Nedtonet, indtil du foretager et valg.";
+    Agent_Speak(L_AutoUpdateWhereIsNextButton1_Text);
+}
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.AutoUpdateLoadMe(); window.parent.Agent_Activate('AutoUpdate');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=7%></td>
+    <td ID=maincell valign=middle class="text-primary">
+
+    <br><br>
+    <span class="title">
+        <ID id=AutoUpdateTitle>Beskyt din pc</ID>
+    </span>
+
+    <br><br><br>
+    <table border=0 width="95%">
+    <tr>
+        <td ID="AU_par1" class="text-primary">
+            <span ID=AutoUpdateIntro class="text-primary"><ID id="txtAUPar1"></ID></span>
+        </td>
+    </tr>
+    </table>
+
+    <br>
+    <table border=0 width="95%">
+
+    <!-- AU Radio Buttons -->
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="4">
+            <img src="../images/greenshd.gif">
+        </td>
+    </tr>
+    
+    <tr>
+        <br>
+    </tr>
+    
+    <tr>
+        <td valign="center">
+            <input TABINDEX=3 ID="radioAgree" name="Agreement" type="radio" onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="H" id="AU_Agree" for="radioAgree">
+                <span ID="AU_accept" class="emphasis-greater">
+                    <ID id="txtAU13a"><u>H</u>jælp mig med at beskytte min pc ved at aktivere automatiske opdateringer nu</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_accept_explanation" class="text-primary">
+                <ID id="txtAU13b">(anbefales)</ID>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="3">
+            <img src="../images/redshd.gif">
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="center">
+            <input TABINDEX=4 ID="radioDisAgree" name="Agreement" type="radio" value=false onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="I" id="AU_DisAgree" for="radioDisAgree">
+                <span ID="AU_decline" class="emphasis-greater">
+                    <ID id="txtAU15a"><u>I</u>kke lige nu</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_decline_explanation" class="text-primary">
+                <ID id="txtAU15b">Hvis du ikke har slået automatiske opdateringer til, er din computer mere sårbar over for vira og andre sikkerhedstrusler.</ID>
+            </span>
+        </td>
+    </tr>
+
+    </table>
+
+
+    <table ID=tabl2 tabindex=-1 border=0 width=80% style="position:absolute; left:7.5%; top:84%">
+    <tr>
+        <td class="text-primary" ID=PrivacyPolicyText>
+        <ID id="au_privacy_policy"><B>Der indsamles ikke nogen oplysninger, der kan bruges til at identificere eller kontakte dig.</B><BR>Læs erklæringen om <a id=au_privacy_policy_link TABINDEX=4 style="text-decoration:underline;" href="javascript:window.parent.navigatetoPrivacy('AutoUpdate_Policy');">beskyttelse af personlige oplysninger fra Windows Update</a>.</id>
+        </td>
+    </tr>
+    </table>
+
+    <!-- Navigation buttons -->
+
+    <table id=tabl3 border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=6  ACCESSKEY="T" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text"><u>T</u>ilbage</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"><u>S</u>pring over</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="S" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary">
+            <span id="NextBtnLocalText" style="display:none;"><label for=btnNext><id id="LocalBtnNext_Text"><u>N</u>æste</id></label></span>
+            <span id="FiniBtnLocalText" style="display:none;"><label for=btnFinish><id id="LocalBtnFini_Text"><u>U</u>dfør</id></label></span>
+        </td>
+        <td>
+            <BUTTON ID="btnNext"   class="newbuttonsNext" TABINDEX=7  ACCESSKEY="N" style="display:none;"></BUTTON>
+            <BUTTON ID="btnFinish" class="newbuttonsNext" TABINDEX=7  ACCESSKEY="U" style="display:none;"></BUTTON>
+        </td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+P
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>Erklæring om beskyttelse af personlige oplysninger fra Windows Update</ID></span>
+
+<br><br>
+<TEXTAREA ID=privtext READONLY TABINDEX=2 style="font-family: Arial; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+Senest opdateret 4/15/2004
+
+Se den seneste version af denne erklæring om beskyttelse af personlige oplysninger på webstedet Windows Update:
+windowsupdate.microsoft.com
+
+Microsoft beskytter dine personlige oplysninger.
+
+Hvilken type data indsamles - og hvorfor?
+Windows Update indsamler generelle systemoplysninger om din computer ved hvert besøg, så du kan modtage de opdateringer, der virker bedst på din computer. Oplysningerne bruges også til at oprette statistik om, hvordan webstedet Windows Update bruges og hvilke systemer, der har brug for support, så vi kan forbedre vores service. Oplysningerne inkluderer:
+o    Computermærke og -model
+o    Windows-versionsnummer
+o    Internet Explorer-versionsnummer
+o    Versionnumre for anden Microsoft-software, som der muligvis kan være opdateringer til
+o    Plug and Play-id-numre på hardwareenheder
+o    Internationale og sproglige indstillinger
+o    GUID'er (Globally Unique Identifiers)
+o    Produkt-id og produktnøgler
+o    BIOS-navn, -versionsnummer og -dato
+Din IP-adressen logføres, når du opretter forbindelse til webstedet Windows Update, men adressen bruges kun til at oprette statistik.
+
+Hvordan bruges disse data?
+Windows Update indsamler produkt-id og produknøglen for at bekræfte, at du kører en gyldig og licenseret kopi af Windows. Det indsamlede produkt-id og produktnøglen gemmes ikke, efter at du er færdig med at bruge Windows Update, medmindre produkt-id ikke er gyldigt.
+
+For at oprette en nøjagtig statistik, vurderer Windows Update et GUID (Globally Unique Identifier), der er gemt på din computer, så den kan genkendes. GUID indeholder ikke nogen oplysninger, der kan bruges til at identificere dig som person. Et GUID tildeles og registreres i følgende tilfælde:
+
+o    For at kunne give vores kunder den bedst mulige service, registrerer Windows Update individuelle computere, der besøger webstedet og om hentning og installation af bestemte opdateringer lykkes eller mislykkes. Windows Update gemmer GUID for den computer, der forsøgte at hente opdateringen, id'et for den opdatering, der blev anmodet om, om opdateringerne var nødvendige og ovenstående konfigurationsoplysninger.
+
+o    Windows Update logfører desuden et GUID, hvis du angiver, om hjælp og artikler til fejlfinding var behjælpelige i forbindelse med løsning af dit problem. Dette tillader Windows Update at give dig en stadig bedre hjælp og relevante oplysninger.
+
+o    Microsoft indsamler oplysninger om de sider, som vores kunder besøger på microsoft.com, inklusive Windows Update. Disse oplysninger inkluderer muligvis: din IP-adresse, browsertype, operativsystem, domænenavn, tidspunktet for hvornår du besøgte webstedet og adressen på det websted, der henviste dig hertil. Disse besøgsdata er kun identificeret ved hjælp af et entydigt id-nummer og bruges kun til dette formål.
+
+Om brugerundersøgelser
+Lejlighedsvis vil du muligvis blive spurgt, om du vil deltage i en brugerundersøgelse om den måde, du bruger webstedet Windows Update. Hver brugerundersøgelse indeholder en erklæring om beskyttelse af personlige oplysninger, der omhandler vilkår og anvendelsen af oplysninger, der gives under brugerundersøgelsen.
+</TEXTAREA>
+
+<br><br><br>
+
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>Fortsæt ved at klikke på </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>Tilbage</ID></span><span><ID id=xx1>.</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="T" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text"><u>T</u>ilbage</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"><u>S</u>pring over</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="S" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text"><u>N</u>æste</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY="N" style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Serveren blev ikke fundet</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Siden kan ikke vises</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Den side, du søger efter, er
+    ikke tilgængelig. Der kan være tekniske problemer på webstedet, eller det kan være nødvendigt
+    at ændre webbrowserindstillingerne.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Prøv følgende:</p><ul>
+      <li id="instructionsText1">Klik på knappen 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Opdater</a>, eller prøv igen senere.<br>
+      </li>
+      
+      <li id="instructionsText2">Hvis du har skrevet sidens adresse i adresselinjen, skal du kontrollere, at
+        adressen er skrevet korrekt.<br>
+      </li>
+      <li id="instructionsText3">Hvis du vil kontrollere forbindelsesindstillingerne, skal du klikke på menuen <b>Funktioner</b> og derefter klikke på
+        <b>Internetindstillinger</b>. Klik på <b>Indstillinger</b> under fanen <b>Forbindelser</b>.
+        Indstillingerne skal svare til dem, der blev leveret af administratoren af lokalnetværket (LAN) eller Internetudbyderen. </li>
+     <li ID="list4">Kontroller, om indstillingerne for Internetforbindelsen registreres. Du kan indstille Microsoft Windows til automatisk at registrere indstillinger for netværksforbindelsen (hvis administratoren har aktiveret denne indstilling).
+        <OL> 
+        <li id="instructionText6">Klik på menuen <b>Funktioner</b>, og klik derefter på <b>Internetindstillinger</b> </li>
+        <li id="instructionText7">Klik på <b>LAN-indstillinger</b> under fanen <b>Forbindelser</b>.</li> 
+        <li id="instructionText8">Vælg <b>Automatisk registrering af indstillinger</b>, og klik derefter på <b>OK</b>.</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+       Nogle websteder kræver 128-bit forbindelsessikkerhed. Klik i menuen <b>Hjælp</b>, og klik derefter på <b> Om Internet Explorer </b> for at afgøre, hvilket sikkerhedsniveau, du har installeret.
+    </li>
+    <li id="instructionsText4">
+       Hvis du prøver at besøge et sikkert websted, skal du kontrollere, at dine sikkerhedsindstillinger understøtter dette. Klik på menuen <B>Funktioner</b>, og klik derefter på <b>Internetindstillinger</b>. Rul ned til sektionen Sikkerhed under fanen Avanceret, og marker feltet ud for indstillingerne for SSL 2.0, SSL 3.0, TLS 1.0 og PCT 1.0. 
+    </li>
+     <li id="list3">Klik på knappen <a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif"> Tilbage</a> for at prøve et andet hyperlink. </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:8pt/11pt verdana; color:black">Serveren blev ikke fundet, eller der opstod en DNS-fejl<BR> Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 400 - forkert anmodning</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgColor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="pageNotFound">Siden blev ikke fundet</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">Den side, du søger efter, er
+    fjernet, navnet er ændret, eller den er midlertidigt utilgængelig.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Prøv følgende:</p><ul>
+      <li ID="list1">Hvis du har skrevet sidens adresse i adresselinjen, skal du sørge for, at adressen er 
+        stavet korrekt.<br>
+      </li>
+      <li ID="list2">Åbn the <span id="homepageContainer"></span>&nbsp;hjemmesiden, og søg efter links til de
+        oplysninger, du vil have. </li>
+		 <li id="list3">Klik på knappen
+		 <a href="javascript:history.back(1)">
+		 <img valign=bottom border=0 src="back.gif"> Tilbage</a> for at prøve et andet hyperlink. </li>
+
+      <li ID="list4">Klik på <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Søg</a> for at søge efter oplysninger på Internettet. </li>
+    </ul>
+    <p><br>
+    </p>
+    <h2 ID="errortext" style="COLOR: black; FONT: 8pt/11pt verdana">HTTP 400 - Ugyldig anmodning<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</TBODY>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link                  {font:8pt/11pt verdana; color:red}
+a:visited               {font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 403 (forbudt)</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Du har ikke rettigheder til at se denne side</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">Du har muligvis ikke tilladelse til at se denne
+    mappe eller side med den angivne legitimationbeskrivelse.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p ID="term3"> Hvis du mener, at du skal kunne se denne mappe eller side, skal du prøve at kontakte
+    webstedet via en e-mail-adresse eller det telefonnummer, der kan være vist på startsiden <span id="homepageContainer"></span>&nbsp;.</p>
+    <p id="term4">Du kan klikke på <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 byte)" align="center"> Søg</a> for at søge efter oplysninger på Internettet.</p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:8pt/11pt verdana; color:black">HTTP-fejl 403 -
+    Forbudt <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 404 blev ikke fundet</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Siden blev ikke fundet</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Den side, du søger efter, er
+    fjernet, navnet er ændret, eller den er midlertidigt ikke-tilgængelig.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Prøv følgende:</p><ul>
+      <li id="list1">Hvis du har skrevet sidens adresse i adresselinjen, skal du sørge for, at adressen er 
+        stavet korrekt.<br>
+      </li>
+      <li id="list2">Åbn <span id="homepageContainer"></span>&nbsp;hjemmesiden og søg efter links til
+        de oplysninger, du vil have. </li>
+      <li id="list3">Klik på knappen <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> Tilbage</a> for at prøve et andet hyperlink. </li>    
+      <li ID="list4">Klik på <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Søg</a> for at søge efter oplysninger på Internettet. </li>
+</ul>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP 404 - Filen blev ikke fundet<br>
+   Internet Explorer <BR>
+    </h2>
+    </font></td>
+
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 410 blev afbrudt</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText"> Siden findes ikke</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Den side, du søger efter, er fjernet.</font></td>
+  </tr>
+  <tr>
+    <td id="LID1" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Du kan eventuelt finde de ønskede oplysninger ved at åbne startsiden <span id="homepageContainer"></span>&nbsp; og
+   derefter hoppe til en lignende webside. </p>
+    <p id="LID4">Klik på <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Søg</a> for at søge efter oplysninger på Internettet.</p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP-fejl 410 - Ikke tilgængelig
+ permanent<br>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Der opstod en intern HTTP 500-serverfejl</title>
+</head>
+<script> 
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Siden kan ikke vises</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Der er problemer med den side, du prøver
+    at åbne, og den kan ikke vises.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Prøv følgende:</p><ul>
+      <li id="instructionsText1">Åbn <span id="homepageContainer"></span>&nbsp;hjemmesiden og søg efter links til
+        de oplysninger, du vil have. </li>
+      <li id="instructionsText2">Klik på knappen 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Opdater</a>, eller prøv igen senere.<br>
+      </li>
+      <li ID="instructionsText3">Klik på <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Søg</a> for at søge efter oplysninger på Internettet. </li>
+      <li id="instructionsText4">Du kan også se <a onclick="Related();event.returnValue=false" href="">en liste over relaterede websteder.</a>     
+</ul>
+</p>
+	
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP 500 - Intern serverfejl <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 501 er ikke implementeret</title>
+</head>
+<script> 
+
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">Siden kan ikke vises</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Den side, du prøver at åbne, kan ikke hentes.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Prøv følgende:</p><ul>
+      <li id="instructionsText1">Åbn <span id="homepageContainer"></span>&nbsp;hjemmesiden og søg efter links til
+        de oplysninger, du vil have. </li>
+      <li id="instructionsText2">Klik på knappen 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Opdater</a>, eller prøv igen senere.<br>
+      </li>
+      <li ID="instructionsText3">Klik på <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Søg</a> for at søge efter oplysninger på Internettet. </li>
+      <li id="instructionsText4">Du kan også se <a onclick="Related();event.returnValue=false" href="">en liste over relaterede websteder.</a>     
+</ul>
+   
+	
+	 
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:b

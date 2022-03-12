@@ -1,0 +1,1826 @@
+r(19) />
+</element>
+<element resid=publisheditemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(add) accessible=true accRole=43 accName=rcstr(20) content=rcstr(20) />
+</element>
+<element resid=ocsetupitemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(configure) accessible=true accRole=43 accName=rcstr(66) content=rcstr(66) />
+</element>
+<element resid=oemclientshowhide layoutpos=top layout=borderlayout() >
+<element class="clientrow" id=atom(show) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10073,handlemap(1)) content=rcstr(10073,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+<element class="clientrow" id=atom(hide) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10074,handlemap(1)) content=rcstr(10074,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+</element>
+<element resid=clientcategoryblock id=atom(clipped) layoutpos=top layout=borderlayout() >
+<element layout=verticalflowlayout(0) layoutpos=top padding=rect(8rp,0,0,0) >
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10057,handlemap(1)) content=rcstr(10057,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="StartMenuInternet" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10060,handlemap(1)) content=rcstr(10060,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Mail" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10063,handlemap(1)) content=rcstr(10063,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Media" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10066,handlemap(1)) content=rcstr(10066,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="IM" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10069,handlemap(1)) content=rcstr(10069,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="JavaVM" />
+</element>
+</element>
+</element>
+<ARPSelector resid=clientblockselector layoutpos=client layout=borderlayout() padding=rect(0,6rp,0,6rp) selected=false />
+<element resid=clientitem class="customclientitem" layout=rowlayout(23) layoutpos=top contentalign=topleft selected=false>
+<autobutton id=atom(setdefault) class="padded" accessible=true accRole=45 layout=borderlayout()>
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) contentalign=wrapleft />
+</autobutton>
+<element width=20rp />
+<autobutton id=atom(show) class="padded" accessible=true accRole=44 accName=rcstr(10072,handlemap(1)) layout=borderlayout() selected=false>
+<element id=atom(checkbutton) />
+<element id=atom(checktext) content=rcstr(10072,handlemap(1)) />
+</autobutton>
+</element>
+<arphelp resid=sizehelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(21) content=rcstr(21) />
+</element>
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(22) content=rcstr(22) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element>
+</arphelp>
+<arphelp resid=freqhelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(23) content=rcstr(23) />
+</element>
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(24) content=rcstr(24) />
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(25) content=rcstr(25) />
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(26) content=rcstr(26) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element> 
+</arphelp>
+<arphelp resid=suphelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(prodname) layoutpos=bottom contentalign=wrapleft />
+<element layoutpos=bottom contentalign=wrapleft accessible=true accRole=41 accName=rcstr(27) content=rcstr(27) />
+<element content=" " />
+<element id=atom(title) layoutpos=left contentalign=wrapleft />
+</element>
+<element layoutpos=client layout=VerticalFlowLayout(0,0,3) padding=rect(0,10,0,10)>
+<ARPSupportItem id=atom(publisher) accessible=true accRole=41 AccName=rcstr(28) />
+<ARPSupportItem id=atom(version) accessible=true accRole=41 AccName=rcstr(29) />
+<ARPSupportItem id=atom(contact) accessible=true accRole=41 AccName=rcstr(30) />
+<ARPSupportItem id=atom(support) accessible=true accRole=41 AccName=rcstr(31) />
+<ARPSupportItem id=atom(readme) accessible=true accRole=41 AccName=rcstr(32) />
+<ARPSupportItem id=atom(update) accessible=true accRole=41 AccName=rcstr(33) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(productID) accessible=true accRole=41 AccName=rcstr(34) />
+<ARPSupportItem id=atom(regCompany) accessible=true accRole=41 AccName=rcstr(35) />
+<ARPSupportItem id=atom(regOwner) accessible=true accRole=41 AccName=rcstr(36) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(comments) accessible=true accRole=41 AccName=rcstr(37) />
+</element>
+<Element layoutpos=bottom layout=borderlayout()>
+<Button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</Element>
+<Element layoutpos=bottom id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Element layoutpos=bottom id=atom(repairblock) layout=borderlayout()>
+<Element layoutpos=top id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Button id=atom(repair) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(39) content=rcstr(39) />
+<element id=atom(repairDesc) layoutpos=left contentalign=wrapleft accessible=true accessible=true accRole=41 accName=rcstr(38) content=rcstr(38) />
+</Element>
+</arphelp>
+PAD<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(21,7,19,5);
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+button [enabled=false]
+{
+background: dfc(4, 0x0010 | 0x0100);
+foreground: graytext;
+fontstyle: shadow;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: appworkspace;
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+bordercolor: appworkspace;
+borderthickness: rect(2,2,2,2);
+foreground: captiontext;
+margin: rect(5,5,5,5);
+padding: rect(2,2,2,4);
+}
+button [keyfocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [mousefocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [pressed]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+button [selected]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dfc(4, 0x0010); 
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dfc(3, 0x0000);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dfc(3, 0x0000 | 0x0200);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dfc(3, 0x0001);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dfc(3, 0x0001 | 0x0200);
+}
+repeatbutton [class="Page"]
+{ 
+background: scrollbar;
+}
+repeatbutton [class="Page"][pressed]
+{ 
+background: buttonshadow;
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0004);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dfc(4, 0x0004 | 0x0400);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,3,-1,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,3,-1,0,0,0,0,handlemap(2));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+PAD<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(3), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(5), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(5), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(5), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(4), 3, 1);
+content: dtb(handlemap(4), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+content: dtb(handlemap(4), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(4), 3, 3);
+content: dtb(handlemap(4), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(4), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(4), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(4), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(4), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(4), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(4), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(4), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(4), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(4), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(4), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(3), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(3), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(3), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(3), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(3), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(3), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(3), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(3), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(3), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(3), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(3), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(3), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(3), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(2));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+PA   ¹    L   Ÿ  ¡  H.  £  ¤  X4  ”  ”  @;  ö Àö ÀT;  q Àr À?  d  D e   W i r e l e s s   C o n f i g u r a t i o n - s e r v i c e   i s   g e s t a r t  
+     p  D e   W i r e l e s s   C o n f i g u r a t i o n - s e r v i c e   i s   n i e t   g e s t a r t .  
+     8  I n t e r f a c e   % 1   t o e v o e g e n .  
+   P  I n t e r f a c e   w o r d t   o p n i e u w   i n g e s t e l d .  
+     `  E r   w o r d t   n a a r   d r a a d l o z e   n e t w e r k e n   g e z o c h t .  
+     „  S t u u r p r o g r a m m a   n i e t   g e v o n d e n .   O p n i e u w   z o e k e n   o v e r   5   s e c o n d e n .  
+   ,  Z o e k e n   v o l t o o i d .  
+     Œ  C o n f i g u r a t i e   n i e t   g e w i j z i g d .   V e r b i n t e n i s   m e t   % 1   b l i j f t   b e h o u d e n .  
+     x  C o n f i g u r a t i e - S S I D   v e r w i j d e r e n :   % 1 ,   n e t w e r k t y p e :   % 2 ! d ! .  
+     d  G e e n   c o n f i g u r a t i e s   i n   d e   g e s e l e c t e e r d e   l i j s t .  
+   ˜  K a n   m e t   g e e n   e n k e l   d r a a d l o o s   n e t w e r k   e e n   v e r b i n t e n i s   t o t   s t a n d   b r e n g e n .  
+   t  C o n f i g u r a t i e   % 1   v e r w i j d e r d .   E r   w o r d t   v e r d e r   g e z o c h t .  
+        C o n f i g u r a t i e   % 1   w o r d t   n u   o v e r g e s l a g e n .   L a t e r   n i e u w e   p o g i n g   t o t   v e r i f i c a t i e .  
+   ˆ  I n t e r f a c e   v o o r   d r a a d l o o s   n e t w e r k   i s   g e k o p p e l d   a a n   % 1   [ M A C   % 2 ] .  
+      C o n f i g u r a t i e   % 1   h e e f t   e e n   w i l l e k e u r i g e   s t a n d a a r d   W E P - s l e u t e l .     V e r i f i c a t i e   i s   u i t g e s c h a k e l d .   C o n f i g u r a t i e   v e r m o e d e l i j k   o n g e l d i g .  
+     p  M e l d i n g   o v e r   g e p l a a t s t   a p p a r a a t   o n t v a n g e n   v o o r   % 1 .  
+     p  M e l d i n g   o v e r   v e r w i j d e r d   a p p a r a a t   o n t v a n g e n   v o o r   % 1 .  
+   \  M e l d i n g   o v e r   v e r b o n d e n   m e d i u m   o n t v a n g e n .  
+     x  M e l d i n g   o v e r   v e r b r o k e n   v e r b i n d i n g   m e t   m e d i u m   o n t v a n g e n .  
+   L  M e l d i n g   o v e r   t i m e - o u t   o n t v a n g e n .  
+     h  G e b r u i k e r s o p d r a c h t   ' V e r n i e u w e n '   w o r d t   v e r w e r k t .  
+   x  G e b r u i k e r s o p d r a c h t   ' O p n i e u w   i n s t e l l e n '   w o r d t   v e r w e r k t .  
+     p  D e   o p d r a c h t   ' V o l g e n d e   c o n f i g u r a t i e '   w o r d t   v e r w e r k t .  
+   x  D e   o p d r a c h t   ' C o n f i g u r a t i e   v e r w i j d e r e n '   w o r d t   v e r w e r k t .  
+     l  D e   o p d r a c h t   ' G e g e v e n s   b i j w e r k e n '   w o r d t   v e r w e r k t .  
+       C o n f i g u r a t i e   % 1   v e r w i j d e r d .   E r   w o r d t   v e r d e r   g e z o c h t .  
+   A l s   e r   g e e n   b e t e r   a l t e r n a t i e f   w o r d t   g e v o n d e n ,   w o r d t   d e   c o n f i g u r a t i e   o p n i e u w   g e l d i g .  
+     ¸  D e   c o n f i g u r a t i e   v o o r   d r a a d l o z e   n e t w e r k e n   i s   v i a   e e n   a d m i n i s t r a t i e v e   a a n r o e p   g e w i j z i g d .  
+     ”  [ I n g e s c h a k e l d = % 1 ;   S t a n d a a r d = % 2 ;   M o d u s = % 3 ;   T i j d e l i j k = % 4 ;   B e l e i d = % 5 % ] % n  
+   œ  { S s i d = % 1 ;   I n f r a s t r u c t u u r = % 2 ;   P r i v a c y = % 3 ;   [ T i j d e l i j k = % 4 % ;   B e l e i d = % 5 % ] } . % n  
+        K a n   h e t   M A C - a d r e s   v a n   h e t   e x t e r n e   e n d p o i n t   n i e t   o p v r a g e n .   F o u t c o d e :   % 1 ! d ! .  
+     „  K a n   i n i t i ë l e   s e s s i e s l e u t e l s   n i e t   g e n e r e r e n .   F o u t c o d e :   % 1 ! d ! .  
+     Ä  D e   l i j s t   m e t   g e b l o k k e e r d e   n e t w e r k e n   i s   g e w i j z i g d .   D e   l i j s t   b e s t a a t   n u   u i t   % 1 ! d !   n e t w e r k ( e n ) .  
+     x  K a n   d e   c o n f i g u r a t i e   % 1   n i e t   l e e g m a k e n .   F o u t c o d e :   % 2 ! d ! .  
+   d  E A P O L - s t a t u s o v e r g a n g :   [ % 1 ! w s ! ]   n a a r   [ % 2 ! w s ! ]  
+     H  T i m e - o u t   E A P O L - s t a t u s :   [ % 1 ! w s ! ]  
+   p  V e r b i n d i n g   m e t   m e d i u m   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     Œ  V e r b r e k e n   v a n   v e r b i n d i n g   m e t   m e d i u m   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     t  T o e v o e g e n   v a n   i n t e r f a c e   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     x  V e r w i j d e r e n   v a n   i n t e r f a c e   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     t  M a k e n   v a n   a d a p t e r b i n d i n g   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+   |  V e r b r e k e n   v a n   a d a p t e r b i n d i n g   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+   €  G e b r u i k e r s a a n m e l d i n g   v o o r   i n t e r f a c e   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+   €  G e b r u i k e r s a f m e l d i n g   v o o r   i n t e r f a c e   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     ¤  W i j z i g e n   v a n   p a r a m e t e r s   v a n   8 0 2 . 1 X - c o n f i g u r a t i e   v o o r   [ % 1 ! w s ! ]   w o r d t   v e r w e r k t  
+     €  K a n   g e e n   g e l d i g   c e r t i f i c a a t   v o o r   8 0 2 . 1 X - v e r i f i ë r i n g   v i n d e n .  
+   `  F o u t   b i j   o p h a l e n   % 1 ! w s !   i d e n t i t e i t   0 x % 2 ! 0 x !  
+   €  F o u t   v a n   v e r i f i c a t i e p r o t o c o l   b i j   h e t   v e r w e r k e n   v a n   0 x % 1 ! 0 x !  
+   ”  P a k k e t   % 1 ! w s ! :   D o e l : [ % 2 ! w s ! ]   B r o n : [ % 3 ! w s ! ]   E A P O L - p a k k e t t y p e : [ % 4 ! w s ! ]  
+     | P a k k e t   % 1 ! w s ! : % n   D o e l : [ % 2 ! w s ! ] % n   B r o n : [ % 3 ! w s ! ] % n   E A P O L - p a k k e t t y p e : [ % 4 ! w s ! ] % n   G e g e v e n s l e n g t e : [ % 5 ! l d ! ] % n   E A P - p a k k e t t y p e : [ % 6 ! w s ! ] % n   E A P - i d : [ % 7 ! l d ! ] % n   E A P - g e g e v e n s l e n g t e : [ % 8 ! l d ! ] % n   % 9 ! w s ! % n  
+   ¬  I n t e r a c t i e f   b u r e a u b l a d   n o o d z a k e l i j k   o m   g e b r u i k e r s r e f e r e n t i e s   t e   k u n n e n   s e l e c t e r e n  
+   ¬  I n t e r a c t i e f   b u r e a u b l a d   n o o d z a k e l i j k   o m   a a n m e l d i n g s i n f o r m a t i e   t e   k u n n e n   v e r w e r k e n  
+     œ  G e e n   i n t e r a c t i e   m e t   b u r e a u b l a d   m o g e l i j k   t i j d e n s   v e r i f i c a t i e   v a n   c o m p u t e r  
+     |  I n t e r a c t i e f   b u r e a u b l a d   w o r d t   g e l a d e n .   E e n   o g e n b l i k   g e d u l d  
+   Œ  8 0 2 . 1 X - g e b r u i k e r s m o d u l e   h a a l t   r e f e r e n t i e s   o p .   E e n   o g e n b l i k   g e d u l d  
+      8 0 2 . 1 X - g e b r u i k e r s m o d u l e   v e r w e r k t   a a n m e l d i n g s i n f o r m a t i e .   E e n   o g e n b l i k   g e d u l d  
+   °  F o u t   i n   8 0 2 . 1 X - g e b r u i k e r s m o d u l e   b i j   h e t   o p h a l e n   v a n   g e b r u i k e r s r e f e r e n t i e s   0 x % 1 ! 0 x !  
+     ´  F o u t   i n   8 0 2 . 1 X - g e b r u i k e r s m o d u l e   b i j   h e t   v e r w e r k e n   v a n   a a n m e l d i n g s i n f o r m a t i e   0 x % 1 ! 0 x !  
+     ˆ  R e a c t i e   v a n   8 0 2 . 1 X - g e b r u i k e r s m o d u l e   o n t v a n g e n   e n   w o r d t   v e r w e r k t  
+   ( E A P - i d e n t i t e i t : [ % 1 ! S ! ] % n   S t a t u s : [ % 2 ! w s ! ] % n   V e r i f i c a t i e t y p e : [ % 3 ! w s ! ] % n   V e r i f i c a t i e m o d u s : [ % 4 ! l d ! ] % n   E A P - t y p e : [ % 5 ! l d ! ] % n   A a n t a l   f o u t e n : [ % 6 ! l d ! ] % n  
+     D  O n g e l d i g   E A P O L - s l e u t e l b e r i c h t  
+   x  F o u t   b i j   h e t   v e r w e r k e n   v a n   E A P O L - s l e u t e l b e r i c h t   % 1 ! l d !  
+       O n g e l d i g   E A P - p a k k e t t y p e = % 1 ! l d !   o n t v a n g e n .   V e r w a c h t   E A P - t y p e = % 2 ! l d !  
+     ”  K a n   g e e n   g e l d i g   g e b r u i k e r s c e r t i f i c a a t   v o o r   8 0 2 . 1 X - v e r i f i ë r i n g   v i n d e n .  
+     K a n   g e e n   g e l d i g   c o m p u t e r c e r t i f i c a a t   v o o r   8 0 2 . 1 X - v e r i f i ë r i n g   v i n d e n .  
+   h  8 0 2 . 1 X - c l i e n t v e r i f i c a t i e   v o l t o o i d   b i j   d e   s e r v e r  
+   < G e e n   8 0 2 . 1 X - v e r i f i c a t i e   u i t g e v o e r d   a a n g e z i e n   e r   g e e n   r e a c t i e   v a n   d e   s e r v e r   v o o r   8 0 2 . 1 X - p a k k e t t e n   i s   o n t v a n g e n .   D e   s t a t u s   G E V E R I F I E E R D   i s   n u   g e a c t i v e e r d .  
+     |  8 0 2 . 1 X - c l i e n t v e r i f i c a t i e   m i s l u k t .   D e   f o u t c o d e   i s   0 x % 1 ! 0 x !  
+   ğ  8 0 2 . 1 X - c l i e n t v e r i f i c a t i e   m i s l u k t .   E r   z i j n   p r o b l e m e n   m e t   d e   n e t w e r k v e r b i n d i n g   n a a r   d e   v e r i f i c a t i e s e r v e r   o p g e t r e d e n .  
+     H E r   i s   e e n   % 1 ! w s !   c e r t i f i c a a t   t e n   b e h o e v e   v a n   8 0 2 . 1 X - v e r i f i c a t i e   g e b r u i k t % n  
+  
+ V e r s i e :   % 2 ! w s ! % n  
+ S e r i e n u m m e r :   % 3 ! w s ! % n  
+ V e r l e n e r :   % 4 ! w s ! % n  
+ B e s c h r i j v e n d e   n a a m :   % 5 ! w s ! % n  
+ U P N :   % 6 ! w s ! % n  
+ U i t g e b r e i d   s l e u t e l g e b r u i k :   % 7 ! w s ! % n  
+ G e l d i g   v a n :   % 8 ! w s ! % n  
+ G e l d i g   t o t :   % 9 ! w s ! % n  
+ V i n g e r a f d r u k :   % 1 0 ! w s !  
+     €  M e l d i n g   o v e r   b e l e i d s w i j z i g i n g   v a n   b e l e i d s - e n g i n e   o n t v a n g e n  
+     ¬  L o k a l e   b e l e i d s i n s t e l l i n g e n   b i j g e w e r k t   o p   b a s i s   v a n   i n f o r m a t i e   v a n   b e l e i d s - e n g i n e .  
+   Ä  8 0 2 . 1 x   i s   n i e t   i n g e s c h a k e l d   v o o r   d e   h u i d i g e   n e t w e r k i n s t e l l i n g .   O n t v a n g e n   p a k k e t   i s   g e w e i g e r d .  
+     8 0 2 . 1 x - c l i e n t v e r i f i c a t i e   m i s l u k t .   M o g e l i j k e   f o u t e n   z i j n :  
+ 1 .   O n g e l d i g e   g e b r u i k e r s n a a m   o p g e g e v e n  
+ 2 .   O n g e l d i g   c e r t i f i c a a t   g e k o z e n  
+ 3 .   G e b r u i k e r s a c c o u n t   i s   n i e t   g e m a c h t i g d   t o t   v e r i f i c a t i e  
+  
+ N e e m   c o n t a c t   m e t   d e   s y s t e e m b e h e e r d e r   o p   v o o r   m e e r   i n f o r m a t i e .  
+     Ô  E r   z i j n   g e e n   s l e u t e l s   v o o r   d e   d r a a d l o z e   v e r b i n d i n g   o p g e g e v e n .   O p n i e u w   s l e u t e l s   i n s t e l l e n   w e r k t   n i e t .  
+     x E r   i s   n a   8 0 2 . 1 x - v e r i f i c a t i e   g e e n   W E P - v e r z e n d s l e u t e l   v o o r   d e   d r a a d l o z e   v e r b i n d i n g   o n t v a n g e n .   D e   h u i d i g e   i n s t e l l i n g   i s   a l s   m i s l u k t   g e m a r k e e r d   e n   d e   d r a a d l o z e   v e r b i n d i n g   w o r d t   v e r b r o k e n .  
+     e n d .  
+  
+     Ü D e   s a m e n s t e l l i n g   v a n   d e   h a r d w a r e   o p   d e z e   c o m p u t e r   w i j k t   t e   v e e l   a f   v a n   d e   c o n f i g u r a t i e   t e n   t i j d e   v a n   d e   e e r s t e   a c t i v e r i n g   v a n   W i n d o w s .   A l s   g e v o l g   v a n   d e z e   w i j z i g i n g e n   d i e n t   W i n d o w s   b i n n e n   % u   d a g e n   o p n i e u w   t e   w o r d e n   g e a c t i v e e r d .   V r a a g   u w   c o m p u t e r b e h e e r d e r   o m   W i n d o w s   o p n i e u w   o p   d e z e   c o m p u t e r   t e   a c t i v e r e n .   W i n d o w s   k a n   n i e t   o p n i e u w   i n   d e   v e i l i g e   m o d u s   w o r d e n   g e a c t i v e e r d .   S t a r t   d e   c o m p u t e r   o p n i e u w   i n   d e   n o r m a l e   m o d u s   o p   e n   a c t i v e e r   W i n d o w s   o p n i e u w . \ n W i l t   u   d e   c o m p u t e r   n u   o p n i e u w   o p s t a r t e n ?  
+    D e   s a m e n s t e l l i n g   v a n   d e   h a r d w a r e   o p   d e z e   c o m p u t e r   w i j k t   t e   v e e l   a f   v a n   d e   c o n f i g u r a t i e   t e n   t i j d e   v a n   d e   e e r s t e   a c t i v e r i n g   v a n   W i n d o w s .   A l s   g e v o l g   v a n   d e z e   w i j z i g i n g e n   d i e n t   W i n d o w s   b i n n e n   % u   d a g e n   o p n i e u w   t e   w o r d e n   g e a c t i v e e r d . \ n W i l t   u   W i n d o w s   n u   o p n i e u w   a c t i v e r e n ?  
+   l D e   s a m e n s t e l l i n g   v a n   d e   h a r d w a r e   o p   d e z e   c o m p u t e r   w i j k t   t e   v e e l   a f   v a n   d e   c o n f i g u r a t i e   t e n   t i j d e   v a n   d e   e e r s t e   a c t i v e r i n g   v a n   W i n d o w s .   A l s   g e v o l g   v a n   d e z e   w i j z i g i n g e n   d i e n t   W i n d o w s   b i n n e n   % u   d a g e n   o p n i e u w   t e   w o r d e n   g e a c t i v e e r d .   V r a a g   u w   c o m p u t e r b e h e e r d e r   o m   W i n d o w s   o p n i e u w   o p   d e z e   c o m p u t e r   t e   a c t i v e r e n .  
+     | D e   p r o d u c t c o d e   d i e   v o o r   d e   i n s t a l l a t i e   v a n   W i n d o w s   i s   g e b r u i k t ,   i s   o n g e l d i g .   N e e m   o n m i d d e l l i j k   c o n t a c t   o p   m e t   u w   s y s t e e m b e h e e r d e r   o f   v e r k o p e r   v o o r   h e t   v e r k r i j g e n   v a n   e e n   g e l d i g e   p r o d u c t c o d e .   A l s   u   d e n k t   d a t   u   m e t   e e n   i l l e g a l e   k o p i e   v a n   M i c r o s o f t - s o f t w a r e   t e   m a k e n   h e b t ,   k u n t   u   o o k   c o n t a c t   o p n e m e n   m e t   d e   a f d e l i n g   t e g e n   i l l e g a l e   k o p i e ë n   v a n   M i c r o s o f t   d o o r   e e n   e - m a i l   t e   v e r z e n d e n   a a n   p i r a c y @ m i c r o s o f t . c o m .   U   k u n t   e r   g e r u s t   v a n   u i t g a a n   d a t   p e r s o o n l i j k e   g e g e v e n s   d i e   u   a a n   d e   a f d e l i n g   t e g e n   i l l e g a l e   k o p i e ë n   v a n   M i c r o s o f t   d o o r g e e f t ,   s t r i k t   v e r t r o u w e l i j k   w o r d e n   b e h a n d e l d .  
+       e n d .  
+     ¸ W i n d o w s   h e e f t   u w   z w e r v e n d   p r o f i e l   n i e t   g e l a d e n   e n   p r o b e e r t   u   n u   o p   b a s i s   v a n   u w   l o k a a l   p r o f i e l   a a n   t e   m e l d e n .   W i j z i g i n g e n   i n   h e t   p r o f i e l   w o r d e n   n i e t   n a a r   d e   s e r v e r   g e k o p i e e r d   w a n n e e r   u   z i c h   a f m e l d t .   U w   p r o f i e l   w e r d   n i e t   g e l a d e n   o m d a t   e r   a l   e e n   k o p i e   v a n   d e   p r o f i e l m a p   o p   d e   s e r v e r   b e s t a a t   d i e   n i e t   d e   j u i s t e   b e v e i l i g i n g s i n s t e l l i n g e n   h e e f t .   D e   h u i d i g e   g e b r u i k e r   o f   d e   g r o e p   A d m i n i s t r a t o r   d i e n t   d e   e i g e n a a r   v a n   d e   m a p   t e   z i j n .   N e e m   c o n t a c t   m e t   d e   n e t w e r k b e h e e r d e r   o p .   % n % n  
+     Ğ T e l n e t   S e r v e r   k a n   v a n w e g e   e e n   t e k o r t   a a n   s y s t e e m b r o n n e n   g e e n   t e l n e t s e s s i e   i n i t i a l i s e r e n .   M a a k   g e h e u g e n   v r i j   d o o r   n i e t - a c t i e v e   t e l n e t v e r b i n d i n g e n   e n   a n d e r e   t o e p a s s i n g e n   t e   s l u i t e n   e n   p r o b e e r   h e t   d a a r n a   o p n i e u w .   S y s t e e m f o u t :   % 1  
+  
+   ì  D e   t e l n e t s e s s i e   i s   v a n w e g e   e e n   i n t e r n e   f o u t   t i j d e n s   h e t   a a n r o e p e n   v a n   R e v e r t T o S e l f ( )   b e ë i n d i g d .   S y s t e e m f o u t :   % 1  
+  
+      	 00   h        è      (   00    ¨         ¨       h   00     ¨%          ¨        h  	          è            è  
+ Ø4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                            S t r i n g F i l e I n f o   Ü   0 4 1 3 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   \   F i l e D e s c r i p t i o n     S e r v i c e   P a c k   1 - b e r i c h t e n     d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 1 r e s . d l l     Œ 4  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l e   r e c h t e n   v o o r b e h o u d e n .   D   O r i g i n a l F i l e n a m e   x p s p 1 r e s . d l l     l &  P r o d u c t N a m e     B e s t u r i n g s s y s t e e m   M i c r o s o f t ®   W i n d o w s ®   @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   |    V a r F i l e I n f o     $    T r a n s l a t i o n     °8    R e s o u r c e C h e c k s u m   6Ñ®®oá!¡Å}<®ì¨Q*
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=iso-8859-1">
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<script>
+
+
+
+
+
+
+
+var g_Activation_Install_ID         = "";
+var g_Activation_Install_ID_Full    = "";
+
+function Local_LoadMe() {
+
+    if (window.parent.g_Load_InstallID)
+    {
+        try
+        {
+            g_Activation_Install_ID = window.external.GetInstallationID();
+        }
+        catch(e)
+        {
+            g_Activation_Install_ID = "NOT FOUND.";
+        }
+
+        var i;
+        g_Activation_Install_ID_Full = "";
+
+        for (i = 0; i < g_Activation_Install_ID.length-6; i += 6)
+        {
+            
+            
+            
+            g_Activation_Install_ID_Full += g_Activation_Install_ID.substring(i,i+6) + "-";
+        }
+
+        
+        
+        
+        g_Activation_Install_ID_Full += g_Activation_Install_ID.substring(i,g_Activation_Install_ID.length);
+
+        spn_install_id.innerText = g_Activation_Install_ID_Full;
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.ActivationSvc_LoadMe(); Local_LoadMe();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;"><ID id="txtActiveSvc">Windows via de telefoon activeren</ID></span>
+
+    <br>
+    <span id="act_spn01" class="text-primary"><ID id="txtActiveSvc1"><B>Slechts vier stappen en u bent klaar.</B></ID></span>
+    <BR>
+
+    <TABLE BORDER=0 WIDTH="100%" CELLSPACING=5 CELLPADDING=5>
+    <TR class="text-primary">
+        <TD VALIGN=TOP width="10%" nowrap>
+            <ID id="txtActiveSvc2"><B><u>S</u>tap 1:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <select TABINDEX=1 class="editbox-text-primary" id=selPhoneCountry size=1 ACCESSKEY="S" onfocus="window.parent.OnFocus();" onchange="window.parent.PhoneCountries_Changed();">
+            </select>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc4"><B>Stap 2:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn03"><ID id="txtActiveSvc5">Bel het nummer van de klantenservice:</ID></span>
+            <TABLE BORDER=0>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt05">Gratis nummer: </id><ID ID="act_txt05x"><span ID=ChosenTollNumber></span></ID></TD><TD>&nbsp;</TD>
+            </TR>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt06">Niet-gratis nummer: </id><ID ID="act_txt06x"><span ID=ChosenPhoneNumber DIR=LTR></span></ID></TD><TD>&nbsp;</TD>
+            </TR>
+            </TABLE>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc6"><B>Stap 3:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn04"><ID id="txtActiveSvc7">Geef de volgende installatie-id aan de medewerker van de klantenservice op: </ID></span>
+            <BR>
+            <TABLE BORDER=0>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt07"><B><span id="spn_install_id"></span></B></ID></TD>
+            </TR>
+            <TR class="text-primary">
+                <TD WIDTH=20>&nbsp;</TD><TD><ID ID="act_txt07b">(Klik alleen op <B>Wijzig de productcode</B> als de medewerker van de klantenservice u hierom vraagt)</B></ID></TD>
+            </TR>
+            </TABLE>
+        </TD>
+    </TR>
+    <TR class="text-primary">
+        <TD VALIGN=TOP nowrap>
+            <ID id="txtActiveSvc71"><B>Stap 4:</B></ID>
+        </TD>
+        <TD VALIGN=TOP>
+            <span id="act_spn05"><ID id="txtActiveSvc8">Geef de bevestigings-id op die u van de medewerker van klantenservice hebt gekregen:</ID></span>
+        </TD>
+    </TR>
+    </TABLE>
+
+    <TABLE BORDER=0 CELLSPACING=0 CELLPADDING=0>
+    <TR>
+    <TD WIDTH="20%">&nbsp;</TD>
+    <TD><TABLE BORDER=0 DIR=LTR><TR>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableA><B>A</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox1" tabindex=2 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('1');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenA>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableB><B>B</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox2" tabindex=3 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('2');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenB>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableC><B>C</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox3" tabindex=4 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('3');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenC>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableD><B>D</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox4" tabindex=5 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('4');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenD>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableE><B>E</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox5" tabindex=6 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('5');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenE>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableF><B>F</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox6" tabindex=7 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('6');" onfocus="window.parent.OnFocus();"></TD><TD><BR><font color="white"><ID id=activsvc_hyphenF>-</ID></font></TD>
+        <TD ALIGN=CENTER><font color="white"><ID id=activsvc_tableG><B>G</B></ID></font><BR><INPUT style="ime-mode:disabled" class=confirm-box TYPE=TEXT SIZE=6 NAME="ActCodeBox7" tabindex=8 maxlength=6 onkeyup="window.parent.activate_OnKeyUp('7');" onfocus="window.parent.OnFocus();"></TD>
+    </TR></TABLE></TD>
+    </TR>
+    </TABLE>
+
+    <br>
+    <table border="0">
+    <tr class="text-primary">
+        <td><span id="act_spn06"><id id="txtNextExpl">Klik op Volgende om door te gaan.</id></span></td>
+    </tr>
+    </table>
+
+    </td>
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=1%>&nbsp;</td>
+        <td>
+        <BUTTON ID="btnBack" class="buttons" TABINDEX=9 ACCESSKEY="V" style="display:none;"><label for=btnBack><id id="LocalBtnBack_Text"><u>V</u>orige</id></label></BUTTON>
+        </td>
+        <td width=99%>&nbsp;</td>
+        <td>
+        <BUTTON ID="btnProdkey" class="buttons" TABINDEX=10 ACCESSKEY="P"><label for=btnProdkey><id id="LocalBtnProdkey_Text"><u>P</u>roductcode wijzigen</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=11 ACCESSKEY="H"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>H</u>erinner mij later</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=12 ACCESSKEY="o"><label for=btnNext><id id="LocalBtnNext_Text">V<u>o</u>lgende</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+
+PADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGX                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                MZ       ÿÿ  ¸       @                                   À   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       iÑÚ-s¿‰-s¿‰-s¿‰î|á‰,s¿‰î|å‰,s¿‰Rich-s¿‰                        PE  L JEH        à !
+     â                                        k¤                                         ”á                                                                                                         .rsrc   ”á     â                @  @                                             	    X  €   ˆ  €   ğ  €   ¸ €
+   x €     €   ¸ €   à €   ø €              d    €È   ( €É   @ €  X €                 p €   ˆ €     €   ¸ €   Ğ €   è €     €    €	   0 €
+   H €   ` €              2   x €e    €Ñ  ¨ €@  À €t'  Ø €u'  ğ €ˆ'   €‰'    €Š'  8 € 2  P €8  h €˜:  € €š:  ˜ €œ:  ° €:  È €¿:  à €Œ<  ø €<   €<  ( €<  @ €<  X €‘<  p €‡>  ˆ €                   €   ¸ €‚   Ğ €½   è €9    €r   €s  0 €t  H €u  ` €v  x €w   €°  ¨ €­  À €Ğ  Ø €é  ğ €ğ   €ñ    €  8 €ã  P €é  h €ï  € €?	  ˜ €              d   ° €e   È €f   à €                 ø €              d   	 €l   (	 €á1  @	 €                 X	 €              Ø €p	 €                ˆ	                  ˜	                  ¨	                  ¸	                  È	                  Ø	                  è	                  ø	                  
+                  
+                  (
+                  8
+                  H
+                  X
+                  h
+                  x
+                  ˆ
+                  ˜
+                  ¨
+                  ¸
+                  È
+                  Ø
+                  è
+                  ø
+                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È                  Ø                  è                  ø                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È                  Ø                  è                  ø                                                      (                  8                  H                  X                  h                  x                  ˆ                  ˜                  ¨                  ¸                  È  ô  (  ä      &  (  ä      D)  (  ä      l,  h¯  ä      ÔÛ  h  ä      <â  è  ä      $å  (  ä      Læ  ¨  ä      ôô  ¨  ä      œı  h  ä       ¨%  ä      ¬( ¨  ä      T9 h  ä      ¼= è  ä      ¤@ è  ä      ŒC x  ä      K 0  ä      4P x  ä      ¬X H  ä      ô]    ä      ôb „  ä      xe ğ  ä      hm `  ä      Èq ¤  ä      ls 4  ä       w d  ä      { Ô  ä      Ø} ¤  ä      | 0  ä      ¬ È  ä      t„ ì  ä      `‰ È  ä      (‹   ä      @Œ ¨   ä      èŒ È  ä      °‘    ä      P” °  ä       ˜ ø  ä      øœ 8  ä      0   ä      À¤ ,  ä      ì§ @   ä      ,¨ X  ä      „´ ¤  ä      (¸   ä      0¹ ô  ä      $¼ x  ä      œÂ ˆ  ä      $È ¨  ä      ÌÉ H  ä      Ì @  ä      TÍ „  ä      ØÔ L   ä      $Õ x  ä      œ× ,  ä      ÈÙ p  ä      8İ °	  ä      èæ È  ä      °ì @  ä      ğí $   ä      î I]  ä      `K q  ä      Ôj ò%  ä      È ¼;  ä      „Ì „   ä      Í    ä      Í    ä      0Í ¼  ä      ìĞ ¥   ä       A C T I V S V C . H T M   (                                        €  €   €€ €   € € €€  ÀÀÀ ÀÜÀ ğÊ¦       """ ))) UUU MMM BBB 999 €|ÿ PPÿ “ Ö ÿìÌ ÆÖï Öçç ©­   3   f   ™   Ì  3   33  3f  3™  3Ì  3ÿ  f   f3  ff  f™  fÌ  fÿ  ™   ™3  ™f  ™™  ™Ì  ™ÿ  Ì   Ì3  Ìf  Ì™  ÌÌ  Ìÿ  ÿf  ÿ™  ÿÌ 3   3 3 3 f 3 ™ 3 Ì 3 ÿ 33  333 33f 33™ 33Ì 33ÿ 3f  3f3 3ff 3f™ 3fÌ 3fÿ 3™  3™3 3™f 3™™ 3™Ì 3™ÿ 3Ì  3Ì3 3Ìf 3Ì™ 3ÌÌ 3Ìÿ 3ÿ3 3ÿf 3ÿ™ 3ÿÌ 3ÿÿ f   f 3 f f f ™ f Ì f ÿ f3  f33 f3f f3™ f3Ì f3ÿ ff  ff3 fff ff™ ffÌ f™  f™3 f™f f™™ f™Ì f™ÿ fÌ  fÌ3 fÌ™ fÌÌ fÌÿ fÿ  fÿ3 fÿ™ fÿÌ Ì ÿ ÿ Ì ™™  ™3™ ™ ™ ™ Ì ™   ™33 ™ f ™3Ì ™ ÿ ™f  ™f3 ™3f ™f™ ™fÌ ™3ÿ ™™3 ™™f ™™™ ™™Ì ™™ÿ ™Ì  ™Ì3 fÌf ™Ì™ ™ÌÌ ™Ìÿ ™ÿ  ™ÿ3 ™Ìf ™ÿ™ ™ÿÌ ™ÿÿ Ì   ™ 3 Ì f Ì ™ Ì Ì ™3  Ì33 Ì3f Ì3™ Ì3Ì Ì3ÿ Ìf  Ìf3 ™ff Ìf™ ÌfÌ ™fÿ Ì™  Ì™3 Ì™f Ì™™ Ì™Ì Ì™ÿ ÌÌ  ÌÌ3 ÌÌf ÌÌ™ ÌÌÌ ÌÌÿ Ìÿ  Ìÿ3 ™ÿf Ìÿ™ ÌÿÌ Ìÿÿ Ì 3 ÿ f ÿ ™ Ì3  ÿ33 ÿ3f ÿ3™ ÿ3Ì ÿ3ÿ ÿf  ÿf3 Ìff ÿf™ ÿfÌ Ìfÿ ÿ™  ÿ™3 ÿ™f ÿ™™ ÿ™Ì ÿ™ÿ ÿÌ  ÿÌ3 ÿÌf ÿÌ™ ÿÌÌ ÿÌÿ ÿÿ3 Ìÿf ÿÿ™ ÿÿÌ ffÿ fÿf fÿÿ ÿff ÿfÿ ÿÿf ! ¥ ___ www ††† ––– ËËË ²²² ××× İİİ ããã êêê ñññ øøø ğûÿ ¤   €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ııııııııııııııııııııııııııııııııııııııııııııımmmmmııııııııııııııııııııııııııìíÿÿÿÿmmmmmııııııııııııııııııııı÷ïğÿõÿÿÿÜÜ³mmmmıııııııııııııııııííñÿO'O»ÜÜÛÜÿïmııııııııııııııııïğÿ—--''3Ã™ÿğmııııııııııııııııõñÿ—U4'-~åå^åÜmııııııııııııııımóñôV3'—Ãzzå Ümııııııııııımmımµöñ[Uš zzz ÛmııııııııııìµÖì‘‹öñÜ}WzùL zzzåÛmıııııııııı‹ìİİ	‘öòÛS,Y%åzzz Ûmııııııııìıì´İİİ¶ÓôÜ	™LYYYY^Ûmıııııııì®ì	µİİİ´ÇöÜÜÛÛáÖÖµ™Y^Ômııııııı®ÖİİİİÖÖ¶´ÇöÛÜÜÜÜÛÖÖæÕÛ³mııııııı®µİÖÖÖÖııîğöÔÓÔÚÛÛÛÖ¶ÖÛ³mıııııııı‘µÖÖÖııız	ÍÜÛÓÍÍÓÓÓÔÔ²mııııııııµÖÖııııöááÿÿÿööğÛÔÔÓÍmııııııµÖÖÖÖÖııııñÿ¶ñõÿÿÿÃÃğğıııııı‘ÖÖÖÖÖııııöfeeeef®Ïµğóóïıııııı‘æÖÖÖÖııı¼ööÓÛÜÜµÏ®§ğÿÿóìııııııııµµÖæıııÿÛÛµİİÿìııııııııı´ÖÏıııÍÓÜÜÜİİİïòÿÿóııııııı®ÏÖÖæıııııııı’ïÜñÜµığÿÿıııııııı®æÖÖÖæııııııııÏæÏııııııııııııııı‘ÏææÖÖæııııııæÖÖææııııııııııııııııııµæÖæÏ§§ÏÏæÖææ§Öııııııııııııııııı´ÏÏÏÏææÏÏÏÏï‹§ııııııııııııııııı´ÏÏÏÏÏÏÏÏÏÏÏıııııııııııııııııııı‘Ï§Ïı´ÏÏÏ´Ï§µııııııııııııııııııııµÏıı´§§ıµ§Çµııııııııııııııııııııııııµ§§ııµÇıııııııııııııııııııııııııııııııııııııııııııııı(                                  Ã®•Ò›QÒ˜HÎšZ¾¡~Ç»®¶¦–§‘}¦’}ª™ƒ¹­ÑËÄÑËÄÑËÄÑËÄÑËÄÚ¨^­‰^ÑËÄÑËÄ»‹Q›l?pJ+dB%bB&X>)\D/}iK«ˆÑËÄÑËÄÑËÄèª@²™|À´§—{_‡T'Â}3Ş”<ê¨Gğ´Tß³d¨†P`E*ZC/œpÑËÄÑËÄæ¬E£r:fC&µt(ç˜7ğ›9ï—7ïš7ò§=÷½RúÔwêÊŠvZ7YB/«œ…ÑËÄ×¥Vİ™.º|*ò¦7ë›2ç“/ç0³m'¹r*æ•1ô±BûÔlôØ”lP4gJ¹­Ê±öµ=ó¬4ê /å–+ÚŠ)T(ÑËÄÑËÄÇ¦‡Ô†2ô¨<üÑnÓ²x{`A¶¦•ÎÇ¾ÖªXô´6è +â•&¤g L0dH.iL4vO0‰V*ˆW)^,Œg<yY= †nÑËÄ½¯™ô½?í«.å'Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,Ğ€,_B,š€hÈ¾°ÑËÄÓ»ˆôÄCì¬.åŸ'Ş–(à•)ß“,Ú’3ç“.é•2ğš:í¡BgF.§”…ËÂ·¾¡nÑËÄİÂqõÆB·ƒ(iE"ÑËÄÑËÄ }V¿ƒ.è–.î›5ÎŠ6y\A²¦šÑËÄÃ¬zæÊ‹ÑËÄßÌ‹ß®:mM%T<(jN/µx$æ˜*ç—-ñ¤9¡j-¦‘}ÉÁ·ÑËÄÑËÄÎ½’àÄ„ÓÇªåÌ~á²;µ€$Í%å )äœ(ê .é¦:”tR¾±¤ÑËÄÑËÄÑËÄÅ¹¦ÜÏ›óÚíÔ”æÓföÑGñ·2í¬+î­0è¦7§‚Uµ}Ê½¬ÏÆ¼ÑËÄÑËÄÑËÄÅº¨Ò¿‰ëØúéûékôÌEøÏKÚ°L¨Š`»¬˜ÑËÄÙ¹xÄ³ÑËÄÑËÄÑËÄÑËÄÑËÄÄ¸¦¿¯•¸ |µštÂœWâÄuá¼rÄ¬|É·˜Ó²tÄµ¢ÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑËÄÑÈ¼Ê¼¦İ½xØº…Á®”ÑËÄ(                                  ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿf3Ì 3€  ™ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿf3ÿ™fÿ™fÿf3™ 3ÿffÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀ€  ÕÏÀÿf3ÿÌfÿ™fÌ 3ÕÏÀÿ™f™ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀffffff€  €  ÿÿfÿÌfÌ 3ffffffÌÿÿ€  ÿÿfÿÿfÌ 3ÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿfffÿÿÿ€  ÿÿfÿÿfÌ 3ÌÿÿÌÿÿ™f ™f ™f ™f ™f ™f Ìÿÿfffÿÿÿ€  ÿf3ÿf3ÿf3Ì 3ÌÿÿÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÿÿfffÿÿÿÿÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿ™f ™f ™f ™f ™f ™f ÌÿÿfffÿÿÿÿÿÿÿÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿÌÿÿfffÿÿÿ™Ìÿ™Ìÿ™Ìÿ™ÌÿÌÿÿ€  €  €  €  €  Ìÿÿ  Ì  ™fffÿÿÿ f™ f™ f™ f™ÌÿÿÌÿÿ€  Ì™ ÿf3Ì 3Ìÿÿf ÿ  ÌfffÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÌÿÿÌÿÿÌ 3Ì™ Ì™ Ì 3ÌÿÿÌÿÿÌÿÿfffffffffffffffffffffÌ 3ÿÌfÌ™ €  Ì 3fffffffffÕÏÀÕÏÀÕÏÀ™ 3ÿ™fÕÏÀÿf3ÿÿfÿÌfÿf3ÕÏÀÌ 3ÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿ™f™ 3ÿf3ÿÿfÿÌfÿ™fÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÿÿfÿÿfÿÌfÿ™fÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀÕÏÀ(   ?  ‰         @«                  ˜é 
+o ö  LÔs Ì•” ı»E .É] `˜ ¶iQ írY È‡† ù’{ İÉÇ Éª¦ ÏgQ ş²2 š˜ ÿÍ¼ ÿİ‡ Õm  Rd ìkQ öŠs Í‰u Š ÿå– íyb Æ|| Ò¨– ×¶´ ÿì¤ ç]A ÿÅ´ çdJ ¬ îŠt Ó§¥ ¬W0 ÿ¼¬ ÿ¢ ÿ­› şÅU kà‹ èÚÚ ÿµ£ ¶“Œ ÿÍe ó‚i ®: ÿš… Ê çjQ æY; ÜR4 ÿ² ”Ïj îƒk ³O æqZ ­XF ²/ UQ ÿ×w ÿ¦’ ŞI* ôéæ ÿö· ÿüÅ æQ3 ¼te ¿®§ ¸‡v —K7 æ|  şüù °g6 Ò\D »us Ù–„ ÇB& ç›Š ÿª– –he Ù´« æU7 İÃ¾ ÿÏÃ ëeJ óy ò|d åËÇ ıÛ¸ 2‹ æª— c·E çyc ×«S ÿ×Ë ÿÃ­ Ê‘‹ !½F ÙM/ ¦sg 7²* Ï‹ çaE °‹I ëÇº Á×‰ ìiM ş÷ë ì´b ÇŒ/ ş£ §ia şÊ› ÙõÏ şíÛ ìqU –aX Äzj Î´p x-	 "² û–€ Ë”O ²o åÓÏ ÿÕ¨ ÔB$ ¸mc ÌÏm Ïœ ¸¦j Öua Ù­2 G ççç ÿ‰ ÿæÈ é£‹ tV@ Æò® Ä\  â»© ŠµB ‡r  š ì}g ëaE øæ» çÈ™ ÿº¥ Ëä˜ ô†o ô¥“ ÿÿÓ ìÖ¸ ÍK0 ª{t öÏ‰ …G ¯·C ß½¹ ÇÄT g5 ÷Ês ÕI, öÜ‘ —»o çiM å·‰ ãÊ¬ ï‘} ÉV: ¾=# ÛE( ìÅd áÈˆ ò­œ Ñ£ çu^ Áv) ô³¢ ó‹ ÖE( ô«” Ã·· çG íu] ç™) º¦” ÿÇº äÙ‡ ÿğ¯ ´ö» ìë¡ ÿŞÃ ë[< éıÆ ã¸˜ âÃx ïy] †j íÙ¦ ìÙ• ş™ ëæÚ âéÊ õº« å}h öš† Ò²¦ ôÌ¾ íıÛ çøå ÿ¥› øÃ´ ğ–‚ æmU íÕw ôÚÖ ôº ó×Ã ×| 7 öÇ¹ ûğñ ã÷º óÒÍ ú¾¯ èÑm ÿÓÇ ÿÓÃ ÿ×Ç âM, áM0 ÛE$ ûy øu û×Ç ÿÓo çqU úÓÁ ûÓÇ ÿ×Â û×Ã ÿ¢¡ ëmU ÿ¦ ğŞÁ º\ ß ’ >À ç¡b ğßÎ Š11ŠŠŠŠŠŠŠŠŠŠŠŠŠ'Š'''''''''''''''''''''''''''''''''''''''''''''''''''''''''Š'Š'ŠŠŠŠŠŠŠŠŠŠŠŠŠ1111111Ó11Ó1||||||||||îXîïïïïšššššššššššššššYšYYYYYYYY””ÊÊÊÊ½½½½½½½½vvøøøøøøøøÛøªªªªªWª!!!!!i!iiiiiL44444L44454545D55D555D55ìì5ììì@ì@ì@@@@@@@@§°¹¹¹¹OOOOOOO¹¹¹¹¹¹¹°¹°°°°°°@°@°@°@°°@°@°@°@°@°@°@°@°@°°@° ŠŠŠŠŠŠŠŠŠŠŠ'Š''''''''''''''''''''?'''?'''??''?'''??'?'?''''?''''''''''''''''''Š'Š'ŠŠŠŠŠŠŠŠŠŠŠ11111111Ó11|||||||||||îîXïïXïšššššššššššššššššYYYYY”Y””ÊÊÊÊÊ½½½½½½½½vvøøøøøøÛÛÛÛªªªªª!ª!!!!!!iiiii4444454445D5D5555555ì55ìì@ì@@ì@@@@@@@@§°§¹¹OOOOOOO¯OOOOOOOOOO¹¹¹¹¹¹¹¹°°°°°°°@°@°°@°@°@°@°@°@°@°@°@°°@ ŠŠŠŠŠŠŠ'ŠŠ''''''''''''''''''''??''?'?????????????????????????'?''''''''''''''''''Š'ŠŠŠŠŠŠŠŠŠŠŠŠŠŠ1111111Ó11|||||||||îîîïîïïšššššššššššššššYšYYYYYYY””Ê”Ê½Ê½½½½½½½vvvvøøøøøøøÛÛÛªªªª!ª!!!!!i!iiiiL44444444545D5D5555555ì5ì5ììì@@ì@@@@@@§§§¹OOOO¯¯¯¯¯¯¯¯¯¯¯¯¯¯¯OOOOOO¹¹¹¹¹¹°¹°°°°°°@°@°@°@°@°@°@°@°@°°@° ŠŠŠŠŠŠ'Š'''''''''''''''''??'?????????????????????????????????????'??''''''''''''''''''ŠŠŠŠŠŠŠŠŠŠŠ1Š1111Ó11Ó|||||||||||îXïïïïïšššššššššššššššYšYYYYY”””ÊÊÊÊ½½½½½½½½v½øvøøøøøÛøÛÛmªªªªW!!!!!!iiiii444444454545D5D55D5555ì55ì@ììì@ì@ì@@§§§¹OOO¯¯¯¯¯¯¯0000¯00¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹¹°¹°°°°°@°@°@°@°@°@°@°°@ ŠŠŠŠŠ''''''''''''''''?'???????????????????????????????????????????????'?'''''''''''''''Š'ŠŠŠŠŠŠŠŠŠŠŠ1Š11111111|||||||||îîXîïïïïšššššššššššššššYYYYYYY”Ê”ÊÊÊÊ½½½½½½½vvøøøøøøøÛÛÛªªªª!ª!ª!!!!i!iiiii4L4444454D45D5D555555ììì@ì@ì@@@@@@§§§OOOOOO¯¯¯¯¯0¯¯¯¯¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹°°°°°°°°@°@°@°@°°@° ŠŠ'''''''''''''''?????????????????????????????????????????????????????????'?''''''''''''''ŠŠŠŠŠŠŠŠŠŠŠŠ111111Ó11||||||||||îîïïîïïïššššššššššššššššYYYYYY””Ê”ÊÊ½Ê½½½½½½½vvvøøøøøøÛøªÛªªªªª!!!!!!iiiiiiL444444445545D55D555D55ììììì@ì@@@§§¹OO®LLLLLLLLL5O¯000000¯¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹¹¹°¹°°°°@°@°@°°@ '''''''''''''?'??????????????????Q??Q?QQ?Q?QQ?Q?Q?Q?Q??Q?Q?????????????????????'?'''''''''''''ŠŠŠŠŠŠŠŠŠŠ111111Ó11|||||||||îîïïïïïšššššššššššššYšYšYYYYYY””ÊÊÊÊ½½½½½½½½vvvøøøøøøÛøªªªªª!ªª!!!!!i!iiii444L4444544545D555D555ì555ì@ì@@@§§§LLi!!!!!!!!!!!!iiL®®OOO¯¯¯00¯0¯¯¯¯¯¯¯OOOOOOO¹¹¹¹¹¹°¹°°°°°°°@° ''''''''''?'????????????????QQ??QQQQQQQQQQQQQQQQQQQQQQQQQQQQQ????????????????????''''''''''''''ŠŠŠŠŠŠŠŠŠŠ1111111Ó11|||||||||îîXïXïïšššššššššššššššYYYYYYYY””ÊÊÊ½½½½½½½½v½øvøøøøøÛÛøÛªªªªW!!!!!!!iiiii44444455455D55D55555ìì5ììì@@@§OLi!!!!!!!!i!!!!!!!!!iiL4®O¯0000000¯¯¯¯¯¯¯OOOOO¹¹¹¹¹¹°¹°¹°°° '''''''?'???????????????Q?QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ??Q????????????????'''''''''''''ŠŠŠŠŠŠŠŠŠ1Š1111Ó11|||||||||îXïïïïïšššššššššššššYššYYYYY”Y””ÊÊÊÊÊ½½½½½½vvøøøøøøÛøÛÛªªªªª!ª!!!!!!iiiiL4444L44445D45D555555ì55ììì@@@¹5L!!!!!!!i!i!iiiiiiiiiiiiiiii4L5O¯¯¯00¯¯¯¯¯¯¯¯¯OOOOOO¹¹¹¹¹¹¹¹° ''''?'???????????????Q?QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ?Q?Q???????????????'''''''''''Š'ŠŠŠŠŠŠŠ1111111Ó1|1|||||||îXîïXïïššššššššššššššYšYYYYYY”””ÊÊ½½½½½½½½½vvøvøøøøøÛÛÛªªªªª!ª!!!!!!iiiii44444454445D555D55D5ì555@@§§®i!!!!!i!iiiiii45O¯¯0000¯0¯¯¯¯¯¯¯¯OOOOO¹¹¹¹ ''?'???????????????QQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQQ??Q??????????????''''''''''ŠŠŠŠŠŠŠŠŠŠ1111111|1||||||||îîîïïïïïššššššššššššššYšYYYYY”””ÊÊÊÊ½½½½½½½vvvøøøøøøøÛÛÛªªªªªª!!!!!!!iii44444454545DD555555555@@§@®!!!!!!!iiii4555O¯¯0000¯¯¯¯¯¯¯¯OOOOOO ????????????Q?Q?QQQQQQQQQQQQQQQQQQQQ(QQ((Q(((((((((QQQQQQQQQQQQQQQQQQQQQQQQQQQ?Q???????????'?''''''''''ŠŠŠŠŠŠŠŠŠ1Š11Ó111|||||||||îîïïïïššššššššššššššYšYYYYY”””ÊÊÊ½Ê½½½½½½v½vøvøøøøÛÛøªÛªªªª!!!!!!iiiiiiL4L4444454545D55555555@@@®i!iiiiiiiiiiiiiiiiiiÆ45O¯0¯00¯0¯¯¯¯¯¯¯¯¯OO ?????????Q?Q?QQQQQQQQQQQQQQQ((QQQ(((((((((((((((((((((((((((Q(QQQQQQQQQQQQQQQQQQQQQ???????????'''''''''''ŠŠŠŠŠŠŠŠŠ1111Ó111||||||||îîîïïïïššššššššššššššššYYYYY”Y”ÊÊÊ½½½½½½½½vvvøøøøøøÛÛÛªªªªWª!!!!!!iiiiii444444444545DD555555@4i!iiiiii!ªÛòòòòòÛª!!4D444444Æ4444444444444D555@O¯¯0000¯0¯¯¯¯¯ ????????QQQQQQQQQQQQQQQQQQ((((((((((((((((((((((((((((((((((((((((Q((QQQQQQQQQQQQQQQ????????????'?''''''''ŠŠŠŠŠŠŠŠŠ11111Ó1Ó||||||||ïïïïïšššššššššššššYšYYYYYY”””ÊÊÊ½½½½½½½vvvøvøøøøøÛÛøªªªªWª!!!!!!iiiii4444444545D55D555@@5Liiiiiii!ªÛòµµÒÒÒÒÒÒµµòÛª!!ii4444444444444444444444455¯¯¯¯0¯00¯¯ ?????Q?QQQQQQQQQQQQQQ(((((((((((((((((((((((((((((((((((((((((((((((((((QQQQQQQQQQQQQQQ????????????'''''''''Š'ŠŠŠŠŠŠŠŠ111111||||||||îîîïïïïšššššššššššššYYYYYYY””ÊÊÊÊ½½½½½½½½vvøøøøøøøÛÛªªªªªª!!!!!i!iiiiiL44L454445DD5D555@@@®iiiiiiiÛµµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµÛª!4DDD444444444444444444444DD55@O¯¯00 ??QQ?QQQQQQQQQQQQ(((((((((((((((((((((((((6(6(6(6((6(((((((((((((((((((((((QQQQQQQQQQQQQQQ???????????''''''''''ŠŠŠŠŠŠŠ1111Ó1Ó||||||||îXïïïïšššššššššššššššYYYYY”””ÊÊÊÊ½½½½½½½½vvøøøøøøÛÛªmªªªª!!!!!!!iiiii4L44444444455D5555®iiiiªòµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµÛÛª!!i4DDDDD4D444444444444444D5@OO Q?QQQQQQQQQQQ(Q((((((((((((((6(((6((6(6(6(((((((((6(((((((³((((((((((((((((((QQQQQQQQQQQQQQQ??????????'?''''''''ŠŠŠŠŠŠŠ1Š111111||||||||îîîïïïïïšššššššššššššYšYYYYY”Ò½µµµµµµµ½½½½vvøøøøøøøÛøÛªªªªª!!!!!!!!iii444445454455554!ÛµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµòÛª!i44444444DDDD4444D4D4D4DDDDD5 QQQQQQQQQQ(((((((((((((((((6((666(6(66(66666666666(((³ºº›››››››ººQ³((((((((((((((Q(QQQQQQQQQQ?Q?????????'''''''''ŠŠŠŠŠŠŠ1Š1111Ó1||||||||îïXïïšššššššššššššY”Y””ÒµµµµµµµÛµòòµµò½vvøøøøøøÛÛÛªªªªªª!!!!!!iiiiii4L444444455555®4i!ÛµÒÒÒÒÒÒÒÒÒÒÒÒÒÒµÒµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµµµòÛÛª!i4DDDDDDDD4444444444DDD QQQQQQQQQ((((((((((((((6(66((666666666666666666666((º››üŒüüPüüŒŒ]›››ºº³(((((((((((((QQQQQQQQQQQQ??????????''''''''ŠŠŠŠŠŠŠ1Š11Ó11Ó1|||||||îîïïïïïšššššššššš”””Ò”Òµµµµ†µÛÛÛÛÛvvvøøøøøøÛøªªªªª!ªª!!!!i!iiii444L444545555®iiiiªòµµÒµµµµµµµµµµµµÒÒµÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒÒµÛÛ!i444444DDDDDDDDDDDDD QQQQQQ((((((((((((((((6(6666666666666666666666666(³ºüüPNNNNàNNNNPüüŒ›Œ›º›Q³((Q((((((((Q(QQQQQQQQQ???????????'''''''ŠŠŠŠŠŠŠŠ1111111|||||||îXïïïïšššš888”””ÒÒµ††††ÛÛÛòvvøøøøøøÛÛÛÛªªªªW!!!!!!!iiiL44444545®55iii!ÛòµÒÒµÒµµµµµµµµµµµµµµµµµµµµµµµµµµÒÒÒÒÒÒÒÒÒÒÒÒµµµµòÛª!!i4DDDDDDDDDDDD QQQQ((((((((((6((6(6(666666666666666666666666666³³›üPNcGG
+ààNNNüPŒüŒ›››Qº³Q(((((((QQQQQQQQQQQQ???????'?'''''''Š'ŠŠŠŠŠŠŠ11111Ó1|||||||îîîïïïšššš888”ÒÒÒ††††;;;;;;;;;ÛÛòòvvøøøøøÛøÛªªªªª!!!!!!!iiiii4444444555®Liii!ÛµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµÒÒµµµµµÒÒÒÒÒÒÒÒµòÛªªi44444DDDDDD Q(((((((((((6(((66666666666666666666666666,,666(³›üNà
+GGŸŸŸŸŸŸGGGGGàNNNPPüŒü››››ºººQ((Q((QQQQQQQQQQ?????????''''''''ŠŠŠŠŠŠŠ111Ó111|||||||îXîïï####88ÒÒÒÒ†††††;;;;;;;;;;;;;;LÛÛòøøøøøøøÛøªªªªªª!!!!!!!iiiii444L5®®@®4••iWøµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµòÛÛÛÛòµµµÒÒÒÒÒÒµµµµµòÛªii4DììD ((((((((((6((6(6666666666666,666,,,,6,,,,,,,66³³ŒüN
+GGGGGŸffffffŸŸŸGGGGGàcNNNPPŒüŒ›››º›ºQQQQQQQQQQQQQQ????????''''''''ŠŠŠŠŠŠŠ1Š111111|||||||îXXX###888ÒÒÒÒ††††‚;;;;;rrrwHHHH;;;;ÛÛòòøøøøøÛÛÛªªªªªª!!!!!i!iii4L44555®i••iªøµµµµµµµµòµµµµµµµµµµµµµµµµµµµµµµµµµµµµµµòÛª!!!ªªÛÛÛÛòµµµµµÒÒÒÒÒµµòÛª!i (((((((((6(666666666666666666,,,,,,,,,,,,,,,6³³üüNc$$$$$$$„GŸffffffŸŸŸxGGàNNNPPPŒŒ››››››QQQQQQQQQQQQ?????????'''''''ŠŠŠŠŠŠ1111Ó11|||||||XXX###888ÒÒ††††‚‚;;;;;rMc„$$$$$$„GwHHH;;;LÛÛÛòøøøøøøÛøªªªª!ª!!!!!iiiiii44®®5®Li•i•!Ûòµµ½½µµµµµµµòµòòòòòòòòòòÛÛÛÛòòòòòòµµµµµµÛª!!!!!!!!!!!!!ªÛÛòòµµµµµµµµµµµµµÛ (((((((6(66666666666666,,,,,,,,,,,,,,,,,,,,6³³üPc„$„„„„„„„„„„„
+ŸfffffŸfŸŸGGGGàNNNNPPŒŒŒ›››º›?QQQQQQQ???????'?'''''''ŠŠŠŠŠŠ1Š111111|||­­XX##à8ÒÒÒ††††‚‚;;;r‚c„„„„„„„„„„„„$„HHHH;;LÛÛÛòòòøøÛÛÛªªªªªª!!!!!!iiiii4L455®4•ii•iWøò½µµòµòòòòòòòòÛÛÛòÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛòòòòÛÛª!!iiiiiiiiiiiiii!!!ªªªÛÛÛòµµµÒÒÒÒµ ((((6(666666666666666,,,,,,,,,,,,,,,,,,,,,·³]üNc„„„„c
+ŸŸffffffŸŸŸGGGààNNNPPPŒ¸Œ››››????????????'''''Š¸ŠŠŠŠŠŠŠŠŠ1111||Ú­­­###8ÒÒ†††E‚‚;;rEc„„„„
+=HHH;;;LÛÛÛøøøøÛÛøªªªª!!!!!!!iiiiiLL5®®®ii••••iWøòòòòòòòÛÛøÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛª!iiiiiiiiiiiiiiiiiiiiiiii!!!ªÛÛòµµµµ (((6(6666666666666,,,,,,,,,,,,,,˜,,,,˜,,,·³]üNccccccccc
+
+
+
+
+
+
+
+
+
+
+ŸfffffffŸŸŸGxG
+ààNNNPPP¸¸Œ›››››››'›'¸¸¸¸¸¸¸ÓÓÓÓÓÓÓÓÓ1ÓÓÓÚÚ­­­###8ÒÒx†xE‚‚;r‚M
+
+
+
+
+
+
+
+
+
+
+ccccccccc=HHH;;;LÛÛÛøøøøÛÛÛªªªª!ª!!!!!iiiii44®5Li•i••i!ªøòòòòøÛªÛÛÛøÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛÛª!iii!!!!ªªª (66(66666666666,,,,,,,,,,,,,,,˜,,˜,˜˜,,,·³]ücccccc
+cSUA+A£$
+
+
+
+
+
+MŸfffffffŸŸŸxGGG
+ààNNPPPPP¸¸¸¸¸ÓPÓPÚÚÚÚÚÚÚ­ÚÚÚÚÚÚÚÚ­­­X#à#Òxx†EE‚‚rr‚M
+
+
+
+
+
+$£A+AS
+ccccrHHH;;;LLÛÛÛÛøøÛÛªªªªªª!!!!!!!iiiiLLL5®Li•i•iiWªøòøøÛÛªªWªªªÛÛÛÛÛÛÛÛÛÛÛÛÛÛªÛªÛªªªªªÛªªªª!! (66666666666,,,,,,,,,,,,,˜,,,˜,˜˜˜,˜˜,,·³üüNc
+
+
+
+
+cUAãããJJJJJJASMMfffffffffMŸxGGGàààNàNNNNNNààààààààààààà#à#à#à#ÒxxxEE‚‚rr‚EMSAJJJJJJãããAUc
+
+
+
+
+EHHHH;;;ªÛÛÛÛøÛÛÛªªªªª!!!!!i!ii4®®LiiiiiiWÛøøòøøÛW!!W!!ii!!ªªªªÛÛÛÛªªªªªªªªªªª!iÆi! 6666666666,,,,,,,,,,,,,,,,˜˜˜˜˜˜˜˜˜˜,,·³]üc
+$ÏAAAAAAAAAAãããããJİU$cMxMMMMxxMMffffffffEŸxŸxŸxGxGxGxGxxxxxxxxxEEE‚‚‚rr‚‚ExMxMMMxc$£+JãããããAAAAAAAAAAÏ$MHHHH;;®LªÛÛÛøÛøªªªªª!!!!!!!iLLL®LLi!iiii•WøøøøøÛªW!WÛòÛÛª!!!!iii!ii!!!!!ªªªªªªªªª!i4Æ4Æ4!ªÛ 6666666,6,,,,,,,,˜,,,˜,,˜˜˜˜˜˜˜˜˜˜˜˜··]]Nc
+++İ+İ+AÏAAAAAAAAAAAAAAZSxMxxMxxMEMEEEEE‚fffrffffffRfrfrfffMExEEEEEEfEEEEEEEE‚rrrrrr‚‚EEEEEMEMxMxMxMxMSUAAAAAAAAAAAAAAAÏİ+İ++İ
+M=HHHH;;LÛÛÛøÛÛøªªªWª!!!!!ii4L®LiiiiiiiWªmøøÛøªmiimµÒÒÒÒÒÒµµø!iÆiii!!!!!!!!!!!iiÆ4444444444444444444444444i!ÛÛÛ 666666,,,,,,,,,,,,˜˜˜˜˜˜˜˜˜˜˜˜&˜&˜˜··]ü
+
+Uİ++++İ+İ+++İ+AAAAAAAAAA£$cEEEEEEEEEEEEEEEE‚rrwwwww===w=wrRfrfffrffrrrfrrrrwww===wEEEEEEEEEEEEEEEEc$£AAAAAAAAÏAİ+İ+İ+İ+++++İU
+;HHH;;;LLªÛÛÛÛÛªªªªªª!!!iiiLLLL!i!iii•WmøÛøømªW!WÛµ”88888ÒÒµÛi!ÛÛª!!!!!iÆii!!ª!!!!ii4444444444444444Æi!ªÛÛÛ 6,66,,,,,,,,,˜,˜,˜˜˜˜˜˜˜&&˜˜&˜&˜˜˜··]üMMM£UUUUUZZZZ++İ+++İ+U$UZ+ÏAAAAAZEEEE‚‚‚E‚‚E‚E‚‚rw=Hˆû9û999999û%%;;ww==ww‚E‚‚‚‚E‚‚‚‚EEEE„SZAAAAAÏ+ZU£$U++++++++ZZZZUUUUU£MxMxHHHH;;LLªªÛªÛªªªªª!ª!!!iLLLLi!!!iiii•WøøÛøÛøªWiimµÒ”””””””Òò!iªµÒÒÒÒµµòÛ!44444iii!i!!!!!!!ii44444444444Æ!!Ûªªªªª 66,,,,,,,,,,˜,˜˜˜˜˜˜˜˜˜&˜&˜&&&&˜Ñ·³]ücMMx„£££UUUUUUUUUUUUUZZZZZ$„„„„„„„$£U+++İ+İU$cE‚‚‚‚‚‚‚;Hˆzˆˆˆ99999999999ˆ0ˆHH‚‚‚‚‚‚‚‚Ec$k++İ+İ+Z$„„„„„„„$ZZZZZUUUUUUUUUUUU£££„xMMrHHHH;;®LªÛªÛªªªªª!!!LLLLLi!!iiiiiWWmømmmmWWWWWÛøøÛÛøòµµòª!ªòµÒÒÒÒÒÒÒò!!ªÛªª!!!i4ii!!!!!!iiiii44Æ!!ªªªªªªª ,,,,,,,,,,,,˜˜˜˜˜˜˜˜&˜&˜&&&&&&˜Ñ·³ücxMxEE$SSS££££UUUUUUUU$„„„„„„„$UİİZScˆˆˆˆ%%KKLûû99ˆˆSZ+++ZU$„„„„„„„„$UUUUUUU£££££SS$EExM‚HHHHH;;LLªªªÛªªª!!!iLLLL!!!iiiiiWmmmmmmWWWmøµµòª!i•!WªÛ!ªµÒÒÒÒÒÒÒòÛi!òÒÒÒµµÛªi44Æii!i!!!!!!!iiii!!!!!!!ªªª ,,,,,,,,˜˜˜˜˜˜˜˜˜˜&˜&&˜&&&&&&˜Ñ·³]ücEEEEE
+„$$„„$SSSS„$Z+++++UÔcxKKHHH=;†††††††Ò††%KxcÔU++++İZ$„SSSS$„„$$„
+EEEEEHHHHH;®®Lªªªªªª!!LLLLii!!!!ii!WmmmmmWWWWø½ÒÒÒÒÒÒµµÛW!iiiii!WWªÛµòª!!ªòµÒÒÒÒÒÒò!4iªòÛªªª!i444ii!!!!i!!!i!!!!!!!!!!! ,,,,,˜,˜˜˜˜˜˜&˜˜&&&&&&&&&&&&ÑÑ·]]EEEEEc$„
+
+
+c„$ÔÔSSSS„
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+UUUZZZZ+İ+„E;HHH;;††††KEGü£++ZZZZUUU
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+„SSÔSÔÔ$„c
+
+
+„$cEEEEE;HHHH;;;LLªªª!!!LLLi!!!!!i!WWmmmmmmWWWmµ”88#888”µøW!ªÛÛÛª!i!!!!!i!Ûµµµµµµòª!i!ÛµÒÒµµµÛi44iiiiiiii!!!!!!!!!!!! ,,,,˜,˜˜˜˜˜&˜&˜&˜&&&&&&&&&&Ñ··]x‚‚‚‚Ecc‰‰‰+c
+c„$$$$Ô„„c
+
+$£UUUUUUUUUUUUUZZZZZÔàHH=;;LàÔZZZZZUUUUUUUUUUUU££$
+
+
+$Ô$$$$„c
+c‰‰‰‰ccE‚‚‚‚;HHHH;®;LL!!!LLL!!!!!ii!WmmmmmmWW••mø½Ò”88888µÛWWøµÒÒÒÒµµòªii!ªÛÛ!!òµÒÒÒÒÒÒµÛD!ÛÛÛªª!!i4444Æiii!!!!!i! ,,˜˜˜˜˜˜˜˜˜˜&&&&&&&&&&&&&&ÑÑ·]ücx‚‚‚‚xc-
++‰‰‰+$
+‰‰$
+cc„„$$$$„„c
+
+
+„S£££UUUUUUUUUUU£H=H%®;®L;L;LE£UUUUUUUUUU£U£££„
+
+
+c„$$$$„„c
+
+$‰‰
++‰‰‰+
+--x‚‚‚‚HHHHH®;LLLLLLL!!!!ii!!WmmmmmWWWmøøøøò½½µµµµvª•!Ûµ”8Ò88ÒÒÛ!i!ªÛÛª!!!!ii44!ÛòµµµµÛªª!!ÛµÒÒÒµµÛ!44iii ,,˜˜˜˜˜&˜&˜&&&&&&&&&&&&&&ÑÑ·]ücExG
+G
+„$
+
+c+‰‰‰‰
+$++
+c„$$$$$„c
+c$$ÔÔÔSS£££UUUS%%O%®®%®®®®®®LUUUU££SSSSSÔÔÔ$$c
+c„$$$$$„c
+£++
+‰‰‰‰+c
+
+$„
+G
+GxHHHHH;®®LLLLL!!!!ii!WmmøømmmWWø½Ò”Ò½½òømWWW!•!mòµÒ”Ò”ÒµÛ!iªµÒÒÒÒÒµò!4Æi!ªª!iªµµÒÒÒÒÒµòªiªÛòÛÛªi444Æ ,˜˜˜˜˜˜˜&&&&&&&&&&&&&&&&&Ñ·]‚
+
+
+
+
+‰‰‰‰c
+c
+„Sc‰‰‰+
+‰
+
+
+c„„$$$$$$$$ÔSÔSSSSS“H%%%%%%%%%®®ÔSSSÔSSÔÔÔ$$$$$„„„c
+
+
+‰
++‰‰‰cc„
+c
+‰‰‰‰
+
+
+
+
+‚HHHHHH®;®LL!!!!!!!mmøøøømmWø½”Ò8#8Ò”Ò½øi•ªÛÛÛøøøÛÛÛÛ!iiÛµÒÒÒÒÒµª!i!ÛÛòÛª!!!444iªÛÛòµµÛª!!!ÛòµÒÒµµµªi444i!i ˜˜˜˜&˜&&&&&&&&&&&&&&&&&&&Ñ³x‚„+‰
++‰‰‰c
+
+$
++‰‰‰+Ô+$c
+
+c„„„„„$$$$ÔÔÔÔ-¥¥0%0%0%%¯%%%%%%c„„„„„„„„„„„„„„„„„c
+
+$+S+‰‰‰+
+$
+
+c‰‰‰+
+‰+„‚HHHHHH®®LL!!!!!!møøøømmmmWø½88888888Ò½mªòÒÒµòøÛªiÆ!ªòµµµµµÛ!ªµÒÒÒÒÒµòª4i!i4i!ª!44iÛµµÒµµµµµÛ!!ÛòÛª!!i ˜˜˜&˜&&&&&&&&&&&&&&&&&&&Ñ·]EKE$S$
+
++‰
++‰‰+
+
+
+$$
+„+‰‰‰+
+$
+
+
+
+c„„„„„„$$$„„„„-;ˆ000ˆ00ˆ0ˆ00H0H----„-------
+
+
+
+F„
++‰‰‰+„
+Ô$
+
+
++‰‰+c‰+
+
+$S$EK;HHHHH;LLi!!!ªøøøøøøømmmmøøø½½½”””½øÛµ½Ò88””Ò½ÛiÆiªÛÛÛÛÛÛª!!!iªµµÒÒÒÒò!!ÛòµòÛÛª!Æ444!ÛÛÛòÛª!!!ªÛµµµµµµÛª ˜˜&˜&&&&&&&&&&&&&&&&&b&&Ñüx‰‰‰‰
+$c++Ô
+S‰‰‰+
+
+$
+‰‰‰+
+U$
+
+c---c-c--G%ˆ0ˆzzˆz0ˆz0ˆ0ˆ0ˆ0H00=f“G“G“ŸG“GGGŸŸMM--»»-++‰‰
+$
+
++‰‰‰S
+$++
+$
+‰‰‰‰M;;HHHH®LL!ªWøøvøøøøøøv½½½øÛøøøvvøm!WvÒ””””””µøWWÛµÒÒµòÛ!44!!ªÛÛÛòòÛi44iÛµÒÒÒÒµòªi!!ii!!iD4iÛµµµµµµòÛª &˜&&&&&&&&&&&&&&&&&b&b&Ñ]K;K
+c
+$‰‰‰‰
+$Ô++„
+‰‰‰„ccc„$
+‰‰‰‰U
+»Ô
+
+----GrˆzzzzzzzzzzzzzzzzzzzˆzHˆHHwfŸŸŸËŸRRŸ““¿ŸŸF»-„-
+M-c„‰‰‰
+„++Ô$
+‰‰‰‰$
+c
+K;K;HHH%;LL!ªøøvøøøømv½”8888”””½øWWmmW•Wªø½µµøW!Ûµ””Ò””ÒµªiÛÛÛÛªª!!iÆ44!ÛÛµµÒµÛi!Ûµµµµµòªi4444DD4!!ªªª! &&&&&&&&&&&&&&&&bbb&b&&ÑxK;KE$‰‰‰c
+$U‰‰‰
+$U
+
+U‰‰‰U
+$Ô+++»-MMŸŸŸfHzzzzzzzzzzzzzzzzzzzzzzzzzzzzHHRRwRwRŸ“»»F¿ŸR---ŸfŸŸf
+»+»
+
+$
+‰‰‰£$
+‰‰‰$EK;K%HHH®Lªøvøvøøøøø½”8#####8”vøø½µµ½øøøÛªmªWiWøµµµÒµµª!!ªµÒÒÒµµÛ!44i!!ªª!ªª!44ªµµÒÒÒµÛ!i!!!iiÆ44DìD &&&&&&&&&&&&&&&&b&&b b&˜E%KMc‰‰‰‰+„
+‰‰‰U
+S
+„S
+‰‰+U
+-M-„
+MMfffRˆzzzzzzzzzzzzzzzzzzzzzzzzˆzzzˆzzzzH=w====RŸ“RRRRRR“F»»FŸf„»»-MMM»
+U‰‰‰
+„+‰‰‰‰cMK%H0HH;®Ûøvvøvøøøv½””88š#š”ømø”8888Ò”ÒøWi•ªªWWiiWªÛªiiÛµÒÒÒÒÒÒò!4iÛòÛÛªªªi444D4iªÛòµµòª4iªÛµµòÛÛªDDDDDDìì &&&&&&&&&&&&bb&bbb &b&&]Ec$
+‰‰‰„
+c„‰‰+„
++U
+»
+c»+-frrRrR=zzzzzzzzzzzzˆ¥ËËËŸG--G---¿-¿--GGGGŸfffwwRRww===R““¿“Rw““““ŸRRRr-F»¿+‰U„c
+„‰‰‰c$c%HHH%LÛÛvøvøøøøv½½½½½½”½vmmv”88888”½øªøµ½µµµøWiiii!ÛÛÛÛµµÛ!ii!ÛÒÒÒµµÛ!44!!i!ªª!iii4DD4iªÛòµòÛªi4DD44 &&&&&&&&&&b&b&b &bb  b&E%c„c
+
+
+c„c
+‰‰‰+$
+$„c
+
++‰Uc‰£„ŸMŸ-„-frRRwwzzzzzˆHH¥wGG-¿ÔU+ÏAãJJJJJJJnJnnnuuuuÿÿßßÕk¬-GffŸ“ËRR===R““F“ŸR-»»F-ŸMM-„F
+„+‰‰‰
+c„c
+
+
+c„c%HHH;®ÛÛvvvøøøøøøøøøømmmmmøø½½””””øWmøÒ”Ò8Ò”Òµªi!ÛÛòª!!iiÆ!ÛµµÒÒµµÛi!òµµµÛÛªi4D44D44ii!!!4DDD!!!!!i &&&&&&&&&bbb&b&bb b  bÑKK„„„„cc
+
+
+$$
+c+‰‰+$$c-M„»»-RRRwww=HzˆHwfG-ÔUİİÏAAnãJJJJJJJJJJnnnnnunuuuuuu‹‹‹‹ÅÅ[[[[bÈÈN¿¿¿“Ÿ=R“““ËR=RwŸ““F“M„+++
+$
+
+
+
+cc„„„„„K%H;;òv½vvøøøøømmmmWWWWmmøøøøøøøW•WøµÒÒÒÒµøÛªòµÒÒÒµµòªiÆ!i!i!ª!!ª!!!ÛµÒÒµµÛiÆ44!!iii4DDDDìììD4iiD &&&&&&&b&b&bb& b     b]K„„„„„„cccc
+
+
+
+c
+
+U+‰‰U
+
+»MMMŸ-¿FŸRwwww==¥wŸGÔUÕÿ+ÿİÏÏAAAAããnãJJJJJJJnJnnnnnuuuuuu‹u‹‹‹‹‹ÅÅÅ[[[[[[€€—È-fRwRRË“ËwR“FF»¿fM-
+MM
+
+
+
+cccc„„„„„KHH;;Ûµ½½½½½vvøøøøøøøømmmWWWW•••••WWmWÛøòøWªµÒÒÒÒÒÒµÛª!!ªòòÛª!44444!ªÛÛòòÛÛ!44!ÛòòÛªi4DììììDDDDDDDDDìë &&&&&&b&b& b         &à%G„„„„„„ccccc
+
+
+
+
+
+
+
+UU+»Ÿ-»F-ŸRwwwRRfGG££kUZkßÿİ+İ+AAAããããJJJJJJJJJJãJnnãnnnnuuuu‹‹‹Å‹ÅÅÅ[[[[€€€€€€ss—È«G-“““==w=wwRRrrMMMM
+
+
+
+
+
+
+cccc„„„„„„G%%=;;µµÊ½½½½½½vvøøøøøømmWWWWWWW••WWW!WWWW!••WÛòòµµò!!!ÛÒÒÒÒÒµò!Æ4!!!i!!!iÆ44D4!ªÛÛÛªDDìD44Dììììëëë &&&&&b&b& bbb        &E%$„„„„„cc
+c
+
+
+
+
+
+MMMMMMM‚r-“¿“RwwrŸG-ÈÔÔ¬UkkZZååİİ+AAãããAãJãã×n××××××t×tĞĞĞĞĞĞÏĞuuuAãAAu‹ÅÅÅ[[[[[[€€€€€s€sss««üfw=======wRrrrMMMM
+
+
+
+
+cccc„„„„„„$%;H;;µµ½ÊÊ½½½½½½vvvøøømmmmmWWWWWW!••!•i••i•i!WWª!iÛµµµµµµÛ!iiªòµµÛª!4DD4D44iiDììDDii4Dì@@@ëìì &&b&b&b bb           ÑKK$$$„üoşşNNccc
+
+
+
+
+
+
+MMMMM‚‚MM‚M‚MM‚frRRwwwRrGG¿ÔÈÔ££kZÕZİß™l   777^^^^^^^^^^^^^^^©©7©©7ll¬Å[[[[[[€€€€€€€ssssssssŞ«PGf=======wrrMMM
+
+
+
+
+
+ccccNNşo¼N„$$$K%H;;Ûµ½ÊÊ½½½½½½vvvøvøøøømmmWWWWWW•!ii•i•ii•i!!!!iªÛµµÒµµò!DD4i!i4DDììììììDD44DìììììDDDD &&&b b&&b            ]%E$$$„o¼şşàà
+
+
+
+MMMMM‚‚rrr=w====wrfGG…NNÈÔÈSU¬Ul»ll777^^dı<ı{{"2"2""""""""""""""""""""{ágágág^©©©l¬¬¬¬¬Ì€€€€ssssss˜ssŞ«NEw===wwRrfM
+
+
+ààşş¼o$$$$E%H=;;†µ½Ê½Ê½½½½½½½vvøvøøøøømmmWWWWW!••!•ii•ii4444iªªªªªª!44iªÛÛ!4DìììDDDDDDDDDDDDDDDDD44 &b &bb            À  à%$$$$¼şşMMMMM‚‚rrww=====fGGNNN¿NüÈÔÔÔl©©©^^ggı{{""22""""""2"""""""""""""""""""""""""""áá^‘©y²²—s€sssssss˜˜˜6«Nxw====wRREj}¼¼„$$$%;H;;µµ”Ê½½½½½½½v½vvøøøøøømmmmWWWWW•!•i•ii•i•Æ44444444D44DDD4i!i!ª!DìììD444DDDììDDD4444 &bb&b b           À &E%$$$¼¼}}†‚‚rww====wEGà…NNN¿©©^^gg{2"2"""2"2"""2"2"2""""""""""""""""""""""""""""""""áá^‘©y²—sssssssŞs˜ººNxw¥¥K¶pp¾¾¼$$$%%H;;µµ½”ÊÊ½½½½½vvvvvøøøøømmmmmWWWWWW!•ii•i•ÆÆ4Æ4Æ444DDDDDDDììDD44D44DDìììDD444DDDDDDD444Æ b&b            À  À  KK$$$$«q¾¾´h¶¶KK;ExGàNcN…©^^g{2"2"22"2"222"2"22"""""""""""""\\\\\\\\\\\\\\""""áá^‘©y²˜sbs˜s6sŞºŒş}¶K~¶pppp‡‡«$$$$K%=;;µµ½ÊÊÊ½½½½½½½vvvøøøøøømmmmmWWWWW!!•ii•ÆÆÆÆ4444444DDDDDDDìììììë@ë@@@ìDDDDDDDDD44444444 & bb           ÀÀÀÀ ]%E$$$$o))¾¾¾pp¶¶¶jxjxx
+à…‘‘gı{"22222222"222"""{{{\\’~9~9~9’’ˆ’’’\"áá^‘yÈ˜b˜˜666ŞŒÚşj¶¥¶pppp‡¼))o$$$$E%HH;;µ½½½½½½½½½½½vvvvøøøøømmmmmWWWWW!•ii•i•ÆÆ444444DDDDDDDDDììììììì@ë@@@ëëììDDDDDDDD4D444444Æ bb         À  À À À à%G$$$$))))))))))‡‡¾¾p¶¶¶jExx……^gg{222222"2"2"2"{{\\’’’~~~~\~99999999ˆˆˆˆá\áá‘…«˜&,66ººŒŒ}K¶¥¶pp}‡`))))))))$$$$G%;=;;Ûµ½½½½½½½½½vvvvvvøøøøøømmmmWWWW!!•ii•iÆ444DDDDDDDDììììììëë@ë@ë@@ëììììDDDDDDDD4D4444444 b           ÀÀÀÀÀÀÀ E%$$$)))))))))))))))))‡¼¾pp¶¶¶jE†xxxj¡^g{222222222222{{\’’’~~~999999990¥¥¥¥\""á^‘y,˜66º((›}j¶¡¶jpp‡`o)))))))))))))$$$%%H;;Ûµ½½½½½½½½½½vvøvøvøøøøømmmmªWWWW!!!•iiÆÆ4444DDD5DDìììì@@@@°@°@@ëëìììDDDDDDDDDD444444444Æ        À   À ÀÀÀÀÀÀ&KK$$$«)))))))))))))))))))))¼‡¾ppKEE†jj¡^g{2222222222"{\\’’’99\99999999¥¥¥¥w¥ˆˆ¥¥\\\á^…³˜66((QP}K¶jpj}`‡)))))))))))))))«$$$$K%=;;;Ûµ½½½½½½½½½½½vvvvvøøøøøøømmmmªWWWW!i•i•Æ4444DDDDDìììì@@@@°°°°@@ëììììDDDDDDDDDDDDD4444444       À ÀÀÀÀÀÀÀÀÀÀÀÈ%E$$$$Ş))))))))..)..).)))))))‡‡}p¶KKK¡^g{2222222222{\\’’99999\\~99999¥¥¥w%ˆ%rrrw¡\á""á…º6((QQ¸}j¶jjp}``o)).)..).))))))Ş$$$EKHH;;µ½Ê½½½½½½½½½½½vvvvøøøøøøøømªmªmWWW!!!iiÆÆ444DDD5Dìì@@@@@°@@@ëëììììDDDDDDDDDDDDDDD4444444Æ4      À À  ÀÀÀÀÀÀÀÀ à%G$$$±)))..............)))))o¼}pKKKKj¡gı222222222{g^‘ˆˆ99999I’’~9999¥¥¥¥90w‚‚‚rfË‘"á…(((QQ¸jj¶j}```±±).......))))±$$$G%%=;;µµÊÊ½Ê½½½½½½½½½vvvvvøøøøøøøømªªªªWWWW!!ii4444D5Dìììì@@@@@@@@ëììììDDDDDDDDDDDDD44444ÆÆÆÆ44      À ÀÀÀÀÀÀÀÀÀÀ x%$))......ñ..ñ.ñ.......±)`}¶%%KK¡ı22222222"{á¡Ë¡…pˆˆ9999III\’~I’’99ˆˆ¥¥¥ˆ9wr‚‚‚M‚M—´´ááá…ºQØØ¸jjjj}``o±±.¦ñ........)$$%;H;;µµ½½ÊÊ½½½½½½½½½vvvvvøøøøøøøøÛmmªmªWªªWW!!i44DDDDìì@ì@@@@@@ëììììììììDìDDDDDDD4444Æ44     À À ÀÀÀÀÀÀÀÀ KK$«.....ñ.ñ.ññ.ñ.ñ.ñ.ñ..)o`pK%KK%K¥ı22222222ıg¡¡frŸj…¶ˆ9999IIIIIII’\IIII¥¥û9;r‚‚M‚MMkq´"á¡ØØØ¸jjjj}``±±...ñ.ñ.ñ....«$$K%H;;Ûµ½Ê½Ê½½½½½½½½½½½vvøøøøøøøøøøÛømªªmWWW!!!i444D55ììì@@@ë@ëìëììììììììììDDDDD44ÆÆ4      ÀÀÀÀÀÀÀÀÀÀÈ%E$Ş..ññ.ñ.ñññññññññ.ñ.ñ.±opK%%%K¡áı22222222ı‘©fM‚‚‚Ë}yûˆ9999IIIIIIIIh\’IIIIIIII’¥¥ˆ9%r‚‚‚MMM£q‡"…›ØØ¸àjjjj}`o±¦ññññ.ñ.ñ...Ş$E%;H;;Ûµ½ÊÊÊÊ½Ê½½½½½½½½½vøvøøøøøøøÛøøÛÛmªªWWWW!iÆ44DDDDìììì@@ì@ìììììììììììDDDD44  ÀÀÀÀ ÀÀÀÀÀÀÀÀâà%G¦.ñ..ññ>>>>>>>>>>>ññ.¦±p%%%%¥áı2222222ıı‡o„MMMMMG…`ûˆ99IIIIIIIIh\\\IIIIIIIIIII’¥¥¥9%‚MMMMM„±‡‘á¡]›Ø¸àjjj…`y±¦¦>>>>ññ.ññ.¦$G%H=;;µµ””ÊÊÊ½Ê½½½½½½½½½½vvvøøøøøøÛøøªªªmWWW!ii444DD5Dìì@ì@ìììììììëëëììDDD44 À   ÀÀÀÀÀÀÀÀÀ x%ññ.ñ>>>>>>>>>>>>>>>>>.}%%%Kı2222222ı‘‡‡¾—
+MMMŸG…y9999IIIIIIIII\hI\\IIIIIIIIIIIII~ˆ9%r‚EMMM—¤á\¡ü÷ÎÎPjjj…`É¦Ü>>>>>>ññ.ñ.%%H;;µµÊ”Ê””ÊÊÊ½½½½½½½½½½½vvøøøøøøÛøøªmªªWW!i444DDDììì@@@@ì@@ì@ìëìììDD44iiii4444DD  ÀÀÀÀÀÀÀÀÀÀÀ KKÈ.ññ>>>>>>>>>>>>>±KOû{22222ııı‘‡MMMMMGGy`ˆ99IIIIIIhh\"\hIhhIIIIIIIIIIIII~ˆ¥9ûrMMMM))¤‘¡ü÷ÎÎP}……yÉ¦ >>>>>>>ññ.ÈK%H;;†µ”Ê”Ê”ÊÊÊ½Ê½½½½½½½½vvvvøøøøøøÛøªªmªWW!•Æ44DD5ìì@@@ë@ì@ë@ìììììDD4iiiiii4444Dììììë  ÀÀÀÀÀÀÀÀÀÀÈ%E«ññ>>>>>>>>>¦%¥á22222ıı^¢‡UMMMŸ…y}99IIIIIh~\\"\hhhhhIIIIIhII\ˆ¥99r‚xMMMMU))))¤‘áN÷Î¸à…yyÉÜ>>>>>>ñ«EKHH;Ûµ”Y””””Ê”Ê½½½½½½½½½½½½øøøøøøøøÛøªªWWWiiÆ44DD5ì@@@@@@@@@ì@ììDD4iiiiiiiiii4DDDììì@°°°°° À ÀÀÀÀÀÀÀâà%G¦>>>>>>>’{222222‘¢‡o±MMG…y`99IIIII\""á""h""IIII’I~ˆ¥99r‚EMM±)))).)±¢á¡ü÷ÎPyyÉÜ ¨>>>>¦G%%=;;†µÒY”””Ê”Ê”Ê½½½½½½½½½½½vvøøøøøøøÛmªW!i•Æ4D5Dì@@@@@@@@@ììDDD4ii!iiiii4555ii4ì@°°°°íí°¹ ÀÀÀÀÀÀÀâx%>>>>>ı222222‘`oo) MM-…É}99IIIIhI\""háá{IIIhII’¥9r‚xM„ ))))...±¤‘¡ÎÎ¸ÉÉ² >>>>%;H;;µÒ”Y”Y””ÊÊ½ÊÊ½½½½½½½½½½½vvøøøøÛøªªW!•4D5ì@@@@@@@@@@DD44i!!!!iiiiÆ444DDi!i4ìíí¹° ÀÀÀÀÀÀÀÀâKKÈ>>72222ı‘±±)±)))
+Ÿ-…²}9IIII~áá""áháqIIIIh\99r‚x))))...ññ¦çáá…ù?² Í¨¨>>>ÈK%H=;†µ”YY”””””Ê½Ê½½½½½½½½½½½v½vøøøøÛmªW!i•Æ44D@@@@@@@@@@ìD4ii!!!iiiii!44DDDDDìO¯®!ªiD°íí°í¹ ÀÀÀÀÀÀÈ%E²>>722ı¤.¦..)))))
+G-y²`9IIIhá\"<"{´´qqqIII~\r‚x
+)))..ñ.ññ>>Ü‘"áŒ—Í¨¨¨>²FE%H;;†Ò””YYY”””Ê””½½½½½½½½½½½vvvøøøøÛªW•!•45@@@@@@§@@ìD4ii!!!!!!iii!DDDDDDì5O¯LÛªìí¹°¹° ÀÀÀÀÀâà%G >>>>>¦....))))£
+
+G-y²y9IIIIII\""<"á"<´h´<´´qqqqqqqqIIIIII’ûrEx
+
+)))))...ññ>>>‘á^²¨¨>> G%;=;;†µÒY”Y”YYY””””Ê½½½½½½½½½½½øvøøøøªW!•D5@@@@§@§@ì54i!!!!!!!!ii!i4DDDDDDììOOLÛª4@í°¹°í°°° ÀÀÀÀâE%¿>>>>ññ...)))) 
+
+
+--«²oIII"á""<{<<<<<g<<‘qqqqqqqqqqqqqqII’’99999ˆrEx#
+
+ )))..ñ.ñ>>>>¿%%H;;†µÒ”Y”Y”””Y””””Ê½½½½½½½½½½vøøøøªmW•iD5@@@@§@§@ìD!!!ª!!!!!ii4!!i4DDDDDDì@Lª!D°íí¹°í¹°°° ÀÀÀVâ%KFÔ>>>ñ.ñ..)))
+
+
+G-„«ÍÉIIIIá<"<á<<<<<<<<<<<‘qqqqqqqqIIII\\\\~’9ˆû‚Exà
+
+
+
+)))....ññ>>>ÔFK%=;;†Ò””YYYYY”Y””””Ê½½½½½½½½½µøøøÛmªWi45@@§§§§@ìDÆ!ªªª!ª!!!!i4Dª!DDDDDDDì§®!ª!Dí°¹í¹°°°°° ÀÀÀV]%EFF—ÂÂÂÂÂÂÂ>>>ñ...))))
+
+
+
+
+G-¿ÈÍ IIII"""<<<<<<<<<<<d<d<¢qqqqIII\’~~\’’’ûrE#à
+
+
+
+
+)))..ñ.>>>ÂÂÂÂÂÂÂ>—FE%H;;†Ò”š”””””Y””””””Ê”½½½½½½½½vøøøªW!45@§§§§§@54iªªÛªªªª!!!!iÆÆ44iÛ!4DDDDDDD@Lªªìíí¹í¹°°°°°° ÀÀVVâ%GFF >ÂÂÂÂBÂÂÂÂ>>>ññ...))))U
+
+
+
+
+G-ÍÍ¶IIIhá<<{<<<<<<<dddddddd^qqqqI’\’I’’û‚x­à
+
+
+
+
+U))))).).ññ>>>ÂÂÂÂBÂÂÂÂÂ FFFG%;=;††”””š””Y”YY””””””½½½½½½½½øøøømW4@@§§§§@54i!ÛÛÛÛªª!!!!ii444iÛªDDDDDDDD§OLÛª4ë°¹í¹°°°°°°° ÀÀVâE%¿FFÂÂÂÂBBBBBÂÂÂÂ>>ññ...))) c
+
+
+
+-ÌpIIII""<<<<<d<ddddddddddd¤))))))qqqI’\\’KEx­Ú
+
+
+
+c )))..ñ.ñ>>ÂÂÂÂBBBBBÂÂÂ>F¿%%H=†Ò””š”š”YY””Y””””½””½½½½½½vøøøª!45@§§§§@DªøÛÛÛªªª!ª!!!i44!ÛªDDDDDDDD®!Û!4@í¹í¹°°°°°°°° ÀVâ%KFFFÔ>ÂÂBBBBBBBBBÂÂ>>>....)))Ì„c
+
+
+
+-¿$ÌÂ¼IIII<<<<<<d<dddddddddd^..)).))qqqq~’\~Exà­Ú
+
+
+cc„Ì)))...ñ>>>ÂÂBBBBBBBBBÂÂÔFFFK%=;;††””””””””YY”Y””””Ê½”½½½½½µøøÛW5@§§§§54!ÛøÛøÛªªªªªª!iiÆ!Û!DDDDDDDDO®ÛÛ!D°°¹í¹°°°°°°°°° ÀVVV]KFFF—ÂÂÂBBBCCCBBBÂÂÂ>>>ññ...))ÿcc
+
+--¿SÌBoIIIII<<<<<<dddddddd^^d^7çñ...))qqqII~~xàÚÓN
+c
+ccÿ)))..ñ.>>>ÂÂÂBBBCCCBBBÂÂÂ>—FFFE%;;;††””8”š”””””””””””””½½½½½½½vøm5@§§§@5ÆWÛòòøÛÛªªª!!!!i!ªiDDDDDDDDLÛÛiì°¹í¹°°°°°°°°°@ VVVVà%GFFFF >ÂÂBBBCCCCCBBBÂÂ>>>ñ...))))cccccG-SkB IIII<<<<dddddd7>>ñ..))qqqIh\û‚x­ÚÓÚ
+ccc)))...ññ>>>ÂÂBBBCCCCCBBBÂÂ FFFFG%%=†ÒÒš”š”8””””Y””””””””½½½½½½vøW4@§§§§5ÆWøòøÛÛÛÛªªª!!!iiii!!ªDDDDDDDDLÛÛiì°¹°°°°°°°°@@@ ÀVVVE%¿FFFF¨ÂÂBBCCCœCCCBBÂÂ¨>>>ññ...))¦£c
+-$ éBpIIIIIhg<<dddddd^7>>ñ..)qqqqh\\’¶Exà­Ó1Ócccc£¦)))...ñ>>>ÂÂÂBBCCCCCCBBÂÂ>FFFF¿%;;†ÒÒ”888”š”””””””””””””½½½½½vm5§§§@DimòøòÛÛÛÛÛªªª!i!iiiiiªªiDDDDDDD5LÛÛë¹°°°°°°°°°°@@ VVVVVVE%FFFFÈ>ÂÂBBCCCCCCCBBÂÂ>>>ñ...)))Í$cccc-¿ÔâÕÂC¼IIIII<<ddddd7Ä>ñ..)qq\\’xàÚÓŠ1ccÔÍ))...ññ>>>¨ÄBBCCCœCCBBBÂÂ>ÔFFFF%K;‚†Ò”8888š”8”””””””””””””½½½½øi5@§54!øµ½òøÛÛÛÛªªW!!!!!iiiiiiÛª44DDDDD5@®!ÛÛ@°°°°°°°°°@@@@ VVVVE%FFFFÔÂÂBBBCCCCCBBBÂÂ>>>ññ...))ß„c-SkÕV–C IIIII<<ddddddl>ñ.))qqqq\\’\‚x­ÓÓŠŠNc„ß)))...ñ>>>ÂÂBBCCCCCCBBÂÂ>ÔFFFF%;†ÒÒ8888888”8””””””””””””½½½vª@§§@4Wøµ½òÛøøÛÛªªªª!!!i!i!iii4iÛÛDD4DDDDì®!ÛÛÆ°¹°°°°°°@°@@@@@ VVVVVVVVKFFFFF²  ÍÂÂBBBCCCCCBBBÂÂ>>>ñ...)))+„c-¿ÔâÕVéBÂIIIII<<<ddd*7Ä>ñ.)qq\"II’\’¶xàÚÓŠŠŠPc„+))...ññ>>>ÄBBBCCCCBBBBÂÂÍ  —FFFFF%K††Ò888š88888”8”””””””””””””½ø•D§@4Wòµ½òøøøøÛªªªW!!!!!!!iiiiÆiòÛD4D4DDD@OLÛÛª4°°°°°°°°°@@@@@@ VVVVVVVV]%-FFFFFFFFFFÔÔS¬¬¬–––BBBÂÂ>>>ñ....)¦U„„-S£ÕVVéBCoIIIIg<dddddd™ Ä>..)qqq~II’’\~\~IxàÚŠŠŠŠÓ„„U¦))...ñ>>>ÄÂÂBBB–––¬¬¬ÔSÔFFFFFFFFF-%E†ÒÒ88š8888888”š””””””””””””½m@@4Wvµ½òòøÛÛÛªªªªªª!!!!!i!iiiiiÛÛDD4D4DD§OLÛòª4°í¹°°°°@°@@@@@@@ VVVVVVVVVGFFFFFFFFFFFF————   >>....))„„„ÔkÕVéVÅCIIIh<d<ddd**llÄ™***** äB>ñ.)qqq\hIh\\\’~\IIxàÚÓŠŠŠŠŠü„„.).)ñ.>>   ————ÔFFFFFFFFFFFFGK††ÒÒ88š8š8888888”š”””””””””””vi5§@DWµµ½µøøøøøÛÛªªªªªª!!!!!!iiii!ÛªD4D44DD¯LÛÛªD°°°°°°°°°@@@@@@@ VVVVVVVVVéÑFFFFFFFFFFFFF$$$$$$$$$$È]Ô$„„„„„„ÔkÕVVéééBC¼Ihá<<ddddlÂB******ÖœCB>.)qqqI’\\’~I¶x­Ó¸ŠŠŠŠŠÓ„„„„$Ô]È$$$$$$$$$FFFFFFFFFFFFF†ÒÒ8888šš888š8888888””””””””””ò55!ò½½µøòòøøÛÛÛÛªªÛªWªª!!!i!iiii!Û!ÆD444D4D¯LÛòª4°¹°°°°@°@@@@@@@ë VVVVVVVVVVVéÑ-FFFFFFFFFFFFF$$$$$$$$$$$$„„„„„„SkâÕVééVé‹C¨há<<dddd***lBä******ÃœœœBÂ>..)qqIII’\\IIEàÚÓŠŠ'ŠŠŠŠü„„„„$$$$$$$$$$$$$$$FFFFFFFFFFFFG†8888#š#šš#š88š88888”8”””””””””ø@@ø½µµ½òøòøøÛÛÛÛÛªÛªª!ª!!!!!iii!ªª!4D44D4DD0!µÛ!D°°°°°°°@@@@@@ëë@ VVVVVVVVVéVéVVk£ÔFFFFFFFFFF$$$$$$$$$$$$$$$$„„„S£kÕVVéééVVéCC‘<<<<ddddl¨BÇ  *Ã× ÖnœœCÂ>ñ))qqqI\\~~¶àNÓ¸'''ŠŠŠŠ¸„„„„$$$$$$$$$$$$$FFFFFFFFFF¿„Nà8888##š#šš#ššš88888888”8”””””””½ò@4m½µ½µµøòøòøøÛøÛÛªªªªª!ª!!!i!iiªÛ!4D444DD5¯ªµò!D°°°°°@°@@@@@@@@ë VVVVVVVVVéVéVééééééVÕk£ÔFFFFFF$$$$$$$$$$$„$„kÕÕVééééééVé‹œÄá<<dddd***Á¨ÂBÇ * ÃJJJnœœCBl7ñ.)qqIIII~\’\IIxàÚ¸''''ŠŠŠŠ1P„$$$$$$$$$$$$$$FFFFF„NNàš##########šš#š#š#8š8888888”8”””””””½•4!½µ½µ½½µøòøòøøÛøÛÛªªªª!!!!!!iiiÛòiÆ444444D@O¯Ûµò!D°°°°°°@@@@@@@ëë@ VVVVVVVéVéVVéééééééééééééékk£SS$$$$$$$$$$$$SSS£ÕVééVéééééééVéCœ¤<<dddd**** ™ÄÂC ÃtJJ××nœœCB™ç.)´gáIII~\hpàÚ¸'''''ŠŠŠŠŠ1¸ü„ü$$$$$$$$$$F„NNNà88šš#############š#š#š#8š8š88888”8””””””½øWøµ½µµ½µ½µòµòòÛøøÛÛÛªªªª!!!!i!iiÛÛi4444444DO¯®Ûµò!D°°°@°@@@@@@ë@@ëë VVVVVVVVVéVéééééééééééaéééaéaaéaéééékÕkk££££££££££kkkkkÕééééééVééééééééééééVV‹CB^<ddd**** * ™Â ÃÃtn×Ã* nœœCÂ7±)‘<<<<"IIII~\\’IxàNÓ¸''''''ŠŠŠŠ111Ó||||ÚÚPÚÚPüPüNPNPNNNN­à#ÒÒµµÒšXšXXXX##X#######š#š#8š8#8888888””””””””½½½”µ½µµ½µ½µòòòøøÛÛÛÛªªªª!!!!!i!iòòiD4444445¯¯®Ûµò!D°°°°@@@@@@ë@ëë@ë VVVVVVVVVéVééééééééééééaaéaaéaaaaaaaéaaaaéaéééééééééééaéaéaéaéaaéééééééééééVééCœÍgdddd****  ÄÃÃœœtÃ  ÃÖœœC™¤‘<g{g{IIIIII’\}­P¸''''''ŠŠŠŠŠ11111|||||XXXïïššššš8”ÒµµšXXXXXXXX##########š#š88š88888888”””””””””Ò½µ½½µ½µ½vòòòòøÛÛÛÛªªªª!!!!!ii!ÛÛi44444445O¯¯®Ûµµ!D°°°°@@@@@@ë@@ëëë VVVVVVVVVéVVééééééééééééééaéaaaaaaaaaééaaaaaééaaaaaaaaaaaaaaaéaéaéaéééééééééééVÅCœ7<dd****    ÃBœœÖÃ   ÃœCB™d‘¢‡´´´hhIIIII\h¾NP¸'?''''''ŠŠŠŠ111Ó11||||îXïïïššš8”µµÒšXXXXXXXXXX#############šš88š88888”8”””””””””Ò½µµ½µµ½µøòòøøøÛÛªªªªª!!!!!ii!ÛÛi44444445O¯¯5ÛµµªD°°°°@@@@@@ë@@ëëëì VVVVVVVéVééééééééééééaaéaéaéaaaaaaaaaéééaaaaééaaaaaaaaaaaaaéaaaéaéaéééééééééééV‹œC7dd****    ÃÃÂCCœÇÃ  ÇCBÂ*dd^´qIIIIII’àP¸¸?'?'''''ŠŠŠŠ1Ó111|||||îîïïïššššÒµµYšïXXXXXXXXXX#X##########š##š#8š888888””””””Ò”Ò½Ò½½µµ½µ½µòòøòÛÛÛÛªªª!ª!!!i!!ªÛª4Æ44444@¯¯O®ªµµª4°°°°@@@@@@@ëëëëìì VVVVVVVVVéVéééééééééééééaaaaaaaaaaaaaaaéééaéaaéaaaaaaaaaaaaaaéaéaéaéééééééééééVéé‹œB^d‘¢*¤ƒ l ÃÃÃÃÂÂtCÃ ÃäCBÂÄ*ddd<gqIIIII~}àP¸›???''''''ŠŠŠŠ11111|||||îXïïïššš”Òµµ”XXXXXXXXXXXXXX#X###########š#š88š88888”””””””””Ò½Òµ½µµ½µvòòòøÛÛÛÛªªªª!!!!!iªÛÛ!Æ444444@¯¯O5!µµÛ4@¹°°@@@@@ëë@ë@ìëì VVVVVVVVéVéééééééééééaéaéaaéaaaaaaaaaaaaéßéaaaaééaaaaaaaaaaaaaaaaaaééééééééééééVVéCœÄ^d^‘q‡©¤ƒl  ™ÃäÃÃÃÃ ÂÂ*ddd´IIIIIhq¼àP¸›?????''''ŠŠŠŠŠŠ11Ó11||||îîïïšš”µµµšXXXXXXXXXXXXX#XX#X##########š##88š888Ò8”””””””Ò”Ò½½µµ½µµµòòòòøÛÛÛªªªªªª!!!!ªòªi4Æ4444¯¯O5µµÛÆ@°°@@@@@ë@@ëëëëìì VVVVVVVVéVéééééééééééaéaéaéaaaaaaaaaaaaaaaéééaaaaaéaaaaaaaaaaaaaéaééaééééééééééééVééCœÄ‘‘*7**   ™ñÍÄÄÃÃÃÃ Ä*ddddg´IIIIIIIIq¾NP¸›??????'''''ŠŠŠŠ11111|||||îXïïïšš8”µµµšîXXXXXXXXXXXXXXXXX#############š#8888888””””””””Ò”µµ½µµ½µ½µòòòøÛÛÛÛªªªª!!!!iÛµª44Æ445¯¯O5!ÛµÛ@¹°@@@@ë@ëë@ëììëì VVVVVVVVéVéééééééééééééaéaaaaaaaaaaaaaaaaaéééaaaaaaéaaaaaaaaaaaaéaaééééééééééééééVVÅœœ´**7±  ç.>>ÃÃÃÄ¨¨l*ddd<gIIIIqq¾NP¸›???????'''''ŠŠŠŠŠ111Ó1|||||îXïïïšš8”µµ”šXXïXXXXXXXXXXXXXXX#XX#XX#########š#888888”””””””Ò”Ò”½µµ½µµ½½òòøòøÛÛÛªªªªª!!!!ÛµªÆ445O¯¯¹iÛµòë°°@@@@@@@ëëëìëìì VVVVVVéVéVéééééééééééééaéaaéaaaaaaaaaaaaaaaaaééaaaaéééaaaaaaaaaaaaéaéaéééééééééééVéVVÅCœ‡^*7* llç.ñÁ¨Í   l*dddd<gIIIIIqq¼NP¸›?QQ?????'''''ŠŠŠŠŠ11111|||||ïîïïïšš8Òµµ”šXîXXXXXXXXXXXXXXXXXX#XX#X#########š#888888”””””””Ò”Ò½µµµ½µ½µòòòøøÛÛÛªªªª!!!!!Ûµ!4Æ44O¯OO@iÛµµiì°°@@@@@ëëë@ìëììì VVVVVVVVVéééééééééééaaaéaaéaaaaaaaaaaaaaaaaaaaaééaaaaaééaéaaaaaéaéaéaaééééééééééVéVéVVÅCœä77¢**   ±.ñÁ™Á>>™ ***dddgg<IIIIIq¼NP››QQQ?Q????'''''ŠŠŠŠŠ1111||||||îîïïïš”ÒµÒšXXïXXXXXXXXXXXXXXXXXXXXXX############8#88888”””””Ò”Ò”µ½µ½µ½µ½µòòøÛÛÛÛªªªªª!!!!Ûµ!444¯¯OO@LÛµµ!ì°°@@@ëë@ëëìëìììì VVVVVVVVVVééééééééééaéééaéaaaaaaaaaaaaaaaaaaaaaaaaéaaaaaaéaéaaaaaaaéaéaaéééééééééVééVVVVéCœCl¢‘‘¤*7l  ll  ™lÜl*****ddddgg´IIIIIIIqq¼PŒ››QQQQQ?????'''''ŠŠŠŠŠ1Ó1Ó|||||îîïïšš”µµ”šïïïïXXXX­XXXXXXXXXXXXXXXXX#XX########š8#8888888”””””Ò”ÒÒ½µµµµ½µòòòøøÛÛÛªªªª!!!!ªÛÛ!Æ5¯¯O¹§4Ûµµ!D@°@@ë@@ë@ìëìëììì VVVVVVVVéVééééééééééééaéaéaaaaaaaaaaaaaaaaaaaaaaaaaééaaaaaéééééaaaaéaééééééééééééVéVVVVVVCœC¨7q¤¤¤     l   ƒƒ***dddggIIIşü››QQQQQQQ??????'''''ŠŠŠŠ11111|||||îXïïïš8Òµµ”šïXïïXXX­XX­XXXXXXXX­X­XXXX#XX########8#88888”””””””Ò””µ½µµ½µvµòøòòÛÛÛÛªªªª!!ªÛÛÛ!44O¯¯O¹§4ªµµªD@°@@@ë@ëëëìëìììì VVVVVVVVéVééééééééééaéaéaaaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéééééaaéaaéééééééVVéVVVéVVVVV‹CœÂl´´7**¤ *l  ƒ **l)ƒ*dddd<<ghIII¾PŒ›ºQ(QQQQQQQ????'''''ŠŠŠŠŠ11111|||||Xïïš8Òµµ”XïïXX­XX­­XXXXXXXXX­X­X­XXX#X######š#888888Ò”””””””Ò”µµµ½µ½µ½òòøÛÛÛÛÛªªªª!!ªÛÛªi5O¯¯¹§5!µµÛ4ë°@@ë@ìëììëììììì VVVVVVéVVéééééééééééaéaaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaaaaaéaééééééaaéaéééééVééVVVVVVVVVVVÅCœC¨ƒ¢¢**¤*l¤***7**dddd<<áhI¾şŒ›ºº(((((QQQQQ?????''''ŠŠŠŠŠ111Ó|1||||Xîïïïš8ÒµµšXXïïXX­XX­X­­XXXX­XXX­X­XXX#X########8#88888”””””Ò”Ò”µ½µµµµµòòòøÛÛÛÛªªªª!!ªòÛ!iO¯OO¹¹5iµÒÛì°@ë@ë@ëìëìììììì VVVVVVVVVéVéééééééééaaaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaééééééééééééééVVéVéVVVVVVV‹CCC¨ƒ7©qq7**7***dddd<<g<¾Œ›º³((((((QQQQQ?????''''''ŠŠŠŠ1Ó111||||îîïïïšš”ÒµÒšXîïïXïX­X­­­XX­XX­­X­XXX­­XXXXX######š8#88888Ò””””Ò”Ò”Òµµ½µ½µµvòøÛøÛÛÛªªªª!!ÛµÛi4¯¯O¹°ìLÛÒòiì@@@ë@ëëììëììììì VVVVVVéVVéééééééééaééaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaééaééééééééééééVVVVVVVVVVVVé‹CCBÄ)¢77*7¤**¢‘^dddd<<g‘‡)ooº³³(((6(((((QQQQQ?????''''ŠŠŠŠŠ1111|1|||îXïïï8ÒÒÒ”šîXïXïXXXX­­X­­­XX­X­X­­­XXX­X­#XX######8#888”88””””Ò”Ò”µ½µµ½µµòøòøÛÛÛÛªªªª!!ÛµÛ5¯¯O¹¹°@4Ûµµ!D@@@ëëëëìëìììììì VVVVVVVVVéééééééééééééaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaaaéééééééééééVVVVVVVVVVVé–BCC™ƒ¤7´‡^qqq´^ddddg^‡))))Şº³³666666(((((QQQQ?????'''''ŠŠŠŠŠŠ111Ó|||||îîïïïš8ÒµÒšXîïïïXXX­­­X­XX­­X­­­XX­­X­­­­­XXX#####š#888888”””””Ò”ÒÒ½µµ½µµ½µòòøÛÛÛÛÛÛªª!!!ÛµÛi5O¯¯O¹¹°@5!µµÛ4@@@@ë@ìëììììììì VVVVVVVVéVééééééééééaééaaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaééééééééÕéVVVVVVéÅBCBB.)¢7^7^´‡¢¢¤±.ñ.)ŞŞ³³·6666666((((((QQQQQ?????''''ŠŠŠŠ1Š11Ó1|||||Xîïïïš”Òµ”šXXïïX­­­­­XX­­X­­­­­­XXX­­X­X­X#######8888Ò88””””Ò”Ò”µ½µµ½µ½µøòøøÛÛÛÛªªª!ªÛµÛii¯¯OO¹°°@@iµµòë@@@ëëëìììììììì VVVVVVVVéééééééééééaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéééééééééÕéVVVVV[–ÂÂÂÂÂññ....ñññ>>>ñ.¦Ş····,,,,666666(((((QQQQQ?????''''ŠŠŠŠŠ1111|1||||îîïïïÒÒµ”šïîïïïX­­­­­­X­­­­­­­­­­­­­­­X#####š##88888Ò8””””””Ò”µµ½µµµµòòøòøÛÛÛÛªªªªªÛòªii¯¯O¹¹°@@µµµiì@@ëëììëììììììì VVVVVVVéVééééééééééaaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaééééééééééééVééééVVVÀÀ[[  Şs··,,,,,,,,,666666(((((QQQQ?????'''''ŠŠŠŠŠ1Ó111|||||îïïïïšÒµµ”XXïXïX­­­­­­­X­­X­­­­­­X­­­­­­­­­X­#####88#8888””””Ò”ÒÒÒµ½µ½µµµòòòÛøÛÛÛÛªª!ªÛÛÛªii¯¯O¹°@°@5ÛÒµ!Dë@ë@ìëììììììDì VVVVVVVéVVééééééééééééaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéééééééééééVéVVVVVVVÀÀÀÀÀÀ     &&&&&&&&&&&&˜&&˜˜˜˜,,,,,,6666(6((((QQQQQ?????'''''ŠŠŠŠŠ11Ó1|||||îîïïš”Òµ”ïXïïïXX­­­­­XX­­X­­X­­­X­­­­­­­­X##X#####888888”””””Ò”ÒÒ½µµµ½µ½µòòøÛøÛÛÛªªªªÛÛª!iii4¯¯O¹¹°°°@5ªÒÒÛ4ì@ëìëììììììììì VVVVVVVVéVVéééééééééaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéaaééééééééééVVVVVVVVÀÀÀÀÀÀÀÀ        bbb&&&&&&&˜&˜˜˜,,,,,,66666((((QQQQQQ????'''''ŠŠŠŠŠ11111|||||îXîïïÒµµ”ïîXïïXX­X­­­X­­X­­­X­­­X­­­­­­X­X######8#8888”8”””Ò”Ò””µµµ½µ½µòòøòøÛÛÛÛªª!Ûµòª!iii5O¯OO¹¹@°@°@iµÒòiD@ëìëììììììììD VVVVVVVVVééééééééééaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaééééééééééVVéVVVVVVVÀÀÀÀÀÀ À      &b&&&&&&&&&&˜˜˜,˜,,,,666666(((((QQQQQ????'''''ŠŠŠŠŠ111Ó1|||||îîïïï”Òµ”ïXïïïXï­­­­­­­­­­­­­­­X­­­­­­­X#X#######8888Ò88””””Ò”ÒÒ½µ½µµµ½òòòøÛÛÛÛªªª!Ûµµ!iiiii4®O¯O¹¹°@°@@4ÛÒµªD@@ììëììììììDD VVVVVVéVéVééééééééééaaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéééééééééééééVéVVVVVVVVÀÀÀÀÀÀÀ     b b bb&&&&&&˜&&˜˜˜,,,,,666666(((((QQQ?Q?????'''Š'ŠŠŠŠÓ1111|||||Xîïïï”Òµ”ïîXïXXXXXX­­­­­­­­­­­­­­­X­X­­­­­­­#X###š#8888888””””Ò”ÒÒ”µµµµ½½µµòÛøøÛÛÛÛªª!Ûµµ!iiiiiLOOO¹¹°@°@°§5!ÒÒµì@ìëìììììììDD VVVVVVVéVéééééééééééééaéaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaaéaéééééééééVVéVVVVVVÀÀÀÀÀÀ        &b&b&&&&&&&&˜˜˜˜,,,,,66666(6((((QQQQQ????''''''ŠŠŠ1Š11Ó1|||||îïXï8Òµ”ïXïXïïXXXXXXXXXXXXXXXX­XX­XXXX­­­XXXX########88888Ò8”””””Ò”Ò½µµ½µµ½òòøòÛÛÛÛÛªª!Ûµµ!iiiiii4OOO¹¹°°@°@°ìiµÒµiìëëìììììììDDD VVVVVVVVéVVééééééééééaéaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaaéaééééééééééVéVVVVVVVVVVÀÀÀÀÀÀ À     b b bb&&&&&&&&&˜˜˜,,,,,,66666((((QQQQQ??????''''ŠŠŠŠŠ1111||||||Xîïïïš”µ”XîXïïšššš#ššš########X##########8#88888”””””Ò”ÒÒµ½µµµ½µòøòøøÛÛÛªªªªÛµÛ!i!iiii®OOO¹°°@°@°°@4ÛÒÒªDë@ìììììììDDD VVVVVVVVVéééééééééééaéaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaaéaaééééééééééééVéVVVVVVVVÀÀÀÀÀÀÀÀ       &b&&&&&&&&˜&˜˜˜˜,,,,,66666((((((QQQQ?????'''''ŠŠŠŠ1111Ó1|||||îîïïïš”Ò”šXïïïššššššššššš8š8š88888888š88888š88888888””””””””Ò”Ò”µµµ½µµµµòòøòøÛÛÛªªªÛòòÛ!i!iiiiOOO¹¹°°°@°@°@5ªÒÒµiì@ëìììììDDDD VVVVVVVéVVééééééééééaééaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaaéaaééééééééééééééVVVVVVVVVÀÀÀÀ À À     b bb&b&&&&&&&˜˜˜,,,,,,66666((((((QQQ?Q????'''''ŠŠŠŠŠ111|1|||||Xîïïïš8ÒÒšîXïïšššššššššš8šššš”š”š”Y”YYYY”Y””””½½”””””½””Ò”Ò½µ½µ½µ½µ½µ½µòòòòÛÛÛÛªªªµµÛª!!i!iii4¯O¹¹@°@°@°@°ìLµÒµªD@ëìììììDDD4 VVVVVVVVéVéééééééééééééaaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéééééééééééVéVVVVVVVVVÀÀÀÀÀÀÀ      b b&&&&&&&&&&˜&˜,,˜,,,66666(6((((QQQQQ?????''''ŠŠŠŠŠ1111Ó1||||îïïïšš”Ò”šXXïïššššššš8ššššššššYY”Y”YY””””Ê½Ê½½½½½½½½½½½½½½½½½½µµµòòòòòøòøøøÛÛÛªªªÛòÛÛ!!!!iii®OOO¹¹°°@°@°@°@@4ÛÒÒò4ìëìììììDD4D VVVVVVVVéVééééééééééééaéaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaééééééééééééVéVVVVVVVVVÀÀÀÀÀ À        bb&&b&&&&˜&&˜˜˜˜,,,,,666(6(((((QQQQ?Q???'?''''ŠŠŠŠŠ1111|||||îîXïïššš”ÒšïXïïïšššššš8šššššššš”š”YYYY”Y”””Ê”Ê½½½½½½½½½½½½µ½øòvøòøòøøøøøÛÛÛÛÛÛÛªªªªÛªª!!!!i!iiOO¹°°@°@°@°@°@@!µÒµ!DëëìììDDD44 VVVVVVVVVVéVééééééééééaaéaaéaéaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaéaéaéééééééééééééVVVVVVVVVVVÀÀÀÀ ÀÀ

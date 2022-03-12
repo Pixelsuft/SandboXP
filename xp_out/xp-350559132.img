@@ -1,0 +1,2498 @@
+
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(4), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(6), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(6), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(6), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(6), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(5), 3, 1);
+content: dtb(handlemap(5), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(5), 3, 2);
+content: dtb(handlemap(5), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(5), 3, 3);
+content: dtb(handlemap(5), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(5), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(5), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(5), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(5), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(5), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(5), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(5), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(5), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(5), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(20,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(4), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(4), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+P/   	  	  8      ¯  &  '  <  P  ]  ®  Ë  Ï  \$       Ä'    	  î(  Ï  Ú  `)  É  ö  Ù.  ô'  ö'  ¸H  ]f  ^f  òI  ìj  ìj  K  -  @-  @|K   @ @ËL  å	 @ç	 @|M   @ @®R  ‡ @‡ @`V  D @D @åW  ú' @ú' @0X  †( @•( @$Z  ü: @†: @ l  ß: @ß: @Xm  ≠ @≠ @0n  
+  Ä
+  Älv    Ä  Äx  ˚ Ä˚ Ä@~   Ä Ä‘~  § Ä´ Äÿ  ˛ Ä˛ Ä(Ñ  â	 Äâ	 Ä§†  Ç ÄÇ Ä$°  „ Ä„ Ä∏°  õ' Äõ' Ä®§  Ì ¿Ì ¿‡¶  ¯ ¿˘ ¿<∞  ¸ ¿¸ ¿D±  T ¿V ¿ƒ±  ˘ ¿˘ ¿–¥  
+ ¿ ¿∂  ä	 ¿ã	 ¿$ª  · ¿‚ ¿îø   ¿ ¿º√  ' ¿(' ¿‘≈  ò: ¿û: ¿hÿ  °: ¿¶: ¿lﬂ  ,V ¿,V ¿∞„  @ú ¿Dú ¿†˝  ¿  *901  *3,JD  'D#-/'+  AJ  3,D  'D#E'F: % n  
+ % t 1E2  'D-'D): % t % t % 1 % n  
+ % t BJE)  C r a s h O n A u d i t F a i l : % t % 2 % n  
+     D    3,D  'D#E'F  EE*D&  (F3()  % 1 .  
+     ∞    *E  'D*-/J+  FG,  'D*/HJF  -3(  'DE3*./E. % n  
+ % t 9//  'D9F'51: % t % 1 % n  
+ % t E91A  'DFG,: % t % 2 % n  
+   º   *E  *9JJF  FG,  'D*/HJF  -3(  'DE3*./E  DDE3*./E: % n  
+ % t 'DE3*./E  'DG/A: % t % 1 % n  
+ % t E91A  'DFG,: % t % 2 % n  
+ % t %9/'/'*  'DA&'*: % n  
+ % t   'DF8'E: % t % 3 % n  
+ % t   *3,JD  'D/.HD: % t % 4 % n  
+ % t   'DH5HD  %DI  'DC'&F% t % 5 % n  
+ % t   '3*./'E  'D'E*J'2: % t % 6 % n  
+ % t   **(9  EA5D: % t % 7 % n  
+ % t   *:JJ1  'DFG,: % t % 8 % n  
+ % t   %/'1)  'D-3'('*: % t % 9 % n  
+ % t   'DH5HD  %DI  D S : % t % 1 0 % n  
+ % t   *3,JD  'D/.HD  %DI  'D-3'(: % t % 1 1 % n  
+        *E  *F4J7  'DFG,  'D*'DJ  9F/  *4:JD  ,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n FG,  'DE,EH9)  'DE7(B:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE3*./E:   % 2  
+ % n 'DH',G):   % 3  
+ % n H69  'D*4:JD:   % 4  
+ % n 'D./E'*:  
+ % n           E4'1C)  'DEDA'*  H'D7'(9'*:   % 5  
+ % n           37-  'DEC*(  'D(9J/:   % 6  
+ % n           %7'1  9ED  U P n P :   % 7  
+ % n 'D3E'-  ('D%/'1)  9F  (9/:   % 8  
+ % n 'D3E'-  ('3*,'('*  'D%13'D  'DEA1/  DE1H1  'D%13'D  'DE*9/// 'D(+:   % 9  
+ % n *3,JD  'D#E'F:  
+ % n           *3,JD  'D-2E  'DE3B7):   % 1 0  
+ % n           *3,JD  'D'*5'D'*  'DF',-)  % 1 1  
+ % n I C M P :  
+ % n           'D3E'-  ('D7D(  'DH'1/  DD'1*/'/:   % 1 4  
+ % n           'D3E'-  ('D7D(  'DH'1/  DD7'(9  'D2EFJ:   % 1 9  
+ % n           'D3E'-  ('D7D(  'DH'1/  DDBF'9:   % 2 0  
+ % n           'D3E'-  ('D7D(  'DH'1/  D,G'2  'D*H,JG:   % 1 8  
+ % n           'D3E'-  ('DH,G)  'D5'/1)  :J1  'DB'(D)  DDH5HD:   % 1 2  
+ % n           'D3E'-  (*5/J1  H,G)  :J1  B'(D)  DDH5HD:   % 1 7  
+ % n           'D3E'-  (E4CD)  'DE9DE)  'D5'/1):   % 1 6  
+ % n           'D3E'-  (*5/J1  'D2EF  'DE*,'H2:   % 1 5  
+ % n           'D3E'-  (%9'/)  'D*H,JG:   % 1 3  
+ % n           'D3E'-  ('D-2E)  'D5'/1)  'DC(J1)  ,/K':   % 2 1  
+   h   *E  %/1',  #-/  'D*7(JB'*  C'3*+F'!  9F/  *4:JD  ,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE3*./E:   % 2  
+ % n 'D'3E:   % 3  
+ % n 'DE3'1:   % 4  
+ % n 'D-'D):   % 5  
+ % n 'DF7'B:   % 6  
+     ¨   *E  %/1',  #-/  'DEF'A0  C'3*+F'!  9F/  *4:JD  ,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE3*./E:   % 2  
+ % n 'DH',G):   % 3  
+ % n 'D'3E:   % 4  
+ % n 1BE  'DEFA0:   % 5  
+ % n 'D(1H*HCHD:   % 6  
+ % n 'D-'D):   % 7  
+ % n 'DF7'B:   % 8  
+   ¨   *E  %,1'!  *:JJ1  9DI  B'&E)  '3*+F'!'*  'D*7(JB'*  D,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n FH9  'D*:JJ1:   % 3  
+ % n 'D%9/'/'*  'D,/J/):  
+ % n           'D'3E:   % 4  
+ % n           'DE3'1:   % 5  
+ % n           'D-'D):   % 6  
+ % n           'DF7'B:   % 7  
+ % n 'D%9/'/'*  'DB/JE):  
+ % n           'D'3E:   % 8  
+ % n           'DE3'1:   % 9  
+ % n           'D-'D):   % 1 0  
+ % n           'DF7'B:   % 1 1  
+   $   *E  %,1'!  *:JJ1  9DI  B'&E)  'DEF'A0  D,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'DH',G):   % 3  
+ % n FH9  'D*:JJ1:   % 4  
+ % n 'D%9/'/'*  'D,/J/):  
+ % n           'D'3E:   % 5  
+ % n           1BE  'DEFA0:   % 6  
+ % n           'D(1H*HCHD:   % 7  
+ % n           'D-'D):   % 8  
+ % n           'DF7'B:   % 9  
+ % n 'D%9/'/'*  'DB/JE):  
+ % n           'D'3E:   % 1 0  
+ % n           1BE  'DEFA0:   % 1 1  
+ % n           'D(1H*HCHD:   % 1 2  
+ % n           'D-'D):   % 1 3  
+ % n           'DF7'B:   % 1 4  
+   î   *E  *:JJ1  H69  *4:JD  ,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'DH',G):   % 3  
+ % n 'D%9/'/  'D,/J/:  
+ % n           H69  'D*4:JD:   % 4  
+ % n 'D%9/'/  'D,/J/:  
+ % n           H69  'D*4:JD:   % 5  
+     8   *E  *:JJ1  %9/'/'*  *3,JD  ,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'D%9/'/'*  'D,/J/):  
+ % n           *3,JD  'D-2E  'DE3B7):   % 3  
+ % n           *3,JD  'D'*5'D'*  'DF',-):   % 4  
+ % n 'D%9/'/'*  'DB/JE):  
+ % n           *3,JD  'D-2E  'DE3B7):   % 5  
+ % n           *3,JD  'D'*5'D'*  'DF',-):   % 6  
+   t   *E  *:JJ1  %9/'/  I C M P   D,/'1  -E'J)  W i n d o w s .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'DH',G):   % 3  
+ % n 'D%9/'/  'D,/J/:  
+ % n           % 4 :   % 5  
+ % n 'D%9/'/  'DB/JE:  
+ % n           % 4 :   % 6  
+     †   *E  *:JJ1  %9/'/  ,/'1  -E'J)  W i n d o w s   DD3E'-  ('3*,'('*  'D%13'D  'DEA1/  DE1H1  'D%13'D  'DE*9/// 'D(+.  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'D%9/'/  'D,/J/:  
+ % n           'D3E'-  ('3*,'('*  'D%13'D  'DEA1/  DE1H1  'D%13'D  'DE*9/// 'D(+:   % 3  
+ % n 'D%9/'/  'DB/JE:  
+ % n           'D3E'-  ('3*,'('*  'D%13'D  'DEA1/  DE1H1  'D%13'D  'DE*9/// 'D(+:   % 4  
+        *E  *:JJ1  %9/'/  ,/'1  -E'J)  W i n d o w s   DD3E'-  ('D%/'1)  9F  (9/  H'D3E'-  (EFA0  T C P   1 3 5   H  D C O M / R P C .  
+ % n  
+ % n 'DFG,  'D#5DJ:   % 1  
+ % n 'D*4CJD  'D,'F(J  'DE*:J1:   % 2  
+ % n 'D%9/'/  'D,/J/:  
+ % n           'D3E'-  ('D%/'1)  9F  (9/:   % 3  
+ % n 'D%9/'/  'DB/JE:  
+ % n           'D3E'-  ('D%/'1)  9F  (9/:   % 4  
+   l    *E  *7(JB  %9/'/'*  FG,  E,EH9)  ,/'1  -E'J)  W i n d o w s .  
+   l    *E  %2'D)  %9/'/'*  FG,  E,EH9)  ,/'1  -E'J)  W i n d o w s .  
+   ƒ    B'E  ,/'1  -E'J)  W i n d o w s   (*:JJ1  'D*4CJD  'D,'F(J  DDFG,  'DF47.  
+ % n  
+ % n 'D*4CJD  'D,'F(J  'DF47:   % 1  
+   <   'C*4A  ,/'1  -E'J)  W i n d o w s   %5:'!  #-/  'D*7(JB'*  DDE1H1  'DH'1/.  
+ % n  
+ % n 'D'3E:   % 1  
+ % n 'DE3'1:   % 2  
+ % n E-//  'D9EDJ):   % 3  
+ % n -3'(  'DE3*./E:   % 4  
+ % n E,'D  'DE3*./E:   % 5  
+ % n 'D./E):   % 6  
+ % n EDBE  R P C :   % 7  
+ % n %5/'1  I P :   % 8  
+ % n (1H*HCHD  I P :   % 9  
+ % n 1BE  'DEFA0:   % 1 0  
+ % n 'DE3EH-  (G:   % 1 1  
+ % n 'DE3*./E  'DE9DE:   % 1 2  
+   \  ,'1J  E9'D,)  -/+  .'5  ('DH3'&7  D@  [ % 1 ! w s ! ]  
+     $   DE  JF*,  9F  *('/D  EA*'-  W e p   %9/'/  '*5'D  "EF  (9/  E5'/B)   8 0 2 . 1 x .     *E  H69  9D'E)  9DI  'D%9/'/  'D-'DJ  *4J1  %DI  'DA4D  H3J*E  B79  'D'*5'D  'DD'3DCJ.  
+     ò    *E  *DBJ  P E A P - T L V   :J1  5'D-.   J,(  *HA1  P E A P - T L V   H'-/  AB7  (E91A  t y p e = U R L .  
+   l    -/+  .7#  #+F'!  E9'D,)  P E A P - T L V   'DE*DBI  ( % 1 ! l d ! )  
+     †    -/+  .7#  #+F'!  %F4'!  P E A P - T L V   'DF'*,  '3*,'()  D@  P E A P - T L V   'DE*DBI  ( % 1 ! l d ! )  
+     à    *E  (F,'-  A*-  EF'A0  I K E   ( U D P   5 0 0 / 4 5 0 0 )    AJ  ,/'1  -E'J)  W i n d o w s .  
+   å    *E  (F,'-  %:D'B  EF'A0  I K E   ( U D P   5 0 0 / 4 5 0 0 )    AJ  ,/'1  -E'J)  W i n d o w s .  
+   `    *E  *4:JD  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e .  
+   l    *E  %JB'A  *4:JD  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e .  
+     R A :   *E  (F,'-  %13'D  'DEDA  'DE3EI  % 1   0H  'D-,E  % 2   ('J*  EF  B(D  ( 'DE3*./E  'DE-DJ)   % 3   %DI  ( 'DE3*./E  'D(9J/)   % 4   ( I P   'D(9J/:   % 5 ) .  
+     Ï  R A :   *E  *DBJ  'DEDA  'DE3EI  % 1   0H  'D-,E  % 2   ('J*  EF  ( 'DE3*./E  'D(9J/)   % 3   ( I P   'D(9J/:   % 4 )   EF  B(D  ( 'DE3*./E  'DE-DJ)   % 5 .  
+   »  R A :   -/+  .7#  AJ  *H2J9  X M L   EF  #,D  ( 'DE3*./E  'DE-DJ)   % 1   #+F'!  E-'HD)  E9'D,)  (7'B)  'DE3'9/)  9F  (9/.  
+   ¥  R A :   (/#  'DE3*./E  'D.(J1  ( 'DE3*./E  'D(9J/:   % 1 )   ('D*-CE  ('DE(*/&  ( 'DE3*./E  'DE-DJ:   % 2 )  
+     º  R A :   *HBA  'DE3*./E  'D.(J1  ( 'DE3*./E  'D(9J/:   % 1 )   9F  'D*-CE  ('DE(*/&  ( 'DE3*./E  'DE-DJ:   % 2 ) .  
+     ¥  R A :   (/#  'DE3*./E  'D.(J1  ( 'DE3*./E  'DE-DJ:   % 1 )   ('D*-CE  ('DE(*/&  ( 'DE3*./E  'D(9J/:   % 2 )  
+     º  R A :   *HBA  'DE3*./E  'D.(J1  ( 'DE3*./E  'DE-DJ:   % 1 )   9F  'D*-CE  ('DE(*/&  ( 'DE3*./E  'D(9J/:   % 2 ) .  
+        'D-3'(  H e l p A s s i s t a n t   E97D  #H  EABH/  #H  *901  'D*-BB  EF  CDE)  'DE1H1.   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1  AJ  'DH69  'D"EF  H'C*(  'DF5  'D*'DJ  9F/  EH,G  'D#H'E1:   s e s s m g r . e x e   - s e r v i c e .     AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+        DE  JCF  W i n d o w s   B'/1'K  9DI  A*-  ,/HD  (7'B'*  'D*9DJE'*  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1  AJ  'DH69  'D"EF  H'C*(  'DF5  'D*'DJ  9F/  EH,G  'D#H'E1:   s e s s m g r . e x e   - s e r v i c e .   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+     H   DE  J*E  (/!  'D*4AJ1/ AC  'D*4AJ1  (4CD  5-J-  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1.   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+     ∞   -/+  .7#  #+F'!  %9/'/  'DE3'9/)  9F  (9/.   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1  AJ  'DH69  'D"EF  H'C*(  'DF5  'D*'DJ  9F/  EH,G  'D#H'E1:   s e s s m g r . e x e   - s e r v i c e .   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+   <   DE  J*E  (/!  EC*()  w i n s o c k   (4CD  5-J-  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1.   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+   ¸   DE  J*E  (/!  %/'1)  ,D3)  *9DJE'*  37-  'DEC*(  'D(9J/  (4CD  5-J-  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1  AJ  'DH69  'D"EF  H'C*(  'DF5  'D*'DJ  9F/  EH,G  'D#H'E1:   s e s s m g r . e x e   - s e r v i c e .     AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+   ƒ   DE  J*E  (/!  E-DD  'D,D3)  (4CD  5-J-  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   DE  J*E  %9/'/  E-DD  ,D3)  ./E)  'D*9DJE'*  H'D/9E  (4CD  5-J-.   #9/  *4:JD  (1F'E,  %9/'/  W i n d o w s   X P .   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+   L   %F  W i n d o w s   :J1  B'/1  9DI  *3,JD  E-DD  'D,D3)  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1.   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+     P   %F  W i n d o w s   :J1  B'/1  9DI  (/!  *4:JD  EC*()  I C S   ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1.   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+     §   %F  W i n d o w s   :J1  B'/1  9DI  %9/'/  'D*-CE  ('DH5HD  %DI  %/'1)  ,D3)  *9DJE'*  37-  'DEC*(  'D(9J/  ( 1E2  'D.7#  % 1 ) .   3J*E  *97JD  'DE3'9/)  9F  (9/.   #9/  *4:JD  'DCE(JH*1.   AJ  -'D  '3*E1'1  'DE4CD)  '*5D  (/9E  EF*,'*  M i c r o s o f t .  
+     |    B(D  'DE3*./E  % 1 \ % 2 ,D3)  % 3   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 ) .  
+     à    *E  %FG'!  ,D3)  % 3   DDE3*./E  % 1 \ % 2   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 ) .  
+     x    DE  JB(D  'DE3*./E  % 1 \ % 2   ,D3)  % 3   ( 9FH'F  I P   'DE1&J:   % 5 ) .  
+   ∞    DE  J3*,(  'DE3*./E  % 1 \ % 2   D,D3)  % 3   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 ) .   'FB6*  EGD)  'D/9H).  
+        DE  J*E  B(HD  ,D3)  % 3   DDE3*./E  % 1 \ % 2   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 )   D#FG  DE  J*E  *3,JD  /.HD  'DE3*./E  -'DJ'K  #H  D#F  'D,D3)  :J1  F47).  
+   Ã    DE  J*E  B(HD  ,D3)  % 3   DDE3*./E  % 1 \ % 2   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 )   D#FG  *E  E3(B'K  E3'9/)  'DE3*./E.  
+     –    DE  J*E  B(HD  ,D3)  % 3   DDE3*./E  % 1 \ % 2   EF  % 4   ( 9FH'F  I P   'DE1&J:   % 5 )   (3((  'D.7#  :J1  'DE91HA  'D*'DJ:   % 6 .  
+   ‘    B'E  'DE(*/&  ( 'DE3*./E  'DE-DJ:   % 1 \ % 2 )   (%,1'!  '*5'D  9C3J  DDE3'9/)  9F  (9/  E9  % 3   ( 9FH'F  I P   'DE1&J:   % 4 ) .  
+      DE  J*E  B(HD  '*5'D  'DE3'9/)  9F  (9/  EF  % 1   ( 9FH'F  I P   'DE1&J:   % 2 )   D#F  (7'B)  'D*9DJE'*  :J1  5'D-)  #H  'F*G*  E/)  5D'-J*G'  #H  *E  -0AG'.  
+     Ñ    *E  %F4'!  (7'B)  E3'9/)  9F  (9/  DE/):   % 1   3'9)  DDE3*./E  % 2 \ % 3 .  
+     d    *E  -0A  (7'B)  E3'9/)  9F  (9/  DDE3*./E  % 1 \ % 2 .  
+     ‡    #F4#  % 1   (7'B)  .(J1  'DE3'9/)  9F  (9/  DD'3*./'E  E9  'D'*5'D  'D9C3J.     E9DE'*  'D'*5'D  D(7'B)  'D.(J1  G0G  GJ  % 2 .  
+        A*-*  'DE3'9/)  9F  (9/  ( 'DE3*./E  'DE-DJ:   % 1 )   BF')  (J'F'*  H'1/)  9DI  G0'  'DCE(JH*1  D,D3)  'DE3'9/)  9F  (9/.   'DEFA0  'DH'1/  GH  % 2 .  
+     t  A*-  'D.(J1  ( 'DE3*./E  'DE-DJ:   % 1 )   'D(7'B)  'D*'DJ):   % 2 .  
+   L  f t p :   *E  *DBJ  % 1 ! I 6 4 d !   ('J*  AJ  % 0 .  
+   P  f t p :   *E  %13'D  % 1 ! I 6 4 d !   ('J*  AJ  % 0 .  
+     l  D e l e t e d   i n v a l i d   f i l e n a m e   % 1   ( % 3 )   i n   d i r e c t o r y   % 2 .  
+     F i l e   % 1   h a s   b e e n   o r p h a n e d   s i n c e   a l l   i t s   f i l e n a m e s   w e r e   i n v a l i d  
+ W i n d o w s   w i l l   r e c o v e r   t h e   f i l e   i n   t h e   o r p h a n   r e c o v e r y   p h a s e .  
+   x  T h e   N T F S   f i l e   n a m e   a t t r i b u t e   i n   f i l e   0 x % 1   i s   i n c o r r e c t .  
+   l JBHE  (1F'E,  *4:JD  'D,G'2  (*31J(  5A-'*  'D%/.'D/ 'D%.1',  'DE$EF)  EE'  J$/J  %DI  'F.A'6  #/'!  'DF8'E.   B'E  'DF8'E  *DB'&JK'  (*ECJF  *9B(  'D*9DJE'*  'D(1E,J)  DE-'HD)  E91A)  'DE*3((  H%JB'AG.  
+     î    *E  %JB'A  ./E)  " E1C2  'D#E'F" .   *E  %JB'AG'  (H'37)  FG,  E,EH9)  'D(1F'E,.  
+   Ã (/#  M S   D T C   ('D%9/'/'*  'D*'DJ): % r % r  
+  
+ *CHJF  'D#E'F  ( %JB'A  =   0   H*4:JD  =   1 ) : % r  
+           %/'1)  'D4(C)  DDE9'ED'*  =   % 1 , % r  
+           9ED'!  'D4(C)  =   % 2 , % r  
+           'DE9'ED'*  'DEH29)  'DH'1/)  ('3*./'E  (1H*HCHD  M S D T C   'D#5DJ  =   % 3 , % r  
+           'DE9'ED'*  'DEH29)  'D5'/1)  ('3*./'E  (1H*HCHD  M S D T C   'D#5DJ  =   % 4 , % r  
+           (1H*HCHD  %F*1F*  DDE9'ED'*  ( T I P )   =   % 5 , % r  
+           E9'ED'*  X A   =   % 6 % 0  
+     ` BJE  *CHJF  #E'F  D T C   ( %JB'A  =   0   H*4:JD  =   1 ) :  
+ 	 %/'1)  'D4(C)  DDE9'ED'*  =   % 1 , % r  
+ 	 9ED'!  'D4(C)  =   % 2 , % r  
+ 	 'DE9'ED'*  'DEH29)  'DH'1/)  ('3*./'E  (1H*HCHD  M S D T C   'D#5DJ  =   % 3 , % r  
+           	 'DE9'ED'*  'DEH29)  'D5'/1)  ('3*./'E  (1H*HCHD  M S D T C   'D#5DJ  =   % 4 , % r  
+ 	 (1H*HCHD  %F*1F*  DDE9'ED'*  ( T I P )   =   % 5 , % r  
+ 	 E9'ED'*  X A   =   % 6 % 0  
+   ∏   J*E  *4:JD  %5/'1  EF  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   #H  M i c r o s o f t   S Q L  
+ S e r v e r   2 0 0 0   D e s k t o p   E n g i n e   ( J3EI  #J6K'  M S D E )   'D0J  J*6EF 
+ (96  '.*1'B'*  'D#E'F  'DE91HA)  9F/  '3*./'EG  E9  G0'  'D%5/'1  EF  W i n d o w s .  
+ D*BDJD  A15)  *916  'DCE(JH*1 
+ DAJ1H3'*  E9JF)  *E  *97JD  EFA0J  T C P / I P   H  U D P   'D.'5JF  (@  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0  
+ #H  M S D E   #H  CDJGE'.   D*ECJF  G0JF  'DEFA0JF  J,(  *+(J* 
+ /A9)  #H  #-/+  -2E)  ./E'*  D@  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   #H 
+ M S D E   EF  h t t p : / / w w w . m i c r o s o f t . c o m / s q l / d o w n l o a d s / d e f a u l t . a s p  
+     ,   'C*4A*  ./E)  W i n M g m t   H,H/  9/E  *H'AB  ('DE.2F  AJ  'D/DJD  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y    
+ H*901  '3*1/'/G.   *E  -0A  'DE-*HJ'*  H*E  %F4'!  E.2F  ,/J/.  
+     §  R e m o t e   M e d i a   C e n t e r   s e s s i o n   w a s   l o g g e d   o f f   b e c a u s e   s y s t e m   v a l i d a t i o n   f a i l e d .  
+     Ù   { *E  '3*9'/)  (1F'E,  *4:JD  4'4)  'D916  EF  'DA4D}  
+ -/+  .7#  AJ  (1F'E,  *4:JD  4'4)  'D916  % h s     H*E  '3*9'/*G.   1(E'  A4D*  (96  'D9EDJ'*  'D13HEJ).   3J8G1  9F/  %9'/)  *EGJ/  'D,G'2  AJ  'DE1)  'DB'/E)  E1(9  -H'1  EE'  J*J-  DC  %13'D  (J'F'*  -HD  G0'  'DA4D  %DI  M i c r o s o f t .  
+   X      C a n   n o t   o b t a i n   o w n e r s h i p   i n f o r m a t i o n  
+       
+ D i s p l a y s   p r o t o c o l   s t a t i s t i c s   a n d   c u r r e n t   T C P / I P   n e t w o r k   c o n n e c t i o n s .  
+  
+ N E T S T A T   [ - a ]   [ - b ]   [ - e ]   [ - n ]   [ - o ]   [ - p   p r o t o ]   [ - r ]   [ - s ]   [ - v ]   [ i n t e r v a l ]  
+  
+     - a                         D i s p l a y s   a l l   c o n n e c t i o n s   a n d   l i s t e n i n g   p o r t s .  
+     - b                         D i s p l a y s   t h e   e x e c u t a b l e   i n v o l v e d   i n   c r e a t i n g   e a c h   c o n n e c t i o n   o r  
+                                 l i s t e n i n g   p o r t .   I n   s o m e   c a s e s   w e l l - k n o w n   e x e c u t a b l e s   h o s t  
+                                 m u l t i p l e   i n d e p e n d e n t   c o m p o n e n t s ,   a n d   i n   t h e s e   c a s e s   t h e  
+                                 s e q u e n c e   o f   c o m p o n e n t s   i n v o l v e d   i n   c r e a t i n g   t h e   c o n n e c t i o n  
+                                 o r   l i s t e n i n g   p o r t   i s   d i s p l a y e d .   I n   t h i s   c a s e   t h e   e x e c u t a b l e  
+                                 n a m e   i s   i n   [ ]   a t   t h e   b o t t o m ,   o n   t o p   i s   t h e   c o m p o n e n t   i t   c a l l e d ,  
+                                 a n d   s o   f o r t h   u n t i l   T C P / I P   w a s   r e a c h e d .   N o t e   t h a t   t h i s   o p t i o n  
+                                 c a n   b e   t i m e - c o n s u m i n g   a n d   w i l l   f a i l   u n l e s s   y o u   h a v e   s u f f i c i e n t  
+                                 p e r m i s s i o n s .  
+     - e                         D i s p l a y s   E t h e r n e t   s t a t i s t i c s .   T h i s   m a y   b e   c o m b i n e d   w i t h   t h e   - s  
+                                 o p t i o n .  
+     - n                         D i s p l a y s   a d d r e s s e s   a n d   p o r t   n u m b e r s   i n   n u m e r i c a l   f o r m .  
+     - o                         D i s p l a y s   t h e   o w n i n g   p r o c e s s   I D   a s s o c i a t e d   w i t h   e a c h   c o n n e c t i o n .  
+     - p   p r o t o             S h o w s   c o n n e c t i o n s   f o r   t h e   p r o t o c o l   s p e c i f i e d   b y   p r o t o ;   p r o t o  
+                                 m a y   b e   a n y   o f :   T C P ,   U D P ,   T C P v 6 ,   o r   U D P v 6 .     I f   u s e d   w i t h   t h e   - s  
+                                 o p t i o n   t o   d i s p l a y   p e r - p r o t o c o l   s t a t i s t i c s ,   p r o t o   m a y   b e   a n y   o f :  
+                                 I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,   T C P ,   T C P v 6 ,   U D P ,   o r   U D P v 6 .  
+     - r                         D i s p l a y s   t h e   r o u t i n g   t a b l e .  
+     - s                         D i s p l a y s   p e r - p r o t o c o l   s t a t i s t i c s .     B y   d e f a u l t ,   s t a t i s t i c s   a r e  
+                                 s h o w n   f o r   I P ,   I P v 6 ,   I C M P ,   I C M P v 6 ,   T C P ,   T C P v 6 ,   U D P ,   a n d   U D P v 6 ;  
+                                 t h e   - p   o p t i o n   m a y   b e   u s e d   t o   s p e c i f y   a   s u b s e t   o f   t h e   d e f a u l t .  
+     - v                         W h e n   u s e d   i n   c o n j u n c t i o n   w i t h   - b ,   w i l l   d i s p l a y   s e q u e n c e   o f  
+                                 c o m p o n e n t s   i n v o l v e d   i n   c r e a t i n g   t h e   c o n n e c t i o n   o r   l i s t e n i n g  
+                                 p o r t   f o r   a l l   e x e c u t a b l e s .  
+     i n t e r v a l             R e d i s p l a y s   s e l e c t e d   s t a t i s t i c s ,   p a u s i n g   i n t e r v a l   s e c o n d s  
+                                 b e t w e e n   e a c h   d i s p l a y .     P r e s s   C T R L + C   t o   s t o p   r e d i s p l a y i n g  
+                                 s t a t i s t i c s .     I f   o m i t t e d ,   n e t s t a t   w i l l   p r i n t   t h e   c u r r e n t  
+                                 c o n f i g u r a t i o n   i n f o r m a t i o n   o n c e .    
+   $      [ S y s t e m ]  
+  
+     D      - -   u n k n o w n   c o m p o n e n t ( s )   - -  
+           % 1 ! s !  
+          [ % 1 ! s ! ]  
+  
+   ú    *E  (F,'-  %6'A)  'D#E'CF  'DE-,H2)  DE3'-'*  'D#3E'!  'DE91A)  (('/&)  U R L   % 2 .  
+     ú    *E  (F,'-  %6'A)  'D#E'CF  'DE-,H2)  DE3'-'*  'D#3E'!  'DE91A)  (('/&)  U R L   % 2 .  
+     ÿ    J*901  *-HJD  C'A)  %/.'D'*  B'&E)  " 9F'HJF  I P "   'DEH+HB  (G'.   3J5:J  (1F'E,  'D*4:JD  DC'A)  'DH',G'*  'DE*HA1).  
+   $  A u d i t u s r   1 . 0  
+     L  T y p e   " a u d i t u s r   / ? "   f o r   d e t a i l s . % n  
+    A u d i t u s r   -   s e t s   p e r   u s e r   a u d i t i n g   p o l i c y .  
+ / ?   p r i n t s   c o m m a n d - l i n e   h e l p .  
+ I f   n o   p a r a m e t e r s   a r e   g i v e n   t h e n   t h e   c u r r e n t   s e t t i n g s   w i l l   b e   d i s p l a y e d .  
+ S p e c i f y   o n e   o f :  
+ / i s   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       a d d s   o r   c h a n g e s   a n   i n c l u d e - s u c c e s s   e n t r y  
+ / i f   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       a d d s   o r   c h a n g e s   a n   i n c l u d e - f a i l u r e   e n t r y  
+ / e s   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       a d d s   o r   c h a n g e s   a n   e x c l u d e - s u c c e s s   e n t r y  
+ / e f   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       a d d s   o r   c h a n g e s   a n   e x c l u d e - f a i l u r e   e n t r y  
+ / r   < s e c u r i t y   p r i n c i p a l >  
+       r e m o v e s   a l l   p e r - u s e r   a u d i t i n g   e n t r i e s   f o r   t h a t   s e c u r i t y   p r i n c i p a l  
+ / r a  
+       r e m o v e s   a l l   p e r - u s e r   a u d i t i n g   e n t r i e s  
+ / e   < f i l e n a m e >  
+       e x p o r t s   c u r r e n t   p e r - u s e r   a u d i t i n g   s e t t i n g s   t o   a   f i l e  
+ / i   < f i l e n a m e >  
+       i m p o r t s   c u r r e n t   p e r - u s e r   a u d i t i n g   s e t t i n g s   f r o m   a   f i l e  
+ V a l i d   c a t e g o r i e s   a r e :  
+     ,  i n c l u d e : s u c c e s s :  
+     ,  i n c l u d e : f a i l u r e :  
+     ,  e x c l u d e : s u c c e s s :  
+     ,  e x c l u d e : f a i l u r e :  
+     ¨ T h e   k e r b e r o s   s u b s y s t e m   i s   h a v i n g   p r o b l e m s   f e t c h i n g   t i c k e t s   f r o m  
+ y o u r   d o m a i n   c o n t r o l l e r   u s i n g   t h e   U D P   n e t w o r k   p r o t o c o l .     T h i s   i s  
+ t y p i c a l l y   d u e   t o   n e t w o r k   p r o b l e m s .     P l e a s e   c o n t a c t   y o u r   s y s t e m  
+ a d m i n i s t r a t o r .  
+     X W h i l e   u s i n g   y o u r   s m a r t c a r d   o v e r   a   V P N   c o n n e c t i o n ,   t h e   K e r b e r o s   s u b s y s t e m  
+ e n c o u n t e r e d   a n   e r r o r .     T y p i c a l l y ,   t h i s   i n d i c a t e s   t h e   c a r d   h a s   b e e n   p u l l e d  
+ f r o m   t h e   r e a d e r   d u r i n g   t h e   V P N   s e s s i o n .     O n e   p o s s i b l e   s o l u t i o n   i s   t o   c l o s e  
+ t h e   V P N   c o n n e c t i o n ,   r e i n s e r t   t h e   c a r d ,   a n d   r e s t a b l i s h   t h e   c o n n e c t i o n .  
+     P W h i l e   u s i n g   y o u r   s m a r t c a r d   f o r   t h e   C r e d e n t i a l   M a n a g e r ,   t h e   K e r b e r o s  
+ s u b s y s t e m   e n c o u n t e r e d   a n   e r r o r   t h a t   a p p e a r s   t o   b e   f r o m   a  
+ m i s s i n g   o r   i n c o r r e c t   s m a r t c a r d   P I N .     T o   r e m e d y ,   l a u n c h   t h e   S t o r e d   U s e r   N a m e s   a n d   P a s s w o r d s  
+ c o n t r o l   p a n e l   a p p l e t ,   a n d   r e e n t e r   t h e   p i n   f o r   t h e   c r e d e n t i a l   f o r   % 1 % 2 % 3 .  
+   Ä T h e r e   w e r e   p a s s w o r d   e r r o r s   u s i n g   t h e   C r e d e n t i a l   M a n a g e r .  
+ T o   r e m e d y ,   l a u n c h   t h e   S t o r e d   U s e r   N a m e s   a n d   P a s s w o r d s   c o n t r o l   p a n e l  
+ a p p l e t ,   a n d   r e e n t e r   t h e   p a s s w o r d   f o r   t h e   c r e d e n t i a l   % 1 % 2 % 3 .  
+     î  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 )   r e p a i r e d .  
+     Ä    A4D  A*-  EF'A0  I K E   ( U D P   5 0 0 / 4 5 0 0 )    AJ  ,/'1  -E'J)  W i n d o w s .  
+     Ñ    A4D  %:D'B  EF'A0  I K E   ( U D P   5 0 0 / 4 5 0 0 )    AJ  ,/'1  -E'J)  W i n d o w s .  
+     ‰  T h e r e   i s   n o   l o c a l   E F S   c e r t i f i c a t e   t h a t   i s   u s e d   t o   e n c r y p t   t h i s   f i l e .   N o  
+ l o c a l   E F S   c e r t i f i c a t e   i s   b a c k e d   u p .  
+     Ä  T h e r e   i s   n o   l o c a l   c u r r e n t   E F S   c e r t i f i c a t e   t o   b e   b a c k e d   u p .  
+      Y o u r   c e r t i f i c a t e s   a n d   t h e   c o r r e s p o n d i n g   k e y s   a r e   b e i n g   b a c k e d   u p .   I f   y o u   d i d n ' t   s t a r t   t h e   p r o c e s s ,   p r e s s   C A N C E L .   P r e s s   O K   t o   c o n f i r m .  
+   p  E F S   c e r t i f i c a t e ( s )   i s ( a r e )   b a c k e d   u p   s u c c e s s f u l l y .  
+     H  E F S   c e r t i f i c a t e   b a c k u p   f a i l e d .  
+     H  E F S   c e r t i f i c a t e   a n d   k e y   b a c k u p .  
+   T  P l e a s e   t y p e   t h e   b a c k u p   P F X   f i l e   n a m e .  
+   Ñ  O u t p u t   P F X   f i l e   p a t h   t o o   l o n g .   M a k e   i t   s h o r t e r   a n d   t r y   a g a i n .  
+   | D i s p l a y s   o r   a l t e r s   t h e   e n c r y p t i o n   o f   d i r e c t o r i e s   [ f i l e s ]   o n   N T F S   p a r t i t i o n s .  
+  
+     C I P H E R   [ / E   |   / D ]   [ / S : d i r e c t o r y ]   [ / A ]   [ / I ]   [ / F ]   [ / Q ]   [ / H ]   [ p a t h n a m e   [ . . . ] ]  
+  
+     C I P H E R   / K  
+  
+     C I P H E R   / R : f i l e n a m e  
+  
+     C I P H E R   / U   [ / N ]  
+  
+     C I P H E R   / W : d i r e c t o r y  
+  
+     C I P H E R   / X [ : e f s f i l e ]   [ f i l e n a m e ]  
+  
+         / A                 O p e r a t e s   o n   f i l e s   a s   w e l l   a s   d i r e c t o r i e s .   T h e   e n c r y p t e d   f i l e  
+                             c o u l d   b e c o m e   d e c r y p t e d   w h e n   i t   i s   m o d i f i e d   i f   t h e   p a r e n t  
+                             d i r e c t o r y   i s   n o t   e n c r y p t e d .   I t   i s   r e c o m m e n d e d   t h a t   y o u   e n c r y p t  
+                             t h e   f i l e   a n d   t h e   p a r e n t   d i r e c t o r y .  
+         / D                 D e c r y p t s   t h e   s p e c i f i e d   d i r e c t o r i e s .   D i r e c t o r i e s   w i l l   b e   m a r k e d  
+                             s o   t h a t   f i l e s   a d d e d   a f t e r w a r d   w i l l   n o t   b e   e n c r y p t e d .  
+         / E                 E n c r y p t s   t h e   s p e c i f i e d   d i r e c t o r i e s .   D i r e c t o r i e s   w i l l   b e   m a r k e d  
+                             s o   t h a t   f i l e s   a d d e d   a f t e r w a r d   w i l l   b e   e n c r y p t e d .  
+         / F                 F o r c e s   t h e   e n c r y p t i o n   o p e r a t i o n   o n   a l l   s p e c i f i e d   o b j e c t s ,   e v e n  
+                             t h o s e   w h i c h   a r e   a l r e a d y   e n c r y p t e d .     A l r e a d y - e n c r y p t e d   o b j e c t s  
+                             a r e   s k i p p e d   b y   d e f a u l t .  
+         / H                 D i s p l a y s   f i l e s   w i t h   t h e   h i d d e n   o r   s y s t e m   a t t r i b u t e s .     T h e s e  
+                             f i l e s   a r e   o m i t t e d   b y   d e f a u l t .  
+         / I                 C o n t i n u e s   p e r f o r m i n g   t h e   s p e c i f i e d   o p e r a t i o n   e v e n   a f t e r   e r r o r s  
+                             h a v e   o c c u r r e d .     B y   d e f a u l t ,   C I P H E R   s t o p s   w h e n   a n   e r r o r   i s  
+                             e n c o u n t e r e d .  
+         / K                 C r e a t e s   n e w   f i l e   e n c r y p t i o n   k e y   f o r   t h e   u s e r   r u n n i n g   C I P H E R .   I f  
+                             t h i s   o p t i o n   i s   c h o s e n ,   a l l   t h e   o t h e r   o p t i o n s   w i l l   b e   i g n o r e d .  
+         / N                 T h i s   o p t i o n   o n l y   w o r k s   w i t h   / U .   T h i s   w i l l   p r e v e n t   k e y s   b e i n g  
+                             u p d a t e d .   T h i s   i s   u s e d   t o   f i n d   a l l   t h e   e n c r y p t e d   f i l e s   o n   t h e  
+                             l o c a l   d r i v e s .  
+         / Q                 R e p o r t s   o n l y   t h e   m o s t   e s s e n t i a l   i n f o r m a t i o n .  
+         / R                 G e n e r a t e s   a n   E F S   r e c o v e r y   a g e n t   k e y   a n d   c e r t i f i c a t e ,   t h e n   w r i t e s  
+                             t h e m   t o   a   . P F X   f i l e   ( c o n t a i n i n g   c e r t i f i c a t e   a n d   p r i v a t e   k e y )   a n d  
+                             a   . C E R   f i l e   ( c o n t a i n i n g   o n l y   t h e   c e r t i f i c a t e ) .   A n   a d m i n i s t r a t o r  
+                             m a y   a d d   t h e   c o n t e n t s   o f   t h e   . C E R   t o   t h e   E F S   r e c o v e r y   p o l i c y   t o  
+                             c r e a t e   t h e   r e c o v e r y   a g e n t   f o r   u s e r s ,   a n d   i m p o r t   t h e   . P F X   t o  
+                             r e c o v e r   i n d i v i d u a l   f i l e s .  
+         / S                 P e r f o r m s   t h e   s p e c i f i e d   o p e r a t i o n   o n   d i r e c t o r i e s   i n   t h e   g i v e n  
+                             d i r e c t o r y   a n d   a l l   s u b d i r e c t o r i e s .  
+         / U                 T r i e s   t o   t o u c h   a l l   t h e   e n c r y p t e d   f i l e s   o n   l o c a l   d r i v e s .   T h i s   w i l l  
+                             u p d a t e   u s e r ' s   f i l e   e n c r y p t i o n   k e y   o r   r e c o v e r y   a g e n t ' s   k e y   t o   t h e  
+                             c u r r e n t   o n e s   i f   t h e y   a r e   c h a n g e d .   T h i s   o p t i o n   d o e s   n o t   w o r k   w i t h  
+                             o t h e r   o p t i o n s   e x c e p t   / N .  
+         / W                 R e m o v e s   d a t a   f r o m   a v a i l a b l e   u n u s e d   d i s k   s p a c e   o n   t h e   e n t i r e  
+                             v o l u m e .   I f   t h i s   o p t i o n   i s   c h o s e n ,   a l l   o t h e r   o p t i o n s   a r e   i g n o r e d .  
+                             T h e   d i r e c t o r y   s p e c i f i e d   c a n   b e   a n y w h e r e   i n   a   l o c a l   v o l u m e .   I f   i t  
+                             i s   a   m o u n t   p o i n t   o r   p o i n t s   t o   a   d i r e c t o r y   i n   a n o t h e r   v o l u m e ,   t h e  
+                             d a t a   o n   t h a t   v o l u m e   w i l l   b e   r e m o v e d .  
+         / X                 B a c k u p   E F S   c e r t i f i c a t e   a n d   k e y s   i n t o   f i l e   f i l e n a m e .   I f   e f s f i l e   i s  
+                             p r o v i d e d ,   t h e   c u r r e n t   u s e r ' s   c e r t i f i c a t e ( s )   u s e d   t o   e n c r y p t   t h e  
+                             f i l e   w i l l   b e   b a c k e d   u p .   O t h e r w i s e ,   t h e   u s e r ' s   c u r r e n t   E F S  
+                             c e r t i f i c a t e   a n d   k e y s   w i l l   b e   b a c k e d   u p .  
+  
+  
+         d i r e c t o r y   A   d i r e c t o r y   p a t h .  
+         f i l e n a m e     A   f i l e n a m e   w i t h o u t   e x t e n s i o n s .  
+         p a t h n a m e     S p e c i f i e s   a   p a t t e r n ,   f i l e   o r   d i r e c t o r y .  
+         e f s f i l e       A n   e n c r y p t e d   f i l e   p a t h .  
+  
+         U s e d   w i t h o u t   p a r a m e t e r s ,   C I P H E R   d i s p l a y s   t h e   e n c r y p t i o n   s t a t e   o f  
+         t h e   c u r r e n t   d i r e c t o r y   a n d   a n y   f i l e s   i t   c o n t a i n s .   Y o u   m a y   u s e   m u l t i p l e  
+         d i r e c t o r y   n a m e s   a n d   w i l d c a r d s .     Y o u   m u s t   p u t   s p a c e s   b e t w e e n   m u l t i p l e  
+         p a r a m e t e r s .  
+     Ä  *DBI  M S   D T C   13'D)  :J1  5'D-).   'DE9DHE'*  'D.'5)  ('D-/+:   % 1 . % 0  
+   î  H5D  T C P / I P   %DI  #B5I  -/  DD#E'F  (F'!'K  9DI  E-'HD'*  '*5'D  T C P   'DE*D'-B).  
+      *E  *3,JD  'DEHA1  % 1   AJ  E3'-)  '3E  W M I   % 2   HDE  J*E  *-/J/  'D.'5J)  H o s t i n g M o d e l .   3J*E  *4:JD  'DEHA1  ('3*./'E  -3'(  L o c a l S y s t e m .   *E  EF-  'D'E*J'2  DG0'  'D-3'(  HB/  J*3((  'DEHA1  AJ  'F*G'C  'D#E'F  %0'  DE  JF*-D  7D('*  'DE3*./E  (4CD  5-J-.   *#C/  EF  E1',9)  'DEHA1  ('DF3()  D3DHC  'D#E'F  HBE  (*-/J+  'D.'5J)  H o s t i n g M o d e l   'D.'5)  (*3,JD  'DEHA1  (#-/  'D-3'('*  (#BD  'E*J'2'*  EECF)  DDH8'&A  'DE7DH().  
+     8   { *HBA  (1F'E,  *4:JD  4'4)  'D916  9F  'D'3*,'()}  
+ *HBA  (1F'E,  *4:JD  4'4)  'D916  % h s   9F  'D9ED  (4CD  7(J9J.   BE  (-A8  'D9ED  H%9'/)  *EGJ/  'DF8'E  D'3*9'/)  H8'&A  4'4)  'D916  ('DC'ED.   3J8G1  9F/  %9'/)  *EGJ/  'D,G'2  AJ  'DE1)  'DB'/E)  E1(9  -H'1  EE'  J*J-  DC  %13'D  (J'F'*  -HD  G0'  'DA4D  %DI  M i c r o s o f t .  
+   \	   J*901  9DI  W i n d o w s   'DH5HD  %DI  'DEDA  % 1 D#-/  'D#3('(  'D*'DJ):    
+ *H,/  E4CD)  AJ  '*5'D  4(C)  'D'*5'D  #H  AJ  'DB15  'DE.2F  9DJG  'DEDA  #H  AJ   
+ (1'E,  *4:JD  'D*.2JF  'DE+(*)  9DI  'DCE(JH*1  #H  1(E'  JCHF  'DB15  EABH/.    
+ B'E  W i n d o w s   (%:D'B  'D(1F'E,  % 2   (3((  G0'  'D.7#. % n % n 'D(1F'E,:   % 2 % n 'DEDA:   % 1 % n % n BJE)  'D.7#  EH,H/)  AJ  B3E  'D(J'F'*  'D%6'AJ). % n %,1'!  'DE3*./E% n 1 .   BE  (A*-  'DEDA  E1)  +'FJ).    
+ B/  *CHF  E4CD)  E$B*)  *-D  EF  *DB'!  FA3G'  9F/  *4:JD  'D(1F'E,  E1)  +'FJ). % n 2 .    
+ %0'  '3*E1  *901  'DH5HD  %DI  'DEDA  H  % n % t -   %0'  C'F  'DEDA  9DI  4(C)  'D'*5'D   
+ J,(  9DI  E3$HD  4(C)  'D'*5'D  *#CJ/  9/E  H,H/  E4'CD  ('D4(C)  H#FG  JECF  *H5JD  'DEDBE. % n % t -   %0'  C'F  'DEDA  9DI  B15  E-EHD  9DI  3(JD  'DE+'D  B15  E1F  #H  B15  E6:H7  *#C/  EF  %/.'D  'DB15  AJ  'DCE(JH*1. % n 3 .   *-BB  EF  F8'E  'DEDA'*  HBE  (%5D'-G  9F  71JB  *4:JD  C H K D S K .   D*4:JD  C H K D S K   'FB1  AHB  " '(/#"   +E  AHB  " *4:JD"   +E  'C*(  C M D   +E  'FB1  AHB  " EH'AB"   'C*(  AJ  EH,G  'D#H'E1  C H K D S K   / F   +E  '6:7  9DI  'DEA*'-  E N T E R . % n 4 .   %0'  '3*E1*  'DE4CD)  BE  ('3*9'/)  'DEDA  EF  F3.)  '-*J'7J). % n 5 .   -//  GD  3J*E  A*-  'DEDA'*  'D#.1I  'DEH,H/)  9DI  FA3  'DB15  #E  D'.   %0'  C'F*  'D%,'()  D'  B/  J*DA  'DB15.   %0'  C'F  B15K'  +'(*K'  '*5D  ('DE3$HD  #H  EH29  'D#,G2)   
+ DD-5HD  9DI  E2J/  EF  'DE3'9/). % n (J'F'*  %6'AJ)% n BJE)  'D.7#:   % 3 % n FH9  'DB15:   % 4  
+   |  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 ) .  
+     å  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 )   r e p a i r e d .  
+   Ä  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 ) .  
+   ‡    *90Q1  9DI  W i n d o w s   B1'!)  H69  '3*1,'9  FG,  'DE3*./E  EF  #,D  *7(JB  'DFG,.   ( % 1 ) .   *E  %-('7  E9'D,)  FG,  'DE,EH9).    
+   \   B'E  % 1   EF  E,EH9)  E.*DA)  (*3,JD  'D/.HD  %DI  G0'  'D,G'2.   *E  *97JD  E9'D,)  FG,  'DE,EH9)  DE,EH9)  'D*A19'*  H*E  A16  E9'D,)  'D'3*1,'9  AJ  E,EH9)  'D*A19'*  G0G  D-3'(  G0'  'DE3*./E.  
+   –    E-'HD)  *-/J/  E'  %0'  C'F  -3'(  'DE3*./E  H-3'(  'D,G'2  EH,H/JF  AJ  E,EH9)  'D*A19'*  FA3G'  B/  A4D*  ( % 1 ) .  
+       'D*4CJD'*  'D,'F(J)  'DE*,HQD)  DDE3*./EJF  AJ  E,EH9)  'D*A19'*  'DE*B'79)  E97D).   DE  JBE  W i n d o w s   (*-EJD  'D*4CJD  'D,'F(J  'DE*,HD  HGH  J-'HD  *3,JD  /.HDC  (*4CJD  ,'F(J  E-DJ.   DF  J*E  F3.  'D*:JJ1'*  9DI  'D*4CJD  'D,'F(J  %DI  'DEDBE  9F/  *3,JD  'D.1H,.     '*5D  ('DE3$HD  9F  4(C)  'D'*5'D.    
+       *901  9DI  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e   *#3J3  '3*9D'E'*  'D#-/'+  E9  W M I   DE1'B()  (1'E,  EC'A-)  'DAJ1H3'*  H,/1  'D-E'J)  'D.'5)  (,G'*  .'1,J).  
+     ∞    *901  9DI  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e   *-EJD  E+JD'*  DEF*,  ,/'1  'D-E'J)  EF  W M I .  
+     ∏    *901  9DI  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e   *-EJD  E+JD'*  D(1'E,  EC'A-)  'DAJ1H3'*  EF  W M I .  
+   ÿ    C4A  W i n d o w s   S e c u r i t y   C e n t e r   9F  H,H/  EF*,  D,G)  .'1,J)  (E91A  E+JD  DJ3  E91A  A1J/  9EHEJ.     I n s t a n c e I D = % 1 .  
+     ‘    *901  9DI  W i n d o w s   S e c u r i t y   C e n t e r   S e r v i c e   *#3J3  '3*9D'E'*  'D#-/'+  E9  W M I   DE1'B()  *4:JD/ %JB'A  'D./E).  
+     %/'1)  E9'ED'*  X A   AJ  -'D)  :J1  E*F'3B)  HD'  JECF  E*'(9*G'.   DF  **E  E9'ED'*  X A .  
+   'D1,'!  'D'*5'D  (A1JB  /9E  EF*,'*  M i c r o s o f t . % 1   % 0     p D'  JECF  D%/'1)  E9'ED'*  X A   *-EJD  D l l   'DE7DH(  'D.'5  (@  X A   %0  #FG  E7DH(  %/.'D  *3,JD  DG0G  'D9EDJ).  
+   'D1,'!  %F4'!  BJE)  3D3D)  AJ  'D*3,JD  6EF  H K L M \ S o f t w a r e \ M i c r o s o f t \ M S D T C \ X A D L L   -J+  '3E  'DBJE)  GH  '3E  d l l   (*F3JB  d l l n a m e . d l l   H'DBJE)  GJ  E3'1  D l l   ('DC'ED.   %0'  CF*  :J1  E*#C/  EF  '3E  X A   D l l   #H  E3'1G  'D1,'!  E1',9)  'DH+'&B  'D.'5)  (EHA1  X A .   H%0'  C'F  G0'  'D,G'2  ,2!K'  EF  E,EH9)  'D1,'!  ED'-8)  61H1)  *FAJ0  %/.'D  G0'  'D*3,JD  DCD  9B/)  AJ  'DE,EH9).   % 1   % 0         A4D*  ./E)  W i n M g m t   AJ  *-EJD  EDA'*  'DE.2F  ('D/DJD  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y .   'D3((  'DE-*ED   
+ *DA  EDA'*  'DE.2F  #H  %9/'/'*  'D#E'F  (G0'  'D/DJD  #H  FB5  'DE3'-)  9DI  'DB15  #H  E4'CD   
+ **9DB  (EH'1/  'DF8'E  CFB5  'D0'C1).   %0'  *C11  G0'  'D.7#  AJ  CD  E1)  J*E  AJG'  %9'/)  *EGJ/  'D,G'2  J,(  9DI   
+ E3$HD  'DF8'E  %JB'A  ./E)  W i n M g m t   H-0A  C'A)  'DEDA'*  H'D/D'&D  'DEH,H/)  (G0'  'DEHB9   
+ H%9'/)  *4:JD  ./E)  W i n M g m t .  
+        *901  *1BJ)  E.2F  ./E)  W i n M g m t   AJ  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   #+F'!  'D%9/'/.      
+ *E  FBDG  %DI  'D/DJD  % 1   H*E  %F4'!  E.2F  ".1.  
+      A4D  7('9)  'DE3*F/  % 1   'D.'5  (@  % 2   9DI  'D7'(9)  % 3 .   FH9  'D(J'F'*:   % 4 .   -,E  EDA  'D*.2JF  ('D('J*:   % 5 .   9//  H-/'*  'D('J*  'DE7(H9):   % 6 .   'D9//  'D%,E'DJ  DD5A-'*  ('DE3*F/:   % 7 .   9//  'D5A-'*  'DE7(H9):   % 8 .   'D,G'2  'D9EJD:   % 9 .   1E2  .7#  W i n 3 2   'DE1,9  (H'37)  E9'D,  'D7('9):   % 1 0 .   % 1 1  
+     Ä D'  *EF-  %9/'/'*  'D-/H/  9DI  F7'B  'D,G'2  'D#0F  % 2   % 1   'D.'5  (*7(JB'*  EDBE  C O M   %DI  'DE3*./E  % 3 \ % 4   (E91A  'D#E'F  ( S I D )   ( % 5 ) .  
+   JECF  *9/JD  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .   ¥ D'  *EF-  %9/'/'*  'D-/H/  9DI  F7'B  'D,G'2  'D#0F  % 2   % 1   'D.'5  (*7(JB  EDBE  C O M   (E91A  'DA&)  ( C L S I D )   % n % 3 % n   %DI  'DE3*./E  % 4 \ % 5   (E91A  'D#E'F  ( S I D )   ( % 6 ) .      
+ JECF  *9/JD  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .   ò D'  *EF-  %9/'/'*  'D%0F  % 1   'D%0F  % 3   % 2   'D.'5  (*7(JB  EDBE  C O M   (E91A  'DA&)  ( C L S I D )   % n % 4 % n   %DI  'DE3*./E  % 5 \ % 6   (E91A  'D#E'F  ( S I D )   ( % 7 ) .  
+     JECF  *9/JD  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .   p D'  *EF-  %9/'/'*  'D%0F  % 1   D@  % 2   'D%0F  ('DH5HD  %DI  *7(JB  EDBE  C O M   % 3   %DI  'DE3*./E  % 4 \ % 5   (E91A  'D#E'F  ( S I D )   ( % 6 ) .  
+   JECF  *9/JD  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .   ¥ D'  *EF-  %9/'/'*  'D#0HF'*  'D.'5)  ('D*7(JB  D@  % 1   %0F  'DH5HD  'D.'5  (*7(JB  EDBE  C O M   % 2   %DI  'DE3*./E  % 3 \ % 4   (E91A  'D#E'F  ( S I D )   ( % 5 ) .  
+   HB/  9JQF  'D*7(JBO  %0F  'D#E'F  G0'  (1E,JK'  HD*9/JD  %0F  'D#E'F  G0'  '*5D  (('&9  'D*7(JB.     à D'  *EF-  %9/'/'*  'D-/H/  9DI  F7'B  'D,G'2  %0F  'DH5HD  % 1   'D.'5  (*7(JB  EDBE  C O M   % 2   %DI  'DE3*./E  % 3 \ % 4   (E91A  'D#E'F  ( S I D )   ( % 5 ) .  
+   JECF  *9/JD  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .     î H'5A  #E'F  % 2   % 1   9DI  F7'B  'D,G'2  :J1  5'D-.   -J+  J-*HJ  9DI  %/.'D'*  *-CE  H5HD  (#0HF'*  :J1  5'D-).  
+   D0DC  DE  J*E  *FAJ0  'D%,1'!  'DE7DH(.   JECF  *5-J-  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .     Ë H'5A  #E'F  'D*4:JD  H'D*F4J7  'D.'5  (*7(JB  EDBE  C O M   (E91A  'DA&)    ( C L S I D )   % n % 1 % n   :J1  5'D-.   -J+  J-*HJ  9DI  %/.'D'*  *-CE  H5HD  (#0HF'*  :J1  5'D-).  
+ D0DC  DE  J*E  *FAJ0  'D%,1'!  'DE7DH(.   JECF  *5-J-  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*"   ¨ H'5A  #E'F  'DH5HD  % 1   'D.'5  (*7(JB  EDBE  C O M   % 2   :J1  5'D-.   -J+  J-*HJ  9DI  %/.'D'*  *-CE  H5HD  (#0HF'*  :J1  5'D-).    
+ D0DC  DE  J*E  *FAJ0  'D%,1'!  'DE7DH(.   JECF  *5-J-  %0F  'D#E'F  G0'  ('3*./'E  'D#/')  'D%/'1J)  " ./E'*  'DECHF'*" .   Ë H'5A  #E'F  'DH5HD  'D.'5  (*7(JB  EDBE  C O M   % 1   :J1  5'D-.   -J+  J-*HJ  9DI  %/.'D'*  *-CE  H5HD  (#0HF'*  :J1  5'D-).  
+ D0DC  DE  J*E  *FAJ0  'D%,1'!  'DE7DH(.   HB/  *E  *9JJF  %0F  'D#E'F  G0'  AJ  'D*7(JB  (1E,JK'  HD*9/JD  %0F  'D#E'F  G0'  'D1,'!  'D'*5'D  (('&9  'D*7(JB.      FG,  'DE,EH9)  9DI  E3*HI  'D,G'2  % 1   'D.'5  (*9JJF  -/H/  H'5A  'D#E'F  :J1  5'D-.   *E  *91JA  H'5A  'D#E'F  (#FG  3D3D)  D:)  *91JA'*  H'5A  #E'F  ( S D D L )   :J1  5'D-).   D0DC  DE  J*E  *FAJ0  'D%,1'!  'DE7DH(.   'D1,'!  'D'*5'D  (E3$HD  'DF8'E  D/JC  D*5-J-  H'5A  'D#E'F  AJ  %9/'/'*  FG,  'DE,EH9).  
+   ‘    *901  %F4'!  EDA  'D3,D  % 2 .   *#C/  EF  5-)  /DJD  'D*3,JD  H#F  G0'  'DCE(JH*1  D/JG  -B  'DH5HD  %DI  G0'  'D/DJD.    
+   ¯    *901  %F4'!  EDA  3,D  DDEHB9  W 3 S V C % 2 .   *#C/  EF  5-)  /DJD  'D*3,JD  DDEHB9  H#F  G0'  'DCE(JH*1  D/JG  -B  'DH5HD  %DI  G0'  'D/DJD.    
+        *901  %F4'!  EDA  'D3,D  % 2   DDEHB9  W 3 S V C % 3 .   1(E'  JCHF  'DB15  EE*D&.   %0'  C'F  G0'  E3'1  4(C)  '*5'D  *#C/  EF  9/E  B79  'D'*5'D  4(C)  'D'*5'D.  
+   Ï    *901  %F4'!  EDA  'D3,D  'D+F'&J  'DE1C2J.   *#C/  EF  5-)  /DJD  'D*3,JD  H#F  G0'  'DCE(JH*1  D/JG  -B  'DH5HD  %DI  G0'  'D/DJD.  
+       *901  'DC*'()  %DI  EDA  'D3,D  'D+F'&J  'DE1C2J  % 2 .   1(E'  JCHF  'DB15  EE*D&.   %0'  C'F  G0'  E3'1  4(C)  '*5'D  *#C/  EF  9/E  B79  'D'*5'D  4(C)  'D'*5'D.  
+     D   *901  'D'1*('7  ('DFBD  'D#3'3J  D@  % 2 .   1(E'  **6EF  B'&E)  " 9F'HJF  I P "   'DEH+HB  (G'  E1,9K'  %DI  H',G)  :J1  EH,H/)  9DI  G0'  'D,G'2.   J-*HJ  -BD  'D(J'F'*  9DI  1BE  'D.7#.  
+     ÿ    E'DC  EDA  'D3,D  #H  'D/DJD  % 2   :J1  5'D-.   B/  J1,9  'D3((  %DI  %F4'!  E3*./E  ".1  DEDA  'D3,D  #H  'D/DJD  ('DA9D.  
+   Ã    -/+  .7#  #+F'!  *GJ&)  'D#E'CF  'DE-,H2)  DE3'-'*  'D#3E'!.   J*HA1  1E2  -'D)  'D.7#  AJ  'D(J'F'*  'DE1,9).  
+   ¯    -/+  .7#  #+F'!  *GJ&)  'D#E'CF  'DE-,H2)  DE3'-'*  'D#3E'!  'DE91A)  (('/&)  U R L   % 2 .   J*HA1  1E2  -'D)  'D.7#  AJ  'D(J'F'*  'DE1,9).  
+   Ñ    *901  %F4'!  EDA  3,D  'D#.7'!.   *#C/  EF  5-)  /DJD  *3,JD  'D#.7'!.  
+   ƒ    *901  'DC*'()  %DI  EDA  3,D  'D#.7'!.   1(E'  JCHF  'DB15  EE*D&.   J-*HJ  -BD  'D(J'F'*  9DI  1BE  'D.7#.  
+     Ä    A4D  *CHJF  3,D  'D#.7'!.   J-*HJ  -BD  'D(J'F'*  9DI  1BE  'D.7#.  
+     ∏    *901  *-HJD  %/.'D  B'&E)  " 9F'HJF  I P "   'DEH+HB  (G'  % 2 .     J-*HJ  -BD  'D(J'F'*  9DI  1BE  'D.7#.  
+    C o p i e s   f i l e s   a n d   d i r e c t o r y   t r e e s .  
+  
+ X C O P Y   s o u r c e   [ d e s t i n a t i o n ]   [ / A   |   / M ]   [ / D [ : d a t e ] ]   [ / P ]   [ / S   [ / E ] ]   [ / V ]   [ / W ]  
+                                                       [ / C ]   [ / I ]   [ / Q ]   [ / F ]   [ / L ]   [ / G ]   [ / H ]   [ / R ]   [ / T ]   [ / U ]  
+                                                       [ / K ]   [ / N ]   [ / O ]   [ / X ]   [ / Y ]   [ / - Y ]   [ / Z ]  
+                                                       [ / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . . ]  
+  
+     s o u r c e               S p e c i f i e s   t h e   f i l e ( s )   t o   c o p y .  
+     d e s t i n a t i o n     S p e c i f i e s   t h e   l o c a t i o n   a n d / o r   n a m e   o f   n e w   f i l e s .  
+     / A                       C o p i e s   o n l y   f i l e s   w i t h   t h e   a r c h i v e   a t t r i b u t e   s e t ,  
+                               d o e s n ' t   c h a n g e   t h e   a t t r i b u t e .  
+     / M                       C o p i e s   o n l y   f i l e s   w i t h   t h e   a r c h i v e   a t t r i b u t e   s e t ,  
+                               t u r n s   o f f   t h e   a r c h i v e   a t t r i b u t e .  
+     / D : m - d - y           C o p i e s   f i l e s   c h a n g e d   o n   o r   a f t e r   t h e   s p e c i f i e d   d a t e .  
+                               I f   n o   d a t e   i s   g i v e n ,   c o p i e s   o n l y   t h o s e   f i l e s   w h o s e  
+                               s o u r c e   t i m e   i s   n e w e r   t h a n   t h e   d e s t i n a t i o n   t i m e .  
+     / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . .  
+                               S p e c i f i e s   a   l i s t   o f   f i l e s   c o n t a i n i n g   s t r i n g s .     E a c h   s t r i n g  
+                               s h o u l d   b e   i n   a   s e p a r a t e   l i n e   i n   t h e   f i l e s .     W h e n   a n y   o f   t h e  
+                               s t r i n g s   m a t c h   a n y   p a r t   o f   t h e   a b s o l u t e   p a t h   o f   t h e   f i l e   t o   b e  
+                               c o p i e d ,   t h a t   f i l e   w i l l   b e   e x c l u d e d   f r o m   b e i n g   c o p i e d .     F o r  
+                               e x a m p l e ,   s p e c i f y i n g   a   s t r i n g   l i k e   \ o b j \   o r   . o b j   w i l l   e x c l u d e  
+                               a l l   f i l e s   u n d e r n e a t h   t h e   d i r e c t o r y   o b j   o r   a l l   f i l e s   w i t h   t h e  
+                               . o b j   e x t e n s i o n   r e s p e c t i v e l y .  
+     / P                       P r o m p t s   y o u   b e f o r e   c r e a t i n g   e a c h   d e s t i n a t i o n   f i l e .  
+     / S                       C o p i e s   d i r e c t o r i e s   a n d   s u b d i r e c t o r i e s   e x c e p t   e m p t y   o n e s .  
+     / E                       C o p i e s   d i r e c t o r i e s   a n d   s u b d i r e c t o r i e s ,   i n c l u d i n g   e m p t y   o n e s .  
+                               S a m e   a s   / S   / E .   M a y   b e   u s e d   t o   m o d i f y   / T .  
+     / V                       V e r i f i e s   e a c h   n e w   f i l e .  
+     / W                       P r o m p t s   y o u   t o   p r e s s   a   k e y   b e f o r e   c o p y i n g .  
+     / C                       C o n t i n u e s   c o p y i n g   e v e n   i f   e r r o r s   o c c u r .  
+     / I                       I f   d e s t i n a t i o n   d o e s   n o t   e x i s t   a n d   c o p y i n g   m o r e   t h a n   o n e   f i l e ,  
+                               a s s u m e s   t h a t   d e s t i n a t i o n   m u s t   b e   a   d i r e c t o r y .  
+     / Q                       D o e s   n o t   d i s p l a y   f i l e   n a m e s   w h i l e   c o p y i n g .  
+     / F                       D i s p l a y s   f u l l   s o u r c e   a n d   d e s t i n a t i o n   f i l e   n a m e s   w h i l e   c o p y i n g .  
+     / L                       D i s p l a y s   f i l e s   t h a t   w o u l d   b e   c o p i e d .  
+     / G                       A l l o w s   t h e   c o p y i n g   o f   e n c r y p t e d   f i l e s   t o   d e s t i n a t i o n   t h a t   d o e s  
+                               n o t   s u p p o r t   e n c r y p t i o n .  
+     / H                       C o p i e s   h i d d e n   a n d   s y s t e m   f i l e s   a l s o .  
+     / R                       O v e r w r i t e s   r e a d - o n l y   f i l e s .  
+     / T                       C r e a t e s   d i r e c t o r y   s t r u c t u r e ,   b u t   d o e s   n o t   c o p y   f i l e s .   D o e s   n o t  
+                               i n c l u d e   e m p t y   d i r e c t o r i e s   o r   s u b d i r e c t o r i e s .   / T   / E   i n c l u d e s  
+                               e m p t y   d i r e c t o r i e s   a n d   s u b d i r e c t o r i e s .  
+     / U                       C o p i e s   o n l y   f i l e s   t h a t   a l r e a d y   e x i s t   i n   d e s t i n a t i o n .  
+     / K                       C o p i e s   a t t r i b u t e s .   N o r m a l   X c o p y   w i l l   r e s e t   r e a d - o n l y   a t t r i b u t e s .  
+     / N                       C o p i e s   u s i n g   t h e   g e n e r a t e d   s h o r t   n a m e s .  
+     / O                       C o p i e s   f i l e   o w n e r s h i p   a n d   A C L   i n f o r m a t i o n .  
+     / X                       C o p i e s   f i l e   a u d i t   s e t t i n g s   ( i m p l i e s   / O ) .  
+     / Y                       S u p p r e s s e s   p r o m p t i n g   t o   c o n f i r m   y o u   w a n t   t o   o v e r w r i t e   a n  
+                               e x i s t i n g   d e s t i n a t i o n   f i l e .  
+     / - Y                     C a u s e s   p r o m p t i n g   t o   c o n f i r m   y o u   w a n t   t o   o v e r w r i t e   a n  
+                               e x i s t i n g   d e s t i n a t i o n   f i l e .  
+     / Z                       C o p i e s   n e t w o r k e d   f i l e s   i n   r e s t a r t a b l e   m o d e .  
+  
+ T h e   s w i t c h   / Y   m a y   b e   p r e s e t   i n   t h e   C O P Y C M D   e n v i r o n m e n t   v a r i a b l e .  
+ T h i s   m a y   b e   o v e r r i d d e n   w i t h   / - Y   o n   t h e   c o m m a n d   l i n e .  
+     å    A4D*  9EDJ)  'D*-BB  EF  5-)  'DE.77  D@  % 2   AJ  'DE1-D)  2 .   'D3((  ' % 1 ' .  
+   »    A4D*  9EDJ)  'D*-BB  EF  5-)  'DE.77  D@  % 2   AJ  'DE1-D)  2 .   'D3((  AJ  0DC  9/E  *H'AB  'D3E)  ' % 1 '   DDE.77.  
+   å    A4D*  9EDJ)  'D*-BB  EF  5-)  'DE.77  D@  % 2   AJ  'DE1-D)  1 .   'D3((  ' % 1 ' .  
+   h    A4D*  9EDJ)  ,/HD)  *-EJD  'DEDA  % 2 .   'D3((  ' % 1 ' .  
+     å    *E  *,'H2  'D-/  'D#B5I  EF  BJH/  -,E  'DEDA'*  DE,'D  % 2 .   'D3((  ' % 1 ' .  
+           @    ¨  ≤       @    ¨  ≥       @    ¨  ¥       @    ¨  µ          h  c     h  d        ®  e       ®  f 00     ®%  g 00    ®  h PA       (  U     h  V      h  W          Ë  ∏    (  π PA         Ë  Ÿ         h        h   PA         Ë  a    (  b PA   	 00   h  X      Ë  Y    (  Z 00    ®  [       ®  \     h  ] 00     ®%  ^        ®  _      h  `     00    ®  i       ®  j     h  k 00     ®%  l        ®  m      h  n PA   	    (  o     h  p      h  q      Ë  r       ®  s        ®  t 00   h  u 00    ®  v 00     ®%  w          Ë  ∂          Ë  ∑    	 00   h  x      Ë  y    (  z 00    ®  {       ®  |     h  } 00     ®%  ~        ®        h  Ä    	    (  Å      Ë  Ç 00   h  É     h  Ñ       ®  Ö 00    ®  Ü      h  á        ®  à 00     ®%  â    	    (  ä      Ë  ã 00   h  å     h  ç       ®  é 00    ®  è      h  ê        ®  ë 00     ®%  í    	    (  ì      Ë  î 00   h  ï     h  ñ       ®  ó 00    ®  ò      h  ô        ®  ö 00     ®%  õ     D2   »	  ú D2    »  ù D2     †7  û        (  ÿ         h        h   PA        h        h   PA         h       h          ®         ®   00     ®%  	 00    ®  
+ PA        h        h   PA        h        h   PA        h        h   PA        h        h   PA        h        h   PA         h       h          ®         ®   00     ®%   00    ®   PA         h          ®         ®   00     ®%    00    ®  !        (  "     h  #      h  $        (  %     h  &      h  '        (  (     h  )      h  *        (  +     h  ,      h  -        (  .     h  /      h  0        (  1     h  2      h  3        (  4     h  5      h  6        (  7     h  8      h  9     00    ®  F       ®  G     h  H 00     ®%  I        ®  J      h  K PA    00    ®  L       ®  M     h  N 00     ®%  O        ®  P      h  Q PA    00    ®  :       ®  ;     h  < 00     ®%  =        ®  >      h  ? PA    00    ®  @       ®  A     h  B 00     ®%  C        ®  D      h  E PA          ®  R           ®  S           ®  T          Ë  f    00    ®  ¯       ®  ˘     h  ˙ 00     ®%  ˚        ®  ¸      h  ˝ PA   	 00   h  ˛      Ë  ˇ    (   00    ®        ®      h  00     ®%         ®       h           Ë      00    ®        ®  	    h  
+00     ®%         ®       h  PA          ®            ®            ®            ®            ®            ®          h       h  PA    00    ®        ®      h  00     ®%         ®       h  PA        h         (      h       h          h        h  !PA    00   h  "     Ë  #00    ®  $      ®  %00     ®%  &       ®  '    h  (    00    ®  )      ®  *    h  +00     ®%  ,       ®  -     h  .PA       (  /    h  0     h  1    00    ®  W      ®  X    h  Y00     ®%  Z       ®  [     h  \PA         Ë  ±    	    (  ü      Ë  † 00   h  °     h  ¢       ®  £ 00    ®  §      h  •        ®  ¶ 00     ®%  ß    	    (  ®      Ë  © 00   h  ™     h  ´       ®  ¨ 00    ®  ≠      h  Æ        ®  Ø 00     ®%  ∞     00    ®  ∫       ®  ª     h  º 00     ®%  Ω        ®  æ      h  ø PA    00    ®  ¿       ®  ¡     h  ¬ 00     ®%  √        ®  ƒ      h  ≈ PA    00    ®  ∆       ®  «     h  » 00     ®%  …        ®         h  À PA    00    ®  Ã       ®  Õ     h  Œ 00     ®%  œ        ®  –      h  — PA    00    ®  “       ®  ”     h  ‘ 00     ®%  ’        ®  ÷      h  ◊ PA    00    ®  ⁄       ®  €     h  ‹ 00     ®%  ›        ®  ﬁ      h  ﬂ PA    00    ®  Ê       ®  Á     h  Ë 00     ®%  È        ®  Í      h  Î PA    00    ®  Ï       ®  Ì     h  Ó 00     ®%  Ô        ®        h  Ò PA    00    ®  Ú       ®  Û     h  Ù 00     ®%  ı        ®  ˆ      h  ˜ PA    00    ®  ‡       ®  ·     h  ‚ 00     ®%  „        ®  ‰      h  Â PA   	 00   h  2     Ë  3   (  400    ®  5      ®  6    h  700     ®%  8       ®  9     h  :    00   h  ;     Ë  <   Ë  =   (  >00    ®  ?      ®  @    »  A    h  B00     ®%  C       ®  D     à	  E     h  FPA         Ë  G   (  H00    ®  I      ®  J    h  K00     ®%  L       ®  M     h  NPA        h  O     h  PPA   	 00   h  ]     Ë  ^   (  _00    ®  `      ®  a    h  b00     ®%  c       ®  d     h  e    00    ®  Q      ®  R    h  S00     ®%  T       ®  U     h  VPAê4   V S _ V E R S I O N _ I N F O     ΩÔ˛     à(
+  à(
+?                           S t r i n g F i l e I n f o   Ã   0 4 0 1 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   X   F i l e D e s c r i p t i o n     S e r v i c e   P a c k   2   M e s s a g e s   d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 2 r e s . d l l     Ä .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   D   O r i g i n a l F i l e n a m e   x p s p 2 r e s . d l l     l %  P r o d u c t N a m e     M i c r o s o f t Æ   W i n d o w s Æ   O p e r a t i n g   S y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   D    V a r F i l e I n f o     $    T r a n s l a t i o n     ∞<HTML DIR=RTL id=dlgAbout STYLE="width: 25.8em; height: 22.6em">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1256">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<TITLE>
+ÕÊ· Internet Explorer
+</TITLE>
+<style>
+.versionformat {
+color: black;
+font-family: MS Sans Serif;
+font-size: 8pt;
+position: absolute;
+left: 0em;
+top: 0em;
+height: 2em;
+width:25em;
+z-index: 20;
+}
+.textformat {
+color: black;
+font-family: Verdana;
+font-size:8pt;
+position: absolute;
+left: 10.2em;
+top: 19.8em;
+height: 3em;
+width:26.5em;
+}
+.logo {
+color: LIGHTGREY;
+font-family: MS Sans Serif;
+font-size:40pt;
+position: absolute;
+left: 1.9em;
+top: 4.5em;
+height: 0.5em;
+width:1em;
+z-index: -1;
+}
+.button {
+width: 7em;
+height: 2.2em;
+color: buttontext;
+font-family: MS Sans Serif;
+font-size:8pt;
+cursor: hand;
+}
+</style>
+<SCRIPT>
+var platIs64=false;
+function fnShow64Flag(){
+if(navigator.userAgent.indexOf("Win64")>-1){
+platIs64=true;
+}
+if(platIs64==true){
+o64bitFlag.innerText='64-bit Edition';
+}
+}
+</SCRIPT>
+<script>
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "˛˛ÕœÀ Œÿ√ ›Ì „—»⁄ «·ÕÊ«— Â–«.";
+var L_ErrorNumber_Text = "Œÿ√: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function OnPageLoad()
+{
+var L_PreCipherStrength_Text = "";
+var L_PostCipherStrength_Text = "-bit";
+var L_UpdateInfo_Text = "„⁄·Ê„«  «· ÕœÌÀ";
+var L_Unknown_Text = "€Ì— „⁄—Ê› ";
+L_UpdateVersions_Text = " ÕœÌÀ «·≈’œ«—« :";
+L_updateWidth_number= "9em";
+L_updateFontSize_number="8pt";
+L_UpdateFont_Fontname ="Tahoma, MS Shell Dlg";
+updateUrl = "";
+var cipherStrength = "";
+if ((null != window.dialogArguments))
+{
+arrArgs = window.dialogArguments.split("~");
+spaVersion.innerText = arrArgs[0];
+if (arrArgs[3] == "168")
+cipherStrength = 128;
+else if (arrArgs[3] == "128")
+cipherStrength = 40;
+else
+cipherStrength = arrArgs[3];
+spaCipher.innerText = L_PreCipherStrength_Text + cipherStrength + L_PostCipherStrength_Text;
+pID.innerText=arrArgs[4];
+if (null != arrArgs[6])
+spaIEAKInfo.innerText = arrArgs[6];
+updateUrl = arrArgs[5];
+}
+else
+{
+spaVersion.innerText = L_Unknown_Text;
+spaCipher.innerText = L_Unknown_Text;
+pID.innerText = L_Unknown_Text;
+}
+if ("" == updateUrl)
+updateUrl = "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=128bit";
+var mv=window.navigator.appMinorVersion;
+var temp_mv_string = "";
+if(mv!="0")
+{
+for(ictr=0;ictr<mv.length;ictr++)
+{
+if(mv.charAt(ictr)==";")
+{
+temp_mv_string = temp_mv_string + "; "
+}
+else
+{
+temp_mv_string = temp_mv_string + mv.charAt(ictr)
+}
+}
+mv = temp_mv_string
+}
+minorversion.innerText=L_UpdateVersions_Text + mv;
+}
+window.onerror = HandleError;
+</script>
+</head>
+<BODY bgcolor="#FFFFFF" onload="OnPageLoad(); fnShow64Flag();" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)"
+scroll=no>
+<table border=0>
+<TR height=10>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD id=Logo colspan=3 align=Right><img src="res://shdoclc.dll/ie5.gif"></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=ProdInfoAlign colspan=2 align=Right>
+<ID id=ProductInfo1>
+<span id=ProdInfoStyle style="WIDTH: 25em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg">
+<BR>
+<ID id=ProductInfo2>
+«·≈’œ«—:</id> <SPAN id=spaVersion></SPAN> <span id="o64bitFlag" style="padding-left:10px"></span><br>
+<ID id=ProductInfo3>
+ﬁÊ… «· ‘›Ì—: </id><SPAN id=spaCipher ></SPAN>&nbsp;<br>
+<ID id=ProductInfo4>
+—ﬁ„  ⁄—Ì› «·„‰ Ã:</id><SPAN id=pID></SPAN><br>
+<span id=minorversion></SPAN><br>
+<ID id=ProductInfo6></id>
+<SPAN id=spaIEAKInfo>&nbsp;</SPAN>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=copyrightAlign colspan=2 align=Right> <TEXTAREA style="WIDTH: 28em; Font: 8pt Tahoma, MS Shell Dlg" id=copyrightText border=0 cols=55 rows=4 readonly>
+«” ‰«œ« ≈·ÏNCSA Mosaic. ∫  „  ÿÊÌ— NCSA Mosaicô˝ ›Ì '«·„—ﬂ“ «·ﬁÊ„Ì ·»—„Ã… «· ÿ»Ìﬁ«  «·„ ﬁœ„…' ›Ì Ã«„⁄… '≈·Ì‰ÊÌ' ›Ì '≈—»«‰« ‘«„»«‰'.˛
+ÊÌ „  Ê“Ì⁄Â »„ÊÃ» « ›«ﬁÌ… «· —ŒÌ’ „⁄ Spyglass, Inc.
+ÊÌÕ ÊÌ ⁄·Ï »—‰«„Ã «·√„«‰ «·„—Œ’ „‰ ﬁ»· RSA Data Security Inc.
+«” ‰œ  √Ã“«¡ „‰ Â–« «·»—‰«„Ã ≈·Ï Ã“¡ „‰ ⁄„· Independent JPEG Group. 
+ Ê Ê›— ‘—ﬂ… .Intel Corp „ﬂÊ‰«  »—«„Ã  ⁄œœ «·Ê”«∆ÿ° »„« ›Ì –·ﬂ (Indeo(R Ê video Ê Indeo(R)˝ audio ÊWeb Design Effects
+ ÌÕ ÊÌ ≈’œ«— Unix ⁄·Ï »—«„Ã „—Œ’… „‰ Mainsoft Corporation. ÕﬁÊﬁ «·‰‘— ˝(c)˝ 1998-1999Mainsoft Corporation. ﬂ«›… «·ÕﬁÊﬁ „Õ›ÊŸ….  ⁄œ Mainsoft ⁄·«„…  Ã«—Ì… ·‹  Mainsoft Corporation.
+  Õ–Ì—: Â–« «·»—‰«„Ã „ÕÌ »„ÊÃ» ÕﬁÊﬁ «·‰‘— Ê«·« ›«ﬁÌ«  «·œÊ·Ì…. Ê”Ì‰ Ã ⁄‰ √Ì ‰”Œ √Ê  Ê“Ì⁄ €Ì— „’—Õ »Â Ã“«¡«  Ã‰«∆Ì… Ê„œ‰Ì… ‘œÌœ… Ê”Ì „  ⁄ﬁ»Â ≈·Ï ˛˛√ﬁ’Ï Õœ Ì”„Õ »Â «·ﬁ«‰Ê‰.
+</TEXTAREA>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD width=80><img src="res://shdoclc.dll/flag.gif"></TD>
+<TD id=ProductInfo5><a style="WIDTH: 20em; COLOR: black; FONT: 8pt Tahoma, MS Shell Dlg" href="http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6.0&ar=aboutie&sba=copyr" id="copyright"><ID id=copyrghtText>ÕﬁÊﬁ «·‰‘— Ê«·ÿ»⁄; 1995-2004 Microsoft Corp.</ID></a>
+</TD>
+<TD id=ok-button align=Left><BUTTON tabindex=1 type=submit align=Left id="okButton" class=button onClick="window.close();" >„Ê«›ﬁ</BUTTON>
+</TD>
+<Td></TD>
+</TR>
+</table>
+</span>
+</BODY>
+</HTML>
+PAD
+
+
+
+function Agent_AutoUpdateAddCommandsHelper() 
+{
+    var L_AutoUpdateCommand1_Text = "&„« «·–Ì ÌﬁÊ„ «· ÕœÌÀ«  «· ·ﬁ«∆Ì… »⁄„·Â?";
+    var L_AutoUpdateCommand2_Text = "&ﬂÌ› Ì „  Õ„Ì· «· ÕœÌÀ« ?";
+    var L_AutoUpdateCommand3_Text = "„ Ï &Ì „  À»Ì  «· ÕœÌÀ« ?";
+    var L_AutoUpdateCommand4_Text = "ﬂÌ› Ì„ﬂ‰‰Ì  €ÌÌ— ≈⁄œ«œ«  «· &ÕœÌÀ«  «· ·ﬁ«∆Ì…?";
+    var L_AutoUpdateCommand5_Text = "&Â· ÌÃ» √‰ √›⁄· ‘∆ ¬Œ—?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhatDoesAuDo",   L_AutoUpdateCommand1_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowDownloaded",  L_AutoUpdateCommand2_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhenInstalled",  L_AutoUpdateCommand3_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowChange",      L_AutoUpdateCommand4_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateAnythingElse",   L_AutoUpdateCommand5_Text);
+}
+
+function Agent_AutoUpdateAddCommands() 
+{
+    Agent_AutoUpdateAddCommandsHelper();
+    
+    var L_AutoUpdateCommand6_Text = "&·„«–« “— '«· «·Ì' €Ì— „ Ê›—ø";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhereIsNextButton",  L_AutoUpdateCommand6_Text);
+        
+    Agent_AddAssistantanceCommand();
+}
+
+function Agent_OnAutoUpdatePreDisplayMenu() 
+{
+    if (g.btnNext.disabled) 
+    {
+        var L_AutoUpdateMenuCommand6_Text = "&·„«–« “— '«· «·Ì' €Ì— „ Ê›—ø";
+
+        try 
+        {
+            g_AgentCharacter.Commands.Insert("Agent_AutoUpdateWhereIsNextButton", "Agent_AutoUpdateAlreadyInstalled",false,L_AutoUpdateMenuCommand6_Text);
+        }
+        catch (e) 
+        {
+        }
+    }
+
+    else 
+    {
+        try 
+        {
+            g_AgentCharacter.Commands.Remove("Agent_AutoUpdateWhereIsNextButton");
+        }
+        catch (e) 
+        {
+        }
+    }
+}
+
+function Agent_AutoUpdateWhatDoesAuDo() 
+{    
+    var L_AutoUpdateWhatDoesAuDo1_Text = "Ì„ﬂ‰Â«  Ê›Ì—  ÕœÌÀ«  «·√„«‰ Ê√Ì  ÕœÌÀ«  Â«„… √Œ—Ï ·ÃÂ«“ﬂ  ·ﬁ«∆Ì«.";
+    Agent_Speak(L_AutoUpdateWhatDoesAuDo1_Text);     
+}
+
+function Agent_AutoUpdateHowDownloaded() 
+{    
+    var L_AutoUpdateHowDownloaded1_Text = "⁄»— ⁄—÷ «·‰ÿ«ﬁ «· —œœÌ €Ì— «·„” Œœ„ ›Ì √Ì Êﬁ  Ì „ ›ÌÂ «·« ’«· »≈‰ —‰ .";
+    Agent_Speak(L_AutoUpdateHowDownloaded1_Text);     
+}
+
+function Agent_AutoUpdateWhenInstalled() 
+{    
+    var L_AutoUpdateWhenInstalled1_Text = "ÌÊ„Ì«° ÊÌ„ﬂ‰ﬂ  ÕœÌœ «·Êﬁ .";
+    Agent_Speak(L_AutoUpdateWhenInstalled1_Text);     
+}
+
+function Agent_AutoUpdateHowChange() 
+{    
+    var L_AutoUpdateHowChange1_Text = "„‰ ⁄·Ï '”ÿÕ «·„ﬂ »'° ﬁ„ »› Õ ·ÊÕ…  Õﬂ„ '«·‰Ÿ«„' À„ «‰ﬁ— ›Êﬁ ⁄·«„… «· »ÊÌ» '«· ÕœÌÀ«  «· ·ﬁ«∆Ì…'.";
+    Agent_Speak(L_AutoUpdateHowChange1_Text);     
+}
+
+function Agent_AutoUpdateAnythingElse() 
+{    
+    var L_AutoUpdateAnythingElse1_Text = "ﬁœ  Õ «Ã ·ﬁ»Ê· « ›«ﬁÌ…  —ŒÌ’ √Ê ≈⁄«œ…  ‘€Ì· «·ﬂ„»ÌÊ — »«·‰”»… ·»⁄÷ «· ÕœÌÀ« .";
+    Agent_Speak(L_AutoUpdateAnythingElse1_Text);     
+}
+
+function Agent_AutoUpdateWhereIsNextButton() 
+{       
+    var L_AutoUpdateWhereIsNextButton1_Text = " Ÿ· »«··Ê‰ «·—„«œÌ Õ Ï Ì „ «· ÕœÌœ.";
+    Agent_Speak(L_AutoUpdateWhereIsNextButton1_Text);
+}
+
+PA
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html DIR=RTL>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1256">
+    <title> Ã—»… «·„‰ Ã «·Ã«Â“</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.AutoUpdateLoadMe(); window.parent.Agent_Activate('AutoUpdate');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=7%></td>
+    <td ID=maincell valign=middle class="text-primary">
+
+    <br><br>
+    <span class="title">
+        <ID id=AutoUpdateTitle>«·„”«⁄œ… ›Ì Õ„«Ì… «·ﬂ„»ÌÊ —</ID>
+    </span>
+
+    <br><br><br>
+    <table border=0 width="95%">
+    <tr>
+        <td ID="AU_par1" class="text-primary">
+            <span ID=AutoUpdateIntro class="text-primary"><ID id="txtAUPar1"></ID></span>
+        </td>
+    </tr>
+    </table>
+
+    <br>
+    <table border=0 width="95%">
+
+    <!-- AU Radio Buttons -->
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="4">
+            <img src="../images/greenshd.gif">
+        </td>
+    </tr>
+    
+    <tr>
+        <br>
+    </tr>
+    
+    <tr>
+        <td valign="center">
+            <input TABINDEX=3 ID="radioAgree" name="Agreement" type="radio" onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="Õ" id="AU_Agree" for="radioAgree">
+                <span ID="AU_accept" class="emphasis-greater">
+                    <ID id="txtAU13a"><u>Õ</u>„«Ì… «·ﬂ„»ÌÊ — ⁄‰ ÿ—Ìﬁ  ‘€Ì· "«· ÕœÌÀ«  «· ·ﬁ«∆Ì…" «·¬‰</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_accept_explanation" class="text-primary">
+                <ID id="txtAU13b">(„” Õ”‰)</ID>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="3">
+            <img src="../images/redshd.gif">
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="center">
+            <input TABINDEX=4 ID="radioDisAgree" name="Agreement" type="radio" value=false onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="·" id="AU_DisAgree" for="radioDisAgree">
+                <span ID="AU_decline" class="emphasis-greater">
+                    <ID id="txtAU15a"><u>·</u>Ì” «·¬‰</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_decline_explanation" class="text-primary">
+                <ID id="txtAU15b">≈–« ·„ Ì „  ‘€Ì· "«· ÕœÌÀ«  «· ·ﬁ«∆Ì…"° Ì’»Õ «·ﬂ„»ÌÊ — ·œÌﬂ √ﬂÀ—  ⁄—÷« ··≈’«»… »«·›Ì—Ê”«  Ê«·√÷—«— «·√Œ—Ï «· Ì  Âœœ «·√„«‰.</ID>
+            </span>
+        </td>
+    </tr>
+
+    </table>
+
+
+    <table ID=tabl2 tabindex=-1 border=0 width=80% style="position:absolute; left:7.5%; top:84%">
+    <tr>
+        <td class="text-primary" ID=PrivacyPolicyText>
+        <ID id="au_privacy_policy"><B>·„ Ì „  Ã„Ì⁄ √Ì „⁄·Ê„«  Ì„ﬂ‰ «” Œœ«„Â« · ÕœÌœ ÂÊÌ ﬂ √Ê ··« ’«· »ﬂ.</B><BR>«·—Ã«¡ ﬁ—«¡… <a id=au_privacy_policy_link TABINDEX=4 style="text-decoration:underline;" href="javascript:window.parent.navigatetoPrivacy('AutoUpdate_Policy');">»Ì«‰ Œ’Ê’Ì… Windows Update</a>.</id>
+        </td>
+    </tr>
+    </table>
+
+    <!-- Navigation buttons -->
+
+    <table id=tabl3 border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=6  ACCESSKEY="”" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text">«·<u>”</u>«»ﬁ</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"> <u>Œ</u>ÿÌ</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="Œ" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary">
+            <span id="NextBtnLocalText" style="display:none;"><label for=btnNext><id id="LocalBtnNext_Text">«·<u> </u>«·Ì</id></label></span>
+            <span id="FiniBtnLocalText" style="display:none;"><label for=btnFinish><id id="LocalBtnFini_Text">≈<u>‰</u>Â«¡</id></label></span>
+        </td>
+        <td>
+            <BUTTON ID="btnNext"   class="newbuttonsNext" TABINDEX=7  ACCESSKEY=" " style="display:none;"></BUTTON>
+            <BUTTON ID="btnFinish" class="newbuttonsNext" TABINDEX=7  ACCESSKEY="‰" style="display:none;"></BUTTON>
+        </td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+PAD
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html DIR=RTL>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1256">
+    <title> Ã—»… «·„‰ Ã «·Ã«Â“</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>»Ì«‰ «·Œ’Ê’Ì… ·‹ Windows Update</ID></span>
+
+<br><br>
+<TEXTAREA ID=privtext READONLY TABINDEX=2 style="font-family: Arial; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+ «—ÌŒ ¬Œ—  ÕœÌÀ 15/4/2004
+
+—«Ã⁄ √ÕœÀ ≈’œ«— „‰ »Ì«‰ «·Œ’Ê’Ì… Â–« „‰ „Êﬁ⁄ ÊÌ» Windows Update ⁄·Ï:
+windowsupdate.microsoft.com
+
+ · “„ Microsoft »Õ„«Ì… Œ’Ê’Ì ﬂ.
+
+„« «·»Ì«‰«  «· Ì Ì „ Ã„⁄Â« - Ê·„«–«ø
+ÌﬁÊ„ Windows Update »Ã„⁄ „⁄·Ê„«  ⁄«„… ⁄‰ «·‰Ÿ«„ „‰ «·ﬂ„»ÌÊ — «·Œ«’ »ﬂ ⁄‰œ ﬂ· “Ì«—…° »ÕÌÀ   „ﬂ‰ „‰  ·ﬁÌ «· ÕœÌÀ«  «· Ì  ⁄„· »‘ﬂ· √›÷· „⁄ «·ﬂ„»ÌÊ — «·Œ«’ »ﬂ.  ı” Œœ„ «·„⁄·Ê„«  √Ì÷« ·≈‰ «Ã ≈Õ’«∆Ì«  ≈Ã„«·Ì… ÕÊ· ﬂÌ›Ì… «” Œœ«„ „Êﬁ⁄ Windows Update Ê«·√‰Ÿ„… «· Ì  Õ «Ã ≈·Ï «·œ⁄„ Õ Ï Ì„ﬂ‰‰«  Õ”Ì‰ Œœ„ ‰« »«” „—«—.   ÷„‰ Â–Â «·„⁄·Ê„«  „« Ì·Ì:
+ï    ÿ—«“ Ê„«—ﬂ… «·ﬂ„»ÌÊ —
+ï    „⁄·Ê„«  «·≈’œ«— «·Œ«’… »‰Ÿ«„ «· ‘€Ì· Windows
+ï    „⁄·Ê„«  «·≈’œ«— «·Œ«’… »«·„” ⁄—÷ Internet Explorer
+ï    „⁄·Ê„«  «·≈’œ«— «·Œ«’… »√Ì »—«„Ã Microsoft √Œ—Ï —»„«  ﬂÊ‰ ·Â«  ÕœÌÀ«  „ Ê›—…
+ï    √—ﬁ«„  ⁄—Ì›  Ê’Ì· Ê ‘€Ì· «·√ÃÂ“…
+ï    ≈⁄œ«œ «·„‰ÿﬁ… Ê«··€…
+ï    «·„⁄—› «·›—Ìœ «·⁄„Ê„Ì (GUID)
+ï    „⁄—¯› «·„‰ Ã Ê„› «Õ «·„‰ Ã
+ï    «”„ BIOS Ê—ﬁ„ «·„—«Ã⁄… Ê «—ÌŒ «·„—«Ã⁄…
+Ì „ Ê÷⁄ ⁄‰Ê«‰ »—Ê ÊﬂÊ· ≈‰ —‰  (IP) «·Œ«’ »ﬂ ›Ì «·”Ã· ⁄‰œ « ’«·ﬂ »„Êﬁ⁄ Windows Update° Ê·ﬂ‰ Â–« «·⁄‰Ê«‰ ·‰ Ì” Œœ„ ≈·« ·≈‰ «Ã ≈Õ’«∆Ì«  ≈Ã„«·Ì… ›ﬁÿ.
+
+ﬂÌ›  ” Œœ„ Â–Â «·»Ì«‰« ø
+ÌﬁÊ„ Windows Update √Ì÷« »Ã„⁄ „⁄—¯› «·„‰ Ã Ê„› «Õ «·„‰ Ã ·· √ﬂœ „‰ √‰ﬂ  ” Œœ„ ‰”Œ… „—Œ’… »‘ﬂ· ’«·Õ „‰ Windows. Ê·« Ì „ «·«Õ ›«Ÿ »„⁄—› «·„‰ Ã Ê„› «Õ «·„‰ Ã »⁄œ «‰ Â«∆ﬂ „‰ «” Œœ«„ Widows Update ≈·« ≈–« ﬂ«‰ „⁄—› «·„‰ Ã €Ì— ’«·Õ.
+
+Ê·≈‰‘«¡ ≈Õ’«∆Ì«  œﬁÌﬁ…° ÌﬁÊ„ Windows Update » ﬁÌÌ„ «·„⁄—¯› «·›—Ìœ «·⁄„Ê„Ì (GUID) «·„Œ“‰ ›Ì «·ﬂ„»ÌÊ — «·Œ«’ »ﬂ ·· ⁄—› ⁄·ÌÂ »‘ﬂ· ›—Ìœ. Ê·« ÌÕ ÊÌ «·„⁄—¯› «·›—Ìœ «·⁄„Ê„Ì ⁄·Ï √Ì „⁄·Ê„«  Ì„ﬂ‰ «” Œœ«„Â« ·· ⁄—› ⁄·Ìﬂ. Ì „  ⁄ÌÌ‰ «·„⁄—¯› «·›—Ìœ «·⁄„Ê„Ì Ê ⁄ﬁ»Â ›Ì «·Õ«·«  «· «·Ì…:
+
+ï    ·≈„œ«œ «·⁄„·«¡ »√›÷· Œœ„… „„ﬂ‰…∫ ÌﬁÊ„ Windows Update » ⁄ﬁ» ⁄œœ «·√ÃÂ“… «·„” ﬁ·… «· Ì ﬁ«„  »“Ì«—… «·„Êﬁ⁄ Ê„« ≈–« ﬂ«‰  Õ„Ì·  ÕœÌÀ«  „Õœœ… Ê À»Ì Â« ﬁœ  „ »‰Ã«Õ √„  ⁄—÷ ··›‘· Ê ”ÃÌ· –·ﬂ. ÊÌﬁÊ„ Windows Update » ”ÃÌ· «·„⁄—¯› «·›—Ìœ «·⁄„Ê„Ì ··ﬂ„»ÌÊ — «·–Ì Ã—  „Õ«Ê·… «· Õ„Ì· „‰Â° Ê„⁄—¯› «·⁄‰’— «·–Ì Õ«Ê·   Õ„Ì·Â Ê À»Ì Â° Ê„« ≈–« ﬂ«‰  «· ÕœÌÀ«  „ÿ·Ê»…° Ê„⁄·Ê„«  «· ﬂÊÌ‰ «·„”—Êœ… √⁄·«Â.
+
+ï    ÌﬁÊ„ Windows Update » ”ÃÌ· „⁄—¯› ›—Ìœ ⁄„Ê„Ì ≈÷«›Ì ≈–« ﬁ„  » ﬁœÌ„ ≈Ã«»«  ÕÊ· „« ≈–« ﬂ«‰  „ﬁ«·«  «· ⁄·Ì„«  Ê«” ﬂ‘«› «·√Œÿ«¡ Ê≈’·«ÕÂ« „›Ìœ… ›Ì Õ· „‘ﬂ· ﬂ. ÊÂ–« Ì ÌÕ ·„Êﬁ⁄ Windows Update ≈„œ«œﬂ »„⁄·Ê„«  √ﬂÀ— ›«∆œ… Ê√Â„Ì….
+
+ï     ﬁÊ„ Microsoft »Ã„⁄ „⁄·Ê„«  ⁄‰ «·’›Õ«  «· Ì ÌﬁÊ„ ⁄„·«ƒ‰« »“Ì«— Â« œ«Œ· microsoft.com° »„« ›Ì –·ﬂ Windows Update. ﬁœ   ÷„‰ Â–Â «·„⁄·Ê„«  „« Ì·Ì: ⁄‰Ê«‰ IP Ê‰Ê⁄ «·„” ⁄—÷ Ê‰Ÿ«„ «· ‘€Ì· Ê«”„ «·„Ã«· Ê√Êﬁ«  «·Ê’Ê· Ê⁄‰«ÊÌ‰ „Ê«ﬁ⁄ ÊÌ» «·„—Ã⁄Ì…. Ì „  ⁄—Ì› »Ì«‰«  “Ì«—… Â–« «·„Êﬁ⁄ »Ê«”ÿ… —ﬁ„ „⁄—¯› ›—Ìœ Ìı” Œœ„ ›ﬁÿ ·Â–« «·€—÷.
+
+ÕÊ· «·«” ÿ·«⁄« 
+ﬁœ Ì „ œ⁄Ê ﬂ »Ì‰ «·ÕÌ‰ Ê«·¬Œ— ··„‘«—ﬂ… ›Ì «” ÿ·«⁄ ÕÊ· ÿ—Ìﬁ… «” Œœ«„ﬂ ·„Êﬁ⁄ Windows Update. Ì ÷„‰ ﬂ· «” ÿ·«⁄ »Ì«‰ Œ’Ê’Ì… ÌÊ÷Õ ‘—Êÿ Ê«” Œœ«„ √Ì „⁄·Ê„«   ﬁÊ„ »≈—”«·Â« »Â–« «·«” ÿ·«⁄.
+</TEXTAREA>
+
+<br><br><br>
+
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>··„ «»⁄…° «‰ﬁ— ›Êﬁ </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>«·”«»ﬁ</ID></span><span><ID id=xx1>.</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="”" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text">«·<u>”</u>«»ﬁ</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text"> <u>Œ</u>ÿÌ</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="Œ" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text">«·<u> </u>«·Ì</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY=" " style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>·« Ì„ﬂ‰ «·⁄ÀÊ— ⁄·Ï «·„·ﬁ„</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">·« Ì„ﬂ‰ ⁄—÷ «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">·«   Ê›— «·’›Õ… «· Ì  »ÕÀ ⁄‰Â«
+    Õ«·Ì«. —»„« Ì’«œ› „Êﬁ⁄ ÊÌ» ’⁄Ê»«  ›‰Ì… Õ«·Ì« √Ê —»„«  ﬂÊ‰ ›Ì Õ«Ã… ≈·Ï
+    ÷»ÿ ≈⁄œ«œ«  «·„” ⁄—÷.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">˛˛«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li id="instructionsText1">«‰ﬁ— ›Êﬁ «·“— 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self"> ÕœÌÀ</a> √Ê √⁄œ «·„Õ«Ê·… ·«Õﬁ«.<br>
+      </li>
+      
+      <li id="instructionsText2">≈–« ﬁ„  »ﬂ «»… ⁄‰Ê«‰ «·’›Õ… ›Ì ‘—Ìÿ «·⁄‰«ÊÌ‰°  √ﬂœ
+ „‰ ’Õ… ÂÃ«∆Â.<br>
+      </li>
+      <li id="instructionsText3">·· Õﬁﬁ „‰ ≈⁄œ«œ«  «·« ’«·° «‰ﬁ— ›Êﬁ «·ﬁ«∆„… <b>√œÊ« </b>° À„ ›Êﬁ
+        <b>ŒÌ«—«  ≈‰ —‰ </b>. ›Ì ⁄·«„… «· »ÊÌ» <b>« ’«·« </b>° «‰ﬁ— ›Êﬁ <b>≈⁄œ«œ« </b>.
+        ÌÃ» √‰   ÿ«»ﬁ Â–Â «·≈⁄œ«œ«  „⁄ «·≈⁄œ«œ«  «· Ì ÌÊ›—Â« „”ƒÊ· ‘»ﬂ… «·« ’«· «·„Õ·Ì… (LAN) √Ê „Ê›— Œœ„«  ≈‰ —‰  (ISP). </li>
+     <li ID="list4">˛˛ Õﬁﬁ „‰ «·ﬂ‘› ⁄‰ ≈⁄œ«œ«  « ’«· ≈‰ —‰ . Ì„ﬂ‰ﬂ  ⁄ÌÌ‰ Microsoft Windows »ÕÌÀ ÌﬁÊ„ »«Œ »«— ‘»ﬂ… «·« ’«· Ê«ﬂ ‘«› ≈⁄œ«œ«  « ’«· ≈‰ —‰   ·ﬁ«∆Ì« (›Ì Õ«·…  „ﬂÌ‰ „”ƒÊ· ‘»ﬂ… «·« ’«· ·Â–« «·≈⁄œ«œ).
+        <OL> 
+        <li id="instructionText6">«‰ﬁ— ›Êﬁ «·ﬁ«∆„… <B>√œÊ« </b>° À„ «‰ﬁ— ›Êﬁ <b>ŒÌ«—«  ≈‰ —‰ </b>. </li>
+        <li id="instructionText7">›Ì ⁄·«„… «· »ÊÌ» <b>« ’«·« </b>° «‰ﬁ— ›Êﬁ <b>≈⁄œ«œ«  LAN</b>.</li> 
+        <li id="instructionText8">Õœœ <b>«·ﬂ‘› ⁄‰ «·≈⁄œ«œ«   ·ﬁ«∆Ì«</b> À„ «‰ﬁ— ›Êﬁ <b>„Ê«›ﬁ</b>.</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+         ÿ·» »⁄÷ «·„Ê«ﬁ⁄ √„«‰ « ’«· 128-» . «‰ﬁ— ›Êﬁ «·ﬁ«∆„… <b> ⁄·Ì„« </b> À„ «‰ﬁ— ›Êﬁ <b>ÕÊ· Internet Explorer </b> ·„⁄—›… ﬁÊ… «·√„«‰ «· Ì ﬁ„  » À»Ì Â«.
+    </li>
+    <li id="instructionsText4">
+       ≈–« ﬂ‰   Õ«Ê· «·Ê’Ê· ≈·Ï „Êﬁ⁄ ¬„‰°  √ﬂœ „‰ √‰Â Ì„ﬂ‰ ·≈⁄œ«œ«  '«·√„«‰' œ⁄„Â. «‰ﬁ— ›Êﬁ «·ﬁ«∆„… <B>√œÊ« </b>° À„ «‰ﬁ— ›Êﬁ <b>ŒÌ«—«  ≈‰ —‰ </b>.  ›Ì ⁄·«„… «· »ÊÌ» 'ŒÌ«—«  „ ﬁœ„…'° ﬁ„ »«· „—Ì— ≈·Ï «·Ã“¡ '√„«‰' Êﬁ„ »«· Õﬁﬁ „‰ ≈⁄œ«œ«  SSL 2.0° SSL 3.0° TLS 1.0° PCT 1.0. 
+    </li>
+     <li id="list3">«‰ﬁ— ›Êﬁ «·“— <a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif"> «·Œ·›</a> ·„Õ«Ê·… «— »«ÿ ¬Œ—. </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:8pt/11pt verdana; color:black">·« Ì„ﬂ‰ «·⁄ÀÊ— ⁄·Ï „·ﬁ„ √Ê Œÿ√ DNS<BR> Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>HTTP 400 - ÿ·» €Ì— ’«·Õ</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgColor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="pageNotFound">·« Ì„ﬂ‰ «·⁄ÀÊ— ⁄·Ï «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">—»„«  „  ≈“«·… «·’›Õ… «· Ì  »ÕÀ ⁄‰Â«
+    √Ê  €Ì— «”„Â« √Ê √’»Õ  €Ì— „ Ê›—… »’›… „ƒﬁ ….</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li ID="list1">≈–« ﬁ„  »ﬂ «»… ⁄‰Ê«‰ «·’›Õ… ›Ì ‘—Ìÿ '«·⁄‰«ÊÌ‰'°  √ﬂœ „‰
+        ’Õ… ÂÃ«∆Â.<br>
+      </li>
+      <li ID="list2">«› Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì…° À„ «»ÕÀ ⁄‰ «— »«ÿ« 
+        »«·„⁄·Ê„«  «· Ì  —ÌœÂ«. </li>
+		 <li id="list3">«‰ﬁ— ›Êﬁ «·“— 
+		 <a href="javascript:history.back(1)">
+		 <img valign=bottom border=0 src="back.gif"> «·Œ·› </a> ·„Õ«Ê·… «— »«ÿ ¬Œ—. </li>
+
+      <li ID="list4">«‰ﬁ— ›Êﬁ <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ . </li>
+    </ul>
+    <p><br>
+    </p>
+    <h2 ID="errortext" style="COLOR: black; FONT: 10pt/13pt verdana">HTTP 400 - ÿ·» €Ì— ’«·Õ<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</TBODY>
+</table>
+</body>
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link                  {font:10pt/13pt verdana; color:red}
+a:visited               {font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>HTTP 403 („ÕŸÊ—)</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText">·Ì” „”„ÊÕ« ·ﬂ »⁄—÷ Â–Â «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">ﬁœ ·« ÌﬂÊ‰ ·œÌﬂ «·≈–‰ »⁄—÷ Â–«
+    «·œ·Ì· √Ê Â–Â «·’›Õ… »«” Œœ«„ √Ê—«ﬁ «·«⁄ „«œ «· Ì ﬁ„  » ﬁœÌ„Â«.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p ID="term3"> ≈–« ﬂ‰   ⁄ ﬁœ √‰Â ÌÃ» √‰ ÌﬂÊ‰ ·œÌﬂ «·ﬁœ—… ⁄·Ï ⁄—÷ Â–« «·œ·Ì· √Ê Â–Â «·’›Õ…° «·—Ã«¡ «·« ’«·
+     »„Êﬁ⁄ ÊÌ» »«” Œœ«„ √Ì ⁄‰Ê«‰ »—Ìœ ≈·ﬂ —Ê‰Ì √Ê —ﬁ„ Â« › ﬁœ ÌﬂÊ‰ „œ—Ã« ›Ì <span id="homepageContainer"></span>&nbsp;«·’›Õ…
+    «·—∆Ì”Ì….</p>
+    <p id="term4">Ì„ﬂ‰ﬂ «·‰ﬁ— ›Êﬁ <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ .</p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:10pt/13pt verdana; color:black">Œÿ√ HTTP 403 -    „ÕŸÊ—
+ <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>·„ Ì „ «·⁄ÀÊ— ⁄·Ï HTTP 404</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText">·« Ì„ﬂ‰ «·⁄ÀÊ— ⁄·Ï «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana"> »„«  „  ≈“«·… 
+ «·’›Õ… «· Ì  »ÕÀ ⁄‰Â« √Ê  €Ì— «”„Â« √Ê √’»Õ  €Ì— „ Ê›—… „ƒﬁ «.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li id="list1">≈–« ﬁ„  »ﬂ «»… ⁄‰Ê«‰ «·’›Õ… ›Ì ‘—Ìÿ «·⁄‰«ÊÌ‰°  √ﬂœ „‰
+        ’Õ… ÂÃ«∆Â.<br>
+      </li>
+      <li id="list2">«› Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì…° À„ «»ÕÀ ⁄‰ «— »«ÿ«  »«·„⁄·Ê„« 
+        «· Ì  —ÌœÂ«. </li>
+      <li id="list3">«‰ﬁ— ›Êﬁ «·“— <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> «·Œ·›</a> ·„Õ«Ê·… «— »«ÿ ¬Œ—. </li>    
+      <li ID="list4">«‰ﬁ— ›Êﬁ <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ . </li>
+</ul>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:10pt/13pt verdana; color:black">·„ Ì „ «·⁄ÀÊ— ⁄·Ï «·„·› - HTTP 404<br>
+    Internet Explorer <BR>
+    </h2>
+    </font></td>
+
+  </tr>
+</table>
+</body>
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>≈Œ›«ﬁ HTTP 410</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText"> «·’›Õ… €Ì— „ÊÃÊœ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">  „  ≈“«·… «·’›Õ… «· Ì  »ÕÀ ⁄‰Â«.</font></td>
+  </tr>
+  <tr>
+    <td id="LID1" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">ﬁœ  Ãœ «·„⁄·Ê„«  «· Ì  Õ «ÃÂ« ⁄‰ ÿ—Ìﬁ › Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì… À„
+    «·«— »«ÿ »’›Õ… „‘«»Â…. </p>
+    <p id="LID4">«‰ﬁ— ›Êﬁ <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ .</p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:10pt/13pt verdana; color:black">Œÿ√ HTTP 410 - €Ì— „ Ê›—
+    »‘ﬂ· œ«∆„<br>
+ Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>Œÿ√ œ«Œ·Ì ›Ì «·„·ﬁ„ HTTP 500</title>
+</head>
+<script> 
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="right" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText">·« Ì„ﬂ‰ ⁄—÷ «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana"> ÊÃœ „‘ﬂ·… »«·’›Õ… «· Ì
+     Õ«Ê· «·Ê’Ê· ≈·ÌÂ« Ê·« Ì„ﬂ‰ ⁄—÷Â«.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li id="instructionsText1">«› Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì…° À„ «»ÕÀ ⁄‰ «— »«ÿ« 
+        »«·„⁄·Ê„«  «· Ì  —ÌœÂ«. </li>
+      <li id="instructionsText2">«‰ﬁ— ›Êﬁ «·“— 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self"> ÕœÌÀ</a> √Ê √⁄œ «·„Õ«Ê·… ·«Õﬁ« .<br>
+      </li>
+      <li ID="instructionsText3">«‰ﬁ— ›Êﬁ <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ . </li>
+      <li id="instructionsText4">Ì„ﬂ‰ﬂ √Ì÷« ⁄—÷ <a onclick="Related();event.returnValue=false" href="">ﬁ«∆„… »«·„Ê«ﬁ⁄ –«  «·’·….</a>     
+</ul>
+</p>
+	
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:10pt/13pt verdana; color:black">HTTP 500 - Œÿ√ œ«Œ·Ì 
+    ›Ì «·„·ﬁ„<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>HTTP 501 ·„ Ì „ «· ÿ»Ìﬁ</title>
+</head>
+<script> 
+
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="right" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText">·« Ì„ﬂ‰ ⁄—÷ «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">·« Ì„ﬂ‰ «” —œ«œ «·’›Õ… «· Ì  Õ«Ê· «·Ê’Ê· ≈·ÌÂ«.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li id="instructionsText1">«› Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì…° À„ «»ÕÀ ⁄‰ «— »«ÿ« 
+        »«·„⁄·Ê„«  «· Ì  —ÌœÂ«. </li>
+      <li id="instructionsText2">«‰ﬁ— ›Êﬁ «·“— 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self"> ÕœÌÀ</a> √Ê √⁄œ «·„Õ«Ê·… ·«Õﬁ«.<br>
+      </li>
+      <li ID="instructionsText3">«‰ﬁ— ›Êﬁ <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ . </li>
+      <li id="instructionsText4">Ì„ﬂ‰ﬂ √Ì÷« ⁄—÷ <a onclick="Related();event.returnValue=false" href="">ﬁ«∆„… »«·„Ê«ﬁ⁄ –«  «·’·….</a>     
+</ul>
+   
+	
+	 
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:10pt/13pt verdana; color:black">Œÿ√ 501/505 - ·„ Ì „ «· ÿ»Ìﬁ √Ê «·«⁄ „«œ<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html DIR=RTL>
+
+<head>
+<style>
+a:link			{font:10pt/13pt verdana; color:red}
+a:visited		{font:10pt/13pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1256">
+<title>HTTP 405 - €Ì— „”„ÊÕ ··„Ê—œ</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="right" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 15pt/17pt verdana"><span id="errorText">·« Ì„ﬂ‰ ⁄—÷ «·’›Õ…</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana"> ·« Ì„ﬂ‰ ⁄—÷ «·’›Õ… «· Ì
+     »ÕÀ ⁄‰Â« ·√‰ «·⁄‰Ê«‰ €Ì— ’ÕÌÕ.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth3" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 10pt/13pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">«·—Ã«¡ „Õ«Ê·… „« Ì·Ì:</p><ul>
+      <li id="instructionsText1">≈–« ﬁ„  »ﬂ «»… ⁄‰Ê«‰ «·’›Õ… ›Ì ‘—Ìÿ «·⁄‰«ÊÌ‰°  Õﬁﬁ „‰
+        ’Õ… ÂÃ«∆Â.<br>
+      </li>
+       <li id="instructionsText2">«› Õ <span id="homepageContainer"></span>&nbsp;«·’›Õ… «·—∆Ì”Ì…° À„ «»ÕÀ ⁄‰ «— »«ÿ« 
+        »«·„⁄·Ê„«  «· Ì  —ÌœÂ«. </li>
+        <li ID="instructionsText3">«‰ﬁ— ›Êﬁ <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> »ÕÀ</a> ··»ÕÀ ⁄‰ „⁄·Ê„«  ⁄·Ï ≈‰ —‰ . </li>
+    </ul>
+       
+	
+    <p><br>
+    </p>
+    <h2 ID="errortext2" style="COLOR: black; FONT: 10pt/13pt verdana">HTTP 405 - €Ì— „”„ÊÕ
+    ··„Ê—œ<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITI

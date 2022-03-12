@@ -1,0 +1,862 @@
+        if(!g.btnSkip.disabled)
+        {
+            g.btnSkip.onclick = GoCancel;
+            g.btnSkip.className="newbuttonsSkip";
+        }
+        else
+        {
+            g.btnSkip.className="newbuttonsSkip-disabled";
+        }
+    }
+
+    if (g.btnNext != null)
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+
+        if (!g.btnNext.disabled)
+        {
+            if (NewSimpleNext == null)
+                g.btnNext.onclick = GoNext;
+            else
+                g.btnNext.onclick = SimpleNavNext;
+
+            g.btnNext.className="newbuttonsNext";
+        }
+        else
+        {
+            g.btnNext.className="newbuttonsNext-disabled";
+        }
+    }
+
+    if (g.btnBack != null)
+    {
+        g.btnBack.onmouseover = HandleBackButtonMouseOver;
+        g.btnBack.onmouseout  = HandleBackButtonMouseOut;
+        g.btnBack.onmousedown = HandleBackButtonMouseDown;
+
+        if (!g.btnBack.disabled)
+        {
+            if (NewSimpleBack == null)
+                g.btnBack.onclick = GoBack;
+            else
+                g.btnBack.onclick = SimpleNavBack;
+
+            g.btnBack.className="newbuttonsBack";
+        }
+        else
+        {
+            g.btnBack.className="newbuttonsBack-disabled";
+        }
+    }
+}
+
+
+var g_LastKeyDown = null;
+function OnKeyDown()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (g.event.altKey)
+    {
+        g_LastKeyDown = String.fromCharCode(g.event.keyCode);
+        if (g_LastKeyDown != null)
+            g_LastKeyDown = g_LastKeyDown.toUpperCase();
+    }
+    else
+        g_LastKeyDown = null;
+
+    
+    Agent_OnKeyDown(g.event.srcElement);
+}
+
+
+
+
+function OnSelectClick()
+{
+    Agent_OnSelectClick(g.event.srcElement);
+}
+
+
+
+function OnClick()
+{
+    Agent_OnElementClick(g.event.srcElement);
+}
+
+
+
+function OnFocus()
+{
+    
+
+    Agent_OnFocus(g.event.srcElement);
+}
+
+
+function KeyPressIsNumeric()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsNumeric(keyCode)
+{
+    if ((keyCode >= 48)  && (keyCode <= 57))
+        return true;
+    else
+        return false;
+}
+
+function IsSpecial(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return false;
+}
+
+function KeyPressIsValid()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode) &&
+        !IsSpecial(g.event.keyCode) &&
+        !IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function KeyPressIsAlpha()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsAlpha(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+        return true;
+
+
+}
+
+function NumberOfSpaces(strValue)
+{
+
+
+
+
+
+    var iSpaceCount = 0;
+    for (iPosition = 0; iPosition < strValue.length; iPosition ++)
+    {
+        if (strValue.charAt(iPosition) == ' ')
+        {
+            iSpaceCount++;
+        }
+    }
+    return iSpaceCount;
+}
+function KeyCodeToUpper()
+{
+    var strKeyCode = String.fromCharCode(g.event.keyCode);
+    strKeyCode = strKeyCode.toUpperCase();
+    g.event.keyCode = strKeyCode.charCodeAt(0);
+}
+
+
+
+var vCurItem = 0;
+
+function InitApplication()
+{
+    OOBEDocBody.style.cursor = "wait";  
+    OOBEDocBody.style.backgroundColor="black";
+
+    g_bStartup = true;
+    InitFrameRef();
+
+    NewMicrosoftLogo.src = 'images/mslogo.jpg';
+
+    g_bInHighScreenRes =
+        (window.top.screen.width >= 1024) &&
+        (window.top.screen.height >= 768);
+
+    
+    if (g_bInHighScreenRes)
+    {
+
+        NewWatermarkBackground.src = 'images/newmark1.jpg';
+        NewWatermarkTop.src = 'images/newtop1.jpg';
+        NewWatermarkBottom.src = 'images/newbtm1.jpg';
+        NewWatermarkBottom.style.top = 712;
+
+        ScreenFrame.style.width = 1024;
+        ScreenFrame.style.height = 768;
+
+        MainFrameTable.style.top = 28;
+        MainFrameTable.style.height = "99%";
+
+        document.frames("ifrmConnDelay").frameElement.style.left=0;
+
+        spnOEMLogo.style.left = 749;
+        spnAssist.style.top = 590;
+        spnAssist.style.left = 815;
+        spnAssist.style.width = 240;
+
+    }
+    else
+    {
+
+        NewWatermarkBackground.src = 'images/newmark8.jpg';
+        NewWatermarkTop.src = 'images/newtop8.jpg';
+        NewWatermarkBottom.src = 'images/newbtm8.jpg';
+        NewWatermarkBottom.style.top = 542;
+
+        
+        
+        ScreenFrame.style.width = 800;
+        ScreenFrame.style.height = 600;
+
+    }
+
+    
+    if (window.parent.document.dir == "rtl")
+        spnAssist.style.left  = 10;
+
+    var ScreenDiff = window.top.screen.width - parseInt(ScreenFrame.style.width);
+    ScreenFrame.style.left = (ScreenDiff > 0) ? ScreenDiff / 2 : 0;
+
+    ScreenDiff = window.top.screen.height - parseInt(ScreenFrame.style.height);
+    ScreenFrame.style.top = (ScreenDiff > 0) ? ScreenDiff / 2 : 0;
+
+
+    
+    var L_AgentAlt_Text = "Haga clic aquí para obtener ayuda";
+    AssistImg.alt = L_AgentAlt_Text;
+
+    
+    
+    
+    
+    
+    
+    g_status = STATUS_OFF;
+    window.external.LoadStatusItems("No Modem");
+
+    InitCKPT();
+    Agent_Init();
+    EmptyCKPTStack();
+
+    spnPage.style.visibility = "visible";
+
+    OOBEDocBody.style.cursor = "default";
+    ScreenFrame.style.display = "inline";
+
+    GoNavigate(CKPT_AUTO_UPDATE);
+
+    
+    window.external.ShowOOBEWindow();
+
+}
+
+
+
+
+
+function OnHelp()
+{
+    
+    Agent_OnUserRequestAssistant();
+}
+
+
+
+
+function PlayBackgroundMusic()
+{
+
+}
+
+</script>
+
+</HEAD>
+
+<BODY ID=OOBEDocBody leftMargin=0 DIR=LTR onload="InitApplication();" scroll=auto tabIndex=-1 topMargin=0 language=javascript onhelp="Agent_OnUserRequestAssistant();">
+
+<SPAN ID=junkspan style="height:2px; width:2px; background-color:black; z-index:99; display:none">
+</SPAN>
+
+<SPAN ID=ScreenFrame style="height:100%; width:100%; position:absolute; display:none">
+
+    <IMG ID=NewWatermarkBackground style="LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-99;" alt="">
+    <IMG ID=NewWatermarkTop        style="display: inline; LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-98;" alt="">
+    <IMG ID=NewWatermarkBottom     style="display: inline; LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-97;" alt="">
+    <IMG ID=NewMicrosoftLogo       style="display: inline; LEFT: 20px; TOP:  5px; POSITION: absolute; z-index:-96;" alt="">
+
+    <SPAN id=spnOEMLogo style="visibility:hidden; position:absolute; TOP:7px; LEFT:525px; width:255px; HEIGHT:40px; z-index:10; background-repeat:no-repeat;">
+    </SPAN>
+
+
+
+    <TABLE border=0 ID=MainFrameTable cellpadding=0 cellspacing=0 style="z-index:6; position:absolute; left:0px; top:25px; width:100%; height:97%">
+    <TR>
+        <TD style="height:100%">
+        <SPAN id=spnPage style="VISIBILITY: hidden; z-index:4;" tabIndex=-1>
+            <SPAN id=spnMainFrame style="width: 100%; height:100%" tabIndex=-1>
+            <IFRAME ALLOWTRANSPARENCY="true" id=ifrmMainFrame frameBorder=no scrolling=no width="100%" height="97%" name=msoobeMain tabIndex=0></IFRAME>
+            <IFRAME ALLOWTRANSPARENCY="true" id=ifrmConnDelay frameBorder=no style="display:none; position:absolute; z-index:-1; left: 0px; top: 0px;" scrolling=no width="100%" height="100%" name=connDelay tabIndex=-1 src="setup/ISPWait.htm"></IFRAME>
+            </SPAN>
+        </SPAN>
+        </TD>
+        <TD WIDTH=20></TD>
+    </TR>
+    </TABLE>
+
+    <comment>Make sure the spnAssist area (coverage) does not cover the Next button</comment>
+    <SPAN id=spnAssist class="emphasis-lesser" style="visibility:hidden; POSITION: absolute; LEFT: 593px; TOP: 440px; WIDTH: 180px; z-index:9">
+        <TABLE width="95%" cellspacing=0 cellpadding=0 align=center class="emphasis-lesser" style="text-align:center;color:white;">
+        <TR>
+            <TD align=center>
+            <IMG align=middle id=AssistImg border=0 src="images/qmark.gif"
+            style="visibility:hidden;z-index:9" language=javascript
+            onclick="Agent_OnUserRequestAssistant()"><BR>
+            </TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr1 class="text-primary"><span id="agentStr1" onclick="Agent_OnUserRequestAssistant()"><id id="L_AgentHelp1_Text">Para obtener ayuda,</id></span></TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr2 class="text-primary"><span id="agentStr2" onclick="Agent_OnUserRequestAssistant()"><id id="L_AgentHelp2_Text">haga clic aquí o presione F1.</id></span></TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr3_Extra_line_for_localization class="text-primary"><span id="agentStr3"><id id="L_AgentHelp3OptionalLine_Text"></id></span></TD>
+        </TR>
+        </TABLE>
+    </SPAN>
+
+</SPAN>
+</BODY>
+</HTML>
+<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<STYLE>
+font{font-family:"Verdana";font-size:8pt;color:#000000}
+A:hover.defaultA{color:#999900}
+A:hover.bodyTopLine{color:#0000FF}
+A:hover {color:#0033FF}
+A:visited {color:#888888}
+A{color:#0099FF}
+.sectionHead{font-weight:bold}
+.sectionNotify{color:#0099FF;; text-decoration: underline; font-size:8pt}
+.headerCell{background-color:#CCCCCC;width:140px;height:18px}
+.featuresText{font-family:Verdana;font-size:8pt;color:#000000}
+.headerCellLine{background-color:#CCCCCC;width:246px;height:1px}
+.messagesCell{font-family:"Verdana";font-size:8pt;color:#000000}
+.defaultA{color:#000000;cursor:hand}
+.blackBar{font-family:"Verdana";font-size:8pt;color:#FFFFFF;font-weight:bold}
+.bottomText{font-family: Verdana; font-size:7pt; color: #AAAAAA}
+.headerLinks{font-family:"Verdana";font-size:8pt;color:#000000}
+.signatureText{font-family:"Verdana";font-size:8pt;font-weight:bold;color:#000000}
+A:hover.toggleStyle{color:#FFFFFF}
+A:visited.toggleStyle{color:#CCCCCC}
+A:hover.headerLinks{color:#0099FF}
+A:visited.headerLinks{color:#000000}
+A:hover.featuresText{color:#000000}
+</STYLE>
+</HEAD>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0>
+<!----------begin top section------->
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td valign=top width=100% colspan=4>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=50 bgcolor=#FFFFFF>
+<tr>
+<td width=141 align=left><img src="res://msoeres.dll/oelogo1.gif"></td>
+<td valign=middle align=right style="height:25px;" colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<td width=141 align=LEFT><img src="res://msoeres.dll/oelogo2.gif"></td>
+<td style="height:22;background-color:#000000;padding-bottom:2;color:#FFFFFF;" valign=bottom><nobr class="blackBar" ID=RIDsubtitle>La solución para todas sus necesidades de mensajería</nobr></td>
+</tr>
+</table>
+</td>
+</tr>
+<!----------end top section------->
+<!-------begin main section------->
+<tr>
+<td width=100%>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td style="height:10%;width:100%">&nbsp;</td>
+</tr>
+<tr>
+<td>
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead>&nbsp;Características</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=8 width=15%></td>
+<td valign=middle ID=RIDbullet1><img src="res://msoeres.dll/dot.gif"> <font class=featuresText><span style="cursor:default; padding-top:6" class="featuresText">Correo electrónico y grupos de noticias</span></font></td>
+</tr>
+<tr>
+<td valign=MIDDLE ID=RIDbullet2><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Con el nuevo administrador de identidades, varios usuarios pueden mantener cuentas separadas, contactos y preferencias, y cambiar fácilmente entre diferentes identidades individuales.">Cuentas e identidades múltiples</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet3><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Redacte y reciba mensajes con imágenes, sonidos de fondo y texto con formato enriquecido.">Compatibilidad con HTML</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet4><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Organice los contactos en carpetas y compártalos con otras identidades.">Libreta de direcciones y servicios de directorio</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet5><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Marque mensajes, grupos de noticias y carpetas para usar sin conexión y descargue con un solo clic los elementos marcados.">Sincronización sin conexión</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet6><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Cree reglas fácilmente para realizar tareas de administración de la Bandeja de entrada como mover, eliminar, codificar colores, reenviar y marcar el correo entrante automáticamente.">Reglas mejoradas de la Bandeja de entrada</span></font></td>
+</tr>
+</font>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+</table>
+</td>
+</tr>
+<tr>
+<td style="height:4%;width=100%"></td>
+</tr>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td width="97%">
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead ID=RIDmore>&nbsp;Más información</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=5 width=15%></td>
+<td valign=middle><div style="padding-top:6;padding-right:6" ID=RIDview1><font>Para obtener la información más reciente de Outlook Express, vaya al menú de Ayuda y haga clic en Léame.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDfaq><font>Para enviar comentarios, consultar las preguntas más frecuentes y obtener sugerencias, visite nuestro <a href="news://msnews.microsoft.com/microsoft.public.windows.inetexplorer.ie6_outlookexpress">grupo de noticias</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDweb><font>Para actualizaciones e información acerca de Outlook Express 6 visite el web <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=home">de Microsoft</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDhelp><font>Para obtener Ayuda y resolver problemas, vaya al menú Ayuda, haga clic en Contenido e índice y busque Solución de problemas en el índice.</font></div></td>
+</tr>
+<tr>
+<td valign=middle>&nbsp; </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<hr width="100%" size="1" NOSHADE>
+<div style="padding:6" ID=RIDthanks>Gracias por elegir Internet Explorer y Outlook Express 6.</div>
+<div style="padding:6" class="signatureText" ID=RIDsign>El equipo de Microsoft Outlook Express </div><br>
+<div class="bottomText" style="padding:6" ID=RIDdisclaim>
+El vínculo a http://digitalid.verisign.com se proporcionan por conveniencia y Microsoft no es responsable del contenido o servicios de este sitio Web.
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+<!-----end main section---->
+<!-----begin blue vertical bar--->
+<td style="height:100%;background-color:#003399"><span style="width:8"> </span></td>
+<!-----end blue vertical bar--->
+<!---begin sidepane---->
+<td style="height:100%;background-color:#FFFFFF">
+<table cellpadding=0 cellspacing=0 border="0" width="100%" height="100%" bordercolor="#999999">
+<tr>
+<td ID=ridhotmailAlign align=left valign=top>
+<img src="res://msoeres.dll/Hotmail.gif"><br>
+<div class="messagesCell" style="padding:6;padding-top:0;padding-bottom:10" ID=RIDhotmail>
+¿Ya no quiere compartir su cuenta de correo electrónico con otras personas?
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=hotmail">
+Obtenga una cuenta gratuita de Hotmail</a> y así podrá leer su correo electrónico desde cualquier parte del mundo.
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=hotmail">
+Haga clic aquí para suscribirse</a> ahora.
+</div> </td>
+</tr>
+<tr>
+<td ID="ridverisignAlign" align=left valign=top>
+<img src="res://msoeres.dll/Verisign.gif" align="TEXTTOP"><br>
+<div class="messagesCell" style="padding:6;padding-top:0;padding-bottom:10" ID=RIDverisign>Obtenga gratis un Id. digital personal de prueba en <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0C0A&ar=cert ">VeriSign</a>.
+Use este Id. para identificarse a sí mismo al enviar correo electrónico seguro.
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=SUB_PVER&clcid=0x0C0A&ar=verisign"> Obtenga su Id. digital
+</a> ahora.</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+PA<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1252">
+<STYLE>
+font{font-family:"Verdana";font-size:8pt;color:#000000}
+A:hover.defaultA{color:#999900}
+A:hover.bodyTopLine{color:#0000FF}
+A:hover {color:#0033FF}
+A:visited {color:#888888}
+A{color:#0099FF}
+.sectionHead{font-weight:bold}
+.sectionNotify{color:#0099FF;; text-decoration: underline; font-size:8pt}
+.headerCell{background-color:#CCCCCC;width:140px;height:18px}
+.featuresText{font-family:Verdana;font-size:8pt;color:#000000}
+.headerCellLine{background-color:#CCCCCC;width:246px;height:1px}
+.messagesCell{font-family:"Verdana";font-size:8pt;color:#000000}
+.defaultA{color:#000000;cursor:hand}
+.blackBar{font-family:"Verdana";font-size:8pt;color:#FFFFFF;font-weight:bold}
+.bottomText{font-family: Verdana; font-size:7pt; color: #AAAAAA}
+.headerLinks{font-family:"Verdana";font-size:8pt;color:#000000}
+.signatureText{font-family:"Verdana";font-size:8pt;font-weight:bold;color:#000000}
+A:hover.toggleStyle{color:#FFFFFF}
+A:visited.toggleStyle{color:#CCCCCC}
+A:hover.headerLinks{color:#0099FF}
+A:visited.headerLinks{color:#000000}
+A:hover.featuresText{color:#000000}
+</STYLE>
+</HEAD>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0>
+<!----------begin top section------->
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td valign=top width=100% colspan=4>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=50 bgcolor=#FFFFFF>
+<tr>
+<td width=141 align=left><img src="res://msoeres.dll/oelogo1.gif"></td>
+<td valign=middle align=right style="height:25px;" colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<td width=141 align=LEFT><img src="res://msoeres.dll/oelogo2.gif"></td>
+<td style="height:22;background-color:#000000;padding-bottom:2;color:#FFFFFF;" valign=bottom><nobr class="blackBar" ID=RIDsubtitle>La solución para todas sus necesidades de mensajería</nobr></td>
+</tr>
+</table>
+</td>
+</tr>
+<!----------end top section------->
+<!-------begin main section------->
+<tr>
+<td width=100%>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td style="height:10%;width:100%">&nbsp;</td>
+</tr>
+<tr>
+<td>
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead>&nbsp;Características</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=8 width=15%></td>
+<td valign=middle ID=RIDbullet1><img src="res://msoeres.dll/dot.gif"> <font class=featuresText><span style="cursor:default; padding-top:6" class="featuresText">Correo electrónico y grupos de noticias</span></font></td>
+</tr>
+<tr>
+<td valign=MIDDLE ID=RIDbullet2><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Con el nuevo administrador de identidades, varios usuarios pueden mantener cuentas separadas, contactos y preferencias, y cambiar fácilmente entre diferentes identidades individuales.">Cuentas e identidades múltiples</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet3><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Redacte y reciba mensajes con imágenes, sonidos de fondo y texto con formato enriquecido.">Compatibilidad con HTML</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet4><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Organice los contactos en carpetas y compártalos con otras identidades.">Libreta de direcciones y servicios de directorio</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet5><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Marque mensajes, grupos de noticias y carpetas para usar sin conexión y descargue con un solo clic los elementos marcados.">Sincronización sin conexión</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet6><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Cree reglas fácilmente para realizar tareas de administración de la Bandeja de entrada como mover, eliminar, codificar colores, reenviar y marcar el correo entrante automáticamente.">Reglas mejoradas de la Bandeja de entrada</span></font></td>
+</tr>
+</font>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+</table>
+</td>
+</tr>
+<tr>
+<td style="height:4%;width=100%"></td>
+</tr>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td width="97%">
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead ID=RIDmore>&nbsp;Más información</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=5 width=15%></td>
+<td valign=middle><div style="padding-top:6;padding-right:6" ID=RIDview1><font>Para obtener la información más reciente de Outlook Express, vaya al menú de Ayuda y haga clic en Léame.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDfaq><font>Para enviar comentarios, consultar las preguntas más frecuentes y obtener sugerencias, visite nuestro <a href="news://msnews.microsoft.com/microsoft.public.windows.inetexplorer.ie6_outlookexpress">grupo de noticias</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDweb><font>Para actualizaciones e información acerca de Outlook Express 6 visite el web <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=home">de Microsoft</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDhelp><font>Para obtener Ayuda y resolver problemas, vaya al menú Ayuda, haga clic en Contenido e índice y busque Solución de problemas en el índice.</font></div></td>
+</tr>
+<tr>
+<td valign=middle>&nbsp; </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<hr width="100%" size="1" NOSHADE>
+<div style="padding:6" ID=RIDthanks>Gracias por elegir Internet Explorer y Outlook Express 6.</div>
+<div style="padding:6" class="signatureText" ID=RIDsign>El equipo de Microsoft Outlook Express </div><br>
+<div class="bottomText" style="padding:6" ID=RIDdisclaim>
+El vínculo a http://digitalid.verisign.com se proporcionan por conveniencia y Microsoft no es responsable del contenido o servicios de este sitio Web.
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+<!-----end main section---->
+<!-----begin blue vertical bar--->
+<td style="height:100%;background-color:#003399"><span style="width:8"> </span></td>
+<!-----end blue vertical bar--->
+<!---begin sidepane---->
+<td style="height:100%;background-color:#FFFFFF">
+<table cellpadding=0 cellspacing=0 border="0" width="100%" height="100%" bordercolor="#999999">
+<tr>
+<td ID="ridverisignAlign" align=left valign=top>
+<img src="res://msoeres.dll/Verisign.gif" align="TEXTTOP"><br>
+<div class="messagesCell" style="padding:6;padding-top:0;padding-bottom:10" ID=RIDverisign>Obtenga gratis un Id. digital personal de prueba en <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0C0A&ar=cert ">VeriSign</a>.
+Use este Id. para identificarse a sí mismo al enviar correo electrónico seguro.
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=SUB_PVER&clcid=0x0C0A&ar=verisign"> Obtenga su Id. digital
+</a> ahora.</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+PAPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPAD                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                0§­œ
+  {          e                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      $J@                                                                                                      €                           i      ^            8      3                   À@                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      °G                                                                                                                                                                                                                                                                                                                                                                                                                                                                            /`ZŸä                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      .`8óG¾                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      -`L.Q                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ,``¡ö                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      +`åøŒT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      *`ÉQT                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      )`½ª=á                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      regfi   i    ´¹±C                          t t i n g s \ A d m i n i s t r a t o r \ n t u s e r . d a t                                                                                                                                                                                                                                                                                                                                                                                                               ²qÅ×                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                hbin                ´¹±C        ÿÿÿnk,  QœˆC       ˆ        ¨< 8 €    ÿÿÿÿ€   ÿÿÿÿ,                      $$$PROTO.HIV    Èşÿÿsk   @ =       €ä   ô           Ğ      $ ?          ?­bŠ§2?QIdô     ?             ?                            $            ?­bŠ§2?QIdô                                     €                                                     ÿÿÿnk  €§P­4Ø               è  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   	   AppEvents       èşÿÿsk  =  >        €ä   ô           Ğ      $           ?­bŠ§2?QIdô     ?             ?                            $    €        ?­bŠ§2?QIdô                                     €                                   ğÿÿÿ1 2 2   Q   ÿÿÿnk  €§P­4Ø    ¸             ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ(                      EventLabels     ğÿÿÿğU  V  °N  ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ      €   ÿÿÿÿ           "          .Defaultèÿÿÿvk     (         àÿÿÿD e f a u l t   B e e p     øÿÿÿ¸  Øÿÿÿvk "   x        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 4     ğÿÿÿ  P      ğÿÿÿ(  `  .Def ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ¨  €   ÿÿÿÿ           "       
+   AppGPFault      èÿÿÿvk     8         àÿÿÿP r o g r a m   e r r o r   Øÿÿÿvk "   €        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 5     ğÿÿÿ   X      èÿÿÿvk  .   @         ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   °  €   ÿÿÿÿ           "          Close   èÿÿÿvk     @       ëàÿÿÿC l o s e   p r o g r a m   Øÿÿÿvk "   ˆ        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 6     èÿÿÿvk  $   x	         ğÿÿÿ°   	  Crit˜ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   È  €   ÿÿÿÿ           .          CriticalBatteryAlarm    ÈÿÿÿC r i t i c a l   B a t t e r y   A l a r m         Øÿÿÿvk "            DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 7     ğÿÿÿ¸  x       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   È  €   ÿÿÿÿ           "          DeviceConnect   èÿÿÿvk     P       ëØÿÿÿD e v i c e   C o n n e c t         Øÿÿÿvk "            DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 8     ğÿÿÿ8  x      èÿÿÿvk  $   ğ         ØÿÿÿL o w   B a t t e r y   A l a r m    ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   È  €   ÿÿÿÿ           $          DeviceDisconnectØÿÿÿD e v i c e   D i s c o n n e c t   Øÿÿÿvk "   È	        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 2 9      ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ğ
+  €   ÿÿÿÿ           2       
+   DeviceFail      èÿÿÿvk  2   h
+         ÈÿÿÿD e v i c e   F a i l e d   t o   C o n n e c t     Øÿÿÿvk "   È
+        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 0     ğÿÿÿP
+   
+       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ğ  €   ÿÿÿÿ           $          EmptyRecycleBin èÿÿÿvk  $   x       ëØÿÿÿE m p t y   R e c y c l e   B i n   Øÿÿÿvk "   È        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 1     ğÿÿÿ`          ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   8  €   ÿÿÿÿ           "       	   MenuPopup        ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           $          LowBatteryAlarm Øÿÿÿvk "   è        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 2     ğÿÿÿØ  À      ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           ,          MailBeepèÿÿÿvk  ,            ĞÿÿÿN e w   M a i l   N o t i f i c a t i o n   Øÿÿÿvk "   è        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 7     ğÿÿÿx  À      ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ø  €   ÿÿÿÿ           "          Maximizeèÿÿÿvk              èÿÿÿM a x i m i z e     Øÿÿÿvk "   Ğ        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 3     ğÿÿÿx  ¨       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ğ  €   ÿÿÿÿ           "          MenuCommand     èÿÿÿvk     €         àÿÿÿM e n u   c o m m a n d     Øÿÿÿvk "   È        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 4     ğÿÿÿh         hbin                           ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   ˜  €   ÿÿÿÿ           "       	   RestoreUp       èÿÿÿvk     ğ       $úğÿÿÿ€    Openøÿÿÿx#  èÿÿÿvk     È       ëàÿÿÿM e n u   p o p u p     
+—HâØÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 5     ğÿÿÿ°  è      ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ      €   ÿÿÿÿ           "          Minimizeèÿÿÿvk     ¸       Ö7èÿÿÿM i n i m i z e     Øÿÿÿvk "   ø        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 6     ğÿÿÿ   Ğ       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ      €   ÿÿÿÿ           "       
+   Navigating      èÿÿÿvk  "   ¨         ØÿÿÿS t a r t   N a v i g a t i o n     Øÿÿÿvk "   ø        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 8     ğÿÿÿ  Ğ      ¨ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           "          Open    èÿÿÿvk               àÿÿÿO p e n   p r o g r a m     Øÿÿÿvk "   è        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 3 9     ğÿÿÿˆ  À       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           "          PrintComplete   èÿÿÿvk     ˜         ØÿÿÿP r i n t   C o m p l e t e         Øÿÿÿvk "   è        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 0     ğÿÿÿ€  À       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           "          RestoreDown     èÿÿÿvk     ˜       ëàÿÿÿR e s t o r e   D o w n   HâØÿÿÿvk "   à        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 1     ğÿÿÿ€  ¸       ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   Ø  €   ÿÿÿÿ           "   X     WindowsLogonŸÈğÜèÿÿÿvk            ~~àÿÿÿW i n d o w s   L o g o n   Øÿÿÿvk "   8        DispFileName    ğÿÿÿx  °  Systøÿÿÿø#  àÿÿÿR e s t o r e   U p     ú–ğÕØÿÿÿvk "   8        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 2      ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   @  €   ÿÿÿÿ           "          SystemAsterisk  èÿÿÿvk     Ø         èÿÿÿA s t e r i s k     Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 3     ğÿÿÿÀ  ğ      ˜ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   @  €   ÿÿÿÿ           "          SystemExclamation       èÿÿÿvk     Ğ         àÿÿÿE x c l a m a t i o n       Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 5     ğÿÿÿ¸  ğ       ÿÿÿnk  €§P­4Ø    H          ÿÿÿÿÿÿÿÿ   8  €   ÿÿÿÿ           "       
+   SystemExit      èÿÿÿvk     È         àÿÿÿE x i t   W i n d o w s     Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 6     ğÿÿÿ°  è       ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   0  €   ÿÿÿÿ           "       
+   SystemHand      èÿÿÿvk     À         àÿÿÿC r i t i c a l   S t o p   Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 7     ğÿÿÿ¨  à      ˜ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   @  €   ÿÿÿÿ           (          SystemNotification      èÿÿÿvk  (   À         ĞÿÿÿS y s t e m   N o t i f i c a t i o n       Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 8     ğÿÿÿ¨  ğ       ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   0  €   ÿÿÿÿ           "          SystemQuestion  èÿÿÿvk     È         èÿÿÿQ u e s t i o n     Øÿÿÿvk "           DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 4 9     ğÿÿÿ°  à       ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   (  €   ÿÿÿÿ           "          SystemStart     èÿÿÿvk     ¸         àÿÿÿS t a r t   W i n d o w s   Øÿÿÿvk "            DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 5 0     ğÿÿÿ   Ø       ÿÿÿnk  °.P­4Ø    H          ÿÿÿÿÿÿÿÿ   (  €   ÿÿÿÿ           "          WindowsLogoff   èÿÿÿvk     °       ëØÿÿÿW i n d o w s   L o g o f f     <}lÎØÿÿÿvk "            DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 5 2     ğÿÿÿ˜  Ø      Øÿÿÿ@ m m s y s . c p l , - 5 8 5 3     ¨ÿÿÿnk  °.P­4Ø    ¸         ¨L  ÿÿÿÿ   H  €   ÿÿÿÿ
+                     Schemes èÿÿÿvk     Ğ         èÿÿÿ. D e f a u l t     èÿÿÿlf H  Even`  Schehbin                           ¸şÿÿlf ¸  .DefÀ  AppGĞ  ClosØ  CritØ  Devi	  Deviğ	  Devi   Empt`  LowB   Mail   Maxi  Menu   MenuH  Mini0  Navi0  Open   Prin   Rest   Rest`  SystP  SystP  SystH  Syst@  SystP  Syst@  Syst8  Wind  Wind                                                                                                ¨ÿÿÿnk  °.P­4Ø    `         PI  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Apps    ¨ÿÿÿnk  °.P­4Ø    h!         ˜;  ÿÿÿÿ   ˜"  €   ÿÿÿÿ(          "          .Defaultèÿÿÿvk     0"         èÿÿÿW i n d o w s       Øÿÿÿvk "   p"        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 5 6     ğÿÿÿ"  H"      ğÿÿÿ1 0 0 0   èÏ¨ÿÿÿnk  °.P­4Ø    À!         $  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      .Defaultøÿÿÿø$  øÿÿÿh%  ¨ÿÿÿnk  °.P­4Ø    ¸"          ÿÿÿÿÿÿÿÿ   ¨  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿˆ$  øÿÿÿØ&  ¨ÿÿÿnk  °.P­4Ø    ¸"          ÿÿÿÿÿÿÿÿ   è  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf  #  .Cur #  .Def ÿÿÿnk  °.P­4Ø    À!         €%  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   
+   AppGPFault      èÿÿÿvk    €         ë¨ÿÿÿnk  °.P­4Ø    ($          ÿÿÿÿÿÿÿÿ   #  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           ¨ÿÿÿnk  °.P­4Ø    ($          ÿÿÿÿÿÿÿÿ   #  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf  $  .Cur%  .Def¨ÿÿÿnk  °.P­4Ø    À!         ğ&  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Close   èÿÿÿvk    €         ëøÿÿÿğ%  øÿÿÿÈ)  ¨ÿÿÿnk  °.P­4Ø    ˜%          ÿÿÿÿÿÿÿÿ   #  €   ÿÿÿÿ                      .CurrentøÿÿÿÈ'  øÿÿÿH(  ¨ÿÿÿnk  °.P­4Ø    ˜%          ÿÿÿÿÿÿÿÿ   ˜#  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf &  .Cur€&  .Def˜ÿÿÿnk  °.P­4Ø    À!         `(  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      CriticalBatteryAlarm    ¨ÿÿÿnk  °.P­4Ø    '          ÿÿÿÿÿÿÿÿ   p&  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ°*  øÿÿÿ0+  ¨ÿÿÿnk  °.P­4Ø    '          ÿÿÿÿÿÿÿÿ   x&  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf p'  .Curğ'  .Def ÿÿÿnk  °.P­4Ø    À!         à)  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      DeviceConnect   èÿÿÿvk    €         ëøÿÿÿ /  øÿÿÿ€/  èÿÿÿvk    €           ¨ÿÿÿnk  °.P­4Ø    x(          ÿÿÿÿÿÿÿÿ   &  €   ÿÿÿÿ                      .Current¨ÿÿÿnk  °.P­4Ø    x(          ÿÿÿÿÿÿÿÿ   &  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf )  .Curp)  .Def ÿÿÿnk  °.P­4Ø    À!         H+  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      DeviceDisconnect¨ÿÿÿnk  àµP­4Ø    ø)          ÿÿÿÿÿÿÿÿ   à'  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ,  øÿÿÿ˜,  ¨ÿÿÿnk  àµP­4Ø    ø)          ÿÿÿÿÿÿÿÿ   è'  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf X*  .CurØ*  .Def ÿÿÿnk  àµP­4Ø    À!         °,  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   
+   DeviceFail      ¨ÿÿÿnk  àµP­4Ø    `+          ÿÿÿÿÿÿÿÿ   È*  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿØ(  øÿÿÿ )  ¨ÿÿÿnk  àµP­4Ø    `+          ÿÿÿÿÿÿÿÿ   Ğ*  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf À+  .Cur@,  .Def ÿÿÿnk  àµP­4Ø    À!         8.  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      LowBatteryAlarm ¨ÿÿÿnk  àµP­4Ø     2          ÿÿÿÿÿÿÿÿ   2  €   ÿÿÿÿ               Ğ,     .Current   Menu¨ÿÿÿnk  àµP­4Ø    È,          ÿÿÿÿÿÿÿÿ   0,  €   ÿÿÿÿ                      .Current¨ÿÿÿnk  àµP­4Ø    È,          ÿÿÿÿÿÿÿÿ   8,  €   ÿÿÿÿ                      .Defaultèÿÿÿlf ˆ-  .Curà-  .Def¨ÿÿÿnk  àµP­4Ø    À!         ˜/  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      MailBeep¨ÿÿÿnk  àµP­4Ø    P.          ÿÿÿÿÿÿÿÿ   ğ(  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ°/  øÿÿÿÈ/  ¨ÿÿÿnk  àµP­4Ø    P.          ÿÿÿÿÿÿÿÿ   ø(  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf ¨.  .Cur(/  .Defèÿÿÿvk    €           èÿÿÿvk    €           èÿÿÿlf x0  .Curà0  .Def       hbin 0                         ¨ÿÿÿnk  àµP­4Ø    À!         à/  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Maximize¨ÿÿÿnk  àµP­4Ø     0          ÿÿÿÿÿÿÿÿ   /  €   ÿÿÿÿ                      .Currentøÿÿÿğ1  øÿÿÿp2  ¨ÿÿÿnk  àµP­4Ø     0          ÿÿÿÿÿÿÿÿ    /  €   ÿÿÿÿ                      .Default ÿÿÿnk  àµP­4Ø    À!         ˆ2  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      MenuCommand     ¨ÿÿÿnk  àµP­4Ø    81          ÿÿÿÿÿÿÿÿ   Ğ0  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ3  øÿÿÿ4  ¨ÿÿÿnk  àµP­4Ø    81          ÿÿÿÿÿÿÿÿ   Ø0  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf ˜1  .Cur2  .Def ÿÿÿnk  àµP­4Ø    À!         (4  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   	   MenuPopup       ¨ÿÿÿnk  = P­4Ø    8;          ÿÿÿÿÿÿÿÿ    :  €   ÿÿÿÿ               Ğ,     .Currentèÿÿÿvk    €         qèÿÿÿvk    €           øÿÿÿp3  èÿÿÿvk    €           øÿÿÿğ4  øÿÿÿp5  ¨ÿÿÿnk  àµP­4Ø     2          ÿÿÿÿÿÿÿÿ   2  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf (-  .Cur¸3  .Def¨ÿÿÿnk  àµP­4Ø    À!         ˆ5  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Minimize¨ÿÿÿnk  àµP­4Ø    @4          ÿÿÿÿÿÿÿÿ   ¨3  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿP6  øÿÿÿĞ6  ¨ÿÿÿnk  àµP­4Ø    @4          ÿÿÿÿÿÿÿÿ   °3  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf ˜4  .Cur5  .Def¨ÿÿÿnk  àµP­4Ø    À!         è6  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Open    ¨ÿÿÿnk  àµP­4Ø     5          ÿÿÿÿÿÿÿÿ   5  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ¸7  øÿÿÿ88  ¨ÿÿÿnk  àµP­4Ø     5          ÿÿÿÿÿÿÿÿ   5  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf ø5  .Curx6  .Def ÿÿÿnk  àµP­4Ø    À!         P8  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      PrintComplete   ¨ÿÿÿnk  àµP­4Ø     7          ÿÿÿÿÿÿÿÿ   h6  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ 9  øÿÿÿ 9  ¨ÿÿÿnk  àµP­4Ø     7          ÿÿÿÿÿÿÿÿ   p6  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf `7  .Curà7  .Def ÿÿÿnk  àµP­4Ø    À!         ¸9  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      RestoreDown     ¨ÿÿÿnk  àµP­4Ø    h8          ÿÿÿÿÿÿÿÿ   Ğ7  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿˆ:  øÿÿÿ;  ¨ÿÿÿnk  = P­4Ø    h8          ÿÿÿÿÿÿÿÿ   Ø7  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf È8  .CurH9  .Def ÿÿÿnk  = P­4Ø    À!          ;  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   	   RestoreUp       ¨ÿÿÿnk  = P­4Ø    Ğ9          ÿÿÿÿÿÿÿÿ   89  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿX3  øÿÿÿÈ<  ¨ÿÿÿnk  = P­4Ø    Ğ9          ÿÿÿÿÿÿÿÿ   @9  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf 0:  .Cur°:  .Def ÿÿÿnk  = P­4Ø    À!         à<  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      SystemAsterisk  (ÿÿÿlf ¸"  .Def($  AppG˜%  Clos'  Critx(  Deviø)  Devi`+  DeviÈ,  LowBP.  Mail 0  Maxi81  Menu 2  Menu@4  Mini 5  Open 7  Prinh8  RestĞ9  Rest8;  Systø<  SystX>  Syst @  SystHA  Syst¸B  Syst D  SystˆE  WindğF  Wind¨ÿÿÿnk  = P­4Ø    8;          ÿÿÿÿÿÿÿÿ   ¨:  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf  3  .Curp<  .Def˜ÿÿÿnk  = P­4Ø    À!         @>  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      SystemExclamation       ¨ÿÿÿnk  = P­4Ø    ø<          ÿÿÿÿÿÿÿÿ   ˆ3  €   ÿÿÿÿ                      .Currentøÿÿÿ?  øÿÿÿ?  ¨ÿÿÿnk  = P­4Ø    ø<          ÿÿÿÿÿÿÿÿ   8>  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           øÿÿÿ >  èÿÿÿlf `=  .CurÈ=  .Def ÿÿÿnk  = P­4Ø    À!         ¨?  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   
+   SystemExit      ¨ÿÿÿnk  = P­4Ø    X>          ÿÿÿÿÿÿÿÿ   ¸=  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿÀ?  øÿÿÿè?  ¨ÿÿÿnk  = P­4Ø    X>          ÿÿÿÿÿÿÿÿ   À=  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf ¸>  .Cur8?  .Defèÿÿÿvk    €           øÿÿÿB  øÿÿÿˆB  èÿÿÿvk    €           hbin @                          ÿÿÿnk  = P­4Ø    À!         0A  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   
+   SystemHand      ¨ÿÿÿnk  = P­4Ø     @          ÿÿÿÿÿÿÿÿ   (?  €   ÿÿÿÿ                      .Current¨ÿÿÿnk  = P­4Ø     @          ÿÿÿÿÿÿÿÿ   0?  €   ÿÿÿÿ                      .Defaultèÿÿÿlf €@  .CurØ@  .Def˜ÿÿÿnk  = P­4Ø    À!          B  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      SystemNotification      ¨ÿÿÿnk  = P­4Ø    HA          ÿÿÿÿÿÿÿÿ   Ø?  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿpC  øÿÿÿğC  ¨ÿÿÿnk  = P­4Ø    HA          ÿÿÿÿÿÿÿÿ   à?  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf °A  .Cur0B  .Def ÿÿÿnk  = P­4Ø    À!         D  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      SystemQuestion  ¨ÿÿÿnk  = P­4Ø    ¸B          ÿÿÿÿÿÿÿÿ    B  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿØD  øÿÿÿXE  ¨ÿÿÿnk  = P­4Ø    ¸B          ÿÿÿÿÿÿÿÿ   (B  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf C  .Cur˜C  .Def ÿÿÿnk  = P­4Ø    À!         pE  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      SystemStart     ¨ÿÿÿnk  = P­4Ø     D          ÿÿÿÿÿÿÿÿ   ˆC  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ@F  øÿÿÿÀF  ¨ÿÿÿnk  = P­4Ø     D          ÿÿÿÿÿÿÿÿ   C  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf €D  .Cur E  .Def ÿÿÿnk  = P­4Ø    À!         ØF  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      WindowsLogoff   ¨ÿÿÿnk  = P­4Ø    ˆE          ÿÿÿÿÿÿÿÿ   ğD  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ¨G  øÿÿÿ(H  ¨ÿÿÿnk  = P­4Ø    ˆE          ÿÿÿÿÿÿÿÿ   øD  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf èE  .CurhF  .Def ÿÿÿnk  = P­4Ø    À!         @H  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      WindowsLogon    ¨ÿÿÿnk  @Ä!P­4Ø    ğF          ÿÿÿÿÿÿÿÿ   XF  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ°K  øÿÿÿ L  ¨ÿÿÿnk  @Ä!P­4Ø    ğF          ÿÿÿÿÿÿÿÿ   `F  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf PG  .CurĞG  .Def¨ÿÿÿnk  @Ä!P­4Ø    h!         @K  ÿÿÿÿ   @I  €   ÿÿÿÿ          "          Explorerèÿÿÿvk  "   ÈH         ØÿÿÿW i n d o w s   E x p l o r e r     Øÿÿÿvk "   I        DispFileName    Øÿÿÿ@ m m s y s . c p l , - 5 8 5 4     ğÿÿÿ°H  ğH      èÿÿÿlf À!  .DefXH  Expl ÿÿÿnk  @Ä!P­4Ø    XH         ÈJ  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      EmptyRecycleBin ¨ÿÿÿnk  @Ä!P­4Ø    hI          ÿÿÿÿÿÿÿÿ   8J  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           øÿÿÿ J  øÿÿÿM  øÿÿÿÀM  ¨ÿÿÿnk  @Ä!P­4Ø    hI          ÿÿÿÿÿÿÿÿ   ÀJ  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           øÿÿÿ¨J  èÿÿÿlf ÈI  .CurPJ  .Def ÿÿÿnk  @Ä!P­4Ø    XH         8L  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                   
+   Navigating      èÿÿÿlf hI  EmptàJ  Navi¨ÿÿÿnk  @Ä!P­4Ø    àJ          ÿÿÿÿÿÿÿÿ   ÀG  €   ÿÿÿÿ                      .Currentèÿÿÿvk    €           ¨ÿÿÿnk  @Ä!P­4Ø    àJ          ÿÿÿÿÿÿÿÿ   ÈG  €   ÿÿÿÿ                      .Defaultèÿÿÿvk    €           èÿÿÿlf XK  .CurÈK  .Def¨ÿÿÿnk  @Ä!P­4Ø    `         ğM  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Names   èÿÿÿlf h!  AppsPL  Name¨ÿÿÿnk  @Ä!P­4Ø    PL          ÿÿÿÿÿÿÿÿ   @J  €   ÿÿÿÿ                       .Defaultèÿÿÿvk      0M         ØÿÿÿW i n d o w s   D e f a u l t       ğÿÿÿàÛ ¸é İ ¨ÿÿÿnk  @Ä!P­4Ø    PL          ÿÿÿÿÿÿÿÿ   HJ  €   ÿÿÿÿ                      .None   èÿÿÿvk     ØM         èÿÿÿN o   S o u n d s   èÿÿÿlf ÀL  .DefhM  .Non¨ÿÿÿnk  @Ä!P­4Ø                ÿÿÿÿÿÿÿÿ   0T  €   ÿÿÿÿ        ,             Console Øÿÿÿvk   €          ColorTable00    Øÿÿÿvk   €  €       ColorTable01    Øÿÿÿvk   € €        ColorTable02    Øÿÿÿvk   € €€       ColorTable03    ğÿÿÿ5 0 0   °N  øÿÿÿW  Øÿÿÿvk   €€         ColorTable04    Øÿÿÿvk   €€ €       ColorTable05    àÿÿÿvk   €          FaceNameØÿÿÿvk   €€€        ColorTable06    Øÿÿÿvk   €ÀÀÀ       ColorTable07    Øÿÿÿvk   € ÿ        ColorTable10`N  hbin P                         Øÿÿÿvk   €€€€       ColorTable08    Øÿÿÿvk   €  ÿ       ColorTable09    Øÿÿÿvk   €ÿ         ColorTable12`N  øÿÿÿpU  Øÿÿÿvk   € ÿÿ       ColorTable11    Øÿÿÿvk   €ÿÿ        ColorTable14`N  ğÿÿÿ1 0 0 0     Øÿÿÿvk   €ÿ ÿ       ColorTable13    Øÿÿÿvk
+   €         CursorSize      ğÿÿÿ1 2 2       øÿÿÿp[  Øÿÿÿvk   €ÿÿÿ       ColorTable15    Øÿÿÿvk
+   €          FontFamily  `N  àÿÿÿvk   €          FontSizeØÿÿÿvk
+   €          FontWeight  ĞO  Øÿÿÿvk
+   €          FullScreen  `N  Ğÿÿÿvk   €2         HistoryBufferSize   ÀL  Øÿÿÿvk
+   €         InsertMode  8N  Øÿÿÿvk
+   €         LoadConIme  @P  Ğÿÿÿvk   €         NumberOfHistoryBuffers  Øÿÿÿvk   €õ         PopupColors @P  Øÿÿÿvk	   €          QuickEditM  èM  Øÿÿÿvk   €P ,      ScreenBufferSizeØÿÿÿvk   €         ScreenColorsÀL  Øÿÿÿvk
+   €P        WindowSize  8N   ÿÿÿnk   È”L®4Ø               8 ÿÿÿÿ   øß €   ÿÿÿÿ0             èL     Control PanelM  àÿÿÿvk           1 ¸ øÿÿÿ T  øÿÿÿèV  €ÿÿÿ`N  ˆN  °N  ØN  O  @O  ˆO  °O   P  HP  ØO   P  pP   Q  ÈP  hQ  (Q  hO  Q  ¸Q  ØQ   R  (R  XR  €R  ¨R  ØR   S  (S  PS  xS   ÿÿÿnk  @Ä!P­4Ø     S  
+        [  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ&                      Accessibility    ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   ˜P  €   ÿÿÿÿ                     Blind Access    àÿÿÿvk   €0         On       ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   ¨  €   ÿÿÿÿ        (   8          HighContrast    àÿÿÿvk    8        FlagsP  Ğÿÿÿvk 8   @V        High Contrast Scheme    ÀÿÿÿH i g h   C o n t r a s t   B l a c k   ( l a r g e )       ˜ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   (T  €   ÿÿÿÿ                     Keyboard Preference     àÿÿÿvk   €0         On      àÿÿÿvk   €0         On      øÿÿÿğ\  ˜ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   @X  €   ÿÿÿÿ        *   
+          Keyboard Response       Øÿÿÿvk 
+   ¨"        AutoRepeatDelay Øÿÿÿvk     O        AutoRepeatRate  Øÿÿÿvk
+   €0         BounceTime      Ğÿÿÿvk 
+   ğP        DelayBeforeAcceptance   èÿÿÿ˜W  ÀW  èW  X  XX  àÿÿÿvk    PQ        Flags    ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   @Y  €   ÿÿÿÿ        $   
+       	   MouseKeys       àÿÿÿvk    øX        Flags   ğÿÿÿ5 8     ²èÏØÿÿÿvk    0Y        MaximumSpeed    ğÿÿÿ8 0         ğÿÿÿØX  Y  PY  Ğÿÿÿvk 
+   €Y        TimeToMaximumSpeed      ğÿÿÿ3 0 0 0     àÿÿÿvk   €2         Flags   èÿÿÿ3 0 0 0 0 0            €]   ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   O  €   ÿÿÿÿ                  
+   ShowSounds       ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   ØZ  €   ÿÿÿÿ                     SoundSentry     àÿÿÿvk   €2       L“FlagsIáØÿÿÿvk   €0         FSTextEffect    ğÿÿÿZ  °Z  èZ  Øÿÿÿvk   €1         WindowsEffect    ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   `Q  €   ÿÿÿÿ        
+          
+   StickyKeys      àÿÿÿvk    [        Flags   ğÿÿÿ5 0 6        ÿÿÿlf
+ U  BlinU  High€V  Keyb0W  KeybxX  MousĞY  Show0Z  Soun[  Stic \  Time\  Togg        ¨ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   €\  €   ÿÿÿÿ                     TimeOut Øÿÿÿvk
+    °Y        TimeToWait      ğÿÿÿY  X\       ÿÿÿnk  @Ä!P­4Ø    °T          ÿÿÿÿÿÿÿÿ   (W  €   ÿÿÿÿ        
+          
+   ToggleKeys      àÿÿÿvk    ]      L“FlagsIáğÿÿÿ5 8     V'l ÿÿÿnk  @´¡­4Ø     S         Ğ ÿÿÿÿ   È €   ÿÿÿÿ          @       
+   Appearance      àÿÿÿvk "    ]        Current ØÿÿÿW i n d o w s   S t a n d a r d     èÿÿÿF F F F F F     È¡”|¨ÿÿÿnk  @Ä!P­4Ø     ]          ÿÿÿÿÿÿÿÿ$   À  €   ÿÿÿÿ        B   È         Schemes àÿÿÿvk È   `        Brick   àÿÿÿvk È  ğb        Desert  ğÿÿÿ0   0   0   àÿÿÿvk È  Àe        EggplantØÿÿÿvk È  h        High Contrast #1èÿÿÿ1 0   3 6   1 0 6   Èÿÿÿvk È  `k        High Contrast #1 (extra large)  Ğÿÿÿvk È   p        High Contrast #1 (large)àÿÿÿvk È           Lilacõ  Øÿÿÿvk È  ğr        High Contrast #2Èÿÿÿvk È  Àu        High Contrast #2 (extra large)  Ğÿÿÿvk È  À…        High Contrast White hÿ  hbin `                         0ıÿÿ                     ôÿÿÿ            ¼          T a h o m a   ğw? ? ? ?               x ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  áàÒB   €   ‰a Â¿¥ ÿÿÿ            áàÒ Â¿¥ Â¿¥ áàÒ ‰a ÿÿÿ Â¿¥ ‰a‰a    áàÒ áàÒ   Â¿¥€   áàÒ ÀÀÀ €  °t@ È¸p     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  êæİ¢h €€ ¢h ÕÌ» ÿÿÿ           ÿÿÿ ÕÌ»ÕÌ»¢h €€ ÿÿÿ ÕÌ»¢h¢h   ÿÿÿ êæİ   ÕÌ»    ÿÿÿ ÀÀÀ  €€„½ª èĞ€     0ıÿÿ                     ñÿÿÿ            ¼          T i m e s   N e w   R o m a n         x ü"ü°ş         ˜#ëw      óÿÿÿ            ¼          T i m e s   N e w   R o m a n          ¬¹ğw      € ğ          óÿÿÿ                      T i m e s   N e w   R o m a n           € ˆûèw  ¬¹ğw        óÿÿÿ                      T i m e s   N e w   R o m a n   ´Àğw                    |kèw    óÿÿÿ                      T i m e s   N e w   R o m a n   È               ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  °¨@ @ X€x °¨ °¨ ÿÿÿ           ÿÿÿ °¨°¨€€€X€x ÿÿÿ °¨X€xX€x   X€x ÈØØ   °¨€ € ÿÿÿ ÀÀÀ X€xƒKƒ Ë½Ò     0ıÿÿ   F                  õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş          ÿ  ÿÿ        ÿÿÿÿÿÿ ÿÿ  ÿÿÿ   ÿ  ÿÿ     €  ÿÿÿ    €€€ ÿ ÿÿÿ    ÀÀÀÿÿÿÿÿÿÿÿ      ÀÀÀ € €  ÿ  ÿÿ     0ıÿÿ   F              &   &   áÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      éÿÿÿ            ¼          T a h o m a   l a c k   f   n          ¬¹ğw      € ğ    &   &   áÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        éÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    áÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwéÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş          ÿ  ÿÿ        ÿÿÿÿÿÿ ÿÿ  ÿÿÿ   ÿ  ÿÿ     €  ÿÿÿ    €€€ ÿ ÿÿÿ    ÀÀÀÿÿÿÿÿÿÿÿ      ÀÀÀ € €  ÿ  ÿÿ     Ğÿÿÿvk È  x        High Contrast #2 (large)Ğÿÿÿvk È  `{        High Contrast Black     Øÿÿÿvk È  ğ’        Lilac (large)ü     Àn  Àÿÿÿvk! È   €        High Contrast Black (extra large)       Èÿÿÿvk È  ğ‚        High Contrast Black (large)     Èÿÿÿvk È  `‹        High Contrast White (large) 8ÿ  Àÿÿÿvk! È  ˆ        High Contrast White (extra large)       àÿÿÿvk È  À•        Maple   Ğÿÿÿvk È  ˜        Marine (high color)     hbin p                         0ıÿÿ   F                  èÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      ìÿÿÿ            ¼          T a h o m a   l a c k   f   n          ¬¹ğw      € ğ          èÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        ìÿÿÿ                      T a h o m a   l a c k   f   n   ´Àğw                    |kèw    èÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwìÿÿÿ            ¼          T a h o m a     S e r i f               À     ÿ P   Àş          ÿ  ÿÿ        ÿÿÿÿÿÿ ÿÿ  ÿÿÿ   ÿ  ÿÿ     €  ÿÿÿ    €€€ ÿ ÿÿÿ    ÀÀÀÿÿÿÿÿÿÿÿ      ÀÀÀ € €  ÿ  ÿÿ     0ıÿÿ   F                  õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş         ÿÿ   ÿ        ÿÿÿ ÿ   ÿ       ÿÿ   ÿ ÿÿÿ   ÿ ÿÿÿ    €€€ ÿ  ÿ  ÿÿÿ ÀÀÀÿÿÿÿÿÿ    ÿÿ  ÀÀÀ € € ÿÿ   ÿ     0ıÿÿ   F              &   &   áÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      éÿÿÿ                      T a h o m a     S e r i f   n          ¬¹ğw      € ğ    &   &   áÿÿÿ                      T a h o m a   l a c k   f   n           € ˆûèw  ¬¹ğw        éÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    áÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwéÿÿÿ                      T a h o m a   l a c k     t y l e   o k   C o n d   d   Àş         ÿÿ   ÿ        ÿÿÿ ÿ   ÿ       ÿÿ   ÿ ÿÿÿ   ÿ ÿÿÿ    €€€ ÿ  ÿ  ÿÿÿ ÀÀÀÿÿÿÿÿÿ    ÿÿ  ÀÀÀ € € ÿÿ   ÿ     0ıÿÿ   F                  èÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      ìÿÿÿ            ¼          T a h o m a     S e r i f   n          ¬¹ğw      € ğ          èÿÿÿ                      T a h o m a   l a c k   f   n           € ˆûèw  ¬¹ğw        ìÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    èÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwìÿÿÿ            ¼          T a h o m a   l a c k     t y l e   o k   C o n d   d   Àş         ÿÿ   ÿ        ÿÿÿ ÿ   ÿ       ÿÿ   ÿ ÿÿÿ   ÿ ÿÿÿ    €€€ ÿ  ÿ  ÿÿÿ ÀÀÀÿÿÿÿÿÿ    ÿÿ  ÀÀÀ € € ÿÿ   ÿ     0ıÿÿ   F                  õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş        € €  €         ÿÿÿÿÿÿ ÿÿÿ ÿÿÿ ÿÿ  €    € € ÿÿÿ    €€€ ÿ ÿÿÿÿÿÿ ÀÀÀÿÿÿÿÿÿÿÿÿ     ÀÀÀ € €€ €  €      Ğÿÿÿvk È  `›        Plum (high color)       Øÿÿÿvk È            Pumpkin (large) Øÿÿÿvk	 È  ğ¢        Rainy Dayï  àõ  Èÿÿÿvk È  À¥        Red, White, and Blue (VGA)  8ÿ  àÿÿÿvk È  ¨       Rose  Øÿÿÿvk È  `«        Rose (large)àû  àÿÿÿvk È   °        Slate   àÿÿÿvk È  ğ²        Spruce  Øÿÿÿvk È  Àµ        Storm (VGA) àû  Øÿÿÿvk
+ È  ¸        Teal (VGA)  àõ  àÿÿÿvk È  `»        Wheat àÿÿÿ2 1 2   2 0 8   2 0 0       hbin €                         0ıÿÿ   F              %   %   áÿÿÿ            ¼          T a h o m a   e w   R o m a n         x ü"ü°ş         ˜#ëw      éÿÿÿ                      T a h o m a   e w   R o m a n          ¬¹ğw      € ğ    &   &   áÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        éÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    áÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwéÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş        € €  €         ÿÿÿÿÿÿ ÿÿÿ ÿÿÿ ÿÿ  €    € € ÿÿÿ    €€€ ÿ ÿÿÿÿÿÿ ÀÀÀÿÿÿÿÿÿÿÿÿ     ÀÀÀ € €€ €  €      0ıÿÿ   F                  èÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      ìÿÿÿ            ¼          T a h o m a     S e r i f   n          ¬¹ğw      € ğ          èÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        ìÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    èÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwìÿÿÿ            ¼          T a h o m a     S e r i f               À     ÿ P   Àş        € €  €         ÿÿÿÿÿÿ ÿÿÿ ÿÿÿ ÿÿ  €    € € ÿÿÿ    €€€ ÿ ÿÿÿÿÿÿ ÀÀÀÿÿÿÿÿÿÿÿÿ     ÀÀÀ € €€ €  €      0ıÿÿ   F                  õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÿÿÿÿÿÿ    ÿÿÿ ÿÿÿ ÿÿÿ           ÿÿÿ €€€ÀÀÀ€€€    ÿÿÿ ÿÿÿ€€€ ÿ        ÀÀÀ   ÀÀÀ    ÿÿÿ ÀÀÀ        ÿÿÿ     0ıÿÿ   F            &   &   áÿÿÿ            ¼          T a h o m a   e w   R o m a n         x ü"ü°ş         ˜#ëw      éÿÿÿ                      T a h o m a   e w   R o m a n          ¬¹ğw      € ğ    &   &   áÿÿÿ            ¼          T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        éÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    ëÿÿÿ            ¼          T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwéÿÿÿ            ¼          T a h o m a     S e r i f               À     ÿ P   Àş  ÿÿÿÿÿÿ    ÿÿÿ ÿÿÿ ÿÿÿ           ÿÿÿ €€€ÀÀÀ€€€    ÿÿÿ ÿÿÿ€€€ ÿ        ÀÀÀ   ÀÀÀ    ÿÿÿ ÀÀÀ        ÿÿÿ     0ıÿÿ   F                  èÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      íÿÿÿ            ¼          T a h o m a     S e r i f   n          ¬¹ğw      € ğ          ëÿÿÿ            ¼          T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        íÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    ëÿÿÿ            ¼          T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwìÿÿÿ            ¼          T a h o m a   l a c k   f               À     ÿ P   Àş  ÿÿÿÿÿÿ    ÿÿÿ ÿÿÿ ÿÿÿ           ÿÿÿ €€€ÀÀÀ€€€    ÿÿÿ ÿÿÿ€€€ ÿ        ÀÀÀ   ÀÀÀ    ÿÿÿ ÀÀÀ        ÿÿÿ     Èÿÿÿvk È  `Ë       Windows Standard (extra large) Ğÿÿÿvk È   Ğ        Windows Standard (large)àÿÿÿ1 2 8   1 2 8   1 2 8       Ğÿÿÿvk È  ÀÅ       Windows Classic (large) Øÿÿÿvk È  È        Windows Standard¨ÿÿÿnk  @P V­4Ø     S          ÿÿÿÿÿÿÿÿ   0 €   ÿÿÿÿ        *             Colors  Øÿÿÿvk    à        ActiveBorder       h  Øÿÿÿvk È   À        Windows Classic Èÿÿÿvk È  ğÂ        Windows Classic (extra large)ÿ         hbin                          0ıÿÿ                     ğÿÿÿ            ¼          T a h o m a   e w   R o m a n         x ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          T a h o m a   e w   R o m a n          ¬¹ğw      € ğ          óÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        õÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    óÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwõÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş  ®¨Ù   ZN± €€€ ®¨Ù ÿÿÿ           ÿÿÿ ®¨Ù®¨ÙZN±ZN± ÿÿÿ ®¨ÙZN±ZN±   ÿÿÿ ØÕì   ®¨Ù    ÿÿÿ ÀÀÀ ZN±¶Ë ¸´Ğ     0ıÿÿ                     éÿÿÿ            ¼          T a h o m a   e w   R o m a n         x ü"ü°ş         ˜#ëw      ğÿÿÿ            ¼          T a h o m a   e w   R o m a n          ¬¹ğw      € ğ          ğÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        ğÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    ïÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwğÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş  ®¨Ù   ZN± €€€ ®¨Ù ÿÿÿ           ÿÿÿ ®¨Ù®¨ÙZN±ZN± ÿÿÿ ®¨ÙZN±ZN±   ÿÿÿ ØÕì   ®¨Ù    ÿÿÿ ÀÀÀ ZN±¶Ë ¸´Ğ     0ıÿÿ   0š                õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  òì×   €   Æ¦F æØ® ÿÿÿ           ÿÿÿ æØ®æØ®Æ¦FÆ¦F     æØ®Æ¦FÆ¦F   òì× òì×   æØ®    ÿÿÿ ÀÀÀÆ¦FÀœ8 àÈˆ     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      ÷ÿÿÿ            ¼          S m a l l   F o n t s   f   n          ¬¹ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÈàØ,NG   € Hˆ ˆÀ¸ ÈàØ           ÿÿÿ ˆÀ¸ˆÀ¸K„   € ÿÿÿ ˆÀ¸HˆHˆ   ÀÀÀ ÈàØ   ˆÀ¸    ÈàØ ÀÀÀ   €´À xÌØ     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ØĞÈ @(@ H@` x`X ¨˜ ØĞÈ             ÿÿÿ ¨˜ ¨˜ tcZ  €€ ØĞÈ ¨˜ x`X x`X     ¨˜ ØĞÈ     ¨˜ 0 X ÕÌÈ ÀÀÀ H@`  „¸ ¨˜x     Øÿÿÿvk    Ğ^        ActiveTitle     Øÿÿÿvk    ˜        AppWorkSpace    Øÿÿÿvk
+    XŸ        Background      èÿÿÿ1 0   3 6   1 0 6   hÿÿÿ8^  X^  ˆ^  ¨^  è^   _  p_  ˜_  0n  `n  Àn   o  Ğ_  po  8o  P_  n  °o  Ğo  0~  `~  ˆ~  °~  è~    0  P  p  ˜  À  ˜  À  ¸  è  0  h      àÿÿÿ5 8   1 1 0   1 6 5         Ğÿÿÿvk    ¨Ÿ        ButtonAlternateFace     àÿÿÿ1 8 1   1 8 1   1 8 1       Øÿÿÿvk    0®        ButtonDkShadow  ğÿÿÿ0   0   0   hbin                           0ıÿÿ                     íÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      ğÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          ğÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        óÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    ğÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwğÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  õêÏB B ×¥/   ¤ ìÕ ÿÿÿ           ÿÿÿ ìÕìÕõêÏ€ € ÿÿÿ ìÕ×¥/×¥/   õêÏ õêÏ   ìÕ€ € ÿÿÿ ÀÀÀ ×¥/àÌˆ ĞÌ     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÁÌÙ   Oe} €€€ ƒ™± ÿÿÿ           ÿÿÿ ƒ™±ƒ™±€€€Oe} ÿÿÿ ƒ™±Oe}Oe}   ÁÌÙ ÁÌÙ   ƒ™±    ÿÿÿ ÀÀÀ Oe}€´Ğ °¼Ğ     0ıÿÿ                     ñÿÿÿ            ¼          T i m e s   N e w   R o m a n         x ü"ü°ş         ˜#ëw      óÿÿÿ            ¼          T i m e s   N e w   R o m a n          ¬¹ğw      € ğ          óÿÿÿ                      T i m e s   N e w   R o m a n           € ˆûèw  ¬¹ğw        óÿÿÿ                      T i m e s   N e w   R o m a n   ´Àğw                    |kèw    óÿÿÿ                      T i m e s   N e w   R o m a n   È               ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÀÀÀ  B €   €€€ ÀÀÀ ÿÿÿ           ÿÿÿ ÀÀÀÀÀÀÿÿÿ€   ÿÿÿ ÀÀÀ€€€€€€   ÀÀÀ ÿÿÿ   ÀÀÀ  € ÿÿÿ ÀÀÀ €   ¨ º¾É     0ıÿÿ                     íÿÿÿ                      T i m e s   N e w   R o m a n         x ü"ü°ş         ˜#ëw      óÿÿÿ            ¼          T i m e s   N e w   R o m a n          ¬¹ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  Ï¯·€€€Ÿ`p   ¤ Ï¯· ÿÿÿ           ÿÿÿ Ï¯·Ï¯·Ÿ`pŸ`p ÿÿÿ Ï¯·Ÿ`pŸ`p   }}} çØÜ   Ï¯·    ÿÿÿ ÀÀÀ Ÿ`pØÌĞ ĞÔĞ     0ıÿÿ                     éÿÿÿ                      T i m e s   N e w   R o m a n         x ü"ü°ş         ˜#ëw      ğÿÿÿ            ¼          T i m e s   N e w   R o m a n          ¬¹ğw      € ğ          ïÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        ğÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    ïÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwïÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÀÀÀ€€€ `p   ¤ Ğ°¸ ÿÿÿ           ÿÿÿ Ğ°¸Ğ°¸èØà `p ÿÿÿ Ğ°¸ `p `p   }}} èØà   Ğ°¸    ÿÿÿ ÀÀÀ  `pØÌĞ ĞÔĞ     èÿÿÿ6 4   6 4   6 4     àÿÿÿ2 1 2   2 0 8   2 0 0   €^  Øÿÿÿvk
+    ®        ButtonFace      àÿÿÿ2 1 2   2 0 8   2 0 0       Øÿÿÿvk    Ø®        ButtonHilight   àÿÿÿ2 5 5   2 5 5   2 5 5       Øÿÿÿvk
+    x^        ButtonText  8_  Øÿÿÿvk    H®        ButtonLight     Øÿÿÿvk    p¯        ButtonShadow    àÿÿÿ1 2 8   1 2 8   1 2 8       Ğÿÿÿvk    ˆ¾        GradientInactiveTitle_  Ğÿÿÿvk    0¾        GradientActiveTitle     ğÿÿÿ0   0   0   hbin °                         0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÎÜãAAA U€— €€€ ¹È ÿÿÿ           ÿÿÿ ¹È¹ÈBBB U€— ÿÿÿ ¹ÈU€—U€—   ÀÀÀ ÎÜã   ¹È    ÿÿÿ ÀÀÀ U€—ˆ¸Ø  ¼È     0ıÿÿ                     ôÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ĞãÓ!?! Y—d €€€ ¢È© ÿÿÿ           ÿÿÿ ¢È©¢È©ĞãÓY—d ÿÿÿ ¢È©Y—dY—d   ĞãÓ ĞãÓ   ¢È©    ÿÿÿ ÀÀÀ Y—d˜Èè ¨Ì°     0ıÿÿ                     õÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        õÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    õÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwõÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş  ÀÀÀ   € € €€€ ÀÀÀ ÿÿÿ           ÿÿÿ ÀÀÀÀÀÀ€€€€ € ÿÿÿ ÀÀÀ€€€€€€   ÀÀÀ ÿÿÿ   ÀÀÀ€ € ÿÿÿ ÀÀÀ € €8Œ° ¨¬¨     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÀÀÀ @@  €€ €€€ ÀÀÀ ÿÿÿ           ÿÿÿ ÀÀÀÀÀÀ€€€ €€ ÿÿÿ ÀÀÀ€€€€€€   ÿûğ ÿÿÿ   ÀÀÀ    ÿÿÿ ÀÀÀ  €€ ÌØ ˜È¸     0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  îîĞ @€€  ¼¼A ŞŞ  ÿÿÿ           ÿÿÿ ŞŞ ŞŞ ¼¼A€€  ÿÿÿ ŞŞ ¼¼A¼¼A   ÿÿÿ îîĞ   ŞŞ     ÿÿÿ ÀÀÀ€€ È°H ¸¸€     àÿÿÿ1 6 6   2 0 2   2 4 0       àÿÿÿvk    ¨        Hilight èÿÿÿ0   0   1 2 8   ¨_  àÿÿÿ1 9 2   1 9 2   1 9 2       àÿÿÿvk    È¾        GrayTextàÿÿÿ1 2 8   1 2 8   1 2 8       Øÿÿÿvk    p¾        HotTrackingColorğÿÿÿ0   0   0   øÿÿÿ¸Ô  Øÿÿÿvk    P¿        HilightText     àÿÿÿ2 5 5   2 5 5   2 5 5       Øÿÿÿvk    ˜¿        InactiveTitle_  àÿÿÿ1 2 8   1 2 8   1 2 8   è`  Øÿÿÿvk    à¿        InactiveBorder  àÿÿÿ2 1 2   2 0 8   2 0 0       hbin À                         0ıÿÿ                     õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      õÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    õÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwõÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÀÀÀ :n¥   € €€€ ÀÀÀ ÿÿÿ             ÿÿÿ ÀÀÀ ÀÀÀ €€€   € ÿÿÿ ÀÀÀ €€€ €€€     ÀÀÀ ÿÿÿ     ÀÀÀ     ÿÿá ÀÀÀ   € „Ğ µµµ     0ıÿÿ                     íÿÿÿ            ¼          T a h o m a     S e r i f   n         x ü"ü°ş         ˜#ëw      óÿÿÿ            ¼          T a h o m a   o n t s   f   n          ¬¹ğw      € ğ          ğÿÿÿ                      T a h o m a     S e r i f   n           € ˆûèw  ¬¹ğw        óÿÿÿ                      T a h o m a     S e r i f   n   ´Àğw                    |kèw    ğÿÿÿ                      T a h o m a     S e r i f   n   È               ÿÿÿÿğK!ü Äğwğÿÿÿ                      T a h o m a     S e r i f               À     ÿ P   Àş  ÀÀÀ:n¥  € €€€ ÀÀÀ ÿÿÿ           ÿÿÿ ÀÀÀÀÀÀ€€€  € ÿÿÿ ÀÀÀ€€€€€€   ÀÀÀ ÿÿÿ   ßßß    ÿÿá ÀÀÀ   €„Ğ µµµ     0ıÿÿ                     ğÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ü"ü°ş         ˜#ëw      óÿÿÿ            ¼          M i c r o s o f t   S a n s   S e r i f   ğw      € ğ          óÿÿÿ                      M i c r o s o f t   S a n s   S e r i f    ˆûèw  ¬¹ğw        óÿÿÿ                      M i c r o s o f t   S a n s   S e r i f                 |kèw    óÿÿÿ                      M i c r o s o f t   S a n s   S e r i f           ÿÿÿÿğK!ü Äğwóÿÿÿ                      M i c r o s o f t   S a n s   S e r i f        ÿ P   Àş  ÀÀÀ:n¥  € €€€ ÀÀÀ ÿÿÿ           ÿÿÿ ÀÀÀÀÀÀ€€€  € ÿÿÿ ÀÀÀ€€€€€€   ÀÀÀ ÿÿÿ   ßßß    ÿÿá ÀÀÀ   €„Ğ µµµ     0ıÿÿ   ô                 õÿÿÿ            ¼          T a h o m a                                                           õÿÿÿ            ¼          T a h o m a                                                           õÿÿÿ                      T a h o m a                                                     õÿÿÿ                      T a h o m a                                                     õÿÿÿ                      T a h o m a                                                     õÿÿÿ                      T a h o m a                                                     ÔĞÈ :n¥ 
+$j €€€ ÔĞÈ ÿÿÿ             ÿÿÿ ÔĞÈ ÔĞÈ €€€ 
+$j ÿÿÿ ÔĞÈ €€€ €€€     ÔĞÈ ÿÿÿ @@@ ÔĞÈ     ÿÿá µµµ   € ¦Êğ ÀÀÀ     0ıÿÿ   ô                 íÿÿÿ            ¼          T a h o m a                                                           óÿÿÿ            ¼          T a h o m a                                                           ğÿÿÿ                      T a h o m a                                                     óÿÿÿ                      T a h o m a                                                     ğÿÿÿ                      T a h o m a                                                     ğÿÿÿ                      T a h o m a                                                     ÔĞÈ :n¥ 
+$j €€€ ÔĞÈ ÿÿÿ             ÿÿÿ ÔĞÈ ÔĞÈ €€€ 
+$j ÿÿÿ ÔĞÈ €€€ €€€     ÔĞÈ ÿÿÿ @@@ ÔĞÈ     ÿÿá µµµ   € ¦Êğ ÀÀÀ     àÿÿÿvk    ğŸ        InfoTextØÿÿÿvk
+    (Ï        InfoWindow  è`  øÿÿÿèç  Ğÿÿÿvk    °Î        InactiveTitleText       àÿÿÿ2 1 2   2 0 8   2 0 0       àÿÿÿvk    ğÎ        Menu€^  àÿÿÿ2 1 2   2 0 8   2 0 0   P`  èÿÿÿF F F F F F         àÿÿÿ2 5 5   2 5 5   2 2 5       àÿÿÿ2 1 2   2 0 8   2 0 0   è`  Øÿÿÿvk	    XÓ        TitleText       èÿÿÿF F F F F F         àÿÿÿvk    ğ¯        MenuTextØÿÿÿvk	    HÏ        Scrollbar^  8_  ğÿÿÿ0   0   0   hbin Ğ                         0ıÿÿ   ô                 ğÿÿÿ            ¼          T a h o m a                                                           óÿÿÿ            ¼          T a h o m a                                                           óÿÿÿ                      T a h o m a                                                     óÿÿÿ                      T a h o m a                                                     óÿÿÿ                      T a h o m a                                                     óÿÿÿ                      T a h o m a                                                     ÔĞÈ :n¥ 
+$j €€€ ÔĞÈ ÿÿÿ             ÿÿÿ ÔĞÈ ÔĞÈ €€€ 
+$j ÿÿÿ ÔĞÈ €€€ €€€     ÔĞÈ ÿÿÿ @@@ ÔĞÈ     ÿÿá µµµ   € ¦Êğ ÀÀÀ     àÿÿÿvk    Ó        Window  àÿÿÿ2 5 5   2 5 5   2 5 5   P`  Øÿÿÿvk    ğÏ        WindowFrame c  àÿÿÿ2 5 5   2 5 5   2 5 5       Øÿÿÿvk
+    ¿        WindowText  8_  Øÿÿÿvk   €0         AutoEndTasks    àÿÿÿvk    È]        ColorA  àÿÿÿvk    Ô        MenuBar àÿÿÿ2 1 2   2 0 8   2 0 0   P¾  Øÿÿÿvk @   °       InstallThemeÈÏ  ğÿÿÿˆ  ` ¨ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ    ¿  €   ÿÿÿÿ           "          Current Øÿÿÿvk "   àÔ        Color Schemesa  ØÿÿÿW i n d o w s   S t a n d a r d      ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ   ØØ  €   ÿÿÿÿ                     Custom Colors   àÿÿÿvk    Ï        ColorB  àÿÿÿvk    ¨Õ        ColorC  èÿÿÿF F F F F F         àÿÿÿvk    àÕ        ColorD  èÿÿÿF F F F F F         èÿÿÿF F F F F F     g  àÿÿÿvk    Ï        ColorE  àÿÿÿvk    PÖ        ColorF  èÿÿÿF F F F F F         àÿÿÿvk    ×        ColorI  àÿÿÿvk    øÕ        ColorG  àÿÿÿvk    ÈÖ        ColorH  èÿÿÿF F F F F F         àÿÿÿvk    ˆ×        ColorK  øÿÿÿhè  èÿÿÿF F F F F F         àÿÿÿvk    @×        ColorJ  èÿÿÿF F F F F F         àÿÿÿvk    Ø        ColorM  ğÿÿÿ5 3 0   ç—şnèÿÿÿF F F F F F         àÿÿÿvk    À×        ColorL  èÿÿÿF F F F F F         àÿÿÿvk    ø×        ColorO  èÿÿÿF F F F F F     ph  èÿÿÿF F F F F F         àÿÿÿvk    HØ        ColorN  èÿÿÿF F F F F F         ğÿÿÿlf ğè  Hot Øÿÿÿvk   €À      ”|Key Modifiers—şnøÿÿÿØæ  àÿÿÿvk    ÀØ        ColorP  èÿÿÿF F F F F F         ¸ÿÿÿÈÓ  hÕ  ˆÕ  ÀÕ  Ö  0Ö  ˆÖ  ¨Ö  hÖ   ×  àÖ   ×  X×  (Ø  Ø×   Ø      ¨ÿÿÿnk  Ğ@“L®4Ø     S         €æ  ÿÿÿÿ$    Ï €   ÿÿÿÿ       B   Â          Desktop Ğÿÿÿvk   €          ActiveWndTrkTimeout øg  Øÿÿÿvk
+   €         CaretWidth      Øÿÿÿvk
+   €1         CoolSwitch      ğÿÿÿ5 0 0 0     øÿÿÿ ç  Ğÿÿÿvk   €7         CoolSwitchColumns       Øÿÿÿvk   €3         CoolSwitchRows  ğÿÿÿT R U E     ğÿÿÿ°x´­4Øern Øÿÿÿvk    x×        CursorBlinkRate Øÿÿÿvk   €1         DragFullWindows Øÿÿÿvk   €2         FontSmoothingl  Øÿÿÿvk
+   €4         DragHeight      Øÿÿÿvk	   €4         DragWidth       Ğÿÿÿvk   €         FontSmoothingTypel  èk  Ğÿÿÿvk   €         FontSmoothingOrientationĞÿÿÿvk   €@       ForegroundLockTimeoutk  øÿÿÿ¨Ü  Ğÿÿÿvk   €         ForegroundFlashCount    Øÿÿÿvk 
+   øÙ        HungAppTimeout  ğÿÿÿ4 0 0   ğh     àß  Øÿÿÿvk   €0         GridGranularity Øÿÿÿvk   €0         LowPowerTimeOut àÿÿÿvk    xÚ        LastScanØÿÿÿvk   €0         LowPowerActive  Ğÿÿÿvk   €          PaintDesktopVersion èk  ğÿÿÿ6 0 0   `l  ğÿÿÿ2 0 0 0 0   Øÿÿÿvk    @Ü        MenuShowDelay   Øÿÿÿvk   €0         PowerOffActive  Øÿÿÿvk   €0         PowerOffTimeOut Ğÿÿÿvk   €0         ScreenSaverIsSecure l  Ğÿÿÿvk     İ        ScreenSaveTimeOutn   n  Øÿÿÿvk   €0         ScreenSaveActiveØÿÿÿvk @   ğŞ        CustomColors(m  Ğÿÿÿvk   €œ€      UserPreferencesMask èk  Ğÿÿÿvk    0İ        WaitToKillAppTimeoutxn  Øÿÿÿvk	 Â    ¿       Wallpaperk  l  ¸ÿÿÿÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ ÿÿÿ s c        Øÿÿÿvk   €2         WallpaperStyle  Ğÿÿÿvk Â   ˆ       OriginalWallpaperk  ˜k  ğÿÿÿ7 5         ğÿÿÿ- 2 7 0     Øÿÿÿvk   €0         TileWallpaper   àÿÿÿvk            Source  hbin à                         Øÿÿÿvk   €3         WheelScrollLines ÿÿÿnk  @u¾o­4Ø     Ù          ÿÿÿÿÿÿÿÿ    î €   ÿÿÿÿ        &   \          WindowMetrics   Øÿÿÿvk   €1         BorderWidth     Øÿÿÿvk \   ¸á        CaptionFont     Øÿÿÿvk 
+   ¨ß        CaptionHeight   hÿÿÿ% U S E R P R O F I L E % \ L o c a l   S e t t i n g s \ A p p l i c a t i o n   D a t a \ M i c r o s o f t \ W a l l p a p e r 1 . b m p     C  ÿÿÿõÿÿÿ            ¼          T a h o m a                                                     Øÿÿÿvk 
+   @â        CaptionWidth    ğÿÿÿ- 2 7 0     ğÿÿÿ- 1 1 2 5      hâ  àÿÿÿvk \   ˆâ        IconFont ÿÿÿõÿÿÿ                      T a h o m a                                                     Øÿÿÿvk    ˜ß        IconSpacing     àÿÿÿvk \   °ã        MenuFontØÿÿÿvk   €1         IconTitleWrap   Ğÿÿÿvk    Pâ        IconVerticalspacing     Øÿÿÿvk	 
+   xä        MenuWidthy  ¸x   ÿÿÿõÿÿÿ                      T a h o m a                                                     Øÿÿÿvk
+ 
+   8ä        MenuHeight      ğÿÿÿ- 2 7 0     Øÿÿÿvk 
+   Hå        ScrollHeight¸x     ˆã  ğÿÿÿ- 2 7 0     Øÿÿÿvk \   °ä        MessageFont      ÿÿÿõÿÿÿ                      T a h o m a                                                     Øÿÿÿvk    8å        Shell Icon BPP  ğÿÿÿ1 6     ğy  ğÿÿÿ- 2 4 0     Øÿÿÿvk 
+   €å        ScrollWidth     ğÿÿÿ- 2 4 0     Øÿÿÿvk 
+   ¸å        SmCaptionHeight ğÿÿÿ- 1 8 0        å  Øÿÿÿvk \   øå        SmCaptionFont    ÿÿÿõÿÿÿ            ¼          T a h o m a                                                     Øÿÿÿvk
+ \   (ç        StatusFont  ¸x  ğÿÿÿlf Hà  WindğÿÿÿN o         Øÿÿÿvk 
+   Èæ        SmCaptionWidth  ğÿÿÿ- 1 8 0     Øÿÿÿvk   €         DefaultApplied  Øÿÿÿvk   €       mbDefaultApplied   ÿÿÿõÿÿÿ                      T a h o m a                                                      ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ   xÎ  €   ÿÿÿÿ                  
+   don't load      àÿÿÿvk    æ        ncpa.cpl ÿÿÿnk  pK#P­4Ø     S         `Ø  ÿÿÿÿ    ×  €   ÿÿÿÿ                    Input Method    Øÿÿÿvk   €1         Show Status   ¨ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ   8 €   ÿÿÿÿ           8          Patterns   Keyb¨ÿÿÿnk  pK#P­4Ø    è  	        ğ  ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      Hot Keys¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   Èé  €   ÿÿÿÿ                     00000010Øÿÿÿvk
+   €          Target IME      ğÿÿÿpØ   é  Øé  Øÿÿÿvk   €          Virtual Key     ğÿÿÿ`ë  ˆë  °ë  ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   ¸ê  €   ÿÿÿÿ                     00000011Øÿÿÿvk   €À        Key Modifiers   Øÿÿÿvk
+   €          Target IME      ğÿÿÿhê  ê  Èê  Øÿÿÿvk   €          Virtual Key     ğÿÿÿXì  €ì  ¨ì     0000¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ    ê  €   ÿÿÿÿ                     00000012Øÿÿÿvk   €À        Key Modifiers   Øÿÿÿvk
+   €          Target IME      Øÿÿÿvk   €¾         Virtual Key     Øÿÿÿvk   €À        Key Modifiers   ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   ğê  €   ÿÿÿÿ                     00000070Øÿÿÿvk   €À        Key Modifiers   Øÿÿÿvk
+   €          Target IME      Øÿÿÿvk   €          Virtual Key     ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   xí  €   ÿÿÿÿ                     00000071Øÿÿÿvk   €À      ÉjKey ModifiersoÉjØÿÿÿvk
+   €          Target IME      ğÿÿÿ(í  Pí  ˆí  Øÿÿÿvk   €          Virtual Key     Øÿÿÿvk   €À        Key Modifiers   èÿÿÿ0 0 0 0 0 4 0 9     ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   pî  €   ÿÿÿÿ                     00000072Øÿÿÿvk
+   €          Target IME      ğÿÿÿØë  Hî  €î  Øÿÿÿvk   €¼         Virtual Key     ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   Pï  €   ÿÿÿÿ                     00000200Øÿÿÿvk   €À        Key Modifiers   Øÿÿÿvk
+   €          Target IME      ğÿÿÿ ï  (ï  `ï  Øÿÿÿvk   €G         Virtual Key     ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   àï  €   ÿÿÿÿ                     00000201ğÿÿÿ ğ  Pğ  xğ  ğÿÿÿ°í  Xñ  €ñ  hbin ğ                         Øÿÿÿvk   €À      ÉjKey ModifiersoÉjøÿÿÿHù  Øÿÿÿvk
+   €          Target IME      Øÿÿÿvk   €K         Virtual Key      ÿÿÿlf	 Hé  0000ê  0000ë  0000 ì  0000Ğì  0000ğí  0000¨î  0000ˆï  0000 ñ  0000                ¨ÿÿÿnk  pK#P­4Ø    ğè          ÿÿÿÿÿÿÿÿ   ğï  €   ÿÿÿÿ                     00000202Øÿÿÿvk
+   €          Target IME      Øÿÿÿvk   €L         Virtual Key      ÿÿÿnk  pK#P­4Ø     S         xù  ÿÿÿÿ%   0ø  €   ÿÿÿÿ           (          International   àÿÿÿvk   €1         iCountryØÿÿÿvk   €2         iCurrDigits     Øÿÿÿvk	   €0         iCurrency       àÿÿÿvk   €0         iDate   ğÿÿÿA M     ‡  øÿÿÿàù  àÿÿÿvk   €2         iDigits àÿÿÿvk   €1         iLZero  àÿÿÿvk   €0         iTimeˆ  àÿÿÿvk   €1         iMeasureàÿÿÿvk   €0         iNegCurràÿÿÿvk    Øí        Locale  øÿÿÿp àÿÿÿvk   €0         iTLZero àÿÿÿvk    ¸ó        s2359ˆ  ğÿÿÿP M     ˆ  àÿÿÿvk    ˜ò        s1159   Øÿÿÿvk	   €$         sCurrencyˆ  0ˆ  ğÿÿÿE N U   Øˆ  àÿÿÿvk    @ô        sCountryàÿÿÿU n i t e d   S t a t e s   àÿÿÿvk   €.         sDecimalàÿÿÿvk   €,         sList‰  àÿÿÿvk   €/         sDate   Øÿÿÿvk	 (   €õ        sLongDateˆ  0ˆ  èÿÿÿM / d / y y y y     øÿÿÿ8 Øÿÿÿvk	    ô        sLanguage       Øÿÿÿvk
+    èô        sShortDate  0ˆ  Øÿÿÿvk	   €,         sThousandŠ  À‰  Ğÿÿÿd d d d ,   M M M M   d d ,   y y y y       àÿÿÿvk   €:         sTimeˆ  Øÿÿÿvk    hö      i sTimeFormat .   Øÿÿÿvk   €0         iTimePrefix Pˆ  Øÿÿÿvk   €.         sMonDecimalSep  àÿÿÿ0 1 2 3 4 5 6 7 8 9     ˆ  àÿÿÿh : m m : s s   t t         Øÿÿÿvk   €,         sMonThousandSep Øÿÿÿvk
+   €1         iNegNumber  À‰  Øÿÿÿvk    Hö        sNativeDigits‡  àÿÿÿvk   €1         NumShapeØÿÿÿvk   €1         iCalendarType‡  Øÿÿÿvk   €6         iFirstDayOfWeek Øÿÿÿvk   €0         iFirstWeekOfYearØÿÿÿvk	    À÷       sGrouping   8‡  ğÿÿÿ3 ; 0   èp Øÿÿÿvk    ø÷        sMonGroupingˆ  ğÿÿÿ3 ; 0   (‰  Øÿÿÿvk   €          sPositiveSign‹  hÿÿÿò  (ò  Pò  xò  °ò  Ğò  ó  0ó  ğò  xó  Pó  Èó  ˜ó   ô  èó   ô  `ô  õ  €ô  Àô  0õ  Xõ  °õ  Ğõ  øõ   ö  ˆö  °ö  Øö   ÷   ÷  H÷  p÷  ˜÷  Ğ÷  ø  Èø  Øÿÿÿvk   €-         sNegativeSignˆ  ¨ÿÿÿnk  pK#P­4Ø    ¨ñ          ÿÿÿÿÿÿÿÿ   Hğ  €   ÿÿÿÿ                     Geo     àÿÿÿvk    hù        Nation  ğÿÿÿ2 4 4       ğÿÿÿlf ğø  Geo ¨ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ   ¨ò  €   ÿÿÿÿ                     IOProcs àÿÿÿvk     ú        MVB     àÿÿÿm v f s 3 2 . d l l         ¨ÿÿÿnk  pK#P­4Ø     S          ÿÿÿÿÿÿÿÿ   Øú  €   ÿÿÿÿ        2             KeyboardÈÿÿÿvk   €2         InitialKeyboardIndicators       Øÿÿÿvk   €1         KeyboardDelay   ğÿÿÿxú  °ú  èú  Øÿÿÿvk    û        KeyboardSpeed   ğÿÿÿ3 1         ¨ÿÿÿnk  °ˆ¢L®4Ø     S          ÿÿÿÿÿÿÿÿ   hş  €   ÿÿÿÿ        (   (          Mouse   Ğÿÿÿvk   €        ”|ActiveWindowTrackingéê¹Ğÿÿÿvk   €4       }DoubleClickHeightŒ  r&jğÿÿÿ1 0     À  Øÿÿÿvk    ü        DoubleClickSpeedğÿÿÿ5 0 0       Øÿÿÿvk   €4         DoubleClickWidthğÿÿÿ1 0     À     () Øÿÿÿvk    Øû        MouseSensitivityØÿÿÿvk
+   €1         MouseSpeed      àÿÿÿvk    ş        (None)  Øÿÿÿvk   €6         MouseThreshold1 Ğÿÿÿvk (   (ı        SmoothMouseXCurve       Ğÿÿÿ        n       @     )Ü       (         Øÿÿÿvk   €0         SwapMouseButtonsĞÿÿÿvk (   °ı        SmoothMouseYCurve       Ğÿÿÿ        ¸^     ÍL     ÍL       8        Øÿÿÿvk    Hü        MouseThreshold2 èÿÿÿ( N o n e )     8  èÿÿÿlf Ğ Glob PoweĞÿÿÿvk   €0         SnapToDefaultButton     Èÿÿÿxû  ¨û  èû   ü  `ü  ˆü  Ğü  øü  €ı  àı  8ş  Xı  (M ˜ÿÿÿnk   Ò$P­4Ø     S          ÿÿÿÿÿÿÿÿ   ğ €   ÿÿÿÿ                     Screen Saver.Mystify    àÿÿÿvk   €1         Active2    ¸$ àÿÿÿvk 8   Pÿ        50% GrayÀÿÿÿ1 7 0   8 5   1 7 0   8 5   1 7 0   8 5   1 7 0   8 5       àÿÿÿvk 2   °ÿ        Boxes   Èÿÿÿ1 2 7   6 5   6 5   6 5   6 5   6 5   1 2 7   0     ğÿÿÿè
+ ( È    è' hbin                          àÿÿÿvk *   @        CrittersĞÿÿÿ0   8 0   1 1 4   3 2   0   5   3 9   2     àÿÿÿvk ,           DiamondsĞÿÿÿ3 2   8 0   1 3 6   8 0   3 2   0   0   0   àÿÿÿvk (   à        Paisley Ğÿÿÿ2   7   7   2   3 2   8 0   8 0   3 2       àÿÿÿvk 4          Scottie àÿÿÿvk 8   P       Pattern Àÿÿÿ2 2 4   1 2 8   1 4 2   1 3 6   2 3 4   1 0   1 4   0       àÿÿÿvk 2   °       Quilt   Èÿÿÿ1 3 0   6 8   4 0   1 7   4 0   6 8   1 3 0   1     àÿÿÿvk 8   Ø       Thatches   È) Èÿÿÿ6 4   1 9 2   2 0 0   1 2 0   1 2 0   7 2   0   0   àÿÿÿvk 6   h       Spinner Àÿÿÿ2 0   1 2   2 0 0   1 2 1   1 5 8   1 9   4 8   4 0         àÿÿÿvk 0   ¨       Waffle  ğÿÿÿÈ    Àÿÿÿ2 4 8   1 1 6   3 4   7 1   1 4 3   2 3   3 4   1 1 3       àÿÿÿvk 4   8       Tulip   Èÿÿÿ0   0   8 4   1 2 4   1 2 4   5 6   1 4 6   1 2 4   Ğÿÿÿvk   €0         CurrentPowerPolicy  ˆ”  øÿÿÿÀ* Èÿÿÿ0   0   0   0   1 2 8   1 2 8   1 2 8   2 4 0       àÿÿÿvk 4           Weave   Èÿÿÿ1 3 6   8 4   3 4   6 9   1 3 6   2 1   3 4   8 1   Àÿÿÿ°ü  0ÿ  ÿ     p  À  0   H è  ¨ à     ¨ÿÿÿnk   Ò$P­4Ø     S          ş  ÿÿÿÿ   pó  €   ÿÿÿÿ"       $             PowerCfg˜ÿÿÿnk   Ò$P­4Ø    x         ÿÿÿÿÿÿÿÿ    õ  €   ÿÿÿÿ           °          GlobalPowerPolicy       àÿÿÿvk °   X       PoliciesHÿÿÿ                                                                           À         
+                                                                        ÿÿÿnk   Ò$P­4Ø    x        À ÿÿÿÿ    ÿÿÿÿ€   ÿÿÿÿ                      PowerPolicies   ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ   È €   ÿÿÿÿ           ¾          0       àÿÿÿvk "   è       Name    ØÿÿÿH o m e / O f f i c e   D e s k     Øÿÿÿvk ¾   8       Description     8ÿÿÿT h i s   s c h e m e   i s   s u i t e d   t o   m o s t   h o m e   o r   d e s k t o p   c o m p u t e r s   t h a t   a r e   l e f t   p l u g g e d   i n   a l l   t h e   t i m e .         àÿÿÿvk P           Policies¨ÿÿÿ                            ,  22               °  ,      X  dPdd      ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ   ğ	 €   ÿÿÿÿ           ¬          1       àÿÿÿvk     ğ       Name    ØÿÿÿP o r t a b l e / L a p t o p       Øÿÿÿvk ¬   @	       Description     PÿÿÿT h i s   s c h e m e   i s   d e s i g n e d   f o r   e x t e n d e d   b a t t e r y   l i f e   f o r   p o r t a b l e   c o m p u t e r s   o n   t h e   r o a d .   ğÿÿÿĞ 	  
+ àÿÿÿvk P    
+       Policies¨ÿÿÿ                       °  ,  22              „  ,    ,  dPdd      èÿÿÿA l w a y s   O n   ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ   èÿ  €   ÿÿÿÿ           t          2       àÿÿÿvk           Name    àÿÿÿP r e s e n t a t i o n     Øÿÿÿvk t   P       Description     ˆÿÿÿT h i s   s c h e m e   k e e p s   t h e   m o n i t o r   o n   f o r   d o i n g   p r e s e n t a t i o n s .   àÿÿÿvk P   è       Policies¨ÿÿÿ                           „  22                          ,  PPdd      àÿÿÿvk    h       Name       `. ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ   0 €   ÿÿÿÿ           "         3       àÿÿÿvk    x
+       Name    Øÿÿÿvk "         Description     ØşÿÿT h i s   s c h e m e   k e e p s   t h e   c o m p u t e r   r u n n i n g   s o   t h a t   i t   c a n   b e   a c c e s s e d   f r o m   t h e   n e t w o r k .     U s e   t h i s   s c h e m e   i f   y o u   d o   n o t   h a v e   n e t w o r k   w a k e u p   h a r d w a r e .     ğÿÿÿÀ à @ àÿÿÿvk P   `       Policies¨ÿÿÿ                                22                °  „         dddd      ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ    €   ÿÿÿÿ           ’          4       àÿÿÿvk 2   0       Name    ÈÿÿÿM i n i m a l   P o w e r   M a n a g e m e n t     Øÿÿÿvk ’           Description 3   ğÿÿÿ h   àÿÿÿvk P   ¸       PoliciesÀÿÿÿlf p 0   x 1   
+ 2   h 3   ¸ 4    5           hbin                         hÿÿÿT h i s   s c h e m e   k e e p s   t h e   c o m p u t e r   o n   a n d   o p t i m i z e s   i t   f o r   h i g h   p e r f o r m a n c e .     ¨ÿÿÿ                            ,  22              „  ,      „   dddd      ¨ÿÿÿnk   Ò$P­4Ø             ÿÿÿÿÿÿÿÿ     €   ÿÿÿÿ           l          5       àÿÿÿM a x   B a t t e r y       Øÿÿÿvk l   °       Description     ÿÿÿT h i s   s c h e m e  

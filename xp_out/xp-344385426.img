@@ -1,0 +1,3712 @@
+(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">A lap nem jeleníthetõ meg.</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">A keresett lap nem kérhetõ le.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Tegye a következõt:</p><ul>
+      <li id="instructionsText1">Nyissa meg a kezdõlapot (<span id="homepageContainer"></span>),&nbsp;és keressen a kívánt információra
+        mutató hivatkozásokat. </li>
+      <li id="instructionsText2">Kattintson a 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Frissítés</a> gombra, vagy próbálkozzon késõbb.<br>
+      </li>
+      <li ID="instructionsText3">Kattintson a <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bájt)" align="center">Keresés</a> gombra, ha információkat szeretne keresni az interneten. </li>
+      <li id="instructionsText4">A <a onclick="Related();event.returnValue=false" href="">kapcsolódó helyek listáját</a> is megtekintheti.     
+</ul>
+   
+	
+	 
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">501/505-ös hiba - Nincs megvalósítva vagy nincs támogatva <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1250">
+<title>HTTP 405 - Az erõforrás tiltott</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">A lap nem jeleníthetõ meg.</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">A keresett lapot
+    nem lehet megjeleníteni, mert a cím hibás.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth3" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Tegye a következõt:</p><ul>
+      <li id="instructionsText1">Ha a címsorban adta meg a lap címét, ellenõrizze, hogy nem vétett-e gépelési 
+        hibát.<br>
+      </li>
+       <li id="instructionsText2">Nyissa meg a kezdõlapot (<span id="homepageContainer"></span>),&nbsp;és keressen a kívánt információra
+        mutató hivatkozásokat. </li>
+        <li ID="instructionsText3">Kattintson a <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bájt)" align="center">Keresés</a> gombra, ha információkat szeretne keresni az Interneten. </li>
+    </ul>
+       
+	
+    <p><br>
+    </p>
+    <h2 ID="errortext2" style="COLOR: black; FONT: 8pt/11pt verdana">HTTP 405 - Az erõforrás nincs engedélyezve.
+    <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "Hiba: Hiányzik az eredeti berendezésgyártó neve az oobeinfo.ini fájl [Branding] szakaszában.";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Az automatikus frissítések szolgáltatás segítségével a Windows rendszeresen ellenõrzi, hogy rendelkezésre állnak-e a számítógéphez fontos új frissítések, és ha igen, automatikusan telepíti azokat. E frissítések lehetnek biztonsági vagy kritikus frissítések, illetve szervizcsomagok.";
+var L_IntroUpdate_Text = "Köszönjük, hogy telepítette a Windows XP Service Pack 2 szervizcsomagot. Javasoljuk, hogy a telepítés befejezése elõtt engedélyezze az automatikus frissítés szolgáltatást. Segítségével a Windows rendszeresen ellenõrzi, hogy rendelkezésre állnak-e a számítógéphez fontos új frissítések, és ha igen, automatikusan telepíti azokat. E frissítések lehetnek biztonsági vagy kritikus frissítések, illetve szervizcsomagok.";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+PA<HTML id=dlgOrganizeFavorites STYLE="font-family: MS Shell Dlg; font-size: 8pt; width: 53.2em; height: 35.0em">
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<style>
+.button {color: BUTTONTEXT; font-size: 8pt}
+.info {font-size: 8pt; color: WINDOWTEXT}
+.btext {color: BUTTONTEXT}
+LI {line-height:10pt}
+A {text-decoration: none; color: WINDOWTEXT}
+</style>
+<TITLE id=txtTitleOrgFavsDialog>
+Kedvencek rendezése
+</TITLE>
+<script>
+window.onerror = HandleError;
+var g_strUrl;
+var g_rgUrlsToSynch = new Array(0);
+var g_fSubscriptionsEnabled;
+var g_dxEllipses = 0;
+var g_dxEllipsesBold = 0;
+var L_Ellipses_Text = "...";
+function callHelp(elm)
+{
+if (null != elm.helpid)
+{
+window.showHelp(elm.helpfile, "" + parseInt(elm.helpid), "popup");
+}
+else
+{
+if ("BODY" != elm.tagName)
+{
+callHelp(elm.parentElement);
+}
+}
+}
+document.onhelp = new Function("callHelp(window.event.srcElement)");
+function documentMouseUp()
+{
+if (window.event.button == 2)
+{
+callHelp(window.event.srcElement);
+}
+}
+document.onmouseup = new Function("documentMouseUp()");
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "Hiba történt a párbeszédpanelben.";
+var L_ErrorNumber_Text = "Hiba: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function MeasureText(strText, fBold, widthMaximum)
+{
+var oSpanToUse = (fBold ? spanMeasureBold : spanMeasure);
+if (oSpanToUse.offsetWidth < widthMaximum)
+return strText;
+var dxEllipses = (fBold ? g_dxEllipsesBold : g_dxEllipses);
+var iCutoff = strText.length * (widthMaximum / (oSpanToUse.offsetWidth + dxEllipses));
+oSpanToUse.innerText = strText.substring(0, iCutoff - 1) + L_Ellipses_Text;
+if (fBold)
+{
+iCutoff += 3;
+}
+for (cExtraCutoff = 1; (oSpanToUse.offsetWidth > widthMaximum) && (cExtraCutoff < 30); cExtraCutoff++)
+{
+oSpanToUse.innerText = spanMeasure.innerText.substring(0, iCutoff-cExtraCutoff) + L_Ellipses_Text;
+}
+return oSpanToUse.innerText;
+}
+function OnSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline)
+{
+if (cItems == -1)
+{
+BodyOnKeyPress(27);
+return;
+}
+if (cItems == 0)
+{
+textProperties.innerHTML = "";
+return;
+}
+g_strUrl = strUrl;
+if (g_dxEllipses == 0)
+{
+spanMeasure.innerText = L_Ellipses_Text;
+g_dxEllipses = spanMeasure.offsetWidth;
+spanMeasureBold.innerText = L_Ellipses_Text;
+g_dxEllipsesBold = spanMeasureBold.offsetWidth;
+}
+spanMeasureBold.innerText = strName;
+strNameShort = MeasureText(spanMeasureBold.innerText, true, textProperties.offsetWidth - 4);
+spanMeasure.innerText = strUrl;
+strUrlShort = MeasureText(spanMeasure.innerText, false, textProperties.offsetWidth - 4);
+spanMeasure.innerText = "";
+var L_FavoritesFolder_Text = "Kedvencek mappa";
+var L_ModifiedColon_Text = "Módosítva:";
+if (cVisits != -1)
+{
+var strOffline = "";
+var L_MakeAvailableOffline_Text = "Legyen elérhetõ <U>k</U>apcsolat nélkül";
+var L_MakeAvailableOfflineAccesskey_Text = "k";
+var L_Properties_Text = "T<U>u</U>lajdonságok";
+var L_PropertiesAccesskey_Text = "u";
+if (g_fSubscriptionsEnabled && (strUrl.substring(0,4) == "http") )
+{
+strOffline = "<input type=checkbox align=";
+if(document.dir == "rtl")
+{
+strOffline +="right";
+}
+else
+{
+strOffline +="left";
+}
+strOffline +=" TABINDEX=5 ACCESSKEY=" + L_MakeAvailableOfflineAccesskey_Text + " id=chkOffline "
+if (fAvailableOffline != 0)
+strOffline += "CHECKED"
+strOffline += " onclick='ToggleOffline(this)' helpid=50486 helpfile='iexplore.hlp'><LABEL FOR=chkOffline TABINDEX=-1>" + L_MakeAvailableOffline_Text + "</LABEL>";
+strOffline += "<BR><BR><BUTTON id=btnProperties TABINDEX=6 style='visibility: "
+if (fAvailableOffline != 0)
+strOffline += "visible"
+else
+strOffline += "hidden"
+strOffline += "' class=button ACCESSKEY=" + L_PropertiesAccesskey_Text + " onclick='Properties()' helpid=50489 helpfile='iexplore.hlp'>" + L_Properties_Text + "</BUTTON><BR>";
+}
+var L_TimesVisited_Text = "Látogatások száma: ";
+var L_LastVisited_Text = "Utoljára látogatva: ";
+var L_LastVisitedNeedsLineBreak_Text = "";
+var strTemp = strName + "\n" + strUrl;
+var re = /'/g;
+strTemp = strTemp.replace(re, "´");
+var oA = document.createElement("A");
+var oName = document.createElement("B");
+var oBR1 = document.createElement("BR");
+var oUrl = document.createElement("SPAN");
+var oBR2 = document.createElement("BR");
+var oTV = document.createElement("SPAN");
+var oLV = document.createElement("SPAN");
+var oBR3 = document.createElement("BR");
+var oBR4 = document.createElement("BR");
+if (oA && oName && oUrl && oBR1 && oBR2 && oBR3 && oBR4 && oTV && oLV)
+{
+textProperties.innerHTML = "";
+oA.Title = strTemp;
+oName.innerText = strNameShort;
+oA.appendChild(oName);
+oA.appendChild(oBR1);
+oUrl.innerText = strUrlShort;
+oA.appendChild(oUrl);
+textProperties.appendChild(oA);
+textProperties.appendChild(oBR2);
+oTV.innerText = L_TimesVisited_Text + cVisits;
+textProperties.appendChild(oTV);
+textProperties.appendChild(oBR3);
+if (L_LastVisitedNeedsLineBreak_Text == "")
+{
+oLV.innerText = L_LastVisited_Text + strDate;
+textProperties.appendChild(oLV);
+textProperties.appendChild(oBR4);
+}
+else
+{
+var oBR5 = document.createElement("BR");
+var oLV2 = document.createElement("SPAN");
+if (oBR5 && oLV2)
+{
+oLV.innerText = L_LastVisited_Text;
+oLV2.innerText = strDate;
+textProperties.appendChild(oLV);
+textProperties.appendChild(oBR5);
+textProperties.appendChild(oLV2);
+textProperties.appendChild(oBR4);
+}
+}
+textProperties.innerHTML += strOffline;
+}
+}
+else
+{
+var oName = document.createElement("B");
+var oBR1 = document.createElement("BR");
+var oFldr = document.createElement("SPAN");
+var oBR2 = document.createElement("BR");
+var oBR3 = document.createElement("BR");
+var oMod = document.createElement("B");
+var oBR4 = document.createElement("BR");
+var oDate = document.createElement("SPAN");
+if (oName && oBR1 && oFldr && oBR2 && oBR3 && oMod && oBR4 && oDate)
+{
+textProperties.innerHTML = "";
+oName.innerText = strNameShort;
+textProperties.appendChild(oName);
+textProperties.appendChild(oBR1);
+oFldr.innerText = L_FavoritesFolder_Text;
+textProperties.appendChild(oFldr);
+textProperties.appendChild(oBR2);
+textProperties.appendChild(oBR3);
+oMod.innerText = L_ModifiedColon_Text;
+textProperties.appendChild(oMod);
+textProperties.appendChild(oBR4);
+oDate.innerText = strDate;
+textProperties.appendChild(oDate);
+}
+}
+tdProperties.noWrap=true;
+textProperties.noWrap=true;
+}
+function EnableButtons()
+{
+g_fSubscriptionsEnabled = nsc.SubscriptionsEnabled;
+var pszInitialDir = window.dialogArguments;
+if (pszInitialDir && (pszInitialDir.length > 0))
+{
+nsc.SetRoot(pszInitialDir);
+}
+tdNsc.blur();
+tdNewFolder.focus();
+}
+function ToggleOffline(chkOffline)
+{
+if (chkOffline.checked)
+{
+if (!nsc.CreateSubscriptionForSelection())
+chkOffline.checked = false;
+else
+{
+g_rgUrlsToSynch[g_strUrl] = true;
+}
+}
+else
+{
+if (!nsc.DeleteSubscriptionForSelection())
+chkOffline.checked = true;
+else
+delete g_rgUrlsToSynch[g_strUrl];
+}
+btnProperties.style.visibility = (chkOffline.checked ? "visible" : "hidden");
+}
+function BuildSynchList()
+{
+window.returnValue = "";
+for (strUrl in g_rgUrlsToSynch)
+{
+window.returnValue += strUrl + "\0";
+}
+}
+function Properties()
+{
+nsc.InvokeContextMenuCommand("properties");
+}
+function OnResize()
+{
+document.recalc(true);
+}
+function TdNscWidth()
+{
+return Math.max(0, document.body.offsetWidth - tableButtons.offsetWidth - (tableMain.border * 3) - (2 * parseInt(tdNsc.style.borderWidth)) - 6);
+}
+function TdPropertiesHeight()
+{
+return Math.max(0, document.body.offsetHeight - (tableMain.border * 2) - tdProperties.offsetTop - tdDone.offsetHeight - 8);
+}
+</script>
+</HEAD>
+<body style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background: threedface; align: center"
+scroll="no" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)" onload="EnableButtons()" onunload="BuildSynchList()" onresize="OnResize()">
+<table id=tableMain cols=3 border=10 bordercolor=THREEDFACE>
+<TR id=mainrow>
+<TD valign=top id=infotext class=info>
+Ha új mappát szeretne létrehozni, kattintson a Mappa létrehozása gombra. Ha egy elemet szeretne törölni vagy átnevezni, jelölje ki az elemet, majd kattintson a Törlés vagy az Átnevezés gombra.
+</TD>
+<TD id=tdColSpacing width=0>
+</TD>
+<TD id=tdNscHolder rowspan=3 height=100%>
+<TABLE cols=1 width=100% height=100%>
+<TD id=tdNsc style="height:100%; border:2px inset WINDOW;">
+<object id=nsc TABINDEX=10 title="Kedvencek lista" accesskey="t"
+style="background:window; HEIGHT=100%; WIDTH=100%"
+CLASSID='clsid:55136805-B2DE-11D1-B9F2-00A0C98BC547'
+onkeypress="BodyOnKeyPress(event.keyCode)"
+helpid=50490
+helpfile="iexplore.hlp">
+</OBJECT>
+</TD>
+</TABLE>
+</TD>
+</TR>
+<TR id=rowButtons>
+<TD>
+<table id=tableButtons cols=2 width=200>
+<tr height=20>
+<TD align=center width=50%>
+<BUTTON id=tdNewFolder TABINDEX=1 style="width: 12em;" ACCESSKEY=m class=button onclick="nsc.NewFolder(); event.returnValue = false" helpid=50484 helpfile="iexplore.hlp">
+<U>M</U>appa létrehozása
+</BUTTON>
+</TD>
+<TD align=center width=50%>
+<BUTTON id=tdRename TABINDEX=2 style="width: 12em;" ACCESSKEY=n class=button onclick="nsc.InvokeContextMenuCommand('rename'); event.returnValue = false" helpid=50007 helpfile="iexplore.hlp">
+Át<U>n</U>evezés
+</BUTTON>
+</TD>
+</tr>
+<tr height=20>
+<td width=50% align=center>
+<BUTTON id=tdMoveTo TABINDEX=3 style="width: 12em;" ACCESSKEY=h class=button onclick="nsc.MoveSelectionTo(); event.returnValue = false" helpid=50006 helpfile="iexplore.hlp">
+Át<U>h</U>elyezés mappába...
+</BUTTON>
+</td>
+<td width=50% align=center>
+<BUTTON id=tdDelete TABINDEX=4 style="width: 12em;" ACCESSKEY=t class=button onclick="nsc.InvokeContextMenuCommand('delete'); event.returnValue = false" helpid=50008 helpfile="iexplore.hlp">
+<U>T</U>örlés
+</BUTTON>
+</td>
+</tr>
+</table>
+</TD>
+</TR>
+<TR id=rowProperties vAlign=top style="padding-left:1px; padding-right:0px">
+<TD id=tdProperties style="border-width:2px; margin-left:5px; margin-top:5px; margin-right:5px;" vAlign=top>
+<DIV id=textProperties class=info style="border-width:2px; border-style:groove; border-color:window; width:100%; height:expression(Math.max(0, tdProperties.offsetHeight - (2 * parseInt(tdProperties.style.borderWidth)))); overflow:hidden; nowrap:true; position:absolute;">
+Jelölje ki a kedvencet a tulajdonságok megtekintéséhez vagy a kapcsolat nélküli eléréshez.
+</DIV>
+</TD>
+</TR>
+<TR id=rowCloseButton>
+<TD id= cellCloseButton colspan=3 align=right>
+<BUTTON id=tdDone TABINDEX=11 style="width: 9em;" ACCESSKEY=e class=button onclick="window.close();" helpid=50010 helpfile="iexplore.hlp">
+B<U>e</U>zárás
+</BUTTON>
+</TD>
+</TR>
+</table>
+<SPAN id=spanMeasure style="visibility:hidden;" class=info></SPAN>
+<SPAN id=spanMeasureBold style="visibility:hidden;font-weight:bold;" class=info></SPAN>
+<script defer for=nsc event="FavoritesSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline)">
+OnSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline);
+</script>
+<script defer>
+tdNscHolder.style.setExpression("width", "TdNscWidth()");
+rowProperties.style.setExpression("height", "TdPropertiesHeight()");
+</script>
+</BODY>
+</HTML>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+ <head>
+  <meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1250">
+  <title>Hiba történt a házirend feldolgozása közben.</title>
+
+  <script language="JavaScript">
+   var site = window.parent.dialogArguments.url;
+
+   function printSite()
+   {
+       siteContainer.innerText = site;
+   }
+
+   function BodyOnKeyPress(nCode)
+   { 
+       if (nCode == 27)    //ESC
+       {
+           //this return value means that the Cancel button was clicked
+           window.returnValue = 0;
+
+           //close the dialog
+           window.close();
+       }
+   }
+  </script>
+ </head>
+
+ <body id="body" 
+       style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;" 
+       onkeypress="BodyOnKeyPress(event.keyCode)"
+       onload="printSite();">
+  <p id="viewPolicyError" style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;">
+   Nem sikerült a következõ webhely adatvédelmi szabályzatának megjelenítése: <span id="siteContainer"></span>. Az adatvédelmi szabályzat megtekintéséhez keresse fel közvetlenül a webhelyet.
+  </p>
+ </body>
+
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+ <head>
+  <meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1250">
+  <title>Biztonsági házirend keresése.</title>
+
+  <script language="JavaScript">
+   var site = window.parent.dialogArguments.url;
+
+   function printSite()
+   {
+       siteContainer.innerText = site;
+   }
+
+   function BodyOnKeyPress(nCode)
+   { 
+       if (nCode == 27)    //ESC
+       {
+           //this return value means that the Cancel button was clicked
+           window.returnValue = 0;
+
+           //close the dialog
+           window.close();
+       }
+   }
+  </script>
+ </head>
+
+ <body id="body" 
+       style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;" 
+       onkeypress="BodyOnKeyPress(event.keyCode)"
+       onload="printSite();">
+  <p id="policyLooking" style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;">
+   A következõ webhely adatvédelmi szabályzatának keresése: <span id="siteContainer"></span>.
+  </p>
+ </body>
+
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+ <head>
+  <meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1250">
+  <title>Nem található biztonsági házirend.</title>
+
+  <script language="JavaScript">
+   var site = window.parent.dialogArguments.url;
+
+   function printSite()
+   {
+       siteContainer.innerText = site;
+   }
+
+   function BodyOnKeyPress(nCode)
+   { 
+       if (nCode == 27)    //ESC
+       {
+           //this return value means that the Cancel button was clicked
+           window.returnValue = 0;
+
+           //close the dialog
+           window.close();
+       }
+   }
+  </script>
+ </head>
+
+ <body id="body" 
+       style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;" 
+       onkeypress="BodyOnKeyPress(event.keyCode)"
+       onload="printSite()">
+  <p id="noPolicyFound" style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;">
+   Nem található a következõ webhely adatvédelmi szabályzata: <span id="siteContainer"></span>. Az adatvédelmi szabályzat megtekintéséhez keresse fel közvetlenül a webhelyet.
+  </p>
+ </body>
+
+</html>
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+ <head>
+  <meta HTTP-EQUIV="Content-Type" Content="text-html; charset=windows-1250">
+  <title>Szintaktikai hiba történt a házirendben.</title>
+
+  <script language="JavaScript">
+   var site = window.parent.dialogArguments.url;
+
+   function printSite()
+   {
+       siteContainer.innerText = site;
+   }
+
+   function BodyOnKeyPress(nCode)
+   { 
+       if (nCode == 27)    //ESC
+       {
+           //this return value means that the Cancel button was clicked
+           window.returnValue = 0;
+
+           //close the dialog
+           window.close();
+       }
+   }
+  </script>
+ </head>
+
+ <body id="body" 
+       style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;" 
+       onkeypress="BodyOnKeyPress(event.keyCode)"
+       onload="printSite();">
+  <p id="viewPolicySyntaxError" style="font-family: MS Shell Dlg;font-size:8pt;color:windowtext;background-color:threedface;">
+   Nem sikerült a következõ webhely adatvédelmi szabályzatának megjelenítése: <span id="siteContainer"></span>,&nbsp;mert a szabályzat szintaktikai hibát tartalmaz. Az adatvédelmi szabályzat megtekintéséhez keresse fel közvetlenül a webhelyet. 
+  </p>
+ </body>
+
+</html>
+<HTML DIR=LTR id=dlgPrivacyPolicy>
+<meta http-equiv="Content-Type" content="text/html; charset=windows-1250">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<HEAD>
+<TITLE id=dialogTitle>
+Biztonsági házirend
+</TITLE>
+<STYLE>
+HTML { font-family: MS Shell Dlg; font-size: 8pt; width: 52.65em; height: 42.3em; }
+BODY { font-family: MS Shell Dlg; font-size: 8pt; }
+FIELDSET { font-family: MS Shell Dlg; font-size: 8pt; }
+TABLE { font-family: MS Shell Dlg; font-size: 8pt; }
+INPUT { font-family: MS Shell Dlg; font-size: 8pt; }
+LABEL { font-family: MS Shell Dlg; font-size: 8pt; }
+BUTTON { font-family: MS Shell Dlg; font-size: 8pt; width: 7 em; height: 2.2em; }
+</STYLE>
+<SCRIPT language="JavaScript">
+var siteData = window.dialogArguments;
+window.returnValue = 0;
+function okButtonClick()
+{
+if( radDefault.checked == true)
+{
+window.returnValue = 1;
+}
+else if (radAccept.checked == true)
+{
+window.returnValue = 2;
+}
+else if (radReject.checked == true)
+{
+window.returnValue = 3;
+}
+window.close();
+}
+function cancelButtonClick()
+{
+window.returnValue = 0;
+window.close();
+}
+function getMinCookieDomainQuoted()
+{
+minCookieDomain.innerText = '"'+siteData.cookieUrl+'"';
+}
+function checkCurrentPreference()
+{
+if( siteData.acceptRejectOrDefault == "a")
+radAccept.checked = true;
+else if( siteData.acceptRejectOrDefault == "r")
+radReject.checked = true;
+else if( siteData.acceptRejectOrDefault == "d")
+radDefault.checked = true;
+if( siteData.fixedAcceptRejectOrDefault)
+{
+radAccept.disabled = true;
+radReject.disabled = true;
+radDefault.disabled = true;
+}
+}
+function CheckIfPolicyFound()
+{
+var policyDone = siteData.flagPolicyHuntDone;
+document.body.all("fldPolicy").children("policyframe").src = siteData.urlPolicyHuntView;
+if( policyDone == false)
+setTimeout( CheckIfPolicyFound, 200);
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+cancelButtonClick();
+}
+else if (nCode == 13)
+{
+okButtonClick();
+}
+}
+</SCRIPT>
+</HEAD>
+<BODY ID=bdy style="color: windowtext; background: threedface; " scroll=no
+onkeypress="BodyOnKeyPress(event.keyCode)" onload="getMinCookieDomainQuoted();">
+<TABLE style="width:100%;height:100%">
+<TR>
+<TD>
+<FIELDSET align=absMiddle id=fldPolicy style="border: 0;height:100%">
+<IFRAME NAME="policyframe" id=policyframe application="no"
+style="width:100%; height:100%; background: threedface; ">
+</IFRAME>
+</FIELDSET>
+</TD>
+</TR>
+<TR>
+<TD style="height:1%">
+<TABLE style="width:100%">
+<TR>
+<TD>
+<FIELDSET align=absMiddle id=fldPreference style="padding:1mm">
+<DIV id=lblQuery style="height: 1.5 em;">
+<p ID="query">
+Hogyan kezelje a program a következõ webhelyrõl származó cookie-kat: <span id="minCookieDomain"></span>?
+</p>
+</DIV>
+<TABLE CELLPADDING=0 CELLSPACING=0>
+<TR>
+<TD>
+&nbsp;&nbsp;&nbsp;<INPUT id=radDefault type=radio name=radPreference ACCESSKEY=p
+tabIndex=3 style="width: 1.2em; ">
+</TD>
+<TD>
+<LABEL ID=lblDefault FOR=radDefault>
+&nbsp;&nbsp;A <u>c</u>ookie-k biztonsági házirendjének összehasonlítása az én beállításaimmal.
+</LABEL>
+</TD>
+</TR>
+<TR>
+<TD>
+&nbsp;&nbsp;&nbsp;<INPUT id=radAccept type=radio name=radPreference ACCESSKEY=h
+tabIndex=4 style="width: 1.2em;">
+</TD>
+<TD>
+<LABEL ID=lblAccept FOR=radAccept>
+&nbsp;&nbsp;Ez a hely mindig <u>h</u>asználhat cookie-kat.
+</LABEL>
+</TD>
+</TR>
+<TR>
+<TD>
+&nbsp;&nbsp;&nbsp;<INPUT id=radReject type=radio name=radPreference ACCESSKEY=s
+tabIndex=5 style="width: 1.2em;">
+</TD>
+<TD>
+<LABEL ID=lblReject FOR=radReject>
+&nbsp;&nbsp;Ez a hely <u>s</u>oha nem használhat cookie-kat.
+</LABEL>
+<TD>
+</TR>
+</TABLE>
+</FIELDSET>
+</TD>
+<TD valign=top width="1%">
+<TABLE>
+<TR>
+<TD>
+<BUTTON id=btnOk onClick="okButtonClick()" tabIndex=1 ACCESSKEY=o type=submit>
+OK
+</BUTTON>
+</TD>
+</TR>
+<TR>
+<TD>
+<BUTTON id=btnCancel onClick="cancelButtonClick()" tabIndex=2 ACCESSKEY=m type=submit>
+Mégse
+</BUTTON>
+</TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+</TABLE>
+</TD>
+</TR>
+</TABLE>
+<SCRIPT language="JavaScript">
+checkCurrentPreference();
+CheckIfPolicyFound();
+</SCRIPT>
+</BODY>
+</HTML>
+PAÿþ< ? x m l   v e r s i o n = " 1 . 0 "   e n c o d i n g = " u n i c o d e " ? >  
+ < x s l : s t y l e s h e e t   x m l n s : x s l = " h t t p : / / w w w . w 3 . o r g / T R / W D - x s l " >  
+ < _ l o c D e f i n i t i o n >  
+ < _ l o c D e f a u l t   _ l o c = " l o c N o n e " / >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > H T M L < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > S P A N < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > D I V < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > T I T L E < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > A < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > a < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > U < / _ l o c T a g >  
+   < _ l o c T a g   _ l o c = " l o c D a t a " > S T Y L E < / _ l o c T a g >  
+ < / _ l o c D e f i n i t i o n >  
+  
+ < x s l : s c r i p t   l a n g u a g e = " J S c r i p t " >  
+         v a r   i c n t = 1 ;  
+         f u n c t i o n   i n c r e m e n t ( i )   {   i c n t   =   i c n t   -   1 ;   r e t u r n   i   -   i c n t ; }  
+         v a r   i c n t 2 = 1 ;  
+         f u n c t i o n   i n c r e m e n t 2 ( i )   {         i c n t 2   =   i c n t 2   -   1 ;   r e t u r n   i   -   i c n t 2 ; }  
+ < / x s l : s c r i p t >  
+  
+ < x s l : t e m p l a t e   m a t c h = " / " >  
+       < H T M L   D I R = " L T R " >  
+       < H E A D >  
+       < T I T L E > A d a t v é d e l m i   j e l e n t é s < / T I T L E >  
+       < S T Y L E   T Y P E = " t e x t / c s s " >  
+               . h e a d   	 { 	  
+ 	       	 	 	 f o n t - f a m i l y :   M S   S h e l l   D l g ;  
+ 	 	 	 	 f o n t - s i z e : 1 1 p t ;  
+ 	 	 	 	 f o n t - w e i g h t : b o l d ;  
+ 	 	 	 	 c o l o r : w i n d o w t e x t ;  
+ 	 	 	 	 t e x t - a l i g n : l e f t ;  
+ 	 	 	 	 m a r g i n - b o t t o m : 8 p t ;  
+ 	 	 	 	 }  
+ 	 	 . i n d e n t e d D a t a 	 {  
+ 	       	 	 	 f o n t - f a m i l y :   M S   S h e l l   D l g ;  
+ 	 	 	 	 f o n t - s i z e : 1 0 p t ;  
+ 	 	 	 	 m a r g i n - l e f t : 4 e m ;  
+ 	 	 	 	 m a r g i n - t o p : 8 p t ;  
+ 	 	 	 	 f o n t - w e i g h t : 1 0 0 ;  
+ 	 	 	 	 c o l o r : w i n d o w t e x t ;  
+ 	 	 	 	 t e x t - a l i g n : l e f t ;  
+ 	 	 	 	 m a r g i n - b o t t o m : 8 p t ;  
+ 	 	 	 	 }  
+ 	 	 . m u l t i S t a t e m e n t   {  
+ 	 	 	 	 f o n t - f a m i l y :   M S   S h e l l   D l g ;  
+ 	 	 	 	 f o n t - s i z e : 1 0 p t ;  
+ 	 	 	 	 x m a r g i n - b o t t o m : 4 p t ;  
+ 	 	 	 	 d i s p l a y : n o n e ;  
+ 	 	 	 	 }  
+ 	 	 . g o T o p 	 {  
+ 	       	 	 	 f o n t - f a m i l y :   M S   S h e l l   D l g ;  
+ 	 	 	 	 f o n t - s i z e : 1 0 p t ;  
+ 	 	 	 	 f o n t - w e i g h t : 1 0 0 ;  
+ 	 	 	 	 t e x t - a l i g n : l e f t ;  
+ 	 	 	 	 }  
+       < / S T Y L E >  
+       < S C R I P T >  
+       < x s l : c o m m e n t >  
+       v a r   m y I n c r e m e n t   =   1 ;    
+       v a r   m y I n c r e m e n t 2   =   1 ;    
+          
+       f u n c t i o n   B o d y O n K e y P r e s s ( n C o d e )  
+       {    
+               i f   ( n C o d e   = =   2 7 )         / / E S C  
+               {  
+                       w i n d o w . r e t u r n V a l u e   =   0 ;  
+                       w i n d o w . c l o s e ( ) ;  
+               }  
+       }  
+       < / x s l : c o m m e n t >  
+       < / S C R I P T >  
+       < / H E A D >  
+       < B O D Y   o n k e y p r e s s = " B o d y O n K e y P r e s s ( e v e n t . k e y C o d e ) " >  
+  
+       < A   n a m e = " t o p " >  
+       < / A >  
+       < D I V   c l a s s = " h e a d " > A d a t v é d e l m i   ö s s z e f o g l a l ó   a   k ö v e t k e z Qh ö z :   < B R / > < B R / >  
+                 < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " / / D A T A - G R O U P / D A T A " / >  
+                 < / D I V >  
+                 < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                 A   w e b h e l y   t e l j e s   a d a t v é d e l m i   s z a b á l y z a t á n a k   e l o l v a s á s á h o z   k a t t i n t s o n   < A   t a r g e t = " _ b l a n k " >  
+                         < x s l : a t t r i b u t e   n a m e = " h r e f " >  
+                                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " P O L I C Y / @ d i s c u r i " / >  
+                         < / x s l : a t t r i b u t e >  
+                 i d e < / A > .  
+                 < / D I V >  
+       < / D I V >  
+       < x s l : c h o o s e >  
+                 < x s l : w h e n   t e s t = " / / T E S T " >  
+                         < D I V   c l a s s = " h e a d " > A   j e l e n   a d a t v é d e l m i   s z a b á l y z a t   k i z á r ó l a g   t e s z t e l é s i   c é l o k r a   s z o l g á l < / D I V >  
+                 < / x s l : w h e n >  
+       < / x s l : c h o o s e >  
+         < x s l : c h o o s e >  
+                 < x s l : w h e n   t e s t = " / / D I S P U T E S - G R O U P / D I S P U T E S / I M G " >  
+                         < D I V   c l a s s = " h e a d " > A d a t v é d e l m i   t a n ú s í t v á n y :   < B R / > < B R / >  
+                         < / D I V >  
+                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                 < x s l : f o r - e a c h   s e l e c t = " / / D I S P U T E S - G R O U P / D I S P U T E S / I M G " >  
+                                         < I M G   t a r g e t = " _ b l a n k " >  
+                                                 < x s l : a t t r i b u t e   n a m e = " s r c " >  
+                                                                 < x s l : v a l u e - o f   s e l e c t = " @ s r c " / >  
+                                                 < / x s l : a t t r i b u t e >  
+                                         < / I M G >  
+                                 < B R / >  
+                                 < / x s l : f o r - e a c h >  
+                                 < A   H R E F = " # D i s p u t e " > P a n a s z t é t e l < / A >  
+                         < / D I V >  
+                 < / x s l : w h e n >  
+                 < x s l : o t h e r w i s e >  
+                         < S P A N   c l a s s = " h e a d " > < / S P A N >  
+                 < / x s l : o t h e r w i s e >  
+         < / x s l : c h o o s e >  
+         < B R / > < B R / >  
+          
+         < D I V   c l a s s = " m u l t i S t a t e m e n t "   i d = " m u l t i S t a t e m e n t " >  
+                 A   w e b h e l y h e z   t ö b b   a d a t v é d e l m i   n y i l a t k o z a t   i s   t a r t o z i k :  
+                 < D I V   I D = " t o c " >  
+                 < x s l : f o r - e a c h   s e l e c t = " / / S T A T E M E N T " >  
+                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                 < A >  
+                         < x s l : a t t r i b u t e   n a m e = " H R E F " > # m y D I V < x s l : e v a l > i n c r e m e n t 2 ( 0 ) < / x s l : e v a l > < / x s l : a t t r i b u t e >  
+                                 N y i l a t k o z a t    
+                                 < S C R I P T >  
+                                 < x s l : c o m m e n t >  
+                                 d o c u m e n t . w r i t e l n ( m y I n c r e m e n t 2 ) ;  
+                                 m y I n c r e m e n t 2 + + ;  
+                                 < / x s l : c o m m e n t >  
+                                 < / S C R I P T >  
+                                 < S P A N >  
+                                         < x s l : c h o o s e >  
+                                                 < x s l : w h e n   t e s t = " E X T E N S I O N / G R O U P - I N F O / @ n a m e " >  
+                                                         - -   < x s l : v a l u e - o f   s e l e c t = " E X T E N S I O N / G R O U P - I N F O / @ n a m e " / >  
+                                                 < / x s l : w h e n >  
+                                                 < x s l : o t h e r w i s e >  
+                                                              
+                                                 < / x s l : o t h e r w i s e >  
+                                         < / x s l : c h o o s e >  
+                                 < / S P A N >  
+                                 < / A >  
+                         < / D I V >  
+                 < / x s l : f o r - e a c h >  
+                 < / D I V >  
+                 < B R / >  
+                 < B R / >  
+         < / D I V >  
+          
+       < x s l : f o r - e a c h   s e l e c t = " / / S T A T E M E N T " >  
+                         < D I V >  
+                         < A >  
+                         < x s l : a t t r i b u t e   n a m e = " N A M E " > m y D I V < x s l : e v a l > i n c r e m e n t ( 0 ) < / x s l : e v a l > < / x s l : a t t r i b u t e >  
+                                 < D I V   c l a s s = " h e a d " >  
+                                 N y i l a t k o z a t   a   w e b h e l y h e z  
+                                 < S C R I P T >  
+                                 < x s l : c o m m e n t >  
+                                 d o c u m e n t . w r i t e l n ( m y I n c r e m e n t ) ;  
+                                 i f ( m y I n c r e m e n t   & g t ;   1 ) d o c u m e n t . a l l . m u l t i S t a t e m e n t . s t y l e . d i s p l a y   =   " b l o c k " ;  
+                                 < / x s l : c o m m e n t >  
+                                 < / S C R I P T >  
+                                 < ! - -   < / S P A N >   - - >  
+                                 < S P A N >  
+                                         < x s l : c h o o s e >  
+                                                 < x s l : w h e n   t e s t = " E X T E N S I O N / G R O U P - I N F O / @ n a m e " >  
+                                                         - -   < x s l : v a l u e - o f   s e l e c t = " E X T E N S I O N / G R O U P - I N F O / @ n a m e " / >  
+                                                 < / x s l : w h e n >  
+                                                 < x s l : o t h e r w i s e >  
+                                                              
+                                                 < / x s l : o t h e r w i s e >  
+                                         < / x s l : c h o o s e >  
+                                 < / S P A N >  
+                                 < / D I V > < ! - -     - - >  
+                                 < S C R I P T >  
+                                 < x s l : c o m m e n t >  
+                                 m y I n c r e m e n t + + ;  
+                                 < / x s l : c o m m e n t >  
+                                 < / S C R I P T >  
+                                         < x s l : c h o o s e >  
+                                                 < x s l : w h e n   t e s t = " D A T A - G R O U P / D A T A / C A T E G O R I E S " >  
+                                                         < S P A N   c l a s s = " h e a d " >  
+                                                         M i l y e n   t í p u s ú   a d a t o k a t   g y qj t   e z   a   w e b h e l y ?  
+                                                         < / S P A N > < B R / > < B R / >  
+                                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " D A T A - G R O U P / D A T A / C A T E G O R I E S " / >  
+                                                         < / D I V >  
+                                                 < / x s l : w h e n >  
+                                                 < x s l : o t h e r w i s e >  
+                                                              
+                                                 < / x s l : o t h e r w i s e >  
+                                         < / x s l : c h o o s e >  
+                                          
+                                         < S P A N   c l a s s = " h e a d " >  
+                                         M i l y e n   c é l r a   h a s z n á l h a t ó k   e z e k   a z   a d a t o k ?  
+                                         < / S P A N > < B R / > < B R / >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " P U R P O S E " / >  
+                                         < / D I V >  
+                                          
+                                         < S P A N   c l a s s = " h e a d " >  
+                                         K i   f é r   h o z z á   e z e k h e z   a z   a d a t o k h o z ?  
+                                         < / S P A N > < B R / > < B R / >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " R E C I P I E N T " / >  
+                                         < / D I V >  
+                                          
+                                         < S P A N   c l a s s = " h e a d " >  
+                                         M e n n y i   i d e i g   Qr z i k   m e g   a z   a d a t o k a t ?  
+                                         < / S P A N > < B R / > < B R / >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " R E T E N T I O N " / >  
+                                         < / D I V >  
+                                          
+                                         < S P A N   c l a s s = " h e a d " >  
+                                         H o z z á f é r   a   f e l h a s z n á l ó   a   r ó l a   g y qj t ö t t   a d a t o k h o z ?  
+                                         < / S P A N > < B R / > < B R / >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : a p p l y - t e m p l a t e s   s e l e c t = " / / A C C E S S " / >  
+                                         < / D I V >  
+                                 < / A >  
+                         < / D I V >  
+                 < A   H R E F = " # t o p "   c l a s s = " g o T o p " > U g r á s   a   t e t e j é r e < / A > < B R / > < B R / >  
+         < / x s l : f o r - e a c h >  
+          
+         < x s l : c h o o s e >  
+         < x s l : w h e n   t e s t = " / / D I S P U T E S " >  
+                 < S P A N   c l a s s = " h e a d " >  
+                 < A   N A M E = " D i s p u t e " >  
+                 H o g y a n   k e z e l i   a   w e b h e l y   a z   a d a t g y qj t é s s e l   k a p c s o l a t o s   p a n a s z o k a t ?  
+                 < / A >  
+                 < / S P A N > < B R / > < B R / >  
+                         < x s l : c h o o s e >  
+                                 < x s l : w h e n   t e s t = " / / D I S P U T E S [ @ r e s o l u t i o n - t y p e = ' s e r v i c e ' ] " >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : f o r - e a c h   s e l e c t = " / / D I S P U T E S - G R O U P / D I S P U T E S " >  
+                                                 < a   t a r g e t = " _ b l a n k " >  
+                                                         < x s l : a t t r i b u t e   n a m e = " h r e f " >  
+                                                                         < x s l : v a l u e - o f   s e l e c t = " @ s e r v i c e " / >  
+                                                         < / x s l : a t t r i b u t e >  
+                                                         < x s l : v a l u e - o f   s e l e c t = " @ s h o r t - d e s c r i p t i o n " / >  
+                                                 < / a > < B R / >  
+                                                 < x s l : v a l u e - o f   s e l e c t = " @ l o n g - d e s c r i p t i o n " / >  
+                                         < B R / >  
+                                         < / x s l : f o r - e a c h >  
+                                         < / D I V >  
+                                 < / x s l : w h e n >  
+                                 < x s l : w h e n   t e s t = " / / D I S P U T E S [ @ r e s o l u t i o n - t y p e = ' i n d e p e n d e n t ' ] " >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                         < x s l : f o r - e a c h   s e l e c t = " / / D I S P U T E S - G R O U P / D I S P U T E S " >  
+                                                 < a   t a r g e t = " _ b l a n k " >  
+                                                         < x s l : a t t r i b u t e   n a m e = " h r e f " >  
+                                                                         < x s l : v a l u e - o f   s e l e c t = " @ s e r v i c e " / >  
+                                                         < / x s l : a t t r i b u t e >  
+                                                         < x s l : v a l u e - o f   s e l e c t = " @ s h o r t - d e s c r i p t i o n " / >  
+                                                 < / a > < B R / >  
+                                                 < x s l : v a l u e - o f   s e l e c t = " @ l o n g - d e s c r i p t i o n " / >  
+                                         < B R / >  
+                                         < / x s l : f o r - e a c h >  
+                                         < / D I V >  
+                                          
+                                 < / x s l : w h e n >  
+                                 < x s l : w h e n   t e s t = " / / D I S P U T E S [ @ r e s o l u t i o n - t y p e = ' c o u r t ' ] " >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                                 < S P A N >  
+                                                 T e r m é s z e t e s   s z e m é l y e k   j o g i   ú t o n   t e h e t n e k   p a n a s z t   a   w e b h e l y   e l l e n .  
+                                                 < / S P A N >  
+                                                 < B R / >  
+                                         < / D I V >  
+                                 < / x s l : w h e n >  
+                                 < x s l : w h e n   t e s t = " / / D I S P U T E S [ @ r e s o l u t i o n - t y p e = ' l a w ' ] " >  
+                                         < D I V   c l a s s = " i n d e n t e d D a t a " >  
+                                                 < S P A N >  
+                                                 A z   a d a t v é d e l m i   n y i l a t k o z a t t a l   k a p c s o l a t b a n   f e l m e r ü l Q  p a n a s z o k   r e n d e z é s e   a   l e í r á s b a n   s z e r e p l Q  j o g r e n d n e k   m e g f e l e l Qe n   t ö r t é n i k .  
+                                                 < / S P A N >  
+                                                 < B R / >  
+                                         < / D I V >  
+                                 < / x s l : w h e n >  
+                                 < x s l : o t h e r w i s e >          
+                                          
+                                 < / x s l : o t h e r w i s e >  
+                         < / x s l : c h o o s e >  
+         < / x s l : w h e n >  
+         < / x s l : c h o o s e >  
+       < / B O D Y >  
+       < / H T M L >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " A C C E S S " >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " n o n i d e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " a l l " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c o n t a c t - a n d - o t h e r " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " i d e n t - c o n t a c t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o t h e r - i d e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " n o n e " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " P U R P O S E " >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c u r r e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " a d m i n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " d e v e l o p " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c u s t o m i z a t i o n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " t a i l o r i n g " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p s e u d o - a n a l y s i s " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p s e u d o - d e c i s i o n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " i n d i v i d u a l - a n a l y s i s " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " i n d i v i d u a l - d e c i s i o n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c o n t a c t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " h i s t o r i c a l " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " t e l e m a r k e t i n g " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o t h e r - p u r p o s e " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " R E C I P I E N T " >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o u r s " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " d e l i v e r y " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " s a m e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o t h e r - r e c i p i e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " u n r e l a t e d " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p u b l i c " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " R E T E N T I O N " >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " n o - r e t e n t i o n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " s t a t e d - p u r p o s e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " l e g a l - r e q u i r e m e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " b u s i n e s s - p r a c t i c e s " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " i n d e f i n i t e l y " / >  
+ < / x s l : t e m p l a t e >  
+  
+  
+ < x s l : t e m p l a t e   m a t c h = " C A T E G O R I E S " >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p h y s i c a l " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o n l i n e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " u n i q u e i d " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p u r c h a s e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " f i n a n c i a l " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c o m p u t e r " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " n a v i g a t i o n " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " i n t e r a c t i v e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " d e m o g r a p h i c " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " c o n t e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " s t a t e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p o l i t i c a l " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " h e a l t h " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " p r e f e r e n c e " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " g o v e r n m e n t " / >  
+                 < x s l : a p p l y - t e m p l a t e s   s e l e c t = " o t h e r - c a t e g o r y " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < ! - -   * * * * * * * * * * * * * * T h e   G r a n u l a r   T e m p l a t e s * * * * * * * * * * * * * *   - - >  
+  
+ < x s l : t e m p l a t e   m a t c h = " n o n i d e n t " >  
+         < S P A N >  
+         S z e m é l y e s   a z o n o s í t á s r a   a l k a l m a s   a d a t o k a t   n e m   g y qj t   a   w e b h e l y ,   e z é r t   a z o k   n e m   i s   h o z z á f é r h e t Qk .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " a l l " >  
+         < S P A N >  
+         M i n d e n ,   s z e m é l y e s   a z o n o s í t á s r a   a l k a l m a s   a d a t o t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c o n t a c t - a n d - o t h e r " >  
+         < S P A N >  
+         S z e m é l y e s   a z o n o s í t á s r a   a l k a l m a s   o n l i n e   é s   f i z i k a i ,   a   k a p c s o l a t   f e l v é t e l é t   l e h e t Qv é   t e v Q  a d a t o k a t ,   v a l a m i n t   a z o n o s í t h a t ó   s z e m é l y h e z   k a p c s o l ó d ó   e g y é b   a d a t o k a t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " i d e n t - c o n t a c t " >  
+         < S P A N >  
+         A z o n o s í t á s r a   a l k a l m a s   o n l i n e   é s   f i z i k a i   k a p c s o l a t t a r t á s i   a d a t o k a t ,   m i n t   p é l d á u l   a   p o s t a c í m .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o t h e r - i d e n t " >  
+         < S P A N >  
+         A z o n o s í t h a t ó   s z e m é l y h e z   k a p c s o l ó d ó     e g y é b   a d a t o k a t ,   m i n t   p é l d á u l   a z   i n t e r n e t e s   f i ó k   h a s z n á l a t i   d í j a .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " n o n e " >  
+         < S P A N >  
+         N i n c s .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c u r r e n t " >  
+         < S P A N >  
+         A z   a d a t o k a t   a   w e b h e l y   a n n a k   a   t e v é k e n y s é g n e k   a   b e f e j e z é s é h e z   h a s z n á l h a t j a   f e l ,   a m e l y h e z   a z   a d a t o k a t   m e g a d t á k ,   l e g y e n   a z   a k á r   e g y s z e r i   e s e m é n y ,   m i n t   p é l d á u l   w e b e s   k e r e s é s   e r e d m é n y é n e k   v i s s z a a d á s a ,   e - m a i l   ü z e n e t   t o v á b b í t á s a   v a g y   r e n d e l é s   l e a d á s a ,   i l l e t v e   i s m é t l Qd Q  e s e m é n y ,   m i n t   p é l d á u l   e l Qf i z e t é s e s   s z o l g á l t a t á s   n y ú j t á s a   v a g y   h o z z á f é r é s   b i z t o s í t á s a   o n l i n e   c í m j e g y z é k h e z   v a g y   e l e k t r o n i k u s   t á r c á h o z   ( w a l l e t ) .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " a d m i n " >  
+         < S P A N >  
+         A z   a d a t o k   a   w e b h e l y   é s   s z á m í t ó g é p r e n d s z e r é n e k   t e c h n i k a i   t a n á c s a d á s i   s z o l g á l t a t á s a i n a k   c é l j á r a   h a s z n á l h a t ó k   f e l ,   p é l d á u l   s z á m í t ó g é p f i ó k o k   a d a t a i n a k   f e l d o l g o z á s á h o z ,   a   w e b h e l y   b i z t o n s á g i   f u n k c i ó i h o z   é s   f e n n t a r t á s á h o z ,   i l l e t v e   a   w e b h e l y e n   a   h e l y   v a g y   ü g y n ö k e i   á l t a l   v é g z e t t   t e v é k e n y s é g e k   e l l e n Qr z é s é h e z .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " d e v e l o p " >  
+         < S P A N >  
+         A z   a d a t o k   a   w e b h e l y ,   a   s z o l g á l t a t á s ,   a   t e r m é k   v a g y   a   p i a c   t o v á b b f e j l e s z t é s é h e z ,   é r t é k e l é s é h e z   v a g y   v é l e m é n y e z é s é h e z   h a s z n á l h a t ó k   f e l .    
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c u s t o m i z a t i o n " >  
+         < S P A N >  
+         < ! - - I n f o r m a t i o n   m i g h t   b e   u s e d   t o   t a i l o r   o r   m o d i f y   t h e   c o n t e n t   o r   d e s i g n   o f   t h i s   W e b   s i t e   o n l y   t o   s p e c i f i c a t i o n s   a f f i r m a t i v e l y   s e l e c t e d   b y   t h e   p a r t i c u l a r   i n d i v i d u a l   d u r i n g   a   s i n g l e   v i s i t   o r   m u l t i p l e   v i s i t s   t o   t h e   s i t e .  
+         - - > < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " t a i l o r i n g " >  
+         < S P A N >  
+         A z   a d a t o k   a   w e b h e l y   t a r t a l m á n a k   v a g y   m e g j e l e n é s é n e k   t e s t r e s z a b á s á r a   v a g y   m ó d o s í t á s á r a   h a s z n á l h a t ó k   f e l   a   w e b h e l y   e g y s z e r i   f e l k e r e s é s é n é l .   P é l d á u l   a z   o n l i n e   ü z l e t   a   l á t o g a t ó n a k   b e v á s á r l ó k o s a r á b a n   m á r   e l h e l y e z e t t   t é t e l e k   a l a p j á n   j a v a s l a t o t   t e h e t   m á s   t é t e l e k   m e g v á s á r l á s á r a   i s .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p s e u d o - a n a l y s i s " >  
+         < S P A N >  
+         A z   e g y e d i   a z o n o s í t ó n   a l a p u l ó ,   d e   s z e m é l y h e z   n e m   k a p c s o l h a t ó   a d a t o k   k u t a t á s i ,   e l e m z é s i   é s   b e s z á m o l ó k é s z í t é s i   c é l o k r a   h a s z n á l h a t ó k   f e l .   I l y e n   l e h e t   p é l d á u l   a z   a d o t t   p o s t a i   k ö r z e t e n   b e l ü l i   f e l h a s z n á l ó k   s z á m a .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p s e u d o - d e c i s i o n " >  
+         < S P A N >  
+         A z   e g y e d i   a z o n o s í t ó n   a l a p u l ó ,   d e   s z e m é l y h e z   n e m   k a p c s o l h a t ó   a d a t o k   a z   a d o t t   s z e m é l y t   k ö z v e t l e n ü l   é r i n t Q  d ö n t é s e k h e z   h a s z n á l h a t ó k   f e l .   I l y e n   l e h e t   p é l d á u l   a d o t t   p o s t a i   k ö r z e t e n   b e l ü l   m qk ö d Q  c é g e k   h i r d e t é s e i n e k   m e g j e l e n í t é s e   a z   a d o t t   p o s t a i   k ö r z e t e n   b e l ü l i   s z e m é l y   s z á m á r a .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " i n d i v i d u a l - a n a l y s i s " >  
+         < S P A N >  
+         A   s z e m é l y h e z   k a p c s o l h a t ó   a d a t o k   k u t a t á s i ,   e l e m z é s i   é s   b e s z á m o l ó k é s z í t é s i   c é l o k r a   h a s z n á l h a t ó k   f e l .   I l y e n e k   l e h e t n e k   p é l d á u l   a z   a d o t t   s z e m é l y   á l t a l   m e g t e k i n t e t t   t e r m é k e k   k a t e g ó r i á i r a   é s   á r k a t e g ó r i á i r a   v o n a t k o z ó   a d a t o k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " i n d i v i d u a l - d e c i s i o n " >  
+         < S P A N >  
+         A   s z e m é l y h e z   k a p c s o l h a t ó   a d a t o k   a z   a d o t t   s z e m é l y t   k ö z v e t l e n ü l   é r i n t Q  d ö n t é s h e z   h a s z n á l h a t ó k   f e l .   I l y e n   l e h e t   p é l d á u l ,   a m i k o r   a   w e b h e l y   a   f e l h a s z n á l ó   s z á m á r a   o l y a n   h á z a k a t   m u t a t   b e ,   a m e l y e k   s z á m á r a   m e g v á s á r o l h a t ó   k a t e g ó r i á j ú a k ,   a t t ó l   f ü g g e t l e n ü l ,   h o g y   k o r á b b a n   m i l y e n   á r k a t e g ó r i á t   k e r e s e t t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c o n t a c t " >  
+         < S P A N >  
+         A z   a d a t o k   a   t e r m é k e k k e l   v a g y   s z o l g á l t a t á s o k k a l   k a p c s o l a t o s   a k c i ó k   n é p s z e r qs í t é s e   c é l j á b ó l   a   s z e m é l l y e l   a   t e l e f o n h í v á s t ó l   e l t é r Q  k o m m u n i k á c i ó s   c s a t o r n á k o n   k e r e s z t ü l   t ö r t é n Q  k a p c s o l a t f e l v é t e l r e   h a s z n á l h a t ó k   f e l .   E z   j e l e n t h e t i   a   l á t o g a t ó k   é r t e s í t é s é t   a   w e b h e l y e n   v é g z e t t   f r i s s í t é s e k r Ql .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " h i s t o r i c a l " >  
+         < S P A N >  
+         A z   a d a t o k   a   t á r s a d a l o m t ö r t é n e t i   a d a t o k   r ö g z í t é s e   c é l j á b ó l ,   a   t ö r v é n y e k b e n   v a g y   e l Qí r á s o k b a n   l e í r t   m ó d o n   a r c h i v á l h a t ó k   v a g y   e l t á r o l h a t ó k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " t e l e m a r k e t i n g " >  
+         < S P A N >  
+         A z   a d a t o k   a   t e r m é k e k k e l   v a g y   s z o l g á l t a t á s o k k a l   k a p c s o l a t o s   a k c i ó k   n é p s z e r qs í t é s e   c é l j á b ó l   a   s z e m é l l y e l   t e l e f o n h í v á s   ú t j á n   t ö r t é n Q  k a p c s o l a t f e l v é t e l r e   h a s z n á l h a t ó k   f e l .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o t h e r - p u r p o s e " >  
+         < S P A N >  
+         E g y é b   f e l h a s z n á l á s :   < x s l : v a l u e - o f   m a t c h = " o t h e r - p u r p o s e " / >  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o u r s " >  
+         < S P A N >  
+         J e l e n   w e b h e l y ,   a z o n   j o g i   s z e m é l y e k ,   a k i k   ü g y n ö k e k é n t   t e k i n t h e t Q  é s / v a g y   a k i k   e   w e b h e l y   ü g y n ö k e i n e k   t e k i n t h e t Qk .   A   j e l e n   k ö r n y e z e t b e n   a z   ü g y n ö k   a z t   a   k ü l s Q  f e l e t   j e l e n t i ,   a k i / a m e l y   k i z á r ó l a g   a   m e g a d o t t   c é l   t e l j e s í t é s é h e z   v é g e z   a d a t f e l d o l g o z á s t .   I l y e n   l e h e t   p é l d á u l   a   s z á l l í t m á n y o z ó   v a g y   a   n y o m d a .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " d e l i v e r y " >  
+         < S P A N >  
+         S z á l l í t á s i   s z o l g á l t a t á s o k a t   v é g z Q  j o g i   s z e m é l y e k ,   a m e l y e k   a   m e g a d o t t   c é l   t e l j e s í t é s é n   k í v ü l i   c é l o k r a   i s   f e l h a s z n á l h a t j á k   a z   a d a t o k a t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " s a m e " >  
+         < S P A N >  
+         A   j e l e n   w e b h e l l y e l   a z o n o s   g y a k o r l a t o t   f o l y t a t ó   j o g i   s z e m é l y e k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o t h e r - r e c i p i e n t " >  
+         < S P A N >  
+         A   j e l e n   w e b h e l y   á l t a l   k o r l á t o z o t t   é s   e l s z á m o l t a t h a t ó   j o g i   s z e m é l y e k ,   a m e l y e k   a z o n b a n   f e l h a s z n á l h a t j á k   a z   a d a t o k a t   a   j e l e n   w e b h e l y   g y a k o r l a t á b a n   n e m   m e g a d o t t   m ó d o n   i s .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " u n r e l a t e d " >  
+         < S P A N >  
+         A   j e l e n   w e b h e l y   á l t a l   n e m   i s m e r t   a d a t f e l h a s z n á l á s i   g y a k o r l a t o t   f o l y t a t ó   j o g i   s z e m é l y e k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p u b l i c " >  
+         < S P A N >  
+         N y i l v á n o s   f ó r u m o k ,   p é l d á u l   i n t e r n e t e s   h i r d e t Qt á b l á k ,   n y i l v á n o s   c í m t á r a k ,   v a l a m i n t   k e r e s k e d e l m i   C D - R O M   a l a p ú   c í m t á r a k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " n o - r e t e n t i o n " >  
+         < S P A N >  
+         A z   a d a t o k   c s u p á n   e g y e t l e n   o n l i n e   m qv e l e t   i d e j é r e   Qr z Qd n e k   m e g .    
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " s t a t e d - p u r p o s e " >  
+         < S P A N >  
+         A z   a d a t o k   a   m e g a d o t t   c é l   t e l j e s í t é s é r e   t á r o l ó d n a k ,   é s   a   l e h e t Q  l e g h a m a r a b b   t ö r l Qd n e k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " l e g a l - r e q u i r e m e n t " >  
+         < S P A N >  
+         A z   a d a t o k   a   m e g a d o t t   c é l   t e l j e s í t é s e   u t á n   i s   t á r o l ó d n a k   j o g i   k ö v e t e l m é n y   v a g y   k ö t e l e z e t t s é g   m i a t t .   I l y e n   l e h e t   p é l d á u l ,   a m i k o r   a   t ö r v é n y   m e g e n g e d   a   f o g y a s z t ó k   s z á m á r a   a   t r a n z a k c i ó k k a l   k a p c s o l a t o s   r e k l a m á c i ó k r a   e g y   b i z o n y o s   i d Qt a r t a m o t ,   e z é r t   a   w e b h e l y   d ö n t h e t   ú g y ,   h o g y   a   t r a n z a k c i ó k r ó l   m e g Qr z i   a z   a d a t o k a t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " b u s i n e s s - p r a c t i c e s " >  
+         < S P A N >  
+         A z   a d a t o k   t á r o l á s a   a   s z o l g á l t a t ó   m e g a d o t t   ü z l e t i   g y a k o r l a t á n a k   m e g f e l e l Qe n   t ö r t é n i k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " i n d e f i n i t e l y " >  
+         < S P A N >  
+         A z   a d a t o k   h a t á r o z a t l a n   i d e i g   t á r o l ó d n a k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p h y s i c a l " >  
+         < S P A N >  
+         O l y a n   a d a t o k a t ,   a m e l y e k   r é v é n   e g y   s z e m é l l y e l   f e l   l e h e t   v e n n i   a   k a p c s o l a t o t ,   i l l e t v e   m e g   l e h e t   t a l á l n i   a   f i z i k a i   v i l á g b a n ,   m i n t   p é l d á u l   a   t e l e f o n s z á m   v a g y   a   p o s t a c í m .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o n l i n e " >  
+         < S P A N >  
+         O l y a n   a d a t o k a t ,   a m e l y e k   r é v é n   e g y   s z e m é l l y e l   f e l   l e h e t   v e n n i   a   k a p c s o l a t o t ,   i l l e t v e   m e g   l e h e t   t a l á l n i   a z   i n t e r n e t e n ,   m i n t   p é l d á u l   a z   e - m a i l   c í m .   E z   a z   i n f o r m á c i ó   g y a k r a n   f ü g g e t l e n   a t t ó l   a   s z á m í t ó g é p t Ql ,   a m e l y e t   a   h á l ó z a t i   h o z z á f é r é s r e   h a s z n á l n a k .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " u n i q u e i d " >  
+         < S P A N >  
+         A   w e b h e l y   v a g y   s z o l g á l t a t á s   á l t a l   k i a d o t t   e g y e d i   a z o n o s í t ó k a t ,   a m e l y e k k e l   a z   e g y é n t   k é s Qb b   i s   a z o n o s í t a n i   l e h e t .    
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p u r c h a s e " >  
+         < S P A N >  
+         T e r m é k   v a g y   s z o l g á l t a t á s   v á s á r l á s a k o r   l é t r e j ö v Q  a d a t o k a t ,   i d e é r t v e   a   f i z e t é s   m ó d j á v a l   k a p c s o l a t o s   i n f o r m á c i ó t   i s .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " f i n a n c i a l " >  
+         < S P A N >  
+         A d o t t   s z e m é l y   a n y a g i   h e l y z e t é v e l   k a p c s o l a t o s   a d a t o k a t ,   i d e é r t v e   a   s z á m l a v e z e t é s r e ,   s z á m l a e g y e n l e g r e ,   k o r á b b i   k i f i z e t é s e k r e   v a g y   h i t e l k e r e t - h a s z n á l a t r a   v o n a t k o z ó   a d a t o k a t ,   v a l a m i n t   p é n z ü g y i   e s z k ö z ö k ,   p é l d á u l   h i t e l k á r t y á k   v a g y   b e t é t i   b a n k k á r t y á k   a z   e g y é n   á l t a l i   i g é n y l é s é r e   v a g y   h a s z n á l a t á r a   v o n a t k o z ó   a d a t o k a t   i s .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c o m p u t e r " >  
+         < S P A N >  
+         A   s z á m í t ó g é p r e n d s z e r r e l   k a p c s o l a t o s   a d a t o k a t ,   a m e l y e t   a z   e g y é n   a z   i n t e r n e t   e l é r é s é r e   h a s z n á l ,   m i n t   p é l d á u l   a z   I P - c í m ,   a   t a r t o m á n y n é v ,   a   b ö n g é s z Q  t í p u s a   v a g y   a z   o p e r á c i ó s   r e n d s z e r .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " n a v i g a t i o n " >  
+         < S P A N >  
+         A   w e b h e l y   b ö n g é s z é s e k o r   l é t r e j ö v Q  a d a t o k a t ,   m i n t   p é l d á u l   a   f e l k e r e s e t t   o l d a l a k a t ,   v a l a m i n t   h o g y   a z   a d o t t   s z e m é l y   m e n n y i   i d Qt   t ö l t   e l   a z   e g y e s   o l d a l a k o n .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " i n t e r a c t i v e " >  
+         < S P A N >  
+         A   w e b h e l y e n   v é g z e t t   t e v é k e n y s é g b Ql   e r e d Q,   v a g y   a z t   t ü k r ö z Q  a d a t o k a t ,   m i n t   p é l d á u l   a   k e r e s Qn e k   m e g a d o t t   l e k é r d e z é s e k ,   v a g y   a   f i ó k k a l   v é g z e t t   t e v é k e n y s é g e k   n a p l ó a d a t a i .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " d e m o g r a p h i c " >  
+         < S P A N >  
+         D e m o g r á f i a i   é s   t á r s a d a l m i - g a z d a s á g i   a d a t o k a t ,   m i n t   p é l d á u l   a   n e m ,   a   k o r ,   a   j ö v e d e l e m ,   a z o n o s í t h a t ó   s z e m é l y h e z   n e m   k a p c s o l v a .    
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " c o n t e n t " >  
+         < S P A N >  
+         E g y   ü z e n e t   t ö r z s é b e n   l é v Q  s z a v a k a t   é s   k i f e j e z é s e k e t .   I l y e n   ü z e n e t   l e h e t   p é l d á u l   e g y   e - m a i l ,   e g y   i n t e r n e t e s   h i r d e t Qt á b l á n   e l h e l y e z e t t   k ö z l e m é n y   v a g y   e g y   c s e v e g Qs z o b á b a n   z a j l ó   k o m m u n i k á c i ó .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " s t a t e " >  
+         < S P A N >  
+         O l y a n   m e c h a n i z m u s o k a t   -   p é l d á u l   H T T P   c o o k i e - k a t   - ,   a m e l y e k k e l   a z   e g y é n n e l   a k t í v   k a p c s o l a t o t   l e h e t   f e n n t a r t a n i ,   i l l e t v e   a m e l y e k k e l   a u t o m a t i k u s a n   a z o n o s í t a n i   l e h e t   a z   e g y é n t ,   a k i   e g y   a d o t t   w e b h e l y e t   f e l k e r e s e t t   m á r ,   i l l e t v e   k o r á b b a n   b i z o n y o s   t a r t a l m a t   m e g t e k i n t e t t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p o l i t i c a l " >  
+         < S P A N >  
+         C s o p o r t o k b a n ,   m i n t   p é l d á u l   v a l l á s i   s z e r v e z e t e k b e n ,   s z a k s z e r v e z e t e k b e n ,   s z a k m a i   s z e r v e z e t e k b e n ,   p o l i t i k a i   p á r t o k b a n   s t b .   v a l ó   t a g s á g r a   v a g y   a z o k   t á m o g a t á s á r a   v o n a t k o z ó   a d a t o k a t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " h e a l t h " >  
+         < S P A N >  
+         A   s z e m é l y   t e s t i   v a g y   s z e l l e m i   é p s é g é r e ,   n e m i   i r á n y u l t s á g á r a ,   e g é s z s é g ü g y i   s z o l g á l t a t á s o k   v a g y   t e r m é k e k   i g é n y b e   v é t e l é r e ,   i l l e t v e   a z o k   i r á n t i   é r d e k l Qd é s é r e ,   v a l a m i n t   e g é s z s é g ü g y i   s z o l g á l t a t á s o k   v a g y   t e r m é k e k   á l t a l a   t ö r t é n Q  m e g v á s á r l á s á r a   v o n a t k o z ó   a d a t o k a t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " p r e f e r e n c e " >  
+         < S P A N >  
+         A z   e g y é n i   í z l é s r e   v o n a t k o z ó   a d a t o k a t ,   m i n t   p é l d á u l   a   k e d v e n c   s z í n   v a g y   a   z e n e i   é r d e k l Qd é s .    
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " l o c a t i o n " >  
+         < S P A N >  
+         O l y a n   a d a t o k a t   -   p é l d á u l   g l o b á l i s   h e l y m e g h a t á r o z á s i   ( G P S - )   a d a t o k a t   - ,   a m e l y e k   h a s z n á l a t á v a l   m e g   l e h e t   h a t á r o z n i   e g y   s z e m é l y   a k t u á l i s   f i z i k a i   h e l y é t ,   i l l e t v e   h e l y v á l t o z á s k o r   k ö v e t n i   l e h e t .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " g o v e r n m e n t " >  
+         < S P A N >  
+         A   k o r m á n y   á l t a l   e g y   s z e m é l y   t a r t ó s   a z o n o s í t á s a   c é l j á b ó l   k i a d o t t   a z o n o s í t ó k a t ,   m i n t   p é l d á u l   a   j o g o s í t v á n y s z á m ,   a   t á r s a d a l o m b i z t o s í t á s i   s z á m ,   v a g y   a z   ú t l e v é l s z á m .  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " o t h e r - c a t e g o r y " >  
+         < S P A N >  
+         E g y é b :   < x s l : v a l u e - o f   m a t c h = " o t h e r - c a t e g o r y " / >  
+         < / S P A N >  
+         < B R / > < B R / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " D A T A [ @ r e f = ' # b u s i n e s s . n a m e ' ] " >  
+         < x s l : c h o o s e >  
+                 < x s l : w h e n   t e s t = " / / D A T A - G R O U P / D A T A [ @ r e f = ' # b u s i n e s s . c o n t a c t - i n f o . o n l i n e . u r i ' ] " >  
+                         < A   t a r g e t = " _ b l a n k " >  
+                                 < x s l : a t t r i b u t e   n a m e = " h r e f " >  
+                                         < x s l : v a l u e - o f   s e l e c t = " / / D A T A - G R O U P / D A T A [ @ r e f = ' # b u s i n e s s . c o n t a c t - i n f o . o n l i n e . u r i ' ] " / >  
+                                 < / x s l : a t t r i b u t e >  
+                                 < x s l : v a l u e - o f   s e l e c t = " . " / >  
+                         < / A >  
+                 < / x s l : w h e n >  
+                 < x s l : o t h e r w i s e >  
+                         < x s l : v a l u e - o f   s e l e c t = " . " / >  
+                 < / x s l : o t h e r w i s e >  
+       < / x s l : c h o o s e >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " P O L I C Y / @ d i s c u r i " >  
+                 < x s l : v a l u e - o f   s e l e c t = " . " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < x s l : t e m p l a t e   m a t c h = " / / E X P I R Y " >  
+         < x s l : v a l u e - o f   s e l e c t = " @ d a t e " / >  
+ < / x s l : t e m p l a t e >  
+  
+ < / x s l : s t y l e s h e e t >  
+ 
+
+
+<HTML>
+<HEAD>
+    <TITLE>Microsoft kezdõélmény</TITLE>
+    <META http-equiv="Content-Type" content="text/html; charset=windows-1250">
+    <LINK REL="stylesheet" TYPE="text/css" HREF="setup\oobestyl.css">
+
+    <!-- Begin Agent Specific Code -->
+
+        <!-- The majority of the Agent code is in AgtCore.js -->
+        <!-- The AgtXXXX.js files contain all of the script  -->
+        <!-- code that needs to be localized.                -->
+        <!-- NOTE: Agent is not initialized until the first  -->
+        <!-- time someone clicks on the Assistant image.     -->
+
+        <script language=jscript src="AgtCore.js"></script>
+        <script language=jscript src="AgtScrpt.js"></script>
+        <script language=jscript src="AgtScrp2.js"></script>
+
+        <!-- Agent Event Handler Declarations -->
+
+        <script language=jscript for=Agent event="Command(userInput)")>
+            Agent_OnCommand(userInput);
+        </script>
+
+        <script language=jscript for=Agent event="Hide(characterID)">
+            Agent_OnHide(characterID);
+        </script>
+
+        <script language=jscript for=Agent event="IdleStart(characterID)">
+            Agent_OnIdleStart(characterID);
+        </script>
+
+        <script language=jscript for=Agent event="IdleComplete(characterID)">
+            Agent_OnIdleComplete(characterID);
+        </script>
+
+        <script language=jscript for=Agent event="Bookmark(id)">
+            Agent_OnBookmark(id);
+        </script>
+
+        <script language=jscript for=Agent event="Click(characterID, button, shift, x, y)">
+            Agent_OnClick(characterID, button, shift, x, y);
+        </script>
+
+        <script language=jscript for=Agent event="DragComplete(characterID, button, shift, x, y)">
+            Agent_OnDragComplete(characterID, button, shift, x, y);
+        </script>
+
+        <script language=jscript for=Agent event="RequestComplete(request)">
+            Agent_OnRequestComplete(request);
+        </script>
+
+
+    <!-- End Agent Specific Code -->
+
+    <script language=jscript src="oobeutil.js"></script>
+    <script language=jscript src="dialmgr.js"></script>
+    <script language=jscript src="error.js"></script>
+    <script language=jscript src="icsmgr.js"></script>
+    <script language=jscript>
+
+
+
+
+
+
+
+
+
+
+var STATUS_MSN = 0;
+var STATUS_OEM = 1;
+var STATUS_NONE = 2;
+var STATUS_OFF = 3;
+var STATUS_MAX = 4;
+var SNDX_WELCOME = 0;
+var SNDX_MSN_ISP = 1;
+var SNDX_MSN_REG = 2;
+var SNDX_MSN_FINISH = 3;
+var SNDX_OEM_REG = 1;
+var SNDX_OEM_ISP = 2;
+var SNDX_OEM_FINISH = 3;
+var SNDX_NONE_REG = 1;
+var SNDX_NONE_FINISH = 2;
+var SNDX_OFF_EULA = 1;
+var SNDX_OFF_PID = 2;
+var SNDX_OFF_FINISH = 3;
+
+function CheckPoint(strURL, i1, i2, i3, i4)
+{
+  this.strURL = strURL;
+  this.rgindex = new Array(STATUS_MAX);
+  this.rgindex[STATUS_MSN] = i1;
+  this.rgindex[STATUS_OEM] = i2;
+  this.rgindex[STATUS_NONE] = i3;
+  this.rgindex[STATUS_OFF] = i4;
+}
+
+
+var CONNECTED_REFFERAL       = 1;
+var CONNECTED_ISP_SIGNUP     = 2;
+var CONNECTED_ISP_MIGRATE    = 3;
+var CONNECTED_REGISTRATION   = 4;
+
+
+var curCKPT                 = 1;
+var CKPT_WELCOME            = curCKPT++;
+var CKPT_AUTO_UPDATE        = curCKPT++;
+var CKPT_DONE               = curCKPT++;
+var CKPT_MAX                = curCKPT;  
+
+var CKPT_REGISTER1          = CKPT_MAX;
+var CKPT_REGISTER3          = CKPT_MAX;
+
+var dnCKPT = new Array(CKPT_MAX);
+
+
+var g_CurrentCKPT = null;
+var g_DialCKPT = null;
+var HKEY_LOCAL_MACHINE = 0x80000002;
+var OOBE_MAIN_REG_KEY = "SOFTWARE\\Microsoft\\Windows\\CurrentVersion\\Setup\\OOBE";
+var CKPT_REG_KEY = "\\CKPT";
+var TOS_REG_VALUE = "TOS";
+
+
+var ERR_COMM_NO_ERROR            = 0;
+var ERR_COMM_OOBE_COMP_MISSING   = 1;
+var ERR_COMM_UNKNOWN             = 2;        
+var ERR_COMM_NOMODEM             = 3;        
+var ERR_COMM_RAS_TCP_NOTINSTALL  = 4;
+
+
+var DERR_DIALTONE           = 680;
+var DERR_BUSY               = 676;
+var DERR_VOICEANSWER        = 677;
+var DERR_NOANSWER           = 678;
+var DERR_NO_CARRIER         = 679;
+var DERR_HARDWARE_FAILURE   = 630;   
+var DERR_PORT_ALREADY_OPEN  = 602;   
+var DERR_PORT_OR_DEVICE     = 692;   
+var DERR_PPP_TIMEOUT        = 718;
+var DERR_REMOTE_DISCONNECT  = 629;   
+
+
+var FINISH_OK           = 0x00000000;
+var FINISH_REBOOT       = 0x00000001;
+var FINISH_BAD_PID      = 0x00000002;
+var FINISH_BAD_EULA     = 0x00000004;
+var FINISH_BAD_STAMP    = 0x00000008;
+
+
+var LANGUAGE_REBOOT_NEVER   = 0;
+var LANGUAGE_REBOOT_NOW     = 1;
+var LANGUAGE_REBOOT_END     = 2;
+
+
+var HIDE_BACK = 0x0001;
+var HIDE_NEXT = 0x0002;
+var HIDE_CANCEL = 0x0004;
+var HIDE_RESTORE = 0x0008;
+
+
+
+var NOLAUNCHISPSIGNUP = "{C37D92A5-CA34-11d2-B71C-00C04F794977}";
+var MSNCOMPLETED = "{1C0A22F2-CB6B-11d2-B544-00A0C949DA70}";
+
+
+var TapiObj = null;
+var InfoObj = null;
+var EulaObj = null;
+var LangObj = null;
+var PidObj  = null;
+var AutoUpdateObj = null;
+var StatusObj = null;
+var DirObj = null;
+var ApiObj = null;
+var RegisterObj = null;
+
+
+var g_strISPFile = "";
+var g_bStartup;
+var g_LastButtonText = null;
+var g_FirstFocusElement = null;
+var g = null;
+var g_SpecialChars = ".'-` ";
+var g_OOBEDir = "file://" + window.external.API.get_SystemDirectory() + "\\oobe\\";
+var g_bRedial = false;
+var g_LineProblem = 0;
+var g_bFirstServerError = true;
+var g_status = STATUS_OFF;
+var g_ServerErrorCount = 0;
+var g_IMEExists = false;
+var g_OEMAddBackURL = "";
+var g_DialingAvailableInCountry = true;
+var g_ModalDialogUp = false;
+var g_RemoveRemind = false;
+var MS_REGISTRATION  = "{1C956940-8617-11D3-8B99-00A0C91E7F3C}";
+var OEM_REGISTRATION = "{ECD24360-B210-11D3-8B99-00A0C91E7F3C}";
+var g_bTapiDone = false;
+var g_OEMNameStr=window.external.Signup.get_OEMName();
+var L_MS_Text="Microsoft";
+var g_InitAutodial = false;
+
+var L_CheckConnectivity_Text = "Kapcsolat keresése...";
+var L_BlankTitle_Text = "";
+
+var g_IsMSRegistrationSuccessful  = false;
+var g_IsOEMRegistrationSuccessful = false;
+
+
+if (null == ApiObj)
+{
+    ApiObj = new Object;
+    ApiObj = window.external.API;
+}
+if (null == StatusObj)
+{
+    StatusObj = new Object;
+    StatusObj = window.external.Status;
+}
+if (null == DirObj)
+{
+    DirObj = new Object;
+    DirObj = window.external.Directions;
+}
+if (null == InfoObj)
+{
+    InfoObj = new Object;
+    InfoObj = window.external.UserInfo;
+}
+if (null == RegisterObj)
+{
+    RegisterObj = new Object;
+    RegisterObj = window.external.Register;
+}
+if (null == TapiObj)
+{
+    TapiObj = new Object;
+    TapiObj = window.external.Tapi;
+}
+
+
+
+
+
+
+
+
+
+
+function logError(funcName, errObj)
+{
+    trace(   "Exception in " + funcName
+            +  " (" + errObj.number.toString(16) + ") "
+            + errObj.description + "\n"
+         );
+    if (true == DebugObj.get_MsDebugMode())
+    {
+        alert("OOBE ERROR\n"
+                + "\n   Function: " + funcName
+                + "\n      Error: " + errObj.number.toString(16)
+                + "\nDescription: " + errObj.description
+             );
+    }
+}
+
+
+function OnSelectClick() {}
+
+
+function OnClick() {}
+
+
+function OnFocus() {}
+
+
+function SimpleNavBack()
+{
+    g.window.history.back();
+}
+
+function HandleTextAreaFocus() {
+  g.event.srcElement.style.borderStyle="ridge";
+}
+
+function HandleTextAreaBlur() {
+  g.event.srcElement.style.borderStyle="";
+}
+
+
+function Start_OnKeyPress()
+{
+    try
+    {
+        if (g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+
+
+    if ((g.event.keyCode == 13) &&
+                (g.btnNext.disabled == false))
+    {
+        GoNext();
+    }
+    else
+    {
+        KeyPressIsValid();
+    }
+}
+
+function CheckUserLocale()
+{
+    
+    
+    
+    var language = ApiObj.get_UserDefaultLCID;
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT))
+        return false;
+    else
+        return true;
+}
+
+
+
+
+
+
+
+
+
+function Start_CheckEnableNextButton()
+{
+    try
+    {
+        if (g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (Start_CheckLengthRequirement() &&
+        Start_CheckLengthNotEqualSpaces())
+    {
+        g.btnNext.disabled = false;
+    }
+    else
+    {
+        g.btnNext.disabled = true;
+    }
+    InitButtons();
+}
+
+function Start_CheckLengthRequirement()
+{
+    if ((g.edt_FirstName.value.length != 0) ||
+         (g.edt_LastName.value.length != 0))
+        return true;
+    else
+        return false;
+}
+
+function Start_CheckLengthNotEqualSpaces()
+{
+    if ((g.edt_FirstName.value.length != NumberOfSpaces(g.edt_FirstName.value)) ||
+         (g.edt_LastName.value.length != NumberOfSpaces(g.edt_LastName.value)))
+        return true;
+    else
+        return false;
+}
+
+
+function DoFocus()
+{
+    
+    
+    
+    
+    try
+    {
+        if (g_FirstFocusElement != null)
+        {
+            g_FirstFocusElement.focus();
+        }
+    }
+    catch(e)
+    {
+        window.setTimeout("DoFocus();",1000);
+    }
+}
+
+
+
+
+function _Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+
+    InitButtons(SimpleBack, SimpleNext);
+
+    if (g.btnNext.style.visibility == "visible")
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip.style.visibility == "visible")
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack.style.visibility == "visible")
+        g_FirstFocusElement = g.btnBack;
+
+    if (g_FirstFocusElement != null)
+        g_FirstFocusElement.focus();
+    else
+        g.document.body.focus();
+}
+
+function New_Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+    InitNewButtons(SimpleBack, SimpleNext);
+
+    if (g.btnNext.style.visibility == "visible")
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip.style.visibility == "visible")
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack.style.visibility == "visible")
+        g_FirstFocusElement = g.btnBack;
+
+    if (g_FirstFocusElement != null)
+        window.setTimeout("DoFocus();",1000);
+    else
+        g.document.body.focus();
+}
+
+
+
+function InitCKPT()
+{
+    dnCKPT[CKPT_WELCOME] = new CheckPoint("setup\\updwelcome.htm",          0,     0,     0,     0);
+    dnCKPT[CKPT_AUTO_UPDATE] = new CheckPoint("setup\\autoupdt.htm",        0,     0,     0,     0);
+    dnCKPT[CKPT_DONE] = new CheckPoint("setup\\fini.htm",                   0,     0,     0,     0);
+
+    PopCKPT();
+
+    
+
+    g_SimpleNavMap= new ActiveXObject("Scripting.Dictionary");
+    g_SimpleNavMap.CompareMode = COMPAREMODE_TEXT;
+
+
+
+
+}
+
+function PushCKPT(ckpt)
+{
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var tos = 0;
+    try
+    {
+      tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    }
+    catch (e) {}
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString(), ckpt);
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, ++tos);
+    g_CurrentCKPT = ckpt;
+  }
+}
+
+function PopCKPT(ckptCheck)
+{
+  var ckpt = 0;
+  try
+  {
+    var tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    if (tos > 0)
+    {
+      ckpt = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, (tos - 1).toString());
+
+      if (null == ckptCheck || ckpt == ckptCheck)
+      {
+        ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, --tos);
+        ApiObj.DeleteRegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString());
+      }
+    }
+  }
+  catch (e) {}
+
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    g_CurrentCKPT = ckpt;
+  }
+  else
+    g_CurrentCKPT = null;
+}
+
+function EmptyCKPTStack()
+{
+    while (null != g_CurrentCKPT)
+    {
+        PopCKPT();
+    }
+}
+
+function URLFromCKPT(ckpt)
+{
+  var str = "";
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    str = dnCKPT[ckpt].strURL;
+  }
+  return str;
+}
+
+function IndexFromCKPT(ckpt, status)
+{
+  var index = 0;
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var checkpoint = dnCKPT[ckpt];
+    index = checkpoint.rgindex[status];
+  }
+  return index;
+}
+
+
+function IsLocalFile()
+{
+    try
+    {
+        return (-1 != g.location.protocol.indexOf("file"));
+    }
+    catch (e)
+    {
+        return false;
+    }
+}
+
+
+
+
+
+
+
+function SetBack(strURL)
+{
+    g_OEMAddBackURL = strURL;
+}
+
+
+function GoCancel(ckpt)
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+    default:
+        PushCKPT(CKPT_DONE);
+        GoNext();
+        break;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function GoBack(ckpt)
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null && (g_CurrentCKPT != g_DialCKPT))
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    {
+        var ckptPrevious = g_CurrentCKPT;
+        PopCKPT();
+
+        if (ckptPrevious == g_CurrentCKPT)
+        {
+            
+            PopCKPT();
+        }
+
+        if (g_CurrentCKPT > 0 && g_CurrentCKPT < CKPT_MAX)
+        {
+            GoNavigate(g_CurrentCKPT);
+        }
+    }
+}
+
+function StatusNavigate()
+{
+    window.external.set_StatusIndex(IndexFromCKPT(g_CurrentCKPT, g_status));
+}
+
+
+function GoNavigate(ckptGoHere)
+{
+    try
+    {
+        if (g_bStartup == false)
+        {
+            if (IsLocalFile())
+            {
+                if (g.event != null)
+                {
+                    g.event.returnValue = false;
+                    g.event.cancelBubble = true;
+                }
+            }
+        }
+        else
+            g_bStartup = false;
+
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    switch (ckptGoHere)
+    {
+    case CKPT_AUTO_UPDATE:
+        trace("GoNavigate: CKPT_AUTO_UPDATE");
+        if (null == AutoUpdateObj)
+        {
+            AutoUpdateObj = new Object;
+            AutoUpdateObj = window.external.AutoUpdate;
+        }
+
+        
+        if ( AutoUpdateObj.get_ShowUI() && 0 == DirObj.get_DoSkipAutoUpdate() )
+        {
+            PushCKPT(CKPT_AUTO_UPDATE);
+            Navigate(URLFromCKPT(CKPT_AUTO_UPDATE));
+            break;
+        }
+
+        
+            
+    case CKPT_DONE:
+        trace("GoNavigate: CKPT_DONE");
+        PushCKPT(CKPT_DONE);
+        GoNext();
+        break;
+                
+    default:
+        PushCKPT(ckptGoHere);  
+        g.navigate(g_OOBEDir + URLFromCKPT(ckptGoHere));
+        break;
+    }
+
+    StatusNavigate();
+
+    
+
+    Agent_OnNavigate();
+}
+
+
+
+
+
+
+
+function DisableAllButtons()
+{
+    try
+    {
+        g.btnNext.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnBack.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnSkip.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        InitButtons();
+    }
+    catch(e) {}
+}
+
+function GoQuit()
+{
+    window.external.Finish();
+}
+
+function GoNext()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+        case CKPT_WELCOME:
+            GoNavigate(CKPT_AUTO_UPDATE);
+            break;
+
+        case CKPT_AUTO_UPDATE:
+            if (null == AutoUpdateObj)
+            {
+                AutoUpdateObj = new Object;
+                AutoUpdateObj = window.external.AutoUpdate;
+            }
+
+            if (0 == AutoUpdateObj.get_ShowUI())
+            {
+                PopCKPT();        
+            }
+            GoNavigate(CKPT_DONE);
+            break;
+
+        case CKPT_DONE:
+            window.external.Finish();
+            break;
+            
+        default:
+            break;
+    }
+}
+
+
+
+function GoOffline()
+{
+    GoNext();
+}
+
+
+
+function SetLastButtonText()
+{
+    if (g.btnNext != null)
+        g_LastButtonText = g.btnNextText;
+    else if (g.btnBack != null)
+        g_LastButtonText = g.btnBackText;
+    else if (g.btnRestore != null)
+        g_LastButtonText = g.btnRestoreText;
+    else if (g.btnCancel != null)
+        g_LastButtonText = g.btnCancelText;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function InitFrameRef(ExternalModule)
+{
+    trace("GoNext: InitFrameRef");
+    try
+    {
+        document.frames("connDelay").frameElement.style.display="none";
+        document.frames("connDelay").frameElement.style.zIndex=-1;
+        
+        
+        
+        OOBEDocBody.style.backgroundColor="#000000";
+    }
+    catch (e)
+    {
+    }
+
+    g_LastButtonText = null;
+    g_FirstFocusElement = null;
+    g_LastKeyDown = null;
+
+    g = document.frames("msoobeMain");
+    try
+    {
+        g.document.body.style.backgroundColor = "transparent";
+    }
+    catch(e){}
+
+    try
+    {
+        if (g != null)
+        {
+            if(g.btnNext!=null)
+                g.btnNext.disabled=false;
+
+            if(g.btnBack!=null)
+                g.btnBack.disabled=false;
+
+            if(g.btnSkip!=null)
+                g.btnSkip.disabled=false;
+        }
+
+        g.document.body.onkeydown = OnKeyDown;
+        g.document.body.style.cursor = 'auto';
+    }
+    catch(e){}
+
+}
+
+function HideButtons(buttons)
+{
+    if (null != g.btnBack && (buttons & HIDE_BACK))
+    {
+        g.btnBack.Hide = true;
+    }
+
+    if (null != g.btnNext && (buttons & HIDE_NEXT))
+    {
+        g.btnNext.Hide = true;
+    }
+
+
+    if (null != g.spanCancel && (buttons & HIDE_CANCEL))
+    {
+        g.btnSkip.Hide = true;
+    }
+
+    if (null != g.spanRestore && (buttons & HIDE_RESTORE))
+    {
+        g.btnRestore.Hide = true;
+    }
+
+}
+
+function HandleButtonMouseOver()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="buttons-hover";
+}
+
+function HandleButtonMouseOut()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="buttons";
+}
+
+function InitButtons(SimpleBack, SimpleNext)
+{
+    
+    
+    
+    if (!InReminderMode())
+    {
+        InitNewButtons(SimpleBack, SimpleNext);
+    }
+    else
+    {
+        if(g.btnSkip!=null) {
+            g.btnSkip.onmouseover = HandleButtonMouseOver;
+            g.btnSkip.onmouseout  = HandleButtonMouseOut;
+
+            if(!g.btnSkip.disabled) {
+                g.btnSkip.onclick = GoCancel;
+
+                
+                
+                
+
+                g.btnSkip.className="buttons";
+            } else {
+                g.btnSkip.className="buttons-disabled";
+            }
+        }
+
+        if (g.btnNext != null)
+        {
+            g.btnNext.onmouseover = HandleButtonMouseOver;
+            g.btnNext.onmouseout  = HandleButtonMouseOut;
+
+            if (!g.btnNext.disabled)
+            {
+                if (SimpleNext == null)
+                {
+                    g.btnNext.onclick = GoNext;
+                }
+                else
+                {
+                    g.btnNext.onclick = SimpleNavNext;
+                }
+
+                g.btnNext.className="buttons";
+            }
+            else
+            {
+                g.btnNext.className="buttons-disabled";
+            }
+        }
+
+        if (g.btnBack != null)
+        {
+            g.btnBack.onmouseover = HandleButtonMouseOver;
+            g.btnBack.onmouseout  = HandleButtonMouseOut;
+
+            if (!g.btnBack.disabled)
+            {
+                if (SimpleBack == null)
+                {
+                    g.btnBack.onclick = GoBack;
+                }
+                else
+                {
+                    g.btnBack.onclick = SimpleNavBack;
+                }
+
+                g.btnBack.className="buttons";
+            }
+            else
+            {
+                g.btnBack.className="buttons-disabled";
+            }
+        }
+    }
+
+    try
+    {
+        if(g.btnQuit != null) {
+          g.btnQuit.onmouseover = HandleButtonMouseOver;
+          g.btnQuit.onmouseout  = HandleButtonMouseOut;
+
+
+          if(g.btnQuit.disabled == false) {
+              g.btnQuit.onclick = GoQuit;
+              g.btnQuit.className="buttons";
+          } else {
+            g.btnQuit.className="buttons-disabled";
+          }
+        }
+    } catch(e) {}
+}
+
+
+
+
+function HandleBackButtonMouseOver()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsBack-hover";
+}
+
+function HandleBackButtonMouseOut()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsBack";
+}
+
+function HandleBackButtonMouseDown()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsBack-down";
+}
+
+function HandleSkipButtonMouseOver()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsSkip-hover";
+}
+
+function HandleSkipButtonMouseOut()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsSkip";
+}
+
+function HandleSkipButtonMouseDown()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsSkip-down";
+}
+
+function HandleNextButtonMouseOver()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsNext-hover";
+}
+
+function HandleNextButtonMouseOut()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsNext";
+}
+
+function HandleNextButtonMouseDown()
+{
+    if((!this.disabled)&&(this.tagName=="BUTTON"))
+        this.className="newbuttonsNext-down";
+}
+
+
+function InitNewButtons(NewSimpleBack, NewSimpleNext)
+{
+
+    if(g.btnSkip!=null)
+    {
+        g.btnSkip.onmouseover = HandleSkipButtonMouseOver;
+        g.btnSkip.onmouseout  = HandleSkipButtonMouseOut;
+        g.btnSkip.onmousedown = HandleSkipButtonMouseDown;
+
+        if(!g.btnSkip.disabled)
+        {
+            g.btnSkip.onclick = GoCancel;
+            g.btnSkip.className="newbuttonsSkip";
+        }
+        else
+        {
+            g.btnSkip.className="newbuttonsSkip-disabled";
+        }
+    }
+
+    if (g.btnNext != null)
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+
+        if (!g.btnNext.disabled)
+        {
+            if (NewSimpleNext == null)
+                g.btnNext.onclick = GoNext;
+            else
+                g.btnNext.onclick = SimpleNavNext;
+
+            g.btnNext.className="newbuttonsNext";
+        }
+        else
+        {
+            g.btnNext.className="newbuttonsNext-disabled";
+        }
+    }
+
+    if (g.btnBack != null)
+    {
+        g.btnBack.onmouseover = HandleBackButtonMouseOver;
+        g.btnBack.onmouseout  = HandleBackButtonMouseOut;
+        g.btnBack.onmousedown = HandleBackButtonMouseDown;
+
+        if (!g.btnBack.disabled)
+        {
+            if (NewSimpleBack == null)
+                g.btnBack.onclick = GoBack;
+            else
+                g.btnBack.onclick = SimpleNavBack;
+
+            g.btnBack.className="newbuttonsBack";
+        }
+        else
+        {
+            g.btnBack.className="newbuttonsBack-disabled";
+        }
+    }
+}
+
+
+var g_LastKeyDown = null;
+function OnKeyDown()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (g.event.altKey)
+    {
+        g_LastKeyDown = String.fromCharCode(g.event.keyCode);
+        if (g_LastKeyDown != null)
+            g_LastKeyDown = g_LastKeyDown.toUpperCase();
+    }
+    else
+        g_LastKeyDown = null;
+
+    
+    Agent_OnKeyDown(g.event.srcElement);
+}
+
+
+
+
+function OnSelectClick()
+{
+    Agent_OnSelectClick(g.event.srcElement);
+}
+
+
+
+function OnClick()
+{
+    Agent_OnElementClick(g.event.srcElement);
+}
+
+
+
+function OnFocus()
+{
+    
+
+    Agent_OnFocus(g.event.srcElement);
+}
+
+
+function KeyPressIsNumeric()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsNumeric(keyCode)
+{
+    if ((keyCode >= 48)  && (keyCode <= 57))
+        return true;
+    else
+        return false;
+}
+
+function IsSpecial(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return false;
+}
+
+function KeyPressIsValid()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode) &&
+        !IsSpecial(g.event.keyCode) &&
+        !IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function KeyPressIsAlpha()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsAlpha(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+        return true;
+
+
+}
+
+function NumberOfSpaces(strValue)
+{
+
+
+
+
+
+    var iSpaceCount = 0;
+    for (iPosition = 0; iPosition < strValue.length; iPosition ++)
+    {
+        if (strValue.charAt(iPosition) == ' ')
+        {
+            iSpaceCount++;
+        }
+    }
+    return iSpaceCount;
+}
+function KeyCodeToUpper()
+{
+    var strKeyCode = String.fromCharCode(g.event.keyCode);
+    strKeyCode = strKeyCode.toUpperCase();
+    g.event.keyCode = strKeyCode.charCodeAt(0);
+}
+
+
+
+var vCurItem = 0;
+
+function InitApplication()
+{
+    OOBEDocBody.style.cursor = "wait";  
+    OOBEDocBody.style.backgroundColor="black";
+
+    g_bStartup = true;
+    InitFrameRef();
+
+    NewMicrosoftLogo.src = 'images/mslogo.jpg';
+
+    g_bInHighScreenRes =
+        (window.top.screen.width >= 1024) &&
+        (window.top.screen.height >= 768);
+
+    
+    if (g_bInHighScreenRes)
+    {
+
+        NewWatermarkBackground.src = 'images/newmark1.jpg';
+        NewWatermarkTop.src = 'images/newtop1.jpg';
+        NewWatermarkBottom.src = 'images/newbtm1.jpg';
+        NewWatermarkBottom.style.top = 712;
+
+        ScreenFrame.style.width = 1024;
+        ScreenFrame.style.height = 768;
+
+        MainFrameTable.style.top = 28;
+        MainFrameTable.style.height = "99%";
+
+        document.frames("ifrmConnDelay").frameElement.style.left=0;
+
+        spnOEMLogo.style.left = 749;
+        spnAssist.style.top = 590;
+        spnAssist.style.left = 815;
+        spnAssist.style.width = 240;
+
+    }
+    else
+    {
+
+        NewWatermarkBackground.src = 'images/newmark8.jpg';
+        NewWatermarkTop.src = 'images/newtop8.jpg';
+        NewWatermarkBottom.src = 'images/newbtm8.jpg';
+        NewWatermarkBottom.style.top = 542;
+
+        
+        
+        ScreenFrame.style.width = 800;
+        ScreenFrame.style.height = 600;
+
+    }
+
+    
+    if (window.parent.document.dir == "rtl")
+        spnAssist.style.left  = 10;
+
+    var ScreenDiff = window.top.screen.width - parseInt(ScreenFrame.style.width);
+    ScreenFrame.style.left = (ScreenDiff > 0) ? ScreenDiff / 2 : 0;
+
+    ScreenDiff = window.top.screen.height - parseInt(ScreenFrame.style.height);
+    ScreenFrame.style.top = (ScreenDiff > 0) ? ScreenDiff / 2 : 0;
+
+
+    
+    var L_AgentAlt_Text = "Kattintson ide a súgó eléréséhez";
+    AssistImg.alt = L_AgentAlt_Text;
+
+    
+    
+    
+    
+    
+    
+    g_status = STATUS_OFF;
+    window.external.LoadStatusItems("No Modem");
+
+    InitCKPT();
+    Agent_Init();
+    EmptyCKPTStack();
+
+    spnPage.style.visibility = "visible";
+
+    OOBEDocBody.style.cursor = "default";
+    ScreenFrame.style.display = "inline";
+
+    GoNavigate(CKPT_AUTO_UPDATE);
+
+    
+    window.external.ShowOOBEWindow();
+
+}
+
+
+
+
+
+function OnHelp()
+{
+    
+    Agent_OnUserRequestAssistant();
+}
+
+
+
+
+function PlayBackgroundMusic()
+{
+
+}
+
+</script>
+
+</HEAD>
+
+<BODY ID=OOBEDocBody leftMargin=0 DIR=LTR onload="InitApplication();" scroll=auto tabIndex=-1 topMargin=0 language=javascript onhelp="Agent_OnUserRequestAssistant();">
+
+<SPAN ID=junkspan style="height:2px; width:2px; background-color:black; z-index:99; display:none">
+</SPAN>
+
+<SPAN ID=ScreenFrame style="height:100%; width:100%; position:absolute; display:none">
+
+    <IMG ID=NewWatermarkBackground style="LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-99;" alt="">
+    <IMG ID=NewWatermarkTop        style="display: inline; LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-98;" alt="">
+    <IMG ID=NewWatermarkBottom     style="display: inline; LEFT:  0px; TOP:  0px; POSITION: absolute; z-index:-97;" alt="">
+    <IMG ID=NewMicrosoftLogo       style="display: inline; LEFT: 20px; TOP:  5px; POSITION: absolute; z-index:-96;" alt="">
+
+    <SPAN id=spnOEMLogo style="visibility:hidden; position:absolute; TOP:7px; LEFT:525px; width:255px; HEIGHT:40px; z-index:10; background-repeat:no-repeat;">
+    </SPAN>
+
+
+
+    <TABLE border=0 ID=MainFrameTable cellpadding=0 cellspacing=0 style="z-index:6; position:absolute; left:0px; top:25px; width:100%; height:97%">
+    <TR>
+        <TD style="height:100%">
+        <SPAN id=spnPage style="VISIBILITY: hidden; z-index:4;" tabIndex=-1>
+            <SPAN id=spnMainFrame style="width: 100%; height:100%" tabIndex=-1>
+            <IFRAME ALLOWTRANSPARENCY="true" id=ifrmMainFrame frameBorder=no scrolling=no width="100%" height="97%" name=msoobeMain tabIndex=0></IFRAME>
+            <IFRAME ALLOWTRANSPARENCY="true" id=ifrmConnDelay frameBorder=no style="display:none; position:absolute; z-index:-1; left: 0px; top: 0px;" scrolling=no width="100%" height="100%" name=connDelay tabIndex=-1 src="setup/ISPWait.htm"></IFRAME>
+            </SPAN>
+        </SPAN>
+        </TD>
+        <TD WIDTH=20></TD>
+    </TR>
+    </TABLE>
+
+    <comment>Make sure the spnAssist area (coverage) does not cover the Next button</comment>
+    <SPAN id=spnAssist class="emphasis-lesser" style="visibility:hidden; POSITION: absolute; LEFT: 593px; TOP: 440px; WIDTH: 180px; z-index:9">
+        <TABLE width="95%" cellspacing=0 cellpadding=0 align=center class="emphasis-lesser" style="text-align:center;color:white;">
+        <TR>
+            <TD align=center>
+            <IMG align=middle id=AssistImg border=0 src="images/qmark.gif"
+            style="visibility:hidden;z-index:9" language=javascript
+            onclick="Agent_OnUserRequestAssistant()"><BR>
+            </TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr1 class="text-primary"><span id="agentStr1" onclick="Agent_OnUserRequestAssistant()"><id id="L_AgentHelp1_Text">A súgót ide kattintva vagy</id></span></TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr2 class="text-primary"><span id="agentStr2" onclick="Agent_OnUserRequestAssistant()"><id id="L_AgentHelp2_Text">az F1 megnyomásával érheti el.</id></span></TD>
+        </TR>
+        <TR>
+            <TD ID=MerlinStr3_Extra_line_for_localization class="text-primary"><span id="agentStr3"><id id="L_AgentHelp3OptionalLine_Text"></id></span></TD>
+        </TR>
+        </TABLE>
+    </SPAN>
+
+</SPAN>
+</BODY>
+</HTML>
+P<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1250">
+<STYLE>
+font{font-family:"Verdana";font-size:8pt;color:#000000}
+A:hover.defaultA{color:#999900}
+A:hover.bodyTopLine{color:#0000FF}
+A:hover {color:#0033FF}
+A:visited {color:#888888}
+A{color:#0099FF}
+.sectionHead{font-weight:bold}
+.sectionNotify{color:#0099FF;; text-decoration: underline; font-size:8pt}
+.headerCell{background-color:#CCCCCC;width:140px;height:18px}
+.featuresText{font-family:Verdana;font-size:8pt;color:#000000}
+.headerCellLine{background-color:#CCCCCC;width:246px;height:1px}
+.messagesCell{font-family:"Verdana";font-size:8pt;color:#000000}
+.defaultA{color:#000000;cursor:hand}
+.blackBar{font-family:"Verdana";font-size:8pt;color:#FFFFFF;font-weight:bold}
+.bottomText{font-family: Verdana; font-size:7pt; color: #AAAAAA}
+.headerLinks{font-family:"Verdana";font-size:8pt;color:#000000}
+.signatureText{font-family:"Verdana";font-size:8pt;font-weight:bold;color:#000000}
+A:hover.toggleStyle{color:#FFFFFF}
+A:visited.toggleStyle{color:#CCCCCC}
+A:hover.headerLinks{color:#0099FF}
+A:visited.headerLinks{color:#000000}
+A:hover.featuresText{color:#000000}
+</STYLE>
+</HEAD>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0>
+<!----------begin top section------->
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td valign=top width=100% colspan=4>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=50 bgcolor=#FFFFFF>
+<tr>
+<td width=141 align=left><img src="res://msoeres.dll/oelogo1.gif"></td>
+<td valign=middle align=right style="height:25px;" colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<td width=141 align=LEFT><img src="res://msoeres.dll/oelogo2.gif"></td>
+<td style="height:22;background-color:#000000;padding-bottom:2;color:#FFFFFF;" valign=bottom><nobr class="blackBar" ID=RIDsubtitle>Az üzenetkezelés gondjainak megoldása</nobr></td>
+</tr>
+</table>
+</td>
+</tr>
+<!----------end top section------->
+<!-------begin main section------->
+<tr>
+<td width=100%>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td style="height:10%;width:100%">&nbsp;</td>
+</tr>
+<tr>
+<td>
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead>&nbsp;Jellemzés</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=8 width=15%></td>
+<td valign=middle ID=RIDbullet1><img src="res://msoeres.dll/dot.gif"> <font class=featuresText><span style="cursor:default; padding-top:6" class="featuresText">Elektronikus levelezés és hírcsoportok</span></font></td>
+</tr>
+<tr>
+<td valign=MIDDLE ID=RIDbullet2><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Az új Identitáskezelõ segítségével az egyes felhasználók külön levelezési fiókokat, partnereket és beállításokat tarthatnak fenn, és könnyen átkapcsolhatnak az egyes identitások között.">Több fiók és identitás</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet3><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Létrehozhat és fogadhat képeket, háttérhangokat és rich text formátumú üzeneteket.">HTML-üzenetek támogatása</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet4><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Rendezze partnereit mappákba és ossza meg adataikat a többi identitással.">Címjegyzék és címtárszolgáltatások</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet5><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Megjelölheti az üzeneteket, hírcsoportokat és mappákat kapcsolat nélküli munkára, és egyetlen kattintással letöltheti a megjelölt elemeket.">Szinkronizálás kapcsolat nélküli munkához</span></font></td>
+</tr>
+<tr>
+<td valign=middle ID=RIDbullet6><img src="res://msoeres.dll/dot.gif"> <font class=featuresText> <span style="cursor:default" TITLE="Könnyen létrehozhat szabályokat feladatok széles körére, mint például a beérkezett üzenetek automatikus áthelyezésére, törlésére, színkódolására, továbbítására és megjelölésére.">Továbbfejlesztett levélrendezési szabályok</span></font></td>
+</tr>
+</font>
+</table>
+</td>
+</tr>
+<tr>
+<td>
+</table>
+</td>
+</tr>
+<tr>
+<td style="height:4%;width=100%"></td>
+</tr>
+<tr>
+<td align=left valign=top>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td width="97%">
+<table border=0 cellpadding=0 cellspacing=0 width=265>
+<tr>
+<td ID=ridCell3 class=headerCell><font class=sectionHead ID=RIDmore>&nbsp;További információ</font></td>
+<td width=56>&nbsp;</td>
+</tr>
+<tr>
+<td colspan=2 class=headerCellLine></td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td rowspan=5 width=15%></td>
+<td valign=middle><div style="padding-top:6;padding-right:6" ID=RIDview1><font>A legfrissebb információért az Outlook Expressrõl válassza a Súgó menü Információs fájl menüpontját.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDfaq><font>Visszajelzésért, a gyakori kérdésekre adott válaszokért és tippekért tekintse meg <a href="news://msnews.microsoft.com/microsoft.public.windows.inetexplorer.ie6_outlookexpress">hírcsoportunkat</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDweb><font>A frissítések és az Outlook Express 6 programra vonatkozó egyéb információ eléréséhez látogasson el <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x040e&ar=home">a Microsoft webhelyére</a>.</font></div><br></td>
+</tr>
+<tr>
+<td valign=middle><div style="padding-right:6" ID=RIDhelp><font>A súgó és a hibaelhárítási tanácsok megtekintéséhez válassza a Súgó menü Tartalomjegyzék és tárgymutató menüpontját, és keresse a Hibaelhárítás témakört a Tárgymutatóban.</font></div></td>
+</tr>
+<tr>
+<td valign=middle>&nbsp; </td>
+</tr>
+</table>
+</td>
+</tr>
+<tr>
+<td valign=top class=messagesCell colspan=3>
+<hr width="100%" size="1" NOSHADE>
+<div style="padding:6" ID=RIDthanks>Köszönjük, hogy az Internet Explorer és az Outlook Express 6 programot választotta.</div>
+<div style="padding:6" class="signatureText" ID=RIDsign>A Microsoft Outlook Express csapat </div><br>
+<div class="bottomText" style="padding:6" ID=RIDdisclaim>
+A http://digitalid.verisign.com hivatkozást csak a kényelem kedvéért adtuk meg, és a Microsoft semmilyen felelõsséget nem vállal e hely tartalmáért vagy szolgáltatásaiért.
+</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</td>
+<!-----end main section---->
+<!-----begin blue vertical bar--->
+<td style="height:100%;background-color:#003399"><span style="width:8"> </span></td>
+<!-----end blue vertical bar--->
+<!---begin sidepane---->
+<td style="height:100%;background-color:#FFFFFF">
+<table cellpadding=0 cellspacing=0 border="0" width="100%" height="100%" bordercolor="#999999">
+<tr>
+<td ID=ridhotmailAlign align=left valign=top>
+<img src="res://msoeres.dll/Hotmail.gif"><br>
+<div class="messagesCell" style="padding:6;padding-top:0;padding-bottom:10" ID=RIDhotmail>
+Unja, hogy a háztartás többi lakójával is meg kell osztania e-mail fiókját?
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=hotmail">
+Hozzon létre ingyenes Hotmail postafiókot!</a> Ettõl kezdve a világ bármely pontján olvashatja leveleit.
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x0409&ar=hotmail">
+Kattinson ide az azonnali regisztációhoz!</a>
+</div> </td>
+</tr>
+<tr>
+<td ID="ridverisignAlign" align=left valign=top>
+<img src="res://msoeres.dll/Verisign.gif" align="TEXTTOP"><br>
+<div class="messagesCell" style="padding:6;padding-top:0;padding-bottom:10" ID=RIDverisign>Kérjen ingyenesen kipróbálható személyes digitális azonosítót a következõ helyrõl: <a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x040E&ar=cert">VeriSign</a>. 
+Használja ezt az azonosítót saját maga azonosítására, amikor biztonságos elektronikus levelet küld. 
+<a href="http://www.microsoft.com/isapi/redir.dll?prd=OutlookExpress&pver=6.0&clcid=0x040E&ar=verisign">Kérjen digitális 
+azonosítót</a> még ma!</div>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table>
+</body>
+</html>
+PA<HTML>
+<HEAD>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=windows-1250">
+<STYLE>
+font{font-family:"Verdana";font-size:8pt;color:#000000}
+A:hover.defaultA{color:#999900}
+A:hover.bodyTopLine{color:#0000FF}
+A:hover {color:#0033FF}
+A:visited {color:#888888}
+A{color:#0099FF}
+.sectionHead{font-weight:bold}
+.sectionNotify{color:#0099FF;; text-decoration: underline; font-size:8pt}
+.headerCell{background-color:#CCCCCC;width:140px;height:18px}
+.featuresText{font-family:Verdana;font-size:8pt;color:#000000}
+.headerCellLine{background-color:#CCCCCC;width:246px;height:1px}
+.messagesCell{font-family:"Verdana";font-size:8pt;color:#000000}
+.defaultA{color:#000000;cursor:hand}
+.blackBar{font-family:"Verdana";font-size:8pt;color:#FFFFFF;font-weight:bold}
+.bottomText{font-family: Verdana; font-size:7pt; color: #AAAAAA}
+.headerLinks{font-family:"Verdana";font-size:8pt;color:#000000}
+.signatureText{font-family:"Verdana";font-size:8pt;font-weight:bold;color:#000000}
+A:hover.toggleStyle{color:#FFFFFF}
+A:visited.toggleStyle{color:#CCCCCC}
+A:hover.headerLinks{color:#0099FF}
+A:visited.headerLinks{color:#000000}
+A:hover.featuresText{color:#000000}
+</STYLE>
+</HEAD>
+<body bgcolor=#FFFFFF leftmargin=0 topmargin=0 rightmargin=0 bottommargin=0>
+<!----------begin top section------->
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+<td valign=top width=100% colspan=4>
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=50 bgcolor=#FFFFFF>
+<tr>
+<td width=141 align=left><img src="res://msoeres.dll/oelogo1.gif"></td>
+<td valign=middle align=right style="height:25px;" colspan=2>&nbsp;</td>
+</tr>
+<tr>
+<td width=141 align=LEFT><img src="res://msoeres.dll/oelogo2.gif"></td>
+<td style="height:22;background-color:#000000;padding-bottom:2;color:#FFFFFF;" valign=bottom><nobr class="blackBar" ID=RIDsubtitle>Az üzenetkezelés gondjainak megoldása</nobr></td>
+</tr>
+</table>
+</td>
+</tr>
+<!----------end top section------->
+<!-------begin main section-

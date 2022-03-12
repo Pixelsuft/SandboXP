@@ -1,0 +1,3921 @@
+tblock layoutpos=top layout=borderlayout()
+clienttype="StartMenuInternet"
+windowsclient="IEXPLORE.EXE"
+othermsclients="MSN Explorer"
+keeptext=rcstr(10058,handlemap(1))
+picktext=rcstr(10059,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10080,handlemap(1)) content=rcstr(10080,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="Mail"
+windowsclient="Outlook Express"
+othermsclients="Hotmail;MSN Explorer;Microsoft Outlook"
+keeptext=rcstr(10061,handlemap(1))
+keepmstext=rcstr(10084,handlemap(1))
+picktext=rcstr(10062,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10081,handlemap(1)) content=rcstr(10081,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="Media"
+windowsclient="Windows Media Player"
+othermsclients="Media Center Music;Media Center TV;Media Center Videos"
+keeptext=rcstr(10064,handlemap(1))
+picktext=rcstr(10065,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10082,handlemap(1)) content=rcstr(10082,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="IM"
+windowsclient="Windows Messenger"
+keeptext=rcstr(10067,handlemap(1))
+picktext=rcstr(10068,handlemap(1)) />
+<gradientline class="intercategory" layoutpos=top />
+<element class="clientcaption" id=atom(rowheader) layoutpos=top accessible=true accRole=41 accName=rcstr(10083,handlemap(1)) content=rcstr(10083,handlemap(1)) />
+<clientblock layoutpos=top layout=borderlayout()
+clienttype="JavaVM"
+windowsclient="MSJavaVM"
+keeptext=rcstr(10070,handlemap(1))
+picktext=rcstr(10071,handlemap(1)) />
+</element>
+</clipper>
+</expando>
+<gradientline class="interheader" layoutpos=top />
+</ARPSelector>
+</scrollviewer>
+<element sheet=styleref(closepane) layoutpos=bottom layout=borderlayout()
+margin=rect(0,8,0,0) >
+<element layoutpos=right layout=gridlayout(-1,2) >
+<button id=atom(ok) layoutpos=right accessible=true accRole=43 accName=rcstr(10043,handlemap(1)) content=rcstr(10043,handlemap(1)) margin=rect(8,0,8,0) />
+<button id=atom(cancel) layoutpos=right accessible=true accRole=43 accName=rcstr(10044,handlemap(1)) content=rcstr(10044,handlemap(1)) margin=rect(8,0,8,0) />
+</element>
+</element>
+</element>
+<element id=atom(pickappnonadmin) visible=false layout=borderlayout()>
+<bigelement layoutpos=top contentalign=wrapleft accessible=true accRole=41 stringresid=10076 />
+</element>
+</element>
+</element>
+</arpframe>
+<arpitem resid=installeditem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(106)/>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(row1) layout=filllayout() layoutpos=right enabled=false contentalign=topright>
+<element Layout=RowLayout(22,1,3)>
+<element id=atom(sizelabel) accessible=true accRole=41 accName=rcstr(60) content=rcstr(60) />
+<button id=atom(size) />
+</element>
+</element>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element layoutpos=top layout=borderlayout()>
+<element layout=flowlayout(0) layoutpos=client>
+<button id=atom(supinfo) accessible=true accRole=41 accName=rcstr(16) content=rcstr(16) />
+</element>
+<element id=atom(row2) layout=filllayout() layoutpos=right contentalign=wrapright>
+<element Layout=RowLayout(22,1,3)>
+<element id=atom(freqlabel) accessible=true accRole=41 accName=rcstr(61) content=rcstr(61) />
+<button id=atom(freq) />
+</element>
+</element>
+</element>
+<element Layout=BorderLayout() layoutpos=top>
+<element id=atom(row3) layout=filllayout() layoutpos=right contentalign=wrapright>
+<element Layout=RowLayout(22,1,3)>
+<element id=atom(lastlabel) accessible=true accRole=41 accName=rcstr(62) content=rcstr(62) />
+<element id=atom(lastused) />
+</element>
+</element>
+</element>
+<element Layout=BorderLayout() layoutpos=top>
+<element id=atom(row4) Layout=filllayout() layoutpos=right contentalign=wrapright>
+<element Layout=RowLayout(22,1,3)>
+<element accessible=true accRole=41 accName=rcstr(4101,handlemap(2)) content=rcstr(4101,handlemap(2)) />
+<element id=atom(installed) />
+</element>
+</element>
+</element>
+<element id=atom(instruct) layoutpos=client contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<arpitem resid=publisheditem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(106)/>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+<element id=atom(installed) layoutpos=right contentalign=topright/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element id=atom(instruct) layoutpos=client accessible=true accRole=41 accName=rcstr(54) content=rcstr(54) contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<arpitem resid=ocsetupitem layoutpos=top layout=borderlayout()>
+<element id=atom(icon) layoutpos=left content=rcbmp(107)/>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left contentalign=wrapleft/>
+</element>
+<element id=atom(exinfo) layoutpos=none layout=borderlayout()>
+<element id=atom(instruct) layoutpos=top accessible=true accRole=41 accName=rcstr(67) content=rcstr(67) contentalign=wrapleft/>
+<element id=atom(warning) layoutpos=top accessible=true accRole=41 accName=rcstr(68) content=rcstr(68) contentalign=wrapleft/>
+<element id=atom(itemaction) sheet=styleref(itemaction) layoutpos=right layout=borderlayout()/>
+</element>
+</arpitem>
+<element resid=installeditemdoubleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chg) accessible=true accRole=43 accName=rcstr(17) content=rcstr(17) />
+<button id=atom(rm) accessible=true accRole=43 accName=rcstr(18) content=rcstr(18) />
+</element>
+<element resid=installeditemchangeonlyaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chg) accessible=true accRole=43 accName=rcstr(17) content=rcstr(17) />
+</element>
+<element resid=installeditemremoveonlyaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(rm) accessible=true accRole=43 accName=rcstr(18) content=rcstr(18) />
+</element>
+<element resid=installeditemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(chgrm) accessible=true accRole=43 accName=rcstr(19) content=rcstr(19) />
+</element>
+<element resid=publisheditemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(add) accessible=true accRole=43 accName=rcstr(20) content=rcstr(20) />
+</element>
+<element resid=ocsetupitemsingleaction layoutpos=top layout=flowlayout(0, 0, 1, 2)>
+<button id=atom(configure) accessible=true accRole=43 accName=rcstr(66) content=rcstr(66) />
+</element>
+<element resid=oemclientshowhide layoutpos=top layout=borderlayout() >
+<element class="clientrow" id=atom(show) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10073,handlemap(1)) content=rcstr(10073,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+<element class="clientrow" id=atom(hide) class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" contentalign=wrapright accessible=true accRole=41 accName=rcstr(10074,handlemap(1)) content=rcstr(10074,handlemap(1)) />
+<element class="clientstatic" id=atom(list) accessible=true accRole=41 />
+</element>
+</element>
+<element resid=clientcategoryblock id=atom(clipped) layoutpos=top layout=borderlayout() >
+<element layout=verticalflowlayout(0) layoutpos=top padding=rect(8rp,0,0,0) >
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10057,handlemap(1)) content=rcstr(10057,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="StartMenuInternet" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10060,handlemap(1)) content=rcstr(10060,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Mail" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10063,handlemap(1)) content=rcstr(10063,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="Media" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10066,handlemap(1)) content=rcstr(10066,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="IM" />
+</element>
+<element class="interrowspacer" layoutpos=top />
+<element class="clientrow" Layout=rowlayout(24,3,3) contentalign=topleft layoutpos=top>
+<element class="clientcaption" id=atom(rowheader) contentalign=wrapright accessible=true accRole=41 accName=rcstr(10069,handlemap(1)) content=rcstr(10069,handlemap(1)) />
+<clientpicker layout=filllayout() clienttype="JavaVM" />
+</element>
+</element>
+</element>
+<ARPSelector resid=clientblockselector layoutpos=client layout=borderlayout() padding=rect(0,6rp,0,6rp) selected=false />
+<element resid=clientitem class="customclientitem" layout=rowlayout(23) layoutpos=top contentalign=topleft selected=false>
+<autobutton id=atom(setdefault) class="padded" accessible=true accRole=45 layout=borderlayout()>
+<element id=atom(radiobutton) />
+<element id=atom(radiotext) contentalign=wrapleft />
+</autobutton>
+<element width=20rp />
+<autobutton id=atom(show) class="padded" accessible=true accRole=44 accName=rcstr(10072,handlemap(1)) layout=borderlayout() selected=false>
+<element id=atom(checkbutton) />
+<element id=atom(checktext) content=rcstr(10072,handlemap(1)) />
+</autobutton>
+</element>
+<arphelp resid=sizehelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(21) content=rcstr(21) />
+</element>
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(22) content=rcstr(22) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element>
+</arphelp>
+<arphelp resid=freqhelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(title) layoutpos=left accessible=true accRole=41 accName=rcstr(23) content=rcstr(23) />
+</element>
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(24) content=rcstr(24) />
+<element layoutpos=top accessible=true accRole=41 accName=rcstr(25) content=rcstr(25) />
+<element layoutpos=top contentalign=wrapleft accessible=true accRole=41 accName=rcstr(26) content=rcstr(26) />
+<element layoutpos=bottom layout=borderlayout()>
+<element id=atom(divider) layoutpos=top height=2 width=100 />
+<button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</element> 
+</arphelp>
+<arphelp resid=suphelp layoutpos=absolute layout=borderlayout() sheet=styleref(helppopup)>
+<element layoutpos=top layout=borderlayout()>
+<element id=atom(prodname) layoutpos=bottom contentalign=wrapleft />
+<element layoutpos=bottom contentalign=wrapleft accessible=true accRole=41 accName=rcstr(27) content=rcstr(27) />
+<element id=atom(updateintro) layoutpos=bottom contentalign=wrapleft accessible=true accRole=41 accName=rcstr(4113,handlemap(2)) content=rcstr(4113,handlemap(2)) />
+<element content=" " />
+<element id=atom(title) layoutpos=left contentalign=wrapleft />
+</element>
+<element layoutpos=client layout=VerticalFlowLayout(0,0,3) padding=rect(0,10,0,10)>
+<ARPSupportItem id=atom(publisher) accessible=true accRole=41 AccName=rcstr(28) />
+<ARPSupportItem id=atom(version) accessible=true accRole=41 AccName=rcstr(29) />
+<ARPSupportItem id=atom(contact) accessible=true accRole=41 AccName=rcstr(30) />
+<ARPSupportItem id=atom(support) accessible=true accRole=41 AccName=rcstr(31) />
+<ARPSupportItem id=atom(telephone) accessible=true accRole=41 AccName=rcstr(4115,handlemap(2)) />
+<ARPSupportItem id=atom(readme) accessible=true accRole=41 AccName=rcstr(32) />
+<ARPSupportItem id=atom(update) accessible=true accRole=41 AccName=rcstr(33) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(productID) accessible=true accRole=41 AccName=rcstr(34) />
+<ARPSupportItem id=atom(regCompany) accessible=true accRole=41 AccName=rcstr(35) />
+<ARPSupportItem id=atom(regOwner) accessible=true accRole=41 AccName=rcstr(36) />
+<ARPSupportItem id=atom(updateid) accessible=true accRole=41 AccName=rcstr(4114,handlemap(2)) />
+<Element id=atom(ldivider) height=1 margin=rect(0,5,5,0) />
+<ARPSupportItem id=atom(comments) accessible=true accRole=41 AccName=rcstr(37) />
+</element>
+<Element layoutpos=bottom layout=borderlayout()>
+<Button id=atom(close) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(4) content=rcstr(4) />
+</Element>
+<Element layoutpos=bottom id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Element layoutpos=bottom id=atom(repairblock) layout=borderlayout()>
+<Element layoutpos=top id=atom(rdivider) height=1 margin=rect(0,5,5,0) />
+<Button id=atom(repair) class="winstyle" layoutpos=right accessible=true accRole=43 accName=rcstr(39) content=rcstr(39) />
+<element id=atom(repairDesc) layoutpos=left contentalign=wrapleft accessible=true accessible=true accRole=41 accName=rcstr(38) content=rcstr(38) />
+</Element>
+</arphelp>
+<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(21,7,19,5);
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+button [enabled=false]
+{
+background: dfc(4, 0x0010 | 0x0100);
+foreground: graytext;
+fontstyle: shadow;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: appworkspace;
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+bordercolor: appworkspace;
+borderthickness: rect(2,2,2,2);
+foreground: captiontext;
+margin: rect(5,5,5,5);
+padding: rect(2,2,2,4);
+}
+button [keyfocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [mousefocused]
+{
+borderstyle: raised;
+bordercolor: threedlightshadow;
+}
+button [pressed]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+button [selected]
+{
+borderstyle: sunken;
+padding: rect(3,3,1,3);
+bordercolor: threedlightshadow;
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dfc(4, 0x0010); 
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dfc(3, 0x0000);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dfc(3, 0x0000 | 0x0200);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dfc(3, 0x0001);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dfc(3, 0x0001 | 0x0200);
+}
+repeatbutton [class="Page"]
+{ 
+background: scrollbar;
+}
+repeatbutton [class="Page"][pressed]
+{ 
+background: buttonshadow;
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(30,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dfc(4, 0x0010);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][pressed]
+{
+background: dfc(4, 0x0010 | 0x0200);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0004);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dfc(4, 0x0004 | 0x0400);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dfc(4, 0x0000);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dfc(4, 0x0000 | 0x0400);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0100);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dfc(4, 0x0000 | 0x0400 | 0x0100);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,3,-1,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,3,-1,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+<style resid=frame>
+arpframe
+{
+accessible: true;
+accRole: 9;
+accName: rcstr(56);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+background: window;
+foreground: windowtext;
+}
+</style>
+<style resid=closepane>
+element [id=atom(closepane)]
+{
+background: buttonface;
+padding: rect(10,10,10,10);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(20,6,20,6);
+contentalign: middlecenter;
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(21,7,19,5);
+}
+button [enabled=false]
+{
+background: dtb(handlemap(4), 1, 4);
+foreground: graytext;
+fontstyle: shadow;
+}
+button [keyfocused]
+{
+contentalign: middlecenter | focusrect;
+}
+progress
+{
+borderthickness: rect(2,2,2,2);
+bordercolor: buttonface;
+borderstyle: sunken;
+padding: rect(1,1,1,1);
+margin: rect(0, 4, 0, 2);
+foreground: rcbmp(100);
+}
+</style>
+<style resid=optionpane>
+ARPSelector
+{
+background: dtb(handlemap(6), 0, 0);
+foreground: buttontext;
+padding: rect(3,3,3,3);
+}
+element
+{
+background: argb(0,0,0,0);
+}
+button
+{
+background: dtb(handlemap(6), 1, 1);
+margin: rect(5,6,5,6);
+padding: rect(6,6,6,8);
+}
+button [keyfocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(6), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(6), 1, 3);
+padding: rect(7,7,5,7);
+}
+button [selected]
+{
+background: dtb(handlemap(6), 1, 5);
+padding: rect(7,7,5,7);
+}
+</style>
+<style resid=contentpane>
+element [id=atom(contentpane)]
+{
+padding: rect(10,10,10,10);
+}
+element [id=atom(installedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(publishedlistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(ocsetuplistcontainer)]
+{
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+padding: rect(0,0,0,0);
+}
+element [id=atom(label)]
+{
+padding: rect(0,5,5,5);
+}
+element
+{
+padding: rect(2,2,2,2);
+}
+element [id=atom(sort)]
+{
+padding: rect(2,2,0,2);
+}
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+</style>
+<style resid=listscroller>
+scrollbar
+{
+layoutpos: ninebottom;
+}
+scrollbar [vertical]
+{
+layoutpos: nineright;
+}
+viewer
+{
+layoutpos: nineclient;
+}
+thumb
+{
+background: dtb(handlemap(5), 3, 1);
+content: dtb(handlemap(5), 9, 1);
+contentalign: middlecenter;
+}
+thumb [mousefocused]
+{
+background: dtb(handlemap(5), 3, 2);
+content: dtb(handlemap(5), 9, 2);
+}
+thumb [captured]
+{
+background: dtb(handlemap(5), 3, 3);
+content: dtb(handlemap(5), 9, 3);
+}
+repeatbutton [id=atom(lineup)]
+{
+background: dtb(handlemap(5), 1, 1);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(lineup)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 2);
+}
+repeatbutton [id=atom(lineup)][pressed]
+{
+background: dtb(handlemap(5), 1, 3);
+}
+repeatbutton [id=atom(linedown)]
+{
+background: dtb(handlemap(5), 1, 5);
+width: sysmetric(2);
+height: sysmetric(20);
+}
+repeatbutton [id=atom(linedown)][mousefocused]
+{
+background: dtb(handlemap(5), 1, 6);
+}
+repeatbutton [id=atom(linedown)][pressed]
+{
+background: dtb(handlemap(5), 1, 7);
+}
+repeatbutton [id=atom(pageup)]
+{ 
+background: dtb(handlemap(5), 7, 1);
+}
+repeatbutton [id=atom(pageup)][mousefocused]
+{ 
+background: dtb(handlemap(5), 7, 2);
+}
+repeatbutton [id=atom(pageup)][pressed]
+{ 
+background: dtb(handlemap(5), 7, 3);
+}
+repeatbutton [id=atom(pagedown)]
+{ 
+background: dtb(handlemap(5), 6, 1);
+}
+repeatbutton [id=atom(pagedown)][mousefocused]
+{ 
+background: dtb(handlemap(5), 6, 2);
+}
+repeatbutton [id=atom(pagedown)][pressed]
+{ 
+background: dtb(handlemap(5), 6, 3);
+}
+scrollviewer[id=atom(clientscroller)]
+{
+borderstyle: solid;
+borderthickness: rect(1,1,1,1);
+bordercolor: buttonshadow;
+margin: rect(0,10rp,0,0);
+}
+</style>
+<style resid=itemlist>
+arpitem
+{
+padding: rect(1,1,1,3);
+}
+arpitem [selected]
+{
+background: buttonface;
+foreground: buttontext;
+bordercolor: buttontext;
+}
+arpitem [keyfocused][selected]
+{
+background: highlight;
+foreground: highlighttext;
+bordercolor: highlighttext;
+}
+arpitem [parentedupdate]
+{
+padding: rect(20,1,1,1);
+}
+element
+{
+padding: rect(1,1,1,1);
+}
+element [id=atom(title)][selected]
+{
+fontweight: extrabold;
+}
+button
+{
+padding: rect(1,1,1,1);
+contentalign: wrapright;
+}
+button [id=atom(supinfo)]
+{
+contentalign: wrapleft;
+}
+button [selected]
+{
+fontstyle: underline;
+cursor: hand;
+}
+button [id=atom(supinfo)][keyfocused]
+{
+contentalign: wrapleft|focusrect;
+}
+button [keyfocused]
+{
+fontstyle: none;
+contentalign: wrapright|focusrect;
+}
+</style>
+<style resid=itemaction>
+button
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+}
+button [mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+</style>
+<style resid=helppopup>
+arphelp
+{
+accessible: true;
+accRole: 9;
+background: infobackground;
+foreground: infotext;
+padding: rect(6,6,6,6);
+fontsize: sysmetric(-16);
+fontweight: sysmetric(-17);
+fontstyle: sysmetric(-18);
+fontface: sysmetricstr(6);
+}
+element [id=atom(divider)]
+{
+background: infotext;
+}
+element [id=atom(rdivider)]
+{
+background: infotext;
+}
+element
+{
+background: argb(0,0,0,0);
+}
+element [id=atom(title)]
+{
+fontsize: sysmetric(-1);
+fontweight: sysmetric(-2);
+fontstyle: sysmetric(-3);
+fontface: sysmetricstr(1);
+}
+button [Enabled]
+{
+foreground: hotlight;
+fontstyle: underline;
+}
+button [MouseFocused]
+{
+cursor: hand;
+}
+button [class="winstyle"]
+{
+background: dtb(handlemap(4), 1, 1);
+foreground: buttontext;
+padding: rect(8,6,8,6);
+margin: rect(5,5,5,5);
+cursor: arrow;
+fontstyle: none;
+}
+button [class="winstyle"][mousefocused]
+{
+background: dtb(handlemap(4), 1, 2);
+}
+button [class="winstyle"][pressed]
+{
+background: dtb(handlemap(4), 1, 3);
+padding: rect(9,7,7,5);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+ARPSupportItem
+{
+ContentAlign: WrapLeft;
+}
+</style>
+<style resid=pickapppane>
+element [class="clientcaption"]
+{
+padding: rect(0,4rp,8rp,0);
+}
+element [class="clientcaption"][id=atom(rowheader)]
+{
+fontweight: bold;
+}
+element [class="clientstatic"]
+{
+padding: rect(3rp,4rp,0,0);
+}
+element [class="interrowspacer"]
+{
+height: 6rp;
+}
+element [class="blurbtext"]
+{
+padding:rect(0,8rp,8rp,8rp);
+}
+element [id=atom(clipped)]
+{
+padding:rect(0,0,0,4rp);
+}
+element [id=atom(radiobutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 2, 1);
+}
+element [id=atom(radiobutton)][mousefocused]
+{
+background: dtb(handlemap(4), 2, 2);
+}
+element [id=atom(radiobutton)][selected]
+{
+background: dtb(handlemap(4), 2, 5);
+}
+element [id=atom(radiobutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 2, 6);
+}
+element [id=atom(radiotext)]
+{
+layoutpos: left;
+contentalign: middleleft;
+}
+element [class="radioindent"]
+{
+layoutpos: left;
+padding: rect(8rp,0,0,0);
+}
+element [id=atom(checkbutton)]
+{
+width: sysmetric(71);
+height: sysmetric(72);
+margin: rect(0,6rp,8rp,6rp);
+layoutpos: left;
+background: dtb(handlemap(4), 3, 1);
+}
+element [id=atom(checkbutton)][selected]
+{
+background: dtb(handlemap(4), 3, 5);
+}
+element [id=atom(checkbutton)][mousefocused]
+{
+background: dtb(handlemap(4), 3, 2);
+}
+element [id=atom(checkbutton)][selected][mousefocused]
+{
+background: dtb(handlemap(4), 3, 6);
+}
+element [id=atom(checkbutton)][enabled=false]
+{
+background: dtb(handlemap(4), 3, 4);
+}
+element [id=atom(checkbutton)][selected][enabled=false]
+{
+background: dtb(handlemap(4), 3, 8);
+}
+element [id=atom(checktext)]
+{
+layoutpos: client;
+contentalign: wrapleft;
+}
+element [id=atom(checktext)][enabled=false]
+{
+foreground: graytext;
+}
+autobutton [id=atom(arrow)]
+{
+layoutpos: right;
+content: rcbmp(102,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected]
+{
+content: rcbmp(100,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][mousefocused]
+{
+content: rcbmp(103,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [id=atom(arrow)][selected][mousefocused]
+{
+content: rcbmp(101,2,255,0,0,0,0,handlemap(3));
+}
+autobutton [class="padded"]
+{
+padding: rect(8rp,2rp,8rp,2rp);
+}
+button [keyfocused]
+{
+contentalign: focusrect;
+}
+autobutton [keyfocused]
+{
+contentalign: focusrect;
+}
+expando
+{
+animation: rectanglev | s | fast;
+}
+expando [selected]
+{
+background: buttonface;
+foreground: buttontext;
+}
+clipper
+{
+alpha: 0;
+animation: alpha | s | fast;
+}
+clipper [expanded]
+{
+alpha: 255;
+}
+element [class="customclientitem"]
+{
+padding: rect(20rp,6rp,8rp,6rp);
+}
+gradientline
+{
+animation: rectanglev | s | fast;
+height: 1rp;
+}
+gradientline [class="intercategory"]
+{
+foreground: highlight;
+}
+gradientline [class="interheader"]
+{
+foreground: buttonface;
+margin: rect(0,1rp,0,1rp);
+}
+gradientline [class="innerheader"]
+{
+foreground: buttonface;
+}
+gradientline [class="innerheader"][selected]
+{
+foreground: window;
+}
+</style>
+P/   	  	  8      ¼  &  '  ä  P  ]  ä  è  ì  Ğ       ˆ    	  H  ì  ò  °  ƒ  š  p  ™'  š'  Œ'  ]f  ^f  (  “j  “j  ¬(  -  @-  @ä(   @ @P)  Œ	 @	 @ˆ)   @ @¼,  à @à @H/  D @D @0  œ' @œ' @<0   ( @¥( @1  Ÿ: @ : @ô:  §: @§: @|;  ­ @­ @Ì;  
+  €
+  €A    €  €œA  û €û €àC   € €tD  ¤ €« €,E  ş €ş €àF  ‰	 €‰	 €ˆS  ‚ €‚ €ÌS  ã €ã €T  ›' €›' €lU  í Àí ÀDV  ø Àù À@Z  ü Àü ÀH[  T ÀV ÀÈ[  ù Àù ÀÔ\  
+ À À|]  Š	 À‹	 À˜_  á Àâ ÀÀa   À Àd  ' À(' Àe  ˜: À: À¤l  ¡: À¦: À|o  ,V À,V Àq  @œ ÀDœ Àè~  „  àeÕl\‹NöN°‹U_0R‰[hQåe×_: % n  
+ % t ¶r`x: % t % t % 1 % n  
+ % t C r a s h O n A u d i t F a i l   „v<P: % t % 2 % n  
+   (  ‰[hQ'`åe×_°s(WO(u†N  % 1 0 
+     d  7R°e†NÏk(u7b¡[8hV{eu0% n  
+ % t CQ }peÏ‘: % t % 1 % n  
+ % t V{eu  I D : % t % 2 % n  
+     œ :NNR(u7b¾‹nÏk(u7b¡[8hV{eu: % n  
+ % t îvh(u7b: % t % 1 % n  
+ % t V{eu  I D : % t % 2 % n  
+ % t {|+R¾‹n: % n  
+ % t   û|ß~: % t % 3 % n  
+ % t   {vU_: % t % 4 % n  
+ % t   ù[aŒ¿‹î•% t % 5 % n  
+ % t   yrCgO(u: % t % 6 % n  
+ % t   æ‹Æ~ß*: % t % 7 % n  
+ % t   V{euôf9e: % t % 8 % n  
+ % t   ^7b¡{t: % t % 9 % n  
+ % t   D S   ¿‹î•: % t % 1 0 % n  
+ % t   ^7b{vU_: % t % 1 1 % n  
+   œ W i n d o w s   2–kp™X/T¨RöeÿNRV{euYN;m¨R¶r`0 
+ % n  
+ % n ”^(u„vÄ~V{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ¥cãS:   % 3  
+ % n Íd\O!j_:   % 4  
+ % n g¡R:  
+ % n           ‡eöNŒTSbpSqQ«N:   % 5  
+ % n           ÜzLhb—:   % 6  
+ % n           U P n P   Fh¶g:   % 7  
+ % n AQ¸‹Üz¡{t:   % 8  
+ % n AQ¸‹ù[Y­d/ ^­dAmÏ‘„vUS­dÍT”^:   % 9  
+ % n ‰[hQåe×_:  
+ % n           °‹U_"N_„vpencS:   % 1 0  
+ % n           °‹U_bŸR„vŞ¥c% 1 1  
+ % n I C M P :  
+ % n           AQ¸‹ OeQŞV”^÷‹Bl:   % 1 4  
+ % n           AQ¸‹ OeQöeô•3b÷‹Bl:   % 1 9  
+ % n           AQ¸‹ OeQ©cx÷‹Bl:   % 2 0  
+ % n           AQ¸‹ OeQï1uhV÷‹Bl:   % 1 8  
+ % n           AQ¸‹ OúQNïS¾îvh:   % 1 2  
+ % n           AQ¸‹ OúQn‘b6R:   % 1 7  
+ % n           AQ¸‹ OúQÂSpe•ï‹:   % 1 6  
+ % n           AQ¸‹ OúQ…öe:   % 1 5  
+ % n           AQ¸‹Í‘š[T:   % 1 3  
+ % n           AQ¸‹ OúQS*Y'Y:   % 2 1  
+   Ì  W i n d o w s   2–kp™X/T¨Röe N*N”^(uz^R:N‹OY0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n Tğy:   % 3  
+ % n ï„_:   % 4  
+ % n ¶r`:   % 5  
+ % n ƒôV:   % 6  
+     ğ  W i n d o w s   2–kp™X/T¨Röe N*NïzãSR:N‹OY0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ¥cãS:   % 3  
+ % n Tğy:   % 4  
+ % n ïzãS÷S:   % 5  
+ % n OS®‹:   % 6  
+ % n ¶r`:   % 7  
+ % n ƒôV:   % 8  
+   l ò]Ï~ôf9e†NW i n d o w s   2–kp™X”^(uz^‹OYRhˆ0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ôf9e{|‹W:   % 3  
+ % n °e¾‹n:  
+ % n           Tğy:   % 4  
+ % n ï„_:   % 5  
+ % n ¶r`:   % 6  
+ % n ƒôV:   % 7  
+ % n çe¾‹n:  
+ % n           Tğy:   % 8  
+ % n ï„_:   % 9  
+ % n ¶r`:   % 1 0  
+ % n ƒôV:   % 1 1  
+     ¬ ò]Ï~ôf9e†NW i n d o w s   2–kp™XïzãS‹OYRhˆ0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ¥cãS:   % 3  
+ % n ôf9e{|‹W:   % 4  
+ % n °e¾‹n:  
+ % n           Tğy:   % 5  
+ % n ïzãS÷S:   % 6  
+ % n OS®‹:   % 7  
+ % n ¶r`:   % 8  
+ % n ƒôV:   % 9  
+ % n çe¾‹n:  
+ % n           Tğy:   % 1 0  
+ % n ïzãS÷S:   % 1 1  
+ % n OS®‹:   % 1 2  
+ % n ¶r`:   % 1 3  
+ % n ƒôV:   % 1 4  
+   è  W i n d o w s   2–kp™XÍd\O!j_ò]Ï~ôf9e0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ¥cãS:   % 3  
+ % n °e¾‹n:  
+ % n           Íd\O!j_:   % 4  
+ % n çe¾‹n:  
+ % n           Íd\O!j_:   % 5  
+   4 W i n d o w s   2–kp™Xåe×_¾‹nò]Ï~ôf9e0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n °e¾‹n:  
+ % n           °‹U_"N_„vpencS:   % 3  
+ % n           °‹U_bŸR„vŞ¥c:   % 4  
+ % n çe¾‹n:  
+ % n           °‹U_"N_„vpencS:   % 5  
+ % n           °‹U_bŸR„vŞ¥c:   % 6  
+   è  W i n d o w s   2–kp™XI C M P   ¾‹nò]Ï~ôf9e0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n ¥cãS:   % 3  
+ % n °e¾‹n:  
+ % n           % 4 :   % 5  
+ % n çe¾‹n:  
+ % n           % 4 :   % 6  
+       AQ¸‹ù[Y­d/ ^­dAmÏ‘„vÍT”^„v  W i n d o w s   2–kp™X¾‹nò]Ï~ôf9e0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n   °e¾‹n:  
+ % n           AQ¸‹ù[Y­d/ ^­dAmÏ‘„vUS­dÍT”^:   % 3  
+ % n   çe¾‹n:  
+ % n           AQ¸‹ù[Y­d/ ^­dAmÏ‘„vUS­dÍT”^:   % 4  
+      AQ¸‹Üz¡{t( sSAQ¸‹ïzãST C P   1 3 5   ŒT  D C O M / R P C )   „v  W i n d o w s   2–kp™X¾‹nò]Ï~ôf9e0 
+ % n  
+ % n ŸSËYV{eu:   % 1  
+ % n O(u„vM‘n‡eöN:   % 2  
+ % n °e¾‹n:  
+ % n           AQ¸‹Üz¡{t:   % 3  
+ % n çe¾‹n:  
+ % n           AQ¸‹Üz¡{t:   % 4  
+   8  ò]Ï~”^(u†N  W i n d o w s   2–kp™XÄ~V{eu¾‹n0 
+   8  ò]Ï~ Rd–†N  W i n d o w s   2–kp™XÄ~V{eu¾‹n0 
+   `  W i n d o w s   2–kp™Xò]Ï~Rbc†N;m¨RV{euM‘n‡eöN0 
+ % n  
+ % n ;m¨RM‘n‡eöN:   % 1  
+   l W i n d o w s   ò]Ï~ÀhKm0R N*N”^(uz^ck(W¦O,T OeQAmÏ‘0 
+ % n  
+ % n Tğy:   % 1  
+ % n ï„_:   % 2  
+ % n ÛzhÆ‹&{:   % 3  
+ % n (u7b^7b:   % 4  
+ % n (u7bßW:   % 5  
+ % n g¡R:   % 6  
+ % n R P C   g¡RhV:   % 7  
+ % n I P   Hr,g:   % 8  
+ % n I P   OS®‹:   % 9  
+ % n ïzãS÷S:   % 1 0  
+ % n AQ¸‹„v:   % 1 1  
+ % n åw(u7b„v:   % 1 2  
+   4  ck(WYt  [ % 1 ! w s ! ]   „vyrš[’ZSO‹NöN 
+   t  (W  8 0 2 . 1 x   ŒšÁ‹KNTÿW e p   Æ[¥”¤Nbc¡l	g—_0R‰[hQ„vŞ¥c¾‹n0S_MR¾‹n«ˆh:N1Y%ÿàe¿~Ş¥c\O­e _0 
+   h  ¥c6e„v  P E A P - T L V   àeHe0êSı€	g N*N  P E A P - T L V   &^  t y p e = U R L   hÆ‹&{0 
+     @  Yt¥c6e„v  P E A P - T L V   ( % 1 ! l d ! ) öe	g•ï‹ 
+   h  (Wù[¥c6e„v  P E A P - T L V   ( % 1 ! l d ! )   „vÍT”^-NRú^Ó~œg  P E A P - T L V >f:yúQ°s•ï‹ 
+   `  bŸR0WSb _  W i n d o w s   2–kp™X-N„v  I K E   ïzãS  ( U D P   5 0 0 / 4 5 0 0 ) 0 
+     `  bŸR0WsQí•  W i n d o w s   2–kp™X-N„v  I K E   ïzãS  ( U D P   5 0 0 / 4 5 0 0 ) 0 
+     4  ò]Ï~/T¨R  W i n d o w s   ‰[hQ-NÃ_g¡R0 
+     4  ò]Ï~\Pbk  W i n d o w s   ‰[hQ-NÃ_g¡R0 
+     ˆ  R A :   ( ,g0W(u7b)   % 3   bŸR0W\'Y\:N  % 2   W[‚‚0Tğy:N  % 1   „v‡eöNÑS0R( Üz(u7b)   % 4   ( Üz  I P :   % 5 ) 0 
+   „  R A :   ( ,g0W(u7b)   % 5   6e0Regê( Üz(u7b)   % 3   ( Üz  I P :   % 4 ) „v'Y\:N  % 2   W[‚‚0Tğy:N  % 1   „v‡eöN0 
+   \  R A :   Õ‹şVYt N*NÜzOS©RhyÁ‹öeÑSu( ,g0W(u7b)   % 1   „v  X M L   Rg•ï‹0 
+     X  R A :   N¶[(u7b( Üz(u7b:   % 1 ) ò]Ï~ _ËY§c6RR§~(u7b( ,g0W(u7b:   % 2 ) 0 
+   X  R A :   N¶[(u7b( Üz(u7b:   % 1 ) ò]Ï~\Pbk§c6RR§~(u7b( ,g0W(u7b:   % 2 ) 0 
+   T  R A :   N¶[( ,g0W(u7b:   % 1 ) ò]Ï~ _ËY§c6RR§~(u7b( Üz(u7b:   % 2 ) 0 
+   T  R A :   N¶[( ,g0W(u7b:   % 1 ) ò]Ï~\Pbk§c6RR§~(u7b( Üz(u7b:   % 2 ) 0 
+   ü  H e l p A s s i s t a n t   ^7b«ˆy(ub€"N1Yÿb€àeÕlŒšÁ‹Æ[x0ÜzOS©R\«ˆy(u0÷‹åN‰[hQ!j_Í‘°e/T¨R¡‹—{:gv^(W}TäNĞc:y&{.•eQåNN‡e,g:   s e s s m g r . e x e   - s e r v i c e 0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   ğ  W i n d o w s   àeÕlSb _.^©RhyÁ‹hˆ( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹åN‰[hQ!j_Í‘°e/T¨R¡‹—{:gv^(W}TäNĞc:y&{.•eQåNN‡e,g:   s e s s m g r . e x e   - s e r v i c e 0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+      RÆ[/ ã‰Æ[/T¨RNS_( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹Í‘°e/T¨R¡‹—{:g0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   Ø  ‰[ÅˆÜzOS©RÇz-NÑSu•ï‹0ÜzOS©R\«ˆy(u0÷‹åN‰[hQ!j_Í‘°e/T¨R¡‹—{:gv^(W}TäNĞc:y&{.•eQåNN‡e,g:   s e s s m g r . e x e   - s e r v i c e 0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+     ˜  w i n s o c k   “^/T¨RNS_( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹Í‘°e/T¨R¡‹—{:g0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   ì  ÜzLhb—.^©ROİ‹¡{thV/T¨RNS_( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹åN‰[hQ!j_Í‘°e/T¨R¡‹—{:gv^(W}TäNĞc:y&{.•eQåNN‡e,g:   s e s s m g r . e x e   - s e r v i c e 0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   Ô  Oİ‹ã‰gz^/T¨RNS_( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0 .^©RŒT/ec g¡ROİ‹ã‰gz^‰[ÅˆNS_ÿ÷‹Í‘°eĞLˆ  W i n d o w s   X P   ‰[Åˆz^0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   ¤  W i n d o w s   àeÕlèlŒQOİ‹ã‰gz^( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹Í‘°e/T¨R¡‹—{:g0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+     ¤  W i n d o w s   àeÕl/T¨R  I C S   “^( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹Í‘°e/T¨R¡‹—{:g0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+     ¸  W i n d o w s   àeÕl¾‹nù[ÜzLhb—.^©ROİ‹¡{thV„v¿‹î•§c6R( •ï‹ãNx  % 1 ) 0ÜzOS©R\«ˆy(u0÷‹Í‘°e/T¨R¡‹—{:g0‚YœgÍN6qX[(Wdkî•˜˜ÿ÷‹N  M i c r o s o f t   §NÁT/ecT€û|0 
+   \  (u7b  % 1 \ % 2   ò]Ï~¥c×Segê  % 4   ( ïSÁ‰  I P   0W@W:   % 5 ) „v  % 3   Oİ‹0 
+   d  egê  % 4   ( ïSÁ‰  I P   0W@W:   % 5 ) „v0Ù~(u7b  % 1 \ % 2   „v  % 3   Oİ‹ò]Ï~Ó~_g0 
+     P  (u7b  % 1 \ % 2   \*g¥c×S  % 3   Oİ‹( ïSÁ‰  I P   0W@W:   % 5 ) 0 
+     h  (u7b  % 1 \ % 2   ¡l	gŞV”^egê  % 4   ( ïSÁ‰  I P   0W@W:   % 5 ) „v  % 3   Oİ‹0€÷‹…öe0 
+     ”  àV:Ndk(u7b°s(W¡l	g{vU_b€Oİ‹YN^—;m¨R¶r`ÿegê  % 4   ( ïSÆ‰  I P   0W@W:   % 5 ) „v0Ù~(u7b  % 1 \ % 2   „v  % 3   Oİ‹¡l	g«ˆ¥c×S0 
+     x  àV:Nò]Ï~.^©Rdk(u7bÿegê  % 4   ( ïSÆ‰  I P   0W@W:   % 5 ) „v0Ù~(u7b  % 1 \ % 2   „v  % 3   Oİ‹¡l	g«ˆ¥c×S0 
+   €  egê  % 4   ( ïSÆ‰  I P   0W@W:   % 5 ) „v0Ù~(u7b  % 1 \ % 2   „v  % 3   Oİ‹¡l	g«ˆ¥c×Sÿ*gåw•ï‹ŸSàV‚YN:   % 6 0 
+     l  R§~(u7b( ,g0W(u7b:   % 1 \ % 2 ) ò]Ï~T  % 3   ( ïSÁ‰  I P   0W@W:   % 4 ) ÑSwÜzOS©RÍSTŞ¥c0 
+   l  àV:N.^©RhyÁ‹àeHe0Çgb«ˆ Rd–ÿegê  % 1   ( ïSÁ‰  I P   0W@W:   % 2 ) „vÜzOS©RŞ¥c*g«ˆ¥c×S0 
+     X  ò]Ï~Rú^†N N*NÜzOS©RhyÁ‹ÿvQgP–:N:   (u7b  % 2 \ % 3   ïSO(u  % 1   \öe0 
+   8  (u7b  % 1 \ % 2   „v N*NÜzOS©RhyÁ‹«ˆ Rd–0 
+     X  % 1   ò]Ï~Rú^ N*NÜzOS©RN¶[hyÁ‹(uNÍSTŞ¥c0dkN¶[hyÁ‹„vŞ¥cÂSpe:N  % 2 0 
+   p  ÜzOS©R( ,g0W(u7b:   % 1 ) ò]Ï~:NÜzOS©ROİ‹(Wdk¡‹—{:g
+NSb _†N N*N OeQpenc‘˜S0 OeQïzãS:N  % 2 0 
+     <  N¶[( ,g0W(u7b:   % 1 ) ò]Ï~Sb _åNNhyÁ‹:   % 2 0 
+   @  f t p :   6e0R  % 1 ! I 6 4 d !   W[‚‚ÿ(uöe  % 0 0 
+     @  f t p :   ÑS  % 1 ! I 6 4 d !   W[‚‚ÿ(uöe  % 0 0 
+     <   Rd–†NîvU_  % 2   -N„vàeHe‡eöN  % 1   ( % 3 ) 0 
+     d  ‡eöN  % 1   ò]Ï~«ˆd[ËzÿàV:NvQ‡eöNTàeHe0 
+ W i n d o w s   \(Wd[Ëzb`Y6–µkb`Yå‹‡eöN0 
+   8  ‡eöN  0 x % 1   „v  N T F S   ‡eöNT^\'`•ï‹0 
+   l  ¾‹Yqš¨Rz^ck(WÄl2—ü[ôû|ß~M–§~„v•š[„v  I / O   u˜0û|ß~ò]Ï~ê¨R/T(uß*ãNxåNÍ‘Õ‹v^Uc·ƒŸSàV0 
+     8  ‰[hQ-NÃ_g¡Rò]Ï~«ˆ\P(u0oöNÄ~V{eu;–bkvQĞLˆ0 
+   ¸ M S   D T C   ò]/T¨Rÿ¾‹n‚YN: % r % r  
+  
+ ‰[hQM‘n( O F F   =   0 ÿO N   =   1 ) : % r  
+           ‹N¡R„vQÜ~¡{tXT  =   % 1 , % r  
+           QÜ~¢[7bïz  =   % 2 , % r  
+           O(u,g0W  M S D T C   OS®‹„veQÙzR^_‹N¡R  =   % 3 , % r  
+           O(u,g0W  M S D T C   OS®‹„vúQÙzR^_‹N¡R  =   % 4 , % r  
+           ‹N¡R  I n t e r n e t   OS®‹( T I P )   =   % 5 , % r  
+           X A   ‹N¡R  =   % 6 % 0  
+   | D T C   ‰[hQM‘n<P( O F F   =   0 ÿO N   =   1 ) :  
+ 	 ‹N¡R„vQÜ~¡{tXT  =   % 1 , % r  
+ 	 N e t w o r k   C l i e n t s   =   % 2 , % r  
+ 	 O(u,g0W  M S D T C   OS®‹„veQÙzR^_‹N¡R  =   % 3 , % r  
+           	 O(u,g0W  M S D T C   OS®‹„vúQÙzR^_‹N¡R  =   % 4 , % r  
+ 	 ‹N¡R  I n t e r n e t   OS®‹( T I P )   =   % 5 , % r  
+ 	 X A   ‹N¡R  =   % 6 % 0  
+   Œ ¨`ck(WĞLˆ„v  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   b  M i c r o s o f t   S Q L  
+ S e r v e r   2 0 0 0   Lhb—_Îd( ÈSğy  M S D E ) „vHr,gS+Tò]åw„vN  W i n d o w s   „v 
+ dkHr,g NwO(uöe„vom0‰ÏQ\¡‹—{:g„vomÿMQ×Syrš[ÅuÒk 
+ ;eûQÿ”^å‹y(u  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0 0M S D E   ( bTöe) „v 
+   T C P / I P   ŒT  U D P   QÜ~ïzãS0‰/T(uÙ›NïzãSÿ¨`Å_{˜ÎN 
+ h t t p : / / w w w . m i c r o s o f t . c o m / s q l / d o w n l o a d s / d e f a u l t . a s p    
+ ‰[ÅˆîOeˆz^ÿb  M i c r o s o f t   S Q L   S e r v e r   2 0 0 0   b  M S D E   „v 
+  g°e  s e r v i c e   p a c k 0 
+     À  W i n M g m t   g¡RÀhKm0RîvU_  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   -NåwÆ‹“^…Q„vN Nôÿ 
+ v^NàeÕlb`Y0ò]Ï~ Rd–†Nå‹…Q¹[ÿv^Nò]Ï~Rú^†N°eåwÆ‹“^0 
+     4  Üz’ZSO-NÃ_Oİ‹«ˆèl •ÿàV:Nû|ß~ŒšÁ‹1Y%0 
+   È  { >f:yqš¨Rz^ÎNEeœ–-Nb`Y}  
+ ÀhKm0R  % h s   >f:yqš¨Rz^v^NÎNEeœ–-Nb`Y0èRşVb_Íd\OïSı€ò]Ï~1Y%0N N!k/T¨R¡‹—{:göe>f:y„vù[İ‹Fh©‹¨`ı€Y\	gsQdkEeœ–„vpenc
+N}0R  M i c r o s o f t 0 
+            àeÕl·ƒÖS@b	gCgáOo` 
+   P	  
+ >f:yOS®‹ß~¡‹áOo`ŒTS_MR  T C P / I P   QÜ~Ş¥c0 
+  
+ N E T S T A T   [ - a ]   [ - b ]   [ - e ]   [ - n ]   [ - o ]   [ - p   p r o t o ]   [ - r ]   [ - s ]   [ - v ]   [ i n t e r v a l ]  
+  
+     - a                         >f:y@b	gŞ¥cŒTÑv,TïzãS0 
+     - b                         >f:yS+TNRú^Ïk*NŞ¥cbÑv,TïzãS„v 
+                                 ïSgbLˆÄ~öN0(WĞg›NÅ`µQNò]åwïSgbLˆÄ~öN 
+                                 åb	gY*NìrËzÄ~öNÿv^N(WÙ›NÅ`µQN 
+                                 S+TNRú^Ş¥cbÑv,TïzãS„vÄ~öN^R 
+                                 «ˆ>f:y0ÙÍyÅ`µQNÿïSgbLˆÄ~öNT 
+                                 (W•^è„v  [ ]   -Nÿv˜è/fvQŒ(u„vÄ~öNÿ 
+                                 I{I{ÿôv0R  T C P / I P   èR0èladk	y˜ 
+                                 ïSı€ —‰ˆ_•öeô•ÿ‚Yœg¡l	g³YCgP– 
+                                 ïSı€1Y%0 
+     - e                         >f:yåN*YQß~¡‹áOo`0dk	y˜ïSåNN  - s    
+                                 	y˜Ä~TO(u0 
+     - n                         åNpeW[b__>f:y0W@WŒTïzãS÷S0 
+     - o                         >f:yNÏk*NŞ¥cøvsQ„v@b^\Ûz  I D 0 
+     - p   p r o t o             >f:y  p r o t o   cš[„vOS®‹„vŞ¥cÿp r o t o   ïSåN/f 
+                                 NROS®‹KN N:   T C P 0U D P 0T C P v 6   b  U D P v 6 0 
+                                 ‚YœgN  - s   	y˜ NwO(uåN>f:y	cOS®‹ß~¡‹áOo`ÿp r o t o   ïSåN/fNROS®‹KN N:  
+                                 I P 0I P v 6 0I C M P 0I C M P v 6 0T C P 0T C P v 6 0U D P   b  U D P v 6 0 
+     - r                         >f:yï1uhˆ0 
+     - s                         >f:y	cOS®‹ß~¡‹áOo`0Ø¤‹0Wÿ>f:y  I P 0 
+                                 I P v 6 0I C M P 0I C M P v 6 0T C P 0T C P v 6 0U D P   ŒT  U D P v 6   „vß~¡‹áOo`ÿ 
+                                 - p   	y˜(uNcš[Ø¤‹Å`µQ„vP[Æ–0 
+     - v                         N  - b   	y˜ NwO(uöe\>f:yS+TN 
+                                 :N@b	gïSgbLˆÄ~öNRú^Ş¥cbÑv,TïzãS„v 
+                                 Ä~öN0 
+     i n t e r v a l             Í‘°e>f:y	š[ß~¡‹áOo`ÿÏk!k>f:yKNô• 
+                                 ‚f\Pöeô•ô•”–( åNÒy¡‹) 0	c  C T R L + C   \PbkÍ‘°e 
+                                 >f:yß~¡‹áOo`0‚Yœgweuÿn e t s t a t   >f:yS_MR 
+                                 M‘náOo`( êS>f:y N!k)  
+     $      [ S y s t e m ]  
+  
+     $      - -   *gåwÄ~öN  - -  
+           % 1 ! s !  
+          [ % 1 ! s ! ]  
+  
+   D  bŸR0Wûm R†N1u  U R L   MR   % 2   hÆ‹„v}TTzzô•„vİOYu0 
+   D  bŸR0W Rd–†N1u  U R L   MR   % 2   hÆ‹„v}TTzzô•„vİOYu0 
+   P  àeÕllbcêS,T  I P   Rhˆ
+N„v@b	gy˜0qš¨Rz^\(W@b	gïS(u„v¥cãS
+NÑv,T0 
+   $  A u d i t u s r   1 . 0  
+     @  .•eQ  " a u d i t u s r   / ? "   ·ƒ—_æ‹Æ~áOo`0% n  
+     $ A u d i t u s r   -   ¾‹nÏk(u7b¡[8hV{eu0 
+ / ?   >f:y}TäNLˆ.^©R0 
+ ‚Yœg*gÙ~š[ÂSpeÿ£HN\>f:yS_MR¾‹n0 
+ cš[NRÂSpeKN N:  
+ / i s   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       ûm Rbôf9eSìb- bŸRy˜ 
+ / i f   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       ûm Rbôf9eSìb- 1Y%y˜ 
+ / e s   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       ûm Rbôf9e’cd–- bŸRy˜ 
+ / e f   < s e c u r i t y   p r i n c i p a l > : < l i s t   o f   c o m m a - d e l i m i t e d   c a t e g o r i e s >  
+       ûm Rbôf9e’cd–- 1Y%y˜ 
+ / r   < s e c u r i t y   p r i n c i p a l >  
+       ÎNå‹‰[hQ;NSO Rd–@b	gÏk(u7b¡[8hy˜ 
+ / r a  
+        Rd–@b	gÏk(u7b¡[8hy˜ 
+ / e   < f i l e n a m e >  
+       \S_MRÏk(u7b¡[8h¾‹nü[úQ0R‡eöN 
+ / i   < f i l e n a m e >  
+       ÎN‡eöNü[eQS_MRÏk(u7b¡[8h¾‹n 
+ 	gHe„v{|+R:  
+     ,  i n c l u d e : s u c c e s s :  
+     ,  i n c l u d e : f a i l u r e :  
+     ,  e x c l u d e : s u c c e s s :  
+     ,  e x c l u d e : f a i l u r e :  
+     ˜  K e r b e r o s   P[û|ß~O(u  U D P   QÜ~OS®‹ 
+ ÎN¨`„vßW§c6RhVĞcÖShyÁ‹öeG0Rî•˜˜0 
+ Ù8^/fQÜ~Eeœ– b„v0÷‹N¨`„v 
+ QÜ~¡{tXTT€û|0 
+     Ğ  Ç  V P N   Ş¥cO(uzfı€aSöeÿK e r b e r o s   P[û|ß~G0R 
+  N*N•ï‹0Ù8^hˆf(W  V P N   Oİ‹Çz-NÎNû‹aS:g-N 
+ ½búQ†NaS0ã‰³Q¹eÕlKN N/fsQí•  V P N   Ş¥cÿÍ‘°e 
+ ÒceQaSÿ6qTÍ‘°eú^ËzŞ¥c0 
+   Ü  (WO(uíQÁ‹¡{thV„vzfı€aSöeÿK e r b e r o s   P[û|ß~G0R 
+ •ï‹ÿïSı€/f¡l	gb•ï‹„vzfı€aS  P I N 0‰ôfckdkî•˜˜ÿ 
+ ÷‹/T¨R§c6Rb—g-N„v İOX[„v(u7bTŒTÆ[x ÿ 
+ 6qT:N  % 1 % 2 % 3   „víQncÍ‘°e“eQ  P I N 0 
+   ˜  (WO(uíQÁ‹¡{thVöeG0RÆ[x•ï‹0‰ôfckdkî•˜˜ÿ 
+ ÷‹/T¨R§c6Rb—g-N„v X[¨P„v(u7bTŒTÆ[x ÿ 
+ 6qT:N  % 1 % 2 % 3   „víQncÍ‘°e“eQ  P I N 0 
+   ”  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 )   r e p a i r e d .  
+     \  *gı€Sb _  W i n d o w s   2–kp™X-N„v  I K E   ïzãS  ( U D P   5 0 0 / 4 5 0 0 ) 0 
+   \  *gı€sQí•  W i n d o w s   2–kp™X-N„v  I K E   ïzãS  ( U D P   5 0 0 / 4 5 0 0 ) 0 
+   T  ¡l	g(uN RÆ[dk‡eöN„v,g0W  E F S   Á‹fN0 
+ ¡l	gYıN,g0W  E F S   Á‹fN0 
+     0  ¡l	g,g0WS_MR„v  E F S   Á‹fN —‰YıN0 
+   `  ck(WYıNÁ‹fNŒTøv”^„vÆ[¥”0‚Yœg¨`¡l	g/T¨RdkÛzÿ÷‹	c ÖSˆm 0  ÷‹	c nxš[ åNnx¤‹0 
+     $  bŸRYıN†N  E F S   Á‹fN0 
+      E F S   Á‹fNYıN1Y%0 
+   $  E F S   Á‹fNŒTÆ[¥”YıN0 
+     (  ÷‹“eQYıN  P F X   ‡eöNT0 
+     @  “úQ  P F X   ‡eöNï„_*Y•0÷‹\vQ9eíw N›NTQÕ‹ N!k0 
+   ¨ >f:ybôf9e  N T F S   R:S
+N„vîvU_[ ‡eöN] „v RÆ[ 
+  
+     C I P H E R   [ / E   |   / D ]   [ / S : d i r e c t o r y ]   [ / A ]   [ / I ]   [ / F ]   [ / Q ]   [ / H ]   [ p a t h n a m e   [ . . . ] ]  
+  
+     C I P H E R   / K  
+  
+     C I P H E R   / R : f i l e n a m e  
+  
+     C I P H E R   / U   [ / N ]  
+  
+     C I P H E R   / W : d i r e c t o r y  
+  
+     C I P H E R   / X [ : e f s f i l e ]   [ f i l e n a m e ]  
+  
+         / A                 (W‡eöNÊSîvU_
+NÍd\O0‚Yœg6rîvU_¡l	g RÆ[ÿS_ RÆ[‡eöN 
+                             «ˆîO9eTÿƒ[ïSı€«ˆã‰Æ[0ú^®‹¨`Ù~dk‡eöNŒT6rîvU_ RÆ[0 
+         / D                 \cš[„vîvU_ã‰Æ[0Oh°‹îvU_ÿÙ7h–Tûm R„v‡eöN 
+                             1\NO«ˆ RÆ[0 
+         / E                 \cš[„vîvU_ RÆ[0Oh°‹îvU_ÿÙ7h–Tûm R„v‡eöN 
+                             1\O«ˆ RÆ[0 
+         / F                 :_6R(W@b	gcš[„vù[aŒ
+NÛLˆ RÆ[Íd\OÿsSOÙ›Nù[aŒò]Ï~ 
+                             «ˆ RÆ[0Ø¤‹0WOóÇò]Ï~ RÆ[„vù[aŒ0 
+         / H                 >f:y&^–Ï…bû|ß~^\'`„v‡eöN0(WØ¤‹¹e_NÿOı_eu 
+                             Ù›N‡eöN0 
+         / I                 sSOÑSu•ï‹_Nç~í~gbLˆcš[„vÍd\O0(WØ¤‹¹e_Nÿ 
+                             C I P H E R   (WG0R•ï‹öeO\Pbk0 
+         / K                 :NĞLˆ  C I P H E R   „v(u7bRú^°e„v RÆ[Æ[¥”0‚Yœg	éb†N 
+                             dk	y˜ÿOı_eu@b	gvQÖN	y˜0 
+         / N                 dk	y˜êSı€N  / U   TöeO(u0Ù\;–bkôf°eÆ[¥”0dk	y˜ 
+                             (uNåg~b,g0WÁxØv
+N@b	g RÆ[‡eöN0 
+         / Q                 êS¥bJT gÍ‘‰„váOo`0 
+         / R                 ub N*N  E F S   b`YãNtÆ[¥”ŒTÁ‹fNÿ6qT\ƒ[ìN™QeQ N*N 
+                             . P F X   ‡eöN( S+TÁ‹fNŒTÁy¥”) ŒT N*N  . C E R   ‡eöN( êSS+T 
+                             Á‹fN) 0¡{tXTïSåN\  . C E R   „v…Q¹[ûm R0R  E F S   b`YV{euÿ 
+                             ÎN€:N(u7bRú^b`YãNtv^ü[eQ  . P F X   egb`YUSìr‡eöN0 
+         / S                 (Wò]åwîvU_ŒT@b	gP[îvU_gbLˆcš[„vÍd\O0 
+         / U                 \Õ‹Sìb,g0WÁxØv
+N@b	g RÆ[„v‡eöN0‚Yœg(u7b‡eöN RÆ[ 
+                             Æ[¥”bb`YãNt„vÆ[¥”9eØSÿÙO\vQôf°e:NS_MR„vÆ[¥”0 
+                             d–†N  / N   Yÿdk	y˜Nı€NvQÖN	y˜ NwO(u0 
+         / W                 ÎNte*NwS
+N@b	g¡l	gO(u„vÁxØvzzô• Rd–penc0‚Yœg	éb†N 
+                             dk	y˜ÿOı_euvQÖN	y˜0cš[„vîvU_ïSåNMON,g0WwS
+N„v 
+                             ûNaMOn0‚Yœgƒ[/fæS N*NwS
+N N*NîvU_„vÅˆeQ¹pÿ 
+                             dkwS
+N„vpenc\«ˆ Rd–0 
+         / X                 \  E F S   Á‹fNŒTÆ[¥”YıNb‡eöN„v‡eöNT0‚YœgĞc›O†N  E F S  
+                             ‡eöNÿ\OYıNS_MR(u7b„v0(uN RÆ[dk‡eöN„vÁ‹fN0 
+                             &TRÿ\OYıN(u7bS_MR„v  E F S   Á‹fNŒTÆ[¥”0 
+  
+  
+         d i r e c t o r y    N*NîvU_ï„_0 
+         f i l e n a m e     ¡l	gibU\T„v N*N‡eöNT0 
+         p a t h n a m e     cš[ N*N!j_0‡eöNbîvU_0 
+         e f s f i l e        N*N RÆ[„v‡eöNï„_0 
+  
+         N(uÂSpeöeÿC I P H E R   >f:yS_MRîvU_ŒTƒ[S+T‡eöN„v RÆ[¶r`0¨`ïSåN 
+         O(uàQ*NîvU_TŒTM‘&{0Y*NÂSpeKNô•Å_{˜	gzz<h0 
+   D  M S   D T C   ¥c6e0RàeHeˆmo`0‹NöNyrš[áOo`:   % 1 . % 0  
+     H  T C P / I P   ò]Ï~¾0Rv^ÑS  T C P   Ş¥c\Õ‹!kpe„v‰[hQP–6R0 
+     X Ğc›Oz^  % 1   ò]Ï~(W  W M I   }TTzzô•  % 2   -NèlŒQÿFO*gcš[  H o s t i n g M o d e l   ^\'`0dkĞc›Oz^\O(u  L o c a l S y s t e m   ^7bĞLˆ0å‹^7bwQ	gyrCgÿ‚YœgĞc›Oz^¡l	gcknx!jßb(u7b÷‹BlÿïSı€ü[ô‰[hQ²Qz0÷‹nxİOå‹¡[–Ğc›Oz^„v‰[hQLˆ:Nÿv^\Ğc›Oz^èlŒQ„v  H o s t i n g M o d e l   ^\'`ôf°e:Nó\åb	gŸRı€@b —yrCg„v^7b0 
+   Ø  { >f:yqš¨Rz^\PbkÍT”^}  
+ % h s   >f:yqš¨Rz^ò]Ï~\Pbkck8^å]\O0÷‹İOX[¨`„vå]\Oÿ6qTÍ‘°e/T¨Rû|ß~åNØŸSŒ[te„v>f:yŸRı€0N N!k/T¨R¡‹—{:göe>f:y„vù[İ‹Fh©‹¨`ı€Y\	gsQdkEeœ–„vpenc
+N}0R  M i c r o s o f t 0 
+     ü W i n d o w s   àeÕl¿‹î•‡eöN  % 1 ÿïSı€/fNRŸSàVKN N:    
+ QÜ~Ş¥cÿX[¨P‡eöN„vÁxØvbdk¡‹—{:g
+N 
+ ‰[Åˆ„vX[¨Pqš¨RhV	gEeœ–ÿb~bN0RÁxØv0 
+ 1uNå‹•ï‹ÿW i n d o w s   sQí•†Nz^  % 2 0% n % n z^:   % 2 % n ‡eöN:   % 1 % n % n •ï‹<PRhˆNvQÖNpenc‚‚0% n (u7bÍd\O% n 1 .   Í‘°eSb _‡eöN0 
+ dk¶r`ïSı€/f4Nöeî•˜˜ÿÍ‘°eĞLˆz^öeïSı€«ˆôfck0% n 2 .    
+ ‚YœgÍN6qàeÕl¿‹î•å‹‡eöNÿv^N% n % t -   ‡eöNMONQÜ~
+Nÿ 
+ ¨`„vQÜ~¡{tXT”^å‹ÀhågQÜ~/f&Tck8^ÿv^Ng¡RhVïSı€Ş¥c0% n % t -   ‡eöNMONïSûy¨RÁxØv( ‹O‚YoØvb  C D - R O M ) ÿ÷‹ÀhågÁxØv/f&TŒ[hQÒceQ¡‹—{:g0% n 3 .   ÇĞLˆ  C H K D S K   ÀhågŒTîOY‡eöNû|ß~0‰ĞLˆ  C H K D S K ÿ÷‹USûQ0 _ËY0ÿUSûQ ĞLˆ ÿ“eQ  C M D ÿ6qTUSûQ nxš[ 0(W}TäNLˆĞc:y&{ÿ“eQ  C H K D S K   / F ÿ6qT	c  E N T E R 0% n 4 .   ‚Yœgî•˜˜ç~í~X[(Wÿ÷‹ÎNYıNoR,gØŸSå‹‡eöN0% n 5 .   nxš[øvTÁxØv
+N„vvQÖN‡eöN/f&TïSåNSb _0‚YœgàeÕlSb _ÿÁxØvïSı€ò]_cOW0‚Yœg/flxØvÿ÷‹N¡{tXTb¡‹—{:glxöN›O”^FUT€û| 
+ ·ƒ—_Û NekOS©R0% n vQÖNpenc% n •ï‹<P:   % 3 % n ÁxØv{|‹W:   % 4  
+   |  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 ) .  
+     Œ  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( t y p e   % 1 )   r e p a i r e d .  
+   €  W i n d o w s   X P   S t a r t e r   E d i t i o n :   U n s u p p o r t e d   s t a t e   ( d e t a i l :   % 2 ) .  
+   \  W i n d o w s   àeÕlû‹ÖSV{eu”^(uz^„v(u7bV{eu¯sŞV!j_0( % 1 ) 0Ä~V{euYt-Nbk0 
+   p  egêNT—g„v  % 1   {vU_0Rdk¡‹—{:g0è—g„vÄ~V{euYt«ˆy(uÿv^N(Wdk—g-Nù[dk(u7b^7b:_6RÛLˆ¯sŞVYt0 
+   @  Õ‹şVnxš[(u7bŒT¡‹—{:g^7b/f&T(WT N—g-N1Y%( % 1 ) 0 
+     ¨  ò]y(uè—g+o8n(u7bM‘n‡eöN0W i n d o w s   ¡l	g R}¨`„v+o8nM‘n‡eöNv^(u,g0WM‘n‡eöN©‹¨`{vU_0ù[M‘n‡eöN„vôf9e(Wèl •öeNOY6R0Rg¡RhV0÷‹NQÜ~¡{tXTT€û|0 
+     h   W i n d o w s   ‰[hQ-NÃ_g¡R àeÕl(u  W M I   ú^Ëz‹NöNågâ‹åNÑvÆ‰,{	N¹e2–ÅuÒkŒT2–kp™XoöN0 
+     h   W i n d o w s   ‰[hQ-NÃ_g¡R àeÕlÎN  W M I    R}  F i r e w a l l P r o d u c t   „v[‹O0 
+   l   W i n d o w s   ‰[hQ-NÃ_g¡R àeÕlÎN  W M I    R}  A n t i V i r u s P r o d u c t   „v[‹O0 
+     „   W i n d o w s   ‰[hQ-NÃ_g¡R ÀhKm0R,{	N¹e§NÁTS+T^—- G U I D   i n s t a n c e I d 0    I n s t a n c e I D = % 1 .  
+     \   W i n d o w s   ‰[hQ-NÃ_g¡R àeÕl(u  W M I   ú^Ëz‹NöNågâ‹åNÑvÆ‰g¡R/T¨R/ \Pbk0 
+   |  X A   ‹N¡R¡{thVYNN Nô¶r`ÿàeÕlç~í~0X A   ‹N¡RNOgbLˆ0÷‹N  M i c r o s o f t   §NÁT/ecT€û|0% 1   % 0  
+     ¬ X A   ‹N¡R¡{thVàeÕl R} —‰„v  X A   D l l ÿàV:N —‰dkÍd\O„vèlŒQhˆy˜0÷‹(WèlŒQhˆ-N  H K L M \ S o f t w a r e \ M i c r o s o f t \ M S D T C \ X A D L L   NRú^W[&{2N<Pÿ<PTğy:N  d l l   „vTğy( <h_:N  d l l n a m e . d l l ) €<P:N  D l l   „vŒ[teï„_0‚Yœg¨`Nı€nxš[  X A   D l l   „vTğyŒTï„_ÿ÷‹åg–¨`„v  X A   Ğc›OFU„v‡ech0‚Yœgdk¡‹—{:g/f¤Æ–„v NèRÿ÷‹èla —‰:N¤Æ–-N„vÏk*N‚‚¹pRú^å‹èlŒQhˆy˜0% 1   % 0  
+   ” W i n M g m t   g¡R*gı€ R}îvU_  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   N„våwÆ‹“^ 
+ ‡eöN0ïSı€„vŸSàVSìbåwÆ‹“^‡eöN_cOW0dkîvU_
+N„v‰[hQ¾‹n0ÁxØvzzô•N³0 
+ bvQÖNû|ß~Dnî•˜˜( ‚Y…QX[N³) 0  ‚YœgÏk!k¡‹—{:gÍ‘°e/T¨Röeı>f:ydk•ï‹ÿ 
+ å‹¡‹—{:g
+N„v¡{tXTïSı€ —‰\Pbk  W i n M g m t   g¡Rÿ Rd–å‹MOnN„v@b	g‡eöNŒTîvU_ÿ 
+ 6qTÍ‘°e/T¨R  W i n M g m t   g¡R0 
+     ¼  ‰[ÅˆÇz-NàeÕlGS§~  % w i n d i r % \ s y s t e m 3 2 \ w b e m \ r e p o s i t o r y   -N„v  W i n M g m t   g¡RåwÆ‹“^0 
+ ò]Ï~\vQûy¨R0R  % 1   îvU_ÿv^Nò]Ï~Rú^†N°eåwÆ‹“^0 
+    % 2   åb	g„v‡ech  % 1   *gı€(WSbpS:g  % 3   
+NSbpS0penc{|‹W:   % 4 0TğSYt‡eöN„v'Y\( åNW[‚‚¡‹—{) :   % 5 0ò]SbpS„vW[‚‚pe:   % 6 0‡ech-N„v;`u˜pe:   % 7 0ò]SbpS„vu˜pe:   % 8 0¢[7bïz¡‹—{:g:   % 9 0SbpSYthVÔŞV„v  W i n 3 2   •ï‹x:   % 1 0 0% 1 1  
+      te*N¡‹—{:g„vP–6R¾‹n*g\  C O M   g¡RhV”^(uz^„v  % 1   % 2   CgP–ˆcˆN(u7b  % 3 \ % 4   S I D   ( % 5 ) 0ïSåNO(uÄ~öNg¡R¡{tå]wQîO9edk‰[hQCgP–0 
+     À  te*N¡‹—{:g„vP–6R¾‹n*g\  C O M   g¡RhV”^(uz^( C L S I D   :N  % n % 3 % n ) „v  % 1   % 2   CgP–ˆcˆN(u7b  % 4 \ % 5   S I D   ( % 6 ) 0ïSåNO(uÄ~öNg¡R¡{tå]wQîO9edk‰[hQCgP–0 
+     ¸  % 1   CgP–¾‹n*g\  C O M   g¡RhV”^(uz^( C L S I D   :N  % n % 4 % n ) „v  % 2   % 3   CgP–ˆcˆN(u7b  % 5 \ % 6   S I D   ( % 7 ) 0ïSåNO(uÄ~öNg¡R¡{tå]wQîO9edk‰[hQCgP–0 
+      % 1   CgP–¾‹n*g\  C O M   g¡RhV”^(uz^  % 3   „v  % 2   ¿‹î•CgP–ˆcˆN(u7b  % 4 \ % 5   S I D   ( % 6 ) 0ïSåNO(uÄ~öNg¡R¡{tå]wQîO9edk‰[hQCgP–0 
+     È  ”^(uz^yrš[CgP–¾‹n*g\  C O M   g¡RhV”^(uz^  % 2   „v  % 1   ¿‹î•CgP–ˆcˆN(u7b  % 3 \ % 4   S I D   ( % 5 ) 0”^(uz^åNz¹e_¾‹ndk‰[hQCgP–ÿ‰îO9edk‰[hQCgP–ÿ÷‹N”^(uz^›O”^FUT€û|0 
+   ¤  te*N¡‹—{:g„vP–6R¾‹n*g\  C O M   g¡RhV”^(uz^  % 2   „v  % 1   ¿‹î•CgP–ˆcˆN(u7b  % 3 \ % 4   S I D   ( % 5 ) 0ïSåNO(uÄ~öNg¡R¡{tå]wQîO9edk‰[hQCgP–0 
+   ”  te*N¡‹—{:g„v  % 1   % 2   ‰[hQÏcğ&{àeHe0ƒ[S+T„v&^CgP–„v¿‹î•§c6Ry˜àeHe0àVdk¡l	ggbLˆ÷‹Bl„vÍd\O0ïSåNO(uÄ~öNg¡R¡{tå]wQôfckdk‰[hQCgP–0 
+   ¼  C O M   g¡RhV”^(uz^( C L S I D   :N  % n % 1 % n ) „v/T¨RŒTÀo;m‰[hQÏcğ&{àeHe0ƒ[S+T„v&^CgP–„v¿‹î•§c6Ry˜àeHe0àVdk¡l	ggbLˆ÷‹Bl„vÍd\O0ïSåNO(uÄ~öNg¡R¡{tå]wQôfckdk‰[hQCgP–0 
+   ¨  C O M   g¡RhV”^(uz^  % 2   „v  % 1   ¿‹î•‰[hQÏcğ&{àeHe0ƒ[S+T„v&^CgP–„v¿‹î•§c6Ry˜àeHe0àVdk¡l	ggbLˆ÷‹Bl„vÍd\O0ïSåNO(uÄ~öNg¡R¡{tå]wQôfckdk‰[hQCgP–0 
+     ¨  C O M   g¡RhV”^(uz^  % 1   „v”^(uz^yrš[‰[hQÏcğ&{àeHe0ƒ[S+T„v&^CgP–„v¿‹î•§c6Ry˜àeHe0àVdk¡l	ggbLˆ÷‹Bl„vÍd\O0ïSåNO(uÄ~öNg¡R¡{tå]wQôfckdk‰[hQCgP–0 
+     Ä  te*N¡‹—{:g„vÄ~V{eu  % 1   P–6R‰[hQÏcğ&{àeHe0å‹‰[hQÏcğ&{š[IN:NàeHe„v‰[hQÏcğ&{š[INí‹ Š( S D D L ) W[&{2N0àVdk¡l	ggbLˆ÷‹Bl„vÍd\O0÷‹N¡{tXTT€û|åN·ƒ—_.^©RôfckÄ~V{eu¾‹n-N„v‰[hQÏcğ&{0 
+   \  àeÕlRú^åe×_‡eöN  % 2 0÷‹nxš[åe×_îvU_/f&Tcknxÿv^Ndk¡‹—{:gù[å‹îvU_wQ	g™QCgP–0 
+     t  àeÕl:NÙz¹p  W 3 S V C % 2   Rú^åe×_‡eöN0÷‹nxš[Ùz¹p„våe×_îvU_/f&Tcknxÿv^Ndk¡‹—{:gù[å‹îvU_wQ	g™QCgP–0 
+     p  àeÕl:NÙz¹p  W 3 S V C % 3   ™QeQåe×_‡eöN  % 2 0ÁxØvïSı€ò]án0‚Yœg/fQÜ~ï„_ÿ÷‹nxš[QÜ~Ş¥c/f&T­e _0 
+   `  àeÕlRú^Æ–-NŒNÛ6Råe×_‡eöN0÷‹nxš[åe×_îvU_/f&Tcknxÿv^Ndk¡‹—{:gù[å‹îvU_wQ	g™QCgP–0 
+     d  àeÕl™QeQÆ–-NŒNÛ6Råe×_‡eöN  % 2 0ÁxØvïSı€ò]án0‚Yœg/fQÜ~ï„_ÿ÷‹nxš[QÜ~Ş¥c/f&T­e _0 
+     t  àeÕl:N  % 2   Ñ~š[0RúW@x O“0êS,T  I P   RhˆïSı€S+T0Rdk¡‹—{:g
+NNX[(W„v¥cãS„v_(u0pencµkS+T•ï‹÷S0 
+     `  åe×_‡eöNbîvU_  % 2   „v@b	g€àeHe0ïSı€„vŸSàVSìbvQÖN(u7bò]Ï~Rú^†Nåe×_‡eöNbîvU_0 
+     H  RËYS}TTzzô•İOYuöeúQ°s•ï‹0•ï‹¶r`xS+T(WÔŞV„vpenc-N0 
+     d  RËYS1u  U R L   MR   % 2   hÆ‹„v}TTzzô•İOYuöeúQ°s•ï‹0ï‹¶r`xS+T(WÔŞV„vpenc-N0 
+     <  àeÕlRú^•ï‹åe×_‡eöN0÷‹nxš[•ï‹åe×_îvU_/f&Tcknx0 
+   D  àeÕl™QeQ•ï‹åe×_‡eöN0ÁxØvïSı€ò]án0pencW[µkS+T•ï‹÷S0 
+     4  •ï‹åe×_°‹U_M‘n1Y%0pencµkS+T•ï‹÷S0 
+     @  àeÕllbcêS,T  I P   Rhˆy˜  % 2 0pencµkS+T•ï‹÷S0 
+     Ì Y6R‡eöNŒTîvU_h0 
+  
+ X C O P Y   s o u r c e   [ d e s t i n a t i o n ]   [ / A   |   / M ]   [ / D [ : d a t e ] ]   [ / P ]   [ / S   [ / E ] ]   [ / V ]   [ / W ]  
+                                                       [ / C ]   [ / I ]   [ / Q ]   [ / F ]   [ / L ]   [ / G ]   [ / H ]   [ / R ]   [ / T ]   [ / U ]  
+                                                       [ / K ]   [ / N ]   [ / O ]   [ / X ]   [ / Y ]   [ / - Y ]   [ / Z ]  
+                                                       [ / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . . ]  
+  
+     s o u r c e               cš[‰Y6R„v‡eöN0 
+     d e s t i n a t i o n     cš[°e‡eöN„vMOnŒT/ bTğy0 
+     / A                       êSY6R	gX[ch^\'`Æ–„v‡eöNÿ 
+                               FON9eØS^\'`0 
+     / M                       êSY6R	gX[ch^\'`Æ–„v‡eöNÿ 
+                               v^sQí•X[ch^\'`0 
+     / D : m - d - y           Y6R(Wcš[åegbcš[åegåNTôf9e„v‡eöN0 
+                               ‚Yœg¡l	gĞc›OåegÿêSY6R£›Nnöeô• 
+                               Ôkîvhöeô•°e„v‡eöN0 
+     / E X C L U D E : f i l e 1 [ + f i l e 2 ] [ + f i l e 3 ] . . .  
+                               cš[+T	gW[&{2N„v‡eöNRhˆ0Ïk N*NW[&{2N 
+                               Å_{˜(W‡eöN„vUSìrLˆ-N0‚Yœg	gûNUO 
+                               W[&{2NN‰«ˆY6R„v‡eöN„vİ~ù[ï„_ 
+                               øv&{ÿ£*N‡eöN\NO—_0RY6R0 
+                               ‹O‚Yÿcš[‚Y  \ o b j \   b  . o b j   „vW[&{2NO’cd– 
+                               îvU_  o b j   Nb—„v@b	g‡eöNb&^	g 
+                               . o b j   ibU\T„v‡eöN0 
+     / P                       Rú^Ïk*Nîvh‡eöNMRĞc:y0 
+     / S                       Y6RîvU_ŒTP[îvU_ÿd–†Nzz„v0 
+     / E                       Y6RîvU_ŒTP[îvU_ÿSìbzz„v0 
+                               N  / S   / E   øvT0ïSåN(uegîO9e  / T 0 
+     / V                       ŒšÁ‹Ïk*N°e‡eöN0 
+     / W                       Ğc:y¨`(WY6RMR	c.•0 
+     / C                       sSO	g•ï‹ÿ_Nç~í~Y6R0 
+     / I                       ‚YœgîvhNX[(WÿÈS(WY6R N*NåN
+N„v‡eöNÿ 
+                               RGPš[îvh Nš[/f N*NîvU_0 
+     / Q                       Y6RöeN>f:y‡eöNT0 
+     / F                       Y6Röe>f:yŒ[te„vnŒTîvh‡eöNT0 
+     / L                       >f:y‰Y6R„v‡eöN0 
+     / G                       AQ¸‹\¡l	gÏ~Ç RÆ[„v‡eöNY6R0R 
+                               N/ec RÆ[„vîvh0 
+     / H                       _NY6R–Ï…ŒTû|ß~‡eöN0 
+     / R                       †‰ÖvêSû‹‡eöN0 
+     / T                       Rú^îvU_Ó~„gÿFONY6R‡eöN0 
+                               NSìbzzîvU_bP[îvU_0/ T   / E   Sìb 
+                               zzîvU_ŒTP[îvU_0 
+     / U                       êSY6Rò]Ï~X[(WNîvh-N„v‡eöN0 
+     / K                       Y6R^\'`0 N,‚„v  X c o p y   OÍ‘nêSû‹^\'`0 
+     / N                       (uub„víwTY6R0 
+     / O                       Y6R‡eöN@b	gCgŒT  A C L   áOo`0 
+     / X                       Y6R‡eöN¡[8h¾‹n( –+T  / O ) 0 
+     / Y                       Y6R‡eöN¡[8h¾‹n( –+T  / O ) 0 
+                               °sX[îvh‡eöN0 
+     / - Y                     ü[ôĞc:yåNnx¤‹9e™Q N*N 
+                               °sX[îvh‡eöN0 
+     / Z                         (uÍ‘°e/T¨R!j_Y6RQÜ~‡eöN0 
+  
+ }TäNLˆ _sQ  / Y   ïSåN„˜HQ(W  C O P Y C M D   ¯sƒXØSÏ‘-N¾‹n0 
+ ÙïSı€«ˆ}TäNLˆ
+N„v  / - Y   9e™Q0 
+     @  % 2   „v¶g„gŒšÁ‹(W6–µk  2   1Y%0ŸSàV/f  ' % 1 ' 0 
+     P  % 2   „v¶g„gŒšÁ‹(W6–µk  2   1Y%0ŸSàV/f^\'`  ' % 1 '   N¶g„gN9SM‘0 
+   @  % 2   „v¶g„gŒšÁ‹(W6–µk  1   1Y%0ŸSàV/f  ' % 1 ' 0 
+     8  ‡eöN  % 2   „vN}¡‹R1Y%0ŸSàV/f  ' % 1 ' 0 
+   D  ò]Ï~…ÇßW  % 2   „v‡eöN'Y\
+NP–¦~_g0ŸSàV/f  ' % 1 ' 0 
+     Ô4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                        ü   S t r i n g F i l e I n f o   Ø   0 8 0 4 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   X   F i l e D e s c r i p t i o n     S e r v i c e   P a c k   2   M e s s a g e s   d !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 1 3 )     <   I n t e r n a l N a m e   x p s p 2 r e s . d l l     „ 0  L e g a l C o p y r i g h t   ( C )   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   D   O r i g i n a l F i l e n a m e   x p s p 2 r e s . d l l     t )  P r o d u c t N a m e     M i c r o s o f t ( R )   W i n d o w s ( R )   O p e r a t i n g   S y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   |    V a r F i l e I n f o     $    T r a n s l a t i o n     °8    R e s o u r c e C h e c k s u m   /µ¯D#ß\Ù˜´OU a            <HTML id=dlgAbout STYLE="width: 25.8em; height: 22.6em">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<TITLE>
+¹ØÓÚ Internet Explorer
+</TITLE>
+<style>
+.versionformat {
+color: black;
+font-family: ËÎÌå;
+font-size: 9pt;
+position: absolute;
+left: 0em;
+top: 0em;
+height: 2em;
+width:25em;
+z-index: 20;
+}
+.textformat {
+color: black;
+font-family: ËÎÌå;
+font-size:9pt;
+position: absolute;
+left: 10.2em;
+top: 19.8em;
+height: 3em;
+width:26.5em;
+}
+.logo {
+color: LIGHTGREY;
+font-family: ËÎÌå;
+font-size:40pt;
+position: absolute;
+left: 1.9em;
+top: 4.5em;
+height: 0.5em;
+width:1em;
+z-index: -1;
+}
+.button {
+width: 7em;
+height: 2.2em;
+color: buttontext;
+font-family: ËÎÌå;
+font-size:9pt;
+cursor: hand;
+}
+</style>
+<SCRIPT>
+var platIs64=false;
+function fnShow64Flag(){
+if(navigator.userAgent.indexOf("Win64")>-1){
+platIs64=true;
+}
+if(platIs64==true){
+o64bitFlag.innerText='64-bit Edition';
+}
+}
+</SCRIPT>
+<script>
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "´Ë¶Ô»°¿òÖĞ³öÏÖ´íÎó¡£";
+var L_ErrorNumber_Text = "´íÎó: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function OnPageLoad()
+{
+var L_PreCipherStrength_Text = "";
+var L_PostCipherStrength_Text = "-Î»";
+var L_UpdateInfo_Text = "¸üĞÂĞÅÏ¢";
+var L_Unknown_Text = "Î´Öª ";
+L_UpdateVersions_Text = "¸üĞÂ°æ±¾:";
+L_updateWidth_number= "9em";
+L_updateFontSize_number="9pt";
+L_UpdateFont_Fontname ="ËÎÌå, Tahoma, MS Shell Dlg";
+updateUrl = "";
+var cipherStrength = "";
+if ((null != window.dialogArguments))
+{
+arrArgs = window.dialogArguments.split("~");
+spaVersion.innerText = arrArgs[0];
+if (arrArgs[3] == "168")
+cipherStrength = 128;
+else if (arrArgs[3] == "128")
+cipherStrength = 40;
+else
+cipherStrength = arrArgs[3];
+spaCipher.innerText = L_PreCipherStrength_Text + cipherStrength + L_PostCipherStrength_Text;
+pID.innerText=arrArgs[4];
+if (null != arrArgs[6])
+spaIEAKInfo.innerText = arrArgs[6];
+updateUrl = arrArgs[5];
+}
+else
+{
+spaVersion.innerText = L_Unknown_Text;
+spaCipher.innerText = L_Unknown_Text;
+pID.innerText = L_Unknown_Text;
+}
+if ("" == updateUrl)
+updateUrl = "http://www.microsoft.com/isapi/redir.dll?prd=ie&ar=128bit";
+var mv=window.navigator.appMinorVersion;
+var temp_mv_string = "";
+if(mv!="0")
+{
+for(ictr=0;ictr<mv.length;ictr++)
+{
+if(mv.charAt(ictr)==";")
+{
+temp_mv_string = temp_mv_string + "; "
+}
+else
+{
+temp_mv_string = temp_mv_string + mv.charAt(ictr)
+}
+}
+mv = temp_mv_string
+}
+minorversion.innerText=L_UpdateVersions_Text + mv;
+}
+window.onerror = HandleError;
+</script>
+</head>
+<BODY bgcolor="#FFFFFF" onload="OnPageLoad(); fnShow64Flag();" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)"
+scroll=no>
+<table border=0>
+<TR height=10>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD id=Logo colspan=3 align=left><img src="res://shdoclc.dll/ie5.gif"></TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=ProdInfoAlign colspan=2 align=left>
+<ID id=ProductInfo1>
+<span id=ProdInfoStyle style="WIDTH: 25em; COLOR: black; FONT: 9pt ËÎÌå, Tahoma, MS Shell Dlg">
+<BR>
+<ID id=ProductInfo2>
+°æ±¾:</id> <SPAN id=spaVersion></SPAN> <span id="o64bitFlag" style="padding-left:10px"></span><br>
+<ID id=ProductInfo3>
+ÃÜÔ¿³¤¶È: </id><SPAN id=spaCipher ></SPAN>&nbsp;<br>
+<ID id=ProductInfo4>
+²úÆ· ID:</id><SPAN id=pID></SPAN><br>
+<span id=minorversion></SPAN><br>
+<ID id=ProductInfo6></id>
+<SPAN id=spaIEAKInfo>&nbsp;</SPAN>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD></TD>
+<TD id=copyrightAlign colspan=2 align=left> <TEXTAREA style="WIDTH: 28em; Font: 9pt ËÎÌå, Tahoma, MS Shell Dlg" id=copyrightText border=0 cols=55 rows=4 readonly>
+±¾Èí¼şÊÇÔÚ NCSA Mosaic µÄ»ù´¡ÉÏÍê³ÉµÄ¡£NCSA Mosaic(TM) ÓÉÎ»ÓÚ Urbana-Champaign µÄÒÁÀûÅµË¹´óÑ§µÄ³¬¼¶¼ÆËã»úÓ¦ÓÃ³ÌĞò¹ú¼ÒÖĞĞÄ(NCSA)¿ª·¢¡£
+Î´¾­ Spyglass ¹«Ë¾µÄÊÚÈ¨Ğí¿É²»µÃÉÃ×Ô·¢²¼¸ÃÈí¼ş¡£
+°üÀ¨ÓÉ RSA Data Security Inc. ÊÚÈ¨µÄ°²È«Èí¼ş¡£
+¸ÃÈí¼şµÄ²¿·ÖÄ£¿éÊÇÒÔ¶ÀÁ¢¹¤×÷×é JPEG Ëù×ö¹¤×÷Îª»ù´¡µÄ¡£
+ÓÉ Intel ¹«Ë¾Ìá¹©µÄ¶àÃ½ÌåÈí¼ş×é¼ş°üÀ¨ Indeo(R) ÊÓÆµ¡¢Indeo(R) ÒôÆµºÍ Web Éè¼ÆĞ§¹û¡£
+Unix °æ±¾°üÀ¨ÓÉ Mainsoft ¹«Ë¾ÊÚÈ¨µÄÈí¼ş¡£°æÈ¨ËùÓĞ(c) 1998-1999 Mainsoft ¹«Ë¾¡£±£ÁôËùÓĞÈ¨Àû¡£Mainsoft ÊÇ Mainsoft ¹«Ë¾µÄ×¢²áÉÌ±ê¡£
+¾¯¸æ: ±¾¼ÆËã»ú³ÌĞòÊÜÖø×÷È¨·¨ºÍ¹ú¼Ê¹«Ô¼µÄ±£»¤£¬Î´¾­ÊÚÈ¨ÉÃ×Ô¸´ÖÆ»òÉ¢²¼±¾³ÌĞòµÄ²¿·Ö»òÈ«²¿£¬½«³ĞÊÜÑÏÀ÷µÄÃñÊÂºÍĞÌÊÂ´¦·££¬¶ÔÒÑÖªµÄÎ¥·´Õß½«¸øÓè·¨ÂÉ·¶Î§ÄÚµÄÈ«ÃæÖÆ²Ã¡£
+</TEXTAREA>
+</TD>
+<TD></TD>
+</TR>
+<TR>
+<TD></TD>
+<TD width=80><img src="res://shdoclc.dll/flag.gif"></TD>
+<TD id=ProductInfo5><a style="WIDTH: 20em; COLOR: black; FONT: 9pt ËÎÌå, Tahoma, MS Shell Dlg" href="http://www.microsoft.com/isapi/redir.dll?prd=ie&pver=6.0&ar=aboutie&sba=copyr" id="copyright"><ID id=copyrghtText>°æÈ¨ËùÓĞ (C) 1995-2004 Microsoft Corp.</ID></a>
+</TD>
+<TD id=ok-button align=right><BUTTON tabindex=1 type=submit align=right id="okButton" class=button onClick="window.close();" >È·¶¨</BUTTON>
+</TD>
+<Td></TD>
+</TR>
+</table>
+</span>
+</BODY>
+</HTML>
+PAD
+
+
+
+function Agent_AutoUpdateAddCommandsHelper() 
+{
+    var L_AutoUpdateCommand1_Text = "×Ô¶¯¸üĞÂÄÜ¹»×öÊ²Ã´(&W)?";
+    var L_AutoUpdateCommand2_Text = "ÈçºÎÏÂÔØ¸üĞÂ(&D)?";
+    var L_AutoUpdateCommand3_Text = "Ê²Ã´Ê±ºò°²×°¸üĞÂ(&I)?";
+    var L_AutoUpdateCommand4_Text = "ÈçºÎ¸ü¸ÄÎÒµÄ×Ô¶¯¸üĞÂÉèÖÃ(&S)?";
+    var L_AutoUpdateCommand5_Text = "ÎÒ»¹ĞèÒª×öÊ²Ã´(&A)?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhatDoesAuDo",   L_AutoUpdateCommand1_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowDownloaded",  L_AutoUpdateCommand2_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhenInstalled",  L_AutoUpdateCommand3_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateHowChange",      L_AutoUpdateCommand4_Text);
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateAnythingElse",   L_AutoUpdateCommand5_Text);
+}
+
+function Agent_AutoUpdateAddCommands() 
+{
+    Agent_AutoUpdateAddCommandsHelper();
+    
+    var L_AutoUpdateCommand6_Text = "ÎªÊ²Ã´¡°ÏÂÒ»²½¡±°´Å¥²»¿ÉÓÃ(&N)?";
+
+    g_AgentCharacter.Commands.Add("Agent_AutoUpdateWhereIsNextButton",  L_AutoUpdateCommand6_Text);
+        
+    Agent_AddAssistantanceCommand();
+}
+
+function Agent_OnAutoUpdatePreDisplayMenu() 
+{
+    if (g.btnNext.disabled) 
+    {
+        var L_AutoUpdateMenuCommand6_Text = "ÎªÊ²Ã´¡°ÏÂÒ»²½¡±°´Å¥²»¿ÉÓÃ(&N)?";
+
+        try 
+        {
+            g_AgentCharacter.Commands.Insert("Agent_AutoUpdateWhereIsNextButton", "Agent_AutoUpdateAlreadyInstalled",false,L_AutoUpdateMenuCommand6_Text);
+        }
+        catch (e) 
+        {
+        }
+    }
+
+    else 
+    {
+        try 
+        {
+            g_AgentCharacter.Commands.Remove("Agent_AutoUpdateWhereIsNextButton");
+        }
+        catch (e) 
+        {
+        }
+    }
+}
+
+function Agent_AutoUpdateWhatDoesAuDo() 
+{    
+    var L_AutoUpdateWhatDoesAuDo1_Text = "Ëü¿ÉÒÔ½«°²È«ºÍÆäËûÖØÒª¸üĞÂ×Ô¶¯´«ËÍµ½ÄúµÄ¼ÆËã»ú¡£";
+    Agent_Speak(L_AutoUpdateWhatDoesAuDo1_Text);     
+}
+
+function Agent_AutoUpdateHowDownloaded() 
+{    
+    var L_AutoUpdateHowDownloaded1_Text = "µ±ÄúÁ¬½Óµ½ Internet Ê±²¢ÇÒ´ø¿í³¬¿ÕÏĞ¡£";
+    Agent_Speak(L_AutoUpdateHowDownloaded1_Text);     
+}
+
+function Agent_AutoUpdateWhenInstalled() 
+{    
+    var L_AutoUpdateWhenInstalled1_Text = "Ã¿Ìì£¬µ«Äú¿ÉÒÔÖ¸¶¨Ê±¼ä¡£";
+    Agent_Speak(L_AutoUpdateWhenInstalled1_Text);     
+}
+
+function Agent_AutoUpdateHowChange() 
+{    
+    var L_AutoUpdateHowChange1_Text = "´Ó¡°×ÀÃæ¡±´ò¿ª¡°ÏµÍ³¡±¿ØÖÆÃæ°å£¬È»ºóµ¥»÷¡°×Ô¶¯¸üĞÂ¡±Ñ¡Ïî¿¨¡£";
+    Agent_Speak(L_AutoUpdateHowChange1_Text);     
+}
+
+function Agent_AutoUpdateAnythingElse() 
+{    
+    var L_AutoUpdateAnythingElse1_Text = "²¿·Ö¸üĞÂ¿ÉÄÜĞèÒªÄú½ÓÊÜĞí¿ÉĞ­Òé»òÖØĞÂÆô¶¯¼ÆËã»ú¡£";
+    Agent_Speak(L_AutoUpdateAnythingElse1_Text);     
+}
+
+function Agent_AutoUpdateWhereIsNextButton() 
+{       
+    var L_AutoUpdateWhereIsNextButton1_Text = "³ı·ÇÄúÑ¡Ôñ£¬°´Å¥½«±£³Ö»Ò°×(²»¿ÉÓÃ)¡£";
+    Agent_Speak(L_AutoUpdateWhereIsNextButton1_Text);
+}
+
+PAD
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+    <title>È«ĞÂÌåÑé</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.AutoUpdateLoadMe(); window.parent.Agent_Activate('AutoUpdate');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%>
+<tr>
+    <td ID=leftmargincell width=7%></td>
+    <td ID=maincell valign=middle class="text-primary">
+
+    <br><br>
+    <span class="title">
+        <ID id=AutoUpdateTitle>°ïÖú±£»¤ÄúµÄµçÄÔ</ID>
+    </span>
+
+    <br><br><br>
+    <table border=0 width="95%">
+    <tr>
+        <td ID="AU_par1" class="text-primary">
+            <span ID=AutoUpdateIntro class="text-primary"><ID id="txtAUPar1"></ID></span>
+        </td>
+    </tr>
+    </table>
+
+    <br>
+    <table border=0 width="95%">
+
+    <!-- AU Radio Buttons -->
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="4">
+            <img src="../images/greenshd.gif">
+        </td>
+    </tr>
+    
+    <tr>
+        <br>
+    </tr>
+    
+    <tr>
+        <td valign="center">
+            <input TABINDEX=3 ID="radioAgree" name="Agreement" type="radio" onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="H" id="AU_Agree" for="radioAgree">
+                <span ID="AU_accept" class="emphasis-greater">
+                    <ID id="txtAU13a">ÏÖÔÚÍ¨¹ıÆôÓÃ×Ô¶¯¸üĞÂ°ïÖú±£»¤ÎÒµÄµçÄÔ(<u>H</u>)</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_accept_explanation" class="text-primary">
+                <ID id="txtAU13b">(ÍÆ¼ö)</ID>
+            </span>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr>
+        <td>
+            <!-- This empty cell adds space between the two radio sections -->
+            <br>
+        </td>
+    </tr>
+
+    <tr TABINDEX=-1 CLASS="contents">
+        <td rowspan="3">
+            <img src="../images/redshd.gif">
+        </td>
+    </tr>
+
+    <tr>
+        <td valign="center">
+            <input TABINDEX=4 ID="radioDisAgree" name="Agreement" type="radio" value=false onClick="window.parent.AURadioClicked(); window.parent.OnClick();" onfocus="window.parent.OnFocus();">
+        </td>
+        <td>
+            <LABEL TABINDEX=-1 ACCESSKEY="O" id="AU_DisAgree" for="radioDisAgree">
+                <span ID="AU_decline" class="emphasis-greater">
+                    <ID id="txtAU15a">ÏÖÔÚ²»ÆôÓÃ(<u>O</u>)</ID>
+                </span>
+            </LABEL>
+        </td>
+    </tr>
+    
+    <tr>
+        <td>
+            <!-- Leave space under the radio button -->
+        </td>
+        <td>
+            <span ID="AU_decline_explanation" class="text-primary">
+                <ID id="txtAU15b">Èç¹ûÄúÉĞÎ´ÆôÓÃ×Ô¶¯¸üĞÂ£¬ÄúµÄ¼ÆËã»ú¿ÉÄÜ¸üÒ×ÓÚÊÜ²¡¶¾¹¥»÷ºÍÆäËû°²È«ÍşĞ²¡£</ID>
+            </span>
+        </td>
+    </tr>
+
+    </table>
+
+
+    <table ID=tabl2 tabindex=-1 border=0 width=80% style="position:absolute; left:7.5%; top:84%">
+    <tr>
+        <td class="text-primary" ID=PrivacyPolicyText>
+        <ID id="au_privacy_policy"><B>²»»áÊÕ¼¯¿ÉÒÔÓÃÓÚÊ¶±ğÄú»òÓëÄúÁªÏµµÄĞÅÏ¢¡£</B><BR>ÇëÔÄ¶Á <a id=au_privacy_policy_link TABINDEX=4 style="text-decoration:underline;" href="javascript:window.parent.navigatetoPrivacy('AutoUpdate_Policy');">Windows Update ÒşË½ÉùÃ÷</a>¡£</id>
+        </td>
+    </tr>
+    </table>
+
+    <!-- Navigation buttons -->
+
+    <table id=tabl3 border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=6  ACCESSKEY="B" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text">ÉÏÒ»²½(<u>B</u>)</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text">Ìø¹ı(<u>S</u>)</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="S" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary">
+            <span id="NextBtnLocalText" style="display:none;"><label for=btnNext><id id="LocalBtnNext_Text">ÏÂÒ»²½(<u>N</u>)</id></label></span>
+            <span id="FiniBtnLocalText" style="display:none;"><label for=btnFinish><id id="LocalBtnFini_Text">Íê³É(<u>F</u>)</id></label></span>
+        </td>
+        <td>
+            <BUTTON ID="btnNext"   class="newbuttonsNext" TABINDEX=7  ACCESSKEY="N" style="display:none;"></BUTTON>
+            <BUTTON ID="btnFinish" class="newbuttonsNext" TABINDEX=7  ACCESSKEY="F" style="display:none;"></BUTTON>
+        </td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=gb2312">
+    <title>È«ĞÂÌåÑé</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>Windows Update ÒşË½ÉùÃ÷</ID></span>
+
+<br><br>
+<TEXTAREA ID=privtext READONLY TABINDEX=2 style="font-family: ËÎÌå, Arial; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+ÉÏ´Î¸üĞÂÊ±¼ä: 2004 Äê 4 ÔÂ 15 ÈÕ
+
+ÇëÔÚÏÂÁĞ Windows Update ÍøÕ¾ÉÏ²é¿´´ËÒşË½ÉùÃ÷µÄ×îĞÂ°æ±¾:
+windowsupdate.microsoft.com
+
+Microsoft ³ĞÅµ±£»¤ÄúµÄÒşË½¡£
+
+ÊÕ¼¯ÄÄĞ©Êı¾İ ¨C ÒÔ¼°Ô­Òò?
+Windows Update ÔÚÄúµÄÃ¿´Î·ÃÎÊÆÚ¼ä¶¼»á´ÓÄúµÄ¼ÆËã»úÊÕ¼¯Ò»°ãĞÔµÄÏµÍ³ĞÅÏ¢£¬ÒÔ±ãÄúÄÜÊÕµ½×îÊÊÓÃÓÚÄúµÄ¼ÆËã»úµÄ¸üĞÂ¡£¸ÃĞÅÏ¢»¹±»ÓÃÓÚÉú³ÉÓĞ¹Ø Windows Update ÍøÕ¾µÄÊ¹ÓÃ·½Ê½ºÍĞèÒªÖ§³ÖµÄÏµÍ³µÄ»ã×ÜÍ³¼Æ±¨¸æ£¬ÒÔ±ãÎÒÃÇÄÜ¹»¸Ä½ø·şÎñ¡£ÕâĞ©ĞÅÏ¢°üÀ¨:
+¡¤ ¼ÆËã»úÆ·ÅÆºÍĞÍºÅ
+¡¤ Windows °æ±¾ºÅ
+¡¤ Internet Explorer °æ±¾ºÅ
+¡¤ ¿ÉÄÜÒÑÓĞ¸üĞÂ¿ÉÓÃµÄÆäËû Microsoft Èí¼şµÄ°æ±¾ºÅ
+¡¤ Ó²¼şÉè±¸µÄ¼´²å¼´ÓÃ ID ºÅ 
+¡¤ ÇøÓòºÍÓïÑÔÉèÖÃ
+¡¤ È«¾ÖÎ¨Ò»±êÊ¶·û (GUID)
+¡¤ ²úÆ· ID ºÍ²úÆ·ÃÜÔ¿ 
+¡¤ BIOS Ãû³Æ¡¢ĞŞ¶©ºÅºÍĞŞ¶©ÈÕÆÚ 
+µ±ÄúÁ¬½Óµ½ Windows Update Õ¾µãºó£¬Windows Update ½«¼ÇÂ¼ÄúµÄ Internet Ğ­Òé (IP) µØÖ·£¬µ«Ö»½«´ËµØÖ·ÓÃÓÚÉú³É»ã×ÜÍ³¼Æ±¨¸æ¡£
+
+´ËÊı¾İµÄÊ¹ÓÃÇé¿öÈçºÎ?
+Windows Update ÊÕ¼¯²úÆ· ID ºÍ²úÆ·ÃÜÔ¿ÒÔÈ·ÈÏÄúÕıÔÚÔËĞĞÒÑ»ñµÃÓĞĞ§Ğí¿ÉÖ¤µÄ Windows ¸±±¾¡£³ı·Ç²úÆ· ID ÎŞĞ§£¬·ñÔò£¬ÔÚÄúÍË³ö Windows Update ºó±ã»áÊÍ·ÅËùÊÕ¼¯µÄ²úÆ· ID ºÍ²úÆ·ÃÜÔ¿¡£
+
+ÎªÉú³É¾«È·µÄÍ³¼Æ±¨¸æ£¬Windows Update »áÆÀ¹À´æ´¢ÔÚÄúµÄ¼ÆËã»úÉÏÇÒÓÃÓÚÎ¨Ò»±êÊ¶¸Ã¼ÆËã»úµÄÈ«¾ÖÎ¨Ò»±êÊ¶·û (GUID)¡£GUID ÖĞ²»°üº¬ÈÎºÎ¸öÈË±êÊ¶ĞÅÏ¢¡£GUID »áÔÚÒÔÏÂÇé¿öÏÂ±»·ÖÅä²¢¸ú×Ù :
+
+¡¤ ÎªÁËÏò¿Í»§Ìá¹©×î¼Ñ·şÎñ£¬Windows Update ½«¸ú×Ù²¢¼ÇÂ¼·ÃÎÊ¸ÃÕ¾µãµÄµ¥¸ö¼ÆËã»úµÄÊıÁ¿ÒÔ¼°ÏÂÔØºÍ°²×°ÌØ¶¨¸üĞÂµÄ³É°ÜÇé¿ö¡£Windows Update ½«¼ÇÂ¼ÊÔÍ¼½øĞĞÏÂÔØµÄ¼ÆËã»úµÄ GUID¡¢ÇëÇóÏÂÔØµÄÏîÄ¿µÄ ID¡¢¸üĞÂÊÇ·ñÎª±ØĞèµÄÒÔ¼°ÉÏÃæÁĞ³öµÄÅäÖÃĞÅÏ¢¡£
+
+¡¤ Èç¹ûÄúÌá¹©ÁË¹ØÓÚ°ïÖúºÍÒÉÄÑ½â´ğÎÄÕÂÊÇ·ñÓĞÖúÓÚ½â¾öÄúµÄÎÊÌâµÄ·´À¡£¬Windows Update »áÁíÍâ¼ÇÂ¼ÄúµÄ¼ÆËã»úµÄ GUID¡£ÕâÑù×öÓĞÖúÓÚ Windows Update ÎªÄúÌá¹©¸üÓĞÓÃµÄ°ïÖúĞÅÏ¢¡£
+
+¡¤ Microsoft ½«ÊÕ¼¯ÓĞ¹ØÎÒÃÇµÄ¿Í»§ÔÚ microsoft.com ÄÚËù·ÃÎÊµÄÒ³Ãæ(°üÀ¨ Windows Update)µÄĞÅÏ¢¡£ÕâĞ©ĞÅÏ¢¿ÉÄÜ°üÀ¨: ÄúµÄ IP µØÖ·¡¢ä¯ÀÀÆ÷ÀàĞÍ¡¢²Ù×÷ÏµÍ³¡¢ÓòÃû¡¢·ÃÎÊ¸ÃÕ¾µãµÄÊ±¼äºÍÏà¹ØÍøÖ·¡£´ËÕ¾µã·ÃÎÊÊı¾İÖ»ÄÜÓÉ×¨ÃÅÎª´ËÄ¿µÄ¶øÉèÖÃµÄÎ¨Ò» ID ±êÊ¶¡£
+
+¹ØÓÚµ÷²é
+ÓĞÊ±£¬Äú¿ÉÄÜ»á±»ÑûÇë²ÎÓëÓĞ¹ØÄú¶Ô Windows Update ÍøÕ¾µÄÊ¹ÓÃ·½Ê½µÄµ÷²é¡£Ã¿¸öµ÷²é¶¼°üº¬Ò»·İÒşË½ÉùÃ÷£¬ÆäÖĞÏêÏ¸ÁĞ³öÁËËæ´Ë´Îµ÷²éÌá½»µÄÈÎºÎĞÅÏ¢µÄÊ¹ÓÃÌõ¿î¡£
+</TEXTAREA>
+
+<br><br><br>
+
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>Òª¼ÌĞø£¬Çëµ¥»÷ </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>¡°ÉÏÒ»²½¡±</ID></span><span><ID id=xx1>¡£</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="B" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text">ÉÏÒ»²½(<u>B</u>)</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text">Ìø¹ı(<u>S</u>)</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="S" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text">ÏÂÒ»²½(<u>N</u>)</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY="N" style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+</html>
+
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>ÕÒ²»µ½·şÎñÆ÷</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÎŞ·¨ÏÔÊ¾ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">ÄúÕıÔÚ²éÕÒµÄÒ³µ±Ç°²»¿ÉÓÃ¡£
+    ÍøÕ¾¿ÉÄÜÓöµ½Ö§³ÖÎÊÌâ£¬»òÕßÄúĞèÒª
+    µ÷ÕûÄúµÄä¯ÀÀÆ÷ÉèÖÃ¡£</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li id="instructionsText1">µ¥»÷
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 ×Ö½Ú)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Ë¢ĞÂ</a>°´Å¥£¬»òÉÔºóÖØÊÔ¡£<br>
+      </li>
+      
+      <li id="instructionsText2">Èç¹ûÄúÒÑ¾­ÔÚµØÖ·À¸ÖĞÊäÈë¸ÃÍøÒ³µÄµØÖ·£¬
+        ÇëÈ·ÈÏÆäÆ´Ğ´ÕıÈ·¡£<br>
+      </li>
+      <li id="instructionsText3">Òª¼ì²éÄúµÄÍøÂçÁ¬½Ó£¬Çëµ¥»÷<b>¹¤¾ß</b>²Ëµ¥£¬È»ºóµ¥»÷
+        <b>Internet Ñ¡Ïî</b>¡£ÔÚ<b>Á¬½Ó</b>Ñ¡Ïî¿¨ÉÏ£¬µ¥»÷<b>ÉèÖÃ</b>¡£
+        ÉèÖÃ±ØĞëÓëÄúµÄ¾ÖÓòÍø (LAN) ¹ÜÀíÔ±»ò Internet ·şÎñ¹©Ó¦ÉÌ (ISP) Ìá¹©µÄÒ»ÖÂ¡£ </li>
+     <li ID="list4">²é¿´ÄúµÄ Internet Á¬½ÓÉèÖÃÊÇ·ñÕıÈ·±»¼ì²â¡£Äú¿ÉÄÜÉèÖÃÈÃ Microsoft Windows ¼ì²éÄúµÄÍøÕ¾²¢×Ô¶¯·¢ÏÖÍøÂçÁ¬½ÓÉèÖÃ(Èç¹ûÄúµÄÍøÂç¹ÜÀíÔ±ÒÑ¾­ÆôÓÃ´ËÉèÖÃ)¡£
+        <OL> 
+        <li id="instructionText6">µ¥»÷<b>¹¤¾ß</b>²Ëµ¥£¬È»ºóµ¥»÷<B>Internet Ñ¡Ïî</b>¡£ </li>
+        <li id="instructionText7">ÔÚ<b>Á¬½Ó</b>Ñ¡Ïî¿¨ÉÏ£¬µ¥»÷<b>LAN ÉèÖÃ</b>¡£</li> 
+        <li id="instructionText8">Ñ¡Ôñ<b>×Ô¶¯¼ì²âÉèÖÃ</b>£¬È»ºóµ¥»÷<b>È·¶¨</b>¡£</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+       Ä³Ğ©Õ¾µãÒªÇó 128-Î»µÄÁ¬½Ó°²È«ĞÔ¡£µ¥»÷<b>°ïÖú</b>²Ëµ¥£¬È»ºóµ¥»÷<b>¹ØÓÚ Internet Explorer</b> ¿ÉÒÔ²é¿´ÄúËù°²×°µÄ°²È«Ç¿¶È¡£
+    </li>
+    <li id="instructionsText4">
+       Èç¹ûÄúÒª·ÃÎÊÄ³°²È«Õ¾µã£¬ÇëÈ·±£ÄúµÄ°²È«ÉèÖÃÄÜ¹»Ö§³Ö¡£Çëµ¥»÷<B>¹¤¾ß</b>²Ëµ¥£¬È»ºóµ¥»÷ <b>Internet Ñ¡Ïî</b>¡£ÔÚ¡°¸ß¼¶¡±Ñ¡Ïî¿¨ÉÏ£¬¹ö¶¯µ½¡°°²È«¡±²¿·Ö£¬¸´Ñ¡ SSL 2.0¡¢SSL 3.0¡¢TLS 1.0¡¢PCT 1.0 ÉèÖÃ¡£ 
+    </li>
+     <li id="list3">µ¥»÷<a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif">ÉÏÒ»²½</a>°´Å¥£¬³¢ÊÔÆäËûÁ´½Ó¡£ </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:9pt/12pt ËÎÌå; color:black">ÕÒ²»µ½·şÎñÆ÷»ò DNS ´íÎó<BR> Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 400 - ´íÎóµÄÇëÇó</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgColor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="pageNotFound">ÕÒ²»µ½ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">ÄúÒª²é¿´µÄÍøÒ³¿ÉÄÜÒÑ±»É¾³ı¡¢Ãû³ÆÒÑ±»¸ü¸Ä£¬»òÕßÔİÊ±²»¿ÉÓÃ¡£</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li ID="list1">Èç¹ûÄúÒÑ¾­ÔÚµØÖ·À¸ÖĞÊäÈë¸ÃÍøÒ³µÄµØÖ·£¬ÇëÈ·ÈÏÆäÆ´Ğ´ÕıÈ·¡£<BR>
+      </li>
+      <li ID="list2">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºó²éÕÒÖ¸ÏòÄú¸ĞĞËÈ¤ĞÅÏ¢µÄÁ´½Ó¡£ </li>
+		 <li id="list3">µ¥»÷<a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif">ºóÍË</a>°´Å¥£¬³¢ÊÔÆäËûÁ´½Ó¡£ </li>
+
+      <li ID="list4">µ¥»÷<a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£ </li>
+    </ul>
+    <p><br>
+    </p>
+    <h2 ID="errortext" style="COLOR: black; FONT: 9pt/12pt ËÎÌå">HTTP 400 - ´íÎóÇëÇó<BR>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</TBODY>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link                  {font:9pt/12pt ËÎÌå; color:red}
+a:visited               {font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 403 (½ûÖ¹·ÃÎÊ)</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÄúÎŞÈ¨²é¿´¸ÃÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">Äú¿ÉÄÜÃ»ÓĞÈ¨ÏŞÓÃÄúÌá¹©µÄÆ¾¾İ²é¿´´ËÄ¿Â¼»òÍøÒ³¡£</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p ID="term3"> Èç¹ûÄúÈ·ĞÅÄÜ¹»²é¿´¸ÃÄ¿Â¼»òÍøÒ³£¬Çë³¢ÊÔÊ¹ÓÃ <span id="homepageContainer"></span>&nbsp Ö÷Ò³ÉÏËùÁĞµÄµç×ÓÓÊ¼şµØÖ·»òµç»°ÓëÍøÕ¾ÁªÏµ¡£</p>
+    <p id="term4">¿ÉÒÔµ¥»÷<a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£</p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:9pt/12pt ËÎÌå; color:black">HTTP ´íÎó 403 - ½ûÖ¹·ÃÎÊ <BR>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 404 Î´ÕÒµ½</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÕÒ²»µ½ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">ÄúÒª²é¿´µÄÍøÒ³¿ÉÄÜÒÑ±»É¾³ı¡¢Ãû³ÆÒÑ±»¸ü¸Ä£¬»òÕßÔİÊ±²»¿ÉÓÃ¡£</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li id="list1">Èç¹ûÄúÒÑ¾­ÔÚµØÖ·À¸ÖĞÊäÈë¸ÃÍøÒ³µÄµØÖ·£¬ÇëÈ·ÈÏÆäÆ´Ğ´ÕıÈ·¡£<BR>
+      </li>
+      <li id="list2">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºó²éÕÒÖ¸ÏòÄú¸ĞĞËÈ¤ĞÅÏ¢µÄÁ´½Ó¡£ </li>
+      <li id="list3">µ¥»÷<a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif">ºóÍË</a>°´Å¥£¬³¢ÊÔÆäËûÁ´½Ó¡£ </li>    
+      <li ID="list4">µ¥»÷<a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£ </li>
+</ul>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:9pt/12pt ËÎÌå; color:black">HTTP 404 - Î´ÕÒµ½ÎÄ¼ş<br>
+    Internet Explorer <BR>
+    </h2>
+    </font></td>
+
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 410 ²»´æÔÚ</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÍøÒ³²»´æÔÚ</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">ÄúÒª²é¿´µÄÍøÒ³ÒÑ¾­±»É¾³ı¡£</font></td>
+  </tr>
+  <tr>
+    <td id="LID1" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID3">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºóÁ´½Óµ½ÀàËÆµÄÒ³£¬¾Í¿ÉÄÜÕÒµ½ÄúÏëÒªµÄĞÅÏ¢¡£ </p>
+    <p id="LID4">µ¥»÷<a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£</p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:9pt/12pt ËÎÌå; color:black">HTTP ´íÎó 410 - Ê¼ÖÕ²»¿ÉÓÃ<BR>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PA<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 500 ÄÚ²¿·şÎñÆ÷´íÎó</title>
+</head>
+<script> 
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÎŞ·¨ÏÔÊ¾ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">ÄúÒª·ÃÎÊµÄÍøÒ³ÓĞÎÊÌâ£¬ÎŞ·¨ÏÔÊ¾¡£</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li id="instructionsText1">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºó²éÕÒÖ¸ÏòÄú¸ĞĞËÈ¤ĞÅÏ¢µÄÁ´½Ó¡£ </li>
+      <li id="instructionsText2">µ¥»÷<a xhref="javascript:location.reload()" target="_self"><img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 ×Ö½Ú)" align="middle"></a><a xhref="javascript:location.reload()" target="_self">Ë¢ĞÂ</a>°´Å¥£¬»òÒÔºóÔÙÊÔ¡£<br>
+      </li>
+      <li ID="instructionsText3">µ¥»÷<a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£ </li>
+      <li id="instructionsText4">Ò²¿É²é¿´<a onclick="Related();event.returnValue=false" href="">Ïà¹ØÕ¾µãÁĞ±í</a>¡£     
+</ul>
+</p>
+	
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:9pt/12pt ËÎÌå; color:black">HTTP 500 - ÄÚ²¿·şÎñÆ÷´íÎó <BR>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 501 Î´Ö´ĞĞ</title>
+</head>
+<script> 
+
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÎŞ·¨ÏÔÊ¾ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">²»ÄÜ¼ìË÷ÄúÒª²é¿´µÄÍøÒ³¡£</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li id="instructionsText1">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºó²éÕÒÖ¸ÏòÄú¸ĞĞËÈ¤ĞÅÏ¢µÄÁ´½Ó¡£ </li>
+      <li id="instructionsText2">µ¥»÷<a xhref="javascript:location.reload()" target="_self"><img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 ×Ö½Ú)" align="middle"></a><a xhref="javascript:location.reload()" target="_self">Ë¢ĞÂ</a>°´Å¥£¬»òÒÔºóÔÙÊÔ¡£<br>
+      </li>
+      <li ID="instructionsText3">µ¥»÷<a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£ </li>
+      <li id="instructionsText4">Ò²¿É²é¿´<a onclick="Related();event.returnValue=false" href="">Ïà¹ØÕ¾µãÁĞ±í</a>¡£     
+</ul>
+   
+	
+	 
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:9pt/12pt ËÎÌå; color:black">´íÎó 501/505 - Î´ÊµÏÖ»ò²»Ö§³Ö <BR>
+Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/12pt ËÎÌå; color:red}
+a:visited		{font:9pt/12pt ËÎÌå; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=gb2312">
+<title>HTTP 405 - ×ÊÔ´²»ÔÊĞí</title>
+</head>
+<script> 
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+    //For testing use 
+    //DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+    DocURL=document.location.href;
+	
+    //this is where the http or https will be, as found by searching for :// but skipping the res://
+    protocolIndex=DocURL.indexOf("://", 4);
+
+    //this finds the ending slash for the domain server 
+    serverIndex=DocURL.indexOf("/", protocolIndex + 3);
+
+    //for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+    //of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+    //urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+    BeginURL=DocURL.indexOf("#",1) + 1;
+    urlresult=DocURL.substring(BeginURL, serverIndex);
+    if (protocolIndex - BeginURL > 7)
+        urlresult=""
+
+    //for display, we need to skip after http://, and go to the next slash
+    displayresult=DocURL.substring(protocolIndex + 3, serverIndex);
+
+    var aElement = document.createElement("A");
+    aElement.innerText = displayresult;
+    aElement.href = urlresult;
+
+    homepageContainer.appendChild(aElement);
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+    Homepage();
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/14pt ËÎÌå"><span id="errorText">ÎŞ·¨ÏÔÊ¾ÍøÒ³</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå">ÓÉÓÚµØÖ·²»ÕıÈ·£¬ÎŞ·¨ÏÔÊ¾ÄúÒª²é¿´µÄÍøÒ³¡£</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth3" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/12pt ËÎÌå"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Çë³¢ÊÔÒÔÏÂ²Ù×÷:</p><ul>
+      <li id="instructionsText1">Èç¹ûÔÚµØÖ·À¸ÖĞÊäÈëÁËÍøÒ³µØÖ·£¬Çë¼ì²éÆäÆ´Ğ´ÊÇ·ñÕıÈ·¡£<BR>
+      </li>
+       <li id="instructionsText2">´ò¿ª <span id="homepageContainer"></span>&nbsp Ö÷Ò³£¬È»ºó²éÕÒÖ¸ÏòÄú¸ĞĞËÈ¤ĞÅÏ¢µÄÁ´½Ó¡£ </li>
+        <li ID="instructionsText3">µ¥»÷<a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 ×Ö½Ú)" align="center">ËÑË÷</a>£¬Ñ°ÕÒ Internet ÉÏµÄĞÅÏ¢¡£ </li>
+    </ul>
+       
+	
+    <p><br>
+    </p>
+    <h2 ID="errortext2" style="COLOR: black; FONT: 9pt/12pt ËÎÌå">HTTP 405 - ×ÊÔ´²»ÔÊĞí<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+P
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "´íÎó: ÔÚ oobeinfo.ini [ÉÌ±ê] ²¿·ÖÈ±ÉÙ OEM Ãû³Æ¡£";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Í¨¹ı×Ô¶¯¸üĞÂ£¬Windows ¿ÉÒÔ¾­³£Îª¼ÆËã»ú¼ì²é×îĞÂµÄÖØÒª¸üĞÂ²¢×Ô¶¯°²×°¡£ÕâĞ©¸üĞÂ¿ÉÄÜ°üÀ¨°²È«¸üĞÂ¡¢ÖØÒª¸üĞÂºÍ service pack¡£";
+var L_IntroUpdate_Text = "¸ĞĞ»Äú°²×° Windows XP Service Pack 2¡£Íê³É°²×°Ö®Ç°£¬Çë×¢²á×Ô¶¯¸üĞÂ¡£Í¨¹ı×Ô¶¯¸üĞÂ£¬Windows ¿ÉÒÔ¾­³£Îª¼ÆËã»ú¼ì²é×îĞÂµÄÖØÒª¸üĞÂ²¢×Ô¶¯°²×°¡£ÕâĞ©¸üĞÂ¿ÉÄÜ°üÀ¨°²È«¸üĞÂ¡¢ÖØÒª¸üĞÂºÍ service pack¡£";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+<HTML id=dlgOrganizeFavorites STYLE="font-family: ËÎÌå; font-size: 9pt; width: 41.2em; height: 31.0em">
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+<style>
+.button {color: BUTTONTEXT; font-size: 9pt}
+.info {font-size: 9pt; color: WINDOWTEXT}
+.btext {color: BUTTONTEXT}
+LI {line-height:10.5pt}
+A {text-decoration: none; color: WINDOWTEXT}
+</style>
+<TITLE id=txtTitleOrgFavsDialog>
+ÕûÀíÊÕ²Ø¼Ğ
+</TITLE>
+<script>
+window.onerror = HandleError;
+var g_strUrl;
+var g_rgUrlsToSynch = new Array(0);
+var g_fSubscriptionsEnabled;
+var g_dxEllipses = 0;
+var g_dxEllipsesBold = 0;
+var L_Ellipses_Text = "...";
+function callHelp(elm)
+{
+if (null != elm.helpid)
+{
+window.showHelp(elm.helpfile, "" + parseInt(elm.helpid), "popup");
+}
+else
+{
+if ("BODY" != elm.tagName)
+{
+callHelp(elm.parentElement);
+}
+}
+}
+document.onhelp = new Function("callHelp(window.event.srcElement)");
+function documentMouseUp()
+{
+if (window.event.button == 2)
+{
+callHelp(window.event.srcElement);
+}
+}
+document.onmouseup = new Function("documentMouseUp()");
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "´Ë¶Ô»°¿òÖĞ³öÏÖ´íÎó¡£";
+var L_ErrorNumber_Text = "´íÎó: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnKeyPress(nCode)
+{
+if (nCode == 27)
+{
+window.close();
+return;
+}
+}
+function MeasureText(strText, fBold, widthMaximum)
+{
+var oSpanToUse = (fBold ? spanMeasureBold : spanMeasure);
+if (oSpanToUse.offsetWidth < widthMaximum)
+return strText;
+var dxEllipses = (fBold ? g_dxEllipsesBold : g_dxEllipses);
+var iCutoff = strText.length * (widthMaximum / (oSpanToUse.offsetWidth + dxEllipses));
+oSpanToUse.innerText = strText.substring(0, iCutoff - 1) + L_Ellipses_Text;
+if (fBold)
+{
+iCutoff += 3;
+}
+for (cExtraCutoff = 1; (oSpanToUse.offsetWidth > widthMaximum) && (cExtraCutoff < 30); cExtraCutoff++)
+{
+oSpanToUse.innerText = spanMeasure.innerText.substring(0, iCutoff-cExtraCutoff) + L_Ellipses_Text;
+}
+return oSpanToUse.innerText;
+}
+function OnSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline)
+{
+if (cItems == -1)
+{
+BodyOnKeyPress(27);
+return;
+}
+if (cItems == 0)
+{
+textProperties.innerHTML = "";
+return;
+}
+g_strUrl = strUrl;
+if (g_dxEllipses == 0)
+{
+spanMeasure.innerText = L_Ellipses_Text;
+g_dxEllipses = spanMeasure.offsetWidth;
+spanMeasureBold.innerText = L_Ellipses_Text;
+g_dxEllipsesBold = spanMeasureBold.offsetWidth;
+}
+spanMeasureBold.innerText = strName;
+strNameShort = MeasureText(spanMeasureBold.innerText, true, textProperties.offsetWidth - 4);
+spanMeasure.innerText = strUrl;
+strUrlShort = MeasureText(spanMeasure.innerText, false, textProperties.offsetWidth - 4);
+spanMeasure.innerText = "";
+var L_FavoritesFolder_Text = "ÊÕ²Ø¼Ğ";
+var L_ModifiedColon_Text = "ĞŞ¸ÄÊ±¼ä:";
+if (cVisits != -1)
+{
+var strOffline = "";
+var L_MakeAvailableOffline_Text = "ÔÊĞíÍÑ»úÊ¹ÓÃ(<U>O</U>)";
+var L_MakeAvailableOfflineAccesskey_Text = "o";
+var L_Properties_Text = "ÊôĞÔ(<U>P</U>)";
+var L_PropertiesAccesskey_Text = "p";
+if (g_fSubscriptionsEnabled && (strUrl.substring(0,4) == "http") )
+{
+strOffline = "<input type=checkbox align=";
+if(document.dir == "rtl")
+{
+strOffline +="right";
+}
+else
+{
+strOffline +="left";
+}
+strOffline +=" TABINDEX=5 ACCESSKEY=" + L_MakeAvailableOfflineAccesskey_Text + " id=chkOffline "
+if (fAvailableOffline != 0)
+strOffline += "CHECKED"
+strOffline += " onclick='ToggleOffline(this)' helpid=50486 helpfile='iexplore.hlp'><LABEL FOR=chkOffline TABINDEX=-1>" + L_MakeAvailableOffline_Text + "</LABEL>";
+strOffline += "<BR><BR><BUTTON id=btnProperties TABINDEX=6 style='visibility: "
+if (fAvailableOffline != 0)
+strOffline += "visible"
+else
+strOffline += "hidden"
+strOffline += "' class=button ACCESSKEY=" + L_PropertiesAccesskey_Text + " onclick='Properties()' helpid=50489 helpfile='iexplore.hlp'>" + L_Properties_Text + "</BUTTON><BR>";
+}
+var L_TimesVisited_Text = "ÒÑ·ÃÎÊµÄ´ÎÊı: ";
+var L_LastVisited_Text = "ÉÏ´Î·ÃÎÊÊ±¼ä: ";
+var L_LastVisitedNeedsLineBreak_Text = "";
+var strTemp = strName + "\n" + strUrl;
+var re = /'/g;
+strTemp = strTemp.replace(re, "¡ä");
+var oA = document.createElement("A");
+var oName = document.createElement("B");
+var oBR1 = document.createElement("BR");
+var oUrl = document.createElement("SPAN");
+var oBR2 = document.createElement("BR");
+var oTV = document.createElement("SPAN");
+var oLV = document.createElement("SPAN");
+var oBR3 = document.createElement("BR");
+var oBR4 = document.createElement("BR");
+if (oA && oName && oUrl && oBR1 && oBR2 && oBR3 && oBR4 && oTV && oLV)
+{
+textProperties.innerHTML = "";
+oA.Title = strTemp;
+oName.innerText = strNameShort;
+oA.appendChild(oName);
+oA.appendChild(oBR1);
+oUrl.innerText = strUrlShort;
+oA.appendChild(oUrl);
+textProperties.appendChild(oA);
+textProperties.appendChild(oBR2);
+oTV.innerText = L_TimesVisited_Text + cVisits;
+textProperties.appendChild(oTV);
+textProperties.appendChild(oBR3);
+if (L_LastVisitedNeedsLineBreak_Text == "")
+{
+oLV.innerText = L_LastVisited_Text + strDate;
+textProperties.appendChild(oLV);
+textProperties.appendChild(oBR4);
+}
+else
+{
+var oBR5 = document.createElement("BR");
+var oLV2 = document.createElement("SPAN");
+if (oBR5 && oLV2)
+{
+oLV.innerText = L_LastVisited_Text;
+oLV2.innerText = strDate;
+textProperties.appendChild(oLV);
+textProperties.appendChild(oBR5);
+textProperties.appendChild(oLV2);
+textProperties.appendChild(oBR4);
+}
+}
+textProperties.innerHTML += strOffline;
+}
+}
+else
+{
+var oName = document.createElement("B");
+var oBR1 = document.createElement("BR");
+var oFldr = document.createElement("SPAN");
+var oBR2 = document.createElement("BR");
+var oBR3 = document.createElement("BR");
+var oMod = document.createElement("B");
+var oBR4 = document.createElement("BR");
+var oDate = document.createElement("SPAN");
+if (oName && oBR1 && oFldr && oBR2 && oBR3 && oMod && oBR4 && oDate)
+{
+textProperties.innerHTML = "";
+oName.innerText = strNameShort;
+textProperties.appendChild(oName);
+textProperties.appendChild(oBR1);
+oFldr.innerText = L_FavoritesFolder_Text;
+textProperties.appendChild(oFldr);
+textProperties.appendChild(oBR2);
+textProperties.appendChild(oBR3);
+oMod.innerText = L_ModifiedColon_Text;
+textProperties.appendChild(oMod);
+textProperties.appendChild(oBR4);
+oDate.innerText = strDate;
+textProperties.appendChild(oDate);
+}
+}
+tdProperties.noWrap=true;
+textProperties.noWrap=true;
+}
+function EnableButtons()
+{
+g_fSubscriptionsEnabled = nsc.SubscriptionsEnabled;
+var pszInitialDir = window.dialogArguments;
+if (pszInitialDir && (pszInitialDir.length > 0))
+{
+nsc.SetRoot(pszInitialDir);
+}
+tdNsc.blur();
+tdNewFolder.focus();
+}
+function ToggleOffline(chkOffline)
+{
+if (chkOffline.checked)
+{
+if (!nsc.CreateSubscriptionForSelection())
+chkOffline.checked = false;
+else
+{
+g_rgUrlsToSynch[g_strUrl] = true;
+}
+}
+else
+{
+if (!nsc.DeleteSubscriptionForSelection())
+chkOffline.checked = true;
+else
+delete g_rgUrlsToSynch[g_strUrl];
+}
+btnProperties.style.visibility = (chkOffline.checked ? "visible" : "hidden");
+}
+function BuildSynchList()
+{
+window.returnValue = "";
+for (strUrl in g_rgUrlsToSynch)
+{
+window.returnValue += strUrl + "\0";
+}
+}
+function Properties()
+{
+nsc.InvokeContextMenuCommand("properties");
+}
+function OnResize()
+{
+document.recalc(true);
+}
+function TdNscWidth()
+{
+return Math.max(0, document.body.offsetWidth - tableButtons.offsetWidth - (tableMain.border * 3) - (2 * parseInt(tdNsc.style.borderWidth)) - 6);
+}
+function TdPropertiesHeight()
+{
+return Math.max(0, document.body.offsetHeight - (tableMain.border * 2) - tdProperties.offsetTop - tdDone.offsetHeight - 8);
+}
+</script>
+</HEAD>
+<body style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background: threedface; align: center"
+scroll="no" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)" onload="EnableButtons()" onunload="BuildSynchList()" onresize="OnResize()">
+<table id=tableMain cols=3 border=10 bordercolor=THREEDFACE>
+<TR id=mainrow>
+<TD valign=top id=infotext class=info>
+ÒªĞÂ½¨ÎÄ¼ş¼Ğ£¬Çëµ¥»÷¡°´´½¨ÎÄ¼ş¼Ğ¡±°´Å¥¡£ÒªÉ¾³ı»òÖØÃüÃûÏîÄ¿£¬ÇëÏÈÑ¡¶¨ÏîÄ¿£¬È»ºóµ¥»÷¡°É¾³ı¡±»ò¡°ÖØÃüÃû¡±°´Å¥¡£
+</TD>
+<TD id=tdColSpacing width=0>
+</TD>
+<TD id=tdNscHolder rowspan=3 height=100%>
+<TABLE cols=1 width=100% height=100%>
+<TD id=tdNsc style="height:100%; border:2px inset WINDOW;">
+<object id=nsc TABINDEX=10 title="ÊÕ²Ø¼ĞÁĞ±í" accesskey="t"
+style="background:window; HEIGHT=100%; WIDTH=100%"
+CLASSID='clsid:55136805-B2DE-11D1-B9F2-00A0C98BC547'
+onkeypress="BodyOnKeyPress(event.keyCode)"
+helpid=50490
+helpfile="iexplore.hlp">
+</OBJECT>
+</TD>
+</TABLE>
+</TD>
+</TR>
+<TR id=rowButtons>
+<TD>
+<table id=tableButtons cols=2 width=200>
+<tr height=20>
+<TD align=center width=50%>
+<BUTTON id=tdNewFolder TABINDEX=1 style="wid

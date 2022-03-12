@@ -1,0 +1,2946 @@
+ALE" content="EN-US">
+<META http-equiv="Content-Type" content="text/html; charset=utf-8">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<TITLE>Internet Explorer Enhanced Security Configuration</TITLE>
+
+<LINK REL="stylesheet" MEDIA="screen" TYPE="text/css" HREF="coUA.css">
+<LINK REL="stylesheet" MEDIA="print" TYPE="text/css" HREF="coUAprint.css">
+
+</HEAD>
+<BODY>
+
+<H1 id=Heading1><A name="overview">Internet Explorer Enhanced Security Configuration</A></H1>
+
+<P id=Text1>Internet Explorer Enhanced Security Configuration places your server and Microsoft Internet Explorer in a configuration that decreases the exposure of your server to potential attacks that can occur through Web content and application scripts. As a result, some Web sites may not display or perform as expected.</P> 
+
+<P id=Text4>For more information, see the following:</P>
+
+<UL>
+	<LI id=List2_4><A href="#zones">Internet Explorer Security Zones</A></LI>
+	<LI id=List2_5><A href="#howto">How to browse when Internet Explorer Enhanced Security Configuration is enabled</A></LI>
+	<LI id=List2_1><A href="#effects">Effects of Internet Explorer Enhanced Security Configuration</A>
+	<UL>
+		<LI id=List22_1><A HREF="#termserv">Internet Explorer Enhanced Security Configuration and terminal servers</a></LI>
+		<LI id=List22_2><A href="#userex">Effects of Internet Explorer Enhanced Security Configuration on the Internet Explorer user experience</a></LI></UL></LI>
+	<LI id=List2_2><A href="#manage">Managing Internet Explorer Enhanced Security Configuration</A>
+	<UL>
+		<LI id=List23_1><A href="#addinternetsites">Add sites to the Trusted sites zone</A></LI>
+		<LI id=List23_2><A href="#addintranetsites">Add sites to the Local intranet zone</A></LI>
+		<LI id=List23_3><A href="#applytospecificusers">Apply Internet Explorer Enhanced Security Configuration to specific users</A></LI>
+		<LI id=List23_5><A href="#strengthen">Strengthen Internet Explorer security settings manually on your server</a></LI>
+		<LI id=List23_6><A href="#upgrading">Upgrading from Previous Versions</A></LI></UL></LI>
+	<LI id=List2_3><A href="#bestpractices">Browser Security - Best Practices</A></LI>
+</UL>
+
+<BR><HR>
+
+<H2 id=Heading12><A name="zones">Internet Explorer Security Zones</A></H2>
+
+<P id=Text2>In Internet Explorer, you can configure security settings for several built-in security zones: the Internet zone, the Local intranet zone, the Trusted sites zone, and the Restricted sites zone. Internet Explorer Enhanced Security Configuration assigns security levels to these zones as follows:</P>
+
+<UL>
+	<LI id=List1_1>For the Internet zone, the security level is set to High.</LI>
+	<LI id=List1_2>For the Trusted sites zone, the security level is set to Medium, which allows browsing of many Internet sites.</LI>
+	<LI id=List1_3>For the Local intranet zone, the security level is set to Medium-Low, which allows your user credentials (name and password) to be passed automatically to sites and applications that need them.</LI>
+	<LI id=List1_4>For the Restricted sites zone, the security level is set to High.</LI>
+	<LI id=List1_5>All Internet and intranet sites are assigned to the Internet zone by default. Intranet sites are not part of the Local intranet zone unless you explicitly add them to this zone.</LI>
+</UL> 
+
+<P id=ReturnToTop4><A href="#top">Return to top</A></P>
+
+<BR><HR>
+
+<H2 id=Heading5><A name="howto">How to browse when Internet Explorer Enhanced Security Configuration is enabled</A></H2>
+
+<P id=Text25>The enhanced security configuration increases the level of security on your server, but may also affect Internet browsing in the following ways:</P>
+<UL>
+<LI id=List21_1>Because ActiveX controls and scripting are disabled, Internet sites may not display in Internet Explorer as expected and applications that make use of the Internet may not work correctly. If you trust an Internet site and need it to be functional, you can add that site to the Trusted sites zone in Internet Explorer. If you attempt to browse an Internet site that makes use of scripting or Active X controls, Internet Explorer will prompt you to consider adding the site to the Trusted sites zone. You should add the site to the Trusted sites zone only if you are completely confident that the site is trustworthy and that the URL to be added is indeed the correct one. For more information, see <A href="#addinternetsites">Add sites to the Trusted sites zone</A>.</LI>
+
+<LI id=List21_2>Access to intranet sites, Web-based applications that run over a local intranet, and other files on network shares may be restricted. If you trust an intranet site or share and need it to be functional, you can add it to the Local intranet zone. For more information, see <A href="#addintranetsites">Add sites to the Local intranet zone</A>.</LI>
+</UL>
+<P id=ReturnToTop5><A href="#top">Return to top</A></P>
+
+<BR><HR>
+
+<H2 id=Heading2><A name="effects">Effects of Internet Explorer Enhanced Security Configuration</A></H2>
+
+<P id=Text5>Internet Explorer Enhanced Security Configuration adjusts the security levels for the existing security zones. The following table describes how each zone is affected.</P>
+
+<TABLE>
+	<TR>
+		<TH id=Table1Header1>Zone</TH>
+		<TH id=Table1Header2>Security level</TH>
+		<TH id=Table1Header4>Result</TH>
+	</TR>
+	<TR>
+		<TD id=Table1_1x1>Internet zone</TD>
+		<TD id=Table1_1x2>High</TD>
+		<TD id=Table1_1x4>
+		    This zone has the same security settings as the Restricted sites zone. All Internet and intranet sites are assigned to this zone by default. Web pages may not display in Internet Explorer as expected and applications that require the browser may not work correctly because scripts, Microsoft ActiveX controls, and file downloads have been disabled. If you trust an Internet site and need it to be functional, you can add that site to the Trusted sites zone in Internet Explorer. For more information, see <a href="#addinternetsites">Add sites to the Trusted sites zone</a>. Access to scripts, executable files, and other files on Universal Naming Convention (UNC) shares is restricted unless the share is added to the Local intranet zone explicitly. For more information, see <a href="#addintranetsites">Add sites to the Local intranet zone</a>
+		</TD>
+	</TR>
+	<TR>
+		<TD id=Table1_2x1>Local intranet zone</TD>
+		<TD id=Table1_2x2>Medium-Low</TD>
+		<TD id=Table1_2x4>When visiting intranet sites, you may be repeatedly prompted for credentials (your user name and password) as a result of the enhanced security configuration. In the past, Internet Explorer automatically passed your credentials to intranet sites. The enhanced security configuration disables the automatic detection of intranet sites. If you want your credentials to be passed automatically to certain intranet sites, add those sites to the Local intranet zone. For more information, see <A href="#addintranetsites">Add sites to the Local intranet zone</A>.<BR><BR>
+Do not add Internet sites to the Local intranet zone, because your credentials will be passed automatically to the site if they are requested.<BR><BR>
+	</TD></TR>
+	<TR>
+		<TD id=Table1_3x1>Trusted sites zone</TD>
+		<TD id=Table1_3x2>Medium</TD>
+		<TD id=Table1_3x4>This zone is for the Internet sites whose content you trust. For more information, see <A href="#addinternetsites">Add sites to the Trusted sites zone</A>.</TD>
+	</TR>
+	<TR>
+		<TD id=Table1_4x1>Restricted sites zone</TD>
+		<TD id=Table1_4x2>High</TD>
+		<TD id=Table1_4x4>This zone contains sites you don't trust, such as sites that may damage your computer or data if you attempt to download or run files from them.</TD>
+	</TR>
+</TABLE>
+
+<P id=Text7>The enhanced security configuration also adjusts the Internet Explorer extensibility and security settings to further reduce exposure to possible future security threats. These settings can be found on the Advanced tab of Internet Options in Control Panel. The following table describes the settings that are affected.</P>
+
+<TABLE>
+	<TR>
+		<TH id=Table2Header1>Feature</TH>
+		<TH id=Table2Header2>Entry</TH>
+		<TH id=Table2Header3>New setting</TH>
+		<TH id=Table2Header4>Result</TH>
+	</TR>
+	<TR>
+		<TD id=Table2_13x1>Browsing</TD>
+		<TD id=Table2_13x2>Display enhanced security configuration dialog</TD>
+		<TD id=Table2_13x3>On</TD>
+		<TD id=Table2_13x4>Displays a dialog box to notify you when an Internet site tries to use scripting or ActiveX controls.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_1x1>Browsing</TD>
+		<TD id=Table2_1x2>Enable third-party browser extensions</TD>
+		<TD id=Table2_1x3>Off</TD>
+		<TD id=Table2_1x4>Disables features you installed for use with Internet Explorer that may have been created by companies other than Microsoft.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_6x1>Multimedia</TD>
+		<TD id=Table2_6x2>Play sounds in Web pages</TD>
+		<TD id=Table2_6x3>Off</TD>
+		<TD id=Table2_6x4>Disables music and other sounds.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_7x1>Multimedia</TD>
+		<TD id=Table2_7x2>Play animations in Web pages</TD>
+		<TD id=Table2_7x3>Off</TD>
+		<TD id=Table2_7x4>Disables animations.</TD>
+	</TR>
+<TR>
+		<TD id=Table2_8x1>Multimedia</TD>
+		<TD id=Table2_8x2>Play videos in Web pages</TD>
+		<TD id=Table2_8x3>Off</TD>
+		<TD id=Table2_8x4>Disables video clips.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_9x1>Security</TD>
+		<TD id=Table2_9x2>Check for server certificate revocation (requires restart</TD>
+		<TD id=Table2_9x3>On</TD>
+		<TD id=Table2_9x4>Automatically checks a Web site's certificate to see whether it has been revoked before accepting it as valid.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_10x1>Security</TD>
+		<TD id=Table2_10x2>Check for signatures on downloaded programs</TD>
+		<TD id=Table2_10x3>On</TD>
+		<TD id=Table2_10x4>Automatically verifies and displays the identity of programs you download.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_11x1>Security</TD>
+		<TD id=Table2_11x2>Do not save encrypted pages to disk</TD>
+		<TD id=Table2_11x3>On</TD>
+		<TD id=Table2_11x4>Disables saving secured information in your Temporary Internet Files folder.</TD>
+	</TR>
+	<TR>
+		<TD id=Table2_12x1>Security</TD>
+		<TD id=Table2_12x2>Empty Temporary Internet Files folder when browser is closed</TD>
+		<TD id=Table2_12x3>On</TD>
+		<TD id=Table2_12x4>Automatically clears the Temporary Internet Files folder when you close the browser.</TD>
+	</TR>
+	<TR>
+	    <TD id=Table2_14x1>Security</TD>
+	    <TD id=Table2_14x2>Warn if changing between secure and not secure mode</TD>
+	    <TD id=Table2_14x3>On</TD>
+	    <TD id=Table2_14x4>Displays a warning that the browser is redirecting from a secure Web site to a non-secure Web site.</TD>
+	</TR>
+</TABLE>
+
+<P id=Text8>These changes reduce the functionality in Web pages, Web-based applications, local network resources, and applications that use a browser to display online help, support, and general user assistance.</P>
+
+<P id=Text9>For more information on using the Local intranet or Trusted sites zones' inclusion lists, see <A href="#manage">Managing Internet Explorer Enhanced Security Configuration</A>.</P>
+
+<P id=Text24>When Internet Explorer Enhanced Security Configuration is enabled:</P>
+  <UL>
+  	<LI id=List6_1>The Windows Update Web site is added to the Trusted 
+  sites zone. This allows you to continue to get important updates for your operating system.</LI>
+	<LI id=List6_2>The Windows error reporting site is added to Trusted sites zone. This allows you to report problems encountered with your operating system and search for fixes.</LI>
+  	<LI id=List6_3>Several local machine sites (for example, http://localhost, https://localhost, hcp://system) are added to the Local intranet zone. This allows applications and code to work locally so that you can complete common administrative tasks.</LI>
+	<LI id=List6_4>The Platform for Privacy Preferences (P3P) level is set to Medium for the Trusted sites zone. If you want to change the P3P level for any zone other than the Internet Zone, go to the Privacy tab of Internet Options in Control Panel and click <B>Import</B> to apply a custom privacy policy. Sample privacy policies can be found at the <A href="http://go.microsoft.com/fwlink/?LinkId=12939" title="http://msdn.microsoft.com/" target="_new">Microsoft MSDN Library Web site</A><span class="printOnly"> (http://msdn.microsoft.com/workshop/security/privacy/overview/privacyimportxml.asp)</span>.</LI>
+  </UL>
+
+<H3 id=Heading3><a name="termserv">Internet Explorer Enhanced Security Configuration and terminal servers</a></H3>
+
+<P id=Text10>The enhanced security configuration applies to different user accounts according to the type of installation. The following table describes how the users are affected.</P>
+
+<TABLE>
+	<TR>
+		<TH id=Table3Header1>Type of Installation</TH>
+		<TH colspan="4" id=Table3Header2>Enhanced security configuration is applied to</TH>
+
+	</TR>
+	<TR>
+		<TH id=Table3Header3></TH>
+		<TH id=Table3Header4>Administrators?</TH>
+		<TH id=Table3Header5>Power Users?</TH>
+		<TH id=Table3Header6>Limited Users?</TH>
+		<TH id=Table3Header7>Restricted Users?</TH>
+	</TR>
+	<TR>		
+		<TD id=Table3_1x1>Upgrading the operating system</TD>
+		<TD id=Table3_1x2>Yes</TD>
+		<TD id=Table3_1x3>Yes</TD>
+		<TD id=Table3_1x4>No</TD>
+		<TD id=Table3_1x5>No</TD>
+	</TR>
+	<TR>
+		<TD id=Table3_2x1>Unattended installation of the operating system</TD>
+		<TD id=Table3_2x2>Yes</TD>
+		<TD id=Table3_2x3>Yes</TD>
+		<TD id=Table3_2x4>No</TD>
+		<TD id=Table3_2x5>No</TD>
+	</TR>
+	<TR>
+		<TD id=Table3_3x1>Manual installation of Terminal Services</TD>
+		<TD id=Table3_3x2>Yes</TD>
+		<TD id=Table3_3x3>Yes</TD>
+		<TD id=Table3_3x4>Yes**</TD>
+		<TD id=Table3_3x5>Yes**</TD>
+	</TR>
+</TABLE>
+<P id=Text11>**  During the manual Terminal Services installation, you are prompted to disable Internet Explorer Enhanced Security Configuration for users. This allows users to run a terminal server session without restrictions.</P>
+
+<P id=Text12>For a better experience when Terminal Services is enabled, you should remove the enhanced security configuration from members of the Users group. These users have fewer privileges on the server, so they present a lower level of risk if they are victims of an attack. For more information about applying the enhanced security configuration, see <A href="#applytospecificusers">Apply Internet Explorer Enhanced Security Configuration to specific users</A>.</P>
+
+<H3 id=Heading4><a name="userex">Effects of Internet Explorer Enhanced Security Configuration on the Internet Explorer user experience</a></H3>
+
+<P id=Text13>The following table describes how Internet Explorer Enhanced Security Configuration affects each user's experience with Internet Explorer.</P>
+
+<TABLE>
+	<TR>
+		<TH id=Table4Header1>Task</TH>
+		<TH colspan="4" id=Table4Header2>Can be completed by</TH>
+
+	</TR>
+	<TR>
+		<TH></TH>
+		<TH id=Table4Header4>Administrators?</TH>
+		<TH id=Table4Header5>Power Users?</TH>
+		<TH id=Table4Header6>Limited Users?</TH>
+		<TH id=Table4Header7>Restricted Users?</TH>
+	</TR>
+	<TR>		
+		<TD id=Table4_1x1>Turn on/off Internet Explorer Enhanced Security Configuration</TD>
+		<TD id=Table4_1x2>Yes</TD>
+		<TD id=Table4_1x3>No</TD>
+		<TD id=Table4_1x4>No</TD>
+		<TD id=Table4_1x5>No</TD>
+	</TR>
+	<TR>		
+		<TD id=Table4_2x1>Adjust the security level for a particular zone in Internet Explorer</TD>
+		<TD id=Table4_2x2>Yes</TD>
+		<TD id=Table4_2x3>Yes</TD>
+		<TD id=Table4_2x4>No</TD>
+		<TD id=Table4_2x5>No</TD>
+	</TR>
+	<TR>
+		<TD id=Table4_3x1>Add sites to the Trusted sites zone</TD>
+		<TD id=Table4_3x2>Yes</TD>
+		<TD id=Table4_3x3>Yes</TD>
+		<TD id=Table4_3x4>Yes</TD>
+		<TD id=Table4_3x5>Yes</TD>
+	</TR>
+	<TR>
+		<TD id=Table4_4x1>Add sites to the Local intranet zone</TD>
+		<TD id=Table4_4x2>Yes</TD>
+		<TD id=Table4_4x3>Yes</TD>
+		<TD id=Table4_4x4>Yes</TD>
+		<TD id=Table4_4x5>Yes</TD>
+	</TR>
+</TABLE>
+<P id=Text14>All other Internet Explorer tasks can be completed by all user groups, unless the server administrator chooses to further restrict user access.</P>
+
+<P id=ReturnToTop3><A href="#top">Return to top</A></P>
+
+<BR><HR>
+
+<H2 id=Heading5><A name="manage">Managing Internet Explorer Enhanced Security Configuration</A></H2>
+
+<P id=Text15>Internet Explorer Enhanced Security Configuration is designed to reduce your server's exposure to security threats. To ensure that you get the most benefit from the enhanced security configuration, consider these browser management recommendations:</P>
+
+<UL>
+	<LI id=List19_7>All Internet and intranet sites are assigned to the Internet zone by default. If you trust an Internet or intranet site and need it to be functional, add the Internet site to the Trusted sites zone and add the intranet site to the Local intranet zone. For more information on the security levels for each zone, see <A href="#effects">Effects of Internet Explorer Enhanced Security Configuration</A>.</LI>
+	<LI id=List19_1>If you want to run a browser-based client application over the Internet, you should add the Web page that hosts the application to the Trusted sites zone. For more information, see <A href="#addinternetsites">Add sites to the Trusted sites zone</A>.</LI>
+	<LI id=List19_2>If you want to run a browser-based client application over a protected and secure local intranet, you should add the Web page that hosts the application to the Local intranet zone. For more information, see <A href="#addintranetsites">Add sites to the Local intranet zone</A>.</LI>
+	<LI id=List19_3>Add internal sites and local servers to the Local intranet zone to make sure you have access to, and can run, applications from your servers.</LI>
+	<LI id=List19_4>Use unattend.txt to add intranet sites and UNC servers to the Local intranet zone inclusion list as part of the installation process. For more information, see the Readme file in Deploy.cab on the Windows product CD.</LI>
+	<LI id=List19_5>Use client computers to download drivers, service packs, and so on, and avoid any browsing on servers.</LI>
+	<LI id=List19_6>If you use disk imaging to install operating systems on your servers, add the intranet sites and UNC servers you trust to the Local intranet zone and add the Internet sites that you trust to the Trusted sites zone on the base image. You can then change the list for images relative to different server types and needs.</LI>
+</UL>
+
+<H3 id=Heading6><A name="addinternetsites">Add sites to the Trusted sites zone</A></H3>
+
+<P id=Text16>When Internet Explorer Enhanced Security Configuration is enabled on your server, the security settings for all Internet sites are set to High. If you trust a Web page and need it to be functional, you can add that page to the Trusted sites zone in Internet Explorer.</P> 
+
+<OL>
+  	<LI id=List7_1>Navigate to the site that you want to add.
+  	<UL>
+		<LI id=List8_1>If you are already viewing the site that you want to add, continue to step 2.</LI>
+  		<LI id=List8_2>If you know the URL of the site that you want to add, open Internet Explorer, type the site URL in the Address bar, and then wait for the site to load.</LI></UL></LI>
+	<LI id=List7_2>Double-click the icon in the right-hand side of the Status Bar (icon may be one of the following names: <b>Internet</b>, <b>Local Intranet</b>, <b>Trusted sites</b>, <b>Restricted sites</b>) to open the Internet Options control panel.</LI>
+	<LI id=List7_6>Click <B>Trusted sites</B>, and then click <B>Sites</B>.</LI>
+	<LI id=List7_5>In the <B>Trusted sites</B> dialog box, click <B>Add</B> to move the site to the list, and then click <B>Close</B>.</LI>
+	<LI id=List7_3>Refresh the page to view the site from its new zone.</LI>
+	<LI id=List7_4>Check the Status bar of the browser to confirm that the site is in the <B>Trusted sites zone</B>.</LI>
+</OL>
+
+<P class="note" id=Notes2>Notes</P>
+<UL>
+	<LI id=List9_8>If an Internet site tries to use scripting or ActiveX controls, a dialog box is displayed to notify you. You can add the Internet site to the Trusted sites zone directly from this dialog box. If you have disabled this dialog box, you can re-enable the dialog box in Internet Explorer. On the Tools menu, click <B>Internet Options</B>. On the Advanced tab, select <B>Display enhanced security configuration dialog</B>.</LI>
+	<LI id=List9_5>A Web page can be part of only one zone at a time &mdash; you cannot add a page to both the Trusted sites zone and the Local intranet zone.</LI>
+	<LI id=List9_1>When you add a Web page to the Trusted sites zone, you are adding the domain for that page. Therefore, all pages within that domain are also added. For example, if you add http://www.microsoft.com/windowsxp/expertzone/ to your Trusted sites zone, you are adding http://www.microsoft.com. If you then want to view the Windows Help and Support site, you will have to add http://support.microsoft.com separately, because the Windows Help and Support site is a separate domain.</LI>
+	<LI id=List9_6>Internet Explorer maintains two different lists of sites for the Trusted Sites zone. One list is in effect when the enhanced security configuration is enabled, and a separate list is in effect when the enhanced security configuration is disabled. When you add a Web page to the Trusted sites zone, you are adding it only to the list that is currently in effect.</LI>
+	<LI id=List9_2>You can use wildcards to add all sub-domains for a given domain. For example, you can add *.microsoft.com to the list, which adds both www.microsoft.com and support.microsoft.com.</LI>
+	<LI id=List9_3>Many Internet sites use more than one domain to host their content. You may have to add several domains to the Trusted sites zone to have full functionality for one site.</LI>
+	<LI id=List9_4>During installation you can add many sites at one time to the Trusted sites zone by using certain settings in unattend.txt. For more information, see the Readme file in Deploy.cab on the Windows product CD. You can also use Group Policy to add and manage multiple sites. For more information, see the <I>Microsoft Windows Server 2003 Deployment Kit</I>.</LI></UL>
+
+<H3 id=Heading7><A name="addintranetsites">Add sites to the Local intranet zone</A></H3>
+
+<P id=Text18>When Internet Explorer Enhanced Security Configuration is enabled, the security settings for all intranet sites are set to High. As a result, you are prompted for your credentials (your user name and password) each time you visit intranet sites that have not been added to the Local intranet zone. If you routinely use intranet sites, and you know those sites are trustworthy, you can add them to the Local intranet zone in Internet Explorer.</P>
+
+<OL>
+  	<LI id=List10_1>Navigate to the site that you want to add.
+  	<UL><LI id=List11_1>If you are already viewing the site that you want to add, continue to step 2.</LI>
+  		<LI id=List11_2>If you know the URL of the site that you want to add, open Internet Explorer, type the site URL in the Address bar, and then wait for the site to load.</LI></UL></LI>
+	<LI id=List10_2>Double-click the Zone area in the Status Bar to open the <b>Internet Options</b> control panel.</LI>
+	<LI id=List10_6>Click <b>Trusted sites</b>, and then click <b>Sites</b>.</LI>
+	<LI id=List10_5>In the <B>Local intranet</B> dialog box, click <B>Add</B> to move the site to the list, and then click <B>Close</B>.</LI>
+	<LI id=List10_3>Refresh the page to view the site from its new zone.</LI>
+	<LI id=List10_4>Check the Status bar of the browser to confirm that the site is in the <B>Local intranet zone</B>.</LI>
+	</OL>
+	
+<P class="note" id=Notes3>Notes</P>
+<UL>
+	<LI id=List12_4>Do not add Internet sites to the Local intranet zone, because your credentials are passed automatically to the site if they are requested.</LI>
+	<LI id=List12_5>A Web page can be part of only one zone at a time &mdash; you cannot add a page to both the Trusted sites zone and the Local intranet zone.</LI>
+	<LI id=List12_1>The enhanced security configuration also restricts access to scripts, executable files, and other potentially unsafe files on a UNC path unless it is added to the Local Intranet zone explicitly. For example, if you want to access <I>\\server\share\setup.exe</I>, you must add <I>\\server</I> to the Local intranet zone.</LI>
+	<LI id=List12_2>When you add a Web page to the Local intranet zone, you are adding the domain for that page. Therefore, all pages within that domain are also added. For example, if you add http://<i>YourIntranetServer/SubWeb</i> to your Local intranet zone, you are adding http://<i>YourIntranetServer</i>.</LI>
+	<LI id=List12_6>Internet Explorer maintains two different lists of sites for the Local intranet zone. One list is in effect when the enhanced security configuration is enabled, and a separate list is in effect when the enhanced security configuration is disabled. When you add a Web page to the Local intranet zone, you are adding it only to the list that is currently in effect.</LI>
+	<LI id=List12_3>During installation you can add many sites at one time to the Local intranet zone by using certain settings in unattend.txt. For more information, see the Readme file in Deploy.cab on the Windows product CD. You can also use Group Policy to add and manage multiple sites. For more information, see the <I>Microsoft Windows Server 2003 Deployment Kit</I>.</LI>
+</UL>	
+
+
+<H3 id=Heading8><A name="applytospecificusers">Apply Internet Explorer Enhanced Security Configuration to specific users</A></H3>
+
+<P id=Text19>Internet Explorer Enhanced Security Configuration allows you to control the level of Internet Explorer access allowed to certain user groups on your server.</P>
+
+<OL>
+<LI id=List13_1>Open <B>Control Panel</B>, click <B>Add or Remove Programs</B>, and then click <B>Add/Remove Windows Components</B>.</LI>
+<LI id=List13_2>Select <B>Internet Explorer Enhanced Security Configuration</B>, and then click <B>Details</B>.</LI>
+<LI id=List13_3>Select the user group(s) that you want to apply the enhanced security configuration to -<b>Administrators group</b>, or <b>All other user groups</b> -- and then click <b>OK</b>.</LI> 
+<LI id=List13_4>Click <B>Next</B>, and then click <B>Finish</B>.</LI> 
+<LI id=List13_5>Restart Internet Explorer to apply the enhanced security settings.</LI>
+</OL>
+ 
+
+<P class="note" id=Notes4>Notes</P>
+<UL>
+	<LI id=List14_1>When you apply Internet Explorer Enhanced Security Configuration to the Administrators group, the settings are applied to Administrators. When you apply Internet Explorer Enhanced Security Configuration to <b>All other users groups</b>, the settings are applied to all groups except for the Administrators group.</LI>
+	<LI id=List14_2>For up-to-date information about Internet Explorer security zones, go to the <A href="http://go.microsoft.com/fwlink/?LinkId=12658" title="http://msdn.microsoft.com/" target="_new">Microsoft MSDN Library Web site</A><span class="printOnly"> (http://msdn.microsoft.com/workshop/security/szone/overview/templates.asp)</span>.</LI>
+	<LI id=List14_3>When you apply Internet Explorer Enhanced Security Configuration to any user group and an instance of Internet Explorer is open, you must close out of Internet Explorer and restart it for the hardening changes to become active.</LI>
+</UL>
+
+<H3 id=Heading10><a name="strengthen">Strengthen Internet Explorer security settings manually on your server</a></H3>
+
+<P id=Text21>If you do not use Internet Explorer Enhanced Security Configuration in your environment, you can easily strengthen Internet Explorer by using Internet Options in Control Panel to manually raise the security settings on your server.</P> 
+
+<OL>
+  <LI id=List16_1>Open <B>Internet Explorer</B>.</LI>  
+  <LI id=List16_2>On the <B>Tools</B> menu, click <B>Internet Options</B>.</LI>
+
+  <LI id=List16_3>On the <B>Security</B> tab, select the Web content zone you want to adjust: Internet, Local intranet, Trusted sites, or Restricted sites.</LI>
+
+  <LI id=List16_4>Under Security level for this zone, click <B>Default Level</B> to use the default security level for the zone, or click <B>Custom Level</B> and then select the settings you want.</LI>
+  </OL>
+
+<P class="note" id=Notes6>Notes</P>
+<UL>
+	<LI id=List17_1>For Restricted sites, click <B>Custom Level</B>, and then click a level in the <B>Reset to</B> list.</LI>
+	<LI id=List17_2>For up-to-date information about Internet Explorer security zones, go to the <A href="http://go.microsoft.com/fwlink/?LinkId=12658" title="http://msdn.microsoft.com/" target="_new">Microsoft MSDN Library Web site</A><span class="printOnly"> (http://msdn.microsoft.com/workshop/security/szone/overview/templates.asp)</span>.</LI>
+</UL>
+
+<H3 id=Heading13><a name="upgrading">Upgrading from Previous Versions of Internet Explorer</a></H3>
+
+<P id=Text26>When upgrading to a later version of Internet Explorer, the settings from the previous version are retained. If Internet Explorer is using the Enhanced Security Configuration and is upgraded to a later version, it will continue to use the Enhanced Security Configuration. Similarly, an Internet Explorer upgrade not using the Enhanced Security Configuration will not have this feature turned on during the upgrade.</P>
+
+<P class="note" id=Notes7>Notes</P>
+<UL>
+	<LI id=List24_1>Browser customizations are always honored during an Internet Explorer upgrade. If Internet Explorer was using Enhanced Security Configuration and you made a configuration change, the Internet Explorer upgrade would honor that change and leave it the same after the upgrade.</LI>
+	<LI id=List24_1>If you remove a version of Internet Explorer using the Enhanced Security Configuration, the previous version will continue to use the Enhanced Security Configuration. The same holds true when removing a version of Internet Explorer not using the Enhanced Security Configuration. As with the Internet Explorer upgrade, any customizations to it will be retained in the un-installation scenario as well.</LI>
+</UL>
+
+<P id=ReturnToTop1><A href="#top">Return to top</A></P>
+
+<BR><HR>
+
+<H2 id=Heading11><A name="bestpractices">Browser Security &mdash; Best Practices</A></H2>
+<P id=Text22>Using servers for Internet browsing does not adhere to sound security practices because Internet browsing increases the exposure of your server to potential security attacks. Regardless of the browser you use, you should restrict browsing on your server.</P>
+
+<P id=Text23>To reduce the risk to your server of potential attacks from malicious Web-based content:</P>
+
+<UL>
+	<LI id=List18_1>Do not use servers for browsing general Web content.</LI>
+	<LI id=List18_5>Use client computers to download drivers, service packs, and so on.</LI>
+	<LI id=List18_2>Do not view sites that you cannot confirm are secure.</LI>
+	<LI id=List18_3>Use a limited user account instead of an administrator account for general Web browsing.</LI>
+	<LI id=List18_4>Use Group Policy to keep unauthorized users from making inappropriate changes to browser security settings.</LI></UL>
+
+<P id=ReturnToTop2><A href="#top">Return to top</A></P>
+
+
+</body>
+</html>
+Ôªø<HTML id=imgbrows style="font-family: MS Shell Dlg; font-size: 8pt;
+width: 31.5em; height: 32.5em">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<TITLE>General</TITLE>
+<SCRIPT>
+var L_NotAvailable_Text = "Not Available";
+</SCRIPT>
+<SCRIPT LANGUAGE="javascript" src="imgbrows.js"></SCRIPT>
+<SCRIPT language=vbscript>
+function regionalShortDate(dateIn)
+'convert date to short format with current regional setting
+regionalShortDate = FormatDateTime(dateIn, 2)
+end function
+</SCRIPT>
+</HEAD>
+<BODY onload="BodyLoad()" id=bdy bgcolor=buttonface style="background: buttonface;
+font-family: MS Shell Dlg; font-size: 8pt; color: windowtext" scroll=no>
+<table cellPadding=3 cellspacing=2 border=0 id=tbl1
+style="font-family: MS Shell Dlg; font-size: 8pt; color: windowtext;"
+width=100%>
+<TR>
+<TD id=td1 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<img id=imgImage src=image.gif width=35 height=35 border=0>
+</td>
+<td id=td2 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_nameProp style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</td></tr>
+<tr>
+<td id=td3 style="font-family: MS Shell Dlg; font-size: 8pt;" colspan=2>
+<P id=par1>&nbsp;</P>
+<hr>
+</td>
+</tr>
+<tr>
+<Td nowrap id=td4 style="font-family: MS Shell Dlg; font-size: 8pt;">Protocol:
+<td id=td5 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_protocol style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<TD id=td6 style="font-family: MS Shell Dlg; font-size: 8pt;">Type:
+<TD id=td7 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_mimeType style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td8 style="font-family: MS Shell Dlg; font-size: 8pt;" valign=top>Address:<br>
+(URL)
+<TD id=td9 style="font-family: MS Shell Dlg; font-size: 8pt;" valign=top>
+<TEXTAREA id=_href style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td10 style="font-family: MS Shell Dlg; font-size: 8pt;">Size:
+<td id=td11 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<SPAN id=_fileSize style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;<SPAN id=spaBytes>bytes</SPAN>
+</tr>
+<tr>
+<td id=td17 style="font-family: MS Shell Dlg; font-size: 8pt;">Dimensions:
+<td id=td18 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<SPAN id=_width style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;
+<SPAN id=spaX>x</SPAN>&nbsp;
+<SPAN id=_height style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;
+<SPAN id=spaPixels>pixels</SPAN>
+</tr>
+<tr>
+<td id=td12 style="font-family: MS Shell Dlg; font-size: 8pt;" colspan=2>&nbsp;
+<hr>
+</tr>
+<tr>
+<td id=td13 style="font-family: MS Shell Dlg; font-size: 8pt;">Created:
+<td id=td14 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileCreatedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td15 style="font-family: MS Shell Dlg; font-size: 8pt;">Modified:
+<td id=td16 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileModifiedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+</table>
+</BODY>
+</HTML>
+PADâPNG
+
+   IHDR           szzÙ  ˝IDATxú≈ó[h\◊ÜøΩœôãfF„ZWKéÏH4Qú(±©%ŸÆ„÷v¸–KjJB¡vJB˙PâÊ!Åî¥P˙“ó–ÙMÇBÚP∑$¶‡BJJ°nhk'÷(ââ%«í/≤%Îi4“ÃÕ9sˆ•3íeªP”R∫a√¿ûŸˇø÷ˇØ5kÓsı˜ı=Ï∫Å.†hÆœ¿0úºr?˜ä˚ >òL&øÁ8Œ≥wvF⁄€€c≠≠≠≤ææût:@>ü'õÕ233c&&&ÇÒ±±Pk}⁄ÛºìÉÉÔˇG˙˚˙:6◊’ΩRõJÎ›≥ß∂´´K‰rÀbjzû≈Â2ÀEA±a`Të∑LKcÇ«ª:ijl∞###vË¸˘B°X<ï[Zzm`p˙}ËÔÎ{jKKÀ@OwwGOoØ;~ÂöX)≈πïo‡∆ú¬Û-°≤Ñ †ç¡ò°åˆâë£91«óø¥ùÓ›;mfhHeÜáØœÕŒˆ˛ÂﬂËÔÎ;⁄÷÷ˆ∆7ü~∫!ëLäk7ó∏QË`|≤ÑH¥(#CÉW“ÑZëÜà4XSFXaJDmééÕ3úxÊ A‡€?æ˚Ó‚‘‘‘ÉÉÿàÁ‹y[[€…„'N4.Ø¨à´≥.^m‡⁄LàFï P•°Ü;kÈ}4EvY±∞`Ö§¨%°r(kó¨ÁìO.–∂¥8p‡…‰‰‰‰ëŒŒŒè3ôÃƒ=˙˚˙:∂¥¥ºuÙË—∂Âïqy6Õπ±8Ÿ¯ %‘e¿É_÷º≠û{*¡„Ìı‘rÓBÅ≈Â2`Q∆PVíPª¯:ŒgcWÈhç±sÁâ[””{›±„ΩL&ìêk6◊’Ω“”››ëH&≈Ë»\â≤Ï	J°D©•ZáÂêDéÏéÆg.Å√ªk(¨ñ1F£îE+C†$≈rÇøï7˜—hLÙtwwlÆ´{eÌ∑≤˝¡⁄TÍXOoØ˚◊\`tÆël¡P*[¬PQV≠4Jiå1ºÄâuáwF.œ‚ Få6hc— *Øú`Æ¥ï7~˚=ΩΩnm*u¨øØÔ‡∫á¸È¡CázÁ?_ênmej¡‚á´-∆T@ç5Xc∞÷‡ÜãWñy†ﬁP.¸ÊùQﬁ˚†H,ñ@kç—≠⁄Zå1he—FêÀ+ZøPÌnèﬁºyì≥ÁŒΩ#˙˚˙Jß”√/Ω¸rÌØO˝Y\ZŸEÆ –∆¡
+÷ÆGi¨≈⁄JÈΩê¿_EòU%ùÆ≈ë≠Fkå©ê0÷`µB‚rÖGÍØÒÛü<o˘˙ÎÖ|>ﬂÌ˚ÓÏå,,,äŸb3À˘2Åéb≠ﬁP•`¨ZR1I:QãµµHa)z>Ÿl£5°R£±⁄Ç¥$é¥®à‡⁄|äŸŸ9—˘»#ëÃ––~Ënooè]¯ÙÛÖ&e–Zc◊⁄Ñ·∆
+¿rÏHúg◊≥Íï∏<i˘¡èﬁd"∑ùMõb’¨	Ñ ãEXB‡ª
+w˘˚πèË⁄—ÀuK†´µµUﬁúŒ‚˘P.ÉR∫RÎJ£Ù⁄Æ´¥Íì]X§kÎ
+W.èsÈ≥q:∂hbQV ÖãRH¿A‡ ÑH¥q(+á—±[¥¥¥H†À⁄ÎÎÎYÃÖÑî6‹ñ!$FVÚ+ds∏Æ$4iBﬂ0∆`ÎíYª±¡
+lı2k∆8LŒy‘◊◊¥ª@s:ùf5êÑ°A+Ö±¨®\'æÔ≥î]¬˜}¨◊q¡hJ^	ﬂØ‘~AT¿7êﬂ∏¨h#ÒVÂ⁄?i≥ªv®M≈¡JW£ ΩUñsÀmp§É6¨ƒ >JÈ€Ö"*2‹ª*æ¡
+‚~.0üœÁ∑EdÄ—eåv0U”xè|!§êÿjÖêÂ∞å1Q≈V ÷õÎmò5	Ñ8X1M>üòó¿D6õ•.-P™å5
+¥¢X(V¿∑˜—U √qú™ÙÇJcu©òœEl¯,ëHé¥lmäìÕf&$0233c⁄€öqM	k%ﬂßXÙbCZ÷âÿ*X$%ã„8QÑ≥ÅH•§Ë–gÁc€ôùù5¿àÜ'&&Çû›OêtW∞:¿+ïnG,7ÇV£4)†¶&N"ë¿ïkVíÎ$÷ OY›Qi©q
+|e70,Å≥„cc·ñ-Õˆ¡∫%tP@≈∫U’äU;I@èGI$í$SIúàã˝T”/6d ‚@‘Ÿ—Ê—“≤≈éèçÖ¿Y908xEk}zddƒ~ÌN"vëàÆ«|«–de5â’∞iSö∆˙b—hµ*Ëv‰â#$Q◊ √é?≥è——Q´î:=08xExûwrË¸˘¬ﬁ==vœÛD)ëzΩz*Êr÷£«B"û§±°ôÜ∆FÑt™ﬁ»µÓáã@"• ‚jëUˆuyÏ€€mœ¯a¡Ûºìk7308¯~°X<ïR}/|á∂Ù‚Œ*©´©ΩÌrÅƒhH•‘5‘SSSS9ï™zK!qÑ¿ÇàcHEW©èèÛRˇ≥g2™P,ûZ◊◊'¢‹““kô··ÎaX∂/}ˇ0Mâ)‚“#Í(Ñ®|qMg£·„—|_>#cæ¬≤J≤¢HƒU§biwåøxà ÏP&s=∑¥Ù⁄Óm´:îæ}¸ƒâ∆Î◊oã_ùaj•ù≤M™8∆∫`##iäf®K+—⁄2[‹E`p]pÑ"‚ƒ‹"ç5üÒÍã_e€∂≠º˝÷[SSS«7éÁwL≈ôLf¢≥≥slrrÚ»Æ];_jóòø˘sYÖ.étB •$∑⁄¬tÆâœÛ-,Æ>ÄMè"“'ÊqÃ-ˆÌòÊgØ>ãÎJ˚˚”ß◊∆Ú?mƒºÉ@ïƒXggÁ«∑¶ß˜&5õû;˛mŸ—ÏâÂœ?•Ë`Æ4ƒ£ñdMÑTçK™∆s}Ñ…Q#'y¨Ì?|æãÔ˚ÜπxQù9sÊÍÃÙÙÛwÉﬂ#¡]r‹Û4õôô;˚/M1∑®ÒJïî¨—¥6Ey‚—≠x≤õ-ÕMˇ›”Ï."ˇü«Èø Ú?yûˇ)/‰]cX≠    IENDÆB`ÇPAâPNG
+
+   IHDR   /   0   Åß#‚   	pHYs  ƒ  ƒï+  
+OiCCPPhotoshop ICC profile  x⁄ùSgTSÈ=˜ﬁÙBKàÄîKoR RBãÄë&*!	Jà!°ŸQ¡EE»†àééÄåQ,ä
+ÿ‰!¢éÉ£àä ˚·{£k÷º˜ÊÕ˛µ◊>Á¨Ûù≥œ¿ñH3Q5Ä©B‡É«ƒ∆·‰.@Å
+$p ≥d!s˝# ¯~<<+"¿æ x” ¿Mõ¿0áˇÍBô\ÄÑ¿të8KÄ @zéB¶ @FÄùò&S † `Àcb„ P- `'Ê” Äù¯ô{ [î!†ë  eàD h; ¨œVäE X0 fKƒ9 ÿ- 0IWfH ∞∑ ¿Œ≤  0QàÖ) { `»##x Ñô FÚW<Ò+ÆÁ*  xô≤<π$9EÅ[-qWW.(ŒI+6aaö@.¬yô2Å4‡ÛÃ  †ë‡ÉÛ˝xŒÆŒŒ6é∂_-Íøˇ"bb„˛Âœ´p@  ·t~—˛,/≥Ä;Äm˛¢%Óh^†u˜ãf≤@µ †È⁄WÛp¯~<<E°êπŸŸÂ‰‰ÿJƒB[a W}˛g¬_¿W˝l˘~<¸˜ı‡æ‚$Å2]ÅG¯‡¬ÃÙL•œí	Ñb‹ÊèG¸∑ˇ¸”"ƒIbπX*„QqéDöåÛ2•"âBí)≈%“ˇd‚ﬂ,˚>ﬂ5 ∞j>{ë-®]cˆK'Xt¿‚˜  Úªo¡‘(ÄhÉ·œwˇÔ?˝G†% ÄfIíq  ^D$.T ≥?«  D†Å*∞AÙ¡,¿¡‹¡¸`6ÑB$ƒ¬BB
+dÄr`)¨ÇB(ÜÕ∞*`/‘@4¿QhÜìp.¬U∏=p˙aû¡(ºÅ	A»a!⁄àbäX#éôÖ¯!¡Hã$ …àQ"Kë5H1RäT UHÚ=r9á\F∫ë;» 2Ç¸ÜºG1îÅ≤Q=‘µCπ®7ÑF¢–dt1öè†õ–r¥=å6°Á–´h⁄è>C«0¿Ë3ƒl0.∆√B±8,	ìcÀ±"¨´∆∞V¨ªâıcœ±wÅE¿	6wB aAHXLXNÿH® $4⁄	7	ÑQ¬'"ì®K¥&∫˘ƒb21áXH,#÷è/{àCƒ7$âC2'πêI±§T““F“nR#È,©õ4H#ì…⁄dk≤9î, +»Ö‰ù‰√‰3‰‰!Ú[
+ùb@q§¯S‚(R jJÂÂ4Âeò2AU£öR›®°T5èZB≠°∂RØQá®4uö9ÕÉIK•≠¢ï”hh˜iØËt∫›ïNó–W“ÀÈGËóËÙwÜÉ«àg(õgwØòL¶”ã«T071ÎòÁôôoUX*∂*|ë 
+ïJï&ï*/T©™¶™ﬁ™UÛUÀTè©^S}ÆFU3S„©	‘ñ´U™ùPÎSSg©;®á™g®oT?§~Y˝âY√L√OC§Q†±_„º∆ c≥x,!k´ÜuÅ5ƒ&±ÕŸ|v*ªò˝ªã=™©°9C3J3W≥RÛîf?„òq¯útN	Á(ßóÛ~äﬁÔ)‚)¶4Lπ1e\k™ñóñX´H´Q´GÎΩ6ÆÌßù¶ΩEªY˚ÅA«J'\'GgèŒùÁSŸS›ß
+ßM=:ıÆ.™k•°ªDwønßÓòûæ^ÄûLoßﬁyΩÁ˙}/˝T˝m˙ßıGX≥$€Œ<≈5qo</«€ÒQC]√@C•aïaó·Ñëπ—<£’FçFåi∆\„$„m∆m∆£&&!&KMÍMÓöRMπ¶)¶;L;L«ÕÃÕ¢Õ÷ô5õ=1◊2ÁõÁõ◊õﬂ∑`ZxZ,∂®∂∏eI≤‰Z¶YÓ∂ºnÖZ9Y•XUZ]≥F≠ù≠%÷ª≠ªßßπNìN´û÷g√∞Ò∂…∂©∑∞Âÿ€Æ∂m∂}agbg∑≈Æ√ÓìΩì}∫}ç˝=áŸ´Z~s¥r:V:ﬁöŒúÓ?}≈ÙñÈ/gXœœÿ3„∂À)ƒiùSõ”GggπsÉÛàãâKÇÀ.ó>.õ∆›»Ω‰Jtıq]·z“ıùõ≥õ¬Ì®€ØÓ6ÓiÓá‹üÃ4ü)ûY3s–√»C‡QÂ—?üï0kﬂ¨~OCOÅgµÁ#/c/ëW≠◊∞∑•w™˜aÔ>ˆ>rü„>„<7ﬁ2ﬁY_Ã7¿∑»∑ÀO√oû_ÖﬂC#ˇdˇzˇ— ßÄ%gâÅAÅ[˚¯z|!øé?:€eˆ≤ŸÌAå†πAAèÇ≠ÇÂ¡≠!h»Ïê≠!˜ÁòŒëŒiÖP~Ë÷–aÊaã√~'ÖáÖWÜ?épàX—1ó5w—‹CsﬂD˙DñDﬁõg1O9Ø-J5*>™.j<⁄7∫4∫?∆.fYÃ’XùXIlK9.*Æ6nlæﬂ¸ÌÛá‚ù‚„{ò/»]py°Œ¬ÙÖß©.,:ñ@LàN8îA*®å%Úw%é
+y¬¬g"/—6—àÿC\*NÚH*MzíÏëº5y$≈3•,ÂπÑ'©êºLL›õ:ûöv m2=:Ω1ÉíëêqB™!Mì∂gÍgÊfvÀ¨eÖ≤˛≈nã∑/ï…k≥ê¨Y-
+∂B¶ËTZ(◊*≤geWføÕâ 9ñ´û+ÕÌÃ≥ €ê7úÔüˇÌ¬·í∂•ÜKW-XÊΩ¨j9≤<qy€
+„+ÜV¨<∏ä∂*m’O´ÌWóÆ~Ω&zMkÅ^¡ Ç¡µkÎU
+ÂÖ}Î‹◊Ì]OX/Yﬂµa˙Üù>âäÆ€óÿ(‹xÂáo øô‹î¥©´ƒπdœf“fÈÊﬁ-û[ñ™óÊónŸ⁄¥ﬂV¥ÌıˆE€/óÕ(€ªÉ∂Cπ£ø<∏ºeß…ŒÕ;?T§TÙT˙T6Ó“›µa◊¯n—Ó{ºˆ4Ï’€[º˜˝>…æ€UUM’f’e˚I˚≥˜?Æâ™È¯ñ˚m]≠NmqÌ«“˝#∂◊π‘’“=TRè÷+ÎG«æ˛ùÔw-6Uçú∆‚#pDy‰È˜	ﬂ˜:⁄vå{¨·”vg/jBöÚöFõSö˚[b[∫OÃ>—÷Íﬁz¸G€ú4<YyJÛT…i⁄ÈÇ”ìgÚœåùïù}~.˘‹`€¢∂{ÁcŒﬂjoÔ∫t·“EˇãÁ;º;Œ\Ú∏tÚ≤€ÂW∏WöØ:_mÍtÍ<˛ì”O«ªúªöÆπ\kπÓzΩµ{f˜Èû7Œ›ÙΩyÒˇ÷’û9=›ΩÛzo˜≈˜ıﬂ›~r'˝ŒÀªŸw'Ó≠ºOº_Ù@ÌAŸC›á’?[˛‹ÿÔ‹j¿w†Û—‹G˜ÖÉœ˛ëıèCèôèÀÜÜÎû8>99‚?r˝È¸ßCœdœ&û˛¢˛ÀÆ/~¯’Î◊Œ—ò—°óÚóìøm|•˝Í¿ÎØ€∆¬∆æ…x31^ÙV˚Ì¡w‹wÔ£ﬂO‰| (ˇh˘±ıS–ß˚ìììˇòÛ¸c3-€   gAMA  ±é|˚Qì    cHRM  z%  ÄÉ  ˘ˇ  ÄÈ  u0  Í`  :ò  oí_≈F  lIDATx⁄¥ö{p\gy∆ﬂ9{ë¥∫Xñ,)æ`ŸÚ5i¨ƒπŸNLlìí68Öñi“$òB¿$0Ìj¶t:ù“Nˇ∞:–ô0òa
+–°- rqµ‚k"≈Vt≥≠õΩZ]ˆ~9Á˚æ˛qæsvÂòP›ô„≥{Vª˚ºœ˜ºœ˚æﬂ±–ZÛ€>z‚Ò¿`3∞Ë⁄ÅX’üÂÄÀ¿y‡‡,ÊÅﬁﬁw¯‚Z¡˜ƒ„-¿˚Å˚ÄM≠≠≠â5k÷ËÆÆÆÜ+W.knnÓàD"Õ@ê/ïJsó''&###Ÿ±±1ëL&€Äs¿OÅ_ËÌù˝ﬂè«ÄÄ«õöö≤€∂o/Ô‹π≥k<°Óõ 39S"1[dvæL*W&Wt	€´µX⁄°£% ˚:ÍXª2∆⁄Â—ææææ±cGèFR©T=‚Åﬁﬁ‹Ô|O<æ¯LSSSÌ=¸pππ}√„ß≥÷ÿdé…ô"B@©$…\©êÆ¬ï
+¥BJÖ÷
+©$J)–öÎªŸ≤a)€nlëÈ‰Ës?¸·£©T™ |ı@oÔ…ﬂ¯ûx|/â={ˆúﬂ‘}˜ìØ§ÎÜ'
+4ıµ6óíEÊ”π¢ãR•Zi¥÷H)—h¥Ú¿k•QR¢¥D)…u≠5lÔÓ`◊m˘·Å#ﬂ|È•ó:ÅoËÌ}˛wﬂè:V_ø„ì˚ˆâs”ıè?õ4À[£LÕôHî»]N•TÑœ¥R
+iÇÚﬁóﬁg§ãíV/·ﬁ´ÿ∫Œ˙÷7øÒ≤ŸÏ—ΩΩk=Ò¯SÌÌÌ7=˝Ã3Àæ˜ ¬ﬁ3ÔdX∑™≠5#yÊS ∞™—(iÄ°  ØQ⁄c[kç÷
+WyÔK•Ω L Zπ<tœz>ı»∫æÚÏ≥SâD‚Ùo
+‡™‡Óøä«W|~Í°ÒDë÷∆∏î,3x!ÄÚ‰°ºÁÏ#ª€∏Áé6§îLœ‰¯ß}ìL¡Zõ`î9¥DKÂ]wK(∑ÃŒ€VÛ∑üΩÂ–óøÙ•ãâD‚‰ÅﬁﬁØ˝:÷UÄ?R__ø˝Ègûi;¯˝©á&E∂nl‡¬të¡Yè1≠<◊J—ÛX'πg%µQA$§Xﬁ‚˜oFó.#›íóî…	å‘¥%B B>:¬ﬂ=˚∆˝ü~Í©ÂuuuËâ«?¸ﬂèﬂ<Òâ}˚‰WûüŸ;:ëß{}C„yŒOÂÉ’~b∆µR(47Æo¶T*ëNß…d2‰Ûyl°∏eùM>;Éñ^~<Bkî•hÄ‚—aæˆΩ·}Ï1¯BO<˛Ô	ﬁ¯¯S˜ÓŸs˛¯HÌìCÁ≥lÍå1ù,12ë«≠íäßu∏wΩª+h
+Ö•R	◊uëR"•‰ÊÎ€(§∏Â¢Y-<∞Ê˚@òÔ-BÄ‡áﬁ‚Ù®¯≥m€∂çk≠üÍâ«£Ô≈¸MMMµÎoxˇìg«r¨YQÉ÷ö∑Ü3Ü ’ Û‡µVúL!•ƒqúE¿ïRú≈)Áp]4hi]SY=º‹”Xh+äí.?~yàõÔ∏wo,ÎîRÓ∫*¯ûx|)ËC=‰?õâ%Áä¨h´·ÏÖ< h”KLoπµüt¯Ø=[<˝ˆ%cÖﬁ°µ&ìÕÛrﬂ ∂EkQ¿Î¨˚ü—ÿhÊÌs˘—kövÌ⁄UB<˘π˝˚Æ∆¸Æ¶¶¶|ÀÚÕèù:óbYKÑÛó
+Ã/îMu‘H©–A ä‡æ¯ı∑xÂË(cg»Âã=~éø˛áo≥êSk;ä÷ÕÉ6¿—ˇÇ6vÑÊïæVØﬂ˙áuuu≠ñe›V>dŒ˜mﬂæΩ|Ú\∆ŒÊV¥’00ñ‹ü)]	 Ù"ï÷ÿ·:æı„KdS„3I\◊!âQﬂ“N®¶€≤´‰‚K§IXoÑëëçEÑââ)^96^∑nù:uÍ‘˚Öáµ÷
+ d⁄⁄çwÌ‹i˘ªSƒjm¶ÁJäN`É¯ñ®|ZLE≠ÚwèQõh]¬éPSﬂÅí
+À
+!¨◊¶Pr)ª«ïHW„JÖñ
+i*≥JéFXöêíP*—˜∆Ûw∂ù9sÊ˛?˘ÿ«ó|Ê∑¥∂∂&.\ñ}{,EÁu1e§Tﬁ◊ò¬RaüÄy_£ ÚÅ[ópœm4÷GBáH•ã|ÊÔ¡d¬EXñªa º"¯= ÂÇR68í#«ﬁ!ÛÁ›7∆b±_566ﬁ ÑHh≠ïl\›Ÿ…ÿdûê•)ñôú„ï|ø?Ò–Ù&h?!U‡˝Jk>˘»6ØkgEG3Ì≠47÷∞º=∆€qKsh)çæ}®ﬁsÑ¿¬ø.˛`E∞B5(ß@ˇp jkksm€Óˆs’6tuu≈.NÁ±Ñ&ì+W‹DiÑ	è}©5Ry~≠ï$ùsòû)çFPJQ,…ÁÛ‰ÛyúrôBv∑0ãñ$/s÷>`sX-¢•Ôå-∞bÂ :À≤÷˚πjkVÆ\πlj&èíäBQ^ÆÉƒ»C˙+‡˘~:Sbr¶¿t"G:[FÅ„8ã≈¿„Ö†%ZzŒ%<IõxBV ]¬+Zq~<EG{˚!ƒu@DaÖÄéÊÊÊö‰¸¥‹íûæÉé—wÜJ9œÁ]Rπôåü‘ ¸‰,ÀBñ∞¸<¨b[WAí˜ﬁ÷¢í∏ÿ≠ò∫î¶•Â}KÑÕ@/,b—h¥)ù)·Úö%ìLJ˚âÈöÖtâT∂Lπ,1=ñÀ≤Ö<ˆ¡#<i!*Ä˝Ω≤Õıñ°êVb~>OCcc®ØPó+î±B!4Üaüy@æ(Y»î…dKx.k~÷8ëosñea€v∞
+⁄7uQÕzµl|î:ÄØ©¨äﬁ*Ú%¬·pDkm]	>	Q_ñ%·†À¿h=ìwôOï)ñú@B"∞5øTVò÷fz™∂ZHA ƒï∫˜AWØäÄç ÍÎ¢8éS64ÿÄÈb±Ë6‘ÖÎgÊh€ ∂2Ÿ2sÈ2nŸõGõÛâR˛WW`ÂÕØ˛kS3@ ¥µHË¡Çhç¬2ö˜X⁄‹D.óÀk•§ø(05õL^jmÆ¡uÀ(3Âk≠XHóH¶J∏éDÎ îüth0ËﬁRJ\◊≈u]≥
+æã¯´d-∂Fa!∞<ç©¬¸F«Ú•LMMe«Y».LNM%Øk´G∫n0l,d ÃßÀHWUr¯
+ôP%Ö ﬁoç]◊≈¥">a»Eû^}Õ"Dó∞≠kV511>û+ïJ3’]ÂÿËhnıÚzèuWíÕ;§≤éŸs1	â)ﬂbt•õ
+ñ˜ÍÃÎ*WØbUxﬁÓ	¿¶™beiÂ4°Påù\óŸlˆ¢´∂Ä°.Ëµ´ÍEπê!ï)Sv\áê`ﬁ§“∫‚9’GÛ’â÷∫RêÇ√ZVrÒÇ¬¬R%\'èU€Œ∆5Q5õLF/]æ<∏>¯…drEgª›w„∆ÃœÕQ*Ω¢Éœ¥1/#ç¨80k„2’TÜﬁ≈¨xØ@|!πylÀ‚ˆ[W„‰.åß3ôÏ»»»à/≠ΩΩ£¿…◊^{m¸∆MÌ§s–˘ §„≥™*”æ–˘W˜'J),´2Y™™:X†œ0¶ÖπÓ3.ÑÖÖB9i¬°zÓ‹⁄∆ë#Gr≥…‰âD"1îÂˇ“œN?ΩÛ¶∑ku∫òÈV%®JwuÕ¶/	r†jË]˚A‚ädb±d∞≠ÜÂdPnéUÎ7≥„Êò;~ÒbhbrÚP∏|_:ù∂íSgø{ˇÓçH∑Äp≥PÖ=èAÕ¢∫Æ©rí+Òä 9°Ú¸Jwk±ejç*\&Y¬˝ªW”w¯o'ì…—ÅÅÅ ∏⁄îZÙˆ¶ÄØø¯ìü4|xÁÚt˜ñu®b
+!ÀãfK”9T0W˙›†˝VAXpÔ∂HQ’ygπ)¥*p˝Õ[ÿΩ≠.ﬂˇ÷[µÁ_ ÂrsÜy˜ ≠èW3ôL‚≠ìØ˛Á?∞	À°Û	ÑíÔﬁÌ—TuSûDÂ´|–˛aYˆb‡¬
+4^-'Å¿ReTÓ·Ü.ˆ~hˇ˝˝;755’ﬂﬂﬂH%@.†∑∑(Ñ¯ó_ˆı≠ªquÒ?˝ÿ6Ñv†ò Ìø˜ÏQàEqT:í*∆C°°Pàp8åmUÈ\\ù}Â¢2Cÿ—f>˛—nÏ¬±ìccc±SßOøX*ïfÅ,P÷&°m˜ËÌ}¯ÁˇŒw"˚^˛≥˚>x;¬…#ró∞¥X¶Ær·èoZ¸ã√ç&874≈©7œ«´ˇ3ÑeE¬^öj“.:7åmÖÿÛ¡€˘¿-©˛üˇ¸Á5oû9Û_###É¿º—ª|œ]‚/|˛ÛO¥¥¥‹˜Ÿ˝˚Ø˚‚Wœﬁ}Ë– å®[éQod´Ó—ÕYπyú¸4NiÆ2Úv(F4∂íHÕ2Ñ≠LO˛ä…*;ÇÖ`œávÚƒ√÷ŸÉ˙˚èæz¯¿E`»h≠›˜/Ñœ<˝ÙKó.}‡˚ˆµ~˚G3ªøÛ›_†úVM:º-Bûvµ˙o–ÒÄkU(Bÿv-ñ5:7¸kâ(%qsÁâ‘∂Òßøì][æı‹sÂÅÅÅ7^=|¯'¿80, %]¯◊ﬁ\Bÿü€øˇÒX,ˆ»GˆÓUÁgó=¯¸˝ú>q;√ä¥¢C1¥Âm„±hÄ∂k¨™o◊¬…¢
+ìH'√Õ∑Ô‡·◊*æ~‚–°Cë¡¡¡£Ø>|ò4¿ÁÄ¢Ætxø˘∂é"ÙÈO}Í¡öööøÏÓÓNlø˚·ˇ¥o∫Êß?;Õ––(!+Ñ]∑nJºyi‰˜(>h≠¬´ÃBÊêô1\∑»ÜçõŸs7ª∑-U?˙˛¡◊ááá[˚˚˚_8zÏXüë…¥^–ZÀkæ°&Ñ=ˆË£∑466~.ãµÔÿ±ÉÎo⁄}ÔkøJàc«FË˚Âq©∞Ö lGGñ†£-`◊#TQöEñÁqd©!b	vÓºÉm€◊s◊mK9Ú⁄Ûoº~ÏXdaa!uÚ‰…œæin:'Lí´u~Õ∑2ÖˆÕ7›¥dÀñ-÷◊◊?^[[ko⁄¥âªwÌjœ9-ﬂJ14:À≈±)&∆ßHÃ¶»‰j#¥∑.a’™Â¨^ªäukó≤y}#!51˙ÚÀ/œû;*
+bhx¯â'éÂÛ˘K¿0k<Ωx5∆Ø˘&≤|.|€≠∑^∑∂´Îﬁ∆ÜÜ=ëHdsm]]∂£Ω›ÓÏÏ¨}ﬂÍ’´V≠jhnnéE"ëHπ\.œœœÁ«/^ÃåççÂ«∆∆J”””
+Ö˙l6;911q™`‡‘‹‹‹¥ayŒ$fp~`‚ZnﬂÔSa 
+ƒvﬁu◊≠Àñm≠´≠›çF;√·pG8n∂mªŒˇàî≤X*óS•bq6õÕNœœœONLNéç√p <œEøwyã¡!ÆÂŒπø˝jÕˇ3àôsçπ6€r˛VÄ8¶#,öÇì3ΩJﬁ\w¸ë˛ön"_#¯Í BÊàTÅõÌ	´
+º2’—©
+¢lÇrØÙÔ<ã&Î
+`´
+xu§™πxÄºˆ«ˇ -Ù˘≤yòg    IENDÆB`ÇPADÔªø<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:m="http://schemas.microsoft.com/office/2004/12/omml" xmlns:v="urn:schemas-microsoft-com:vml" xmlns:o="urn:schemas-microsoft-com:office:office">
+    <head>
+        <meta http-equiv="Content-Language" content="en-us" />
+        <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=8" />
+        <title>InPrivate</title>
+         <style type="text/css">
+            body {
+                background-image: url('top.jpg');
+                background-repeat: repeat-x;
+                background-color: #FEFEFE;
+                font-family: "Segoe UI", sans-serif;
+                font-size: 80%;
+                margin: 0em;
+                padding: 1em;
+                width: 70em;
+            }
+            .title,
+            .expandsection,
+            .tasksection, 
+            .expando,
+            .icon,
+            .help,
+            .close
+            {
+                position: relative;
+            }
+            .title 
+            {
+                font: 445% normal;
+                color: #d8e2f4;                
+                left: 4px;
+                margin:0;
+                margin-right: 5px;
+                padding-bottom: .2em;
+            }
+            .tasksection,
+            .expandsection {
+                padding-bottom: 10px;
+            }
+            .column1
+            {
+                width: 35em;
+                margin-right: 5px;
+            }
+            .mainContent,
+            .footer {
+                padding-left: 35px;
+            }
+            .footer {
+                width:65em;
+                float: left;
+                padding-top: 1em;
+            }
+            .tasksection 
+            {
+                min-width: 500px;
+            }
+            .expandsection {
+                padding-top: 10px;
+            }
+            .close,
+            .icon,
+            .help {
+                top: 3px; 
+                margin-right: 5px;
+                border: none;
+                text-decoration: none;
+                outline: none;
+            }
+            .description,
+            .textcount
+            {
+                color: #505050;
+            }
+            .tasks {
+                font-size: 130%;
+                line-height:160%;
+                color: #549c00;
+                text-decoration: none;
+                outline: none;
+            }
+            hr {
+                margin: 0em 1.5em 1em 0em;
+                height: 1px;
+                border-top: 1px #C0C0C0 solid;
+                border-left: none;
+                border-right: none;
+                border-bottom: none;
+            }
+            a {
+                color: #4F81BD;
+                text-decoration: none;
+            }
+            a:hover {
+                text-decoration: underline;
+            }
+        </style>
+    </head>
+    <body id="InPrivate">
+        <div id="titleHeader" class="title">InPrivate is turned on</div>
+        <div id="contentContainer" class ="mainContent">
+            <div class="column1">
+                <div class="tasksection">
+                    <div id="contentHeader" class="tasks">When InPrivate Browsing is turned on, you will see this indicator </div>
+                    <p><img id="inPrivateImage" alt="InPrivate in the address bar" src="inprivate.png" /></p>
+                    <span id="recentlyClosedTabsDescription" class="description">
+                        <p>&nbsp;</p>
+                        <p id="contentLine1"><i>InPrivate Browsing</i> helps prevent Internet Explorer from storing data about your browsing session. This includes cookies, temporary Internet files, history, and other data. Toolbars and extensions are disabled by default. See Help for more information.</p>
+                        <p id="contentLine2">To turn off InPrivate Browsing, close this browser window.</p>
+                    </span>
+                </div>
+            </div>    
+        </div>     
+        <div class="footer">
+            <hr/>
+            <div id="help">
+                <a id="learnMore" href="about:InPrivate" onclick="window.external.ShowInPrivateHelp(); return false;" onmouseup="return false;">Learn more about InPrivate Browsing</a>&nbsp;|&nbsp;<a id="privacystatement" href="http://go.microsoft.com/fwlink/?LinkId=140502">Read the Internet Explorer privacy statement online</a>
+            </div>
+        </div>
+    </body>
+</html>
+Ôªø<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML DIR="LTR">
+<HEAD>
+<link rel="stylesheet" type="text/css" href="ErrorPageTemplate.css" >
+<META NAME="MS.LOCALE" CONTENT="EN-US">
+<META HTTP-EQUIV="Content-Type" CONTENT="text/html; charset=utf-8">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<TITLE>Certificate Error: Navigation Blocked</TITLE>
+
+<SCRIPT src="errorPageStrings.js" LANGUAGE="javascript" type="text/javascript">
+</SCRIPT>
+<script src="httpErrorPagesScripts.js" language="javascript" type="text/javascript">
+</script>
+<SCRIPT src="invalidcert.js" LANGUAGE="javascript" type="text/javascript">
+</SCRIPT>
+
+</HEAD>
+
+<body ONLOAD="BodyLoad(); initMoreInfo('infoBlockID');" class="securityError">
+
+
+<table width="730" cellpadding="0" cellspacing="0" border="0">
+
+	<!-- Main title -->
+	<tr>
+	<td id="shieldIconAlign" width="60" align="left" valign="top" rowspan="3">
+		<img src="red_shield_48.png" id="shieldIcon" alt="Shield icon">
+	</td>
+	<td id="mainTitleAlign" valign="middle" align="left" width="*">
+		<h1 id="mainTitle">There is a problem with this website's security certificate.</h1>
+	</td>
+	</tr>
+
+	<tr>
+	<td>
+		<h3>
+			<DIV ID="linkdiv" name="linkdiv" ></DIV>
+		</h3>
+	</td>
+	</tr>
+
+	<tr>
+	<!-- This row is for the the divider-->
+	<td id="errorCodeAlign" class="errorCodeAndDivider" align="right">&nbsp;
+		<div class="divider"></div>
+	</td>
+	</tr>
+
+	<!-- Error Body -->
+	<tr>
+	<td></td>
+	<td>
+		<h3>
+			<DIV ID="CertUnknownCA" name="CertUnknownCA" style="display='none'"></DIV>
+			<DIV ID="CertExpired" name="CertExpired" style="display='none'"></DIV>
+			<DIV ID="CertCNMismatch" name="CertCNMismatch" style="display='none'"></DIV>
+			<DIV ID="CertRevoked" name="CertRevoked" style="display='none'"></DIV>
+			<noscript id="securityCert1">The security certificate presented by this website has errors, and should not be trusted.
+			</noscript><br>
+                        <ID id="securityCert2">Security certificate problems may indicate an attempt to fool you or intercept any data you send to the server.</ID>
+		</h3>
+	</td>
+	</tr>
+
+
+
+	<!-- Recommendation-->
+	<tr>
+	<td>&nbsp;</td>
+	<td><H2 id="recommendation"><b>We recommend that you close this webpage and do not continue to this website. </b></H2></td>
+	</tr>
+
+	<!-- close webpage-->
+	<tr>
+	<td >&nbsp;</td>
+	<td id="closeWebpageAlign" align="left" valign="middle">
+		<h4 id="closeWebpage">
+			<img src="green_shield.png" border="0" alt="Recommended icon" class="actionIcon"><a href="javascript:closePage()">Click here to close this webpage.</a>
+		</h4>
+	</td>
+	</tr>
+
+
+	<!-- continue to site-->
+	<tr>
+	<td >&nbsp;</td>
+	<td id="continueToSiteAlign" align="left" valign="middle">
+		<h4 id="continueToSite">
+			<img src="red_shield.png" ID="ImgOverride" border="0" alt="Not recommended icon" class="actionIcon"><A href='' ID="overridelink" NAME="overridelink" >Continue to this website (not recommended).</A>
+		</h4>
+        </td>
+	</tr>
+
+        <!-- InfoBlock -->
+            <tr>
+                <td id="infoBlockAlign" align="right" valign="top">
+                    &nbsp;
+                </td>
+                <td id="moreInformationAlign" align="left" valign="middle">
+                    <h4>
+                      <table>
+                          <tr>
+                              <td valign="top">
+                                  <a href="#" onclick="javascript:expandCollapse('infoBlockID', true); return false;"><img src="down.png" id="infoBlockIDImage" border="0" class="actionIcon" alt="More information"></a>
+                              </td>
+                              <td valign="top">
+                                  <span id="moreInfoContainer"></span>
+                                  <noscript><ID id="moreInformation">More information</ID></noscript>
+                              </td>
+                          </tr>
+                      </table>
+                    </h4>
+
+                    <div id="infoBlockID" class="infoBlock" style="display: none">
+                        <p>
+                            <li id="errorExpl1">If you arrived at this page by clicking a link, check the website address in the address bar to be sure that it is the address you were expecting.</li>
+			    <li id="errorExpl2">When going to a website with an address such as https://example.com, try adding the 'www' to the address, https://www.example.com.</li>
+			    <li id="errorExpl3">If you choose to ignore this error and continue, do not enter private information into the website.</li>
+                        </p>
+
+                        <p id="moreInfoSeeHelpPF">For more information, see "Certificate Errors" in Internet Explorer Help.</p>
+                       
+                    </div>
+                </td>
+            </tr>
+
+</table>
+
+</body>
+
+</html>PA// ***********************************************************
+// *
+// * IOSec OutputEncoder
+// *
+// ***********************************************************
+//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+// Changes
+//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+// 06-09-06: hassank:   Corrected URL REGEX
+// 04-07-04: talhahm:   Added checks for null inputs
+// 07-24-03: eddington: Quick port to ASP Javascript
+// 03-26-03: v-michae:	Initial revision based on ASP classic
+// 03-28-03: v-michae:	Initial testing of functions done.
+// 06-01-03: erach:		AsUrl temporarily stubbed out for
+//						0.9 release
+// 10-29-03: erach:		AsUrl implemented introduced
+//''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+// IMPORTANT - don't forget to use double \ chars when setting the RegEx pattern in JavaScript, because
+//   the JavaScript interpreter wants to escape chars that are prefixed by a single \
+var RE_AsUrl = "^(ht|f)tp(s?)\:\/\/[0-9a-zA-Z]([-.\w]*[0-9a-zA-Z])*(:(0-9)*)*(\/?)([a-zA-Z0-9\-\.\?\,\'\/\\\+=&amp;%\$#_]*)?$";
+var RE_QualifyUrl = "^(?:http|https|ftp)://";		// fully-qualified urls will match this pattern
+var RE_StartsWithSlash = "^[\\/\\\\]";
+
+function OutputEncoder_EncodeHtml( strInput )
+{	
+	var c;
+	var EncodeHtml = '';
+	
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	for(var cnt = 0; cnt < strInput.length; cnt++)
+	{
+		c = strInput.charCodeAt(cnt);
+		
+		if (( ( c > 96 ) && ( c < 123 ) ) ||
+			( ( c > 64 ) && ( c < 91 ) ) ||
+			( c == 32 ) ||
+			( ( c > 47 ) && ( c < 58 ) ) ||
+			( c == 46 ) ||
+			( c == 44 ) ||
+			( c == 45 ) ||
+			( c == 95 ))
+		{
+			EncodeHtml = EncodeHtml + String.fromCharCode(c);
+		}
+		else
+		{
+			EncodeHtml = EncodeHtml + '&#' + c + ';';
+		}
+	}
+	
+	return EncodeHtml;
+}
+
+function OutputEncoder_EncodeHtmlAttribute( strInput )
+{
+	var c;
+	var EncodeHtmlAttribute = '';
+
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	for(var cnt = 0; cnt < strInput.length; cnt++)
+	{
+		c = strInput.charCodeAt(cnt);
+
+		if (( ( c > 96 ) && ( c < 123 ) ) ||
+			( ( c > 64 ) && ( c < 91 ) ) ||
+			( ( c > 47 ) && ( c < 58 ) ) ||
+			( c == 46 ) ||
+			( c == 44 ) ||
+			( c == 45 ) ||
+			( c == 95 ))
+		{
+			EncodeHtmlAttribute = EncodeHtmlAttribute + String.fromCharCode(c);
+		}
+		else
+		{
+			EncodeHtmlAttribute = EncodeHtmlAttribute + '&#' + c + ';';
+		}
+	}
+	
+	return EncodeHtmlAttribute;
+}
+
+function OutputEncoder_EncodeXml( strInput )
+{
+	// OutputEncoder_EncodeHtml will handle null string
+	return OutputEncoder_EncodeHtml( strInput );
+}
+
+function OutputEncoder_EncodeXmlAttribute( strInput )
+{
+	// OutputEncoder_EncodeHtmlAttribute will handle null string
+	return OutputEncoder_EncodeHtmlAttribute( strInput );
+}
+	
+function OutputEncoder_EncodeJs( strInput )
+{
+	var c;
+	var EncodeJs = '';
+	
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	for(var cnt = 0; cnt < strInput.length; cnt++)
+	{
+		c = strInput.charCodeAt(cnt);
+
+		if (( ( c > 96 ) && ( c < 123 ) ) ||
+			( ( c > 64 ) && ( c < 91 ) ) ||
+			( c == 32 ) ||
+			( ( c > 47 ) && ( c < 58 ) ) ||
+			( c == 46 ) ||
+			( c == 44 ) ||
+			( c == 45 ) ||
+			( c == 95 ))
+		{
+			EncodeJs = EncodeJs + String.fromCharCode(c);
+		}
+		else if ( c > 127 )
+		{
+			EncodeJs = EncodeJs + '\\u' + OutputEncoder_TwoByteHex(c);
+		}
+		else
+		{
+			EncodeJs = EncodeJs + '\\x' + OutputEncoder_SingleByteHex(c);
+		}
+	}
+	
+	return '\'' + EncodeJs + '\'';
+}
+
+function OutputEncoder_EncodeVbs( strInput )
+{
+	var c;
+	var EncodeVbs = '';
+	var bInQuotes = false;
+	
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	for(var cnt = 0; cnt < strInput.length; cnt++)
+	{
+		c = strInput.charCodeAt(cnt);
+
+		if (( ( c > 96 ) && ( c < 123 ) ) ||
+			( ( c > 64 ) && ( c < 91 ) ) ||
+			( c == 32 ) ||
+			( ( c > 47 ) && ( c < 58 ) ) ||
+			( c == 46 ) ||
+			( c == 44 ) ||
+			( c == 45 ) ||
+			( c == 95 ))
+		{
+			// do the "unencoded" ones
+			if ( !bInQuotes )
+			{
+				EncodeVbs = EncodeVbs + '&\"';
+				bInQuotes = true;
+			}
+			
+			EncodeVbs = EncodeVbs + String.fromCharCode(c);
+		}
+		else
+		{
+			// do the "encoded" ones
+			if ( bInQuotes )
+			{
+				EncodeVbs = EncodeVbs + '\"';
+				bInQuotes = false;
+			}
+			
+			EncodeVbs = EncodeVbs + '&chrw(' + c + ')';
+		}
+	}
+
+	if ( EncodeVbs.charAt(0) == '&' )
+	{
+		// Remove starting '&'
+		EncodeVbs = EncodeVbs.substring(1);
+	}
+	
+	if ( EncodeVbs.length == 0 )
+	{
+		// if null, add quotes
+		EncodeVbs = '\"\"';
+	}
+	
+	if ( bInQuotes )
+	{
+		//	but if we're in quotes, then close them
+		EncodeVbs = EncodeVbs + '\"';
+	}
+	
+	return EncodeVbs;
+}
+
+function OutputEncoder_AsUrl( strInput )
+{
+	if (strInput == null)
+	{
+		return '';
+	}
+
+		if (strInput.match( RE_AsUrl ) == null)
+		{
+			throw ("Unsanitized value passed to AsUrl");
+		}
+		
+		return strInput;
+}
+
+
+function OutputEncoder_QualifyUrl( strInput )
+{		
+	var strOutput;
+	
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	// if strInput is already a valid URL, then just return it
+	if ( strInput.match( RE_QualifyUrl ) )
+	{
+		return( strInput );
+	}
+	else
+	// input was not a fully qualified URL and needs to be processed
+	{
+		// first we put together the service & host name for the output
+		if ( Request.ServerVariables("HTTPS") == "on" )
+		{
+			strOutput = "https://" + Request.ServerVariables("HTTP_HOST");
+		}
+		else
+		{
+			strOutput = "http://" + Request.ServerVariables("HTTP_HOST");
+		}
+		
+		// now we check to see if strInput is a relative or absolute URL
+		if ( strInput.match( RE_StartsWithSlash ) )
+		{
+			strOutput = strOutput + strInput;
+			return( strOutput );
+		}
+		else
+		{
+			strOutput = strOutput + Request.ServerVariables("PATH_INFO");
+			strOutput = strOutput.substring(0, strOutput.lastIndexOf( "/" ) +1 );
+			strOutput = strOutput + strInput;
+			return( strOutput );
+		}		
+	}
+}
+
+
+function OutputEncoder_AsNumeric( strInput )
+{
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	if( isNaN(parseFloat(strInput)) )
+	{
+		// Error out!
+		throw "IOSec.AsNumeric(): Error input ["+strInput+"] not a valid number.";
+	}
+	
+	return strInput;
+}
+	
+function OutputEncoder_EncodeUrl( strInput )
+{
+	var c;
+	var EncodeUrl = '';
+	
+	if (strInput == null)
+	{
+		return '';
+	}
+	
+	for(var cnt = 0; cnt < strInput.length; cnt++)
+	{
+		c = strInput.charCodeAt(cnt);
+
+		if (( ( c > 96 ) && ( c < 123 ) ) ||
+			( ( c > 64 ) && ( c < 91 ) )  ||
+			( ( c > 47 ) && ( c < 58 ) ) ||
+			( c == 46 ) ||
+			( c == 45 ) ||
+			( c == 95 ))
+		{
+			EncodeUrl = EncodeUrl + String.fromCharCode(c);
+		}
+		else if ( c > 127 )
+		{
+			EncodeUrl = EncodeUrl + '%u' + OutputEncoder_TwoByteHex(c);
+		}
+		else
+		{
+			EncodeUrl = EncodeUrl + '%' + OutputEncoder_SingleByteHex(c);
+		}
+	}
+	
+	return EncodeUrl;
+}
+	
+function OutputEncoder_SingleByteHex( charC )
+{
+	if (charC == null)
+	{
+		return '';
+	}
+	
+	var SingleByteHex = charC.toString(16);
+
+	for ( var cnt = SingleByteHex.length; cnt < 2; cnt++ )
+	{
+		SingleByteHex = "0" + SingleByteHex;
+	}
+	
+	return SingleByteHex;
+}
+
+function OutputEncoder_TwoByteHex( charC )
+{
+	if (charC == null)
+	{
+		return '';
+	}
+	
+	var TwoByteHex = charC.toString(16);
+	
+	for( var cnt = TwoByteHex.length; cnt < 4; cnt++ )
+	{
+		TwoByteHex = "0" + TwoByteHex;
+	}
+	
+	return TwoByteHex;
+}
+
+function OutputEncoder()
+{
+	this.EncodeHtml = OutputEncoder_EncodeHtml;
+	this.EncodeHtmlAttribute = OutputEncoder_EncodeHtmlAttribute;
+	this.EncodeXml = OutputEncoder_EncodeXml;
+	this.EncodeXmlAttribute = OutputEncoder_EncodeXmlAttribute;
+	this.EncodeJs = OutputEncoder_EncodeJs;
+	this.EncodeVbs = OutputEncoder_EncodeVbs;
+	this.AsNumeric = OutputEncoder_AsNumeric;
+	this.EncodeUrl = OutputEncoder_EncodeUrl;
+	this.SingleByteHex = OutputEncoder_SingleByteHex;
+	this.TwoByteHex = OutputEncoder_TwoByteHex;
+	this.AsUrl = OutputEncoder_AsUrl;
+	this.QualifyUrl = OutputEncoder_QualifyUrl;
+}
+
+var IOSec = new OutputEncoder();
+
+// end //PAâPNG
+
+   IHDR         Ûˇa   	pHYs     öú  
+OiCCPPhotoshop ICC profile  x⁄ùSgTSÈ=˜ﬁÙBKàÄîKoR RBãÄë&*!	Jà!°ŸQ¡EE»†àééÄåQ,ä
+ÿ‰!¢éÉ£àä ˚·{£k÷º˜ÊÕ˛µ◊>Á¨Ûù≥œ¿ñH3Q5Ä©B‡É«ƒ∆·‰.@Å
+$p ≥d!s˝# ¯~<<+"¿æ x” ¿Mõ¿0áˇÍBô\ÄÑ¿të8KÄ @zéB¶ @FÄùò&S † `Àcb„ P- `'Ê” Äù¯ô{ [î!†ë  eàD h; ¨œVäE X0 fKƒ9 ÿ- 0IWfH ∞∑ ¿Œ≤  0QàÖ) { `»##x Ñô FÚW<Ò+ÆÁ*  xô≤<π$9EÅ[-qWW.(ŒI+6aaö@.¬yô2Å4‡ÛÃ  †ë‡ÉÛ˝xŒÆŒŒ6é∂_-Íøˇ"bb„˛Âœ´p@  ·t~—˛,/≥Ä;Äm˛¢%Óh^†u˜ãf≤@µ †È⁄WÛp¯~<<E°êπŸŸÂ‰‰ÿJƒB[a W}˛g¬_¿W˝l˘~<¸˜ı‡æ‚$Å2]ÅG¯‡¬ÃÙL•œí	Ñb‹ÊèG¸∑ˇ¸”"ƒIbπX*„QqéDöåÛ2•"âBí)≈%“ˇd‚ﬂ,˚>ﬂ5 ∞j>{ë-®]cˆK'Xt¿‚˜  Úªo¡‘(ÄhÉ·œwˇÔ?˝G†% ÄfIíq  ^D$.T ≥?«  D†Å*∞AÙ¡,¿¡‹¡¸`6ÑB$ƒ¬BB
+dÄr`)¨ÇB(ÜÕ∞*`/‘@4¿QhÜìp.¬U∏=p˙aû¡(ºÅ	A»a!⁄àbäX#éôÖ¯!¡Hã$ …àQ"Kë5H1RäT UHÚ=r9á\F∫ë;» 2Ç¸ÜºG1îÅ≤Q=‘µCπ®7ÑF¢–dt1öè†õ–r¥=å6°Á–´h⁄è>C«0¿Ë3ƒl0.∆√B±8,	ìcÀ±"¨´∆∞V¨ªâıcœ±wÅE¿	6wB aAHXLXNÿH® $4⁄	7	ÑQ¬'"ì®K¥&∫˘ƒb21áXH,#÷è/{àCƒ7$âC2'πêI±§T““F“nR#È,©õ4H#ì…⁄dk≤9î, +»Ö‰ù‰√‰3‰‰!Ú[
+ùb@q§¯S‚(R jJÂÂ4Âeò2AU£öR›®°T5èZB≠°∂RØQá®4uö9ÕÉIK•≠¢ï”hh˜iØËt∫›ïNó–W“ÀÈGËóËÙwÜÉ«àg(õgwØòL¶”ã«T071ÎòÁôôoUX*∂*|ë 
+ïJï&ï*/T©™¶™ﬁ™UÛUÀTè©^S}ÆFU3S„©	‘ñ´U™ùPÎSSg©;®á™g®oT?§~Y˝âY√L√OC§Q†±_„º∆ c≥x,!k´ÜuÅ5ƒ&±ÕŸ|v*ªò˝ªã=™©°9C3J3W≥RÛîf?„òq¯útN	Á(ßóÛ~äﬁÔ)‚)¶4Lπ1e\k™ñóñX´H´Q´GÎΩ6ÆÌßù¶ΩEªY˚ÅA«J'\'GgèŒùÁSŸS›ß
+ßM=:ıÆ.™k•°ªDwønßÓòûæ^ÄûLoßﬁyΩÁ˙}/˝T˝m˙ßıGX≥$€Œ<≈5qo</«€ÒQC]√@C•aïaó·Ñëπ—<£’FçFåi∆\„$„m∆m∆£&&!&KMÍMÓöRMπ¶)¶;L;L«ÕÃÕ¢Õ÷ô5õ=1◊2ÁõÁõ◊õﬂ∑`ZxZ,∂®∂∏eI≤‰Z¶YÓ∂ºnÖZ9Y•XUZ]≥F≠ù≠%÷ª≠ªßßπNìN´û÷g√∞Ò∂…∂©∑∞Âÿ€Æ∂m∂}agbg∑≈Æ√ÓìΩì}∫}ç˝=áŸ´Z~s¥r:V:ﬁöŒúÓ?}≈ÙñÈ/gXœœÿ3„∂À)ƒiùSõ”GggπsÉÛàãâKÇÀ.ó>.õ∆›»Ω‰Jtıq]·z“ıùõ≥õ¬Ì®€ØÓ6ÓiÓá‹üÃ4ü)ûY3s–√»C‡QÂ—?üï0kﬂ¨~OCOÅgµÁ#/c/ëW≠◊∞∑•w™˜aÔ>ˆ>rü„>„<7ﬁ2ﬁY_Ã7¿∑»∑ÀO√oû_ÖﬂC#ˇdˇzˇ— ßÄ%gâÅAÅ[˚¯z|!øé?:€eˆ≤ŸÌAå†πAAèÇ≠ÇÂ¡≠!h»Ïê≠!˜ÁòŒëŒiÖP~Ë÷–aÊaã√~'ÖáÖWÜ?épàX—1ó5w—‹CsﬂD˙DñDﬁõg1O9Ø-J5*>™.j<⁄7∫4∫?∆.fYÃ’XùXIlK9.*Æ6nlæﬂ¸ÌÛá‚ù‚„{ò/»]py°Œ¬ÙÖß©.,:ñ@LàN8îA*®å%Úw%é
+y¬¬g"/—6—àÿC\*NÚH*MzíÏëº5y$≈3•,ÂπÑ'©êºLL›õ:ûöv m2=:Ω1ÉíëêqB™!Mì∂gÍgÊfvÀ¨eÖ≤˛≈nã∑/ï…k≥ê¨Y-
+∂B¶ËTZ(◊*≤geWføÕâ 9ñ´û+ÕÌÃ≥ €ê7úÔüˇÌ¬·í∂•ÜKW-XÊΩ¨j9≤<qy€
+„+ÜV¨<∏ä∂*m’O´ÌWóÆ~Ω&zMkÅ^¡ Ç¡µkÎU
+ÂÖ}Î‹◊Ì]OX/Yﬂµa˙Üù>âäÆ€óÿ(‹xÂáo øô‹î¥©´ƒπdœf“fÈÊﬁ-û[ñ™óÊónŸ⁄¥ﬂV¥ÌıˆE€/óÕ(€ªÉ∂Cπ£ø<∏ºeß…ŒÕ;?T§TÙT˙T6Ó“›µa◊¯n—Ó{ºˆ4Ï’€[º˜˝>…æ€UUM’f’e˚I˚≥˜?Æâ™È¯ñ˚m]≠NmqÌ«“˝#∂◊π‘’“=TRè÷+ÎG«æ˛ùÔw-6Uçú∆‚#pDy‰È˜	ﬂ˜:⁄vå{¨·”vg/jBöÚöFõSö˚[b[∫OÃ>—÷Íﬁz¸G€ú4<YyJÛT…i⁄ÈÇ”ìgÚœåùïù}~.˘‹`€¢∂{ÁcŒﬂjoÔ∫t·“EˇãÁ;º;Œ\Ú∏tÚ≤€ÂW∏WöØ:_mÍtÍ<˛ì”O«ªúªöÆπ\kπÓzΩµ{f˜Èû7Œ›ÙΩyÒˇ÷’û9=›ΩÛzo˜≈˜ıﬂ›~r'˝ŒÀªŸw'Ó≠ºOº_Ù@ÌAŸC›á’?[˛‹ÿÔ‹j¿w†Û—‹G˜ÖÉœ˛ëıèCèôèÀÜÜÎû8>99‚?r˝È¸ßCœdœ&û˛¢˛ÀÆ/~¯’Î◊Œ—ò—°óÚóìøm|•˝Í¿ÎØ€∆¬∆æ…x31^ÙV˚Ì¡w‹wÔ£ﬂO‰| (ˇh˘±ıS–ß˚ìììˇòÛ¸c3-€    cHRM  z%  ÄÉ  ˘ˇ  ÄÈ  u0  Í`  :ò  oí_≈F  eIDATx⁄å”_HSQÔΩkª.Áuk:3ö÷¬r3Ïè3ı¡áz™§á$à@ÉJr æÑ#í DÇJ	ã5e$e¥ÿ‘·–Ê¸Û0ÊüD◊–›võiyO/i-6Ò<˝Œ˘¿˘ûÔ°?y.˚›hT∞ÚìiÈ{#R1*-5Y±√µkj“oNW ´j/üg›ﬂW«h°◊ŸY´g&qtû–rºa$!H/-,–Jefä˝’€ÄΩ¡œvŒ≥(YÛI+ΩÌ¬% µNõ·NB@´ÀÔ7-∏j≠ü.2$ãWñg∆Fú}…
+eÊ±s÷[Öef ∏ôÿŒû:Ò"Wï-“‰»K,&'«Òﬂ^øyw{ä∂œ`s∏XUgìiR`’A·SÓ∫}Ùıu“ïm Ç≥à,Ø¡È¡È!ˇ›Òe –Zùﬂ†xûGk{—Ê‰@öîÅCötD¢øP„.®=P´$(,3√’;å@h#Ø≤y‘Ç øﬂèÆû~B(
+˙<#<jÜˆÁG⁄¨ë p©UdÁ)‡xø‘ ã∆ô›IΩß †)äÀ≤ ÑxxûGñ: pœ -ﬁA ñπ‡:f∆WP^]l€ßuØÆ‚hL,À ¬áŸπ˘ò;V¥xá6WÔ0ˆÎU Îﬂœ<´9|}`fÎ¿Ù‘‰Ñ+âê˘±  ´ãmöLYSL @ûö
+É¡îF—Ù√ˇ”˛Èl˚Ñπ‡zlB¢aé√®wL†.ﬁì˝A®∏M<êùu ¥Gt ˜w˙∑Äééßí¶§ÁeóÉR≥S‡˜ ”ÒJ"»!    IENDÆB`ÇPA<?xml version="1.0" encoding="utf-8"?>
+<SearchProviderUpgradeList>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>About.com</DisplayName>
+      <URL>http://search.about.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://z.about.com/m/a08.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Abril</DisplayName>
+      <URL>http://www.abril.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.abril.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>AlterVista</DisplayName>
+      <URL>http://home.altervista.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://home.altervista.org/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Amazon</DisplayName>
+      <DisplayName>Amazon.com</DisplayName>
+      <URL>http://amazon.fr/</URL>
+      <URL>http://www.amazon.de/</URL>
+      <URL>http://www.amazon.co.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.amazon.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Amazon</DisplayName>
+      <DisplayName>Amazon.com</DisplayName>
+      <URL>http://www.amazon.com/exec/obidos/external-search/104-2981279-3455918?index=blended&amp;keyword={searchTerms}</URL>
+	  <URL>http://www.amazon.co.uk/</URL>
+    </OldValues>
+    <NewValues>
+	  <URL>http://www.amazon.com/gp/search?ie=UTF8&amp;tag=ie8search-20&amp;index=blended&amp;linkCode=qs&amp;camp=1789&amp;creative=9325&amp;keywords={searchTerms}</URL>
+      <FavoriteIcon>http://www.amazon.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://xml-us.amznxslt.com/onca/xml?Service=AWSECommerceService&amp;Version=2008-06-26&amp;Operation=ItemSearch&amp;AWSAccessKeyId=15HRV3AZSMPK0GXTY102&amp;AssociateTag=ie8suggestion-20&amp;ResponseGroup=ItemAttributes,OfferListings,Reviews,Images&amp;MerchantId=FeaturedBuyBoxMerchant&amp;SearchIndex=All&amp;Keywords={searchTerms}&amp;Style=http%3A%2F%2Fg-ecx.images-amazon.com%2Fimages%2FG%2F01%2FAssociates%2FApps%2FIE8Search%2FOpenSearchDescription.xml</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>AOL Search</DisplayName>
+      <DisplayName>AOL</DisplayName>
+      <URL>http://search.aol.com/</URL>
+      <URL>http://search.aol.in/</URL>
+      <URL>http://www.recherche.aol.fr/</URL>
+      <URL>http://suche.aol.de/</URL>
+      <URL>http://search.aol.co.uk/</URL>
+      <URL>http://busqueda.aol.com.mx/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.aol.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Arrakis</DisplayName>
+      <URL>http://www.arrakis.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.arrakis.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ask.co.uk</DisplayName>
+      <DisplayName>Ask.com</DisplayName>
+      <URL>http://uk.ask.com/</URL>
+      <URL>http://es.ask.com/</URL>
+      <URL>http://web.ask.com/</URL>
+      <URL>http://www.ask.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://uk.ask.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Atlas hled√°n√≠</DisplayName>
+      <URL>http://search.atlas.cz/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://img.atlas.cz/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>BuscaPe</DisplayName>
+      <URL>http://busca.buscape.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://busca.buscape.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Cdiscount.com</DisplayName>
+      <URL>http://www.cdiscount.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.cdiscount.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Centrum</DisplayName>
+      <URL>http://search.centrum.cz/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.centrum.cz/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Chennaionline.com</DisplayName>
+      <URL>http://in.search.yahoo.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.chennaionline.com/ncommon/images/collogo.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Clar√≠n</DisplayName>
+      <URL>http://www.servicios.clarin.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.clarin.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>CNET</DisplayName>
+      <DisplayName>www.cnet.com</DisplayName>
+      <URL>http://www.cnet.co.uk/</URL>
+      <URL>http://cnet.search.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.cnet.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Dada.net</DisplayName>
+      <URL>http://it.search.dada.net/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://it.search.dada.net/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Daily Mail</DisplayName>
+      <URL>http://www.dailymail.co.uk/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.dailymail.co.uk/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>eBay</DisplayName>
+      <URL>http://search.ebay.es/</URL>
+      <URL>http://search.ebay.fr/</URL>
+      <URL>http://search.ebay.in/</URL>
+      <URL>http://search.ebay.it/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.ebay.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>eBay</DisplayName>
+      <URL>http://search.ebay.com/</URL>
+      <URL>http://rover.ebay.com</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.ebay.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie8.ebay.com/open-search/output-xml.php?q={searchTerms}&amp;c=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+   <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>eBay</DisplayName>
+     <URL>http://search.ebay.co.uk/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.ebay.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie8.ebay.com/open-search/output-xml.php?q={searchTerms}&amp;c=3</SuggestionsURL>
+    </NewValues>
+  </Provider>
+   <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>eBay</DisplayName>
+      <URL>http://search.ebay.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.ebay.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie8.ebay.com/open-search/output-xml.php?q={searchTerms}&amp;c=77</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Elmundo.es</DisplayName>
+      <URL>http://ariadna.elmundo.es/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://ariadna.elmundo.es/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ESPN</DisplayName>
+      <URL>http://search.espn.go.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://espn.go.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Estadao</DisplayName>
+      <URL>http://search2.estadao.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://busca.estadao.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Expedia Search</DisplayName>
+      <URL>http://www.expedia.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.expedia.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Facebook</DisplayName>
+      <URL>http://www.facebook.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.facebook.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Fnac.com</DisplayName>
+      <URL>http://www3.fnac.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www3.fnac.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Freenet.de</DisplayName>
+      <URL>http://suche.freenet.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://suche.freenet.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Globo Videos</DisplayName>
+      <URL>http://video.globo.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://video.globo.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Google</DisplayName>
+      <URL>http://www.google.com/</URL>
+      <URL>http://www.google.co.in/</URL>
+      <URL>http://www.google.co.uk/</URL>
+      <URL>http://www.google.com.br/</URL>
+      <URL>http://www.google.cz/</URL>
+      <URL>http://www.google.de/</URL>
+      <URL>http://www.google.es/</URL>
+      <URL>http://www.google.fr/</URL>
+      <URL>http://www.google.it/</URL>
+      <URL>http://www.google.pl/</URL>
+      <URL>http://www.google.com.sa/</URL>
+      <URL>http://www.google.co.jp/</URL>
+      <URL>http://www.google.ru/</URL>
+      <URL>http://www.google.si/</URL>
+      <URL>http://www.google.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.google.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://clients5.google.com/complete/search?hl={language}&amp;q={searchTerms}&amp;client=ie8&amp;inputencoding={inputEncoding}&amp;outputencoding={outputEncoding}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Guardian Unlimited</DisplayName>
+      <URL>http://browse.guardian.co.uk/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://browse.guardian.co.uk/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>iG Busca</DisplayName>
+      <URL>http://busca.igbusca.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://busca.igbusca.com.br//app/static/images/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Libero</DisplayName>
+      <URL>http://arianna.libero.it/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://arianna.libero.it/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Linternaute.com</DisplayName>
+      <URL>http://recherche.linternaute.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.linternaute.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <DisplayName>@ieframe.dll,-12512</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;src={referrer:source?}</URL>
+      <URL>http://livesearch.msn.co.kr/</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=AS5</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=AS6</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=CBPW</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=IE7RE&amp;src={referrer:source?}</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=IE7BOX&amp;src={referrer:source?}</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=MSNIE7&amp;src={referrer:source?}</URL>
+      <URL>http://search.msn.com/results.aspx?q={searchTerms}&amp;FORM=AS5</URL>
+      <URL>http://search.msn.com/results.aspx?q={searchTerms}&amp;FORM=AS6</URL>
+      <URL>http://search.msn.com/results.aspx?q={searchTerms}&amp;FORM=CBPW</URL>
+      <URL>http://search.msn.co.jp/results.aspx?q={searchTerms}&amp;FORM=AS5</URL>
+      <URL>http://search.msn.co.uk/results.aspx?q={searchTerms}&amp;FORM=AS5</URL>
+      <URL>http://search.msn.co.uk/results.aspx?q={searchTerms}&amp;FORM=AS6</URL>
+      <URL>http://search.msn.co.jp/results.aspx?q={searchTerms}&amp;FORM=AS6</URL>
+      <URL>http://search.msn.co.jp/results.aspx?q={searchTerms}&amp;FORM=CBPW</URL>
+      <URL>http://search.msn.co.uk/results.aspx?q={searchTerms}&amp;FORM=CBPW</URL>
+      <URL>http://search.msn.com.cn/results.aspx?q={searchTerms}&amp;FORM=AS5</URL>
+      <URL>http://search.msn.com.cn/results.aspx?q={searchTerms}&amp;FORM=AS6</URL>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;src={referrer:source?}&amp;Form=IE8SRC</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;src=IE-SearchBox&amp;Form=IE8SRC</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLCDF7&amp;pc=MDDC&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLCDF7&amp;pc=MDDC&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLSDF7&amp;pc=MDDS&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLSDF7&amp;pc=MDDS&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLRDF7&amp;pc=MDDR&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=DLRDF7&amp;pc=MDDR&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=HPDTDF</URL>
+      <URL>http://search.live.com/results.aspx?q=search&amp;FORM=HPDTDF</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=HPDTDF&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=HPNTDF</URL>
+      <URL>http://search.live.com/results.aspx?q=search&amp;FORM=HPNTDF</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=HPNTDF&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?FORM=SOLTDF&amp;q={searchTerms}&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?FORM=SOLTDF&amp;q={searchTerms}&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?FORM=SO2TDF&amp;q={searchTerms}&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?FORM=SO2TDF&amp;q={searchTerms}&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=LENDF7&amp;pc=LENDF7&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=LENDF7&amp;pc=LENDF7&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=LEMDF7&amp;pc=LEMDF7&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;Form=LEMDF7&amp;pc=LEMDF7&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=ADDLVD&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;FORM=ADDLVD&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;mkt=de-de&amp;FORM=IEFM&amp;src={referrer:source?}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;mkt=de-de&amp;FORM=IEFM&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?FORM=IEFM1&amp;q={searchTerms}</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?FORM=IEFM1&amp;q={searchTerms}&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;src={referrer:source?}&amp;FORM=DETOG</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;src=IE-SearchBox&amp;FORM=DETOG</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider>
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;mkt=fr-FR&amp;FORM=MIMWA1</URL>
+    </OldValues>
+    <NewValues>
+      <URL>http://search.live.com/results.aspx?q={searchTerms}&amp;mkt=fr-FR&amp;FORM=MIMWA1&amp;src=IE-SearchBox</URL>
+      <FavoriteIcon>http://www.live.com/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://api.search.live.com/qsml.aspx?query={searchTerms}&amp;src=IE-SearchBox&amp;maxwidth={ie:maxWidth}&amp;rowheight={ie:rowHeight}&amp;sectionHeight={ie:sectionHeight}&amp;FORM=IE8SSC&amp;market={Language}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Lycos</DisplayName>
+      <DisplayName>Lycos Europe</DisplayName>
+      <URL>http://search.lycos.com/</URL>
+      <URL>http://search.lycos.co.uk/</URL>
+      <URL>http://cerca.lycos.it/</URL>
+      <URL>http://buscador.lycos.es/</URL>
+      <URL>http://vachercher.lycos.fr/</URL>
+      <URL>http://suche.lycos.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.lycos.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>MercadoLibre</DisplayName>
+      <URL>http://www.mercadolibre.com.mx/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.mercadolibre.com.mx/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>MercadoLivre</DisplayName>
+      <URL>http://www.mercadolivre.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.mercadolivre.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Microsoft</DisplayName>
+      <URL>http://search.microsoft.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.microsoft.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Monster</DisplayName>
+      <URL>http://jobsearch.monster.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://images.monster.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>MTV.com</DisplayName>
+      <URL>http://www.mtv.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.mtv.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>MySpace</DisplayName>
+      <URL>http://sads.myspace.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.myspace.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Najdi.si</DisplayName>
+      <URL>http://www.najdi.si/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.najdi.si/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Naukri.com</DisplayName>
+      <URL>http://corp.naukri.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://corp.naukri.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>neckermann.de</DisplayName>
+      <URL>http://www.neckermann.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.neckermann.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>News Corp. Online</DisplayName>
+      <URL>http://searchresults.news.com.au/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.news.com.au/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Orange</DisplayName>
+      <URL>http://search.orange.co.uk/</URL>
+      <URL>http://www.orange.fr/</URL>
+      <URL>http://busca.orange.es/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.orange.co.uk/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>OTTO</DisplayName>
+      <URL>http://service2.bfast.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.otto.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ozu.es</DisplayName>
+      <URL>http://buscar.ozu.es/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.ozu.es/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>PaginasAmarillas.es</DisplayName>
+      <URL>http://www.paginasamarillas.es/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.paginasamarillas.es/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>PriceMinister</DisplayName>
+      <URL>http://www.priceminister.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.priceminister.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Rediff.com</DisplayName>
+      <URL>http://search.rediff.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.rediff.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>RTL.de Suche</DisplayName>
+      <URL>http://www.rtl.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.rtl.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Seznam</DisplayName>
+      <URL>http://search.seznam.cz/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.seznam.cz/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Shopzilla</DisplayName>
+      <URL>http://www.shopzilla.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://img.shopzilla.com/shopzilla/shopzilla.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Sify</DisplayName>
+      <URL>http://search.sify.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.sify.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>SuperPages.com</DisplayName>
+      <URL>http://yellowpages.superpages.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://yellowpages.superpages.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Target</DisplayName>
+      <URL>http://www.target.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.target.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Tchibo</DisplayName>
+      <URL>http://www.tchibo.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.tchibo.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Terra Networks</DisplayName>
+      <DisplayName>Terra</DisplayName>
+      <URL>http://buscador.terra.com/</URL>
+      <URL>http://buscador.terra.es/</URL>
+      <URL>http://buscador.terra.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://buscador.terra.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Tesco</DisplayName>
+      <URL>http://www.tesco.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.tesco.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>TF1</DisplayName>
+      <URL>http://recherche.tf1.fr/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://recherche.tf1.fr/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Times Online</DisplayName>
+      <URL>http://sitesearch.timesonline.co.uk/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.timesonline.co.uk/img/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Tiscali</DisplayName>
+      <URL>http://search-dyn.tiscali.it/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.tiscali.it/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>T-Online</DisplayName>
+      <URL>http://suche.t-online.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.t-online.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Univision.com</DisplayName>
+      <URL>http://www.univision.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.univision.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>UOL</DisplayName>
+      <URL>http://busca.uol.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://busca.uol.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>USATODAY.com</DisplayName>
+      <URL>http://asp.usatoday.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://asp.usatoday.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Virgilio</DisplayName>
+      <URL>http://search.alice.it/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.alice.it/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Walmart</DisplayName>
+      <URL>http://www.walmart.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.walmart.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Weather Channel</DisplayName>
+      <URL>http://www.weather.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.weather.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Web.de</DisplayName>
+      <URL>http://suche.web.de/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://suche.web.de/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (Polski)</DisplayName>
+	  <DisplayName>Wikipedia (pl)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://pl.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://pl.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://pl.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikip√©dia (fr)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://fr.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://fr.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://fr.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (ja)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://ja.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://ja.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ja.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (nl)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://nl.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://nl.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://nl.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (es)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://es.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://es.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://es.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (de)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://de.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://de.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://de.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+   <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (it)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://it.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://it.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://it.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+   <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (pt)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://pt.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://pt.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://pt.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (ru)</DisplayName>
+      <DisplayName>–í–∏–∫–∏–ø–µ–¥–∏—è (ru)</DisplayName>
+      <DisplayName>Wikipedia</DisplayName>
+      <URL>http://ru.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://ru.wikipedia.org/favicon.ico</FavoriteIcon>
+      <SuggestionsURL>http://ru.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia</DisplayName>
+      <DisplayName>Wikipedia (English)</DisplayName>
+	  <DisplayName>Wikipedia (en)</DisplayName>
+      <URL>http://en.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://en.wikipedia.org/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://en.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ya.com Buscador</DisplayName>
+      <URL>http://buscar.ya.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.ya.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Yahoo! Search</DisplayName>
+      <DisplayName>Yahoo!</DisplayName>
+      <URL>http://br.search.yahoo.com/</URL>
+      <URL>http://de.search.yahoo.com/</URL>
+      <URL>http://es.search.yahoo.com/</URL>
+      <URL>http://espanol.search.yahoo.com/</URL>
+      <URL>http://fr.search.yahoo.com/</URL>
+      <URL>http://it.search.yahoo.com/</URL>
+      <URL>http://search.cn.yahoo.com/</URL>
+      <URL>http://kr.search.yahoo.com/</URL>
+      <URL>http://ru.search.yahoo.com</URL>
+      <URL>http://tw.search.yahoo.com/</URL>
+      <URL>http://in.search.yahoo.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.yahoo.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie.search.yahoo.com/os?command={SearchTerms}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+   <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Yahoo! Search</DisplayName>
+      <DisplayName>Yahoo!</DisplayName>
+      <URL>http://search.yahoo.com/</URL>
+      <URL>http://uk.search.yahoo.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.yahoo.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie.search.yahoo.com/os?command={SearchTerms}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>baidu</DisplayName>
+      <URL>http://www.baidu.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.baidu.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Live Search</DisplayName>
+      <URL>http://cnweb.search.live.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://cnweb.search.live.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://api.search.live.com/qsml.aspx?Query={searchTerms}&amp;Market={Language}&amp;FORM=IE8SSC</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ceneo</DisplayName>
+      <URL>http://www.ceneo.pl/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.ceneo.pl/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Abril</DisplayName>
+      <URL>http://www.abril.com.br/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.abril.com.br/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Merlin</DisplayName>
+      <URL>http://www.merlin.com.pl/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.merlin.com.pl/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedie (ƒåesky)</DisplayName>
+      <DisplayName>Wikipedie (cs)</DisplayName>
+      <URL>http://cs.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://cs.wikipedia.org/favicon.ico</FavoriteIcon>
+<SuggestionsURL>http://cs.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>So-net</DisplayName>
+      <URL>http://so-net.search.goo.ne.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.so-net.ne.jp/share/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>au one</DisplayName>
+      <URL>http://search.auone.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://auone.jp/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>"@nifty"</DisplayName>
+      <URL>http://search.nifty.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.nifty.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>BIGLOBE</DisplayName>
+      <URL>http://cgi.search.biglobe.ne.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://cgi.search.biglobe.ne.jp/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>goo Search</DisplayName>
+      <URL>http://search.goo.ne.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.goo.ne.jp/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Excite</DisplayName>
+      <URL>http://www.excite.co.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://image.excite.co.jp/jp/favicon/lep.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Livedoor</DisplayName>
+      <URL>http://search.livedoor.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.livedoor.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>OCN</DisplayName>
+      <URL>http://ocnsearch.goo.ne.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.ocn.ne.jp/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Auction</DisplayName>
+      <URL>http://search.auction.co.kr/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.auction.co.kr/auction.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Dacom</DisplayName>
+      <URL>http://search.chol.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.chol.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Naver</DisplayName>
+      <URL>http://search.naver.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.naver.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ozon</DisplayName>
+      <URL>http://www.ozon.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.ozon.ru/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Gismeteo</DisplayName>
+      <URL>http://search.gismeteo.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.gismeteo.ru/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Price.ru</DisplayName>
+      <URL>http://price.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://price.ru/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Afisha.ru</DisplayName>
+      <URL>http://msk.afisha.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.afisha.ru/App_Themes/Default/images/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Rambler</DisplayName>
+      <URL>http://www.rambler.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.rambler.ru/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>KKBox</DisplayName>
+      <URL>http://www.kkbox.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.kkbox.com.tw/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>PChome Online</DisplayName>
+      <URL>http://google.pchome.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.pchome.com.tw/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÿßŸÑÿ¥ÿ±ŸÇ ÿßŸÑÿ£Ÿàÿ≥ÿ∑</DisplayName>
+      <URL>http://www.asharqalawsat.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.asharqalawsat.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ŸÖŸÉÿ™Ÿàÿ®</DisplayName>
+      <URL>http://www.google.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.maktoob.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÿßŸÑÿπÿ±ÿ®Ÿäÿ©</DisplayName>
+      <URL>http://www.alarabiya.net/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.alarabiya.net/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>‰∏≠Êêú</DisplayName>
+      <URL>http://p.zhongsou.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://p.zhongsou.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÊêúÊêú</DisplayName>
+      <URL>http://www.soso.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.soso.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÊêúÁãó</DisplayName>
+      <URL>http://www.sogou.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.sogou.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Áà±ÈóÆ</DisplayName>
+      <URL>http://www.iask.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.iask.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>„Éû„Ç§„ÇØ„É≠„ÇΩ„Éï„Éà</DisplayName>
+      <URL>http://search.microsoft.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.microsoft.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Yahoo!Ê§úÁ¥¢</DisplayName>
+      <URL>http://search.yahoo.co.jp</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.yahoo.co.jp/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://ie.search.yahoo.com/os?command={SearchTerms}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ê•ΩÂ§©Â∏ÇÂ†¥</DisplayName>
+      <URL>http://esearch.rakuten.co.jp/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.rakuten.co.jp/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ïî®Ï†úÏù¥Î™∞</DisplayName>
+      <URL>http://www.cjmall.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.cjmall.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>GÎßàÏºì</DisplayName>
+      <URL>http://www.gmarket.co.kr/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.gmarket.co.kr/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ïù∏ÌÑ∞ÌååÌÅ¨</DisplayName>
+      <URL>http://search.interpark.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://openimage.interpark.com/interpark.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÌïòÎÇòÌè¨Ïä§</DisplayName>
+      <URL>http://search.hanafos.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.hanafos.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÏïÑÏù¥Ìåù¬ù</DisplayName>
+      <URL>http://search.ipop.co.kr/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.ipop.co.kr/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ï°∞Ïù∏Ïä§Îã∑Ïª¥</DisplayName>
+      <URL>http://find.joins.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://images.joins.com/ui_c/fvc_joins.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÎìúÎ¶ºÏúÑÏ¶à</DisplayName>
+      <URL>http://search.dreamwiz.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.dreamwiz.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Îã§Ïùå</DisplayName>
+      <URL>http://search.daum.net/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.daum.net/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÎÑ§Ïù¥Ìä∏</DisplayName>
+      <URL>http://search.nate.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.nate.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ïó†ÌååÏä§</DisplayName>
+      <URL>http://search.empas.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.empas.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  
+  
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ÂçöÂÆ¢‰æÜÁ∂≤Ë∑ØÊõ∏Â∫ó</DisplayName>
+      <URL>http://search.books.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.books.com.tw/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ETMall Êù±Ê£ÆË≥ºÁâ©</DisplayName>
+      <URL>http://www.etmall.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.etmall.com.tw/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Â∑¥ÂìàÂßÜÁâπÈõªÁé©Ë≥áË®äÁ´ô</DisplayName>
+      <URL>http://search.gamer.com.tw/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://search.gamer.com.tw/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ËÅØÂêàÊñ∞ËÅûÁ∂≤</DisplayName>
+      <URL>http://udn.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://udn.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>ËïÉËñØËó§</DisplayName>
+      <URL>http://search.yam.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.yam.com/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Ê∑òÂÆùÊêúÁ¥¢</DisplayName>
+      <DisplayName>Ê∑òÂÆùË¥≠Áâ©</DisplayName>
+      <URL>http://list.taobao.com/</URL>
+	  <URL>http://www.taobao.com/</URL>
+      <URL>http://search1.taobao.com/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.taobao.com/favicon.ico</FavoriteIcon>
+	  <SuggestionsURL>http://list.taobao.com/browse/search_visual.htm?n=15&amp;q={searchTerms}</SuggestionsURL>
+    </NewValues>
+  </Provider>
+  <Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>–Øndex</DisplayName>
+      <URL>http://www.yandex.ru/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://www.yandex.ru/favicon.ico</FavoriteIcon>
+    </NewValues>
+  </Provider>
+<Provider allowNearMatchUpgrade="true">
+    <OldValues>
+      <DisplayName>Wikipedia (‡∑É‡∑í‡∂Ç‡∑Ñ‡∂Ω) </DisplayName>
+      <DisplayName>Wikipedia (si)</DisplayName>
+      <URL>http://si.wikipedia.org/</URL>
+    </OldValues>
+    <NewValues>
+      <FavoriteIcon>http://si.wikipedia.org/favicon.ico</FavoriteIcon>
+<SuggestionsURL>http://si.wikipedia.org/w/api.php?action=opensearch&amp;format=xml&amp;search={searchTerms}&amp;namespace=0</SuggestionsURL>
+    </NewValues>
+  </Provider>
+</SearchProviderUpgradeList>
+PAˇ˛< ! D O C T Y P E   h t m l   P U B L I C   " - / / W 3 C / / D T D   X H T M L   1 . 0   T r a n s i t i o n a l / / E N "   " h t t p : / / w w w . w 3 . o r g / T R / x h t m l 1 / D T D / x h t m l 1 - t r a n s i t i o n a l . d t d " >  
+ < h t m l   x m l n s = " h t t p : / / w w w . w 3 . o r g / 1 9 9 9 / x h t m l " >  
+ 	 < h e a d >  
+ 	 	 < m e t a   h t t p - e q u i v = " X - U A - C o m p a t i b l e "   c o n t e n t = " I E = 8 . 0 " >  
+ 	 	 < m e t a   h t t p - e q u i v = " C o n t e n t - L a n g u a g e "   c o n t e n t = " e n - u s "   / >  
+ 	 	 < m e t a   h t t p - e q u i v = " C o n t e n t - T y p e "   c o n t e n t = " t e x t / h t m l ;   c h a r s e t = u t f - 8 "   / >  
+ 	 	 < t i t l e > S u b s c r i b i n g   t o   L i n k s < / t i t l e >  
+ 	 	 < s t y l e   t y p e = " t e x t / c s s " >  
+ 	 	 	 b o d y   {  
+ 	 	 	 	 b a c k g r o u n d - c o l o r :   # F 9 F B F E ;  
+ 	 	 	 	 f o n t - f a m i l y :   " S e g o e   U I " ,   s a n s - s e r i f ;  
+ 	 	 	 	 f o n t - s i z e :   7 5 % ;  
+ 	 	 	 	 m a r g i n :   5 p x ;  
+ 	 	 	 	 p a d d i n g :   0 p x ;  
+ 	 	 	 }  
+ 	 	 	 . t i t l e T e x t   {  
+ 	 	 	 	 p o s i t i o n :   r e l a t i v e ;  
+ 	 	 	 	 f o n t :   1 5 0 %   n o r m a l ;  
+ 	 	 	 	 c o l o r :   # 4 8 7 C B B ;  
+ 	 	 	 	 l e f t :   0 e m ;  
+ 	 	 	 	 p a d d i n g :   0 p x   0 p x   0 p x   0 p x ;  
+ 	 	 	 	 m a r g i n :   0 p x   0 p x   0 p x   0 p x ;  
+ 	 	 	 }  
+ 	 	 	 . d e s c r i p t i o n   {  
+ 	 	 	 	 p o s i t i o n :   r e l a t i v e ;  
+ 	 	 	 	 m a r g i n :   0 p x   0 p x   0 p x   1 8 p x ;  
+ 	 	 	 	 c o l o r :   # 8 0 8 0 8 0 ;  
+ 	 	 	 	 w i d t h :   2 0 e m ;  
+ 	 	 	 }  
+ 	 	 < / s t y l e >  
+ 	 < / h e a d >  
+ 	 < b o d y   i d = " t u r n O n S y n c E n g i n e P a g e " >  
+ 	 	 < h 1   i d = " t i t l e H e a d e r "   c l a s s = " t i t l e T e x t " >  
+ 	 	 	 < i m g   s r c = " d a t a : i m a g e / p n g ; b a s e 6 4 , i V B O R w 0 K G g o A A A A N S U h E U g A A A A 4 A A A A O C A I A A A C Q K r q G A A A A C X B I W X M A A A 7 D A A A O w w H H b 6 h k A A A A A X N S R 0 I A r s 4 c 6 Q A A A T h J R E F U K F N j v H f 3 X l / J g W 8 f m P 7 8 Y m J k Z A B D R g Y 4 + A 9 i c Q r 9 L u m z Y 8 g J n J f u s W l C z G l c a G L 0 G a C C T L / 5 D L H m S 4 G K y v 2 3 I K O q w O 3 1 w X t a Q g 5 0 h h / t j T g B V B C p v 4 Y h x m w Z s t I Z l c f + g 8 H C u v O d Y U B 1 J y d E g i w E K Y 0 1 R 1 E 6 q / o E R O n S + s s Q d T 1 w U 5 G V V g V s n 1 t 9 G q J 0 R c N V o L r e y J M d Y U f R T Q W 6 r y 5 o D 9 B e i N L V j d e B r g S q a w k 9 g K I U r G 4 3 0 B 9 A e 2 G m X u s I O w I U q Q / a D V c K C g E g H 6 g b K A d y G d D e i B N A v 0 P U V Q X u g C q N N l s M Z A F F g X Y B X Q a 0 F x 4 C d c F 7 g O q A g Q h V G m W 2 A M i C q A O a t 6 L h G k Q p 0 H 8 Q d U h K T U G m Q t R B / A t 0 C c R e e K R A T U 3 3 J R C x Q H X Q i L 1 7 5 y 4 w f o G R g Q c B F Q C V A Q A P c D 2 z n 9 + n s g A A A A B J R U 5 E r k J g g g = = "   a l t = " ! "   w i d t h = " 1 4 "   h e i g h t = " 1 4 "   s t y l e = " p a d d i n g :   0 p x   4 p x   0 p x   0 p x " >  
+ 	 	 	 S u b s c r i b i n g   t o   L i n k s  
+ 	 	 < / h 1 >  
+ 	 	 < d i v   i d = " s u b s c r i b i n g "   c l a s s = " d e s c r i p t i o n " >  
+ 	 	 	 S t a r t   g e t t i n g   n o t i f i c a t i o n s   w h e n   y o u r   l i n k s   u p d a t e .  
+ 	 	 	 Y o u r   c o m p u t e r   w i l l   p e r i o d i c a l l y   c h e c k   o n l i n e   f o r  
+ 	 	 	 u p d a t e s ,   e v e n   w h e n   I n t e r n e t & n b s p ; E x p l o r e r   i s   n o t   r u n n i n g .  
+ 	 	 < / d i v >  
+ 	 < / b o d y >  
+ < / h t m l >  
+ PAÔªø<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html>
+
+    <head>
+        <link rel="stylesheet" type="text/css" href="res://ieframe.dll/ErrorPageTemplate.css" />
+
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+        <title>Navigation Canceled</title>
+
+        <script src="res://ieframe.dll/errorPageStrings.js" language="javascript" type="text/javascript">
+        </script>
+        <script src="res://ieframe.dll/httpErrorPagesScripts.js" language="javascript" type="text/javascript">
+        </script>
+    </head>
+
+    <body onLoad="javascript:navCancelInit(); ">
+
+        <table width="730" cellpadding="0" cellspacing="0" border="0">
+
+        <!-- Error title -->
+            <tr>
+                <td id="infoIconAlign" width="60" align="left" valign="top" rowspan="2">
+                    <img src="res://ieframe.dll/info_48.png" id="infoIcon" alt="Info icon">
+                </td>
+                <td id="mainTitleAlign" valign="middle" align="left" width="*">
+                    <h1 id="mainTitle">Navigation to the webpage was canceled</h1>
+                </td>
+            </tr>
+
+
+
+            <tr>
+                <!-- This row is for HTTP status code, as well as the divider-->
+                <td id="errorCodeAlign" class="errorCodeAndDivider" align="right">&nbsp;
+                    <div class="divider"></div>
+                </td>
+            </tr>
+
+
+        <!-- Error Body -->
+
+        <!-- What you can do -->
+            <tr>
+                <td>
+                    &nbsp;
+                </td>
+                <td id="whatToTryAlign" valign="top" align="left">
+                    <h2 id="whatToTry">What you can try:</h2>
+                </td>
+            </tr>
+
+        <!-- refresh page -->
+            <tr>
+                <td >
+                    &nbsp;
+                </td>
+                <td id="refreshPageAlign" align="left" valign="middle">
+                    <h4>
+                        <table>
+                          <tr>
+                              <td valign="top">
+                                  <img src="res://ieframe.dll/bullet.png" border="0" alt="" class="actionIcon">
+                              </td>
+                              <td valign="top">
+                                  <span id="navCancelContainer"></span><noscript id="refreshPage">Refresh the page.</noscript>
+                              </td>
+                          </tr>
+                        </table>
+                    </h4>
+                </td>
+            </tr>
+        </table>
+    </body>
+</html>PADGIF89a  ≥     ˇˇˇﬂÀ ñFD‹∆≈Ö&$òHG£\[•a`Ã®®‡ÕÕÁŸŸÚÌÌÎÎ˜˜˜   ,       P%TjuXã1;WÁ4F!bÑy:»Í$Ó ;Ôªø// Localized strings (L_NAME_TEXT)
+var L_YOURCLIPBOARD_TEXT = "Your clipboard text will appear here";
+
+var L_CLOSETAB_EXPAND_TEXT = "expand closed tabs section";
+var L_CLOSETAB_COLLAPSE_TEXT = "collapse closed tabs section";
+
+var L_WEBSERVICE_EXPAND_TEXT = "expand web service section";
+var L_WEBSERVICE_COLLAPSE_TEXT = "collapse web service section";
+
+// Unlocalized strings
+var SZ_COLLAPSE_IMG      = "collapse_nor.png";
+var SZ_COLLAPSE_HVR_IMG  = "collapse_hvr.png";
+var SZ_EXPAND_IMG        = "expand_nor.png";
+var SZ_EXPAND_HVR_IMG    = "expand_hvr.png";
+
+var SZ_CLOSE_IMG         = "close_nor.png";
+var SZ_CLOSE_HVR_IMG     = "close_hvr.png";
+
+
+var imgSrc = null;
+
+function showhide(img, tObj)
+{
+    var state = tObj.style.display;
+
+    var fVisible = false;
+
+    if (state == '' || state == "none")
+    {
+        tObj.style.display = "block";
+        img.src = SZ_COLLAPSE_IMG;
+        if (img == tabglyph)
+        {
+            img.alt = L_CLOSETAB_COLLAPSE_TEXT;
+        }
+        else if (img == SIglyph)
+        {
+            img.alt = L_WEBSERVICE_COLLAPSE_TEXT;
+        }
+        fVisible = true;
+    } 
+    else 
+    {
+        tObj.style.display = "none";
+        img.src = SZ_EXPAND_IMG;
+        if (img == tabglyph)
+        {
+            img.alt = L_CLOSETAB_EXPAND_TEXT;
+        }
+        else if (img == SIglyph)
+        {
+            img.alt = L_WEBSERVICE_EXPAND_TEXT;
+        }
+    }
+
+    imgSrc = img.src;
+
+    return fVisible;
+}
+
+function showhideClipboard(showClick, clipboard, clipboardTextStatsContainer, useThisTextContainer, clipboardText, clipboardTextStats, fShow)
+{  
+    clipboardTextStatsContainer.style.display = "none"; // the clipboard character count text
+
+    if (fShow)
+    {
+        clipboard.style.display = "block";  // the clipboard container
+        clipboardText.style.display = "inline";  // the clipboard text, need to set explicitly (even though it's container is getting set)
+                                                 // so the clipboard retrieval handler can know if it is displaying or not
+        
+        showClick.style.display = "none";
+        
+        var text = clipboardText.innerText;
+        if (text == null || text.length == 0 || text == L_YOURCLIPBOARD_TEXT)
+        {
+            // clipboard text is empty
+            clipboardText.innerText = L_YOURCLIPBOARD_TEXT;
+            
+            // do not show "Use this text: " to the user if their clipboard is empty.
+            useThisTextContainer.style.display = "none";
+        }
+        else
+        {
+            // clipboard.innerText will have been set by CClipboardRetrievalHandler
+            useThisTextContainer.style.display = "inline";
+            
+            var statsTextShowing = clipboardTextStats.innerText;
+            
+            if (statsTextShowing != null && statsTextShowing.length != 0) 
+            {
+                clipboardTextStatsContainer.style.display = "block";
+            }
+        }
+    }
+    else
+    {
+        clipboard.style.display = "none";
+        clipboardText.style.display = "none";
+        
+        showClick.style.display = "block";
+    }
+    
+    return false; // suppress default action
+}
+
+function doHover(img)
+{
+    imgSrc = img.src;
+
+    if (imgSr

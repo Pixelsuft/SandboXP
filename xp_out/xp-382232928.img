@@ -1,0 +1,3613 @@
+tionSvc_NextBtnHandler()
+{
+    g_Activation_CODE_ENTERED = g.ActCodeBox1.value + '-' +
+        g.ActCodeBox2.value + '-' +
+        g.ActCodeBox3.value + '-' +
+        g.ActCodeBox4.value + '-' +
+        g.ActCodeBox5.value + '-' +
+        g.ActCodeBox6.value + '-' +
+        g.ActCodeBox7.value;
+
+    g_ConfirmID_A  = g.ActCodeBox1.value;
+    g_ConfirmID_B  = g.ActCodeBox2.value;
+    g_ConfirmID_C  = g.ActCodeBox3.value;
+    g_ConfirmID_D  = g.ActCodeBox4.value;
+    g_ConfirmID_E  = g.ActCodeBox5.value;
+    g_ConfirmID_F  = g.ActCodeBox6.value;
+    g_ConfirmID_G  = g.ActCodeBox7.value;
+
+    try
+    {
+        g_Activation_CODE_ENTERED_status = window.external.SetConfirmationID(g_Activation_CODE_ENTERED);
+    }
+    catch(e)
+    {
+        g_Activation_CODE_ENTERED_status = 0;
+    }
+
+    DisableAllButtons();
+    if (g_Activation_CODE_ENTERED_status == 0)
+    {
+        GoNavigate(CKPT_DONE);
+    }
+    else
+    {
+        g_Load_InstallID = false;
+        var L_ConfirmIDInvalid_Text = "Šm”F ID ‚ª–³Œø‚Å‚·B”Ô†‚ğŠm”F‚µ‚ÄAÄs‚µ‚Ä‚­‚¾‚³‚¢B";
+        alert(L_ConfirmIDInvalid_Text);
+        g_ActivSvc_Reload = false;
+        GoNavigate(CKPT_ACTIVSVC);
+    }
+}
+
+function ActivationSvc_ProdkeyBtnHandler()
+{
+    DisableAllButtons();
+    ReturnToTelephonePage = true;
+    g_Load_InstallID = false;
+
+    
+    g_ConfirmID_A  = g.ActCodeBox1.value;
+    g_ConfirmID_B  = g.ActCodeBox2.value;
+    g_ConfirmID_C  = g.ActCodeBox3.value;
+    g_ConfirmID_D  = g.ActCodeBox4.value;
+    g_ConfirmID_E  = g.ActCodeBox5.value;
+    g_ConfirmID_F  = g.ActCodeBox6.value;
+    g_ConfirmID_G  = g.ActCodeBox7.value;
+
+    g_ActivationStatus = ERR_ACT_DEDICATED_PID_ENTRY;
+    GoNavigate(CKPT_ACT_MSG);
+}
+
+function PhoneCountries_Changed()
+{
+    g.ChosenPhoneNumber.innerHTML = "<B>" + g_Phone_Number_Array[g.selPhoneCountry.selectedIndex] + "</B>";
+    g.ChosenTollNumber.innerHTML  = "<B>" + g_Toll_Number_Array[g.selPhoneCountry.selectedIndex]  + "</B>";
+
+    
+    g_Country_Selected_Index = g.selPhoneCountry.selectedIndex;
+}
+
+var g_Country_Selected_Index = 0;
+var g_Phone_Number_Array = new Array(500);
+var g_Toll_Number_Array =  new Array(500);
+function GetPhoneCountries()
+{
+    var g_PhoneCountries = "";
+
+    try
+    {
+        g_PhoneCountries = LangObj.get_PhoneCountries();
+
+    }
+    catch(e)
+    {
+        g_PhoneCountries = "API call error: get_PhoneCountries";
+    }
+
+    var i;
+    var PhoneOption;
+    var ModulusResult;
+    var PhoneCounter=0;
+    var TollCounter =0;
+    var regexp1=/\t/;                                                
+    var Opt_PhoneCountry_Array = g_PhoneCountries.split(regexp1);    
+    var L_SelectYourLocation_Text = "êŠ‚ğ‘I‘ğ‚µ‚Ä‚­‚¾‚³‚¢";
+
+
+    
+    PhoneOption      = g.document.createElement("OPTION");
+    PhoneOption.text = L_SelectYourLocation_Text;
+    g.selPhoneCountry.add(PhoneOption);
+    g_Toll_Number_Array[TollCounter] = "";
+    g_Phone_Number_Array[PhoneCounter] = "";
+    TollCounter = TollCounter + 1;
+    PhoneCounter = PhoneCounter + 1;
+
+    for(i=0; i < Opt_PhoneCountry_Array.length; i++)
+    {
+        ModulusResult = i % 3;
+        if (ModulusResult == 0)
+        {
+            PhoneOption      = g.document.createElement("OPTION");
+            PhoneOption.text = Opt_PhoneCountry_Array[i];
+            g.selPhoneCountry.add(PhoneOption);
+        }
+        else if (ModulusResult == 1)
+        {
+            g_Toll_Number_Array[TollCounter] = Opt_PhoneCountry_Array[i];
+            TollCounter = TollCounter + 1;
+        }
+        else
+        {
+            g_Phone_Number_Array[PhoneCounter] = Opt_PhoneCountry_Array[i];
+            PhoneCounter = PhoneCounter + 1;
+        }
+    }
+    g.ChosenPhoneNumber.innerHTML = "<B>" + g_Phone_Number_Array[g_Country_Selected_Index] + "</B>";
+    g.ChosenTollNumber.innerHTML  = "<B>" + g_Toll_Number_Array[g_Country_Selected_Index]  + "</B>";
+    g.selPhoneCountry.selectedIndex = g_Country_Selected_Index;
+
+}
+
+function BackBtnHandler()
+{
+    GoNavigate(CKPT_ACTIV);
+}
+
+var ReturnToTelephonePage = false;
+var g_ConfirmID_A = "";
+var g_ConfirmID_B = "";
+var g_ConfirmID_C = "";
+var g_ConfirmID_D = "";
+var g_ConfirmID_E = "";
+var g_ConfirmID_F = "";
+var g_ConfirmID_G = "";
+var g_Load_InstallID = true;
+var g_Activation_Install_ID_Full = "";
+function ActivationSvc_LoadMe()
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    ReturnToTelephonePage = false;
+
+
+    
+    g.ActCodeBox1.value = g_ConfirmID_A;
+    g.ActCodeBox2.value = g_ConfirmID_B;
+    g.ActCodeBox3.value = g_ConfirmID_C;
+    g.ActCodeBox4.value = g_ConfirmID_D;
+    g.ActCodeBox5.value = g_ConfirmID_E;
+    g.ActCodeBox6.value = g_ConfirmID_F;
+    g.ActCodeBox7.value = g_ConfirmID_G;
+
+
+    
+    if (g_CameFromFirstPage)
+    {
+        g.btnBack.style.display = "inline";
+    }
+
+    InitButtons();
+
+    
+    
+    if (g_CameFromFirstPage)
+    {
+        g.btnBack.onclick = BackBtnHandler;
+    }
+
+    IsConfirmIDComplete();  
+    GetPhoneCountries();
+
+    g.btnProdkey.onclick = ActivationSvc_ProdkeyBtnHandler;
+    g.btnProdkey.onmouseover = HandleButtonMouseOver;
+    g.btnProdkey.onmouseout  = HandleButtonMouseOut;
+
+
+    if (g_Country_Selected_Index==0)
+    {
+        g_FirstFocusElement = g.selPhoneCountry;
+    }
+    else if (!g.btnNext.disabled)
+    {
+        g_FirstFocusElement = g.btnNext;
+    }
+    else
+    {
+        g_FirstFocusElement = g.ActCodeBox1;
+    }
+
+    if (g_FirstFocusElement != null)
+        window.setTimeout("DoFocus();",1000);
+}
+
+
+
+
+
+
+var g_Reg1RadioSticky = null;
+function areg1_LoadMe()
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    if (g_Reg1RadioSticky == null)
+        g.btnNext.disabled = true;
+    else if (g_Reg1RadioSticky == 1)
+        g.rb_reg_1.checked = true;
+    else if (g_Reg1RadioSticky == 2)
+        g.rb_reg_2.checked = true;
+
+    InitButtons();
+
+    if (g.btnNext.disabled)
+        g_FirstFocusElement = g.btnBack;
+    else
+        g_FirstFocusElement = g.btnNext;
+    window.setTimeout("DoFocus();",1500);
+}
+
+function WPA_Reg1RadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.rb_reg_1.checked || g.rb_reg_2.checked))
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = GoNext;
+        g.btnNext.focus();
+    }
+}
+
+
+
+
+var StateAbbrevs = new Array("","AL","AK","AZ","AR","CA","CO","CT","DC","DE","FL","GA","HI","ID","IL","IN","IA","KS","KY","LA","ME","MD","MA","MI","MN","MS","MO","MT","NE","NV","NH","NJ","NM","NY","NC","ND","OH","OK","OR","PA","PR","RI","SC","SD","TN","TX","UT","VT","VA","WA","WV","WI","WY");
+var FullStateNames = new Array("Alabama","Alaska","Arizona","Arkansas","California","Colorado","Connecticut","Washington, D.C.","Delaware","Florida","Georgia","Hawaii","Idaho","Illinois","Indiana","Iowa","Kansas","Kentucky","Louisiana","Maine","Maryland","Massachusetts","Michigan","Minnesota","Mississippi","Missouri","Montana","Nebraska","Nevada","New Hampshire","New Jersey","New Mexico","New York","North Carolina","North Dakota","Ohio","Oklahoma","Oregon","Pennsylvania","Puerto Rico","Rhode Island","South Carolina","South Dakota","Tennessee","Texas","Utah","Vermont","Virginia","Washington","West Virginia","Wisconsin","Wyoming");
+var ProvinceNames = new Array("","Alberta","British Columbia","Manitoba","New Brunswick","Newfoundland","Northwest Territories","Nova Scotia","Nunavut","Ontario","Prince Edward Island","Quebec","Saskatchewan","Yukon");
+
+
+var g_StateName2IndexMap= new ActiveXObject("Scripting.Dictionary");
+var g_ProvinceName2IndexMap= new ActiveXObject("Scripting.Dictionary");
+
+g_ProvinceName2IndexMap.CompareMode = 1;  
+g_StateName2IndexMap.CompareMode = 1;  
+
+
+var ii;
+for(ii=1;ii<=FullStateNames.length;ii++) {
+    
+  g_StateName2IndexMap.Add(FullStateNames[ii-1].toUpperCase(),ii);
+  g_StateName2IndexMap.Add(StateAbbrevs[ii].toUpperCase(),ii);
+
+  if(ii < ProvinceNames.length) {
+     g_ProvinceName2IndexMap.Add(ProvinceNames[ii].toUpperCase(),ii);
+  }
+}
+
+var L_Postal_Text = "*—X•Ö”Ô†(<u>Z</u>):";
+var L_AsteriskPostal_Text = "*—X•Ö”Ô†(<u>Z</u>):";
+var L_Province_Text= "“s“¹•{Œ§(<u>P</u>):";
+var L_AsteriskProvince_Text= "*“s“¹•{Œ§(<u>P</u>):";
+
+var L_Canada_Text="ƒJƒiƒ_";
+var L_UnitedStates_Text="•Ä‘";
+
+function Reg3UserCountryChanged() {
+
+    
+
+
+    g_Country=g.selCountry.options(g.selCountry.selectedIndex).text;
+
+    if(g_Country == L_UnitedStates_Text) {
+        if(g.selUSState.style.display!="inline") {
+          g.selUSState.style.display="inline";
+        }
+
+        g.selCAProvince.style.display="none";
+        g.UserStateTextBox.style.display="none";
+
+        
+        if(g.UserStateTextBox.value!="") {
+          var res=g_StateName2IndexMap.Item(g.UserStateTextBox.value.toUpperCase());
+          if(res!=null) {
+             g.selUSState.selectedIndex=res;
+          }
+        }
+        g.LabelZIP.innerHTML = L_AsteriskPostal_Text;
+        g.StateLabel.innerHTML = L_AsteriskProvince_Text;
+    } else if(g_Country == L_Canada_Text) {
+        g.selUSState.style.display="none";
+        g.selCAProvince.style.display="inline";
+        g.UserStateTextBox.style.display="none";
+
+        
+        if(g.UserStateTextBox.value!="") {
+          var res=g_ProvinceName2IndexMap.Item(g.UserStateTextBox.value.toUpperCase());
+          if(res!=null) {
+             g.selCAProvince.selectedIndex=res;
+          }
+        }
+        g.LabelZIP.innerHTML = L_AsteriskPostal_Text;
+        g.StateLabel.innerHTML = L_AsteriskProvince_Text;
+    } else {
+        g.selUSState.style.display="none";
+        g.selCAProvince.style.display="none";
+        g.UserStateTextBox.style.display="inline";
+        g.LabelZIP.innerHTML = L_Postal_Text;
+        g.StateLabel.innerHTML = L_Province_Text;
+    }
+
+    g_CountryIdx=g.selCountry.selectedIndex;
+
+    Reg3UserStateChanged();
+}
+
+var L_FullName_Text="*–¼(<u>F</u>):";
+
+function Reg3UserStateChanged() {
+
+    
+
+    
+
+    if(g.selUSState.style.display!="none")
+    {
+        g_StateIdx=g.selUSState.selectedIndex;
+        g_State=g.selUSState.options(g.selUSState.selectedIndex).text;
+        g.StateLabel.htmlFor="selUSState";
+    }
+    else if (g.selCAProvince.style.display!="none")
+    {
+         g_StateIdx=g.selCAProvince.selectedIndex;
+         g_State=g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+         g.StateLabel.htmlFor="selCAProvince";
+    }
+    else
+    {
+        g_State = g.UserStateTextBox.value;
+        g.StateLabel.htmlFor="UserStateTextBox";
+    }
+}
+
+
+
+
+var g_FirstName=InfoObj.get_FirstName();
+
+var g_LastName=InfoObj.get_LastName();
+var g_Address1=InfoObj.get_Address1();
+var g_Address2=InfoObj.get_Address2();
+var g_City=InfoObj.get_City();
+var g_ZipCode=InfoObj.get_Zip();
+var g_EmailAddr= InfoObj.get_PrimaryEmail();
+var g_Country=InfoObj.get_Country();
+var g_CountryIdx=-1;
+var g_State=InfoObj.get_State();
+var g_StateIdx=0;
+
+function Reg3SaveSettings() {
+    g_FirstName=g.UserFirstName.value;
+    
+
+    if (IsKoreanLocale())
+        g_LastName="";
+    else
+        g_LastName=g.UserLastName.value;
+
+    g_Address1=g.UserAddress.value;
+    g_Address2=g.UserAddress2.value;
+    g_ZipCode=g.UserZipCode.value;
+    g_EmailAddr=g.UserEmailAddress.value;
+    g_City=g.UserCity.value;
+    g_Country=g.selCountry.options(g.selCountry.selectedIndex).text;
+
+    if(g.UserStateTextBox.style.display!="none")
+    {
+        g_State=g.UserStateTextBox.value;
+    }
+    else if (g.selUSState.style.display!="none")
+    {
+        g_State=g.selUSState.options(g.selUSState.selectedIndex).text;
+    }
+    else
+    {
+        g_State=g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+    }
+
+    InfoObj.set_FirstName(g_FirstName);
+    InfoObj.set_LastName(g_LastName);
+    
+    InfoObj.set_Country(g_Country);
+    InfoObj.set_State(g_State);
+    InfoObj.set_Address1(g_Address1);
+    InfoObj.set_Address2(g_Address2);
+    InfoObj.set_PrimaryEmail(g_EmailAddr);
+    InfoObj.set_Zip(g_ZipCode);
+    InfoObj.set_City(g_City);
+
+    TapiObj.set_CountryIndex(g.selCountry.selectedIndex);
+    InfoObj.set_CountryID(TapiObj.get_CountryID());
+
+    
+    InfoObj.set_MSUpdate(true);
+
+    InfoObj.set_MSOffer(false);
+    if ((g_PostToMS==true) && (g.sharems.checked))
+        InfoObj.set_MSOffer(true);
+
+    InfoObj.set_OtherOffer(false);
+    if ((g_PostToMS==true) && (g.sharemsPartners.checked))
+        InfoObj.set_OtherOffer(true);
+}
+
+
+InfoObj.set_MSOffer(false);
+InfoObj.set_OtherOffer(false);
+function Reg3_LoadMe()
+{
+    InitFrameRef();
+    CheckContrastMode();
+
+    GetPageTitle();
+
+    g_FirstFocusElement = g.UserFirstName;
+
+    if (IsFarEastLocale())
+    {
+
+      
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        g.MainPageCell.style.display="none";  
+
+        
+        
+
+        g.FieldTable.moveRow(1,0);  
+        g.FieldTable.moveRow(6,2);  
+        g.FieldTable.moveRow(6,3);  
+        g.FieldTable.moveRow(6,4);  
+
+        g.FE_ZIPLabel.innerHTML=g.LabelRight.innerHTML;
+        g.FE_ZIPInput.innerHTML=g.MenuRight.innerHTML;
+        g.FE_ZIPRow.style.display="inline";
+
+        g.LabelRight.innerHTML="";
+        g.MenuRight.innerHTML="";
+
+        
+        g.UserZipCode.size=30;
+        g.UserZipCode.maxlength=120;
+
+        g.UserStateTextBox.size=30;
+        g.UserStateTextBox.maxlength=120;
+
+        g_FirstFocusElement = g.UserLastName;
+
+        if (IsKoreanLocale()) {
+            g.LastNameRow.style.display="none";
+            g.LabelFirstName.innerHTML=L_FullName_Text;
+            g_FirstFocusElement = g.UserFirstName;
+        }
+
+        g.MainPageCell.style.display="inline";
+    }
+
+    
+    g.selCountry.style.width=g.UserEmailAddress.offsetWidth;
+
+    g.UserFirstName.value=g_FirstName;
+    
+    g.UserLastName.value=g_LastName;
+    g.UserAddress.value=g_Address1;
+    g.UserAddress2.value=g_Address2;
+    g.UserZipCode.value=g_ZipCode;
+    g.UserEmailAddress.value=g_EmailAddr;
+    g.UserCity.value=g_City;
+
+    
+    
+    
+
+    g.selUSState.remove(0);
+
+    for (var i = 0; i < StateAbbrevs.length; i++) {
+       var oOption  = g.document.createElement("OPTION");
+       oOption.text = StateAbbrevs[i];
+       if (StateAbbrevs[i] == g_State)
+       {
+           g_StateIdx = i;
+       }
+       g.selUSState.add(oOption);
+    }
+
+    for (i = 0; i < ProvinceNames.length; i++) {
+       oOption  = g.document.createElement("OPTION");
+       oOption.text = ProvinceNames[i];
+       if (ProvinceNames[i] == g_State)
+       {
+           g_StateIdx = i;
+       }
+       g.selCAProvince.add(oOption);
+    }
+
+    var fTapi = TapiObj.IsTAPIConfigured();  
+
+
+
+
+
+
+
+
+
+
+    g_CountryIdx = TapiObj.get_CountryIndex();
+
+    if(g_CountryIdx>=0)
+    {
+        g.selCountry.selectedIndex=g_CountryIdx;
+        if(g_Country ==  L_UnitedStates_Text)
+        {
+            g.selUSState.selectedIndex=g_StateIdx;
+        }
+        else if(g_Country == L_Canada_Text)
+        {
+            g.selCAProvince.selectedIndex=g_StateIdx;
+        }
+        else
+            g.UserStateTextBox.value=g_State;
+    }
+    else
+    {
+        
+        g.selCountry.selectedIndex = TapiObj.get_CountryIndex();
+    }
+
+    Reg3UserCountryChanged();
+    Reg3UserStateChanged();
+
+    var MSoffer_Checked = InfoObj.get_MSOffer();
+    if (MSoffer_Checked)
+        g.sharems.checked = true;
+    else
+        g.sharems.checked = false;
+
+    var MSotheroffer_Checked = InfoObj.get_OtherOffer();
+    if (MSotheroffer_Checked)
+        g.sharemsPartners.checked = true;
+    else
+        g.sharemsPartners.checked = false;
+
+    InitButtons();
+
+    g.error_mesg.innerHTML = L_RequiredField_Text;
+    g.error_mesg.style.display="inline";
+
+    var L_CNIL_Text = "<p>";
+    var L_CnilStyleDisplay_Text = "none";
+
+    g.cnil_mesg.innerHTML = L_CNIL_Text;
+    g.cnil_mesg.style.display=L_CnilStyleDisplay_Text;
+
+    window.setTimeout("DoFocus();",1000);
+}
+function GetCurrentProvince() {
+    if(g.selCountry.options(g.selCountry.selectedIndex).text == L_UnitedStates_Text) {
+        return g.selUSState.options(g.selUSState.selectedIndex).text;
+    } else if(g.selCountry.options(g.selCountry.selectedIndex).text == L_Canada_Text) {
+        return g.selCAProvince.options(g.selCAProvince.selectedIndex).text;
+    } else return g.UserStateTextBox.value;
+}
+
+function GetCurrentCountry() {
+    return g.selCountry.options(g.selCountry.selectedIndex).text;
+}
+
+var L_Email_Text="³‚µ‚¢“dqƒ[ƒ‹ ƒAƒhƒŒƒX‚ğ“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B‚Ü‚½‚ÍA“dqƒ[ƒ‹‚Ìƒ{ƒbƒNƒX‚ğ‹ó”’‚É‚µ‚Ä‚­‚¾‚³‚¢B";
+var L_EnterValid_Text=" * •K{€–Ú‚ğ‚·‚×‚Ä“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B";
+var L_RequiredField_Text="* •K{€–Ú‚Í•K‚¸“ü—Í‚µ‚Ä‚­‚¾‚³‚¢B";
+
+var g_PostToMS = false;
+var g_PostToOEM = false; 
+var POST_TO_OEM = 1;
+var POST_TO_MS = 2;
+var bPostChkBxStateSaved = false;
+
+
+function ShownavigatetoPrivacy()
+{
+    Navigate("actsetup\\aprvcyMS.htm");
+    SetTimerShowIFrame(100);
+}
+
+function navigatetoPrivacy(PrivPage)
+{
+    if (g_CurrentCKPT == CKPT_REGISTER3)
+       Reg3SaveSettings();
+
+    if (g_CurrentCKPT == CKPT_REGISTER1)
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+        else
+            g_Reg1RadioSticky = null;
+    }
+
+    ShowIFrame('False');
+    window.setTimeout("ShownavigatetoPrivacy();",500);
+}
+
+function ShownavigatetoActPolicy()
+{
+    Navigate("actsetup\\apolicy.htm");
+    SetTimerShowIFrame(100);
+}
+
+function navigatetoActPolicy()
+{
+    if (g.rb_act_1.checked)
+        g_ActivationRadioSticky = 1;
+    else if (g.rb_act_2.checked)
+        g_ActivationRadioSticky = 2;
+    else if (g.rb_act_3.checked)
+        g_ActivationRadioSticky = 3;
+    else
+        g_ActivationRadioSticky = null;
+
+    ShowIFrame('False');
+    window.setTimeout("ShownavigatetoActPolicy();",500);
+}
+
+function VerifyReg3Fields() {
+       g.error_mesg.style.display="none";
+       var LastErrorField = null;
+
+       var CurReg3ErrStringArray = new Array();
+
+       
+       
+
+       if(g.UserEmailAddress.value != "") {
+           
+           
+             var re = new RegExp("^\\s*\\S+@\\S+\\.\\S\\S+","");
+             if(re.exec(g.UserEmailAddress.value) == null) {
+                 LastErrorField = g.UserEmailAddress;
+                 g.LabelEmail.className = "text-error";
+             } else {
+                 g.LabelEmail.className = "text-primary";
+             }
+       }
+
+       var CurCountry=GetCurrentCountry();
+
+       
+       if ((CurCountry == L_UnitedStates_Text)||(CurCountry == L_Canada_Text)) {
+          if(g.UserZipCode.value == "") {
+            LastErrorField = g.UserZipCode;
+            g.LabelZIP.className = "text-error";
+          } else {
+             g.LabelZIP.className = "text-primary";
+          }
+
+          if(GetCurrentProvince() == "") {
+             if(g.selUSState.style.display!="none") {
+                LastErrorField = g.selUSState;
+             } else {
+                LastErrorField = g.selCAProvince;
+             }
+             g.StateLabel.className = "text-error";
+
+          } else {
+             g.StateLabel.className = "text-primary";
+          }
+       }
+
+
+       if(g.UserCity.value == "") {
+          LastErrorField = g.UserCity;
+          g.LabelCity.className = "text-error";
+       } else {
+          g.LabelCity.className = "text-primary";
+       }
+
+       if(g.UserAddress.value == "") {
+          LastErrorField = g.UserAddress;
+          g.LabelAddress.className = "text-error";
+       } else {
+          g.LabelAddress.className = "text-primary";
+       }
+
+       if((g.UserLastName.value == "") && (g.LastNameRow.style.display!="none")) {
+          LastErrorField = g.UserLastName;
+          g.LabelLastName.className = "text-error";
+       } else {
+          g.LabelLastName.className = "text-primary";
+       }
+
+       if(g.UserFirstName.value == "") {
+          g.LabelFirstName.className = "text-error";
+          LastErrorField = g.UserFirstName;
+       } else {
+          g.LabelFirstName.className = "text-primary";
+       }
+
+       if(LastErrorField==null) {
+           return true;
+       }
+
+       
+
+       if(LastErrorField==g.UserEmailAddress) {
+          g.error_mesg.innerText = L_Email_Text;
+       } else {
+          g.error_mesg.innerText = L_EnterValid_Text;
+       }
+
+       g.error_mesg.className = "text-error";
+       g.error_mesg.style.display="inline";
+
+        try
+        {
+            g.btnNext.disabled=false;
+        }
+        catch(e) {}
+        try
+        {
+            g.btnBack.disabled=false;
+        }
+        catch(e) {}
+        try
+        {
+            g.btnSkip.disabled=false;
+        }
+        catch(e) {}
+        InitButtons();
+
+        LastErrorField.focus();
+
+       return false;
+}
+
+
+
+
+
+
+
+
+function Start_CheckEnableNextButton()
+{
+    try
+    {
+        if (g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (Start_CheckLengthRequirement() &&
+        Start_CheckLengthNotEqualSpaces())
+    {
+        g.btnNext.disabled = false;
+    }
+    else
+    {
+        g.btnNext.disabled = true;
+    }
+    InitButtons();
+}
+
+function Start_CheckLengthRequirement()
+{
+    if ((g.edt_FirstName.value.length != 0) ||
+         (g.edt_LastName.value.length != 0))
+        return true;
+    else
+        return false;
+}
+
+function Start_CheckLengthNotEqualSpaces()
+{
+    if ((g.edt_FirstName.value.length != NumberOfSpaces(g.edt_FirstName.value)) ||
+         (g.edt_LastName.value.length != NumberOfSpaces(g.edt_LastName.value)))
+        return true;
+    else
+        return false;
+}
+
+
+
+
+
+
+
+
+
+function _Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+    CheckContrastMode();
+
+    if (g.btnNext != null)
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip != null)
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack != null)
+        g_FirstFocusElement = g.btnBack;
+
+    InitButtons(SimpleBack, SimpleNext);
+    if (g_FirstFocusElement != null)
+        window.setTimeout("DoFocus();",1000);
+    else
+        g.document.body.focus();
+}
+
+
+function New_Default_LoadMe(SimpleBack, SimpleNext)
+{
+    InitFrameRef();
+    GetPageTitle();
+    CheckContrastMode();
+
+    if (g.btnNext != null)
+        g_FirstFocusElement = g.btnNext;
+    else if (g.btnSkip != null)
+        g_FirstFocusElement = g.btnSkip;
+    else if (g.btnBack != null)
+        g_FirstFocusElement = g.btnBack;
+
+    InitButtons(SimpleBack, SimpleNext);
+
+    window.setTimeout("DoFocus();",1000);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+function InitCKPT()
+{
+    dnCKPT[CKPT_ACTIV]     = new CheckPoint("actsetup\\activ.htm",          0,     0,     0,     0);
+    dnCKPT[CKPT_ACTDONE]   = new CheckPoint("actsetup\\actdone.htm",        0,     0,     0,     0);
+    dnCKPT[CKPT_ACTIVERR]  = new CheckPoint("actsetup\\activerr.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACTIVSVC]  = new CheckPoint("actsetup\\activsvc.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_REGISTER1] = new CheckPoint("actsetup\\areg1.htm",          0,     0,     0,     0);
+    dnCKPT[CKPT_REGISTER3] = new CheckPoint("actsetup\\ausrinfo.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACTCONN]   = new CheckPoint("actsetup\\actconn.htm",        0,     0,     0,     0);
+    dnCKPT[CKPT_ACTLAN]    = new CheckPoint("actsetup\\actlan.htm",         0,     0,     0,     0);
+    dnCKPT[CKPT_REGDIAL]   = new CheckPoint("actsetup\\adrdyreg.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_ACT_MSG]   = new CheckPoint("actsetup\\adeskerr.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_DONE]      = new CheckPoint("actsetup\\aregdone.htm",       0,     0,     0,     0);
+    dnCKPT[CKPT_STGACT]    = new CheckPoint("actsetup\\stgact.htm",         0,     0,     0,     0);
+    PopCKPT();
+}
+
+function PushCKPT(ckpt)
+{
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var tos = 0;
+    try
+    {
+      tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    }
+    catch (e) {}
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString(), ckpt);
+    ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, ++tos);
+    g_CurrentCKPT = ckpt;
+  }
+}
+
+function PopCKPT(ckptCheck)
+{
+  var ckpt = 0;
+  try
+  {
+    var tos = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE);
+    if (tos > 0)
+    {
+      ckpt = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, (tos - 1).toString());
+
+      if (null == ckptCheck || ckpt == ckptCheck)
+      {
+        ApiObj.set_RegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, TOS_REG_VALUE, --tos);
+        ApiObj.DeleteRegValue(HKEY_LOCAL_MACHINE, OOBE_MAIN_REG_KEY + CKPT_REG_KEY, tos.toString());
+      }
+    }
+  }
+  catch (e) {}
+
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    g_CurrentCKPT = ckpt;
+  }
+  else
+    g_CurrentCKPT = null;
+}
+
+function URLFromCKPT(ckpt)
+{
+  var str = "";
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    str = dnCKPT[ckpt].strURL;
+  }
+  return str;
+}
+
+function IndexFromCKPT(ckpt, status)
+{
+  var index = 0;
+  if (ckpt > 0 && ckpt < CKPT_MAX)
+  {
+    var checkpoint = dnCKPT[ckpt];
+    index = checkpoint.rgindex[status];
+  }
+  return index;
+}
+
+
+
+function IsLocalFile()
+{
+    try
+    {
+        return (-1 != g.location.protocol.indexOf("file"));
+    }
+    catch (e)
+    {
+        return false;
+    }
+}
+
+
+
+
+
+
+
+function SetBack(strURL)
+{
+    g_OEMAddBackURL = strURL;
+}
+
+function GoCancel(ckpt)
+{
+    trace("GoCancel: CurrentCKPT = " + g_CurrentCKPT);
+
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+        case CKPT_REGDIAL:
+            if (InActivation_AppMode())
+            {
+                g_DoActivation = false;
+                ShowIFrame('False');
+                window.setTimeout("ExitWPA();",1000);
+            }
+            else
+            {
+                GoNavigate(CKPT_DONE);
+            }
+            break;
+        case CKPT_REGISTER3:
+            g_PostToMS = false;
+            GoNavigate(CKPT_REGDIAL);
+            break;
+
+        case CKPT_ACTLAN:
+            ActLan();
+            break;
+    }
+}
+
+
+function GoBack(ckpt)
+{
+    trace("GoBack: CurrentCKPT = " + g_CurrentCKPT);
+
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    if (g_CurrentCKPT == g_DialCKPT)
+        ResetDialing();
+
+    if(g_CurrentCKPT == CKPT_REGISTER1)
+    {
+        if (g.rb_reg_1.checked)
+            g_Reg1RadioSticky = 1;
+        else if (g.rb_reg_2.checked)
+            g_Reg1RadioSticky = 2;
+        else
+            g_Reg1RadioSticky = null;
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3)
+    {
+        Reg3SaveSettings();  
+    }
+
+    var ckptPrevious = g_CurrentCKPT;
+    PopCKPT();
+
+    if (ckptPrevious == g_CurrentCKPT)
+    {
+        
+        PopCKPT();
+    }
+
+    if (g_CurrentCKPT > 0 && g_CurrentCKPT < CKPT_MAX)
+    {
+        GoNavigate(g_CurrentCKPT);
+    }
+}
+
+function StatusNavigate()
+{
+    var iMove = IndexFromCKPT(g_CurrentCKPT, g_status) - window.external.get_StatusIndex;
+    while (iMove > 0)
+    {
+        window.external.MoveNext();
+        --iMove;
+    }
+    while (iMove < 0)
+    {
+        window.external.MovePrevious();
+        ++iMove;
+    }
+}
+
+
+
+
+
+function ShowGoNavigate()
+{
+var ckptGoHere = g_ckpt_target;
+    switch (ckptGoHere)
+    {
+    case CKPT_REGDIAL:
+        trace("GoNavigate: CKPT_REGDIAL");
+
+        
+        ResetConnectedToInternetEx();
+        if (!ConnectedToInternetEx(true))
+        {
+            
+            g_InitAutodial = window.external.InternetAutodial();
+
+            if (!g_InitAutodial)
+            {
+                
+                if (HasNetwork() && HasModem())
+                {
+                    GoNavigate(CKPT_ACTCONN);
+                }
+                else if (HasNetwork())
+                {
+                    GoNavigate(CKPT_ACTLAN);
+                }
+                else if (HasModem())
+                {
+                    PushCKPT(ckptGoHere);  
+                    Navigate(URLFromCKPT(CKPT_REGDIAL));
+                }
+                else
+                {
+                    GoNavigate(CKPT_ACTIVERR);
+                }
+
+                SetTimerShowIFrame(15000);
+                break;
+            }
+            else
+            {
+                g_Internet = INTERNET_YES;
+            }
+        }
+
+        IcsConnect(ICS_CONN_TYPE_REG);
+        SetTimerShowIFrame(ACTIVATION_TIMEOUT);
+        break;
+
+    case CKPT_ACT_MSG:
+        trace("GoNavigate: CKPT_ACT_MSG");
+        PushCKPT(ckptGoHere);  
+        Navigate(URLFromCKPT(ckptGoHere));
+        SetTimerShowIFrame(5000);
+        break;
+
+    default:
+        trace("GoNavigate: default (" + ckptGoHere + " = " +
+              URLFromCKPT(ckptGoHere) + ")");
+        PushCKPT(ckptGoHere);  
+        Navigate(URLFromCKPT(ckptGoHere));
+        SetTimerShowIFrame(1200);
+        break;
+    }
+}
+
+var g_ckpt_target = null;
+var g_AfterConnectionDone = false;
+function GoNavigate(ckptGoHere)
+{
+    try
+    {
+        if (g_bStartup == false)
+        {
+            if (IsLocalFile())
+            {
+                if (g.event != null)
+                {
+                    g.event.returnValue = false;
+                    g.event.cancelBubble = true;
+                }
+            }
+        }
+        else
+            g_bStartup = false;
+
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    g_ckpt_target = ckptGoHere;
+
+    var L_GeneratingInstall_Text = "V‚µ‚¢ƒCƒ“ƒXƒg[ƒ‹ ID ‚ğ¶¬‚µ‚Ä‚¢‚Ü‚·...";
+    var L_RetrievingCountry_Text = "ƒCƒ“ƒXƒg[ƒ‹ ID ‚ğæ“¾‚µ‚Ä‚¢‚Ü‚·...";
+    var L_ValidatingConn_Text    = "ƒ‰ƒCƒZƒ“ƒX”FØ‚ğŠm”F‚µ‚Ä‚¢‚Ü‚·...";
+
+
+    if (ckptGoHere==CKPT_REGDIAL)
+    {
+        ShowIFrame('False', L_CheckConnectivity_Text);
+        Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+    }
+    else  if (ckptGoHere==CKPT_ACTIVSVC)
+    {
+        if (g_ActivSvc_Reload)
+        {
+            if (g_Load_InstallID)
+                ShowIFrame('False', L_GeneratingInstall_Text);
+            else
+                ShowIFrame('False', L_RetrievingCountry_Text);
+
+            Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+        }
+        else
+        {
+            g_ActivSvc_Reload = true;
+        }
+    }
+    else if (ckptGoHere==CKPT_ACT_MSG)
+    {
+        if (g_AfterConnectionDone)
+        {
+            g_AfterConnectionDone = false;
+            ShowIFrame('False', L_ValidatingConn_Text);
+            Span_WPA_MainTitle.innerText = L_BlankTitle_Text;
+        }
+        else
+            ShowIFrame('False');
+    }
+    else
+    {
+        ShowIFrame('False');
+    }
+
+    window.setTimeout("ShowGoNavigate();",500);
+}
+
+function ExitWPA()
+{
+    window.external.Finish();
+}
+
+
+
+
+
+
+
+function DisableAllButtons()
+{
+    g.document.body.style.cursor="wait";
+    try
+    {
+        g.btnNext.className="buttons-disabled";
+        g.btnNext.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnBack.className="buttons-disabled";
+        g.btnBack.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnSkip.className="buttons-disabled";
+        g.btnSkip.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnProdkey.className="buttons-disabled";
+        g.btnProdkey.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnQuit.className="buttons-disabled";
+        g.btnQuit.disabled=true;
+    }
+    catch(e) {}
+    try
+    {
+        g.btnTelephone.className="buttons-disabled";
+        g.btnTelephone.disabled=true;
+    }
+    catch(e) {}
+
+}
+
+function GoQuit()
+{
+    trace("GoQuit: CurrentCKPT = " + g_CurrentCKPT);
+
+    
+    
+    DisableAllButtons();
+    window.external.Finish();
+}
+
+function GoNext()
+{
+    trace("GoNext: CurrentCKPT = " + g_CurrentCKPT);
+    
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    DisableAllButtons();
+
+    switch (g_CurrentCKPT)
+    {
+        case CKPT_ACTIV:
+            if (g.rb_act_1.checked)
+            {
+                g_ActivationRadioSticky = 1;
+                g_DoActivation = true;
+
+                if (CheckForAnyConnection())
+                {
+                    if (TapiObj.IsTapiServiceRunning())
+                    {
+                        GoNavigate(CKPT_REGISTER1);
+                    }
+                    else
+                    {
+                        GoNavigate(CKPT_REGDIAL);
+                    }
+                }
+                else
+                {
+                    g_PostToMS = false;
+                    GoNavigate(CKPT_ACTIVERR);
+                }
+            }
+            else if (g.rb_act_2.checked)
+            {
+                g_ActivationRadioSticky = 2;
+                g_DoActivation = false;
+                g_CameFromFirstPage = true;
+                GoNavigate(CKPT_ACTIVSVC);
+            }
+            else
+            {
+                g_ActivationRadioSticky = 3;
+                g_DoActivation = false;
+                ShowIFrame('False');
+                window.setTimeout("ExitWPA();",1000);
+            }
+            break;
+
+        case CKPT_REGISTER1:
+            if (g.rb_reg_1.checked)
+            {
+                g_Reg1RadioSticky = 1;
+                g_PostToMS = true;
+                GoNavigate(CKPT_REGISTER3);
+            }
+            else
+            {
+                g_Reg1RadioSticky = 2;
+                g_PostToMS = false;
+                GoNavigate(CKPT_REGDIAL);
+            }
+            break;
+
+        case CKPT_ACTIVERR:
+            GoNavigate(CKPT_ACTIVSVC);
+            break;
+        case CKPT_ACTIVSVC:
+            GoNavigate(CKPT_DONE);
+            break;
+        case CKPT_REGISTER3:
+            if(VerifyReg3Fields())
+            {
+                Reg3SaveSettings();
+                GoNavigate(CKPT_REGDIAL);
+            }
+            break;
+        case CKPT_ACTCONN:
+            if (g.rb_conn_lan.checked)
+            {
+                g_ActConnRadioSticky = 1;
+                GoNavigate(CKPT_ACTLAN);
+            }
+            else
+            {
+                g_ActConnRadioSticky = 2;
+                PushCKPT(CKPT_REGDIAL);
+                Navigate(URLFromCKPT(CKPT_REGDIAL));
+            }
+            break;
+        case CKPT_ACTLAN:
+
+            ProxySettingsObj.UseAuto = g.cb_auto_detect.checked;
+            ProxySettingsObj.UseProxy = g.cb_use_proxy.checked;
+            ProxySettingsObj.Server = g.txt_proxy_url.value;
+            ProxySettingsObj.Port = g.txt_proxy_port.value;
+
+            window.external.set_ProxySettings(
+                ProxySettingsObj.UseAuto,
+                ProxySettingsObj.UseScript,
+                ProxySettingsObj.ScriptUrl,
+                ProxySettingsObj.UseProxy,
+                ProxySettingsObj.Server + ((ProxySettingsObj.Port == "") ? "" : (":" + ProxySettingsObj.Port))
+                );
+
+            ActLan();
+            break;
+        case CKPT_REGDIAL:
+            GoNavigate(CKPT_DONE);
+            break;
+        case CKPT_STGACT:
+            
+        case CKPT_ACT_MSG:
+            if ( g_ActivationStatus != ERR_ACT_SUCCESS )
+            {
+                GoNavigate(CKPT_ACTIVSVC);
+                break;
+            }
+            
+        case CKPT_DONE:
+            window.external.Finish();
+            break;
+
+        default:
+            
+            break;
+    }
+}
+
+
+
+function GoOffline()
+{
+    GoNext();
+}
+
+
+
+function SetLastButtonText()
+{
+    if (g.btnNext != null)
+        g_LastButtonText = g.btnNextText;
+    else if (g.btnBack != null)
+        g_LastButtonText = g.btnBackText;
+    else if (g.btnRestore != null)
+        g_LastButtonText = g.btnRestoreText;
+    else if (g.btnCancel != null)
+        g_LastButtonText = g.btnCancelText;
+}
+
+
+
+
+
+
+
+
+function InitFrameRef()
+{
+
+    g_LastButtonText = null;
+    g_FirstFocusElement = null;
+    g_LastKeyDown = null;
+
+    g = document.frames("msoobeMain");
+    g.document.body.style.backgroundColor = "transparent";
+
+    try
+    {
+        g.document.body.onkeydown = OnKeyDown;
+        SetLastButtonText();
+    }
+    catch(e){}
+}
+
+function HideButtons(buttons)
+{
+    if (null != g.btnBack && (buttons & HIDE_BACK))
+    {
+        g.btnBack.Hide = true;
+    }
+
+    if (null != g.btnNext && (buttons & HIDE_NEXT))
+    {
+        g.btnNext.Hide = true;
+    }
+
+
+    if (null != g.spanCancel && (buttons & HIDE_CANCEL))
+    {
+        g.btnSkip.Hide = true;
+    }
+
+    if (null != g.spanRestore && (buttons & HIDE_RESTORE))
+    {
+        g.btnRestore.Hide = true;
+    }
+
+}
+
+function HandleButtonMouseOver()
+{
+
+
+}
+
+function HandleButtonMouseOut()
+{
+
+
+}
+
+function InitButtons(SimpleBack, SimpleNext)
+{
+    if(g.btnSkip!=null) {
+      g.btnSkip.onmouseover = HandleButtonMouseOver;
+      g.btnSkip.onmouseout  = HandleButtonMouseOut;
+
+      if(!g.btnSkip.disabled) {
+          g.btnSkip.onclick = GoCancel;
+
+
+
+
+
+          g.btnSkip.className="buttons";
+      } else {
+        g.btnSkip.className="buttons-disabled";
+      }
+    }
+
+    if (g.btnNext != null)
+    {
+        g.btnNext.onmouseover = HandleButtonMouseOver;
+        g.btnNext.onmouseout  = HandleButtonMouseOut;
+
+        if (!g.btnNext.disabled)
+        {
+            if (SimpleNext == null)
+            {
+                g.btnNext.onclick = GoNext;
+            }
+            else
+            {
+                g.btnNext.onclick = SimpleNavNext;
+            }
+            g.btnNext.className="buttons";
+        }
+        else
+        {
+            g.btnNext.className="buttons-disabled";
+        }
+    }
+
+    if (g.btnBack != null)
+    {
+        g.btnBack.onmouseover = HandleButtonMouseOver;
+        g.btnBack.onmouseout  = HandleButtonMouseOut;
+
+        if (!g.btnBack.disabled)
+        {
+            if (SimpleBack == null)
+            {
+                g.btnBack.onclick = GoBack;
+            }
+            else
+            {
+                g.btnBack.onclick = SimpleNavBack;
+            }
+            g.btnBack.className="buttons";
+        }
+        else
+        {
+            g.btnBack.className="buttons-disabled";
+        }
+    }
+
+    try
+    {
+        if(g.btnQuit != null) {
+          g.btnQuit.onmouseover = HandleButtonMouseOver;
+          g.btnQuit.onmouseout  = HandleButtonMouseOut;
+
+
+          if(g.btnQuit.disabled == false) {
+              g.btnQuit.onclick = GoQuit;
+              g.btnQuit.className="buttons";
+          } else {
+            g.btnQuit.className="buttons-disabled";
+          }
+        }
+    } catch(e) {}
+
+    window.setTimeout("EnableDefaultCursor();",500);
+}
+
+function EnableDefaultCursor()
+{
+    g.document.body.style.cursor="default";
+}
+
+var g_LastKeyDown = null;
+function OnKeyDown()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (g.event.altKey)
+    {
+        g_LastKeyDown = String.fromCharCode(g.event.keyCode);
+        if (g_LastKeyDown != null)
+            g_LastKeyDown = g_LastKeyDown.toUpperCase();
+    }
+    else
+        g_LastKeyDown = null;
+}
+
+
+function KeyPressIsNumeric()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsNumeric(keyCode)
+{
+    if ((keyCode >= 48)  && (keyCode <= 57))
+        return true;
+    else
+        return false;
+}
+
+function IsSpecial(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+return false;
+}
+
+function KeyPressIsValid()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode) &&
+        !IsSpecial(g.event.keyCode) &&
+        !IsNumeric(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function KeyPressIsAlpha()
+{
+    try
+    {
+        if (IsLocalFile() && g.event == null)
+            return;
+    }
+    catch(e)
+    {
+        return;
+    }
+
+    if (!IsAlpha(g.event.keyCode))
+    {
+        g.event.keyCode = 0;
+        g.event.returnValue = false;
+    }
+}
+
+function IsAlpha(keyCode)
+{
+
+
+
+
+
+
+
+
+
+
+
+
+        return true;
+
+
+}
+
+function NumberOfSpaces(strValue)
+{
+
+
+
+
+
+    var iSpaceCount = 0;
+    for (iPosition = 0; iPosition < strValue.length; iPosition ++)
+    {
+        if (strValue.charAt(iPosition) == ' ')
+        {
+            iSpaceCount++;
+        }
+    }
+    return iSpaceCount;
+}
+function KeyCodeToUpper()
+{
+    var strKeyCode = String.fromCharCode(g.event.keyCode);
+    strKeyCode = strKeyCode.toUpperCase();
+    g.event.keyCode = strKeyCode.charCodeAt(0);
+}
+
+
+
+var vCurItem = 0;
+
+function SetupPageLayout()
+{
+    var WPAWindowHeight = document.body.clientHeight;
+    var WPAWindowWidth  = document.body.clientWidth;
+
+    if(0 != window.external.Directions.get_AppMode())
+    {
+        document.all.ifrmMainFrame.style.height = WPAWindowHeight - 93;
+        document.all.ifrmMainFrame.style.width  = WPAWindowWidth;
+    }
+
+    WPABackground.src = 'images/wpaback.jpg';
+    WPAKey.src        = 'images/wpakey.jpg';
+    WPATop.src        = 'images/wpatop.jpg';
+    WPABottom.src     = 'images/wpabtm.jpg';
+    WPAFlag.src       = 'images/wpaflag.jpg';
+
+    WPABottom.style.top = WPAWindowHeight - 45;
+    WPAKey.style.left   = WPAWindowWidth - 237;
+    WPAKey.style.top    = WPAWindowHeight - 315;
+
+}
+
+function CheckForAnyConnection()
+{
+    var Capabilities = GetConnectionCapabilities();
+
+    return (Capabilities != CONNECTIONTYPE_INVALID &&
+            Capabilities != CONNECTIONTYPE_NONE);
+}
+
+
+var g_fSIFTimer = false;
+var g_iSIFTimerID;
+function SetTimerShowIFrame(iMilliSeconds)
+{
+    
+    
+    if (g_fSIFTimer)
+    {
+        try
+        {
+            window.clearTimeout(g_iSIFTimerID);
+        }
+        catch(e) {}
+        g_fSIFTimer = false;
+    }
+
+    g_iSIFTimerID = window.setTimeout("ShowIFrame();", iMilliSeconds);
+    g_fSIFTimer = true;
+}
+
+var g_ShowTransition = false;
+function ShowIFrame(ShowIt, loadingstatus)
+{
+    
+    if (g_fSIFTimer)
+    {
+        try
+        {
+            window.clearTimeout(g_iSIFTimerID);
+        }
+        catch(e) {}
+        g_fSIFTimer = false;
+    }
+
+    if (g_ShowTransition)
+    {
+        WPATransContainer.filters[0].Apply();
+    }
+
+    if (ShowIt == null)
+    {
+        
+        WPA_DIV2.style.visibility="visible";
+        WPA_DIV1.style.visibility="hidden";
+        PageStatus.style.visibility="hidden";
+        WPAProgressbar.style.visibility = "hidden";
+
+        if (g_ShowTransition)
+        {
+            WPATransContainer.filters[0].Play();
+        }
+    }
+    else
+    {
+        
+        WPA_DIV2.style.visibility="hidden";
+        WPA_DIV1.style.visibility="visible";
+
+        if (g_ShowTransition)
+        {
+            WPATransContainer.filters[0].Play();
+        }
+
+        
+        if (loadingstatus!=null)
+        {
+            PageStatus.style.visibility="visible";
+            PageStatus.innerHTML=loadingstatus;
+            WPAProgressbar.style.visibility = "hidden";  
+        }
+        else
+        {
+            PageStatus.style.visibility="hidden";
+            WPAProgressbar.style.visibility = "hidden";
+        }
+    }
+}
+
+
+
+
+
+
+function IsUsingStagingKey()
+{
+	var val = 0;
+	try 
+	{
+		val = ApiObj.get_RegValue(HKEY_LOCAL_MACHINE, STAGING_REG_KEY,STAGING_REG_VALUE);
+	}
+	catch (e){}
+	
+	return (val == 1? true: false);
+	
+}
+
+window.onresize = SetupPageLayout;
+var g_Already_Activated;
+
+
+
+
+var g_Using_Staging_Key = false;
+var g_Activation_Key_Entered = false;
+
+function InitApplication()
+{
+
+    
+    window.external.ComputerNameChangeComplete(false);
+    WPATransContainer.style.display="inline";
+
+    try
+    {
+        g_Already_Activated = window.external.NeedActivation();
+    }
+    catch(e)
+    {
+        g_Already_Activated = 999;
+    }
+
+    g_Using_Staging_Key = IsUsingStagingKey();
+
+    
+    if (g_Already_Activated == 0)
+    {
+        
+        SetupPageLayout();
+        InitFrameRef();
+        g_status = STATUS_OFF;
+        g_DoActivation = false;
+        InitCKPT();
+        if (0 != DirObj.get_AppMode)
+        {
+            do
+            {
+                PopCKPT();
+            }
+            while (null != g_CurrentCKPT);
+        }
+        GoNavigate(CKPT_ACTDONE);
+        SetTimerShowIFrame(900);
+    }
+    else if (g_Already_Activated == 999)
+    {
+        window.external.Finish();
+    }
+    else
+    {
+        SetupPageLayout();
+        g_bStartup = true;
+        InitFrameRef();
+        GetConnectionCapabilities();
+        g_status = STATUS_OFF;
+        g_DoActivation = true;
+        CheckForAnyConnection();
+        InitCKPT();
+        
+        if (0 != DirObj.get_AppMode)
+        {
+            do
+            {
+                PopCKPT();
+            }
+            while (null != g_CurrentCKPT);
+        }
+        
+        
+        
+        
+        if ( g_Using_Staging_Key) {
+            g_ActivationStatus = ERR_ACT_DEDICATED_PID_ENTRY;
+            GoNavigate(CKPT_STGACT);
+        }
+        else
+            GoNavigate(CKPT_ACTIV);
+        SetTimerShowIFrame(900);
+    }
+}
+
+function loadTransitionFilter()
+{
+    document.all.WPATransContainer.style.display = "none";
+    document.all.WPATransContainer.style.position = "absolute";
+    document.all.WPATransContainer.style.top = 0;
+    document.all.WPATransContainer.style.left = 0;
+    document.all.WPATransContainer.style.width = "100%";
+    document.all.WPATransContainer.style.height = "100%";
+
+    if ((window.screen.colordepth >= 16) && window.external.UseFadeEffect())
+    {
+        document.all.WPATransContainer.style.filter = "progid:DXImageTransform.Microsoft.Fade(duration=0.2,overlap=0.8)";
+
+        try
+        {
+            if (WPATransContainer.filters[0])
+            {
+                g_ShowTransition = true;
+            }
+        }
+        catch(e)
+        {
+        }
+    }
+}
+
+</script>
+
+</HEAD>
+
+<BODY topMargin=0 bgcolor="#4E6FD6" leftMargin=0 onload="loadTransitionFilter();InitApplication();" scroll=no tabIndex=-1 rightMargin=0>
+    <!-- WPA images, dynamic layout positioning will be done in SetupPageLayout() function  -->
+    <IMG ID=WPABackground style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-99;" alt="">
+    <IMG ID=WPAKey        style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-98;" alt="">
+    <IMG ID=WPATop        style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-97;" alt="">
+    <IMG ID=WPABottom     style="LEFT: 0px; TOP: 0px; POSITION: absolute; z-index:-96;" alt="">
+
+    <!-- Don't alter this table structure. It's designed to support BiDi and Non-BiDi. -->
+    <TABLE WIDTH="95%" BORDER=0 style="POSITION: absolute; LEFT: 20px; TOP: 0px;" CELLPADDING=0 CELLSPACING=0>
+    <TR>
+        <TD nowrap VALIGN=MIDDLE>
+        <SPAN id=Span_WPA_MainTitle class="title" style="height: 28px;" tabIndex=-1>
+        </SPAN>
+        </TD>
+
+        <TD WIDTH="99%">&nbsp;
+        </TD>
+
+        <TD VALIGN=TOP>
+        <IMG ID=WPAFlag alt="">
+        </TD>
+    </TR>
+    </TABLE>
+
+    <span ID="WPATransContainer">
+
+          <!-- First Content (by design, don't remove) -->
+          <span ID="WPA_DIV1" STYLE="POSITION: absolute; left:0; top:0; width=100%; height=100%; background-Color: transparent;">
+          <table border=0 width="100%" height="100%" class="text-primary">
+          <tr>
+              <td valign=middle align=center>
+                  <span id=PageStatus></span>
+                  <br>
+                  <span id=WPAProgressbar style="visibility:hidden;"><img src="images/progress.gif"></span>
+              </td>
+          </tr>
+          </table>
+          </span>
+
+          <!-- Actual Content -->
+          <span id="WPA_DIV2" style="visibility: hidden; POSITION: absolute; LEFT: 0px; TOP: 48px; width=100%; height=100%;" tabIndex=-1>
+          <IFRAME ALLOWTRANSPARENCY="true" frameBorder=no width="100%" height="100%" id=ifrmMainFrame name=msoobeMain src="about:blank" tabIndex=0></IFRAME>
+          </span>
+    </span>
+</BODY>
+</HTML>
+
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis"/>
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="oobestyl.css">
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" TABINDEX=-1
+      onload="window.parent.New_Default_LoadMe('SimpleBack'); window.btnBack.focus(); window.parent.Agent_Activate('AutoUpdate2');"
+      onunload="window.parent.Agent_Deactivate();">
+
+<table border=0 cellpadding=0 cellspacing=0 width=100% height=100%><tr><td ID=leftmargincell width=7%></td>
+<td ID=maincell valign=middle class="text-primary">
+<br><br>
+
+<span class="title"><ID id=msprvcy_str1>Windows Update ƒvƒ‰ƒCƒoƒV[‚ÉŠÖ‚·‚éº–¾</ID></span>
+<br><br>
+<form name =myform>
+<textarea id=privtext1 style="display:none">
+ÅIXV“ú : 2007 ”N 12 Œ
+
+ƒ}ƒCƒNƒƒ\ƒtƒg‚Å‚ÍAŒÂlî•ñ‚Ì•ÛŒì‚É“w‚ß‚Ä‚¢‚Ü‚·B‚±‚ÌŒÂlî•ñ•ÛŒì•ûj‚Å‚ÍAWindows Update ‚Æ Microsoft Update ‚Ì—¼ƒT[ƒrƒX (ˆÈ‰ºAuUpdate ƒT[ƒrƒXv) ‚É‚¨‚¯‚éƒf[ƒ^‚ÌûW•û–@‚Æg—p•û–@‚É‚Â‚¢‚Äà–¾‚µ‚Ü‚·B–{•ûj‚ÍA‚»‚Ì‘¼‚ÌƒIƒ“ƒ‰ƒCƒ“‚Ü‚½‚ÍƒIƒtƒ‰ƒCƒ“‚Ì Microsoft ƒTƒCƒgA»•iAƒT[ƒrƒX‚É‚Í“K—p‚³‚ê‚Ü‚¹‚ñB‚±‚ÌŒÂlî•ñ•ÛŒì•ûj‚ÌÅV”Å‚ÍAƒIƒ“ƒ‰ƒCƒ“‚Ì http://go.microsoft.com/fwlink/?LinkId=50142 ‚É‚ ‚é Update ƒT[ƒrƒX‚ÌŒÂlî•ñ•ÛŒì•ûj‚ğQÆ‚µ‚Ä‚­‚¾‚³‚¢B
+
+Update ƒT[ƒrƒX‚Æ‚Í
+E	Windows Update ‚ÍAWindows ƒ\ƒtƒgƒEƒFƒA‚ÆAƒfƒoƒCƒX»‘¢Œ³‚©‚ç’ñ‹Ÿ‚³‚ê‚éƒhƒ‰ƒCƒo‚È‚ÇA‚»‚Ì‘¼‚ÌƒTƒ|[ƒg ƒ\ƒtƒgƒEƒFƒA‚Ìƒ\ƒtƒgƒEƒFƒAXVƒvƒƒOƒ‰ƒ€‚ğ’ñ‹Ÿ‚·‚éƒT[ƒrƒX‚Å‚·B
+E	Microsoft Update ‚ÍAã‹L‚É¦‚µ‚½ Windows XVƒvƒƒOƒ‰ƒ€‚Ì‚Ù‚©‚ÉAMicrosoft Office ‚È‚Ç‚Ì‚»‚Ì‘¼‚Ìƒ}ƒCƒNƒƒ\ƒtƒg‚Ìƒ\ƒtƒgƒEƒFƒA‚É‘Î‚·‚éXVƒvƒƒOƒ‰ƒ€‚à’ñ‹Ÿ‚·‚éƒT[ƒrƒX‚Å‚·B
+
+Update ƒT[ƒrƒX‚Å—˜—p‰Â”\‚ÈXVƒvƒƒOƒ‰ƒ€‚É‚ÍA³‹K‚Ì Microsoft ƒ\ƒtƒgƒEƒFƒA‚ğÀs‚µ‚Ä‚¢‚é‚±‚Æ‚ªŠm”F‚³‚ê‚½ƒ†[ƒU[‚Å‚È‚¯‚ê‚Îæ“¾‚Å‚«‚È‚¢‚à‚Ì‚à‚ ‚è‚Ü‚·B³‹K‚Ì Microsoft ƒ\ƒtƒgƒEƒFƒA‚ÌŒŸØ‚É‚Â‚¢‚Ä‚ÍAhttp://go.microsoft.com/fwlink/?LinkId=83561 ‚É‚ ‚é•Ê‚ÌŒÂlî•ñ•ÛŒì•ûj‚É‹LÚ‚³‚ê‚Ä‚¢‚Ü‚·B
+Update ƒT[ƒrƒX‚ÍA2 ‚Æ‚¨‚è‚Ì•û–@‚Åg—p‚Å‚«‚Ü‚·B
+E	Windows Update ‚Ü‚½‚Í Microsoft Update ‚Ì Web ƒTƒCƒg‚ÉƒAƒNƒZƒX‚·‚é
+E	Microsoft Windows ‚Ì Windows ©“®XV‹@”\‚ğg—p‚·‚é
+
+ûW‚³‚ê‚éƒf[ƒ^
+Update ƒT[ƒrƒX‚Å‚ÍA–{ƒT[ƒrƒX‚Ì‰^—p‚¨‚æ‚Ñ‰ü‘P‚Ì‚½‚ß‚ÉA‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚©‚çŸ‚Ì‚æ‚¤‚Èî•ñ‚ğûW‚µ‚Ü‚·B
+
+E	Update ƒT[ƒrƒX‚ªXVƒvƒƒOƒ‰ƒ€‚ğg—p‚Å‚«‚é‚æ‚¤‚É‚·‚é Microsoft ƒ\ƒtƒgƒEƒFƒA‚¨‚æ‚Ñ‚»‚Ì‘¼‚ÌƒTƒ|[ƒg ƒ\ƒtƒgƒEƒFƒA (ƒfƒoƒCƒX»‘¢Œ³‚©‚ç’ñ‹Ÿ‚³‚ê‚éƒhƒ‰ƒCƒo‚È‚Ç)B‚±‚ê‚ÍA‚¨‹q—l‚ÉÅ“K‚ÈXVƒvƒƒOƒ‰ƒ€‚ğ”»’f‚·‚é‚¤‚¦‚Å–ğ—§‚¿‚Ü‚·B
+E	XVƒvƒƒOƒ‰ƒ€‚ğ©“®“I‚Éƒ_ƒEƒ“ƒ[ƒh‚Ü‚½‚ÍƒCƒ“ƒXƒg[ƒ‹‚·‚é‚©‚Ç‚¤‚©‚È‚ÇAWindows Update ‚Ü‚½‚Í Microsoft UpdateA‚ ‚é‚¢‚Í‚»‚Ì—¼•û‚Ì\¬İ’èB
+E	Update ƒT[ƒrƒX‚ÉƒAƒNƒZƒX‚·‚é‚Æ‚«‚âg—p‚·‚é‚Æ‚«‚ÉŒoŒ±‚·‚é¬Œ÷A¸”sA‚¨‚æ‚ÑƒGƒ‰[B
+E	ƒn[ƒhƒEƒFƒA ƒfƒoƒCƒX‚Ìƒvƒ‰ƒO ƒAƒ“ƒh ƒvƒŒƒC ID ”Ô†BƒfƒoƒCƒX‚Ì»‘¢Œ³‚É‚æ‚Á‚ÄŠ„‚è“–‚Ä‚ç‚ê‚éAƒfƒoƒCƒX (“Á’è‚Ìí—Ş‚ÌƒL[ƒ{[ƒh‚È‚Ç) ‚ğ¯•Ê‚·‚éƒR[ƒh‚Å‚·B
+E	ƒOƒ[ƒoƒ‹ˆêˆÓ¯•Êq (GUID)Bƒ‰ƒ“ƒ_ƒ€‚É¶¬‚³‚ê‚é”Ô†‚Å‚·BŒÂlî•ñ‚ÍŠÜ‚İ‚Ü‚¹‚ñBGUID ‚ÍAƒ†[ƒU[‚ğ“Á’è‚¹‚¸‚ÉƒRƒ“ƒsƒ…[ƒ^‚ğ¯•Ê‚·‚é‚½‚ß‚Ég—p‚³‚ê‚Ü‚·B
+E	BIOS –¼AƒŠƒrƒWƒ‡ƒ“”Ô†AƒŠƒrƒWƒ‡ƒ“‚Ì“ú•tB‚±‚ê‚ÍAƒn[ƒhƒEƒFƒA‚ÌƒeƒXƒgAƒRƒ“ƒsƒ…[ƒ^ã‚ÌƒIƒyƒŒ[ƒeƒBƒ“ƒO ƒVƒXƒeƒ€‚Ì‹N“®AƒRƒ“ƒsƒ…[ƒ^‚ÉÚ‘±‚³‚ê‚Ä‚¢‚éƒn[ƒhƒEƒFƒA ƒfƒoƒCƒXŠÔ‚Ìƒf[ƒ^“]‘—‚ğs‚¤Šî–{“I‚Èƒ\ƒtƒgƒEƒFƒA ƒ‹[ƒ`ƒ“‚ÉŠÖ‚·‚éî•ñ‚Å‚·B
+E	ƒvƒƒ_ƒNƒg IDB‚·‚×‚Ä‚Ì Microsoft »•i‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚éAˆêˆÓ‚Ì»•iƒ‰ƒCƒZƒ“ƒX¯•Êq‚Å‚·B
+
+‚¨‹q—l‚ª Update ƒT[ƒrƒX‚ğg—p‚·‚é‚Æ‚«‚É‚ÍA‚±‚ÌƒT[ƒrƒX‚É‚æ‚èA‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚ÉŠÖ‚·‚é‚¢‚­‚Â‚©‚Ìî•ñ (ˆÈ‰ºAu•W€“I‚ÈƒRƒ“ƒsƒ…[ƒ^î•ñv) ‚ªûW‚³‚ê‚Ü‚·B•W€“I‚ÈƒRƒ“ƒsƒ…[ƒ^î•ñ‚É‚ÍA’ÊíA‚¨‹q—l‚ª‚¨g‚¢‚Ì IP ƒAƒhƒŒƒXAƒIƒyƒŒ[ƒeƒBƒ“ƒO ƒVƒXƒeƒ€‚Ìƒo[ƒWƒ‡ƒ“Aƒuƒ‰ƒEƒU‚Ìƒo[ƒWƒ‡ƒ“Aƒn[ƒhƒEƒFƒA ID (ƒfƒoƒCƒX»‘¢Œ³AƒfƒoƒCƒX–¼Aƒo[ƒWƒ‡ƒ“‚ğ¦‚·)  ‚¨‚æ‚Ñ’nˆæ‚ÆŒ¾Œê‚Ìİ’è‚ªŠÜ‚Ü‚ê‚Ü‚·B
+
+Update ƒT[ƒrƒX‚Ö‚ÌƒAƒNƒZƒX‚ÉAWindows Update ‚Ü‚½‚Í Microsoft Update ‚Ì Web ƒTƒCƒg‚ğg—p‚·‚éê‡Aã‹L‚Ìî•ñ‚É‰Á‚¦A‰{——‚µ‚½ƒy[ƒW‚¨‚æ‚Ñs‚Á‚½‘€ì‚ÉŠÖ‚·‚éî•ñ‚àûW‚³‚ê‚Ü‚·B
+
+ƒf[ƒ^‚Ì—˜—p–Ú“I
+Microsoft ‚É‘—M‚³‚ê‚½ƒf[ƒ^‚ÍAUpdate ƒT[ƒrƒX‚Ì‰^—p‚¨‚æ‚Ñ•Ûç‚Ég—p‚³‚ê‚Ü‚·B‚Ü‚½A‚±‚Ìƒf[ƒ^‚ÉŠî‚Ã‚­‘“Œv‚ğ¶¬‚·‚é‚±‚Æ‚ÅAUpdate ƒT[ƒrƒX‚ğŠÜ‚Şƒ}ƒCƒNƒƒ\ƒtƒg‚Ì»•i‚¨‚æ‚ÑƒT[ƒrƒX‚ÌŒXŒü‚Ì•ªÍ‚¨‚æ‚ÑŒüã‚É–ğ—§‚Ä‚Ü‚·B
+
+‘“Œv‚ğ¶¬‚·‚é‚½‚ß‚ÉAUpdate ƒT[ƒrƒX‚Å‚ÍûW‚µ‚½ GUID ‚ğŸ‚Ì–Ú“I‚Ég—p‚µ‚Ü‚·B
+
+E	‚¨‹q—l‚É‚Å‚«‚éŒÀ‚èÅ‚‚ÌƒT[ƒrƒX‚ğ’ñ‹Ÿ‚·‚é‚½‚ß‚ÉAUpdate ƒT[ƒrƒX‚Å‚ÍAUpdate ƒT[ƒrƒX‚ğg—p‚·‚éŒÂX‚ÌƒRƒ“ƒsƒ…[ƒ^‚Ì”‚ÆA“Á’è‚ÌXVƒvƒƒOƒ‰ƒ€‚Ìƒ_ƒEƒ“ƒ[ƒh‚ÆƒCƒ“ƒXƒg[ƒ‹‚ª¬Œ÷‚µ‚½‚©‚Ç‚¤‚©‚ğ’ÇÕ‚µ‚Ä‹L˜^‚µ‚Ü‚·B‚³‚ç‚ÉAƒ_ƒEƒ“ƒ[ƒh‚ÆƒCƒ“ƒXƒg[ƒ‹‚ğs‚¤ƒRƒ“ƒsƒ…[ƒ^‚Ì GUIDA—v‹‚³‚ê‚½€–Ú‚Ì IDAXVƒvƒƒOƒ‰ƒ€‚ª—˜—p‰Â”\‚¾‚Á‚½‚©‚Ç‚¤‚©A‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚Ì\¬î•ñ (ƒIƒyƒŒ[ƒeƒBƒ“ƒOƒVƒXƒeƒ€‚Ìƒo[ƒWƒ‡ƒ“Aƒuƒ‰ƒEƒU‚Ìƒo[ƒWƒ‡ƒ“Aƒn[ƒhƒEƒFƒA ID ‚È‚Ç) ‚ğ‹L˜^‚µ‚Ü‚·B
+E	ƒwƒ‹ƒv‚âƒgƒ‰ƒuƒ‹ƒVƒ…[ƒeƒBƒ“ƒO‚Ì‹L–‚ª–â‘è‰ğŒˆ‚É–ğ—§‚Á‚½‚©‚Æ‚¢‚¤¿–â‚É‚¨‹q—l‚ª•Ô–‚ğ‚µ‚½ê‡AUpdate ƒT[ƒrƒX‚ÍƒRƒ“ƒsƒ…[ƒ^‚Ì GUID ‚ğ‹L˜^‚µ‚Ü‚·B‚±‚ê‚É‚æ‚èAUpdate ƒT[ƒrƒX‚ª‚æ‚è—L‰v‚ÅŠÖ˜A«‚Ì‚ ‚éî•ñ‚ğ’ñ‹Ÿ‚Å‚«‚é‚æ‚¤‚É‚È‚è‚Ü‚·B
+
+ƒ}ƒCƒNƒƒ\ƒtƒg‚Ìƒ\ƒtƒgƒEƒFƒAAƒTƒCƒgAƒT[ƒrƒX‚É‚æ‚Á‚ÄûW‚³‚ê‚½î•ñ‚ÍA•Ä‘‚Ü‚½‚Í‚»‚Ì‘¼‚Ì‘‚Ìƒ}ƒCƒNƒƒ\ƒtƒg‚Ü‚½‚Í‚»‚ÌŠÖ˜A‰ïĞAq‰ïĞA‚Ü‚½‚ÍˆÏ‘õæ‚ÌŠÇ—{İ‚É‚¨‚¢‚Ä•Û‘¶‚³‚êˆ—‚³‚ê‚é‰Â”\«‚ª‚ ‚èA‚¨‹q—l‚Í‹Z‘ˆÈŠO‚ÌêŠ‚Éî•ñ‚ª“]‘—‚³‚ê‚é‚±‚Æ‚É“¯ˆÓ‚·‚é‚à‚Ì‚Æ‚µ‚Ü‚·Bƒ}ƒCƒNƒƒ\ƒtƒg‚ÍAEU ”‘‚©‚ç‚Ìƒf[ƒ^‚ÌûWAg—pA•Û‘¶‚É‚Â‚«A‡O‘¤–±È‚É‚æ‚Á‚Ä’è‚ß‚ç‚ê‚½ Safe Harbor ƒtƒŒ[ƒ€ƒ[ƒN‚ğ…ç‚µ‚Ä‚¢‚Ü‚·Bƒ}ƒCƒNƒƒ\ƒtƒg‚Å‚ÍA–@—¥‚É‚æ‚Á‚ÄŠJ¦‚ª•K—v‚Èê‡A‚Ü‚½‚ÍŸ‚Ì–Ú“I‚ÅŠJ¦sˆ×‚ª•K—v‚¾‚Æ‡—“I‚É”»’f‚Å‚«‚éê‡‚É‚ÍAŒÂlî•ñ‚ğŠJ¦‚·‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·B(a) –@—¥ã‚Ì—v¿‚É‰‚¶‚é‚½‚ßA‚Ü‚½‚ÍAƒ}ƒCƒNƒƒ\ƒtƒg‚Ü‚½‚Í“¯ƒTƒCƒg‚É‘Î‚·‚é–@“Iè‘±‚«‚ğ…ç‚·‚é‚½‚ßB(b) ƒ}ƒCƒNƒƒ\ƒtƒg‚ÌŒ —˜ (Œ_–ñ‚Ì—šs‚ğŠÜ‚Ş) ‚ğ•ÛŒì‚¨‚æ‚Ñ–hŒä‚·‚é‚½‚ßB(c) ƒ}ƒCƒNƒƒ\ƒtƒg‚Ì]‹Æˆõ‚âAƒ}ƒCƒNƒƒ\ƒtƒg‚Ìƒ\ƒtƒgƒEƒFƒA‚Ü‚½‚ÍƒT[ƒrƒX‚Ìƒ†[ƒU[A‚Ü‚½‚Í‚»‚Ì‘¼ˆê”Ê‚ÌlX‚ÌŒÂl‚ÌˆÀ‘S‚ğŠm•Û‚·‚é‚±‚Æ‚ğ–Ú“I‚Æ‚µ‚Ä‹Ù‹}‚Ås“®‚ğ‚Æ‚é‚½‚ßB
+
+ƒ}ƒCƒNƒƒ\ƒtƒg‚Å‚ÍAƒJƒXƒ^ƒ}[ ƒTƒ|[ƒgAæˆø‚Ìˆ—AƒŒƒ|[ƒg‚Ì“Œv•ªÍ‚ÌÀs‚È‚ÇA“Á’è‚ÌƒT[ƒrƒX‚É‚¨‚¢‚ÄA‘¼Ğ‚É‘ãs‚ğˆË—Š‚·‚éê‡‚ª‚ ‚è‚Ü‚·B‚±‚Ì‚æ‚¤‚Èê‡‚ÉŒÀ‚èAƒT[ƒrƒX‚Ì—šs‚É•K—v‚Èî•ñ‚ğ‚»‚Ì‰ïĞ‚É’ñ‹Ÿ‚µ‚Ü‚·B‚½‚¾‚µAî•ñ‚Ì‹@–§«‚ğç‚é‚±‚Æ‚ğ•K—vğŒ‚Æ‚µ‚Ä‚¨‚èA’ñ‹Ÿ‚µ‚½î•ñ‚ğ‘¼‚Ì—p“r‚Ég—p‚·‚é‚±‚Æ‚Í‹Ö~‚µ‚Ä‚¢‚Ü‚·B
+           </textarea>
+			<textarea id=privtext2 style="display:none;">
+
+
+•K{‚ÌXVƒvƒƒOƒ‰ƒ€
+Update ƒT[ƒrƒX‚ğ—LŒø‚É‚µ‚½ê‡AUpdate ƒT[ƒrƒX‚ğ\¬‚·‚é‚Ü‚½‚Í’¼ÚŠÖŒW‚·‚éƒVƒXƒeƒ€ã‚Ìƒ\ƒtƒgƒEƒFƒA ƒRƒ“ƒ|[ƒlƒ“ƒg‚ª“KØ‚É‹@”\‚·‚é‚É‚ÍAí‚ÉÅV‚Ìó‘Ô‚ÉXV‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B‚±‚ê‚ç‚ÌXVƒvƒƒOƒ‰ƒ€‚ÍAƒT[ƒrƒX‚ª‘¼‚ÌXVƒvƒƒOƒ‰ƒ€‚Ìƒ`ƒFƒbƒNAƒ_ƒEƒ“ƒ[ƒhA‚¨‚æ‚ÑƒCƒ“ƒXƒg[ƒ‹‚ğs‚¤‘O‚ÉÀs‚µ‚Ä‚¨‚­•K—v‚ª‚ ‚è‚Ü‚·B‚±‚ê‚ç‚Ì•K{‚ÌXVƒvƒƒOƒ‰ƒ€‚ÍA–â‘è‚ğC•œ‚µAŒp‘±“I‚É‹@”\‚ğŒüã‚³‚¹AƒT[ƒrƒX‚ğƒTƒ|[ƒg‚·‚é Microsoft ƒT[ƒo[‚Æ‚ÌŒİŠ·«‚ğˆÛ‚µ‚Ü‚·BUpdate ƒT[ƒrƒX‚ª–³Œø‚Ìê‡A‚±‚ê‚ç‚ÌXVƒvƒƒOƒ‰ƒ€‚ğó‚¯æ‚è‚Ü‚¹‚ñB
+
+Ÿ‚Ìİ’è‚Ì‚¢‚¸‚ê‚©‚ğ‘I‘ğ‚ÆAUpdate ƒT[ƒrƒX‚ª—LŒø‚É‚È‚è‚Ü‚·B(i) [„§‚³‚ê‚éXV‚ğ©“®“I‚Éƒ_ƒEƒ“ƒ[ƒh‚µAŸ‚Ì‚ÉƒCƒ“ƒXƒg[ƒ‹‚·‚é]A(ii) [XV‚ğ©“®“I‚Éƒ_ƒEƒ“ƒ[ƒh‚·‚é‚ªAƒCƒ“ƒXƒg[ƒ‹‚Íè“®‚ÅÀs‚·‚é]A‚Ü‚½‚Í (iii) [XV‚ğ’Ê’m‚·‚é‚Ì‚İ‚ÅA©“®“I‚Èƒ_ƒEƒ“ƒ[ƒh‚Ü‚½‚ÍƒCƒ“ƒXƒg[ƒ‹‚ğÀs‚µ‚È‚¢]B[©“®XV‚ğ–³Œø‚É‚·‚é] ‚ğ‘I‘ğ‚µ‚½ê‡AUpdate ƒT[ƒrƒX‚Í–³Œø‚É‚È‚è‚Ü‚·B
+
+Update ƒT[ƒrƒX‚ğ—LŒø‚É‚µ‚½ê‡AƒT[ƒrƒX‚ÌƒRƒ“ƒ|[ƒlƒ“ƒg‚É‘Î‚·‚éXVƒvƒƒOƒ‰ƒ€‚ÍAã‹L‚Ì‚Ç‚Ìİ’è‚ğ‘I‘ğ‚µ‚½‚©‚ÉŠÖŒW‚È‚­A’Ê’m‚¹‚¸‚É©“®“I‚Éƒ_ƒEƒ“ƒ[ƒh‚¨‚æ‚ÑƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ü‚·BƒT[ƒrƒX ƒRƒ“ƒ|[ƒlƒ“ƒg‚ÌXVƒvƒƒOƒ‰ƒ€‚ğó‚¯æ‚ç‚È‚¢ê‡‚ÍAUpdate ƒT[ƒrƒX‚ğ–³Œø‚É‚µ‚Ü‚·B
+
+Cookie ‚Ü‚½‚Íƒg[ƒNƒ“
+ƒg[ƒNƒ“‚Í Cookie ‚É—‚Ä‚¢‚Ü‚·Bƒg[ƒNƒ“‚Íî•ñ‚ğ•Û‘¶‚·‚é¬‚³‚Èƒtƒ@ƒCƒ‹‚ÅAUpdate ƒT[ƒrƒX‚ÌƒT[ƒo[‚É‚æ‚Á‚Ä‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚Ìƒn[ƒh ƒfƒBƒXƒNã‚É”z’u‚³‚êA‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚ª Update ƒT[ƒrƒX‚ÌƒT[ƒo[‚ÉÚ‘±‚·‚é‚Æ‚«‚ÉA—LŒø‚ÈÚ‘±‚ğˆÛ‚·‚é‚½‚ß‚Ég—p‚³‚ê‚Ü‚·Bƒg[ƒNƒ“‚Í‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^ã‚É‚Ì‚İ•Û‘¶‚³‚êAƒT[ƒo[‚É‚Í•Û‘¶‚³‚ê‚Ü‚¹‚ñBCookie ‚Ü‚½‚Íƒg[ƒNƒ“‚É‚ÍA‘O‰ñ‚ÌƒXƒLƒƒƒ““ú‚È‚ÇAÅV‚Ì—˜—p‰Â”\‚ÈXVƒvƒƒOƒ‰ƒ€‚ğŒŸõ‚·‚é‚Ì‚É•K—v‚Èî•ñ‚ªŠÜ‚Ü‚ê‚Ä‚¢‚Ü‚·B‚±‚Ìî•ñ‚É‚ÍAƒRƒ“ƒsƒ…[ƒ^‚Éƒ_ƒEƒ“ƒ[ƒh‚·‚×‚«ƒRƒ“ƒeƒ“ƒc‚âƒ_ƒEƒ“ƒ[ƒh‚ÌÀsŠú‚ğŠÇ—‚·‚é‚½‚ß‚Ìî•ñ‚É‰Á‚¦‚ÄA‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^‚ğƒT[ƒo[‚É¯•Ê‚³‚¹‚é‚½‚ß‚Ì GUID ‚àŠÜ‚Ü‚ê‚Ü‚·BCookie ‚Ü‚½‚Íƒg[ƒNƒ“‚ÉŠÜ‚Ü‚ê‚Ä‚¢‚éî•ñ‚ÍA‚»‚Ì Cookie ‚Ü‚½‚Íƒg[ƒNƒ“‚Ì—LŒøŠúŒÀ‚ğœ‚«AƒT[ƒo[‚É‚æ‚Á‚Ä‚·‚×‚ÄˆÃ†‰»‚³‚ê‚Ü‚·B‚±‚Ì Cookie ‚Ü‚½‚Íƒg[ƒNƒ“‚Íƒuƒ‰ƒEƒU Cookie ‚Å‚Í‚È‚¢‚Ì‚ÅA‚¨‹q—l‚Ìƒuƒ‰ƒEƒU‚Ìİ’è‚É‚æ‚Á‚Ä§Œä‚Å‚«‚Ü‚¹‚ñB‚Ü‚½Aíœ‚·‚é‚±‚Æ‚à‚Å‚«‚Ü‚¹‚ñB‚½‚¾‚µAUpdate ƒT[ƒrƒX‚ğg—p‚µ‚È‚¢ê‡‚ÍACookie ‚Ü‚½‚Íƒg[ƒNƒ“‚Íg—p‚³‚ê‚Ü‚¹‚ñB
+
+’²¸‚É‚Â‚¢‚Ä
+ê‡‚É‚æ‚Á‚Ä‚ÍAUpdate ƒT[ƒrƒX‚Ìg—p•û–@‚ÉŠÖ‚·‚é’²¸‚Ö‚ÌQ‰Á‚É‚Â‚¢‚Ä‚¨f‚¢‚·‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·BŠe’²¸‚É‚ÍAƒvƒ‰ƒCƒoƒV[‚ÉŠÖ‚·‚éº–¾‚ªŠÜ‚Ü‚êA‚±‚Ì’²¸‚Å‘—M‚³‚ê‚½î•ñ‚Ìg—pğŒ‚Æg—p–@‚ÉŠÖ‚·‚éÚ×‚ª‹LÚ‚³‚ê‚Ä‚¢‚Ü‚·B
+
+Update ƒT[ƒrƒX‚ÌŠÇ—
+Update ƒT[ƒrƒX‚ğ—˜—p‚·‚é‚©‚Ç‚¤‚©‚Í‚¨‹q—l‚Ì”CˆÓ‚Å‚·BUpdate ƒT[ƒrƒX‚©‚çXVƒvƒƒOƒ‰ƒ€‚ğóM‚·‚é‚©‚Ç‚¤‚©‚Í‚¨‹q—l‚ª‘I‘ğ‚Å‚«‚Ü‚·BóM‚·‚éƒIƒvƒVƒ‡ƒ“‚ğ‘I‘ğ‚µ‚½ê‡‚ÍA©“®“I‚Éƒ_ƒEƒ“ƒ[ƒh‚·‚é‚©‚Ç‚¤‚©A‚Ü‚½‚Í Update ƒT[ƒrƒX‚Åd—v“x‚Ì‚‚¢XVƒvƒƒOƒ‰ƒ€‚âƒIƒvƒVƒ‡ƒ“‚ÌXVƒvƒƒOƒ‰ƒ€‚ªŒöŠJ‚³‚ê‚½‚Æ‚«‚É’Ê’m‚Ì‚İóM‚·‚é‚©‚Ç‚¤‚©‚ğ‘I‘ğ‚Å‚«‚Ü‚·B
+
+Update ƒT[ƒrƒX‚Ìİ’è‚ÍA[ƒXƒ^[ƒg] ƒƒjƒ…[‚Ì Windows ƒZƒbƒgƒAƒbƒv‚ğg—p‚µ‚Ä•ÏX‚Å‚«‚Ü‚·B[ƒXƒ^[ƒg] ƒ{ƒ^ƒ“A[ƒRƒ“ƒgƒ[ƒ‹ ƒpƒlƒ‹]A[©“®XV] ‚Ì‡‚ÉƒNƒŠƒbƒN‚µ‚Ü‚·BUpdate ƒT[ƒrƒX (ã‹L‚ÌƒT[ƒrƒX ƒRƒ“ƒ|[ƒlƒ“ƒg‚¨‚æ‚ÑƒTƒ|[ƒg ƒRƒ“ƒ|[ƒlƒ“ƒg‚É‘Î‚·‚é•K{‚ÌXVƒvƒƒOƒ‰ƒ€‚È‚Ç) ‚ğ–³Œø‚É‚·‚é‚É‚ÍA[©“®XV‚ğ–³Œø‚É‚·‚é] ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
+
+Microsoft Update ‚ğ—LŒø‚É‚µ‚½ê‡AŒã‚©‚ç–³Œø‚É‚µ‚ÄAWindows Update ‚Ì‚İ‚ğg—p‚·‚é‚æ‚¤‚É–ß‚·‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚»‚ê‚É‚ÍA[ƒXƒ^[ƒg] ƒ{ƒ^ƒ“A[‚·‚×‚Ä‚ÌƒvƒƒOƒ‰ƒ€] ‚Ì‡‚ÉƒNƒŠƒbƒN‚µA[Windows Update] ‚Ü‚½‚Í [Microsoft Update] ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B‚±‚Ì‘€ì‚É‚æ‚èAMicrosoft Update ‚Ì Web ƒTƒCƒg‚ªƒCƒ“ƒ^[ƒlƒbƒg ƒuƒ‰ƒEƒU‚ÅŠJ‚«‚Ü‚·BWeb ƒTƒCƒg‚ÅA[İ’è‚Ì•ÏX] ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·BŸ‚ÉA[Microsoft Update ƒ\ƒtƒgƒEƒFƒA‚ğ–³Œø‚É‚µAWindows Update ‚Ì‚İ‚ğg—p‚·‚é] ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B
+
+ƒZƒLƒ…ƒŠƒeƒB‚ÌÀ‘H
+ƒ}ƒCƒNƒƒ\ƒtƒg‚Å‚ÍAûW‚µ‚½î•ñ‚ÌƒZƒLƒ…ƒŠƒeƒB‚Ì•ÛŒì‚É“w‚ß‚Ä‚¢‚Ü‚·BMicrosoft Update Service ‚Å‚ÍAî•ñ‚ğ•s³‚ÈƒAƒNƒZƒXAg—pA‚Ü‚½‚ÍŠJ¦‚©‚ç•ÛŒì‚·‚é‚½‚ß‚ÉA‚³‚Ü‚´‚Ü‚ÈƒZƒLƒ…ƒŠƒeƒB‹Zp‚Æ•û–@‚ğg—p‚µ‚Ä‚¢‚Ü‚·B‚½‚Æ‚¦‚ÎA‚¨‹q—l‚ÌƒRƒ“ƒsƒ…[ƒ^ã‚É‚ ‚éƒ\ƒtƒgƒEƒFƒA‚ğ“Á’è‚·‚é‚½‚ß‚ÉƒRƒ“ƒsƒ…[ƒ^‚ğƒXƒLƒƒƒ“‚·‚é‚Æ‚«‚ÍASecure Socket Layer (SSL) ƒvƒƒgƒRƒ‹‚È‚Ç‚ÌˆÃ†‰»‹Zp‚ğg—p‚µ‚Ü‚·BûW‚³‚ê‚½î•ñ‚ÍƒT[ƒo[‚É•Û‘¶‚³‚êAƒAƒNƒZƒX‚ğ§ŒÀ‚¨‚æ‚Ñ§Œä‚³‚ê‚Ü‚·B
+
+º–¾‚Ì•ÏX
+‚±‚Ìƒvƒ‰ƒCƒoƒV[‚ÉŠÖ‚·‚éº–¾‚ÍAXV‚³‚ê‚éê‡‚ª‚ ‚è‚Ü‚·Bº–¾‚ªXV‚³‚ê‚½ê‡‚ÍA–`“ª‚ÌuÅIXV“úv‚Ìî•ñ‚ªXV‚³‚ê‚Ü‚·BMicrosoft Update Service ‚É‚æ‚Á‚ÄûW‚³‚ê‚éî•ñ‚Ì•ÛŒì‚É‚Â‚¢‚Äí‚ÉÅV‚Ìî•ñ‚ğ”cˆ¬‚Å‚«‚é‚æ‚¤‚ÉAƒvƒ‰ƒCƒoƒV[‚ÉŠÖ‚·‚éº–¾‚ğ’èŠú“I‚ÉŠm”F‚·‚é‚±‚Æ‚ğ‚¨Š©‚ß‚µ‚Ü‚·B
+
+Ú×î•ñ
+ƒ}ƒCƒNƒƒ\ƒtƒg‚Å‚ÍAŒÂlî•ñ•ÛŒì•ûj‚ÉŠÖ‚·‚é‚¨‹q—l‚©‚ç‚Ì‚²ˆÓŒ©‚ğ‚¨‘Ò‚¿‚µ‚Ä‚¨‚è‚Ü‚·B•¾Ğ‚ª–{•ûj‚ğ…ç‚µ‚Ä‚¢‚È‚¢‚Æv‚í‚ê‚éê‡‚ÍAhttp://go.microsoft.com/fwlink/?LinkId=58564 ‚Ì Web ƒtƒH[ƒ€‚©‚ç‚²˜A—‚­‚¾‚³‚¢B¤æˆøã‚ÌÓ”C‚Ì‰º‚Å’¼‚¿‚É–â‘è‚Ì‰ğ–¾‚¨‚æ‚Ñ‰ğŒˆ‚É“w‚ß‚Ü‚·B
+
+Microsoft Update Privacy
+c/o the Microsoft Privacy Response Center
+Microsoft Corporation
+One Microsoft Way
+Redmond, WA, 98052 USA
+
+‚¨‹q—l‚Ì‘‚Ü‚½‚Í’nˆæ‚Ìƒ}ƒCƒNƒƒ\ƒtƒgŒn—ñ‰ïĞ‚Ü‚½‚Íq‰ïĞ‚Ì˜A—æ‚É‚Â‚¢‚Ä‚ÍAMicrosoft Worldwide Web ƒTƒCƒg www.microsoft.com/worldwide ‚ğ‚²——‚­‚¾‚³‚¢B
+
+
+</TEXTAREA>
+
+			<textarea ID=privtext READONLY TABINDEX=2 style="font-family: MS UI Gothic; font-size: 10pt; font-style: normal; line-height: 12pt; color: #000000" cols=100 name=Activation_Policy rows=12 onfocus="window.parent.OnFocus();">
+			</textarea>
+
+<br><br><br>
+</form>
+<span class="text-primary" style="line-height:14pt"><ID id=msprvcy_s5>‘±s‚·‚é‚É‚ÍA[–ß‚é] </ID><span class="emphasis-lesser"><ID id=msprvcy_s4>‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢</ID></span><span><ID id=xx1>B</ID></span>
+</span>
+
+    <table border=0 class="newbuttonposition">
+    <tr>
+        <td width=10>&nbsp;&nbsp;</td>
+        <td><BUTTON ID="btnBack" class="newbuttonsBack" TABINDEX=4  ACCESSKEY="B" style="visibility:visible;"></BUTTON></td>
+        <td nowrap valign=middle class="text-primary"><span id="BackBtnLocalText" style="visibility:visible;"><label for=btnBack><id id="LocalBtnBack_Text">–ß‚é(<u>B</u>)</id></label></span></td>
+
+        <td width=99%>&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="SkipBtnLocalText" style="visibility:hidden;"><label for=btnSkip><id id="LocalBtnSkip_Text">ƒXƒLƒbƒv‚·‚é(<u>S</u>)</id></label></span></td>
+        <td><BUTTON ID="btnSkip" class="newbuttonsSkip" TABINDEX=-1 ACCESSKEY="S" style="visibility:hidden;"></BUTTON></td>
+
+        <td width=10>&nbsp;&nbsp;</td>
+        <td nowrap valign=middle class="text-primary"><span id="NextBtnLocalText" style="visibility:hidden;"><label for=btnNext><id id="LocalBtnNext_Text">Ÿ‚Ö(<u>N</u>)</id></label></span></td>
+        <td><BUTTON ID="btnNext" class="newbuttonsNext" TABINDEX=-1 ACCESSKEY="N" style="visibility:hidden;"></BUTTON></td>
+    </tr>
+    </table>
+
+    </td>
+</tr>
+</table>
+</body>
+<script language="javascript">
+                 myform.privtext.value = myform.privtext1.value + myform.privtext2.value;
+	</script>
+</html>
+
+P<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:9pt/11pt ‚l‚r ‚oƒSƒVƒbƒN; color:red}
+a:visited		{font:9pt/11pt ‚l‚r ‚oƒSƒVƒbƒN; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=shift_jis">
+<title>ƒT[ƒo[‚ªŒ©‚Â‚©‚è‚Ü‚¹‚ñ</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="res://shdoclc.dll/pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt ‚l‚r ‚oƒSƒVƒbƒN"><span id="errorText">ƒy[ƒW‚ğ•\¦‚Å‚«‚Ü‚¹‚ñB</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 9pt/12pt ‚l‚r ‚oƒSƒVƒbƒN">ŒŸõ’†‚Ìƒy[ƒW‚ÍŒ»İA—˜—p‚Å‚«‚Ü‚¹‚ñBWeb ƒTƒCƒg‚É‹Zp“I‚È–â‘è‚ª”­¶‚µ‚Ä‚¢‚é‚©Aƒuƒ‰ƒEƒU‚Ìİ’è‚ğ’²®‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B</font></td>
+  </tr>
+  <tr>
+    <td id="xpnetdiagInfo" align="left" colspan="2" width="400" bordercolor="#FF0000" style="border-style:solid; border-width:2px; padding-left: 0px; padding-right: 8px; padding-top: 8px; padding-bottom: 8px">
+    <img id="xpnetdiagImg" SRC="res://xpsp3res.dll/xpnetdiag.gif"
+    width="48" height="48" align="left" hspace="8"><font style="COLOR: black; FONT: 9pt/12pt ‚l‚r ‚oƒSƒVƒbƒN">ƒlƒbƒgƒ[ƒNÚ‘±‚Ì–â‘è‚ÌC³‚ğ‚İ‚é‚É‚ÍA
+    <b>[ƒc[ƒ‹]</b>A<b>[Ú‘±‚Ì–â‘è‚Ìf’f...]"</b>‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+    </font>
+    </td>
+  </tr>  
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 9pt/11pt ‚l‚r ‚oƒSƒVƒbƒN"><br>
+    <p id="LID2">Ÿ‚Ì‚±‚Æ‚à‚µ‚Ä‚­‚¾‚³‚¢:</p><ul>
+      <li id="instructionsText1"><a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="res://shdoclc.dll/refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">[XV]</a> ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚·‚é‚©AŒã‚Å‚â‚è’¼‚µ‚Ä‚­‚¾‚³‚¢B<br>
+      >
+      </li>
+      
+      <li id="instructionsText2">ƒAƒhƒŒƒX ƒo[‚Éƒy[ƒW ƒAƒhƒŒƒX‚ğ“ü—Í‚µ‚½ê‡‚ÍAƒy[ƒW ƒAƒhƒŒƒX‚ğ³‚µ‚­“ü—Í‚µ‚½‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B<br>
+      </li>
+      <li id="instructionsText3">Ú‘±‚Ìİ’è‚ğŠm”F‚·‚é‚É‚ÍA[ƒc[ƒ‹] ƒƒjƒ…[‚Ì [ƒCƒ“ƒ^[ƒlƒbƒg ƒIƒvƒVƒ‡ƒ“] ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B[Ú‘±] ƒ^ƒu‚Å [ƒ_ƒCƒ„ƒ‹ƒAƒbƒv‚Ìİ’è] ƒOƒ‹[ƒv‚Ì [İ’è] ƒ{ƒ^ƒ“A‚Ü‚½‚Í [LAN ‚Ìİ’è] ƒOƒ‹[ƒv‚Ì [LAN ‚Ìİ’è] ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B
+        İ’èî•ñ‚ÍALAN (ƒ[ƒJƒ‹ ƒGƒŠƒAƒlƒbƒg ƒ[ƒN) ‚ÌŠÇ—Ò‚©AISP (ƒCƒ“ƒ^[ƒlƒbƒg ƒT[ƒrƒX ƒvƒƒoƒCƒ_) ‚ª’ñ‹Ÿ‚·‚éî•ñ‚Æˆê’v‚·‚é•K—v‚ª‚ ‚è‚Ü‚·B </li>
+     <li ID="list4">ƒCƒ“ƒ^[ƒlƒbƒgÚ‘±‚ªŒŸo‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢Bƒlƒbƒgƒ[ƒNŠÇ—Ò‚ªİ’è‚ğ—LŒø‚É‚µ‚Ä‚¢‚éê‡‚ÍAMicrosoft Windows ‚ğİ’è‚µ‚ÄAƒlƒbƒgƒ[ƒN‚ğŒŸ¸‚µ‚ÄA©“®“I‚Éƒlƒbƒgƒ[ƒNÚ‘±İ’è‚ğŒŸo‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B
+        <OL> 
+        <li id="instructionText6"><b>[ƒc[ƒ‹]</b>  ƒƒjƒ…[‚Ì <b>[ƒCƒ“ƒ^[ƒlƒbƒg ƒIƒvƒVƒ‡ƒ“]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B </li>
+        <li id="instructionText7"><b>[Ú‘±]</b> ƒ^ƒu‚Å <b>[LAN ‚Ìİ’è]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</li> 
+        <li id="instructionText8"><b>[İ’è‚ğ©“®“I‚ÉŒŸo‚·‚é]</b> ‚ğ‘I‘ğ‚µA<b>[OK]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</li>
+        </OL>
+      </li>
+    <li id="instructionsText5">
+       ƒTƒCƒg‚É‚æ‚Á‚Ä‚Í 128 ƒrƒbƒg‚ÌÚ‘±ƒZƒLƒ…ƒŠƒeƒB‚ğ—v‹‚·‚é‚à‚Ì‚ª‚ ‚è‚Ü‚·B<b>[ƒwƒ‹ƒv]</b> ƒƒjƒ…[‚Ì <b>[ƒo[ƒWƒ‡ƒ“î•ñ]</b> ‚ğƒNƒŠƒbƒN‚µ‚ÄAƒCƒ“ƒXƒg[ƒ‹‚µ‚½ˆÃ†‹­“x‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B
+    </li>
+    <li id="instructionsText4">
+       ƒZƒLƒ…ƒŠƒeƒB‚Å•ÛŒì‚³‚ê‚½ƒTƒCƒg‚ğ•\¦‚·‚é‚É‚ÍAƒZƒLƒ…ƒŠƒeƒB‚Ìİ’è‚Å‚»‚ÌƒTƒ|[ƒg‚ª‚³‚ê‚Ä‚¢‚é‚©‚Ç‚¤‚©‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢B<b>[ƒc[ƒ‹]</b> ƒƒjƒ…[‚Ì <b>[ƒCƒ“ƒ^[ƒlƒbƒg ƒIƒvƒVƒ‡ƒ“]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ü‚·B[Ú×İ’è] ƒ^ƒu‚ÅA[ƒZƒLƒ…ƒŠƒeƒB] ‚Ü‚ÅƒXƒNƒ[ƒ‹‚µA[SSL 2.0 ‚ğg—p‚·‚é]A[SSL 3.0 ‚ğg—p‚·‚é]A[TLS 1.0 ‚ğg—p‚·‚é]A‚¨‚æ‚Ñ [PCT 1.0 ‚ğg—p‚·‚é] ƒ`ƒFƒbƒN ƒ{ƒbƒNƒX‚ğƒIƒ“‚É‚µ‚Ä‚­‚¾‚³‚¢B 
+    </li>
+     <li id="list3">•Ê‚ÌƒŠƒ“ƒNæ‚ğ•\¦‚·‚é‚É‚ÍA<a href="javascript:history.back(1)"><img valign=bottom border=0 src="res://shdoclc.dll/back.gif">[–ß‚é]</a> ƒ{ƒ^ƒ“‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:9pt/11pt ‚l‚r ‚oƒSƒVƒbƒN; color:black">ƒT[ƒo[‚ªŒ©‚Â‚©‚ç‚È‚¢‚©ADNS ƒGƒ‰[‚Å‚·B<BR>Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+PAD
+
+
+
+
+
+function ErrorSkipBtnHandler()
+{
+    if (InActivation_AppMode())
+    {
+        window.external.Hangup();
+        ShowIFrame('False');
+        window.setTimeout("ExitWPA();",1000);
+    }
+    else
+    {
+        window.external.Hangup();
+        PopCKPT();
+        GoCancel();
+    }
+}
+
+
+function DialErrorNextBtnHandler() 
+{
+    GoToDialingPage();
+}
+
+
+
+function CnncterrNextBtnHandler() 
+{
+    if (g.Callwait != null)
+    {
+        TapiObj.set_CallWaiting = g.Callwait.value;
+    }
+    window.external.set_DialAlternative(false);
+    DialErrorNextBtnHandler();
+}
+
+var L_EnterValidPhoneNumber_Text = "ˆê•”‚Ì“d˜b”Ô†‚ğíœ‚Å‚«‚Ü‚¹‚ñB";
+function CheckPhoneNumer(phoneNumber)
+{
+    if (phoneNumber.length == 0)
+    {
+        return false;
+    }
+    return true;
+}
+
+
+
+function ToobusyNextBtnHandler() 
+{
+    window.external.set_DialAlternative(true);
+
+    if (!(g.DialRuleYes.checked)) {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+    }
+    
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+
+    
+    DialErrorNextBtnHandler();
+}
+
+var gTooBusyHaveError1 = false;
+var gTooBusyHaveError2 = false;
+var gTooBusyHaveError3 = false;
+
+var L_altnumber_Text = "‚±‚Ì‘ã‚í‚è‚Ì”Ô†‚ğƒ_ƒCƒ„ƒ‹‚·‚é(<u>D</u>):";
+var L_altnumber01_Text = "* ‚±‚Ì‘ã‚í‚è‚Ì”Ô†‚ğƒ_ƒCƒ„ƒ‹‚·‚é(<u>D</u>):";
+var L_outsideline_Text = "‚±‚ÌŠOü”­M”Ô†‚ğŠÜ‚ß‚é(<u>O</u>):";
+var L_outsideline01_Text = "* ‚±‚ÌŠOü”­M”Ô†‚ğŠÜ‚ß‚é(<u>O</u>):";
+var L_callwaiting_Text = "ƒLƒƒƒbƒ`ƒzƒ“‚ğ–³Œø‚É‚·‚é(<u>C</u>):";
+var L_callwaiting01_Text = "* ƒLƒƒƒbƒ`ƒzƒ“‚ğ–³Œø‚É‚·‚é(<u>C</u>):";
+
+function NewToobusyNextBtnHandler() 
+{
+    gTooBusyHaveError1 = false;
+    gTooBusyHaveError2 = false;
+    gTooBusyHaveError3 = false;
+    g.tberrspan1.style.visibility = "hidden";
+    g.tberrspan2.style.visibility = "hidden";
+    g.tberrspan3.style.visibility = "hidden";
+
+    if (g.cb_altnumber.checked)
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        window.external.set_DialNumber(g.edt_altnumber.value);
+
+        if (g.edt_altnumber.value != "")
+        {
+            g.lbl_altnumber.innerHTML = L_altnumber_Text;
+            g.lbl_altnumber.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError1 = true;
+            g.lbl_altnumber.innerHTML = L_altnumber01_Text;
+            g.lbl_altnumber.className = "text-error";
+        }
+    }
+    else
+    {
+        g_AltnumberHolder = "";
+        window.external.set_DialAlternative(true);
+    }
+
+    if (g.cb_outsideline.checked)
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        TapiObj.set_DialOut(g.edt_outsideline.value);
+
+        if (g.edt_outsideline.value != "")
+        {
+            g.lbl_outsideline.innerHTML = L_outsideline_Text;
+            g.lbl_outsideline.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError2 = true;
+            g.lbl_outsideline.innerHTML = L_outsideline01_Text;
+            g.lbl_outsideline.className = "text-error";
+        }
+    }
+    else
+    {
+        g_OutsidelineHolder = "";
+        TapiObj.set_DialOut(g.edt_outsideline.value);    
+    }
+
+    if (g.cb_callwaiting.checked)
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        TapiObj.set_CallWaiting(g.edt_callwaiting.value);
+
+        if (g.edt_callwaiting.value != "")
+        {
+            g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+            g.lbl_callwaiting.className = "text-primary";
+        }
+        else
+        {
+            gTooBusyHaveError3 = true;
+            g.lbl_callwaiting.innerHTML = L_callwaiting01_Text;
+            g.lbl_callwaiting.className = "text-error";
+        }
+    }
+    else
+    {
+        g_CallwaitingHolder = "";
+        TapiObj.set_CallWaiting(g.edt_callwaiting.value);
+    }
+
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+
+    if ((gTooBusyHaveError1) || (gTooBusyHaveError2) || (gTooBusyHaveError3))
+        NewToobusy_LoadMe();
+    else
+        DialErrorNextBtnHandler(); 
+}
+
+function TelError_TelephoneBtnHandler() 
+{
+    
+    PopCKPT();
+    GoNavigate(CKPT_ACTIVSVC)
+}
+
+function Enable_TelBtn_ActMode()
+{
+    if (InActivation_AppMode())
+    {
+        
+        GetPageTitle();
+
+        g.btnTelephone.style.display = "inline";
+        g.btnTelephone.onmouseover = HandleButtonMouseOver;
+        g.btnTelephone.onmouseout  = HandleButtonMouseOut;
+        g.btnTelephone.onclick     = TelError_TelephoneBtnHandler;
+
+        
+        var L_RemindMeLater_Text = "‚±‚Ìì‹Æ‚ğÀs‚µ‚È‚¢‚Å‘±‚¯‚é‚É‚ÍA<b>[Œã‚Å’Ê’m‚·‚é]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B";
+        g.RemindMeLaterText.innerHTML = L_RemindMeLater_Text;
+        var L_RemindMeLater01_Text = " Œã‚Å’Ê’m‚·‚é(<u>M</u>) ";
+        var L_AccesskeyRemindM_Text = "M";
+        g.btnSkip.innerHTML   = L_RemindMeLater01_Text;
+        g.btnSkip.accessKey   = L_AccesskeyRemindM_Text;
+    }
+}
+
+function DefaultErr_LoadMe()
+{
+    InitFrameRef();
+
+    if (APP_MSN_MODE == window.external.Directions.get_AppMode())
+    {
+        var spanCollection = g.document.body.getElementsByTagName("span");
+        if (spanCollection != 0)
+        {
+            for (var i = 0; i < spanCollection.length; i++)
+            {
+                if (spanCollection[i].className == "text-primary-btndesc")
+                {
+                    var styleObj = spanCollection[i].style;
+                    styleObj.position = "relative";
+                    styleObj.top = "0";
+                    styleObj.left = "0";
+                }
+            }
+        }
+    }
+
+    InitButtons();
+
+    try
+    {
+        if(g.btnRestore != null) 
+        {
+            if (InReminderMode())
+            {
+                g.btnRestore.onmouseover = HandleButtonMouseOver;
+                g.btnRestore.onmouseout  = HandleButtonMouseOut;
+                g.btnRestore.className="buttons";
+            }
+            else
+            {
+                g.btnRestore.onmouseover = HandleNextButtonMouseOver;
+                g.btnRestore.onmouseout  = HandleNextButtonMouseOut;
+                g.btnRestore.onmousedown = HandleNextButtonMouseDown;
+                g.btnRestore.className="newbuttonsNext";
+            }
+        } 
+    } catch (e) {}
+
+    Enable_TelBtn_ActMode();
+
+    if (InActivation_AppMode())
+    {
+        g_FirstFocusElement = g.btnNext;
+        window.setTimeout("DoFocus();",1000);
+    }
+    else
+    {
+        g.btnNext.focus();
+    }
+    
+    window.external.set_DialAlternative(false);
+    g.btnNext.onclick = DialErrorNextBtnHandler;
+    g.btnSkip.onclick = ErrorSkipBtnHandler;
+}
+
+function Cnncterr_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = CnncterrNextBtnHandler;
+    if (g.Callwait != null)
+        g.Callwait.value = TapiObj.get_CallWaiting;
+}
+
+var g_AltnumberHolder   = null;
+var g_OutsidelineHolder = null;
+var g_CallwaitingHolder = null;
+
+function Toobusy_LoadMe()
+{
+    DefaultErr_LoadMe();
+    
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+    
+    g.btnNext.onclick = ToobusyNextBtnHandler;
+    
+    SelectDialRule();
+}
+
+
+function NewToobusy_LoadMe()
+{
+    DefaultErr_LoadMe();
+
+    
+    var L_tbstr1_Text = "ƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚Æƒ†[ƒU[“o˜^‚ğs‚¤‚½‚ß‚Ì‚±‚Ì”Ô†‚ÉÚ‘±‚Å‚«‚Ü‚¹‚ñB";
+    var L_tbstr2_Text = "ƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¤‚½‚ß‚Ì‚±‚Ì”Ô†‚ÉÚ‘±‚Å‚«‚Ü‚¹‚ñB";
+    var L_tbstr3_Text = "ƒ†[ƒU[“o˜^‚ğs‚¤‚½‚ß‚Ì‚±‚Ì”Ô†‚ÉÚ‘±‚Å‚«‚Ü‚¹‚ñB";
+
+    var L_tbstr4_Text = "ƒRƒ“ƒsƒ…[ƒ^‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚Æƒ†[ƒU[“o˜^‚ğs‚í‚È‚¢‚Åæ‚Éi‚Ş‚É‚ÍA<br><b>[È—ª]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B";
+    var L_tbstr5_Text = "ƒRƒ“ƒsƒ…[ƒ^‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚í‚È‚¢‚Å‘±‚¯‚é‚É‚ÍA<br><b>[È—ª]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B";
+    var L_tbstr6_Text = "ƒRƒ“ƒsƒ…[ƒ^‚ğƒ†[ƒU[“o˜^‚µ‚È‚¢‚Åæ‚Éi‚Ş‚É‚ÍA<br><b>[È—ª]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B";
+    
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) || (g_PostToOEM))
+        {
+            g.tbpar1.innerHTML = L_tbstr1_Text;
+            g.tbpar2.innerHTML = L_tbstr4_Text;
+        }
+        else
+        {
+            g.tbpar1.innerHTML = L_tbstr2_Text;
+            g.tbpar2.innerHTML = L_tbstr5_Text;
+        }
+    }
+    else
+    {
+        g.tbpar1.innerHTML = L_tbstr3_Text;
+        g.tbpar2.innerHTML = L_tbstr6_Text;
+    }
+    
+
+
+    var fLoadPhoneNumber = window.external.get_DialNumber;
+    g.spanDisplayNumber.innerHTML = "&nbsp;&nbsp;<B>" + fLoadPhoneNumber + "</B>";
+
+    if (gTooBusyHaveError1)
+        g.tberrspan1.style.visibility = "visible";
+    if (gTooBusyHaveError2)
+        g.tberrspan2.style.visibility = "visible";
+    if (gTooBusyHaveError3)
+        g.tberrspan3.style.visibility = "visible";
+
+
+    if (((g_AltnumberHolder == null) || (g_AltnumberHolder == "")) && (!gTooBusyHaveError1))
+    {
+        g_AltnumberHolder = "";
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.style.disabled = true;
+        g.cb_altnumber.checked = false;
+    }
+    else
+    {
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.cb_altnumber.checked = true;
+    }
+
+    if (!gTooBusyHaveError2)
+        g_OutsidelineHolder = TapiObj.get_DialOut;
+
+    if (((g_OutsidelineHolder == null) || (g_OutsidelineHolder == "")) && (!gTooBusyHaveError2))
+    {
+        g_OutsidelineHolder = "";
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.cb_outsideline.checked = false;
+    }
+    else
+    {
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.cb_outsideline.checked = true;
+    }
+
+
+    if (!gTooBusyHaveError3)
+        g_CallwaitingHolder = TapiObj.get_CallWaiting;
+
+    if (((g_CallwaitingHolder == null) || (g_CallwaitingHolder == "")) && (!gTooBusyHaveError3))
+    {
+        g_CallwaitingHolder = "";
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.cb_callwaiting.checked = false;
+    }
+    else
+    {
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.cb_callwaiting.checked = true;
+    }
+
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NewToobusyNextBtnHandler;
+}
+
+
+function Check_cb_altnumber()
+{
+    if (g.cb_altnumber.checked == true)
+    {
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.focus();
+    }
+    else
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.disabled = true;
+        g.lbl_altnumber.innerHTML = L_altnumber_Text;
+        g.lbl_altnumber.className = "text-primary";
+    }
+}
+
+
+function Check_cb_outsideline()
+{
+    if (g.cb_outsideline.checked == true)
+    {
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.focus();
+    }
+    else
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.lbl_outsideline.innerHTML = L_outsideline_Text;
+        g.lbl_outsideline.className = "text-primary";
+    }
+}
+
+
+function Check_cb_callwaiting()
+{
+    if (g.cb_callwaiting.checked == true)
+    {
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.focus();
+    }
+    else
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+        g.lbl_callwaiting.className = "text-primary";
+    }
+}
+
+function SelectDialRule()
+{    
+    if (g.DialRuleYes.checked)
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=false;
+        g.edtOutsideLine.disabled=true;
+        g.edtCallWaiting.disabled=true;
+    }
+    else
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=true;
+        g.edtOutsideLine.disabled=false;
+        g.edtCallWaiting.disabled=false;
+    }
+}
+
+function RestoreDialRule()
+{
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    if (g.edtPhoneNumber)
+        g.edtPhoneNumber.value = window.external.get_PhBkNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+}
+
+
+function ISPInsError_NextBtnHandler() 
+{
+    PopCKPT();
+    GoNavigate(CKPT_OEMCUST);
+}
+function ISPInsError_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.ins_ISPName1.innerText = window.external.get_ISPName;
+    g.ins_ISPName2.innerText = window.external.get_ISPName;
+    g.btnNext.onclick = ISPInsError_NextBtnHandler;
+}
+
+
+
+function NoAnswNextBtnHandler() 
+{
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+    
+    if (g.DialRuleYes.checked) {
+        if (CheckPhoneNumer(g.edtPhoneNumber.value))
+        {
+            window.external.set_DialNumber(g.edtPhoneNumber.value);
+            DialErrorNextBtnHandler();
+        }
+        else
+        {
+            g.edtPhoneNumber.value = window.external.get_DialNumber;
+            g.error_mesg.innerHTML = L_EnterValidPhoneNumber_Text;
+            g.error_mesg.style.display="inline";
+        }
+    }
+    else
+    {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+        window.external.set_DialAlternative(false);
+        DialErrorNextBtnHandler();
+    }
+    
+
+    
+}
+
+function NoAnsw_LoadMe()
+{
+    DefaultErr_LoadMe();
+        
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtPhoneNumber.value = g.spanDisplayNumber.innerText;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NoAnswNextBtnHandler;
+    
+    SelectDialRule();
+
+}
+
+
+
+function NoModemBtnHandler() 
+{
+    window.external.Finish();
+}
+function NoModem_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = NoModemBtnHandler;
+}
+
+function Pulse_LoadMe()
+{
+    DefaultErr_LoadMe();
+    if (1 == TapiObj.set_PhoneSystem)
+        g.tone.checked = true;
+    else
+        g.pulse.checked = true;
+}
+
+function DesktopPbErr_LoadMe()
+{
+    InitFrameRef();
+    if (InActivation_AppMode())
+    {
+        GetPageTitle();
+    }
+
+    InitButtons();
+
+    var L_DeskpbErrOEMName_Text = g_OEMNameStr;
+    if (L_DeskpbErrOEMName_Text == "")
+    {
+        L_DeskpbErrOEMName_Text = L_MissingOEMName_Text;
+    }
+
+    var L_DeskMainPBerrMsg_Text = "";
+    var L_Title_Text = "";
+
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ†[ƒU[“o˜^‚Æƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ÍA‚¨Z‚Ü‚¢‚Ì‘‚Ü‚½‚Í’nˆæ‚Å‚ÍŒ»İ—˜—p‚Å‚«‚Ü‚¹‚ñBƒCƒ“ƒ^[ƒlƒbƒgÚ‘±‚Å‚Í‚È‚¢•û–@‚ÅƒRƒ“ƒsƒ…[ƒ^‚ğƒ†[ƒU[“o˜^‚·‚é‚É‚ÍA%1 ‚É˜A—‚µ‚Ä‚­‚¾‚³‚¢BƒCƒ“ƒ^[ƒlƒbƒg‚ÉÚ‘±‚·‚é‚©AMicrosoft ‚É“d˜b‚µ‚Ä Windows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¦‚Ü‚·B";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else if ((g_PostToMS) && (!g_PostToOEM))
+        {
+            L_Title_Text = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚Æƒ†[ƒU[“o˜^‚ª‚Å‚«‚Ü‚¹‚ñ"; 
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ†[ƒU[“o˜^‚Æƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ÍA‚¨Z‚Ü‚¢‚Ì‘‚Ü‚½‚Í’nˆæ‚Å‚ÍŒ»İ—˜—p‚Å‚«‚Ü‚¹‚ñBƒCƒ“ƒ^[ƒlƒbƒg‚ÉÚ‘±‚·‚é‚©AMicrosoft ‚É“d˜b‚µ‚Ä Windows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¦‚Ü‚·BMicrosoft ‚É Windows ‚ğƒ†[ƒU[“o˜^‚·‚é‚É‚ÍƒCƒ“ƒ^[ƒlƒbƒgÚ‘±‚ª•K—v‚Å‚·B";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+        else if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ÍA‚¨Z‚Ü‚¢‚Ì‘‚Ü‚½‚Í’nˆæ‚Å‚ÍŒ»İ—˜—p‚Å‚«‚Ü‚¹‚ñBƒCƒ“ƒ^[ƒlƒbƒg‚ÉÚ‘±‚·‚é‚©AMicrosoft ‚É“d˜b‚µ‚Ä Windows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¦‚Ü‚·BƒCƒ“ƒ^[ƒlƒbƒgÚ‘±‚Å‚Í‚È‚¢•û–@‚ÅƒRƒ“ƒsƒ…[ƒ^‚ğƒ†[ƒU[“o˜^‚·‚é‚É‚ÍA%1 ‚É˜A—‚µ‚Ä‚­‚¾‚³‚¢B";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else
+        {
+            L_Title_Text = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ª‚«‚Ü‚¹‚ñ";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            
+            L_DeskMainPBerrMsg_Text        = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ÍA‚¨Z‚Ü‚¢‚Ì‘‚Ü‚½‚Í’nˆæ‚Å‚ÍŒ»İ—˜—p‚Å‚«‚Ü‚¹‚ñBƒCƒ“ƒ^[ƒlƒbƒg‚ÉÚ‘±‚·‚é‚©AMicrosoft ‚É“d˜b‚µ‚Ä Windows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¦‚Ü‚·B";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+    }
+    else
+    {
+        if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_Title_Text = "ƒIƒ“ƒ‰ƒCƒ““o˜^‚ª‚Å‚«‚Ü‚¹‚ñ";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "ƒIƒ“ƒ‰ƒCƒ“‚Å‚Ìƒ†[ƒU[“o˜^‚ÍA‚¨Z‚Ü‚¢‚Ì‘‚Ü‚½‚Í’nˆæ‚Å‚ÍŒ»İ—˜—p‚Å‚«‚Ü‚¹‚ñBƒCƒ“ƒ^[ƒlƒbƒgÚ‘±‚Å‚Í‚È‚¢•û–@‚ÅƒRƒ“ƒsƒ…[ƒ^‚ğƒ†[ƒU[“o˜^‚·‚é‚É‚ÍA%1 ‚É˜A—‚µ‚Ä‚­‚¾‚³‚¢B";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+    }
+
+    g.btnBack.focus();
+    g.btnBack.onclick = window.parent.SimpleNavBack;
+}
+PADfunction ObjectLoad()
+{
+    if ( objectDestination )
+    {
+        var bodyElement = objectDestination.parentElement;
+        
+        if ( bodyElement.objectSource )
+        {
+            bodyElement.innerHTML = "<embed width=100% height=100% fullscreen=yes>";
+            bodyElement.firstChild.src = bodyElement.objectSource;
+        }
+    }
+}
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "ƒGƒ‰[: oobeinfo.ini ‚Ì [Branding] ƒZƒNƒVƒ‡ƒ“‚É OEM –¼‚ª‚ ‚è‚Ü‚¹‚ñB";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "©“®XV‚ğg‚¤‚ÆA‚¨g‚¢‚ÌƒRƒ“ƒsƒ…[ƒ^‚É‘Î‚·‚éÅV‚Ìd—v‚ÈXV‚ª Windows ‚É‚æ‚Á‚Ä’èŠú“I‚ÉŠm”F‚³‚êA©“®“I‚ÉƒCƒ“ƒXƒg[ƒ‹‚³‚ê‚Ü‚·BXV‚É‚ÍAƒZƒLƒ…ƒŠƒeƒB‚ÌXVAd—v‚ÈXVAService Pack ‚È‚Ç‚ªŠÜ‚Ü‚ê‚Ü‚·B©“®XV‚ğ—LŒø‚É‚·‚é‚ÆAƒRƒ“ƒsƒ…[ƒ^‚Ì•ÛŒì‚É–ğ—§‚¿‚Ü‚·B";
+var L_IntroUpdate_Text = "Windows XP Service Pack 3 ‚ğƒCƒ“ƒXƒg[ƒ‹‚µ‚Ä‚¢‚½‚¾‚«A‚ ‚è‚ª‚Æ‚¤‚²‚´‚¢‚Ü‚·BƒZƒbƒgƒAƒbƒv‚ÌƒvƒƒZƒX‚ğŠ®—¹‚·‚é‘O‚ÉA©“®XV‚ğ—LŒø‚É‚µ‚Ä‚­‚¾‚³‚¢B©“®XV‚É‚æ‚èAƒRƒ“ƒsƒ…[ƒ^‚Ì‚½‚ß‚ÌÅV‚Ìd—v‚ÈXV‚ğŠm”F‚µA©“®“I‚ÉƒCƒ“ƒXƒg[ƒ‹‚·‚é‚±‚Æ‚ª‚Å‚«‚Ü‚·B‚±‚ê‚ç‚ÌXV‚É‚ÍAƒZƒLƒ…ƒŠƒeƒB‚ÌXV‚âd—v‚ÈXVAService Pack ‚ªŠÜ‚Ü‚ê‚é‚±‚Æ‚ª‚ ‚è‚Ü‚·B";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+PAD
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=shift_jis"/>
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<script>
+var g_PID_Link_URL       = "";
+
+function PID_Link_OnClick(stage)
+{
+    
+    
+    
+    
+    
+    
+    
+    if (stage == null)
+    {
+        window.parent.ShowIFrame('False', window.parent.L_CheckConnectivity_Text);
+        window.parent.ResetConnectedToInternetEx();
+        window.parent.ConnectedToInternetEx(true, "g.PID_Link_OnClick(1);");
+    }
+    else if (stage == 1)
+    {
+        var connected = window.parent.ConnectedToInternetEx(false);
+        
+        if (!connected)
+        {
+            connected = window.external.InternetAutodial();
+            window.parent.g_InitAutodial = connected;
+            
+            if (!connected)
+            {
+                if (window.external.GnsAutodial(true, "User1"))
+                {
+                    window.parent.ResetConnectedToInternetEx();
+                    connected = window.parent.ConnectedToInternetEx(true);
+                }
+            }
+        }
+
+        if (connected)
+        {
+            window.open(g_PID_Link_URL);
+        }
+
+        window.parent.ShowIFrame();
+    }
+    
+    return false;
+}
+
+function Local_LoadMe() {
+
+    if (acterror_after_pid_entry_text1.style.display == "inline" ||
+        acterror_after_pid_entry_text2.style.display == "inline") {
+        
+        var strPid = window.parent.PidObj.get_CurrentPID2();
+        var strStrippedPid = "";
+
+        var re = new RegExp("(.*)-(.*)-(.*)-(.*)","");
+        if(re.exec(strPid) == null) {
+            strStrippedPid = "";
+        }
+        else
+        {
+            strStrippedPid = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4;
+        }
+
+
+        g_PID_Link_URL = "https://pa.one.microsoft.com/portal.asp?req=" +
+            strStrippedPid + "&err=" + window.parent.g_act_specific_error;
+
+        acterror_link1.title = g_PID_Link_URL;
+        acterror_link1.onclick = PID_Link_OnClick;
+        acterror_link2.title = g_PID_Link_URL;
+        acterror_link2.onclick = PID_Link_OnClick;
+
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.act_desktop_error_LoadMe(); Local_LoadMe();" >
+
+<table valign=middle border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;">
+        <ID id=acterror_s1>Windows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚Ìè‘±‚«‚ğs‚¤</ID>
+    </span>
+
+    <br>
+
+        <!-- Retail mode -->
+        <span ID=acterror_description_dedicated_pid_RETAIL class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1">Windows ‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é‚Æ‚«‚ÉA—LŒø‚Èƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚µ‚Ü‚¹‚ñ‚Å‚µ‚½BWindows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚ğ‘±s‚·‚éê‡‚ÍA‰º‚Ì—“‚Éƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚µ‚Ä <b>[XV]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2">25 Œ…‚Ìƒvƒƒ_ƒNƒg ƒL[‚ÍAWindows CD ƒP[ƒX‚Ì— ‚É“\‚Á‚Ä‚ ‚é‚±‚Ì‚æ‚¤‚ÈƒXƒeƒbƒJ[‚É‹LÚ‚³‚ê‚Ä‚¢‚Ü‚·:</ID>
+            <br><br>
+            <center><img src="../images/prodkey.gif"></center>
+        </span>
+        
+        <!-- OEM mode -->
+        <span ID=acterror_description_dedicated_pid_OEM class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1x">Windows ‚ğƒCƒ“ƒXƒg[ƒ‹‚·‚é‚Æ‚«‚ÉA—LŒø‚Èƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚µ‚Ü‚¹‚ñ‚Å‚µ‚½BWindows ‚Ìƒ‰ƒCƒZƒ“ƒX”FØ‚ğ‘±s‚·‚éê‡‚ÍA‰º‚Ì—“‚Éƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚µ‚Ä <b>[XV]</b> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2x">25 Œ…‚Ìƒvƒƒ_ƒNƒg ƒL[‚ÍAƒRƒ“ƒsƒ…[ƒ^‚É“Y•t‚µ‚Ä‚ ‚é‚©AV‚µ‚¢ƒRƒ“ƒsƒ…[ƒ^‚É•t‘®‚µ‚Ä‚¢‚é Windows ‚ÌƒhƒLƒ…ƒƒ“ƒg‚Æˆê‚É‚ ‚é Certificate of Authenticity (COA) ƒ‰ƒxƒ‹‚É‚ ‚è‚Ü‚·BCOA ƒ‰ƒxƒ‹‚ğŒ©‚Â‚¯‚ç‚ê‚È‚©‚Á‚½ê‡‚Íg—p‚µ‚Ä‚¢‚éƒRƒ“ƒsƒ…[ƒ^‚Ì»‘¢Œ³‚É–â‚¢‡‚í‚¹‚Ä‚­‚¾‚³‚¢B</ID>
+            <br><br>
+            <center><img src="../images/oemcoa.jpg"></center>
+        </span>
+
+
+        <!-- PID ENTRY -->
+        <span ID=acterror_pid_entry class="text-primary" style="display:none;">
+            <br>
+            <table ID=PidBox border=0 DIR=ltr style="font-family:Courier New; FONT-SIZE: 12pt;">
+            <tr>
+                <td nowrap width=10>&nbsp;</td>
+                <td nowrap class="text-primary" >
+                <span ID=acterror_description_verify_key class="text-primary"><ID id="txtverifykey">ƒL[‚ğŠm”F‚µ‚Ä‚­‚¾‚³‚¢:</id></span>&nbsp;
+                </td>
+                <td>
+                <input style="ime-mode:disabled" id=pid1 type="text" size=6 maxlength=5 class=pid-box TABINDEX=1 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid2 type="text" size=6 maxlength=5 class=pid-box TABINDEX=2 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid3 type="text" size=6 maxlength=5 class=pid-box TABINDEX=3  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid4 type="text" size=6 maxlength=5 class=pid-box TABINDEX=4  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid5 type="text" size=6 maxlength=5 class=pid-box TABINDEX=5  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td>
+            </tr>
+            </table>
+        </span>
+
+        <!-- AFTER PID ENTRY TEXT -->
+        <span ID=acterror_after_pid_entry_OEMText class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErrOEMText">COA ƒ‰ƒxƒ‹‚ªŒ©‚Â‚©‚ç‚È‚¢ê‡‚ÍƒRƒ“ƒsƒ…[ƒ^‚Ì»‘¢Œ³‚É˜A—‚µ‚Ä‚­‚¾‚³‚¢B</ID><br>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text1 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr14">³‚µ‚¢ƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚µ‚Ä‚¢‚é‚É‚à‚©‚©‚í‚ç‚¸‚±‚ÌƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚éê‡‚ÍAƒ‰ƒCƒZƒ“ƒX”FØê—p‘‹Œû‚É–â‚¢‡‚í‚¹‚é‚©A‚Ü‚½‚Í<a href="#" id="acterror_link1"><U>Microsoft ƒ‰ƒCƒZƒ“ƒX”FØ ƒAƒVƒXƒ^ƒ“ƒX‚Ì Web ƒTƒCƒg</u></a>‚ğQÆ‚µ‚Ä’Ç‰Á‚Ìƒvƒƒ_ƒNƒg ƒL[‚Ìî•ñ‚ğæ“¾‚µ‚Ä‚­‚¾‚³‚¢B‚¨Z‚Ü‚¢‚Ì’nˆæ‚Ì˜A—”Ô†‚ğ’m‚é‚É‚Í <B>[“d˜b]</B> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</ID>
+        </span>
+
+
+        <span ID=acterror_after_pid_entry_text2 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr15">ŠÔˆá‚Á‚½‘€ì‚ğ‚µ‚Ä‚¢‚È‚¢‚Ì‚É‚±‚ÌƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚Ä‚¢‚é‚Æv‚í‚ê‚éê‡‚ÍAƒ‰ƒCƒZƒ“ƒX”FØê—p‘‹Œû‚É–â‚¢‡‚í‚¹‚é‚©A‚Ü‚½‚Í<a href="#" id="acterror_link2"><U>Microsoft ƒ‰ƒCƒZƒ“ƒX”FØ ƒAƒVƒXƒ^ƒ“ƒX‚Ì Web ƒTƒCƒg</u></a>‚ğQÆ‚µ‚Ä’Ç‰Á‚Ìƒvƒƒ_ƒNƒg ƒL[‚Ìî•ñ‚ğæ“¾‚µ‚Ä‚­‚¾‚³‚¢B‚¨Z‚Ü‚¢‚Ì’nˆæ‚Ì˜A—”Ô†‚ğ’m‚é‚É‚Í <B>[“d˜b]</B> ‚ğƒNƒŠƒbƒN‚µ‚Ä‚­‚¾‚³‚¢B</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text3 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr16">Windows ‚Íˆê“x‚É 1 ‘ä‚ÌƒRƒ“ƒsƒ…[ƒ^‚É‚Ì‚İƒCƒ“ƒXƒg[ƒ‹‚Å‚«‚Ü‚·BŠÔˆá‚Á‚½‘€ì‚ğ‚µ‚Ä‚¢‚È‚¢‚Ì‚É‚±‚ÌƒƒbƒZ[ƒW‚ª•\¦‚³‚ê‚Ä‚¢‚é‚Æv‚í‚ê‚éê‡‚ÍA<B>[“d˜b]</B> ‚ğƒNƒŠƒbƒN‚µ‚Äƒ‰ƒCƒZƒ“ƒX”FØê—p‘‹Œû‚É‚¨“d˜b‚­‚¾‚³‚¢B</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text4 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr17">ƒvƒƒ_ƒNƒg ƒL[‚ğ“ü—Í‚·‚é•K—v‚ª‚È‚¢ê‡‚Í <B>[“d˜b]</B> ‚ğƒNƒŠƒbƒN‚µ‚ÄA‘O‚Ìƒ‰ƒCƒZƒ“ƒX”FØƒy[ƒW‚É–ß‚Á‚Ä‚­‚¾‚³‚¢B</ID>
+        </span>
+        
+    <!-- End -->
+    </td>
+
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=99%>
+            &nbsp;&nbsp;
+            <span ID=acterror_specific_error_code class="text-primary" style="display:none; z-index:10;">
+            </span>
+        </td>
+        <td>
+        <BUTTON ID="btnTelephone" class="buttons" TABINDEX=6 ACCESSKEY="T"><label for=btnTelephone><id id="LocalBtnTel_Text">“d˜b(<u>T</u>)</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=7 ACCESSKEY="R"><label for=btnQuit><id id="LocalBtnQuit_Text">Œã‚Å’Ê’m‚·‚é(<u>R</u>)</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=8 ACCESSKEY="E"><label for=btnNext><id id="LocalBtnRetry_Text">Äs(<u>E</u>)</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+GIF89a0 0 ÷   1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ !ù  ÿ ,    0 0 Ç 1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ ş ı	H° Áƒ*L(ïN›D£p)÷.Ş¼pñÆº„Ç‰.\ÈaD9~ŞËw5jçĞ¡“G“¹k«¼¼xQ¢§‡0`ˆa‚C„tCyO_0M°’]»¶íšÍ›U“ÁZuh7hØĞùá ‚¨À€Š-rÆ È¥Jsg°\¹Â¦¯ß½i$¥úÚ,hd’£1%y
+õ›LÙ^?{İáÛ‡’¿|øğ™sg®04`¥e•SH¹2Á~õ`×Ã–ò ?yÕJ¹b¶L›+e£0%Óä…#ÓìÖ>("_êˆ²e¬z6Q£LÁÒ4èÈN „ş-û`—İ|ğº9ëÕÌW¯açØÑ”·nİ¶d§’é‡Å_’¡T Á€8À@'Èàƒ‹!±”@÷¸É ƒX¢	TüAe!…ƒ<²‡rì K¡‚
+;ğÀC]tAF; ğÆ.û ä0F¤:Ğ<âá˜S4¾tÇ±àce	É&P9ÑÜZh÷Téiå 6K„œ´Pl`ælÊ-w>ò\óJ.™ÁÆŒX’L>f.§9A("7¯ŒóÎ8ã0\`ÜğÓxPu$OM€QÇ%£Ü’9â(£=ë$£‰FğdABQA†Ô˜R•Í4ãL3ş½ÄêK4´Js*ˆâFÑS	 HTY+OA ­d%<ÑôŒ,²Ìr
+*õaµ!|pèl0lY,(¸DİÔÏ=¬D5U}ëĞÇîTÉ BÉ…–P(	ãa°@¤¥Â &(!\9äÁ¨?î”c‰%üE•ToG	$”-{ğàƒ1 ÀV  „¼‹dì€!ÇdN4l|ÅáË¢±kŸ€â	(f˜1Ç9çÌ]¨€Â„”«4¡´L£Œ9ãN>W–ó‹4…l¢¤gûpÖZA—Á6>îìC-æä“Ï=¥Ñò‰Û@ãL9ğlVæ@­µ†şŞõÌf>ùt8•æcÎáCšÓIª"¶e{û&l´	´Ï=»âˆ,ÏtşL'ÄG±ÀÓxJ}§Ş76ØÜİè™hÊÃ>ú¼şº>ëè’‰2¦´2Š"‚ÚXXr°íñC2¤(“‹8ÕD¯.£$ÒF-„tÁ€œn;?ê’ˆ"­,C=ñ¤³5ê“H|ğ‡’¶ëcJ¤‰`ÒŠ2Ì`šN<h"Å"Ğ„ˆÀ4JQh²:é#hÚ`Jâ7¸Ø9`14øŠ è€20P ¦K	hÔF5+!îÑğ…,B!¾ê	„2¬0 şÇCˆ”†qŒcPãíšO}®A:(Í;<)‚…	,`
+`Á”âº|¤9œ9!‹h¸kSYFE)v`‡ã—~@.¦ nè)G{dèzƒä †'ÈQ•kDESÀÀF ‘8 ‡Pó |”ÃÃ(Æ4À‘D%Ú¤* @FÃ4a	ÿˆÇ„â°(a	[P]˜r–À‚*Va9Ğx­¤bBrÃ!†ğ-¬R-lÉ,±(4CUû`†ÔUÈ^²?àËHøà X Öò1í`s€’”wLÂB‹',Ö!Œé!d şğÁğ2±¨eàÁ\D}¸n P½êEÊ—>ÒCÈ„-Œ!	$s‘øààÍ ŸAÆ˜†¾È,¡_‘Y_®€?ĞBh+Â¢3Ô4	<  ‡¼!Äpt0p8T¢V £9~aY ,=İˆ*<à‘·Ê\f¤§Ø‰Ò*s|bbC'°ÎubFwûÚ’,S/–†î …ihÑùHty€!6Q‘âM­“‰[ëaĞ®Yn¡9LÏvŠ1­IUœ?`C¹h3ü>ØFh<ãp³Ø„÷^c™Àöol¥>¢¸).mS5>‡/ Ñ*r”Ü˜*·rp‚nU²R—ÚˆÑ=öK”åÛlr¹nÄbyÈÃAˆXtÃt]üëXw·€  ;PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDING                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                v e n t H a n d l e r   ÿÿÿÿS O F T W A R E \ M i c r o s o f t \ W i n d o w s \ C u r r e n t V e r s i o n \ E x p l o r e r \ A u t o p l a y H a n d l e r s \ H a n d l e r s \ M S W i a E v e n t H a n d l e r     ÿÿÿÿP r o g I D     ÿÿÿÿW i a D e v M g r   ÿÿÿÿA c t i o n     ˜3  @ % s y s t e m r o o t % \ S y s t e m 3 2 \ w i a a c m g r . e x e , - 2 7 6     ÿÿÿÿ@ % s y s t e m r o o t % \ S y s t e m 3 2 \ w i a a c m g r . e x e , - 1 0 1     \.  D e f a u l t I c o n   ”  % s y s t e m r o o t % \ S y s t e m 3 2 \ w i a a c m g r . e x e , - 2   ÿÿÿÿC L S I D \ { 0 5 2 7 d 1 d 0 - 8 8 c 2 - 1 1 d 2 - 8 2 c 7 - 0 0 c 0 4 f 8 e c 1 8 3 }     ÿÿÿÿW I A   V i d e o   C a m e r a   d r i v e r   ÿÿÿÿC L S I D \ { 0 5 2 7 d 1 d 0 - 8 8 c 2 - 1 1 d 2 - 8 2 c 7 - 0 0 c 0 4 f 8 e c 1 8 3 } \ I n P r o c S e r v e r 3 2   ÿÿÿÿC : \ W I N D O W S \ s y s t e m 3 2 \ w i a v u s d . d l l   <  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 }     ÿÿÿÿW I A   F i l e S y s t e m   U S D     Ğ
+  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ I n P r o c S e r v e r 3 2   ÿÿÿÿC : \ W I N D O W S \ s y s t e m 3 2 \ f s u s d . d l l   ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ C o n n e c t e d     ¬  G U I D     ÿÿÿÿ{ A 2 8 B B A D E - 6 4 B 6 - 1 1 D 2 - A 2 3 1 - 0 0 C 0 4 F A 3 1 8 0 9 }     ÿÿÿÿL a u n c h A p p l i c a t i o n s     ÿÿÿÿ*   ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ D i s c o n n e c t e d   ÿÿÿÿ{ 1 4 3 E 4 E 8 3 - 6 4 9 7 - 1 1 D 2 - A 2 3 1 - 0 0 C 0 4 F A 3 1 8 0 9 }     ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ S c a n B u t t o n   ¼  { A 6 C 5 A 7 1 5 - 8 C 6 E - 1 1 D 2 - 9 7 7 A - 0 0 0 0 F 8 7 A 9 2 6 F }     ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ S T I P r o x y E v e n t     ¼  { d 7 1 1 f 8 1 f - 1 f 0 d - 4 2 2 d - 8 6 4 1 - 9 2 7 d 1 b 9 3 e 5 e 5 }     ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ C o n n e c t e d \ { D 1 3 E 3 F 2 5 - 1 6 8 8 - 4 5 A 0 - 9 7 4 3 - 7 5 9 E B 3 5 C D F 9 A }   ÿÿÿÿN a m e     ÿÿÿÿD e s c     ÿÿÿÿw i a a c m g r . e x e , - 2   ÿÿÿÿS Y S T E M \ C u r r e n t C o n t r o l S e t \ C o n t r o l \ S t i l l I m a g e \ E v e n t s \ S c a n B u t t o n \ { D 1 3 E 3 F 2 5 - 1 6 8 8 - 4 5 A 0 - 9 7 4 3 - 7 5 9 E B 3 5 C D F 9 A }     ÿÿÿÿS e r v i c e I n s t a l l a t i o n   ÿÿÿÿr u n d l l 3 2 . e x e     C : \ W I N D O W S \ s y s t e m 3 2 \ s t i _ c i . d l l , I n s t a l l W i a S e r v i c e     |9  s t i . s c s i s e c t i o n   ÿÿÿÿC o p y F i l e s   ¸*  c o p y f i l e s   ÿÿÿÿs c s i s c a n       0 x 0 0 0 0 0 0 0 2     ÿÿÿÿS T I . S c s i S c a n . A d d S e r v i c e   œ,  s t i . s c s i s e c t i o n . s e r v i c e s     ÿÿÿÿs c s i s c a n . s y s     +  s t i . s c s i s c a n . a d d s e r v i c e   À  1     3   ÿÿÿÿC : \ W I N D O W S \ s y s t e m 3 2 \ D R I V E R S \ s c s i s c a n . s y s     ÿÿÿÿL o a d O r d e r G r o u p     D,  l o a d o r d e r g r o u p     ÿÿÿÿB a s e     ÿÿÿÿs t i . u s b s e c t i o n     ÿÿÿÿu s b s c a n   ÿÿÿÿS T I . U s b S c a n . A d d S e r v i c e       s t i . u s b s e c t i o n . s e r v i c e s   ÿÿÿÿu s b s c a n . s y s   Ô,  s t i . u s b s c a n . a d d s e r v i c e     ÿÿÿÿC : \ W I N D O W S \ s y s t e m 3 2 \ D R I V E R S \ u s b s c a n . s y s   ÿÿÿÿs t i . s e r i a l s e c t i o n   ÿÿÿÿS t i l l C a m     L  S T I . S t i l l C a m e r a . A d d S e r v i c e     ˆ  s t i . s e r i a l s e c t i o n . s e r v i c e s     <-  s e r s c a n . s y s    .  s t i . s t i l l c a m e r a . a d d s e r v i c e     Œ-  C : \ W I N D O W S \ s y s t e m 3 2 \ D R I V E R S \ s e r s c a n . s y s   ÿÿÿÿs t i . s b p 2 s e c t i o n   ´  s t i . s b p 2 s e c t i o n . s e r v i c e s     ÿÿÿÿs t i . p t p u s b s e c t i o n   ÿÿÿÿS T I . P T P U S B . A d d R e g   Ä0  S T I . U s b . A d d R e g     ä  S T I . P T P U S B . C o p y F i l e s     H2  D e v i c e D a t a     D0  d e v i c e d a t a     ÿÿÿÿS T I . P T P U S B D e v i c e D a t a     ÿÿÿÿS u b C l a s s     ¬0  s u b c l a s s     <  D e v i c e T y p e     Ü0  d e v i c e t y p e     ä5  2   ÿÿÿÿC a p a b i l i t i e s     1  c a p a b i l i t i e s     ÿÿÿÿ0 x 3 5     ÿÿÿÿU n i n s t a l l S e c t i o n     l1  u n i n s t a l l s e c t i o n     ÿÿÿÿE v e n t s     ¼1  e v e n t s     ÿÿÿÿS T I . P T P U S B D e v i c e E v e n t s     0  s t i . p t p u s b . c o p y f i l e s     ÿÿÿÿp t p u s d . d l l     ÿÿÿÿp t p u s b . d l l     È/  s t i . p t p u s b . a d d r e g   ô  H a r d w a r e C o n f i g     ÿÿÿÿU S D C l a s s     ÿÿÿÿ{ B 5 E E 9 0 B 0 - D 5 C 5 - 1 1 D 2 - 8 2 D 5 - 0 0 C 0 4 F 8 E C 1 8 3 }     ÿÿÿÿC L S I D \ { B 5 E E 9 0 B 0 - D 5 C 5 - 1 1 D 2 - 8 2 D 5 - 0 0 C 0 4 F 8 E C 1 8 3 }     ÿÿÿÿP I M A 1 5 7 4 0   C a m e r a s   W I A   U S D   ÿÿÿÿC L S I D \ { B 5 E E 9 0 B 0 - D 5 C 5 - 1 1 D 2 - 8 2 D 5 - 0 0 C 0 4 F 8 E C 1 8 3 } \ I n P r o c S e r v e r 3 2   P  C : \ W I N D O W S \ s y s t e m 3 2 \ p t p u s d . d l l     ÿÿÿÿC L S I D \ { 6 5 a a b 9 6 d - 7 1 b 5 - 4 4 d 1 - a b 9 e - 4 8 8 f 7 3 0 e 7 8 7 0 }     ÿÿÿÿP I M A 1 5 7 4 0   U S B   T r a n s p o r t   ÿÿÿÿC L S I D \ { 6 5 a a b 9 6 d - 7 1 b 5 - 4 4 d 1 - a b 9 e - 4 8 8 f 7 3 0 e 7 8 7 0 } \ I n P r o c S e r v e r 3 2   ÿÿÿÿC : \ W I N D O W S \ s y s t e m 3 2 \ p t p u s b . d l l     |0  s t i . p t p u s b d e v i c e d a t a     ÿÿÿÿM o d e l   6  m o d e l   ÿÿÿÿP I M A 1 5 7 4 0   ÿÿÿÿS e r v e r     L6  s e r v e r     d2  l o c a l   ÿÿÿÿU I   D L L     „6  u i   d l l     ÿÿÿÿs t i . d l l   ÿÿÿÿU I   C l a s s   I D   À6  u i   c l a s s   i d   ô  { 4 D B 1 A D 1 0 - 3 3 9 1 - 1 1 D 2 - 9 A 3 3 - 0 0 C 0 4 F A 3 6 1 4 5 }     ÿÿÿÿT r a n s p o r t C L S I D     L7  t r a n s p o r t c l s i d     ÿÿÿÿ{ 6 5 a a b 9 6 d - 7 1 b 5 - 4 4 d 1 - a b 9 e - 4 8 8 f 7 3 0 e 7 8 7 0 }     ä1  s t i . p t p u s b d e v i c e e v e n t s     ÿÿÿÿC o n n e c t e d   8  c o n n e c t e d   ÿÿÿÿ% D C C o n n e c t e d %   ô$  { A 2 8 B B A D E - 6 4 B 6 - 1 1 d 2 - A 2 3 1 - 0 0 C 0 4 F A 3 1 8 0 9 }     ÿÿÿÿD i s c o n n e c t e d     À8  d i s c o n n e c t e d     ÿÿÿÿ% D C D i s c o n n e c t e d %      &  { 1 4 3 E 4 E 8 3 - 6 4 9 7 - 1 1 d 2 - A 2 3 1 - 0 0 C 0 4 F A 3 1 8 0 9 }     ÿÿÿÿs t i . w i a v i d e o . r e g i s t r a t i o n   ÿÿÿÿA d d R e g     ÿÿÿÿS T I . W I A V i d e o . A d d R e g   ÿÿÿÿS T I . W I A V i d e o D e v i c e D a t a     È9  s t i . w i a v i d e o . a d d r e g   P
+  { 0 5 2 7 d 1 d 0 - 8 8 c 2 - 1 1 d 2 - 8 2 c 7 - 0 0 c 0 4 f 8 e c 1 8 3 }     ô9  s t i . w i a v i d e o d e v i c e d a t a     ÿÿÿÿ{ 5 d 8 e f 5 a 3 - a c 1 3 - 1 1 d 2 - a 0 9 3 - 0 0 c 0 4 f 7 2 d c 3 c }     D  w i a f s . a d d r e g     Ğ1  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . j p g     ÿÿÿÿG e n e r i c   Ì  i m a g e   ÿÿÿÿF o r m a t G U I D     Ä  { B 9 6 B 3 C A E - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . b m p     ÿÿÿÿ{ B 9 6 B 3 C A B - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . e x i f   ÿÿÿÿ{ B 9 6 B 3 C B 2 - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     |F  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . f p x     ÿÿÿÿ{ B 9 6 B 3 C B 4 - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . g i f     ÿÿÿÿ{ B 9 6 B 3 C B 0 - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . j p 2     ÿÿÿÿ{ 3 4 4 E E 2 B 2 - 3 9 D B - 4 D D E - 8 1 7 3 - C 4 B 7 5 F 8 F 1 E 4 9 }     ´	  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . j p e g   ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . p c d     ˜6  { B 9 6 B 3 C B 3 - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . p i c     ÿÿÿÿ{ A 6 B C 8 5 D 8 - 6 B 3 E - 4 0 E E - A 9 5 C - 2 5 D 4 8 2 E 4 1 A D C }     PM  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . p n g     ÿÿÿÿ{ B 9 6 B 3 C A F - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     `6  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . t i f     ÿÿÿÿ{ B 9 6 B 3 C B 1 - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . t i f f   ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . w m f     ÿÿÿÿ{ B 9 6 B 3 C A D - 0 7 2 8 - 1 1 D 3 - 9 D 7 B - 0 0 0 0 F 8 1 E F 3 2 E }     xK  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . m i x     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . a v i     ÿÿÿÿv i d e o   d  { 3 2 F 8 C A 1 4 - 0 8 7 C - 4 9 0 8 - B 7 C 4 - 6 7 5 7 F E 7 E 9 0 A B }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . a s f     ÿÿÿÿ{ 8 D 9 4 8 E E 9 - D 0 A A - 4 A 1 2 - 9 D 9 A - 9 C C 5 D E 3 6 1 9 9 B }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . m o v     E  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . m p e g   ôR  { E C D 7 5 7 E 4 - D 2 E C - 4 F 5 7 - 9 5 5 D - B C F 8 A 9 7 C 4 E 5 2 }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . m p g     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . w m v     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . w a v     ÿÿÿÿa u d i o   \1  { F 8 1 8 E 1 4 6 - 0 7 A F - 4 0 F F - A E 5 5 - B E 8 F 2 C 0 6 5 D B E }     <  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . m p 3      /  { 0 F B C 7 1 F B - 4 3 B F - 4 9 F 2 - 9 1 9 0 - E 6 F E C F F 3 7 E 5 4 }     |%  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . w m a     ÿÿÿÿ{ D 6 1 D 6 4 1 3 - 8 B C 2 - 4 3 8 F - 9 3 A D - 2 1 B D 4 8 4 D B 6 A 1 }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . t x t     ÿÿÿÿt e x t     ÿÿÿÿ{ F A F D 4 D 8 2 - 7 2 3 F - 4 2 1 F - 9 3 1 8 - 3 0 5 0 1 A C 4 4 B 5 9 }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . h t m     ÿÿÿÿ{ c 9 9 a 4 e 6 2 - 9 9 d e - 4 a 9 4 - a c c a - 7 1 9 5 6 a c 2 9 7 7 d }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . h t m l   ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . x m l     ÿÿÿÿ{ b 9 1 7 1 4 5 7 - d a c 8 - 4 8 8 4 - b 3 9 3 - 1 5 b 4 7 1 d 5 f 0 7 e }      ?  C L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . d o c     ÿÿÿÿ{ 5 7 3 d d 6 a 3 - 4 8 3 4 - 4 3 2 d - a 9 b 5 - e 1 9 8 d d 9 e 8 9 0 d }     ÿÿÿÿC L S I D \ { D 2 9 2 3 B 8 6 - 1 5 F 1 - 4 6 F F - A 1 9 A - D E 8 2 5 F 9 1 9 5 7 6 } \ S u p p o r t e d E x t e n s i o n \ . r t f     ÿÿÿÿs t i . m i c r o d r i v e r s e c t i o n     ÿÿÿÿS T I . M I C R O D R I V E R S e c t i o n . A d d R e g   (S  s t i . m i c r o d r i v e r s e c t i o n . a d d r e g   ÿÿÿÿ{ B B 6 C F 8 E 2 - 1 5 1 1 - 4 0 b d - 9 1 B A - 8 0 D 4 3 C 5 3 0 6 4 E }     ÿÿÿÿC L S I D \ { B B 6 C F 8 E 2 - 1 5 1 1 - 4 0 b d - 9 1 B A - 8 0 D 4 3 C 5 3 0 6 4 E }     ÿÿÿÿM i c r o s o f t   F l a t b e d   D r i v e r     ÿÿÿÿC L S I D \ { B B 6 C F 8 E 2 - 1 5 1 1 - 4 0 b d - 9 1 B A - 8 0 D 4 3 C 5 3 0 6 4 E } \ I n P r o c S e r v e r 3 2   G  C : \ W I N D O W S \ s y s t e m 3 2 \ w i a f b d r v . d l l     ÿÿÿÿw i a f b d r v . d l l     S i g n a t u r e   $ W I N D O W S   N T $   C l a s s   I m a g e   C l a s s G U I D   { 6 b d d 1 f c 6 - 8 1 0 f - 1 1 d 0 - b e c 7 - 0 8 0 0 2 b e 2 0 9 2 f }   P r o v i d e r   M i c r o s o f t   L a y o u t F i l e   L A Y O U T . I N F   D r i v e r V e r   0 7 / 0 1 / 2 0 0 1       ô         H        L        È        d                 ´  (   $   ”*     L   P+     O         P   ¨+     Q   œ,     W   -     Z   ˆ     [   X-     \   à-     b   \.     e   ô     f   ´.     g   D/     m   h/     p    /     q   2     y   €2     {   ä5     ƒ   è7     ˆ   |9     Š   (:     Œ   ¨:        0;  7      ôR     Ç   hS     É   t     Í                         	                                        !     $     '     *     -     0     3     6     9     <     ?     C     G     K     O     S     V     Z     _     b     e     h     k     n     q      t      y      ~      ƒ      ˆ            ’      —      œ      ¡      ¦      «      °      µ      ·      ¼      Á      Æ      Ë      Ğ      Õ      Ú      ß      ä      é      î      ó      ø      ı                                          %     *     /     4    9    <    ?    D    I    K    N    Q    T    W    Z    ]    `    c    h    m    o    r    u    x    {    ~        „    ‡    Œ    ‘    “    –    ™    œ    Ÿ    ¢    ¥    ¨    «    °    µ    ¹    ½    À    Ã    Æ    É    Ì    Ï    Ñ     Ó     Ø     İ     â     ç     ì     ñ     ö    û    ş                
+                         "    %     (     -     2     7     <     A     F     K     P     U     Z     _     d     i     n     s     x     }     ‚     ‡     Œ     ‘     –     ›           ¥     ª     ¯     ´     ¹     ¾     Ã     È     Í     Ò     ×     Ü     á     æ     ë     ğ     õ     ú     ÿ          	                         "     '     ,     1     6    ;    >     A     F     K     P    U      (  œ  €  ¸  4	  (	  @	  ´	   	  È	  @
+  0
+  P
+  €
+  h
+  ˜
+  Ğ
+  ¼
+  ä
+  <  (  P  ¼  ”  ä  4    X  ¬  „  Ô  H     p    Ü  4  ”  x  °  L  0  h  Ğ  ´  ì  t  \  Œ  ¼  ¬  Ì  ô  Ü    x  `  P
+  ¬    È  ü  ä    0  ”  p  ¸  Ä     ì  ¸  Ä  ˆ  T  ¸  Ä  ô  ¼  ¸  Ä  t  ,  ¼    ğ    D  ¼     <  Ø  à  |  `  4  ´  ˜  °  ì  Ğ    <  $  T    p  °  ì  Ì    <    \  à  Ø  Ø  Ø  ˜
+  à  Ø  ì  Ø    à  Ø  <  Ø  d  à  Ø  ¬  Ø  ¼  Ä  Ô  T  |  ˜  Ä  Ô  ä    $  Ä  @  Ø  Ø  ä
+  Ä  @  ¼  Ø  Ì  Ä  Ô  Ø  Ø  P  Ä  Ô  ¼  Ø  Ì  P  `  Ø  Ø  À  P  Ü  Ø  Ø  X  P  Ü  ”  Ø  ¸  P  È  Ä  ¬  €  Ø  Ø  Ä  ¨  l   Ø  €   Ä  ¨  ˜   Ø  ¬   Ä  ¨  `  Ø  !  Ä  ¨  \!  |  x!  P  È!  Ø  Ø  ("  P  \"  Ø  Ø  Ø"  P  \"  ”  Ø  ¸  P  #  Ø  Ø  |#  P  ¨#  Ø  Ø  $$  P  ¨#  ”  Ø  ¸  Ä  d$  ä$  Ø  ô$  Ä  d$  H%  Ø  t%  Ä  |%  ä$  Ø   &  Ä  |%  H%  Ø  t%  Ä  T&  ä$  Ø  Ô&  Ä  T&  H%  Ø  t%  Ä  ('  ä$  Ø  °'  Ä  ('  H%  Ø  t%  Ä  (  Ğ(  Ø  h  Ä  (  à(  Ø  ì  Ä  (  ¬  Ø  ğ(  Ä  )  Ğ(  Ø  h  Ä  )  à(  Ø  ì  Ä  )  ¬  Ø  ğ(  Ä  È	  ä)  Ø  *    ğ  Ø  Ğ*  ¸*  ì  ¼     è*   +  +  ¼     è*   +  +  ˆ+  ˆ+  |  `  ä  ì  Ğ  Ü+  <  $  ä+    p  Ü+  <    ì+  h,  D,  Œ,    ğ  Ø  Ğ*  ¸*  T  ¼     À,   +  Ô,  ¼     À,   +  Ô,  <-  <-  |  `  X  ì  Ğ  Ü+  <  $  ä+    p  Ü+  <    Œ-  h,  D,  Œ,    ğ  Ø  Ğ*  ¸*  ¼  ¼     .   +   .  ¼     .   +   .  ˜.  ˜.  |  `  Ô  ì  Ğ  Ü+  <  $  ä+    p  Ü+  <    ğ.  h,  D,  Œ,    ğ  Ø  Ğ*  ¸*  ì  ¼     è*   +  +  ¼     è*   +  +    ğ  È/  ğ/  Ğ*  ¸*  0  T  `0  D0  |0  Ä0  ¬0  À  ø0  Ü0  1  <1  1  \1  ”1  l1  Ø  Ğ1  ¼1  ä1  H2  H2  d2  d2  à  Ø  ¨2  Ü+  Ì  à  Ø  Ì2  Ø  ä2  P  83  Ø  Ø  ˜3  P  Ğ3  Ø  Ø  L4  P  Ğ3  ”  Ø  ¸  P  4  Ø  Ø  ğ4  P  $5  Ø  Ø   5  P  $5  ”  Ø  ¸  $6  6  46  `6  L6  t6  ˜6  „6  ¬6  Ü6  À6  ø6  p7  L7  ”7  48  8  L8  l8  t%  à8  À8   9  (9  t%    ´9  È9  `0  D0  ô9  à  Ø  Ì2  Ø  T:  `6  L6  t6  ˜6  „6  ¬6  Ü6  À6  Ü:  P  P;  à;  Ø  ô;  P  P;  <  Ø   <  P  t<  à;  Ø  ô;  P  t<  <  Ø  =  P  X=  à;  Ø  ô;  P  X=  <  Ø  è=  P  <>  à;  Ø  ô;  P  <>  <  Ø  Ì>  P   ?  à;  Ø  ô;  P   ?  <  Ø  °?  P  @  à;  Ø  ô;  P  @  <  Ø  ”@  P  è@  à;  Ø  ô;  P  è@  <  Ø   <  P  xA  à;  Ø  ô;  P  xA  <  Ø  B  P  \B  à;  Ø  ô;  P  \B  <  Ø  ìB  P  @C  à;  Ø  ô;  P  @C  <  Ø  ĞC  P  $D  à;  Ø  ô;  P  $D  <  Ø  ´D  P  E  à;  Ø  ô;  P  E  <  Ø  ´D  P  ˜E  à;  Ø  ô;  P  ˜E  <  Ø  (F  P  |F  à;  Ø  ô;  P  G  à;  Ø  œG  P  G  <  Ø  ¬G  P   H  à;  Ø  œG  P   H  <  Ø  H  P  äH  à;  Ø  œG  P  tI  à;  Ø  œG  P  tI  <  Ø  J  P  XJ  à;  Ø  œG  P  XJ  <  Ø  J  P  èJ  à;  Ø  œG  P  xK  à;  Ø  L  P  xK  <  Ø  L  P  lL  à;  Ø  L  P  lL  <  Ø  üL  P  PM  à;  Ø  L  P  PM  <  Ø  àM  P  4N  à;  Ø  ÄN  P  4N  <  Ø  ÔN  P  (O  à;  Ø  ÄN  P  (O  <  Ø  ¸O  P  P  à;  Ø  ÄN  P  P  <  Ø  ¸O  P  œP  à;  Ø  ÄN  P  œP  <  Ø  ,Q  P  €Q  à;  Ø  ÄN  P  €Q  <  Ø  R  P  dR  à;  Ø  ÄN  P  dR  <  Ø  R    ´9  (S  Ğ*  ¸*  ,  à  Ø  Ì2  Ø  ¨S  P  üS  Ø  Ø  \T  P  ”T  Ø  Ø  U  P  ”T  ”  Ø  ¸  XU  XU      Œ   ˜     Å   ¬      Ê   !     Ï   x!       L8        9  

@@ -1,0 +1,2490 @@
+m:name>
+        </xsl:if>
+        <xsl:if test="string($_validatedEmail)">
+          <atom:email><xsl:value-of select="$_validatedEmail" /></atom:email>
+        </xsl:if>
+        <xsl:variable name="_validatedUri" select="msfeednorm:NormalizeUri(normalize-space($uri))" />
+        <xsl:if test="string($_validatedUri)">
+          <atom:uri><xsl:value-of select="$_validatedUri" /></atom:uri>
+        </xsl:if>
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+
+
+<!--
+Common feed format output templates
+-->
+
+<!-- xml:lang -->
+  <xsl:template name="_OutputXmlLang">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextAttribute">
+      <xsl:with-param name="tagName" select="'xml:lang'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- xml:base -->
+  <xsl:template name="_OutputXmlBase">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputUrlAttribute">
+      <xsl:with-param name="tagName" select="'xml:base'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- title -->
+  <xsl:template name="_OutputTitle">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'title'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="type" select="$type" />
+      <xsl:with-param name="outputTypeAttribute" select="'true'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- link -->
+  <xsl:template name="_OutputLink">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputUrlElement">
+      <xsl:with-param name="tagName" select="'link'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- plain-text description -->
+  <xsl:template name="_OutputTextDescription">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'description'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="type" select="$type" />
+      <xsl:with-param name="outputTypeAttribute" select="'true'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- pubDate -->
+  <xsl:template name="_OutputPubDate">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'pubDate'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- language -->
+  <xsl:template name="_OutputLanguage">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'language'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- copyright -->
+  <xsl:template name="_OutputCopyright">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'copyright'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="type" select="$type" />
+      <xsl:with-param name="outputTypeAttribute" select="'true'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- lastBuildDate -->
+  <xsl:template name="_OutputLastBuildDate">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'lastBuildDate'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- managingEditor -->
+  <xsl:template name="_OutputManagingEditor">
+    <xsl:param name="value" />
+    <xsl:param name="convertToAtom" select="'false'" />
+    <xsl:call-template name="_OutputAuthorOrEditor">
+      <xsl:with-param name="tagName" select="'managingEditor'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="convertToAtom" select="$convertToAtom" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- webMaster -->
+  <xsl:template name="_OutputWebMaster">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'webMaster'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- category -->
+  <xsl:template name="_OutputCategory">
+    <xsl:param name="value" />
+    <xsl:param name="domain" />
+    <xsl:variable name="_validatedValue" select="normalize-space($value)" />
+    <xsl:if test="string($_validatedValue)">
+      <xsl:element name="category">
+        <xsl:call-template name="_OutputTextAttribute">
+          <xsl:with-param name="tagName" select="'domain'" />
+          <xsl:with-param name="value" select="$domain" />
+        </xsl:call-template>
+        <xsl:value-of select="$_validatedValue" />
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+<!-- generator -->
+  <xsl:template name="_OutputGenerator">
+    <xsl:param name="value" />
+    <xsl:param name="uri" />
+    <xsl:param name="version" />
+    <xsl:variable name="_validatedValue" select="normalize-space($value)" />
+    <xsl:if test="string($_validatedValue)">
+      <xsl:element name="generator">
+        <xsl:call-template name="_OutputUriAttribute">
+          <xsl:with-param name="tagName" select="'cf:uri'" />
+          <xsl:with-param name="nameSpace" select="$_NScf" />
+          <xsl:with-param name="value" select="$uri" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputTextAttribute">
+          <xsl:with-param name="tagName" select="'cf:version'" />
+          <xsl:with-param name="nameSpace" select="$_NScf" />
+          <xsl:with-param name="value" select="$version" />
+        </xsl:call-template>
+        <xsl:value-of select="$_validatedValue" />
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+<!-- docs -->
+  <xsl:template name="_OutputDocs">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputUrlElement">
+      <xsl:with-param name="tagName" select="'docs'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- cloud -->
+  <xsl:template name="_OutputCloud">
+    <xsl:param name="value" />
+    <!-- We always output this element and clean any attribute it has into text -->
+    <cloud>
+      <xsl:for-each select="$value/@*">
+        <xsl:attribute name="{name(.)}"><xsl:value-of select="normalize-space(.)"/></xsl:attribute>
+      </xsl:for-each>
+    </cloud>
+  </xsl:template>
+
+<!-- ttl -->
+  <xsl:template name="_OutputTtl">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputPositiveNumberElement">
+      <xsl:with-param name="tagName" select="'ttl'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- image -->
+  <xsl:template name="_OutputImage">
+    <xsl:param name="url" />
+    <xsl:param name="title" />
+    <xsl:param name="titleType" select="'text'" />
+    <xsl:param name="link" />
+    <xsl:param name="width" />
+    <xsl:param name="height" />
+    <xsl:param name="description" />
+    <xsl:param name="subnodesToCopy" />
+    <xsl:variable name="_validatedUrl" select="msfeednorm:ValidateUrl(normalize-space($url))" />
+    <xsl:if test="string($_validatedUrl)">
+      <image>
+        <url><xsl:value-of select="$_validatedUrl" /></url>
+        <xsl:call-template name="_OutputTextElement">
+          <xsl:with-param name="tagName" select="'title'" />
+          <xsl:with-param name="value" select="$title" />
+          <xsl:with-param name="type" select="$titleType" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputUrlElement">
+          <xsl:with-param name="tagName" select="'link'" />
+          <xsl:with-param name="value" select="$link" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputPositiveNumberElement">
+          <xsl:with-param name="tagName" select="'width'" />
+          <xsl:with-param name="value" select="$width" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputPositiveNumberElement">
+          <xsl:with-param name="tagName" select="'height'" />
+          <xsl:with-param name="value" select="$height" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputTextElement">
+          <xsl:with-param name="tagName" select="'description'" />
+          <xsl:with-param name="value" select="$description" />
+        </xsl:call-template>
+        <xsl:if test="boolean($subnodesToCopy)">
+          <xsl:for-each select="$subnodesToCopy">
+            <xsl:copy-of select="." />
+          </xsl:for-each>
+        </xsl:if>
+      </image>
+    </xsl:if>
+  </xsl:template>
+
+<!-- rating -->
+  <xsl:template name="_OutputRating">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'rating'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- textInput -->
+  <xsl:template name="_OutputTextInput">
+    <xsl:param name="title" />
+    <xsl:param name="name" />
+    <xsl:param name="link" />
+    <xsl:param name="description" />
+    <xsl:param name="subnodesToCopy" />
+    <xsl:variable name="_validatedName" select="normalize-space($name)" />
+    <xsl:variable name="_validatedLink" select="msfeednorm:ValidateUrl(normalize-space($link))" />
+    <xsl:if test="string($_validatedName) and string($_validatedLink)">
+      <textInput>
+        <name><xsl:value-of select="$_validatedName" /></name>
+        <link><xsl:value-of select="$_validatedLink" /></link>
+        <xsl:call-template name="_OutputTextElement">
+          <xsl:with-param name="tagName" select="'title'" />
+          <xsl:with-param name="value" select="$title" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputTextElement">
+          <xsl:with-param name="tagName" select="'description'" />
+          <xsl:with-param name="value" select="$description" />
+        </xsl:call-template>
+        <xsl:if test="boolean($subnodesToCopy)">
+          <xsl:for-each select="$subnodesToCopy">
+            <xsl:copy-of select="." />
+          </xsl:for-each>
+        </xsl:if>
+      </textInput>
+    </xsl:if>
+  </xsl:template>
+
+<!-- skipHours -->
+  <xsl:template name="_OutputSkipHours">
+    <xsl:param name="value" />
+    <xsl:if test="$value/hour[number(.)>=0 and number(.)&lt;=23]">
+      <skipHours>
+        <xsl:for-each select="$value/hour">
+          <xsl:variable name="_numberHour" select="number(.)" />
+          <xsl:if test="$_numberHour >= 0 and $_numberHour &lt;= 23">
+            <hour><xsl:value-of select="$_numberHour" /></hour>
+          </xsl:if>
+        </xsl:for-each>
+      </skipHours>
+    </xsl:if>
+  </xsl:template>
+
+<!-- skipDays -->
+  <xsl:template name="_OutputSkipDays">
+    <xsl:param name="value" />
+    <xsl:if test="$value/day[string(.) = 'Monday' or string(.) = 'Tuesday' or string(.) = 'Wednesday' or string(.) = 'Thursday' or string(.) = 'Friday' or string(.) = 'Saturday' or string(.) = 'Sunday']">
+      <skipDays>
+        <xsl:for-each select="$value/day">
+          <xsl:variable name="_stringDay" select="string(.)" />
+          <xsl:if test="$_stringDay = 'Monday' or $_stringDay = 'Tuesday' or $_stringDay = 'Wednesday' or $_stringDay = 'Thursday' or $_stringDay = 'Friday' or $_stringDay = 'Saturday' or $_stringDay = 'Sunday'">
+            <day><xsl:value-of select="$_stringDay" /></day>
+          </xsl:if>
+        </xsl:for-each>
+      </skipDays>
+    </xsl:if>
+  </xsl:template>
+
+<!-- author -->
+  <xsl:template name="_OutputAuthor">
+    <xsl:param name="value" />
+    <xsl:param name="convertToAtom" select="'false'" />
+    <xsl:call-template name="_OutputAuthorOrEditor">
+      <xsl:with-param name="tagName" select="'author'" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="convertToAtom" select="$convertToAtom" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- comments -->
+  <xsl:template name="_OutputComments">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputUrlElement">
+      <xsl:with-param name="tagName" select="'comments'" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- enclosure -->
+  <xsl:template name="_OutputEnclosure">
+    <xsl:param name="url" />
+    <xsl:param name="length" />
+    <xsl:param name="type" />
+    <xsl:variable name="_validatedUrl" select="msfeednorm:ValidateUrl(normalize-space($url))" />
+    <xsl:if test="string($_validatedUrl)">
+      <enclosure>
+        <xsl:attribute name="url"><xsl:value-of select="$_validatedUrl"/></xsl:attribute>
+        <xsl:call-template name="_OutputPositiveNumberAttribute">
+          <xsl:with-param name="tagName" select="'length'" />
+          <xsl:with-param name="value" select="$length" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputMimeTypeAttribute">
+          <xsl:with-param name="tagName" select="'type'" />
+          <xsl:with-param name="value" select="$type" />
+        </xsl:call-template>
+      </enclosure>
+    </xsl:if>
+  </xsl:template>
+
+<!-- guid -->
+  <xsl:template name="_OutputGuid">
+    <xsl:param name="value" />
+    <xsl:param name="isPermaLink" />
+    <xsl:param name="channelGuid" select="'false'" />
+    <xsl:variable name="_validatedValue">
+      <xsl:choose>
+        <xsl:when test="normalize-space($isPermaLink) = 'true' or not(string($isPermaLink))">
+          <xsl:value-of select="msfeednorm:ValidateUrl(normalize-space($value))" />
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:value-of select="string($value)" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:variable>
+    <xsl:if test="string($_validatedValue)">
+      <xsl:choose>
+        <xsl:when test="$channelGuid = 'false'">
+          <xsl:element name="guid">
+            <xsl:call-template name="_OutputBoolAttribute">
+              <xsl:with-param name="tagName" select="'isPermaLink'" />
+              <xsl:with-param name="value" select="$isPermaLink" />
+            </xsl:call-template>
+            <xsl:value-of select="$_validatedValue" />
+          </xsl:element>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:element name="cf:guid" namespace="{$_NScf}">
+            <xsl:call-template name="_OutputBoolAttribute">
+              <xsl:with-param name="tagName" select="'isPermaLink'" />
+              <xsl:with-param name="value" select="$isPermaLink" />
+            </xsl:call-template>
+            <xsl:value-of select="$_validatedValue" />
+          </xsl:element>
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+  
+<!-- source -->
+  <xsl:template name="_OutputSource">
+    <xsl:param name="value" />
+    <xsl:param name="url" />
+    <xsl:variable name="_validatedValue" select="normalize-space($value)" />
+    <xsl:if test="string($_validatedValue)">
+      <xsl:element name="source">
+        <xsl:call-template name="_OutputUrlAttribute">
+          <xsl:with-param name="tagName" select="'url'" />
+          <xsl:with-param name="value" select="$url" />
+        </xsl:call-template>
+        <xsl:value-of select="$_validatedValue" />
+      </xsl:element>
+    </xsl:if>
+  </xsl:template>
+
+<!-- rich-text description -->
+  <xsl:template name="_OutputDescription">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:param name="baseUrl" />
+    <!-- Description is always html -->
+    <description cf:type="html">
+      <xsl:call-template name="_CleanByType">
+        <xsl:with-param name="value" select="$value" />
+        <xsl:with-param name="fromType" select="$type" />
+        <xsl:with-param name="toType" select="'html'" />
+        <xsl:with-param name="baseUrl" select="$baseUrl" />
+      </xsl:call-template>
+    </description>
+  </xsl:template>
+
+<!-- atom:summary -->
+  <xsl:template name="_OutputAtomSummary">
+    <xsl:param name="value" />
+    <xsl:param name="type" />
+    <xsl:param name="xmlBase" />
+    <xsl:param name="baseUrl" />
+    <atom:summary>
+      <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="$xmlBase" /></xsl:call-template>
+      <xsl:call-template name="_NormalizeAtomTextTypeAttr"><xsl:with-param name="value" select="$type" /></xsl:call-template>
+      <xsl:call-template name="_CleanByType">
+        <xsl:with-param name="value" select="$value" />
+        <xsl:with-param name="fromType" select="$type" />
+        <xsl:with-param name="toType" select="$type" />
+        <xsl:with-param name="baseUrl" select="$baseUrl" />
+      </xsl:call-template>
+    </atom:summary>
+  </xsl:template>
+
+<!-- description and summary (if it exists) -->
+  <xsl:template name="_OutputDescriptionAndSummary">
+    <xsl:param name="description" />
+    <xsl:param name="descriptionType" />
+    <xsl:param name="descriptionBaseUrl" />
+    <xsl:param name="summary" />
+    <xsl:param name="summaryType" />
+    <xsl:param name="summaryXmlBase" />
+    <xsl:param name="summaryBaseUrl" />
+    <xsl:call-template name="_OutputDescription">
+      <xsl:with-param name="value" select="$description" />
+      <xsl:with-param name="type" select="$descriptionType" />
+      <xsl:with-param name="baseUrl" select="$descriptionBaseUrl" />
+    </xsl:call-template>
+    <xsl:if test="string($summary)">
+      <xsl:call-template name="_OutputAtomSummary">
+        <xsl:with-param name="value" select="$summary" />
+        <xsl:with-param name="type" select="$summaryType" />
+        <xsl:with-param name="xmlBase" select="$summaryXmlBase" />
+        <xsl:with-param name="baseUrl" select="$summaryBaseUrl" />
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+<!-- atom:link -->
+  <xsl:template name="_OutputAtomLink">
+    <xsl:param name="href" />
+    <xsl:param name="rel" />
+    <xsl:param name="type" />
+    <xsl:param name="title" />
+    <xsl:param name="hreflang" />
+    <xsl:param name="length" />
+    <xsl:param name="xmlBase" />
+    <xsl:variable name="_validatedHref" select="msfeednorm:ValidateUrl(normalize-space($href))" />
+    <xsl:if test="string($_validatedHref)">
+      <atom:link>
+        <xsl:attribute name="href"><xsl:value-of select="$_validatedHref" /></xsl:attribute>
+        <xsl:call-template name="_OutputTextAttribute">
+          <xsl:with-param name="tagName" select="'rel'" />
+          <xsl:with-param name="value" select="$rel" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputMimeTypeAttribute">
+          <xsl:with-param name="tagName" select="'type'" />
+          <xsl:with-param name="value" select="$type" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputTextAttribute">
+          <xsl:with-param name="tagName" select="'title'" />
+          <xsl:with-param name="value" select="$title" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputTextAttribute">
+          <xsl:with-param name="tagName" select="'hreflang'" />
+          <xsl:with-param name="value" select="$hreflang" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputPositiveNumberAttribute">
+          <xsl:with-param name="tagName" select="'length'" />
+          <xsl:with-param name="value" select="$length" />
+        </xsl:call-template>
+        <xsl:call-template name="_OutputXmlBase">
+          <xsl:with-param name="value" select="$xmlBase" />
+        </xsl:call-template>
+      </atom:link>
+    </xsl:if>
+  </xsl:template>
+
+<!-- atom:author -->
+  <xsl:template name="_OutputAtomAuthor">
+    <xsl:param name="name" />
+    <xsl:param name="email" />
+    <xsl:param name="uri" />
+    <xsl:call-template name="_OutputAtomAuthorOrContributor">
+      <xsl:with-param name="tagName" select="'atom:author'" />
+      <xsl:with-param name="name" select="$name" />
+      <xsl:with-param name="email" select="$email" />
+      <xsl:with-param name="uri" select="$uri" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- atom:contributor -->
+  <xsl:template name="_OutputAtomContributor">
+    <xsl:param name="name" />
+    <xsl:param name="email" />
+    <xsl:param name="uri" />
+    <xsl:call-template name="_OutputAtomAuthorOrContributor">
+      <xsl:with-param name="tagName" select="'atom:contributor'" />
+      <xsl:with-param name="name" select="$name" />
+      <xsl:with-param name="email" select="$email" />
+      <xsl:with-param name="uri" select="$uri" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- atom:published -->
+  <xsl:template name="_OutputAtomPublished">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'atom:published'" />
+      <xsl:with-param name="nameSpace" select="$_NSatom1" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="outFormat" select="'iso8601'" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- atom:updated -->
+  <xsl:template name="_OutputAtomUpdated">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'atom:updated'" />
+      <xsl:with-param name="nameSpace" select="$_NSatom1" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="outFormat" select="'iso8601'" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- slash:comments -->
+  <xsl:template name="_OutputSlashComments">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputPositiveNumberElement">
+      <xsl:with-param name="tagName" select="'slash:comments'" />
+      <xsl:with-param name="nameSpace" select="$_NSslash" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- wfw:commentRss -->
+  <xsl:template name="_OutputWfwCommentRSS">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputUrlElement">
+      <xsl:with-param name="tagName" select="'wfw:commentRss'" />
+      <xsl:with-param name="nameSpace" select="$_NSwfw" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- cf:treatAs -->
+  <xsl:template name="_OutputCfTreatAs">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputTextElement">
+      <xsl:with-param name="tagName" select="'cf:treatAs'" />
+      <xsl:with-param name="nameSpace" select="$_NScf" />
+      <xsl:with-param name="value" select="$value" />
+    </xsl:call-template>
+  </xsl:template>
+
+<!-- cf:listinfo -->
+  <xsl:template name="_OutputCfListinfo">
+    <xsl:param name="value" />
+    <cf:listinfo>
+      <xsl:for-each select="$value/cf:sort">
+        <xsl:variable name="_ValidatedSortElem" select="normalize-space(@element)" />
+        <xsl:variable name="_ValidatedSortLabel" select="normalize-space(@label)" />
+        <xsl:if test="string($_ValidatedSortElem) or string($_ValidatedSortLabel)">
+          <cf:sort>
+            <xsl:if test="string($_ValidatedSortElem)">
+              <xsl:attribute name="element"><xsl:value-of select="$_ValidatedSortElem"/></xsl:attribute>
+            </xsl:if>
+            <xsl:if test="string($_ValidatedSortLabel)">
+              <xsl:attribute name="label"><xsl:value-of select="$_ValidatedSortLabel"/></xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="_OutputTextAttribute">
+              <xsl:with-param name="tagName" select="'ns'" />
+              <xsl:with-param name="value" select="@ns" />
+            </xsl:call-template>
+            <xsl:call-template name="_OutputTextAttribute">
+              <xsl:with-param name="tagName" select="'data-type'" />
+              <xsl:with-param name="value" select="@data-type" />
+            </xsl:call-template>
+            <xsl:call-template name="_OutputBoolAttribute">
+              <xsl:with-param name="tagName" select="'default'" />
+              <xsl:with-param name="value" select="@default" />
+            </xsl:call-template>
+          </cf:sort>
+        </xsl:if>
+      </xsl:for-each>
+      <xsl:for-each select="$value/cf:group">
+        <xsl:variable name="_ValidatedGroupElem" select="normalize-space(@element)" />
+        <xsl:variable name="_ValidatedGroupLabel" select="normalize-space(@label)" />
+        <xsl:if test="string($_ValidatedGroupElem) or string($_ValidatedGroupLabel)">
+          <cf:group>
+            <xsl:if test="string($_ValidatedGroupElem)">
+              <xsl:attribute name="element"><xsl:value-of select="$_ValidatedGroupElem"/></xsl:attribute>
+            </xsl:if>
+            <xsl:if test="string($_ValidatedGroupLabel)">
+              <xsl:attribute name="label"><xsl:value-of select="$_ValidatedGroupLabel"/></xsl:attribute>
+            </xsl:if>
+            <xsl:call-template name="_OutputTextAttribute">
+              <xsl:with-param name="tagName" select="'ns'" />
+              <xsl:with-param name="value" select="@ns" />
+            </xsl:call-template>
+          </cf:group>
+        </xsl:if>
+      </xsl:for-each>
+    </cf:listinfo>
+  </xsl:template>
+
+<!-- mon:expiration -->
+  <xsl:template name="_OutputMonExpiration">
+    <xsl:param name="value" />
+    <xsl:call-template name="_OutputDateElement">
+      <xsl:with-param name="tagName" select="'mon:expiration'" />
+      <xsl:with-param name="nameSpace" select="$_NSmon" />
+      <xsl:with-param name="value" select="$value" />
+      <xsl:with-param name="outFormat" select="'iso8601'" />
+    </xsl:call-template>
+  </xsl:template>
+  
+<!-- output the extension nodes -->
+  <xsl:template name="_OutputExtension">
+    <xsl:param name="value" />
+    <xsl:param name="references" />
+    <xsl:if test="namespace-uri($value) != $_NScfi">
+      <xsl:variable name="nodeRefName">'<xsl:value-of select="namespace-uri($value)"/>':<xsl:value-of select="local-name($value)"/>;</xsl:variable>
+      <xsl:choose>
+        <xsl:when test="string($references) and contains($references, $nodeRefName)">
+          <xsl:call-template name="_OutputTextElement">
+            <xsl:with-param name="value" select="$value" />
+            <xsl:with-param name="tagName" select="name($value)" />
+            <xsl:with-param name="nameSpace" select="namespace-uri($value)" />
+          </xsl:call-template>
+        </xsl:when>
+        <xsl:otherwise>
+          <xsl:copy-of select="$value" />
+        </xsl:otherwise>
+      </xsl:choose>
+    </xsl:if>
+  </xsl:template>
+
+</xsl:stylesheet>
+      <?xml version="1.0" ?>
+<xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:cf="http://www.microsoft.com/schemas/rss/core/2005"
+  xmlns:msfeednorm="urn:microsoft:feed-normalization"
+  exclude-result-prefixes="dcterms msfeednorm"
+  >
+
+<!-- Shared templates -->
+  <xsl:import href="res://msfeeds.dll/SharedNormalizer.xsl" />
+
+<!-- Output XML UTF-8 -->
+  <xsl:output method="xml" encoding="utf-8" />
+  
+<!-- Figure out the type for RSS 2.0 text fields -->
+  <xsl:template name="_GetRSS2TypeValue">
+    <xsl:param name="type" />
+    <xsl:param name="default" />
+    <xsl:choose>
+      <xsl:when test="normalize-space($type) = 'html'">html</xsl:when>
+      <xsl:when test="normalize-space($type) = 'text'">text</xsl:when>
+      <xsl:when test="not(string($type)) or normalize-space($type) = ''"><xsl:value-of select="$default" /></xsl:when>
+      <xsl:otherwise>invalid</xsl:otherwise>
+      <!-- Note that unknown value for a type will yield empty output -->
+    </xsl:choose>
+  </xsl:template>
+
+<!-- Entry point -->
+  <xsl:template match="/rss">
+    <rss>
+      <!-- Copy all namespaces -->
+      <xsl:for-each select="namespace::*"><xsl:copy /></xsl:for-each>
+
+      <!-- Ensure version is 2.0 -->
+      <xsl:attribute name="version">2.0</xsl:attribute>
+
+      <!-- Process channel -->
+      <channel>
+        <xsl:apply-templates select="channel" />
+      </channel>
+    </rss>
+  </xsl:template>
+
+<!-- Channel processing -->
+  <xsl:template match="channel">
+    <!-- Copy all namespaces -->
+    <xsl:for-each select="namespace::*">
+      <xsl:copy />
+    </xsl:for-each>
+
+    <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+    <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+    <xsl:if test="not(language)">
+      <xsl:call-template name="_OutputLanguage"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+    </xsl:if>
+
+    <!-- Figure out the base URL value; xml:base overrides the download URL -->
+    <xsl:variable name="baseChannelUrl">
+      <xsl:call-template name="_GetFeedBaseUrl">
+        <xsl:with-param name="downloadUrl" select="$downloadUrl" />
+        <xsl:with-param name="rootNode" select="." />
+      </xsl:call-template>
+    </xsl:variable>
+
+    <!-- Build a list of referenced nodes from cf:sort and cf:group -->
+    <xsl:variable name="cfReferences">
+      <xsl:call-template name="_BuildCfReferenceList"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+
+    <!-- Process channel elements -->
+    <xsl:apply-templates select="*" mode="channel">
+      <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+    </xsl:apply-templates>
+
+    <!-- Process items -->
+    <xsl:apply-templates select="item">
+      <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+      <xsl:with-param name="references" select="$cfReferences" />
+    </xsl:apply-templates>
+  </xsl:template>
+
+  <xsl:template match="*" mode="channel">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:variable name="type">
+          <xsl:call-template name="_GetRSS2TypeValue">
+            <xsl:with-param name="type" select="@cf:type" />
+            <xsl:with-param name="default" select="'text'" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="$type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'link' and $isFirst = 'true'">
+        <xsl:variable name="linkUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+            <xsl:with-param name="Url" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$linkUrl" /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'description' and $isFirst = 'true'">
+        <xsl:variable name="type">
+          <xsl:call-template name="_GetRSS2TypeValue">
+            <xsl:with-param name="type" select="@cf:type" />
+            <xsl:with-param name="default" select="'text'" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputTextDescription">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="$type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'pubDate' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:if test="not(../lastBuildDate)">
+          <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom:updated)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../pubDate) and not(../lastBuildDate)">
+            <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>  
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'language' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputLanguage"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'copyright' and $isFirst = 'true'">
+        <xsl:variable name="type">
+          <xsl:call-template name="_GetRSS2TypeValue">
+            <xsl:with-param name="type" select="@cf:type" />
+            <xsl:with-param name="default" select="'text'" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputCopyright">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="$type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'lastBuildDate' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:if test="not(../atom:updated)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'managingEditor' and $isFirst = 'true'">
+        <xsl:variable name="convertToAtom">
+          <xsl:choose>
+            <xsl:when test="../atom:author">false</xsl:when>
+            <xsl:otherwise>true</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputManagingEditor">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="convertToAtom" select="$convertToAtom" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'webMaster' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputWebMaster"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'category'">
+        <xsl:call-template name="_OutputCategory">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="domain" select="@domain" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'generator' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGenerator">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="uri" select="@cf:uri" />
+          <xsl:with-param name="version" select="@cf:version" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'docs' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputDocs"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'cloud' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputCloud"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'ttl' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTtl"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'image' and $isFirst = 'true'">
+        <xsl:variable name="imageUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+            <xsl:with-param name="Url" select="url" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:variable name="imageLink">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+            <xsl:with-param name="Url" select="link" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputImage">
+          <xsl:with-param name="url" select="$imageUrl" />
+          <xsl:with-param name="title" select="title" />
+          <xsl:with-param name="link" select="$imageLink" />
+          <xsl:with-param name="width" select="width" />
+          <xsl:with-param name="height" select="height" />
+          <xsl:with-param name="description" select="description" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'rating' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputRating"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'textInput' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTextInput">
+          <xsl:with-param name="title" select="title" />
+          <xsl:with-param name="name" select="name" />
+          <xsl:with-param name="link" select="link" />
+          <xsl:with-param name="description" select="description" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'skipHours' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputSkipHours"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'skipDays' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputSkipDays"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="@href" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'author'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomAuthor">
+            <xsl:with-param name="name" select="atom:name" />
+            <xsl:with-param name="email" select="atom:email" />
+            <xsl:with-param name="uri" select="atom:uri" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'contributor'">
+          <xsl:call-template name="_OutputAtomContributor">
+            <xsl:with-param name="name" select="atom:name" />
+            <xsl:with-param name="email" select="atom:email" />
+            <xsl:with-param name="uri" select="atom:uri" />
+          </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'treatAs'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfTreatAs"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'listinfo'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfListinfo"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'item'">
+        <!-- Do nothing here for items -->
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+<!-- Item processing -->
+  <xsl:template match="item">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:param name="references" />
+    <item>
+      <!-- Copy all namespaces -->
+      <xsl:for-each select="namespace::*">
+        <xsl:copy />
+      </xsl:for-each>
+
+      <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+      <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+      <!-- Item's base URL stacks onto channel's base URL -->
+      <xsl:variable name="baseChannelItemUrl">
+        <xsl:call-template name="_CombineUrls">
+          <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+          <xsl:with-param name="relUrl" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:variable>
+
+      <!-- Process item elements -->
+      <xsl:apply-templates select="*" mode="item">
+        <xsl:with-param name="baseItemUrl" select="$baseChannelItemUrl" />
+        <xsl:with-param name="references" select="$references" />
+      </xsl:apply-templates>
+    </item>
+  </xsl:template>
+
+  <xsl:template match="*" mode="item">
+    <xsl:param name="baseItemUrl" />
+    <xsl:param name="references" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:variable name="type">
+          <xsl:call-template name="_GetRSS2TypeValue">
+            <xsl:with-param name="type" select="@cf:type" />
+            <xsl:with-param name="default" select="'text'" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="$type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'link' and $isFirst = 'true'">
+        <xsl:variable name="linkUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+            <xsl:with-param name="Url" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$linkUrl" /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="(namespace-uri(.) = '' and local-name(.) = 'author') or (namespace-uri(.) = $_NSdc and local-name(.) = 'creator')">
+        <xsl:variable name="convertToAtom">
+          <xsl:choose>
+            <xsl:when test="../atom:author">false</xsl:when>
+            <xsl:otherwise>true</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAuthor">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="convertToAtom" select="$convertToAtom" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'contributor'">
+        <xsl:call-template name="_OutputAtomContributor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'category'">
+        <xsl:call-template name="_OutputCategory">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="domain" select="@domain" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'comments' and $isFirst = 'true'">
+        <xsl:variable name="commentUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+            <xsl:with-param name="Url" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputComments"><xsl:with-param name="value" select="$commentUrl" /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'enclosure'">
+        <xsl:variable name="enclosureUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+            <xsl:with-param name="Url" select="@url" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputEnclosure">
+          <xsl:with-param name="url" select="$enclosureUrl" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'guid' and $isFirst = 'true'">
+        <xsl:choose>
+          <xsl:when test="normalize-space(@isPermaLink) = 'true' or not(string(@isPermaLink))">
+            <xsl:variable name="linkUrl">
+              <xsl:call-template name="_CompleteUrl">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="Url" select="." />
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="_OutputGuid">
+              <xsl:with-param name="value" select="$linkUrl" />
+              <xsl:with-param name="isPermaLink" select="@isPermaLink" />
+            </xsl:call-template>
+            <!-- If there is no link we'll use permalink guid instead -->
+            <xsl:if test="not(../link)">
+              <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$linkUrl" /></xsl:call-template>
+            </xsl:if>
+          </xsl:when>
+          <xsl:otherwise>
+            <xsl:call-template name="_OutputGuid">
+              <xsl:with-param name="value" select="." />
+              <xsl:with-param name="isPermaLink" select="@isPermaLink" />
+            </xsl:call-template>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'pubDate' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:if test="not(../atom:published)">
+          <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+        <xsl:if test="not(../atom:updated) and not(../dcterms:modified)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'date'">
+        <xsl:if test="$isFirst = 'true' and not(../pubDate) and not(../dcterms:modified) and not(../atom:updated)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdcterms and local-name(.) = 'modified'">
+        <xsl:if test="$isFirst = 'true' and not(../atom:updated)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>  
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>  
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../pubDate)">
+            <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>  
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'source' and $isFirst = 'true'">
+        <xsl:variable name="srcUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+            <xsl:with-param name="Url" select="@url" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputSource">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="url" select="$srcUrl" />
+        </xsl:call-template>
+      </xsl:when>
+      <!-- content:encoded takes precedence over the description -->
+      <xsl:when test="namespace-uri(.) = $_NScontent and local-name(.) = 'encoded'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="summType">
+            <xsl:call-template name="_GetRSS2TypeValue">
+              <xsl:with-param name="type" select="../description/@cf:type" />
+              <xsl:with-param name="default" select="'html'" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:variable name="baseDescUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:variable name="baseSummUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="../description/@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputDescriptionAndSummary">
+            <xsl:with-param name="description" select="." />
+            <xsl:with-param name="descriptionType" select="'html'" />
+            <xsl:with-param name="descriptionBaseUrl" select="$baseDescUrl" />
+            <xsl:with-param name="summary" select="../description" />
+            <xsl:with-param name="summaryType" select="$summType" />
+            <xsl:with-param name="summaryXmlBase" select="../description/@xml:base" />
+            <xsl:with-param name="summaryBaseUrl" select="$baseSummUrl" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- description will be used if there is no content:encoded -->
+      <xsl:when test="namespace-uri(.) = '' and local-name(.) = 'description' and $isFirst = 'true'">
+        <xsl:if test="not(../*[namespace-uri(.) = $_NScontent and local-name(.) = 'encoded'])">
+          <xsl:variable name="type">
+            <xsl:call-template name="_GetRSS2TypeValue">
+              <xsl:with-param name="type" select="@cf:type" />
+              <xsl:with-param name="default" select="'html'" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:variable name="baseDescUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputDescription">
+            <xsl:with-param name="value" select="." />
+            <xsl:with-param name="type" select="$type" />
+            <xsl:with-param name="baseUrl" select="$baseDescUrl" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- atom:summary will be preserved unless both content:encoded and description are present -->
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'summary'">
+        <xsl:if test="$isFirst = 'true' and not(../description and ../*[namespace-uri(.) = $_NScontent and local-name(.) = 'encoded'])">
+          <xsl:variable name="baseSummUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputAtomSummary">
+            <xsl:with-param name="value" select="." />
+            <xsl:with-param name="type" select="@type" />
+            <xsl:with-param name="xmlBase" select="@xml:base" />
+            <xsl:with-param name="baseUrl" select="$baseSummUrl" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <!-- Special handling for item level atom:link with rel=entry-content: complete relative URL -->
+        <xsl:variable name="atomLinkUrl">
+          <xsl:choose>
+            <xsl:when test="@rel = 'entry-content'">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="relUrl" select="@href" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@href" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="$atomLinkUrl" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'author'">
+        <xsl:call-template name="_OutputAtomAuthor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSslash and local-name(.) = 'comments'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputSlashComments"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSwfw and (local-name(.) = 'commentRss' or local-name(.) = 'commentRSS')">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="commentRssUrl">
+            <xsl:call-template name="_CompleteUrl">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="Url" select="." />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputWfwCommentRSS"><xsl:with-param name="value" select="$commentRssUrl" /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="references" select="$references" />
+        </xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+</xsl:stylesheet><?xml version="1.0" ?>
+<xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:cf="http://www.microsoft.com/schemas/rss/core/2005"
+  xmlns:content="http://purl.org/rss/1.0/modules/content/"
+  xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"
+  xmlns:rss="http://purl.org/rss/1.0/"
+  xmlns:dc="http://purl.org/dc/elements/1.1/"
+  xmlns:dcterms="http://purl.org/dc/terms/"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:msfeednorm="urn:microsoft:feed-normalization" 
+  exclude-result-prefixes="content rdf rss dc dcterms sy msfeednorm"
+  >
+
+<!-- Shared templates -->
+  <xsl:import href="res://msfeeds.dll/SharedNormalizer.xsl" />
+
+<!-- Output XML UTF-8 -->
+  <xsl:output method="xml" encoding="utf-8" />
+
+<!-- Entry point -->
+  <xsl:template match="/rdf:RDF">
+    <rss version="2.0">
+      <channel>
+        <!-- Build a list of referenced nodes from cf:sort and cf:group -->
+        <xsl:variable name="cfReferences">
+          <xsl:call-template name="_BuildCfReferenceList"><xsl:with-param name="value" select="rss:channel" /></xsl:call-template>
+        </xsl:variable>
+
+        <!-- Process feed elements -->
+        <xsl:apply-templates select="rss:channel" />
+        <xsl:apply-templates select="rss:image" />
+        <xsl:apply-templates select="rss:textinput" />
+        <xsl:apply-templates select="rss:item">
+          <xsl:with-param name="references" select="$cfReferences" />
+        </xsl:apply-templates>
+      </channel>
+    </rss>
+  </xsl:template>
+
+<!-- Channel processing -->
+  <xsl:template match="rss:channel">
+    <xsl:apply-templates select="*" mode="channel" />
+  </xsl:template>
+
+  <xsl:template match="*" mode="channel">
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'link' and $isFirst = 'true'">
+        <xsl:variable name="linkUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$downloadUrl" />
+            <xsl:with-param name="Url" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$linkUrl" /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'description' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTextDescription"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'creator'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputManagingEditor">
+            <xsl:with-param name="value" select="." />
+            <xsl:with-param name="convertToAtom" select="'true'" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'subject'">
+        <xsl:call-template name="_OutputCategory"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'publisher'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputWebMaster"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'language'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputLanguage"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'rights'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCopyright"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdcterms and local-name(.) = 'modified'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom:updated)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'date'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../dcterms:modified)">
+            <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+            <xsl:if test="not(../atom:updated)">
+              <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+            </xsl:if>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdcterms and local-name(.) = 'available'">
+        <xsl:if test="$isFirst = 'true' and not(../dc:date) and not(../dcterms:modified)">
+          <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom:updated)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdcterms and local-name(.) = 'issued'">
+        <xsl:if test="$isFirst = 'true' and not(../dc:date) and not(../dcterms:available) and not(../dcterms:modified)">
+          <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom:updated)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../dc:date) and not(../dcterms:available) and not(../dcterms:modified) and not(../dcterms:issued)">
+            <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+
+      </xsl:when>
+      <!-- First pair of updateFrequency and updatePeriod gets converted to ttl; all sy:* nodes are preserved as extensions -->
+      <xsl:when test="namespace-uri(.) = $_NSsy and local-name(.) = 'updatePeriod' and $isFirst = 'true'">
+        <xsl:if test="../sy:updateFrequency">
+          <xsl:call-template name="_ConvertUpdatesToTtl">
+            <xsl:with-param name="updatePeriod" select="string(.)" />
+            <xsl:with-param name="updateFrequency" select="string(../sy:updateFrequency)" />
+          </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'treatAs'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfTreatAs"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'listinfo'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfListinfo"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSrss and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+<!-- Image processing -->
+  <xsl:template match="rss:image">
+    <xsl:if test="position() = 1">
+      <xsl:variable name="imageUrl">
+        <xsl:call-template name="_CompleteUrl">
+          <xsl:with-param name="baseUrl" select="$downloadUrl" />
+          <xsl:with-param name="Url" select="rss:url" />
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:variable name="imageLink">
+        <xsl:call-template name="_CompleteUrl">
+          <xsl:with-param name="baseUrl" select="$downloadUrl" />
+          <xsl:with-param name="Url" select="rss:link" />
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:call-template name="_OutputImage">
+        <xsl:with-param name="url" select="$imageUrl" />
+        <xsl:with-param name="title" select="rss:title" />
+        <xsl:with-param name="link" select="$imageLink" />
+        <xsl:with-param name="subnodesToCopy" select="*[namespace-uri(.) != $_NSrss and namespace-uri(.) != '']" />
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+<!-- Text Input processing -->
+  <xsl:template match="rss:textinput">
+    <xsl:if test="position() = 1">
+      <xsl:variable name="linkUrl">
+        <xsl:call-template name="_CompleteUrl">
+          <xsl:with-param name="baseUrl" select="$downloadUrl" />
+          <xsl:with-param name="Url" select="rss:link" />
+        </xsl:call-template>
+      </xsl:variable>
+      <xsl:call-template name="_OutputTextInput">
+        <xsl:with-param name="title" select="rss:title" />
+        <xsl:with-param name="name" select="rss:name" />
+        <xsl:with-param name="link" select="$linkUrl" />
+        <xsl:with-param name="description" select="rss:description" />
+        <xsl:with-param name="subnodesToCopy" select="*[namespace-uri(.) != $_NSrss and namespace-uri(.) != '']" />
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+<!-- Item processing -->
+  <xsl:template match="rss:item">
+    <xsl:param name="references" />
+    <item>
+      <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+      <xsl:apply-templates select="* | @*" mode="item">
+        <xsl:with-param name="references" select="$references" />
+      </xsl:apply-templates>
+    </item>
+  </xsl:template>
+
+  <xsl:template match="*" mode="item">
+    <xsl:param name="references" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'link' and $isFirst = 'true'">
+        <xsl:variable name="linkUrl">
+          <xsl:call-template name="_CompleteUrl">
+            <xsl:with-param name="baseUrl" select="$downloadUrl" />
+            <xsl:with-param name="Url" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$linkUrl" /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'creator'">
+          <xsl:call-template name="_OutputAuthor">
+            <xsl:with-param name="value" select="." />
+            <xsl:with-param name="convertToAtom" select="'true'" />
+          </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'subject'">
+        <xsl:call-template name="_OutputCategory"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'date'">
+        <xsl:if test="$isFirst= 'true'">
+          <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>    
+          <xsl:if test="not(../atom:published)">
+            <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+          <xsl:if test="not(../atom:updated) and not(../dcterms:modified)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+        <xsl:if test="$isFirst= 'true'">
+          <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../dc:date)">
+            <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if> 
+        </xsl:if>
+
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>  
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdcterms and local-name(.) = 'modified'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:if test="not(../atom:updated)">
+            <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if> 
+        </xsl:if>
+
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScontent and local-name(.) = 'encoded'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputDescriptionAndSummary">
+            <xsl:with-param name="description" select="." />
+            <xsl:with-param name="descriptionType" select="'html'" />
+            <xsl:with-param name="descriptionBaseUrl" select="$downloadUrl" />
+            <xsl:with-param name="summary" select="../rss:description" />
+            <xsl:with-param name="summaryType" select="'html'" />
+            <xsl:with-param name="summaryBaseUrl" select="$downloadUrl" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSrss and local-name(.) = 'description' and $isFirst = 'true'">
+        <xsl:if test="not(../content:encoded)">
+          <xsl:call-template name="_OutputDescription">
+            <xsl:with-param name="value" select="." />
+            <xsl:with-param name="type" select="'html'" />
+            <xsl:with-param name="baseUrl" select="$downloadUrl" />
+          </xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSslash and local-name(.) = 'comments'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputSlashComments"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSwfw and (local-name(.) = 'commentRss' or local-name(.) = 'commentRSS')">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="commentRssUrl">
+            <xsl:call-template name="_CompleteUrl">
+              <xsl:with-param name="baseUrl" select="$downloadUrl" />
+              <xsl:with-param name="Url" select="." />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputWfwCommentRSS"><xsl:with-param name="value" select="$commentRssUrl" /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <!-- Special handling for item level atom:link with rel=entry-content: complete relative URL -->
+        <xsl:variable name="atomLinkUrl">
+          <xsl:choose>
+            <xsl:when test="@rel = 'entry-content'">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$downloadUrl" />
+                <xsl:with-param name="relUrl" select="@href" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@href" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="$atomLinkUrl" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSrss and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="references" select="$references" />
+        </xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+  <xsl:template match="@*" mode="item">
+    <!-- No need to check if first, because XML doesn't allow duplicate attributes -->
+    <xsl:if test="namespace-uri(.) = $_NSrdf and local-name(.) = 'about'">
+      <xsl:call-template name="_OutputGuid">
+        <xsl:with-param name="value" select="." />
+        <xsl:with-param name="isPermaLink" select="'false'" />
+      </xsl:call-template>
+    </xsl:if>
+  </xsl:template>
+
+</xsl:stylesheet>  <xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:cf="http://www.microsoft.com/schemas/rss/core/2005"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:atom03="http://purl.org/atom/ns#"
+  xmlns:msfeednorm="urn:microsoft:feed-normalization"
+  exclude-result-prefixes="sy atom03 msfeednorm"
+  >
+
+<!-- Shared templates -->
+  <xsl:import href="res://msfeeds.dll/SharedNormalizer.xsl" />
+
+<!-- Output XML UTF-8 -->
+  <xsl:output method="xml" encoding="utf-8" />
+  
+<!-- Entry point -->
+  <xsl:template match="/atom03:feed">
+    <rss version="2.0">
+      <channel>
+
+        <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+        <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+        <xsl:call-template name="_OutputLanguage"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+        <!-- Figure out the base URL value; xml:base overrides the download URL -->
+        <xsl:variable name="baseChannelUrl">
+          <xsl:call-template name="_GetFeedBaseUrl">
+            <xsl:with-param name="downloadUrl" select="$downloadUrl" />
+            <xsl:with-param name="rootNode" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+
+        <!-- Try to find the main link - one that has an href pointing to html and with type alternate -->
+        <xsl:variable name="mainLink" select="atom03:link[(@rel = 'alternate' or @rel = '' or not(@rel)) and (@type = 'text/html' or @type = '' or not(@type))]" />
+
+        <!-- Output link -->
+        <xsl:if test="$mainLink">
+          <!-- Combine base URL with the main link -->
+          <xsl:variable name="channelLinkUrl">
+            <xsl:call-template name="_CompleteUrlTwoBase">
+              <xsl:with-param name="baseUrl1" select="$baseChannelUrl" />
+              <xsl:with-param name="baseUrl2" select="$mainLink/@xml:base" />
+              <xsl:with-param name="Url" select="$mainLink/@href" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$channelLinkUrl" /></xsl:call-template>
+        </xsl:if>
+
+        <!-- Build a list of referenced nodes from cf:sort and cf:group -->
+        <xsl:variable name="cfReferences">
+          <xsl:call-template name="_BuildCfReferenceList"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:variable>
+
+        <!-- Process channel elements -->
+        <xsl:apply-templates select="*" mode="channel">
+          <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+        </xsl:apply-templates>
+
+        <!-- Process items -->
+        <xsl:apply-templates select="atom03:entry">
+          <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+          <xsl:with-param name="references" select="$cfReferences" />
+        </xsl:apply-templates>
+
+      </channel>
+    </rss>
+  </xsl:template>
+
+<!-- Channel processing -->
+  <xsl:template match="*" mode="channel">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'author'">
+        <!-- First one gets converted to managing Editor -->
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="manEditor">
+            <xsl:call-template name="_ConvertAtomAuthorToAuthor">
+              <xsl:with-param name="name" select="atom03:name" />
+              <xsl:with-param name="email" select="atom03:email" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputManagingEditor"><xsl:with-param name="value" select="$manEditor" /></xsl:call-template>
+        </xsl:if>
+        <!-- Map to Atom 1.0 -->
+        <xsl:call-template name="_OutputAtomAuthor">
+          <xsl:with-param name="name" select="atom03:name" />
+          <xsl:with-param name="email" select="atom03:email" />
+          <xsl:with-param name="uri" select="atom03:url" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'contributor'">
+        <!-- Map to Atom 1.0 -->
+        <xsl:call-template name="_OutputAtomContributor">
+          <xsl:with-param name="name" select="atom03:name" />
+          <xsl:with-param name="email" select="atom03:email" />
+          <xsl:with-param name="uri" select="atom03:url" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'tagline' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTextDescription">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'id' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGuid">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="isPermaLink" select="'false'" />
+          <xsl:with-param name="channelGuid" select="'true'" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'generator' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGenerator">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="uri" select="@url" />
+          <xsl:with-param name="version" select="@version" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'modified' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:variable name="updatedExists">
+          <xsl:choose>
+            <xsl:when test="../atom:updated">true</xsl:when>
+            <xsl:otherwise>false</xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:if test="$updatedExists = 'false'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom03:modified)">
+            <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'copyright' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputCopyright">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'subject'">
+        <xsl:call-template name="_OutputCategory"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <!-- First pair of updateFrequency and updatePeriod gets converted to ttl; all sy:* nodes are preserved as extensions -->
+      <xsl:when test="namespace-uri(.) = $_NSsy and local-name(.) = 'updatePeriod' and $isFirst = 'true'">
+        <xsl:if test="../sy:updateFrequency">
+          <xsl:call-template name="_ConvertUpdatesToTtl">
+            <xsl:with-param name="updatePeriod" select="string(.)" />
+            <xsl:with-param name="updateFrequency" select="string(../sy:updateFrequency)" />
+          </xsl:call-template>
+          <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'treatAs'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfTreatAs"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'listinfo'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfListinfo"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'entry'">
+        <!-- Do nothing here for items -->
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSatom03 and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+<!-- Item processing -->
+  <xsl:template match="atom03:entry">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:param name="references" />
+    <item>
+
+      <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+
+      <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+      <!-- Item's base URL stacks onto channel's base URL -->
+      <xsl:variable name="baseChannelItemUrl">
+        <xsl:call-template name="_CombineUrls">
+          <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+          <xsl:with-param name="relUrl" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:variable>
+
+      <!-- Try to find the main link - one that has an href pointing to html and with type alternate -->
+      <xsl:variable name="mainLink" select="atom03:link[(@rel = 'alternate' or @rel = '' or not(@rel)) and (@type = 'text/html' or @type = '' or not(@type))]" />
+
+      <!-- Output link -->
+      <xsl:if test="$mainLink">
+        <!-- Combine base URL with the main link -->
+        <xsl:variable name="itemLinkUrl">
+          <xsl:call-template name="_CompleteUrlTwoBase">
+            <xsl:with-param name="baseUrl1" select="$baseChannelItemUrl" />
+            <xsl:with-param name="baseUrl2" select="$mainLink/@xml:base" />
+            <xsl:with-param name="Url" select="$mainLink/@href" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$itemLinkUrl" /></xsl:call-template>
+      </xsl:if>
+
+      <xsl:apply-templates select="*" mode="item">
+        <xsl:with-param name="baseItemUrl" select="$baseChannelItemUrl" />
+        <xsl:with-param name="references" select="$references" />
+      </xsl:apply-templates>
+
+    </item>
+  </xsl:template>
+
+  <xsl:template match="*" mode="item">
+    <xsl:param name="baseItemUrl" />
+    <xsl:param name="references" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'link' and @rel = 'enclosure' and (@href or @length or @type)">
+        <xsl:variable name="enclosureUrl">
+          <xsl:call-template name="_CompleteUrlTwoBase">
+            <xsl:with-param name="baseUrl1" select="$baseItemUrl" />
+            <xsl:with-param name="baseUrl2" select="@xml:base" />
+            <xsl:with-param name="Url" select="@href" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputEnclosure">
+          <xsl:with-param name="url" select="$enclosureUrl" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'author'">
+        <xsl:variable name="author">
+          <xsl:call-template name="_ConvertAtomAuthorToAuthor">
+            <xsl:with-param name="name" select="atom03:name" />
+            <xsl:with-param name="email" select="atom03:email" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAuthor"><xsl:with-param name="value" select="$author" /></xsl:call-template>
+        <!-- Map to Atom 1.0 -->
+        <xsl:call-template name="_OutputAtomAuthor">
+          <xsl:with-param name="name" select="atom03:name" />
+          <xsl:with-param name="email" select="atom03:email" />
+          <xsl:with-param name="uri" select="atom03:url" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'contributor'">
+        <!-- Map to Atom 1.0 -->
+        <xsl:call-template name="_OutputAtomContributor">
+          <xsl:with-param name="name" select="atom03:name" />
+          <xsl:with-param name="email" select="atom03:email" />
+          <xsl:with-param name="uri" select="atom03:url" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'id' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGuid">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="isPermaLink" select="'false'" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+          <xsl:if test="not(../atom03:issued)">
+            <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+          </xsl:if>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'modified' and $isFirst = 'true'">
+        <xsl:if test="not(../atom:updated)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'issued' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:if test="not(../atom:updated) and not(../atom03:modified)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+        <xsl:if test="not(../atom:published)">
+          <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSdc and local-name(.) = 'subject'">
+        <xsl:call-template name="_OutputCategory"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <!-- Handle content: printable goes into description; non-printable is preserved -->
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'content' and $isFirst = 'true'">
+          <xsl:if test="@type = '' or not(@type) or @type = 'text/plain' or @type = 'text/html' or @type = 'application/xhtml+xml'">
+            <xsl:variable name="baseContentUrl">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="relUrl" select="@xml:base" />
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="_OutputDescription">
+              <xsl:with-param name="value" select="." />
+              <xsl:with-param name="type" select="@type" />
+              <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+            </xsl:call-template>
+          </xsl:if>
+      </xsl:when>
+      <!-- Handle summary: printable goes into description or atom:summary; non-printable is discarded -->
+      <xsl:when test="namespace-uri(.) = $_NSatom03 and local-name(.) = 'summary' and $isFirst = 'true'">
+        <xsl:if test="@type = '' or not(@type) or @type = 'text/plain' or @type = 'text/html' or @type = 'application/xhtml+xml'">
+          <xsl:variable name="baseContentUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="not(../atom03:content[@type = '' or not(@type) or @type = 'text/plain' or @type = 'text/html' or @type = 'application/xhtml+xml'])">
+              <xsl:call-template name="_OutputDescription">
+                <xsl:with-param name="value" select="." />
+                <xsl:with-param name="type" select="@type" />
+                <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <!-- Map to Atom 1.0 -->
+              <xsl:call-template name="_OutputAtomSummary">
+                <xsl:with-param name="value" select="." />
+                <xsl:with-param name="type" select="@type" />
+                <xsl:with-param name="xmlBase" select="@xml:base" />
+                <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSslash and local-name(.) = 'comments'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputSlashComments"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSwfw and (local-name(.) = 'commentRss' or local-name(.) = 'commentRSS')">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="commentRssUrl">
+            <xsl:call-template name="_CompleteUrlTwoBase">
+              <xsl:with-param name="baseUrl1" select="$baseItemUrl" />
+              <xsl:with-param name="baseUrl2" select="@xml:base" />
+              <xsl:with-param name="Url" select="." />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputWfwCommentRSS"><xsl:with-param name="value" select="$commentRssUrl" /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <!-- Special handling for item level atom:link with rel=entry-content: complete relative URL -->
+        <xsl:variable name="atomLinkUrl">
+          <xsl:choose>
+            <xsl:when test="@rel = 'entry-content'">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="relUrl" select="@href" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@href" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="$atomLinkUrl" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSatom03 and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="references" select="$references" />
+        </xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+</xsl:stylesheet>  <xsl:stylesheet version="1.0" 
+  xmlns:xsl="http://www.w3.org/1999/XSL/Transform" 
+  xmlns:atom="http://www.w3.org/2005/Atom"
+  xmlns:cf="http://www.microsoft.com/schemas/rss/core/2005"
+  xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+  xmlns:msfeednorm="urn:microsoft:feed-normalization"
+  exclude-result-prefixes="sy msfeednorm"
+  >
+
+<!-- Shared templates -->
+  <xsl:import href="res://msfeeds.dll/SharedNormalizer.xsl" />
+
+<!-- Output XML UTF-8 -->
+  <xsl:output method="xml" encoding="utf-8" />
+
+<!-- Entry point -->
+  <xsl:template match="/atom:feed">
+    <rss version="2.0">
+      <channel>
+
+        <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+        <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+        <xsl:call-template name="_OutputLanguage"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+        <!-- Figure out the base URL value; xml:base overrides the download URL -->
+        <xsl:variable name="baseChannelUrl">
+          <xsl:call-template name="_GetFeedBaseUrl">
+            <xsl:with-param name="downloadUrl" select="$downloadUrl" />
+            <xsl:with-param name="rootNode" select="." />
+          </xsl:call-template>
+        </xsl:variable>
+
+        <!-- Try to find the main link - one that has an href pointing to html and with type alternate -->
+        <xsl:variable name="mainLink" select="atom:link[(@rel = 'alternate' or @rel = '' or not(@rel)) and (@type = 'text/html' or @type = '' or not(@type))]" />
+
+        <!-- Combine base URL with the main link -->
+        <xsl:variable name="channelLinkUrl">
+          <xsl:call-template name="_CompleteUrlTwoBase">
+            <xsl:with-param name="baseUrl1" select="$baseChannelUrl" />
+            <xsl:with-param name="baseUrl2" select="$mainLink/@xml:base" />
+            <xsl:with-param name="Url" select="$mainLink/@href" />
+          </xsl:call-template>
+        </xsl:variable>
+
+        <xsl:if test="$mainLink">
+          <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$channelLinkUrl" /></xsl:call-template>
+        </xsl:if>
+
+        <xsl:if test="atom:logo">
+          <xsl:variable name="logoImageUrl">
+            <xsl:call-template name="_CompleteUrlTwoBase">
+              <xsl:with-param name="baseUrl1" select="$baseChannelUrl" />
+              <xsl:with-param name="baseUrl2" select="atom:logo/@xml:base" />
+              <xsl:with-param name="Url" select="atom:logo" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputImage">
+            <xsl:with-param name="url" select="$logoImageUrl" />
+            <xsl:with-param name="title" select="atom:title" />
+            <xsl:with-param name="titleType" select="atom:title/@type" />
+            <xsl:with-param name="link" select="$channelLinkUrl" />
+          </xsl:call-template>
+        </xsl:if>
+
+        <!-- Build a list of referenced nodes from cf:sort and cf:group -->
+        <xsl:variable name="cfReferences">
+          <xsl:call-template name="_BuildCfReferenceList"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:variable>
+
+        <xsl:apply-templates select="*" mode="channel">
+          <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+        </xsl:apply-templates>
+
+        <xsl:apply-templates select="atom:entry">
+          <xsl:with-param name="baseChannelUrl" select="$baseChannelUrl" />
+          <xsl:with-param name="references" select="$cfReferences" />
+        </xsl:apply-templates>
+
+      </channel>
+    </rss>
+  </xsl:template>
+
+<!-- Channel processing -->
+  <xsl:template match="*" mode="channel">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /><xsl:with-param name="type" select="@type" /></xsl:call-template>
+          <xsl:call-template name="_OutputLastBuildDate"><xsl:with-param name="value" select="." /><xsl:with-param name="type" select="@type" /></xsl:call-template>
+        </xsl:if>
+        
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'author'">
+        <!-- First one gets converted to managing Editor -->
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="manEditor">
+            <xsl:call-template name="_ConvertAtomAuthorToAuthor">
+              <xsl:with-param name="name" select="atom:name" />
+              <xsl:with-param name="email" select="atom:email" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputManagingEditor"><xsl:with-param name="value" select="$manEditor" /></xsl:call-template>
+        </xsl:if>
+        <!-- We also make a full copy of every atom:author -->
+        <xsl:call-template name="_OutputAtomAuthor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'contributor'">
+        <xsl:call-template name="_OutputAtomContributor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'subtitle' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTextDescription">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'id' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGuid">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="isPermaLink" select="'false'" />
+          <xsl:with-param name="channelGuid" select="'true'" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'generator' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGenerator">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="uri" select="@uri" />
+          <xsl:with-param name="version" select="@version" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'rights' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputCopyright">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="@href" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <!-- First pair of updateFrequency and updatePeriod gets converted to ttl; all sy:* nodes are preserved as extensions -->
+      <xsl:when test="namespace-uri(.) = $_NSsy and local-name(.) = 'updatePeriod' and $isFirst = 'true'">
+        <xsl:if test="../sy:updateFrequency">
+          <xsl:call-template name="_ConvertUpdatesToTtl">
+            <xsl:with-param name="updatePeriod" select="string(.)" />
+            <xsl:with-param name="updateFrequency" select="string(../sy:updateFrequency)" />
+          </xsl:call-template>
+        </xsl:if>
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'treatAs'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfTreatAs"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NScf and local-name(.) = 'listinfo'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputCfListinfo"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'entry'">
+        <!-- Do nothing here for items -->
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSmon and local-name(.) = 'expiration'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputMonExpiration"><xsl:with-param name="value" select="." /><xsl:with-param name="type" select="@type" /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSatom1 and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+<!-- Item processing -->
+  <xsl:template match="atom:entry">
+    <xsl:param name="baseChannelUrl" />
+    <xsl:param name="references" />
+    <item>
+
+      <xsl:call-template name="_OutputXmlBase"><xsl:with-param name="value" select="@xml:base" /></xsl:call-template>
+
+      <xsl:call-template name="_OutputXmlLang"><xsl:with-param name="value" select="@xml:lang" /></xsl:call-template>
+
+      <!-- Item's base URL stacks onto channel's base URL -->
+      <xsl:variable name="baseChannelItemUrl">
+        <xsl:call-template name="_CombineUrls">
+          <xsl:with-param name="baseUrl" select="$baseChannelUrl" />
+          <xsl:with-param name="relUrl" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:variable>
+
+      <!-- Try to find the main link - one that has an href pointing to html and with type alternate -->
+      <xsl:variable name="mainLink" select="atom:link[(@rel = 'alternate' or @rel = '' or not(@rel)) and (@type = 'text/html' or @type = '' or not(@type))]" />
+
+      <!-- Output link -->
+      <xsl:if test="$mainLink">
+        <!-- Combine base URL with the main link -->
+        <xsl:variable name="itemLinkUrl">
+          <xsl:call-template name="_CompleteUrlTwoBase">
+            <xsl:with-param name="baseUrl1" select="$baseChannelItemUrl" />
+            <xsl:with-param name="baseUrl2" select="$mainLink/@xml:base" />
+            <xsl:with-param name="Url" select="$mainLink/@href" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputLink"><xsl:with-param name="value" select="$itemLinkUrl" /></xsl:call-template>
+      </xsl:if>
+
+      <xsl:apply-templates select="*" mode="item">
+        <xsl:with-param name="baseItemUrl" select="$baseChannelItemUrl" />
+        <xsl:with-param name="references" select="$references" />
+      </xsl:apply-templates>
+
+    </item>
+  </xsl:template>
+  
+  <xsl:template match="*" mode="item">
+    <xsl:param name="baseItemUrl" />
+    <xsl:param name="references" />
+    <xsl:variable name="isFirst">
+      <xsl:call-template name="_IsFirstChildOfItsKind"><xsl:with-param name="value" select="." /></xsl:call-template>
+    </xsl:variable>
+    <xsl:choose>
+      <!-- Process items -->
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'title' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputTitle">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link' and @rel = 'enclosure' and (@href or @length or @type)">
+        <xsl:variable name="enclosureUrl">
+          <xsl:call-template name="_CompleteUrlTwoBase">
+            <xsl:with-param name="baseUrl1" select="$baseItemUrl" />
+            <xsl:with-param name="baseUrl2" select="@xml:base" />
+            <xsl:with-param name="Url" select="@href" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputEnclosure">
+          <xsl:with-param name="url" select="$enclosureUrl" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="type" select="@type" />
+        </xsl:call-template>
+        <!-- We also make a full copy of the atom:link -->
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="@href" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'link'">
+        <!-- Special handling for item level atom:link with rel=entry-content: complete relative URL -->
+        <xsl:variable name="atomLinkUrl">
+          <xsl:choose>
+            <xsl:when test="@rel = 'entry-content'">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="relUrl" select="@href" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:value-of select="@href" />
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAtomLink">
+          <xsl:with-param name="href" select="$atomLinkUrl" />
+          <xsl:with-param name="rel" select="@rel" />
+          <xsl:with-param name="type" select="@type" />
+          <xsl:with-param name="title" select="@title" />
+          <xsl:with-param name="hreflang" select="@hreflang" />
+          <xsl:with-param name="length" select="@length" />
+          <xsl:with-param name="xmlBase" select="@xml:base" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'author'">
+        <xsl:variable name="author">
+          <xsl:call-template name="_ConvertAtomAuthorToAuthor">
+            <xsl:with-param name="name" select="atom:name" />
+            <xsl:with-param name="email" select="atom:email" />
+          </xsl:call-template>
+        </xsl:variable>
+        <xsl:call-template name="_OutputAuthor"><xsl:with-param name="value" select="$author" /></xsl:call-template>
+        <!-- We also make a full copy of the atom:author -->
+        <xsl:call-template name="_OutputAtomAuthor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'contributor'">
+        <xsl:call-template name="_OutputAtomContributor">
+          <xsl:with-param name="name" select="atom:name" />
+          <xsl:with-param name="email" select="atom:email" />
+          <xsl:with-param name="uri" select="atom:uri" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'id' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputGuid">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="isPermaLink" select="'false'" />
+        </xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'updated' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'published' and $isFirst = 'true'">
+        <xsl:call-template name="_OutputAtomPublished"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:call-template name="_OutputPubDate"><xsl:with-param name="value" select="." /></xsl:call-template>
+        <xsl:if test="not(../atom:updated)">
+          <xsl:call-template name="_OutputAtomUpdated"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'category' and (@term or @scheme)">
+        <xsl:call-template name="_OutputCategory">
+          <xsl:with-param name="value" select="@term" />
+          <xsl:with-param name="domain" select="@scheme" />
+        </xsl:call-template>
+      </xsl:when>
+      <!-- Handle content: printable goes into description; non-printable is preserved -->
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'content' and $isFirst = 'true'">
+        <xsl:choose>
+          <xsl:when test="(@src = '' or not(@src)) and (@type = '' or not(@type) or @type = 'text' or @type = 'html' or @type = 'xhtml')">
+            <xsl:variable name="baseContentUrl">
+              <xsl:call-template name="_CombineUrls">
+                <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+                <xsl:with-param name="relUrl" select="@xml:base" />
+              </xsl:call-template>
+            </xsl:variable>
+            <xsl:call-template name="_OutputDescription">
+              <xsl:with-param name="value" select="." />
+              <xsl:with-param name="type" select="@type" />
+              <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+            </xsl:call-template>
+          </xsl:when>
+          <xsl:otherwise>
+            <!-- NOTE: We don't understand content so we just won't touch it -->
+            <xsl:call-template name="_OutputExtension">
+              <xsl:with-param name="value" select="." />
+            </xsl:call-template>
+          </xsl:otherwise>
+        </xsl:choose>
+      </xsl:when>
+      <!-- Handle summary: printable goes into description or atom:summary; non-printable is discarded -->
+      <xsl:when test="namespace-uri(.) = $_NSatom1 and local-name(.) = 'summary' and $isFirst = 'true'">
+        <xsl:if test="(@src = '' or not(@src)) and (@type = '' or not(@type) or @type = 'text' or @type = 'html' or @type = 'xhtml')">
+          <xsl:variable name="baseContentUrl">
+            <xsl:call-template name="_CombineUrls">
+              <xsl:with-param name="baseUrl" select="$baseItemUrl" />
+              <xsl:with-param name="relUrl" select="@xml:base" />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:choose>
+            <xsl:when test="not(../atom:content[(@src = '' or not(@src)) and (@type = '' or not(@type) or @type = 'text' or @type = 'html' or @type = 'xhtml')])">
+              <xsl:call-template name="_OutputDescription">
+                <xsl:with-param name="value" select="." />
+                <xsl:with-param name="type" select="@type" />
+                <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+              </xsl:call-template>
+            </xsl:when>
+            <xsl:otherwise>
+              <xsl:call-template name="_OutputAtomSummary">
+                <xsl:with-param name="value" select="." />
+                <xsl:with-param name="type" select="@type" />
+                <xsl:with-param name="xmlBase" select="@xml:base" />
+                <xsl:with-param name="baseUrl" select="$baseContentUrl" />
+              </xsl:call-template>
+            </xsl:otherwise>
+          </xsl:choose>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSslash and local-name(.) = 'comments'">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:call-template name="_OutputSlashComments"><xsl:with-param name="value" select="." /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <xsl:when test="namespace-uri(.) = $_NSwfw and (local-name(.) = 'commentRss' or local-name(.) = 'commentRSS')">
+        <xsl:if test="$isFirst = 'true'">
+          <xsl:variable name="commentRssUrl">
+            <xsl:call-template name="_CompleteUrlTwoBase">
+              <xsl:with-param name="baseUrl1" select="$baseItemUrl" />
+              <xsl:with-param name="baseUrl2" select="@xml:base" />
+              <xsl:with-param name="Url" select="." />
+            </xsl:call-template>
+          </xsl:variable>
+          <xsl:call-template name="_OutputWfwCommentRSS"><xsl:with-param name="value" select="$commentRssUrl" /></xsl:call-template>
+        </xsl:if>
+      </xsl:when>
+      <!-- Copy extension nodes -->
+      <xsl:when test="namespace-uri(.) != $_NSatom1 and namespace-uri(.) != ''">
+        <xsl:call-template name="_OutputExtension">
+          <xsl:with-param name="value" select="." />
+          <xsl:with-param name="references" select="$references" />
+        </xsl:call-template>
+      </xsl:when>
+    </xsl:choose>
+  </xsl:template>
+
+</xsl:stylesheet>   MSFT      	      A                         ‘   ﬂ	      ˇˇˇˇ        Ä             d   »   ,  ê  Ù  X  º     Ñ  Ë  L  ∞    x  ‹  @  §    l  –  4  ò  ¸  §  `	  ˇˇˇˇ   d     ˇˇˇˇ   |     ˇˇˇˇ   4  0   ˇˇˇˇ     Ä   ˇˇˇˇ   Ñ  ∞  ˇˇˇˇ   ò     ˇˇˇˇ   ò  Ù  ˇˇˇˇ   å$  Ä  ˇˇˇˇ   ?  ∏   ˇˇˇˇ   ˇˇˇˇ    ˇˇˇˇ   ƒ?      ˇˇˇˇ   ‰?     ˇˇˇˇ   ˇˇˇˇ    ˇˇˇˇ   ˇˇˇˇ    ˇˇˇˇ   4"  ?                                    `   @         ˇˇˇˇ        ˇˇˇˇ \             ˇˇˇˇ ! ºC                                    ˇˇˇˇ    Ä      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ !  D                                    ˇˇˇˇ           ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ4" dD                                    x   @  \      ˇˇˇˇ        ˇˇˇˇ (             ˇˇˇˇ4" E                                    ®   @  ‘      ˇˇˇˇ        ˇˇˇˇ d             ˇˇˇˇ ! hI                                    ˇˇˇˇ    p      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! ÃI                                    ˇˇˇˇ    Ë      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ4" J                                    ¿   @  |      ˇˇˇˇ        ˇˇˇˇ \             ˇˇˇˇ ! ÙM                                    ˇˇˇˇ    @      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ4"	 ¯O                 ,                   ÿ   @  ¨
+      ˇˇˇˇ        ˇˇˇˇ Ã             ˇˇˇˇ !
+ ÃY                                    ˇˇˇˇ    ¿
+      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! 0Z                                    ˇˇˇˇ    4      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! îZ                                    ˇˇˇˇ    §      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! ¯Z                                    ˇˇˇˇ          ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! <[                                    ˇˇˇˇ    î      ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ ! ¿[                                    ˇˇˇˇ          ˇˇˇˇ        ˇˇˇˇ       ˇˇˇˇ        ˇˇˇˇ4" d\                                       @  †      ˇˇˇˇ        ˇˇˇˇ ‰    Ñ   3     ˇˇˇˇ4" ƒ]                                      @  p      ˇˇˇˇ        ˇˇˇˇ <             ˇˇˇˇ4" ¨_                                       @  †      ˇˇˇˇ        ˇˇˇˇ `             ˇˇˇˇ4" hc                                    8  @  l      ˇˇˇˇ        ˇˇˇˇ d            ˇˇˇˇ4" §c                                    P  @  ú      ˇˇˇˇ        ˇˇˇˇ P             ˇˇˇˇ%" Äf                                     h     §      ‰          ˇˇˇˇ                  ˇˇˇˇ%" Äf                                     Ä     º                ˇˇˇˇ                 ˇˇˇˇ%" Äf                                     ò     ‹      T          ˇˇˇˇ                  ˇˇˇˇˇˇˇˇˇˇˇˇH   Ä  `   8  ê   ˇˇˇˇˇˇˇˇÿ   ˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇˇò  ˇˇˇˇˇˇˇˇ0   ˇˇˇˇ   ®   ˇˇˇˇˇˇˇˇ   ˇˇˇˇP  ¿   ˇˇˇˇˇˇˇˇˇˇˇˇh  …Ÿ‹ú@º∆Aâ≈#f€–˛ˇˇˇˇˇˇˇYÛ!Ñ´ËAöx6—Ê“˘ˇˇˇˇˇˇˇˇ0     ¿      F   ˇˇˇˇ      ¿      F   ˇˇˇˇÃ)@ßIàÅ8ÿeë    ˇˇˇˇ( Õ„Ì.`LèÆ£"S	®6,  ˇˇˇˇ     ¿      F   ˇˇˇˇ—JÅîA}MÜ÷Å<Ï<ê  ˇˇˇˇ¶ü• D®0Fûò_p¥’[º  ˇˇˇˇÿ˘˜ﬁ.ºBòÁ•–PcßWÑ  ˇˇˇˇ	ÍÚ3òπJ∂§˘KI–§.@  ˇˇˇˇô\Û´ÅÍGöå6£u©û§  ˇˇˇˇ≠l
+G
+¢M°=[™•»ΩO      Ùû¨y¡˘+M•ßˇ∫Mœ7l    ˜&6§êgNÆ	:6•FCj–     ƒTÎ˙oˆHÉ†ÄRôı„≠4  x   Ì(ew∞LÑØÈ≥áØˇò  ˇˇˇˇ{s¶3ÙáFâº°¥ﬂπÒ#¸  ˇˇˇˇ       ˇˇˇˇˇˇˇˇº     ˇˇˇˇˇˇˇˇ§     ˇˇˇˇˇˇˇˇ      H        ê   0          - stdole2.tlbWWWˇˇˇˇ|  Ñ  »   ‡    8  –  ‹  ‹  ˇˇˇˇº    ‡  ˇˇˇˇ
+  T  T  ú  ˇˇˇˇ`  8  @  †  X     ˇˇˇˇ  §  ˇˇˇˇT  †	  ‹   º  L  ˇˇˇˇL     ∞    ˇˇˇˇt   	  ˇˇˇˇÃ  $  ú  ˇˇˇˇ¿  Ñ	  T  ,  ê  <     0  H  ˇˇˇˇ  Ñ  <  (  Ë  x    $  º    ˇˇˇˇ‘  ˇˇˇˇ   ∏  p  ‘  †  ˇˇˇˇl  ®  Ã  ˇˇˇˇ0  <  ˇˇˇˇ  ˇˇˇˇ‰  Ë  î  Ù  ‹  ∏  §  t  ˇˇˇˇ  ‘  †  §   	  à  ˇˇˇˇ¥  ‘     Ä  ò  D  8	  ˇˇˇˇh  ˇˇˇˇ$  ¸  ‘  ˇˇˇˇˇˇˇˇ0  h
+  h  ¿  ¨  D  4    ˇˇˇˇˇˇˇˇÃ  ê  ˇˇˇˇ ,FeedsWWW    ˇˇˇˇ8∂HIFeedsManagerWWW    ˇˇˇˇ
+ Ó|RootFolderWWˇˇˇˇˇˇˇˇ ∏edisp    ˇˇˇˇ &ﬁIsSubscribedˇˇˇˇˇˇˇˇ +feedUrlWˇˇˇˇˇˇˇˇ
+ ≤àsubscribedWW    ˇˇˇˇ
+ ˙WExistsFeedWWˇˇˇˇˇˇˇˇ ·feedPathˇˇˇˇˇˇˇˇ É]existsWW    ˇˇˇˇ †#GetFeedW    ˇˇˇˇ õyGetFeedByUrl    ˇˇˇˇ ﬂÛExistsFolderˇˇˇˇˇˇˇˇ
+ %¢folderPathWW    0   	 nÊGetFolderWWW    ˇˇˇˇ
+ ÁÜDeleteFeedWW    ˇˇˇˇ …±DeleteFolderd   ˇˇˇˇ8îvFEEDS_BACKGROUNDSYNC_ACTIONWd   ˇˇˇˇ0:ÙFBSA_DISABLEd   ˇˇˇˇ0à‡FBSA_ENABLEWd   ˇˇˇˇ0OFBSA_RUNNOWW    ˇˇˇˇ áÛBackgroundSyncWWˇˇˇˇˇˇˇˇ ›RactionWW»   h  8IOFEEDS_BACKGROUNDSYNC_STATUSW»      0I&FBSS_DISABLEDWWW»   ˇˇˇˇ0¬ÏFBSS_ENABLED        ˝BackgroundSyncStatusˇˇˇˇˇˇˇˇ í+statusWW    ˇˇˇˇ ª*DefaultIntervalWˇˇˇˇˇˇˇˇ OgminutesW    ˇˇˇˇ Ñ°AsyncSyncAll    ˇˇˇˇ	 .'NormalizeWWWˇˇˇˇˇˇˇˇ	 µKfeedXmlInWWWˇˇˇˇˇˇˇˇ
+ =feedXmlOutWW    X    ¶óItemCountLimitWW,  ˇˇˇˇ
+8{HIFeedsEnumWW,  ˇˇˇˇ 0vCountWWW,  ˇˇˇˇ ◊zItemˇˇˇˇˇˇˇˇ ÒøindexWWW,  ˇˇˇˇ xA_NewEnumˇˇˇˇˇˇˇˇ fƒenumVarWê  ˇˇˇˇ8JˆIFeedFolderWê  ¨  
+ x=SubfoldersWWê      
+ ¨›CreateFeedWWˇˇˇˇˇˇˇˇ üìfeedNameê  ˇˇˇˇ )ÔCreateSubfolderWˇˇˇˇˇˇˇˇ
+ §folderNameWWê  ˇˇˇˇ …ExistsSubfolderWê  ˇˇˇˇ i8GetSubfolderê  H    ∏xDeleteWWê  ˇˇˇˇ ÚNameê  d   B+RenameWWê  Ñ    2Pathê  ˇˇˇˇ >yMoveˇˇˇˇ–   ≤înewParentPathWWWê  ¯   Æ‚ParentWWê  ˇˇˇˇ «ªIsRootWWê  ˇˇˇˇ Õ≤TotalUnreadItemCountê  ˇˇˇˇ 	TotalItemCountWWÙ  ˇˇˇˇ8ã§FEEDS_EVENTS_SCOPEWWÙ  ˇˇˇˇ0QìFES_ALLWÙ  ˇˇˇˇ0ú†FES_SELF_ONLYWWWÙ  Ï  0xFES_SELF_AND_CHILDREN_ONLYWWX  ˇˇˇˇ8ßkFEEDS_EVENTS_MASKWWWX    0Æ?FEM_FOLDEREVENTSX  ®  0∫’FEM_FEEDEVENTSWWê  p  
+ ã*GetWatcherWWˇˇˇˇH   …0scopeWWWˇˇˇˇˇˇˇˇ ˜-maskº  ˇˇˇˇ8ZfIFeedFolderEventsWWWº  ˇˇˇˇ <€ErrorWWWº  @   &6FolderAddedWº  ˇˇˇˇ -IFolderDeletedWWWº  @   ûFolderRenamedWWWˇˇˇˇ\   ˚7oldPathWº  ˇˇˇˇ åŸFolderMovedFromWº     å≤FolderMovedToWWWº  ˇˇˇˇ ÀFolderItemCountChangedWWˇˇˇˇˇˇˇˇ ™WitemCountTypeWWWº  ˇˇˇˇ	 KFeedAddedWWWº  ˇˇˇˇ ‚oFeedDeletedWº  ˇˇˇˇ ¿ƒFeedRenamedWº  ˇˇˇˇ ≈6FeedUrlChangedWWº  ˇˇˇˇ 7†FeedMovedFromWWWº  ˇˇˇˇ AŸFeedMovedToWº     ¡'FeedDownloadingW   ÿ  8}FEEDS_DOWNLOAD_ERROR   L  0
+FDE_NONE     0› FDE_DOWNLOAD_FAILEDW   ˇˇˇˇ0ÿ√FDE_INVALID_FEED_FORMATW   º  0¿FDE_NORMALIZATION_FAILED   ˇˇˇˇ03–FDE_PERSISTENCE_FAILEDWW   ˇˇˇˇ0„√FDE_DOWNLOAD_BLOCKED   p  0™FDE_CANCELED   ˇˇˇˇ0lFDE_UNSUPPORTED_AUTH   å   0ÀSFDE_BACKGROUND_DOWNLOAD_DISABLED   ˇˇˇˇ0±TFDE_NOT_EXISTWWW     0ü"FDE_UNSUPPORTED_MSXMLWWW   ˇˇˇˇ0â‘FDE_UNSUPPORTED_DTDW   ˇˇˇˇ 0k–FDE_DOWNLOAD_SIZE_LIMIT_EXCEEDED   ˇˇˇˇ0è¥FDE_ACCESS_DENIEDWWW   ˇˇˇˇ0¥aFDE_AUTH_FAILEDW   ˇˇˇˇ0ˆ,FDE_INVALID_AUTHº  L
+   v[FeedDownloadCompletedWWWº     5öFeedItemCountChangedÑ  ˇˇˇˇ8»óIFeedWWWË  0  8)ˇFEEDS_XML_SORT_PROPERTYWË  ˇˇˇˇ	0‘zFXSP_NONEWWWË  ˇˇˇˇ0ËfFXSP_PUBDATEË  ˇˇˇˇ0°¡FXSP_DOWNLOADTIMEWWWL     8{FEEDS_XML_SORT_ORDERL  ˇˇˇˇ	0dFXSO_NONEWWWL  ˇˇˇˇ0?ÄFXSO_ASCENDINGWWL  ˇˇˇˇ0dCFXSO_DESCENDINGW∞  |  8ZîFEEDS_XML_FILTER_FLAGSWW∞  ƒ	  0âíFXFF_ALL∞  X	  0KçFXFF_UNREADW∞  $  	0∫QFXFF_READWWW  ∏  8@∂FEEDS_XML_INCLUDE_FLAGSW  ê  	0—)FXIF_NONEWWW  ò  0∏3FXIF_CF_EXTENSIONSWWÑ  ‹   KÔXmlWˇˇˇˇˇˇˇˇ ¢sortPropertyˇˇˇˇ0
+  	 4òsortOrderWWWˇˇˇˇ¥    ·NfilterFlagsWˇˇˇˇt   0˝includeFlagsÑ  ˇˇˇˇ ˘ﬂUrlWÑ  à   ◊÷LocalIdWˇˇˇˇ   .ñfeedGuidÑ  |   ÔLastWriteTimeWWWˇˇˇˇ‹  	 3ÈlastWriteWWWÑ  ú    ˙ÚDownloadÑ  ˇˇˇˇ øAsyncDownloadWWWÑ  ¿
+   )`CancelAsyncDownloadWx  ˇˇˇˇ8êÿFEEDS_SYNC_SETTINGWWx  ¿  0ÊåFSS_DEFAULTWx    0,GFSS_INTERVALx  ˇˇˇˇ
+0VÑFSS_MANUALWWx  h  0KÖFSS_SUGGESTEDWWWÑ  p    ÇSyncSettingWÑ  ˇˇˇˇ u'IntervalÑ  ˇˇˇˇ ŸLastDownloadTimeˇˇˇˇÄ   î&lastDownloadÑ  l   ø/LocalEnclosurePathWWÑ  ˇˇˇˇ `hItemsWWWÑ  ÿ   ˘ƒGetItemWˇˇˇˇ   28itemIdWWÑ  ˇˇˇˇ Ú~TitleWWWÑ  ‡   æ DescriptionWÑ  ¸
+   híLinkˇˇˇˇò   Ò‘homePageÑ  ˇˇˇˇ ÍImageWWWˇˇˇˇˇˇˇˇ ïWimageUrlÑ  x   "ŸLastBuildDateWWWÑ  8   n‘PubDateWˇˇˇˇ`   blastPopulateDateÑ  ˇˇˇˇ Í⁄TtlWÑ  ˇˇˇˇ NÅLanguageÑ    	 !/CopyrightWWWÑ  P   ÁÂMaxItemCountÑ  ¿   ≤∞DownloadEnclosuresAutomaticallyW‹  Ù  8:ÈFEEDS_DOWNLOAD_STATUSWWW‹  å
+  058FDS_NONE‹  ˇˇˇˇ0|äFDS_PENDINGW‹  h  0Ó1FDS_DOWNLOADINGW‹    0iFDS_DOWNLOADEDWW‹  ˇˇˇˇ0∞FDS_DOWNLOAD_FAILEDWÑ  ®   ·(DownloadStatusWWÑ  »   â®LastDownloadErrorWWWÑ     q_MergeWWWˇˇˇˇ‰
+   T:feedXmlWÑ  »   - DownloadUrlWÑ  ˇˇˇˇ R˙IsListWWÑ  ¨
+   H€MarkAllItemsReadÑ  ˇˇˇˇ LUnreadItemCountWÑ  ú  	 ºUItemCountWWW@  ¿  8·IFeed2WW@  X   IãGetItemByEffectiveIdˇˇˇˇò   ‡˘itemEffectiveIdW@  Ë   ßXLastItemDownloadTime@  ˇˇˇˇ \ÊUsername@  ¨   ŒPassword@  d   ÜøSetCredentialsWW@  Ï   2	ClearCredentials§  ¥  8…¨IFeedEventsW§  l  	 ˜∆FeedMovedWWW  ¸  	8KüIFeedItemWWWˇˇˇˇP   »}linkUrlW  $   ıGuidˇˇˇˇ§   Z^itemGuid  ˇˇˇˇ √)Comments  P   ¸èAuthorWW  ˇˇˇˇ	 PEnclosureWWW     7ÑIsReadWWˇˇˇˇ‰	   Î)itemUrlW  ˇˇˇˇ €µModifiedl  4  
+8M˘IFeedItem2WWl     àEffectiveIdW–  ¸  8ÆÎIFeedEnclosureWWˇˇˇˇX   €enclosureUrl–  Ñ    Typeˇˇˇˇˇˇˇˇ ç‹mimeType–  D   YƒLengthWW–  0  	 åÌLocalPathWWW–  l   nDownloadMimeType–  à  
+ <–RemoveFileWW–  î   ê'SetFileWˇˇˇˇà   w·downloadFilePathˇˇˇˇ∞   ;¥enclosureFilenameWWW4    8\qFeedsManagerò  ‰  8ã]FeedFolderWatcherWWW¸  ¿  8à5FeedWatcherW Microsoft FeedsWWW' Retrieves the root subscription folder.WWW: Determines if the URL is in the system subscription store. Checks if a feed exists.WW Retrieves a feed from its path.WWW Retrieves a feed by its URL.WW Checks if a feed folder exists.WWW! Retrieves a folder from its path.W Deletes a feed.WWW Deletes a feed folder.; Controls the behavior of background synchronization engine.WWW% Retrieves the background sync status.W0 Retrieves the default update interval for feeds.WW+ Sets the default update interval for feeds.WWW- Starts the background synchronization engine.W' Converts a feed to the normalized form.WWW9 Retrieves the maximum number of items retained for feeds.W3 Retrieves the number of objects in this collection.WWW Returns an object by index.WWW1 Retrieves the collection of feeds in this folder.W6 Retrieves the collection of subfolders in this folder.) Creates a new feed, and subscribes to it.W& Creates a new subfolder in the folder. Retrieves a feed by its name.W Checks if a subfolder exists.W" Retrieves a subfolder by its name., Deletes this folder and all of its contents.WW) Retrieves the name of the current folder.W Renames the folder.WWW) Retrieves the path of the current folder.W( Moves the feed folder to a new location.WW0 Retrieves the parent of the current feed folder.WW< Checks to see whether the current folder is the root folder.WW8 Retrieves the total (aggregated) number of unread items.WW1 Retrieves the total (aggregated) number of items.W/ Retrieves the appropriate interface for events.WWW- Occurs when a feed folder event error occurs.W+ Occurs when a folder or subfolder is added.WWW- Occurs when a folder or subfolder is removed.W- Occurs when a folder or subfolder is renamed.W< Occurs when a folder or subfolder is moved from this folder.WW: Occurs when a folder or subfolder is moved to this folder.? Occurs when the aggregated item count of a feed folder changes.WWW* Occurs when a feed is added to the folder.. Occurs when a feed is deleted from the folder. Occurs when a feed is renamed.) Occurs when the URL of a feed is changed.W- Occurs when a feed is moved from this folder.W+ Occurs when a feed is moved to this folder.WWW& Occurs when a feed starts to download.6 Occurs when a feed has finished or failed downloading.- Occurs when the item count of a feed changed.W: Returns the Extensible Markup Language (XML) for the feed.' Retrieves the display name of the feed.WWW Renames the feed.W Retrieves the URL of the feed. Sets the URL of the feed.W- Retrieves the guid associated with this feed.W( Retrieves the path for the current feed.WW! Moves the feed to a new location.W( Retrieves the parent folder of the feed.WW) Retrieves the last time the feed changed.W Deletes the feed.W Downloads content for the feed.WWW. Downloads content for the feed asynchronously.* Cancels asynchronous download of the feed.* Retrieves the update setting for the feed.% Sets the update setting for the feed.W+ Retrieves the update interval for the feed.WWW& Sets the update interval for the feed.I Retrieves the date and time of the last successful download for the feed.WL Retrieves the file system path where enclosures for the feed are downloaded.WW0 Retrieves an enumerator for items from the feed.WW. Returns a IFeedItem object by identifier (ID)." Retrieves the title from the feed.7 Retrieves a phrase or sentence that describes the feed.WWW* Retrieves the home page URL from the feed.& Retrieves the image URL from the feed., Retrieves the last build date from the feed.WW4 Retrieves the publication date and time of the feed.WW/ Retrieves the time to live (TTL) from the feed.WWW* Retrieves the language code from the feed.& Retrieves the copyright from the feed.= Maximum number of items to keep, excess items will be deletedW_ Retrieves a VARIANT_BOOL value that determines whether enclosures are downloaded automatically.WWWZ Sets a VARIANT_BOOL value that determines whether enclosures are downloaded automatically.2 Retrieves the current download status of the feed.. Retrieves the last download error of the feed.& Merges feed XML into an existing feed.5 Retrieves the URL that was used to download the feed.W! Determines if the feed is a list.WG Sets the IFeedItem::IsRead property to VARIANT_TRUE for all feed items.WWW) Retrieves the count of unread feed items.W* Retrieves the count of items in this feed.2 Retrieves the item that contains the effective ID.; Retrieves the most recent download time for all feed items.WWWA Retrieves the username used to authenticate the feed, if present.WA Retrieves the password used to authenticate the feed, if present.W= Sets the username and password used to authenticate the fee

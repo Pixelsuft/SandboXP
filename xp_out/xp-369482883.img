@@ -1,0 +1,1219 @@
+aiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+    
+    g.btnNext.onclick = ToobusyNextBtnHandler;
+    
+    SelectDialRule();
+}
+
+
+function NewToobusy_LoadMe()
+{
+    DefaultErr_LoadMe();
+
+    
+    var L_tbstr1_Text = "Le programme d'installation ne peut pas se connecter à ce numéro pour activer et enregistrer votre ordinateur.";
+    var L_tbstr2_Text = "Le programme d'installation ne peut pas se connecter à ce numéro pour activer votre ordinateur.";
+    var L_tbstr3_Text = "Le programme d'installation ne peut pas se connecter à ce numéro pour enregistrer votre ordinateur.";
+
+    var L_tbstr4_Text = "Pour passer à l'étape suivante sans activer ni enregistrer votre ordinateur, cliquez sur <b>Ignorer</b>.";
+    var L_tbstr5_Text = "Pour passer à l'étape suivante sans activer votre ordinateur, cliquez sur <b>Ignorer</b>.";
+    var L_tbstr6_Text = "Pour passer à l'étape suivante sans enregistrer votre ordinateur, cliquez sur <b>Ignorer</b>.";
+    
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) || (g_PostToOEM))
+        {
+            g.tbpar1.innerHTML = L_tbstr1_Text;
+            g.tbpar2.innerHTML = L_tbstr4_Text;
+        }
+        else
+        {
+            g.tbpar1.innerHTML = L_tbstr2_Text;
+            g.tbpar2.innerHTML = L_tbstr5_Text;
+        }
+    }
+    else
+    {
+        g.tbpar1.innerHTML = L_tbstr3_Text;
+        g.tbpar2.innerHTML = L_tbstr6_Text;
+    }
+    
+
+
+    var fLoadPhoneNumber = window.external.get_DialNumber;
+    g.spanDisplayNumber.innerHTML = "&nbsp;&nbsp;<B>" + fLoadPhoneNumber + "</B>";
+
+    if (gTooBusyHaveError1)
+        g.tberrspan1.style.visibility = "visible";
+    if (gTooBusyHaveError2)
+        g.tberrspan2.style.visibility = "visible";
+    if (gTooBusyHaveError3)
+        g.tberrspan3.style.visibility = "visible";
+
+
+    if (((g_AltnumberHolder == null) || (g_AltnumberHolder == "")) && (!gTooBusyHaveError1))
+    {
+        g_AltnumberHolder = "";
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.style.disabled = true;
+        g.cb_altnumber.checked = false;
+    }
+    else
+    {
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.cb_altnumber.checked = true;
+    }
+
+    if (!gTooBusyHaveError2)
+        g_OutsidelineHolder = TapiObj.get_DialOut;
+
+    if (((g_OutsidelineHolder == null) || (g_OutsidelineHolder == "")) && (!gTooBusyHaveError2))
+    {
+        g_OutsidelineHolder = "";
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.cb_outsideline.checked = false;
+    }
+    else
+    {
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.cb_outsideline.checked = true;
+    }
+
+
+    if (!gTooBusyHaveError3)
+        g_CallwaitingHolder = TapiObj.get_CallWaiting;
+
+    if (((g_CallwaitingHolder == null) || (g_CallwaitingHolder == "")) && (!gTooBusyHaveError3))
+    {
+        g_CallwaitingHolder = "";
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.cb_callwaiting.checked = false;
+    }
+    else
+    {
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.cb_callwaiting.checked = true;
+    }
+
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NewToobusyNextBtnHandler;
+}
+
+
+function Check_cb_altnumber()
+{
+    if (g.cb_altnumber.checked == true)
+    {
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.focus();
+    }
+    else
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.disabled = true;
+        g.lbl_altnumber.innerHTML = L_altnumber_Text;
+        g.lbl_altnumber.className = "text-primary";
+    }
+}
+
+
+function Check_cb_outsideline()
+{
+    if (g.cb_outsideline.checked == true)
+    {
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.focus();
+    }
+    else
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.lbl_outsideline.innerHTML = L_outsideline_Text;
+        g.lbl_outsideline.className = "text-primary";
+    }
+}
+
+
+function Check_cb_callwaiting()
+{
+    if (g.cb_callwaiting.checked == true)
+    {
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.focus();
+    }
+    else
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+        g.lbl_callwaiting.className = "text-primary";
+    }
+}
+
+function SelectDialRule()
+{    
+    if (g.DialRuleYes.checked)
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=false;
+        g.edtOutsideLine.disabled=true;
+        g.edtCallWaiting.disabled=true;
+    }
+    else
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=true;
+        g.edtOutsideLine.disabled=false;
+        g.edtCallWaiting.disabled=false;
+    }
+}
+
+function RestoreDialRule()
+{
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    if (g.edtPhoneNumber)
+        g.edtPhoneNumber.value = window.external.get_PhBkNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+}
+
+
+function ISPInsError_NextBtnHandler() 
+{
+    PopCKPT();
+    GoNavigate(CKPT_OEMCUST);
+}
+function ISPInsError_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.ins_ISPName1.innerText = window.external.get_ISPName;
+    g.ins_ISPName2.innerText = window.external.get_ISPName;
+    g.btnNext.onclick = ISPInsError_NextBtnHandler;
+}
+
+
+
+function NoAnswNextBtnHandler() 
+{
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+    
+    if (g.DialRuleYes.checked) {
+        if (CheckPhoneNumer(g.edtPhoneNumber.value))
+        {
+            window.external.set_DialNumber(g.edtPhoneNumber.value);
+            DialErrorNextBtnHandler();
+        }
+        else
+        {
+            g.edtPhoneNumber.value = window.external.get_DialNumber;
+            g.error_mesg.innerHTML = L_EnterValidPhoneNumber_Text;
+            g.error_mesg.style.display="inline";
+        }
+    }
+    else
+    {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+        window.external.set_DialAlternative(false);
+        DialErrorNextBtnHandler();
+    }
+    
+
+    
+}
+
+function NoAnsw_LoadMe()
+{
+    DefaultErr_LoadMe();
+        
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtPhoneNumber.value = g.spanDisplayNumber.innerText;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NoAnswNextBtnHandler;
+    
+    SelectDialRule();
+
+}
+
+
+
+function NoModemBtnHandler() 
+{
+    window.external.Finish();
+}
+function NoModem_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = NoModemBtnHandler;
+}
+
+function Pulse_LoadMe()
+{
+    DefaultErr_LoadMe();
+    if (1 == TapiObj.set_PhoneSystem)
+        g.tone.checked = true;
+    else
+        g.pulse.checked = true;
+}
+
+function DesktopPbErr_LoadMe()
+{
+    InitFrameRef();
+    if (InActivation_AppMode())
+    {
+        GetPageTitle();
+    }
+
+    InitButtons();
+
+    var L_DeskpbErrOEMName_Text = g_OEMNameStr;
+    if (L_DeskpbErrOEMName_Text == "")
+    {
+        L_DeskpbErrOEMName_Text = L_MissingOEMName_Text;
+    }
+
+    var L_DeskMainPBerrMsg_Text = "";
+    var L_Title_Text = "";
+
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "L'enregistrement et l'activation en ligne ne sont actuellement pas disponibles dans votre pays ou votre région. Pour enregistrer votre ordinateur sans connexion Internet, contactez %1. Vous pouvez activer Windows en utilisant une connexion Internet ou en contactant Microsoft par téléphone.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else if ((g_PostToMS) && (!g_PostToOEM))
+        {
+            L_Title_Text = "Activation et inscription en ligne impossibles"; 
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "L'enregistrement et l'activation en ligne ne sont actuellement pas disponibles dans votre pays ou votre région. Vous pouvez activer votre copie de Windows ultérieurement en utilisant une connexion Internet ou en contactant Microsoft par téléphone. Une connexion Internet est nécessaire pour enregistrer Windows auprès de Microsoft.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+        else if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "L'activation en ligne est actuellement indisponible dans votre pays ou votre région. Vous pouvez activer votre copie de Windows ultérieurement en utilisant une connexion Internet ou en contactant Microsoft par téléphone. Pour enregistrer votre ordinateur ultérieurement sans connexion Internet, contactez %1.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else
+        {
+            L_Title_Text = "Activation en ligne impossible";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            
+            L_DeskMainPBerrMsg_Text        = "L'activation en ligne est actuellement indisponible dans votre pays ou votre région. Vous pouvez activer votre copie de Windows ultérieurement en utilisant une connexion Internet ou en contactant Microsoft par téléphone.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+    }
+    else
+    {
+        if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_Title_Text = "Inscription en ligne impossible";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "L'enregistrement en ligne n'est actuellement pas disponible dans votre pays ou votre région. Pour enregistrer votre ordinateur sans connexion Internet, contactez %1.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+    }
+
+    g.btnBack.focus();
+    g.btnBack.onclick = window.parent.SimpleNavBack;
+}
+PAfunction ObjectLoad()
+{
+    if ( objectDestination )
+    {
+        var bodyElement = objectDestination.parentElement;
+        
+        if ( bodyElement.objectSource )
+        {
+            bodyElement.innerHTML = "<embed width=100% height=100% fullscreen=yes>";
+            bodyElement.firstChild.src = bodyElement.objectSource;
+        }
+    }
+}
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "Erreur : nom OEM manquant dans la section [Branding] du fichier oobeinfo.ini.";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Les mises à jour automatiques permettent à Windows de vérifier régulièrement la présence des dernières mises à jour importantes pour votre ordinateur, et de les installer automatiquement. Ces mises à jour peuvent inclure des mises à jour de sécurité, des mises à jour critiques et des Service Packs.";
+var L_IntroUpdate_Text = "Merci d'avoir installé Windows XP Service Pack 3. Avant de finaliser le processus d'installation, inscrivez-vous au service de mises à jour automatiques. Les mises à jour automatiques permettent à Windows de vérifier régulièrement la présence des dernières mises à jour importantes pour votre ordinateur, et de les installer automatiquement. Ces mises à jour peuvent inclure des mises à jour de sécurité, des mises à jour critiques et des Service Packs.";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+PAD
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>out of box experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<script>
+var g_PID_Link_URL       = "";
+
+function PID_Link_OnClick(stage)
+{
+    
+    
+    
+    
+    
+    
+    
+    if (stage == null)
+    {
+        window.parent.ShowIFrame('False', window.parent.L_CheckConnectivity_Text);
+        window.parent.ResetConnectedToInternetEx();
+        window.parent.ConnectedToInternetEx(true, "g.PID_Link_OnClick(1);");
+    }
+    else if (stage == 1)
+    {
+        var connected = window.parent.ConnectedToInternetEx(false);
+        
+        if (!connected)
+        {
+            connected = window.external.InternetAutodial();
+            window.parent.g_InitAutodial = connected;
+            
+            if (!connected)
+            {
+                if (window.external.GnsAutodial(true, "User1"))
+                {
+                    window.parent.ResetConnectedToInternetEx();
+                    connected = window.parent.ConnectedToInternetEx(true);
+                }
+            }
+        }
+
+        if (connected)
+        {
+            window.open(g_PID_Link_URL);
+        }
+
+        window.parent.ShowIFrame();
+    }
+    
+    return false;
+}
+
+function Local_LoadMe() {
+
+    if (acterror_after_pid_entry_text1.style.display == "inline" ||
+        acterror_after_pid_entry_text2.style.display == "inline") {
+        
+        var strPid = window.parent.PidObj.get_CurrentPID2();
+        var strStrippedPid = "";
+
+        var re = new RegExp("(.*)-(.*)-(.*)-(.*)","");
+        if(re.exec(strPid) == null) {
+            strStrippedPid = "";
+        }
+        else
+        {
+            strStrippedPid = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4;
+        }
+
+
+        g_PID_Link_URL = "https://pa.one.microsoft.com/portal.asp?req=" +
+            strStrippedPid + "&err=" + window.parent.g_act_specific_error;
+
+        acterror_link1.title = g_PID_Link_URL;
+        acterror_link1.onclick = PID_Link_OnClick;
+        acterror_link2.title = g_PID_Link_URL;
+        acterror_link2.onclick = PID_Link_OnClick;
+
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.act_desktop_error_LoadMe(); Local_LoadMe();" >
+
+<table valign=middle border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;">
+        <ID id=acterror_s1>Activation de Windows</ID>
+    </span>
+
+    <br>
+
+        <!-- Retail mode -->
+        <span ID=acterror_description_dedicated_pid_RETAIL class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1">La clé de produit que vous avez entrée au cours de l'installation de Windows est incorrecte. Si vous souhaitez continuer l'activation de Windows, entrez votre clé de produit dans les champs ci-dessous, puis cliquez sur <b>Mise à jour</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2">La clé du produit de 25 caractères devrait se trouver au dos du CD Windows sur un autocollant ressemblant à ceci :</ID>
+            <br><br>
+            <center><img src="../images/prodkey.gif"></center>
+        </span>
+        
+        <!-- OEM mode -->
+        <span ID=acterror_description_dedicated_pid_OEM class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1x">La clé de produit que vous avez entrée au cours de l'installation de Windows est incorrecte. Si vous souhaitez continuer l'activation de Windows, entrez votre clé de produit dans les champs ci-dessous, puis cliquez sur <b>Mise à jour</b>.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2x">La clé du produit de 25 caractères se trouve sur le certificat d'authenticité (COA) qui figure sur votre ordinateur ou avec la documentation Windows. Elle devrait ressembler à l'exemple ci-dessous.</ID>
+            <br><br>
+            <center><img src="../images/oemcoa.jpg"></center>
+        </span>
+
+
+        <!-- PID ENTRY -->
+        <span ID=acterror_pid_entry class="text-primary" style="display:none;">
+            <br>
+            <table ID=PidBox border=0 DIR=ltr style="font-family:Courier New; FONT-SIZE: 16pt;">
+            <tr>
+                <td nowrap width=10>&nbsp;</td>
+                <td nowrap class="text-primary" >
+                <span ID=acterror_description_verify_key class="text-primary"><ID id="txtverifykey">Vérifiez la clé :</id></span>&nbsp;
+                </td>
+                <td>
+                <input style="ime-mode:disabled" id=pid1 type="text" size=6 maxlength=5 class=pid-box TABINDEX=1 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid2 type="text" size=6 maxlength=5 class=pid-box TABINDEX=2 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid3 type="text" size=6 maxlength=5 class=pid-box TABINDEX=3  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid4 type="text" size=6 maxlength=5 class=pid-box TABINDEX=4  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid5 type="text" size=6 maxlength=5 class=pid-box TABINDEX=5  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td>
+            </tr>
+            </table>
+        </span>
+
+        <!-- AFTER PID ENTRY TEXT -->
+        <span ID=acterror_after_pid_entry_OEMText class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErrOEMText">Contactez le fabricant de votre ordinateur si vous ne pouvez pas trouver votre certificat d'authenticité.</ID><br>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text1 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr14">Si vous pensez avoir entré la clé de produit correcte et croyez avoir reçu ce message par erreur, contactez notre Service clientèle ou visitez le site Web <a href="#" id="acterror_link1"><U>d'Assistance à l'activation des produits Microsoft</u></a> pour obtenir plus d'informations sur l'obtention de clés supplémentaires. Pour obtenir un numéro de contact dans votre région, cliquez sur <B>Téléphone</B>.</ID>
+        </span>
+
+
+        <span ID=acterror_after_pid_entry_text2 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr15">Si vous pensez avoir reçu ce message par erreur, contactez notre Service clientèle ou visitez le site Web <a href="#" id="acterror_link2"><U>d'Assistance à l'activation des produits Microsoft</u></a> pour obtenir plus d'informations sur l'obtention de clés supplémentaires. Pour obtenir un numéro de contact dans votre région, cliquez sur <B>Téléphone</B>.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text3 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr16">Un exemplaire de Windows ne peut être installé que sur un ordinateur à la fois. Si vous croyez que vous avez reçu ce message par erreur, contactez notre Service Clientèle en cliquant sur le bouton <B>Téléphone</B>.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text4 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr17">Si vous n'avez pas besoin d'entrer une clé de produit, cliquez sur le bouton <B>Téléphone</B> pour revenir à la page d'activation précédente.</ID>
+        </span>
+        
+    <!-- End -->
+    </td>
+
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=99%>
+            &nbsp;&nbsp;
+            <span ID=acterror_specific_error_code class="text-primary" style="display:none; z-index:10;">
+            </span>
+        </td>
+        <td>
+        <BUTTON ID="btnTelephone" class="buttons" TABINDEX=6 ACCESSKEY="T"><label for=btnTelephone><id id="LocalBtnTel_Text"><u>T</u>éléphone</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=7 ACCESSKEY="M"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>M</u>e le rappeler ultérieurement</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=8 ACCESSKEY="R"><label for=btnNext><id id="LocalBtnRetry_Text"><u>R</u>ecommencer</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+GIF89a0 0 ÷   1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ !ù  ÿ ,    0 0 Ç 1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ ş ı	H° Áƒ*L(ïN›D£p)÷.Ş¼pñÆº„Ç‰.\ÈaD9~ŞËw5jçĞ¡“G“¹k«¼¼xQ¢§‡0`ˆa‚C„tCyO_0M°’]»¶íšÍ›U“ÁZuh7hØĞùá ‚¨À€Š-rÆ È¥Jsg°\¹Â¦¯ß½i$¥úÚ,hd’£1%y
+õ›LÙ^?{İáÛ‡’¿|øğ™sg®04`¥e•SH¹2Á~õ`×Ã–ò ?yÕJ¹b¶L›+e£0%Óä…#ÓìÖ>("_êˆ²e¬z6Q£LÁÒ4èÈN „ş-û`—İ|ğº9ëÕÌW¯açØÑ”·nİ¶d§’é‡Å_’¡T Á€8À@'Èàƒ‹!±”@÷¸É ƒX¢	TüAe!…ƒ<²‡rì K¡‚
+;ğÀC]tAF; ğÆ.û ä0F¤:Ğ<âá˜S4¾tÇ±àce	É&P9ÑÜZh÷Téiå 6K„œ´Pl`ælÊ-w>ò\óJ.™ÁÆŒX’L>f.§9A("7¯ŒóÎ8ã0\`ÜğÓxPu$OM€QÇ%£Ü’9â(£=ë$£‰FğdABQA†Ô˜R•Í4ãL3ş½ÄêK4´Js*ˆâFÑS	 HTY+OA ­d%<ÑôŒ,²Ìr
+*õaµ!|pèl0lY,(¸DİÔÏ=¬D5U}ëĞÇîTÉ BÉ…–P(	ãa°@¤¥Â &(!\9äÁ¨?î”c‰%üE•ToG	$”-{ğàƒ1 ÀV  „¼‹dì€!ÇdN4l|ÅáË¢±kŸ€â	(f˜1Ç9çÌ]¨€Â„”«4¡´L£Œ9ãN>W–ó‹4…l¢¤gûpÖZA—Á6>îìC-æä“Ï=¥Ñò‰Û@ãL9ğlVæ@­µ†şŞõÌf>ùt8•æcÎáCšÓIª"¶e{û&l´	´Ï=»âˆ,ÏtşL'ÄG±ÀÓxJ}§Ş76ØÜİè™hÊÃ>ú¼şº>ëè’‰2¦´2Š"‚ÚXXr°íñC2¤(“‹8ÕD¯.£$ÒF-„tÁ€œn;?ê’ˆ"­,C=ñ¤³5ê“H|ğ‡’¶ëcJ¤‰`ÒŠ2Ì`šN<h"Å"Ğ„ˆÀ4JQh²:é#hÚ`Jâ7¸Ø9`14øŠ è€20P ¦K	hÔF5+!îÑğ…,B!¾ê	„2¬0 şÇCˆ”†qŒcPãíšO}®A:(Í;<)‚…	,`
+`Á”âº|¤9œ9!‹h¸kSYFE)v`‡ã—~@.¦ nè)G{dèzƒä †'ÈQ•kDESÀÀF ‘8 ‡Pó |”ÃÃ(Æ4À‘D%Ú¤* @FÃ4a	ÿˆÇ„â°(a	[P]˜r–À‚*Va9Ğx­¤bBrÃ!†ğ-¬R-lÉ,±(4CUû`†ÔUÈ^²?àËHøà X Öò1í`s€’”wLÂB‹',Ö!Œé!d şğÁğ2±¨eàÁ\D}¸n P½êEÊ—>ÒCÈ„-Œ!	$s‘øààÍ ŸAÆ˜†¾È,¡_‘Y_®€?ĞBh+Â¢3Ô4	<  ‡¼!Äpt0p8T¢V £9~aY ,=İˆ*<à‘·Ê\f¤§Ø‰Ò*s|bbC'°ÎubFwûÚ’,S/–†î …ihÑùHty€!6Q‘âM­“‰[ëaĞ®Yn¡9LÏvŠ1­IUœ?`C¹h3ü>ØFh<ãp³Ø„÷^c™Àöol¥>¢¸).mS5>‡/ Ñ*r”Ü˜*·rp‚nU²R—ÚˆÑ=öK”åÛlr¹nÄbyÈÃAˆXtÃt]üëXw·€  ;PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPAD                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ì‹ “   ´‹   ü‹        ÿÿÿÿc “   ,Œ                ÿÿÿÿc “   PŒ                ÿÿÿÿ2c    :c “   tŒ                ÿÿÿÿQc “    Œ                ÿÿÿÿhc    pc   xc   ƒc          ‹c           xÖ´ÿÿÿ…İ            üŒ “   ÄŒ           ÿÿÿÿ¢c    ªc   ²c   ½c                  xÖèÿÿÿİŞ            l “   <   |        ÿÿÿÿÔc “   ¬                ÿÿÿÿëc    óc   d   d “   Ğ                ÿÿÿÿwd “                   ÿÿÿÿ,d    4d   Bd   Pd   ^d “   0                ÿÿÿÿd “   t                ÿÿÿÿ¥d “   ˜                ÿÿÿÿ¼d “   ¼                ÿÿÿÿÔd    Üd   êd   ød   e   e   "e   0e   >e   Le	   Ze
+   he   ve   „e   ’e “   à                ÿÿÿÿ¯e    ·e   ¿e   Çe “   t                ÿÿÿÿŞe    æe   ôe   f   f   f   ,f   :f   Hf   Vf	   df
+   rf   €f   f “   °                ÿÿÿÿ«fÿÿÿÿ·fÿÿÿÿÃf “   <                ÿÿÿÿİf    åf “   p                ÿÿÿÿüf    g   g   g   (g   3g   >g   Ig   Tg   _g   jg   ug   €g   ‹g   –g “   œ                ÿÿÿÿÇg “   0‘                ÿÿÿÿŞgÿÿÿÿçg “   T‘                ÿÿÿÿşg “   €‘                ÿÿÿÿh “   ¤‘                ÿÿÿÿ,h “   È‘                ÿÿÿÿDhÿÿÿÿLh “   ì‘                ÿÿÿÿch “   ’                ÿÿÿÿ{h “   <’                ÿÿÿÿ’h “   `’                ÿÿÿÿ¬h “   „’                ÿÿÿÿÃh    Ëh “   ¨’                ÿÿÿÿâh    íh   õh “   Ô’                ÿÿÿÿi    i “   “                ÿÿÿÿ,i “   4“                ÿÿÿÿCi    Ki   Si “   X“                ÿÿÿÿjiÿÿÿÿsi “   Œ“                ÿÿÿÿ‹i    “i   i “   ¸“                ÿÿÿÿ¸i “   ì“                ÿÿÿÿÏi “   ”                ÿÿÿÿæi “   4”                ÿÿÿÿ j    j   j “   X”                ÿÿÿÿ'j    /j   7j   ?j “   Œ”                ÿÿÿÿVj “   È”                ÿÿÿÿmj    uj   }j   …j “   ì”                ÿÿÿÿœj “   (•                ÿÿÿÿ³j “   L•                ÿÿÿÿÊjÿÿÿÿÓj                  xÖèÿÿÿcU            • “   p•    •        ÿÿÿÿêj                    <Ò   3V            è• “   Ğ•   ø•        ÿÿÿÿk “   (–                ÿÿÿÿk     k “   L–                ÿÿÿÿ:k “   x–                ÿÿÿÿQk “   œ–                ÿÿÿÿhk    pk   {k “   À–                ÿÿÿÿ˜k “   ô–                ÿÿÿÿ¯k “   —                ÿÿÿÿÉk “   <—                ÿÿÿÿàk “   `—                ÿÿÿÿ÷k “   „—                ÿÿÿÿl “   ¨—                ÿÿÿÿ&l “   Ì—                ÿÿÿÿ>l “   ğ—                ÿÿÿÿUl “   ˜                ÿÿÿÿll “   8˜                ÿÿÿÿƒl    ‹l “   \˜                ÿÿÿÿ¥l    ­l   »l   Él   ×l   ål “   ˆ˜                ÿÿÿÿm    
+m                  œÑäÿÿÿ9—            ô˜ “   Ô˜   ™        ÿÿÿÿ!m    )m “   4™                ÿÿÿÿPm                    ôâ   ì            x™ “   `™   ˆ™        ÿÿÿÿgm    om                  ôâàÿÿÿ$             Ø™ “   ¸™   è™        ÿÿÿÿm    ¦m   ´m   Âm   Ğm   Şm   ìm “   š                ÿÿÿÿn    n   n   (n   6n   Dn   Rn “   lš                ÿÿÿÿjnÿÿÿÿtn “   Àš                ÿÿÿÿn    •n “   ìš                ÿÿÿÿ¬n    ´n                  ¼n                  œÑØÿÿÿ5§    œÑàÿÿÿC¨            P›            `› “   ›   p›        ÿÿÿÿÓn    Ûn   ãn          ën                         œÑäÿÿÿTª    ôâàÿÿÿpª            ô›            œ “   ´›   œ        ÿÿÿÿ†m “   Xœ                ÿÿÿÿo           
+o            œÑäÿÿÿÓ«            œœ “   |œ   ¬œ        ÿÿÿÿ!o    )o                  $×ìÿÿÿp¯            üœ “   Üœ           ÿÿÿÿ@o “   <                ÿÿÿÿWo    _o “   `                ÿÿÿÿwo “   Œ                ÿÿÿÿo    –o “   °                ÿÿÿÿ®o “   Ü                ÿÿÿÿÅo “                    ÿÿÿÿÜo           äo            $×ìÿÿÿÙ»            D “   $   T        ÿÿÿÿûo “   „                ÿÿÿÿp    p   (p “   ¨                ÿÿÿÿ@p    Hp “   Ü                ÿÿÿÿep    mp “   Ÿ                ÿÿÿÿ„p “   4Ÿ                ÿÿÿÿ›p “   XŸ                ÿÿÿÿ²p    ºp   Åp “   |Ÿ                ÿÿÿÿÜp “   °Ÿ                ÿÿÿÿóp “   ÔŸ                ÿÿÿÿ
+q                    œÑ   lå              “   øŸ             ÿÿÿÿ!q                    œÑ   #è            h  “   P    x         ÿÿÿÿ8q           @q            œÑàÿÿÿxí            È  “   ¨    Ø         ÿÿÿÿYq                    œÑìÿÿÿDğ             ¡ “   ¡   0¡        ÿÿÿÿpq    xq “   `¡                ÿÿÿÿ’q “   Œ¡                ÿÿÿÿ©q “   °¡                ÿÿÿÿWr    _r “   Ô¡                ÿÿÿÿÁq “    ¢                ÿÿÿÿØq    àq “   $¢                ÿÿÿÿúq “   P¢                ÿÿÿÿr “   t¢                ÿÿÿÿ)r “   ˜¢                ÿÿÿÿ@r “   ¼¢                ÿÿÿÿyr “   à¢                ÿÿÿÿr    ˜r “   £                ÿÿÿÿ¯r    ·r                  xÖäÿÿÿ*            P£ “   0£   `£        ÿÿÿÿÎr                    œÑìÿÿÿ©            ¨£ “   £   ¸£        ÿÿÿÿår “   è£                ÿÿÿÿbs “   ¤                ÿÿÿÿ,s “   0¤                ÿÿÿÿÿr    s   s “   T¤                ÿÿÿÿCs    Ks “   ˆ¤                ÿÿÿÿys “   ´¤                ÿÿÿÿ“s    ›s “   Ø¤                ÿÿÿÿ²s    ºs   Ås “   ¥                ÿÿÿÿßs “   8¥                ÿÿÿÿös    şs   t   t   t   t   (t   0t   8t   @t “
+   \¥                   àu  `ô Ôæ 8¦ p¨            ğu  dô Äæ (¦ À¨                                         X¨ 6¨ F¨     À¦ Ø¦ ğ¦ §  § <§ Z§ ¬¦ § ª§ Â§ Î§ Ú§ ì§ ¨ ¨ š¦ v§ ˆ¦       GdiplusShutdown   GdiplusStartup l  GdipDisposeImage s  GdipSaveImageToStream   GdipGetImageRawFormat   GdipGetPropertySize   GdipGetAllPropertyItems   GdipCreateBitmapFromFile   GdipCreateBitmapFromFileICM   GdipGetImageDecodersSize   GdipGetImageDecoders l  GdipGetImageEncodersSize   GdipGetImageEncoders l  GdipFree    GdipAlloc   GdipCloneImage l  GdipSaveImageToFile   GdipSetPropertyItem   GdipCreateBitmapFromHBITMAP   OpenThemeData   CloseThemeData e  DrawThemeBackground                                                                                                   8¬ ÿÿÿÿÿÿÿÿ`¸ x  · ÿÿÿÿÿÿÿÿº Ğ  À© ÿÿÿÿÿÿÿÿÖº    @« ÿÿÿÿÿÿÿÿĞ¾ €  è© ÿÿÿÿÿÿÿÿ¤Ã (  ğµ ÿÿÿÿÿÿÿÿÉ 0  |· ÿÿÿÿÿÿÿÿ¬É ¼  ,¸ ÿÿÿÿÿÿÿÿ¼Ê l  Ôµ ÿÿÿÿÿÿÿÿÆÊ   àµ ÿÿÿÿÿÿÿÿ
+Ë     « ÿÿÿÿÿÿÿÿ°Ë `                      ÎË dº rº †º –º ¨º ºº Èº ºË     ”Á ‚Á rÁ ^Á NÁ DÁ 6Á ,Á  Á Á  Á îÀ äÀ ĞÀ ¼À ¦À ’À ‚À hÀ TÀ @À 0À $À À À î¿ Ş¿ Î¿ ¼¿ °¿  ¿ ’¿ ˆ¿ ¨Á h¿ Z¿ H¿ 0¿ &¿ ¿ ¿ ì¾ Ş¾ ¼Á ÎÁ ÜÁ èÁ òÁ şÁ Â "Â LÂ XÂ bÂ nÂ €Â Â  Â ¬Â ÀÂ ÖÂ âÂ îÂ üÂ Ã Ã "Ã :Ã FÃ VÃ jÃ €Ã Ã ˜Ã x¿ BÂ .Â     „Ë jË ZË @Ë ,Ë Ë  Ë     ü½ è½ Ö½ ¾½ ¦½ –½ Š½ x½ l½ \½ R½ @½ ,½ ½ ½ ü¼ ì¼ Ú¼ Î¼ ¼¼ ¬¼ š¼ ¼ ¾ p¼ d¼ X¼ B¼ 2¼ ¼ ¼ ô» æ» Ø» Ê» °» ˜» †» t» f» R» H» 6» *» » » şº ğº äº ,¾ B¾ \¾ p¾ „¾  ¾ ~¼ ŞË îË üË Ì ¾¾     u €J
+ € €Ò €Ã
+ €3 €ú
+ €ë €¬ €® €î €2	 €ó €Ö €é €:	 €	 € € €C	 €˜ € €— € €| €ú €* €l €‘ €g € € €é €¬ €v €; €Y € €  €´ €Z €š €Ë € €/ €J € €g €	 €Û €0 €2 €² €ã €. €• €® €¦ €2 €w €
+ €A €~	 €* €e €= €7 €Î €£ €ì €z €¢ €È € €Û €\ €9 €G €V €– €L €± €	 €˜ €ˆ €p €›
+ €N	 €î €æ €é €m €Ê € €Ï €` €F €: €9 €5 €è €q €¡ €Q
+ €z €N €€ €E €ã €ë €à €7 €` €s €0 €f € €¤ €· €Â €º € €³ € €\ €2 € €¢ €n €$ €c €¸ €ä € € €^ €™ €ª €W €÷ €Ô €n €P €}	 €s €Ÿ € €. €„ €… €— € €÷ €‚ €: €y € €ª €T €› €µ €Ä €÷ €ë €t €Æ €­ €S €ï €õ €¼ €Æ	 €x €A €Z	 € €y €y €½ € €¸ €	 €H €ì € €j € €– €1 €ˆ €f € €Å €Ø
+ €+ €ç €¡
+ €B €Ÿ
+ €¢
+ €½ €× €Â €î €[ €î €ò €Á €© € €Ç €Ê €P €Ó €ö €V €Ì €È € €Ú €Z €C €ï €Í € € €˜ €( €˜ €í €  €} €! €/ € € €­ €ç €€ €ò	 €È	 €_ €M €ï €T	 € €° €² €ê €· €¥ €N € €• €/ €
+ €ã €­ €ü €Ë €1 €x €ö	 €P €Q €ì €Ú €õ € €² €à €} € €Ÿ €T €r €w € €l €• € € €^ €i €‘ €¬ €ç €Î €ï €­ €» €¹ €¨ €« €¦ €^ €[ € €t €Ÿ €· €0 €ˆ € € €÷ €J €ÿ €  €- €c € €j €– €Æ €- €¶	 €:
+ €;
+ €s € €î €3 €â €ß	 €¾ €á	 €¸ € €– €{ €, €x €& €ä €) € €* €d €Ç €¿ €© €ä €œ €Ö	 €Õ €½ €¼ €: €ÿ €ş €_ €X €J €x €9 €g €î €* €  €n €¤ €³ €Í €Á €Ì € € €í €” €J €J	 €K	 €É €ô	 €' €{ €ó € €® €C €> € € €ï €E € €è € €ç €! €Š € €ö €§ €Ú € €Ø €§ €¬ €Â €* €' €† €Ô €© €¡ €‚ €c	 €ß €u €
+
+ €( €ù €h €/ € €ğ €÷ €@ €G €ë €—	 €l € €ß €‹ €¨ € €  €Ä €ù €ê €É €° €ò €b €÷ € €† €Ï
+ €ä €ƒ €> €ñ € €í €v €ı €m €- €4 €` €= €ï €º €‘ €= €! €… €b €D € €C €†	 €‰ €œ €l € €! €• €¯ €e €9 €; €· €® €C €™ €]	 €€ € € € €  €B € €ë € €ì €ò €ñ €› € €¤ €¹ €; €k €¶ €F €â €u €1 €ç €  €Ê	 €€ € € €^ €À €­ €ğ €% €É	 €* €j €? € €g €{ €î €+ €” € €É €Ë €& € €í € €Œ	 €Š	 €› €b €< €³ €¾ €™ €Ÿ €T
+ €~ €ğ € €^ €] € €2 € €7 €µ € €á €Á
+ €9 €G €Ù €’
+ €A €Ú	 €¡ €™ €D €„	 €† €¸ €Ã €  €ä €ÿ €P
+ €S €ß €Ñ €› €û €İ €% €I	 €n €. €è €é €£ €¦ €× €M	 € €[ €Ó € € €
+ €• €a €u €w €b €î €' €% €J €« €Ğ €C €± € €« €f	 €.
+ €Ã €¤ € €‚ €      €  €    üÊ æÊ ÔÊ     ’È Ç ‚È tÈ hÈ zÉ jÉ XÉ HÉ :É É 
+É öÈ æÈ ÔÈ ÄÈ °È ®Ã ¾Ã ÌÃ ÚÃ êÃ úÃ 
+Ä Ä ,Ä :Ä FÄ RÄ fÄ pÄ |Ä ŠÄ –Ä ¤Ä ²Ä ÄÄ ĞÄ àÄ èÄ ôÄ Å Å Å *Å 8Å VÅ rÅ ~Å ŠÅ šÅ ¦Å ¸Å ÊÅ ÚÅ èÅ öÅ Æ Æ Æ ,Æ :Æ FÆ ZÆ lÆ ~Æ ŒÆ ˜Æ ¦Æ ¸Æ ÄÆ ØÆ æÆ öÆ \È Ç "Ç 4Ç LÇ ZÇ hÇ zÇ „Ç Ç  Ç ²Ç ¾Ç ÌÇ ÚÇ êÇ øÇ È È $È 4È @È NÈ ¢È     $Ì <Ì œÉ PÌ     ¹ ¹  ¹ (¹ <¹ F¹ X¹ b¹ j¹ x¹ ‚¹ Š¹ ”¹ ¦¹ ²¹ Vº Bº l¸ €¸ ¸ –¸ ¸ ¦¸ ¼¸ Æ¸ Î¸ Æ¹ Ö¹ æ¹ ô¹ º *º 8º ¹ ú¸ î¸ â¸ Ú¸     šÊ xÊ PÊ <Ê ,Ê Ê Ê öÉ àÉ ÎÉ ºÉ ¬Ê     MFC42u.DLL  R __CxxFrameHandler h_wsplitpath r_wtoi t_ltow t_wtol G _CxxThrowException  (wcscmp  ¥free  #_getdcwd  írand  Á_purecall )_wcsicmp  '_wcsdup &wcscat  'wcschr  _ftol a_itow í _except_handler3  6wcstok  Ä _beginthreadex  Å _c_exit ö _exit N _XcptFilter È _cexit  exit  %_wcmdln ¤ __wgetmainargs  ;_initterm š __setusermatherr  ¶ _adjust_fdiv  € __p__commode  … __p__fmode  ˜ __set_app_type   ??1type_info@@UAE@XZ  msvcrt.dll  j __dllonexit ´_onexit 4 ?terminate@@YAXXZ Ö _controlfp  ÊRegCloseKey ïRegQueryValueExW  åRegOpenKeyExW üRegSetValueExW  ÏRegCreateKeyExW æRegOpenKeyW ÚRegEnumKeyW ADVAPI32.dll  ¸lstrlenW  íGlobalAlloc ôGlobalFree  ÿGlobalUnlock  øGlobalLock  ©lstrcatW  lGetLocaleInfoW  fMulDiv  ‡GetNumberFormatW  1 CloseHandle ÖGetTimeFormatW  @GetDateFormatW  Ã FileTimeToSystemTime  Â FileTimeToLocalFileTime ]GetFileTime [GetFileSize R CreateFileW J CreateDirectoryW  YGetFileAttributesW  ÊGetTempFileNameW  ÌGetTempPathW  gMultiByteToWideChar ·lstrlenA  NLocalFree JLocalAlloc  SetErrorMode  Ì FindClose Ó FindFirstFileW   SetEndOfFile  ˜GetProcAddress  ¯lstrcmpiW 
+GetCommandLineW hGetLastError  µlstrcpynW yGetModuleHandleW  ÔGetTickCount  vGetModuleHandleA  ÏGetThreadLocale ö GetACP  GLoadLibraryW  ²lstrcpyW  +IsDBCSLeadByte  ¬lstrcmpW  ûGlobalReAlloc  InterlockedIncrement  InterlockedDecrement  KTerminateThread SGetExitCodeThread ”QueryPerformanceCounter >GetCurrentThreadId  <GetCurrentProcessId ÀGetSystemTimeAsFileTime JTerminateProcess  ;GetCurrentProcess [UnhandledExceptionFilter  6SetUnhandledExceptionFilter ¯GetStartupInfoW KERNEL32.dll  ˜GetObjectW  L CreateRectRgnIndirect B CreateICW - CreateCompatibleDC   BitBlt  ¶GetTextExtentPoint32W ¾GetTextMetricsW Ş ExtTextOutW ;SetTextAlign  SelectObject  ŞPatBlt  SetBkColor  =SetTextColor  SetBkMode ôRealizePalette  SelectPalette ' CreateBitmap  , CreateCompatibleBitmap  Œ DeleteDC   DeleteObject   SetDIBits lGetDeviceCaps ›GetPaletteEntries 1SetPaletteEntries •GetNearestPaletteIndex   ResizePalette P CreateSolidBrush  F CreatePatternBrush  eGetCurrentObject  jGetDIBColorTable  è FillRgn ¦GetStockObject  SetDIBColorTable  ÷Rectangle RestoreDC ÌLPtoDP  ,SetMapMode  SaveDC  ãPlayMetaFile  ?SetViewportExtEx  E CreatePalette ”GetNearestColor !SetDIBitsToDevice 2 CreateDIBSection  3 CreateDIBitmap  JStretchBlt  ÕOffsetRgn îPolygon GetPixel  ? CreateHalftonePalette kGetDIBits G CreatePen 9SetStretchBltMode ” Ellipse 2SetPixel  ÎLineTo  ÒMoveToEx  SUnrealizeObject SetBrushOrgEx Û ExtFloodFill  RoundRect J CreatePolygonRgn  = CreateFontIndirectW / CreateDCW òPtVisible öRectVisible PTextOutW  Ô Escape  KStretchDIBits QTranslateCharsetInfo  NGetBkMode °GetTextColor  Ì EnumFontFamiliesW Ë EnumFontFamiliesExW æPolyBezier  6SetROP2 ïPolyline  GDI32.dll mSetRectEmpty  ŠInflateRect ¶LoadBitmapW @SendMessageW  tGetWindowRect »UpdateWindow  “InvalidateRect  Ä EnableWindow  ZGetSysColor ÙwsprintfW «IsWindow  ]GetSystemMetrics  lSetRect â FillRect  ÛMessageBeep EGetParent ãMessageBoxW ÛwvsprintfW  ‡SetWindowTextW  *ReleaseDC ³ DrawFocusRect GetDC PtInRect  òOffsetRect  ÓWinHelpW  ÿ GetClientRect é FrameRect ó GetCapture  ŸIsClipboardFormatAvailable  RegisterClipboardFormatW  J CopyRect  , CharNextW ’IntersectRect ¯UnionRect 1ScreenToClient  ÕWindowFromPoint GetCursorPos  !GetKeyState ¨IsRectEmpty ß EqualRect zSetTimer  ²KillTimer )ReleaseCapture  YGetSubMenu  ÆLoadMenuW  BringWindowToTop  @ ClientToScreen  CSetActiveWindow DSetCapture  GetFocus  ºLoadCursorW oGetWindowLongW  MSetCursor GetDesktopWindow  +RemoveMenu   PostMessageW  \GetSystemMenu ¼LoadIconW ù GetClassInfoW ¯IsWindowVisible šSystemParametersInfoW – DestroyIcon ÉLoadStringW Â EnableMenuItem  ,GetMenu §IsMenu  SetWindowLongW  œTabbedTextOutW  ¿ DrawTextW ~GrayStringW lGetWindowDC 9 CheckMenuItem  BeginPaint  È EndPaint  dGetUpdateRect ÅValidateRect  RedrawWindow  jGetWindow õ GetCaretPos FSetCaretPos HideCaret ShowCaret N CreateCaret ” DestroyCaret  HSetClassLongW ShowCursor  "GetKeyboardLayout ™ DestroyWindow Ã EnableScrollBar şPeekMessageW  ¢ DispatchMessageW  ªTranslateMessage  êMsgWaitForMultipleObjects GetDlgItem  RSetDlgItemInt 8 CheckDlgButton  GetDlgItemInt 7SendDlgItemMessageW USER32.dll   GetFileTitleW comdlg32.dll  "ReleaseStgMedium  ù OleGetClipboard PWriteFmtUserTypeStg NWriteClassStg  CLSIDFromString  CoCreateInstance  d CoTaskMemFree PropVariantClear  E CoMarshalInterThreadInterfaceInStream - CoGetInterfaceAndReleaseStream  h CoUninitialize  : CoInitialize  ole32.dll OLEAUT32.dll  ~ SHChangeNotify   CommandLineToArgvW  ShellAboutW SHELL32.dll  ImmAssociateContext f ImmReleaseContext s ImmSetCompositionWindow 5 ImmGetContext 4 ImmGetCompositionWindow 3 ImmGetCompositionStringW  ^ ImmNotifyIME  IMM32.dll îRegQueryValueExA  äRegOpenKeyExA DLoadLibraryA  ğ FreeLibrary InterlockedExchange ™RaiseException   CommDlgExtendedError   GetSaveFileNameW  
+ GetOpenFileNameW                                                                                                                                                                                                                                                                                                                                                                                                                                  à.bxZtutt«tÆtátütu2uMuhuƒuu¹uÔuïu
+v%v@v[v‚vªvÒvívw#w9wTwowŠw¥wÀwÛwöwx,xGx                    ß  Ş  t     .?AVCObject@@   t     .?AVCGdiObject@@    t     .?AVCBitmap@@   t     .?AVCRgn@@  t     .?AVCCmdTarget@@    t     .?AVCWnd@@  t     .?AVCControlBar@@   t     .?AVCStatusBar@@    t     .?AVCStatBar@@  t     .PAVCMemoryException@@              t     .?AVCException@@    t     .?AVCFileException@@    t     .?AVCBrush@@    t     .?AVCBitmapObj@@    t     .PAVCFileException@@            €€€ €   €€   €   €€   € € € ÿÿÿ ÀÀÀ ÿ   ÿÿ   ÿ   ÿÿ @ ÿ ÿ ÿ     €€€ €   €€   €   €€   € € € €€@  @@  €ÿ  @€ € ÿ €@  ÿÿÿ ÀÀÀ ÿ   ÿÿ   ÿ   ÿÿ   ÿ ÿ ÿ ÿÿ€  ÿ€ €ÿÿ €€ÿ ÿ € ÿ€@     			   %%% ... 777 ??? III RRR \\\ eee nnn www ÿÿÿ úúú òòò ÔÔÔ ÉÉÉ ¿¿¿ ¶¶¶ ŸŸŸ €€€ ­­­ ¤¤¤ ››› ’’’ ‰‰‰ t     .?AVCColors@@   t     .?AVCDocking@@  ÿÿÿ ÀÀÀ €€€     ªªUUªªUUªªUUªªUU  0u    0u    :u  
+  :u    Àv    Eu    Fu    Gu    Àv  7  Ou  8  Pu    Xu  /  bu  0  cu  ,  du  -  eu  .  fu          )  \v  9  \v  *  fv  :  fv  ;  fv  <  fv  =  fv  >  fv            Àv  ?  •u  @  –u  A  —u  B  —u  C  —u  D  —u          $  Àv    ùu  E  ùu  û  ùu  %  ùu     úu  F  úu  ü  úu  &  úu  #  Àv  !  v  G  v  ı  v  '  v  "  v  H  v  ş  v  (  v          t     .?AVCDialog@@   t     .?AVCImageAttr@@    t     .?AVCZoomViewDlg@@  t     .?AVCFlipRotateDlg@@    t     .?AVCStretchSkewDlg@@   t     .?AVCTempBitmap@@   t     .?AVCImgBrush@@ t     .?AVCImgColorsWnd@@ t     .?AVCPalette@@  t     .PAVCException@@              ÿÿÿ !Ce‡    ÿÿÿ     €    €  €€    € € €  €€ ÀÀÀ €€€ ÿ    ÿ  ÿÿ    ÿ ÿ ÿ  ÿÿ ÿÿÿ    ğ ğ ğ ğ ğ ğ ğ ğ ÿ ÿ ÿ ÿ         ÿîİÌ»ª™ˆwfUD3" t     .PAVCResourceException@@       ”ê”êt     .?AVCImgTool@@  t     .?AVCRubberTool@@   t     .?AVCFreehandTool@@ t     .?AVCSketchTool@@   t     .?AVCBrushTool@@    t     .?AVCPencilTool@@   t     .?AVCEraserTool@@   t     .?AVCAirBrushTool@@ t     .?AVCPickColorTool@@    t     .?AVCFloodTool@@    t     .?AVCSelectTool@@   t     .?AVCZoomTool@@ t     .?AVCLineTool@@ t     .?AVCClosedFormTool@@   t     .?AVCRectTool@@ t     .?AVCRoundRectTool@@    t     .?AVCEllipseTool@@  t     .?AVCImgWnd@@   t     .?AVCMenu@@ t     .?AVCFrameWnd@@ t     .?AVCOleIPFrameWnd@@    t     .?AVCInPlaceFrame@@ t     .?AVCToolboxWnd@@   t     .?AVCImgToolWnd@@   t     .?AVCMiniFrmWnd@@   t     .?AVCDocument@@ t     .?AVCOleDocument@@  t     .?AVCOleLinkingDoc@@    t     .?AVCOleServerDoc@@ t     .?AVCPBDoc@@    t     .?AUIUnknown@@  t     .?AUIPersist@@  t     .?AUIPersistStorage@@   t     .?AVXPBPersistStg@CPBDoc@@  M S P a i n t A p p     t     .?AVCPBFrame@@      Íëìè  '  é  '  ê  '  ë  4  ì  4  í  6  î  6  ï  9  ğ  8  ñ     ò  !  ó  "  ô  #  õ  $  ö  %  ÷    ø    ù  ;  ú  :  û    ü  <  ı  0  ş  1  ÿ  Ç     =                h    *    +    ,  t     .?AVCFont@@ t     .?AVCWinThread@@    t     .?AVCWinApp@@   t     .?AVCPBApp@@    t     .?AVCView@@ t     .?AVCPBView@@   t     .?AUIPrintDialogCallback@@  t     .?AVXPrintDialogCallback@C_PrintDialogEx@@  t     .?AVCCommonDialog@@ t     .?AVCPrintDialog@@  t     .?AVC_PrintDialogEx@@   t     .?AVCDC@@   t     .?AVCPic@@  t     .?AVCPrintResObj@@  V i e w     N o S t r e t c h i n g     S h o w A l l F i l e s     S h o w T h u m b n a i l   S h o w T e x t T o o l     S n a p T o G r i d     G r i d E x t e n t     B M P W i d t h     B M P H e i g h t   T h u m b X P o s   T h u m b Y P o s   T h u m b W i d t h     T h u m b H e i g h t   U n i t S e t t i n g   T e x t     T y p e F a c e N a m e     P o i n t S i z e   C h a r S e t   B o l d     U n d e r l i n e   I t a l i c     V e r t i c a l E d i t     P o s i t i o n X   P o s i t i o n Y   T e x t P e n   C o l o r s     N u m b e r O f C o l o r s     S o f t w a r e     W i n d o w P l a c e m e n t   ÿÿÿÿäjW 	²+ ’ 3Ò İp Œ„ dm qÛ
+ O¢	 X§ —Ù ¿- ü› ¶ Õ± ER ­ı 8² un <1 ù ÕÆ A˜ \m ³E æ  ¥ş ©Ş µÀ •¤ Š "q ƒY  C ß- ¦ a úó bâ ‡Ñ ]Á Õ± å¢ ”  † 9y Dl ¸_ ‘S ÆG R< 11 [& Î … { ­ı  ô  ¶ê  ‡á  ‡Ø  ³Ï  	Ç  …¾  '¶  ë­  Ğ¥  Ó  ò•  -  †  ì~  mw  p  «h  ea  /Z  S  îK  áD  Ş=  æ6  ÷/  )  -"  Q  y  ¤  Ò  t     .?AVCDragger@@  t     .?AVCDocItem@@  t     .?AVCOleServerItem@@    t     .?AVCPBSrvrItem@@   t     .?AVCEdit@@ t     .?AVCAttrEdit@@ t     .?AVCTedit@@    k   o   ‰   Š   ‹   t     .?AVCToolBar@@  t     .?AVCTfontTbar@@    t     .?AVCDialogBar@@    t     .?AVCTfontDlg@@ t     .?AVCComboBox@@ t     .?AVCTfont@@    t     .PAVCNotSupportedException@@    t     .?AVCThumbNailView@@    t     .?AVCFloatThumbNailView@@   t     .?AVCFullScreenThumbNailView@@  m  l  }  o    ~  |  €  s  n  p  t    x  ƒ  z  t     .?AVCTool@@     ğ ğ ğ ğ U ª U ª U ª U ª xñxñ|ñ„ñŒñŒñ„ñˆñ€ñ€ñˆñt     .?AVCCurveTool@@    t     .?AVCPolygonTool@@  t     .?AVCFreehandSelectTool@@   t     .?AVCTextTool@@ t     .?AVCByteArray@@    t     .?AVCBmObjSequence@@    t     .?AVCUndoBmObj@@    t     .?AVGdiplusBase@Gdiplus@@   t     .?AVImage@Gdiplus@@ t     .?AVBitmap@Gdiplus@@    t     .?AUISequentialStream@@ t     .?AUIStream@@   t     .?AVCBmpStream@@    t     .?AVCImagingMgr@@   t     .?AUIWiaDataCallback@@  t     .?AVCDataCallback@@ t     .?AUIWiaProgressDialog@@    t     .?AVCProgressDialog@@   t     .?AVCProgressCtrl@@ t     .?AUIWiaEventCallback@@ t     .?AVCEventCallback@@    t     .?AVCWIAMgr@@   ¿Dÿÿ@»     TğST     RµRÊRßRôR	SS‹RHS]SrS‡SœS±SÆSÛSvR3SPR                                                                                                                                                                                                                                                  h  €   ø  €   È €   p €   ° €     €	    €   ¸ €   H €   ˆ €     €                  ¸ €   Ğ €   è €     €    €   0 €   H €   ` €   x €    €   ¨ €   À €    Ø €!   ğ €"    €#     €               f   8 €k   P €o   h €†   € €‰   ˜ €Š   ° €‹   È €S  à €T  ø €U   €V  ( €W  @ €X  X €Y  p €Z  ˆ €[    €\  ¸ €^  Ğ €_  è €`   	 €Ş  	 €ß  0	 €U  H	 €V  `	 €                  x	 €   	 €   ¨	 €   À	 €   Ø	 €   ğ	 €   
+ €    
+ €	   8
+ €
+   P
+ €   h
+ €   €
+ €   ˜
+ €   °
+ €   È
+ €   à
+ €   ø
+ €    €   ( €                  @ €   X €   p €q   ˆ €v     €w   ¸ €               %   Ğ €i   è €l     €p    €q   0 €„   H €…   ` €¡  x €              0     €   ¨ €   À €   Ø €'   ğ €(    €)     €?   8 €   P €‚   h €ƒ   € €„   ˜ €‡   ° €‹   È €   à €   ø €‘    €™   ( €š   @ €Ş   X €®  p €º  ˆ €B    €r  ¸ €  Ğ €  è €2	    €3	   €4	  0 €2
+  H €3
+  ` €D
+  x €Á
+   €Å
+  ¨ €Æ
+  À €Í
+  Ø €ê
+  ğ €   €    €  8 €  P €  h €  € €  ˜ €‚  ° €‡  È €ñ  à €ò  ø €                   €   ( €   @ €               ‡   X €L  p €±  ˆ €²    €³  ¸ €´  Ğ €µ  è €¶    €·   €L  0 €Y  H €Z  ` €[  x €\   €]  ¨ €^  À €                  Ø €   ğ €r    €s     €t   8 €u   P €                  h €                  € €               	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È                 	  Ø                 	  è                 	  ø                 	                   	                   	  (                 	  8                 	  H                 	  X                 	  h                 	  x                 	  ˆ                 	  ˜                 	  ¨                 	  ¸                 	  È  øß 4          Há 4          ˜â 4          èã 4          8å 4          ˆæ 4          Øç 4          (é 4          xê 4          Èë 4          í 4          hî 4          ¸ï 4          ñ 4          Xò 4          ¨ó 4           Õ           (Û ò            Ü ğ           (Ğ ò          İ ø           Ş ø            ß ø           ˆ½ @           È½ @           ¾ @           H¾ @           ˆ¾ `           è¾ `           H¿ `           ¨¿ `           À V	          `¶ $          `É œ            Ê X          XÎ P          ğµ l           €µ l           ¨Ï @           èÏ @           € h          è% è          Ğ( (          ø) ¨           8 ¨          HA h          °F ¨%          Xl ¨           } h          ğ è          Ø„ h          @‹ (          hŒ ¨          • ¨          ¸£ h          €© è          €¬ è          €¯ è          €² è          øô ¾          ¸û           H  ª          ø °           ¨ B          ğ 2           8 †           Ğ ¢          x ¾          À î          °           È ®           x °          ¸
+           x# Â          ˆ! ¢          0# B           ¸^ @           hT           hI $          xV Ô          @Z ¦           è9 R          H= *          @;           x> Ş           ˜?            @ Œ           à6 –          0A Ö          D ^          èZ V          ø^ Ö          ¨X P           øR j          M            ˜E r          x9 l           @\ ¤          è] Ğ           - ¨           è* ¦           N Ö          G î           I b           PX 0           hE ,           h6 H           °6 *           @6 "           €X $           @% Ì           & L          8. À           ø. Ô          `( „          øX B          (3 \           Ğ1 T          X? :           ˆ3           ¨5 –           ( è           	 Ğ           à	 Ø           €â            ó            Ğã             å            pæ            Àç            é            `ê            °ë            0á             í            Pî             ï            ğğ            @ò            àô            h „            © Z           h¬            h¯            h²            hµ            ( \          à                   <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity
+    name="Microsoft.Windows.Shell.mspaint"
+    processorArchitecture="x86"
+    version="5.1.0.0"
+    type="win32"/>
+<description>Windows Shell</description>
+<dependency>
+    <dependentAssembly>
+        <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            processorArchitecture="x86"
+            publicKeyToken="6595b64144ccf1df"
+            language="*"
+        />
+    </dependentAssembly>
+</dependency>
+</assembly>
+  (   0   `                                   €      €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ """""              """""""""ˆˆˆˆˆˆˆˆˆˆˆˆˆˆ """""""""‡wwwwwwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡ÿÿÿ÷÷wwwwxxˆˆ """""""""‡ÿÿÿwwwww‡ˆ€€"""""""""‡wwwwwwwwwxxˆˆ """"""""(ˆˆˆˆˆˆˆˆˆˆ     """""""(ÿÿÿ÷÷wwwww‡ˆˆ€"""""""(ÿÿÿwwwwxxˆˆ"""""""(ÿÿÿ÷÷wwwww‡ˆˆ€"""""""(ÿÿÿwwwwxxˆˆ"""""""(ÿÿÿ÷÷wwwww‡ˆˆ€"""""""(ÿÿÿwwwwxxˆˆ""""""""ˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€"""""""""$DDQ ww0$fÄ"""""""""FÌ@UQ‘‘?»sFl@""""""""$lÄQ™#û·0$fÄ"""""""FÌ@YÕQ‘‘&?»sFl€""""""$lÄU™&ƒû·0$hx"""""FÌ@YÕP!‘‘&æ?³ˆ÷€""""(xU!™&æc7w€(ø """w€YÕP"!‘‘&æÄÿx€  ""(xU"!™&æÄ€ ( "€  YÕP""!‘‘&æÄˆ  €ˆ‚( €U""!™&æÄ( € (‚"(ˆ YÕP"""!&æÄ"€ˆ""""(w"""(wˆ&fD"(ˆ""""""w€""""(÷x(wˆ""""""""(x""""(÷x(÷x""""""""€  """""(ˆˆ(÷x"""""""( €"""""(  (ˆˆ"""""""(ˆ """"""(  (  """"""""(""""""(  (  """"""""""""""""((  """"""""""""""""(‡‡(""""""""""""""""""""(‡‡"""""""ÿà  ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿÀ   ÿ  ÿ€     ÿ€     ÿ€     ÿ€     ÿ€     ÿ€     ÿ€     ÿÀ   ÿ  ÿà  ÿ  ÿÀ @@ÿ  ÿ€ `   ÿ  `?  ş  `  ü  `  ø ``  ğ à`  àà`   Àà`@A  €à``'  €à`p?  àà`xÿ  ğ?à`ÿ  àà`ÿ  Àÿà`ÿ  ÿà`ÿ  ƒÿà`ÿ  çÿà`ÿ  ÿÿà`ÿ  ÿÿà`ÿ  ÿÿÿàÿ  (       @                                   €      €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ """         """"""ˆˆˆˆˆˆˆˆˆ """"""‡ÿÿ÷www‡ˆ€""""""‡ÿÿwwxxˆ """"""‡ÿÿ÷www‡ˆ€""""""‡ÿÿwwxxˆ """"""‡ÿÿ÷www‡ˆ€""""""‡ÿÿwwxxˆ """"""‡ÿÿ÷www‡ˆ€""""""‡ÿÿwwxxˆ """"""‡ÿÿ÷www‡ˆ€""""""‡ÿÿwwxxˆ """""(ˆˆˆˆˆˆˆˆ  """"(ÿÿwwwxxxˆ""""(ÿ÷÷wwww‡‡ˆ""""(ÿÿÿ÷wwxxxˆ"""""ˆˆˆˆˆˆˆˆˆ€""""""$D@ 7sFÄ""""""FÄU#·0$lB""""$lEU&;sFÄ""""FÄ]P&ƒ¸€$h""(pEÕ&æ7x‡€""€]P"&æHø (ğ(€Õ"&æB€ ‡‡ ]P""&æB(("(p""‡€&†B"ˆ""""€"""€(x"""""(€"""ˆ€(ø"""""‡€""""€ (ˆ"""""(""""€ ( """""""""""€€( """""""""""""("""""ş  ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ü  ?ø  ø  ø  ø  ü  ?ş ?ü ‚ø ğ €‡à€CÀ0€!€p„ ğ†ğ‡?Ãğ‡ÿ‡ğ‡ÿğ‡ÿŸğ‡ÿÿğ‡ÿÿÿ‡ÿ(                                          €      €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ""    """(ÿwˆ""(÷wx""(ÿwˆ""(÷wx""(ÿwˆ""(wˆˆ€""‡ÿ÷wx€""ˆˆˆˆˆ€""$ic³""FÉh;0"(|	nCx€)nB? ˆ(ğg € "( €"""( €""ğ"‡à÷wà‡ˆà""à"‡àwàxˆÀ""À"‡à÷wÀ‡ˆ€"""‡w¸xˆø""(   0   `                                 ÿÿÿ „‚Î œ–½ Œuœ Ş¦Ö ÖÆ Î¢½ Ö¢½ ­yŒ ½¦­ œQc ”u{ ¥Yc ­šœ Ş²µ Î’” ½qs Æy{ ÿ÷÷ ÷ïï ¥ec Æ}{ Ö¦¥ Œmk ï×Ö µQJ µYR ½aZ µys ½Š„ ïÓÎ ½aJ ­’Œ ŞÃ½ çº­ ÖÃ½ sUJ ÆmJ Æºµ Ö¢Œ Ök Î}R Ö–s Æm9 ­qJ ¥–Œ ÖŠR Ş’Z Şšc ç¢k Ş¢s Î¦„ ”‚s ÷¾„ ç¶„ ÷ïç Öy ç²{ ÿÓ¥ ÿß½ ïÛÆ ÿëÖ µy1 ç¾Œ Ş²{ ïÇ” œ’„ ïÓ¥ µŠB ÆZ ½®” ÷Û¥ ÿ÷ç ÷ß­ Æ¾­ Æ²„ ÷ëÎ Ş×½ ÷ë½ ÿóÆ ÿûÖ ÿûÎ ïóÎ çï½ ”k Îß¥ ½Ë¥ ÖãÆ Œ¶k Ş÷Ö ¥Çœ s®k R–J µ÷­  i   e  y     J–J sËs ZZ c¢c {²{ „¶„ ”º” ­Ï­ µÓµ ÆßÆ ÎãÎ cec ‚ !–1 1m9 a )ªB BËc BŠR cë„ k{ k‚s 9uZ ­çŞ 1ic )÷÷  çÿ  ãÿ !ãÿ  Ïï  Çç ¶Ö  ×ÿ Rãÿ µßç )Ï÷  Ëÿ  Ã÷  ¦Ö )]k  ®ç  –Æ µ ‚¥ ¢Î )­ 9¶Ş {ßÿ Bu„  Ö  †µ ½ q” !–½ i„ kËï 9uŒ  y­ Îßç  m¥ a„ cËÿ „×ÿ ¥ËŞ ZÃÿ cÇÿ c¢Æ Œ¦µ 9†µ J¶ÿ sÃ÷ {Ëÿ 1y­ Æçÿ „’œ Bªÿ c¶÷ œÏ÷ 1ÿ )†Ö 1Ş Z²ÿ ­ÃÖ 1šÿ Rªÿ k®ï çóÿ )’ÿ )†ï c¦ï {¦Ö {š½ U­ Œ®Ö œºŞ !uŞ !qÖ 1‚ï JŠŞ µËç !}ÿ c–Ş !iÖ ByÎ I­ mÿ YÆ U½ 9i½ E­ c’ï aÿ Œ®÷ Uÿ <¥ Œ¦ç Iÿ 9Y­ ¥®Æ  <ÿ 1a÷ Aÿ <ï $Œ 0œ s‚µ  0ÿ 1Y÷ 1QŞ Rmç  $ç !<Ö { cmµ  Î 1<œ  ½  ­ ÿÿÿ                                                                         bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5555555bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb55C
+
+555bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5'QIIIIR<K5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5'IIII>>>>>><K5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'>M[N><<<<<<<<5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb'R<h]ce<J;";;<<5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbH<Ng]cc;;ÀÇÔ;;<5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbH<W\cccG;¼ºÒÜ;JQ5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbH7P[\ccuÙºÌ×
+PD5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbH27[fccu–4±ÇÔä73$5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbH01ieccy‰”0±ºÒÜ01M5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbH0Lhecc{‹”0¯ºÌ×0M5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbH1Wh]ccŠˆ”9¦±ÇÔã2O5bbbbbbbbbbbbbbbbbbbbbbbbbbbbbH2kg]cc™ˆ”?G±ºÒÚ7H5bbbbbbbbbbbbbbbbbbbbbbbbbbbbOH@j\ccc—ˆ”EA®ºÌ×D5bbbbbbbbbbbbbbbbbbbbbbbbbbbO@D[\ccu˜ˆ”E6¨±ÇÔâH=5bbbbbbbbbbbbbbbbbbbbbbbbbbbO@X[fccuˆ”x6©±ºÒÚOR5bbbbbbbbbbbbbbbbbbbbbbbbbbbO@m[eccy†‡”w:…®ºÌ×µR5bbbbbbbbbbbbbbbbbbbbbbbbbbbO@liefYizZZTHQ¯±ÇÔÛR.bbbbbbbbbbbbbbbbbbbbbbbbbbOR@lVSV\“†‰•›*7µµµÑÜQK5bbbbbbbbbbbbbbbbbbbbbbbbbORRTdp_`™‡‹•Ÿ,0àÒâÖSS5bbbbbbbbbbbbbbbbbbbbbbbbbOR^tso`r‡‹ŒŸ,1!Ò×áæXR5bbbbbbbbbbbbbbbbbbbbbbbbbOHvtso`r‡‹Œ,23ÌÔÚåìRbbbbbbbbbbbbbbbbbbbbbbbbbO7vtpo`q‚‡‹Œ,::ÄÒÚáéì!bbbbbbbbbbbbbbbbbbbbbbbbbO3FY]a`Uƒˆ”,76¾Ò×áéê!bbbbbbbbbbbbbbbbbbbbbbbbb307PB/4ƒˆ”œ-6B'ÌÔÚåììbbbbbbbbbbbbbbbbbbbbbbbbbb+@PH/@€ƒˆ”œŸ6HDÒÒÚáëìbbbbbbbbbbbbbbbbbbbbbbbbbb J}ƒˆ”œŸ6JJ»Ò×áéììbbbbbbbbbbbbbbbbbbbbbbbbb" )H}ƒˆ”œ«6PP¸ÌÔÚåììbbbbbbbbbbbbbbbbbbbbbbbb"  (H|~‡‹•«1HH¸ÌÔÚáëììbbbbbbbbbbbbbbbbbbbbbbb&* bb„~‡‹•«ÏbbbÇÌÌÔİëìbbbbbbbbbbbbbbbbbbbbbb// bb„~‡‹•§Ïbbb´¨°ÖÛëìbbbbbbbbbbbbbbbbbbbbbb/0/bb †‘˜§Ïbbb¡¯ènbbbbbbbbbbbbbbbbbbbbbb+#"#bbÁ¬¹¢¥¾ÏbbbbÆnbbbbbbbbbbbbbbbbbbbbb"bbbÓ…½bbbbb8%nbbbbbbbbbbbbbbbbbbbbbbbÓ¹Á­bbbbb8nbbbbbbbbbbbbbbbbbbbb³¾				bbbbÓ¬šÏbbbbbnbbbbbbbbbbbbbbbbbb¼²¿ççççŞêbbbbÓ‡ Ïbbbbb8nbbbbbbbbbbbbbbbbbb¼²ËßßßÕÕØbbbbb‡‡Ïbbbbb8nbbbbbbbbbbbbbbbbbbb·¶ËĞĞĞÍÎÏbbbbbbbbbbbbbbnbbbbbbbbbbbbbbbbbb´´²ÎÎÍÍÂÉÊbbbbbbbbbbbbbbbb$.bbbbbbbbbbbbbbbbbbbª£»ÉÉÃÃÄÄÅbbbbbbbbbbbbbbbbb!bbbbbbbbbbbbbbbbbbb ¤»»»»»¶ºÈbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb’®®±±±¶¨®½bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb¤¤¤¤¤¤¤¤Àbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbÿÿÿÿÿÿ  ÿÿğÿÿ  ÿÿÀÿÿ  ÿÿ€ÿÿ  ÿÿ ÿÿ  ÿÿ ÿÿ  ÿş  ÿÿ  ÿş  ÿÿ  ÿş  ÿÿ  ÿü  ÿÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿø  ?ÿ  ÿø  ?ÿ  ÿø  ?ÿ  ÿø  ?ÿ  ÿø  ?ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿø  ÿ  ÿø  ÿ  ÿø  ÿ  ÿğ  ÿ  ÿğ0ÿ  ÿà0ÿ  ÿà0ÿ  ÿà0ÿ  ÿÀ8>ÿ  ÿÀ8>ÿ  ÿÀ<>ÿ  ÿ€<>ÿ  ÿ€>>ÿ  ÿ€?ÿÿ  ÿ ?ÿÇÿ  ÿ ?ÿçÿ  ÿ ?ÿÿÿ  ÿ ?ÿÿÿ  ÿ ÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  (       @                                 ÿÿÿ „‚Î œ–½ Œuœ Ş¦Ö ÖÆ Î¢½ Ö¢½ ­yŒ ½¦­ œQc ”u{ ¥Yc ­šœ Ş²µ Î’” ½qs Æy{ ÿ÷÷ ÷ïï ¥ec Æ}{ Ö¦¥ Œmk ï×Ö µQJ µYR ½aZ µys ½Š„ ïÓÎ ½aJ ­’Œ ŞÃ½ çº­ ÖÃ½ sUJ ÆmJ Æºµ Ö¢Œ Ök Î}R Ö–s Æm9 ­qJ ¥–Œ ÖŠR Ş’Z Şšc ç¢k Ş¢s Î¦„ ”‚s ÷¾„ ç¶„ ÷ïç Öy ç²{ ÿÓ¥ ÿß½ ïÛÆ ÿëÖ µy1 ç¾Œ Ş²{ ïÇ” œ’„ ïÓ¥ µŠB ÆZ ½®” ÷Û¥ ÿ÷ç ÷ß­ Æ¾­ Æ²„ ÷ëÎ Ş×½ ÷ë½ ÿóÆ ÿûÖ ÿûÎ ïóÎ çï½ ”k Îß¥ ½Ë¥ ÖãÆ Œ¶k Ş÷Ö ¥Çœ s®k R–J µ÷­  i   e  y     J–J sËs ZZ c¢c {²{ „¶„ ”º” ­Ï­ µÓµ ÆßÆ ÎãÎ cec ‚ !–1 1m9 a )ªB BËc BŠR cë„ k{ k‚s 9uZ ­çŞ 1ic )÷÷  çÿ  ãÿ !ãÿ  Ïï  Çç ¶Ö  ×ÿ Rãÿ µßç )Ï÷  Ëÿ  Ã÷  ¦Ö )]k  ®ç  –Æ µ ‚¥ ¢Î )­ 9¶Ş {ßÿ Bu„  Ö  †µ ½ q” !–½ i„ kËï 9uŒ  y­ Îßç  m¥ a„ cËÿ „×ÿ ¥ËŞ ZÃÿ cÇÿ c¢Æ Œ¦µ 9†µ J¶ÿ sÃ÷ {Ëÿ 1y­ Æçÿ „’œ Bªÿ c¶÷ œÏ÷ 1ÿ )†Ö 1Ş Z²ÿ ­ÃÖ 1šÿ Rªÿ k®ï çóÿ )’ÿ )†ï c¦ï {¦Ö {š½ U­ Œ®Ö œºŞ !uŞ !qÖ 1‚ï JŠŞ µËç !}ÿ c–Ş !iÖ ByÎ I­ mÿ YÆ U½ 9i½ E­ c’ï aÿ Œ®÷ Uÿ <¥ Œ¦ç Iÿ 9Y­ ¥®Æ  <ÿ 1a÷ Aÿ <ï $Œ 0œ s‚µ  0ÿ 1Y÷ 1QŞ Rmç  $ç !<Ö { cmµ  Î 1<œ  ½  ­ ÿÿÿ                                                                         bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb5555555bbbbbbbbbbbbbbbbbbbbbbbbB5bbbbbbbbbbbbbbbbbbbbbbB$"=>><"N.5bbbbbbbbbbbbbbbbbbbbbBXifD;"D=5bbbbbbbbbbbbbbbbbbbbBDG]pB#Ç×;N.5bbbbbbbbbbbbbbbbbbbBDippWºÔ'=5bbbbbbbbbbbbbbbbbbb@WYpy–¶Òä@K5bbbbbbbbbbbbbbbbbbBA[cay‰­·ÇÔ0G5bbbbbbbbbbbbbbbbbB:icp{‹xÈÇÔ!D5bbbbbbbbbbbbbbbbbBBiac™‹x¦ºÒäN5bbbbbbbbbbbbbbbbbB#hp™‹w@¶Òâ$G5bbbbbbbbbbbbbbbbB;k]p›˜ˆ“B¶ÌÔÑN
+5bbbbbbbbbbbbbbb@;kpcu˜B©ÇÌäZK5bbbbbbbbbbbbbbbBe[WWzš¦JOlä
+5bbbbbbbbbbbbbbbB7hs`rˆ”™,­GG5bbbbbbbbbbbbbbB(^to_Šˆ‰™,1.ÔİCnbbbbbbbbbbbbbbBVvta`™ƒ‹œ,A¾ÛÚëßnbbbbbbbbbbbbbbBB7qwƒ‹œ,B'ÛÔéê%bbbbbbbbbbbbbbbBB3À~‹œ&B$ÈÛİêêbbbbbbbbbbbbbbbb&1šƒˆ–-=ÑÌÚænbbbbbbbbbbbbbbbb BBƒ‹–-=B·ÌÔëênbbbbbbbbbbbbbbb& bb‚ˆ•“nbbÒÌİêêbbbbbbbbbbbbbb(0&bb‚€Œ›nbbäÆÖØnbbbbbbbbbbbbbb3(*bbb¨½›nbbb"nnbbbbbbbbbbbbbb(%bbb£°“bbbb!-bbbbbbbbbbbbb%bbb£°“bbbbbbbbbbbbbbbbbßçêê%bbbb¨bbbbb"-bbbbbbbbbbbbbßŞßêçbbbb£bbbbbbbbbbbbbbbbbb¥ßêßÎŠbbbbbbbbbbbbbbbbbbbbbbbbÊËÎÎÉŠbbbbbbbbbbbb)bbbbbbbbbbbbbÊÎÍÃ»bbbbbbbbbbbbbbbbbbbbbbÿÿÿÿÿğÿÿàÿÿÀÿÿÀÿÿ€ÿÿ€ÿÿ€ÿÿ ÿÿ ÿÿ ÿÿ ÿş  ÿş  ÿş  ÿş  ÿü  ÿü  ÿü  ÿş  ÿÿ  ÿÿ  ÿ0ş0ş8şxüxüøüøÿøüÿøşÿø?ÿÿ(                                        ÿÿÿ „‚Î œ–½ Œuœ Ş¦Ö ÖÆ Î¢½ Ö¢½ ­yŒ ½¦­ œQc ”u{ ¥Yc ­šœ Ş²µ Î’” ½qs Æy{ ÿ÷÷ ÷ïï ¥ec Æ}{ Ö¦¥ Œmk ï×Ö µQJ µYR ½aZ µys ½Š„ ïÓÎ ½aJ ­’Œ ŞÃ½ çº­ ÖÃ½ sUJ ÆmJ Æºµ Ö¢Œ Ök Î}R Ö–s Æm9 ­qJ ¥–Œ ÖŠR Ş’Z Şšc ç¢k Ş¢s Î¦„ ”‚s ÷¾„ ç¶„ ÷ïç Öy ç²{ ÿÓ¥ ÿß½ ïÛÆ ÿëÖ µy1 ç¾Œ Ş²{ ïÇ” œ’„ ïÓ¥ µŠB ÆZ ½®” ÷Û¥ ÿ÷ç ÷ß­ Æ¾­ Æ²„ ÷ëÎ Ş×½ ÷ë½ ÿóÆ ÿûÖ ÿûÎ ïóÎ çï½ ”k Îß¥ ½Ë¥ ÖãÆ Œ¶k Ş÷Ö ¥Çœ s®k R–J µ÷­  i   e  y     J–J sËs ZZ c¢c {²{ „¶„ ”º” ­Ï­ µÓµ ÆßÆ ÎãÎ cec ‚ !–1 1m9 a )ªB BËc BŠR cë„ k{ k‚s 9uZ ­çŞ 1ic )÷÷  çÿ  ãÿ !ãÿ  Ïï  Çç ¶Ö  ×ÿ Rãÿ µßç )Ï÷  Ëÿ  Ã÷  ¦Ö )]k  ®ç  –Æ µ ‚¥ ¢Î )­ 9¶Ş {ßÿ Bu„  Ö  †µ ½ q” !–½ i„ kËï 9uŒ  y­ Îßç  m¥ a„ cËÿ „×ÿ ¥ËŞ ZÃÿ cÇÿ c¢Æ Œ¦µ 9†µ J¶ÿ sÃ÷ {Ëÿ 1y­ Æçÿ „’œ Bªÿ c¶÷ œÏ÷ 1ÿ )†Ö 1Ş Z²ÿ ­ÃÖ 1šÿ Rªÿ k®ï çóÿ )’ÿ )†ï c¦ï {¦Ö {š½ U­ Œ®Ö œºŞ !uŞ !qÖ 1‚ï JŠŞ µËç !}ÿ c–Ş !iÖ ByÎ I­ mÿ YÆ U½ 9i½ E­ c’ï aÿ Œ®÷ Uÿ <¥ Œ¦ç Iÿ 9Y­ ¥®Æ  <ÿ 1a÷ Aÿ <ï $Œ 0œ s‚µ  0ÿ 1Y÷ 1QŞ Rmç  $ç !<Ö { cmµ  Î 1<œ  ½  ­ ÿÿÿ                                                                         bbbbbb5555bbbbbbbbbbbhL"5bbbbbbbbbbfu¥Ì
+5bbbbbbbbb4]™¥Ç55bbbbbbbbL]wÅäG5bbbbbbbbL]˜¥ÀÌbbbbbbbL[f‘¦KÅÓ
+5bbbbbbLsr‰›/ãäbbbbbbGEn‡3äåbbbbbb*C‡@ÖáêêbbbbbbG0-b–›bÒêØbbbbbbG/%b¼›bnbbbbbb%b‡›b(bbbbbèßênb‡›bbbbbbbãËÃnbbbbbbbbbbbãÃÃbbbbbbbbbbbü?bbøbbø[cğ‰­ğÔ0ğ5bàbbàbbàbbàbbâGicâG‹xâGÔ!Âg5bÃïbbÇÿbb(   0   `                                                                                                  €@@U@@`J5`F@(^H:9VD5DT?1IU@2HYF6B[H:5\G@$UI=UU9	UUU                                                                                                                                   mII]F:QA1/N8+NN7,oO9,ŠL6)J5'¥K5'¤M7*™O:,…M9*gP7,FQ</&UD3€€@                                                                                                                               XN;T@4@J3&rsbV±œ‘†Ü¸±¤ïËÇº÷ÊÆ¹ø©¡”ótëZE9Ö?(¹C-”I1$bR=.2cG9€@@                                                                                                                           UA1?†xl™çåÎöÿşÜÿÿüíÿÿúğÿÿ÷ğÿÿõëÿÿóäÿÿóÜÿşøĞÿÅÀ®ùI2&Ø?)©I4&lSD41UDDUUU                                                                                                                        °§œ¦şüÓÿÿõåÿÿòæÿÿğâÿÿïßÿÿìÙÿÿêÕÿÿèÑÿÿæÌÿÿãÇÿÿæÅÿíêÖşaNBâB+¦P:,]]F6!mII                                                                                                                   òóè0úú×ÿÿíÛÿôæĞÿ¬Ã˜ÿ×Ô²ÿÿåÊÿÿãÆÿÿáÂÿÿŞ½ÿÿÜ¸ÿÿÙ³ÿÿØ±ÿşØ±ÿßİÏıK5(ÒI3&ˆR;.8b;;ÿ                                                                                                                  ôôä¯ÿğËÿüâÅÿ‡¶†ÿQ—QÿL”Lÿd[ÿÿÙ²ÿÿÖ­ÿÿÔ©ÿÚÄ¶ÿÖº±ÿÿÎÿÿÌšÿûä·ÿœ’…ñA*¤G0%KM33UU                                                                                                                 ùúØöÿá»ÿØÓ®ÿ²ÿP–PÿL”LÿL”LÿÿÎÿÿÌšÿ‹«Ñÿ&ÿÿVÿÿƒÌÿÿÌ™ÿÿÔ¡ÿÛØÅü<$¶D.!^X>,f33                                                                                                            òóèüøÆÿÿà±ÿ¿É ÿs«sÿL”LÿL”LÿJ’Lÿ³©‘ÿÿÌ™ÿ_ èÿ,ÿÿdÿÿDüÿÿÌ™ÿÿİªÿùúÙÿ<$ÇI4'v]F:,UUU	                                                                                                           ôõêIç¸ÿıôÁÿ¬É£ÿp©pÿL”LÿL”LÿEˆPÿ|£ÿ*«ÿ¢®Âÿ1–ÿÿrÿÿKÿÿÆª¯ÿıôÁÿíÒ¡ÿr`TáJ5)Y@7<[IIÿÿ                                                                                                         óğÜ™ß hÿæº„ÿ™Â™ÿf£fÿL”LÿL”LÿC„Rÿºÿ²ÿË €ÿ5›ÿÿ&ÿÿVÿÿVwëÿç¸ÿâ©qÿ•ˆ|ğE/!£N9+HUG9€€                                                                                                         îä¾ÃÚ‘XÿÑŸlÿ˜Á˜ÿ[œ[ÿL”LÿL”Lÿ9qYÿ¦Öÿ ™ÌÿØ’_ÿ;¡ÿÿ,ÿÿdÿÿBúÿÓ\ÿİšaÿÊÆ³ú=&°F.!TJ5+UUU                                                                                                        ğã¹ğÚ‘XÿÆ±…ÿŒºŒÿY›YÿL”LÿL”Lÿ2haÿ µçÿ ™ÌÿŞ—\ÿa´òÿ1–ÿÿpÿÿ
+Iÿÿ’s’ÿÛ•]ÿíêÉş;#½F0#fSD5"€UU                                                                                                        ñÚ¤ÿİšaÿ¼È§ÿ†·†ÿP–PÿL”LÿL”Lÿ+^hÿ »îÿ šÍÿÕzÿ‹¦´ÿ4šÿÿ%}ÿÿUÿÿ4PŞÿâ§oÿöêºÿK5(ÑL6(€\G82]]Fÿ                                                                                                  ôõêIòÙ¥ÿâ§oÿ²Ñ²ÿ~±~ÿO–OÿL”LÿL”Lÿi…ÿ ¾ñÿ ›Îÿ²y4ÿÃ¯ÿ9 ÿÿ+‹ÿÿbÿÿ>ÿÿáµ†ÿóÚ¥ÿ€reéH2%™Q>.B`@@€                                                                                                  óñŞ‰ñÕ ÿã¾Œÿ¯Ï¯ÿv­vÿL”LÿL”LÿL”Lÿu–ÿ Âõÿ ›Îÿ´‚>ÿÜ±yÿC©ÿÿ1•ÿÿpÿÿ
+Hÿÿ—¸ÿğÑ›ÿ®¥•õA*©H1$NU=1UU                                                                                                 õôİÄã¾ŒÿŞÓ¬ÿ¦É¦ÿl§lÿL”LÿL”LÿFŠOÿ™¾ÿ Åøÿ Ñÿ¸Pÿí¼{ÿQ´üÿ4šÿÿ%}ÿÿUÿÿ7ZëÿóÚ¥ÿâàÄü<$¶E/!]O>,f33                                                                                                ùù×ñã¾Œÿ×àÅÿŸÅŸÿf£fÿL”LÿL”LÿEˆPÿ¡Èÿ Åøÿ Ñÿo‚qÿğÃƒÿyÇğÿ9Ÿÿÿ+‹ÿÿbÿÿ<ÿÿòçºÿúøËÿ=$ÆH4'uYA5+UUU	                                                                                               üùÌÿã¾ŒÿÍàÈÿ™Â™ÿY›YÿL”LÿL”Lÿ8t]ÿ2Æíÿ Çúÿ ¢Õÿq“„ÿï´qÿ¬àåÿ@§ÿÿ0“ÿÿnÿÿ	Fÿÿ©¹ÛÿşşËÿiXLàK5'VA4;[IIÿÿ                                                                                         ôõêIüùÌÿã¾ŒÿÃÛÃÿ’½’ÿWšWÿd¢]ÿ‡·vÿ›¹”ÿ­çÚÿÔöÔÿÔğÎÿæèºÿøÜ¢ÿñúÑÿg½öÿ8›ıÿ$|ÿÿSÿÿ9bôÿÿÿÍÿ™ñE.!¢J5'HU99€€                                                                                         õöç‰üùÌÿã¾ŒÿÈŞÁÿÌà¯ÿğöÂÿÆİŸÿ²fÿGw…ÿ*Òôÿ«Üÿ ‡ºÿ8wÿË†Sÿæµ~ÿ«ÃÔÿëñĞÿÏã×ÿb“îÿAıÿ÷ùÓÿÊÄ¬ù<%®B,QF.#UU                                                                                         ööàÄÿÿÌÿışÍÿÚô¸ÿuÉtÿ*ÿiÿeÿnÿ Éüÿ «Şÿ ˆ»ÿ`‚ÿÀn;ÿÚ‘Xÿs‚´ÿ^ÿÿ)[÷ÿ£àÿğóÍÿÍ×ÜÿôóÊş:#¸C+_M<+f33                                                                                        øøÙìÿÿÌÿ±ö«ÿFÏiÿ,©Bÿ‚ÿ f ÿbÿ„¥ÿ Íÿÿ ²åÿ Àÿ`‚ÿÀn;ÿÜ™bÿ³“„ÿfÿÿIÿÿ 3ıÿ#>ÕÿÛİÈÿÿÿÌÿ<%ÈK3'w[J9-qUU	                                                                                       üıÒÿğÓÿmä„ÿCËeÿ,©Bÿ‚ÿ f ÿ^#ÿ‘³ÿ Íÿÿ ²åÿ ÃÿlœÿÀn;ÿá¤mÿÜ¥rÿoÿÿSÿÿ9ÿÿ &æÿ±ÿ÷÷ÊÿtcWàN8-\K>:vNN€€€                                                                                òóè@ıüÌÿæµ}ÿYì†ÿ?Æ_ÿ&Ÿ9ÿyÿ f ÿ2n;ÿ
+´Ôÿ Ïÿÿ ¶éÿ ”Çÿ n¡ÿÀn;ÿæ®xÿæ³{ÿ<~ìÿ]ÿÿAÿÿ .öÿ Ãÿ§¡²ÿ£˜ŒïK7-˜ZG;AfDD€€€                                                                                òóèAùí¹ÿØ¢sÿÃ_ÿ—°dÿa›Cÿ+wÿ f ÿ“lÿÆãÿ Ñÿÿ »îÿ ™Ìÿ n¡ÿÀn;ÿé´ÿê¿ˆÿ{™ÊÿfÿÿIÿÿ 3ıÿ Ôÿ64£ÿ¤šñF/)N74EK<<€                                                                                  óôê#ıúÇÿÖ\ÿæ´}ÿûò¿ÿìÈ’ÿÒ„Uÿ¯KGÿÅ©ˆÿÁãÿ Ñÿÿ »îÿ ™Ìÿ u¨ÿ©rLÿïº†ÿîË•ÿÁº­ÿoÿÿSÿÿ9ÿÿ &æÿ °ÿuiyò<& §?+(M@&3                                                                                       ğîâ¯Ñ”rÿä¸ÿùî¿ÿñ×¢ÿÔˆVÿ¯LGÿæ¿’ÿÍîÿ Õÿÿ Âõÿ  Óÿ wªÿ¤sPÿñ½‰ÿòØ¢ÿáÑªÿ"xÿÿ]ÿÿAÿÿ .öÿ ¿ÿZQ—ù7µ:$!]>#,3 3                                                                                    jS`Ã~~ÿèĞÎÿÆ‡‡ÿ´SIÿ¿dMÿ¹aUÿöä¯ÿçúÿ ×ÿÿ Ãöÿ ¡Ôÿ wªÿ¤sPÿó»ˆÿöä¯ÿöä¯ÿ6‡øÿdÿÿ
+Iÿÿ 3ıÿ ÓÿJKºÿ5É6!z7!'.33
+                                                                                   §ve³Ò¢ ÿà¿ºÿ·a`ÿµVIÿ½bLÿÉ„oÿúğ¼ÿ ñÿÿ ×ÿÿ Ãöÿ ¡Ôÿ |¯ÿpslÿó»‡ÿúñ¾ÿøòÇÿn­ïÿmÿÿRÿÿ9ÿÿ &æÿ®ÿ:&?ä6 —7#A3"3                                                                               ÙÄ¶Á‰…ÿáÁ¾ÿÒ££ÿ´TKÿÀeMÿ¾bMÿÒ¡Šÿôôâÿ*ööÿ Üÿÿ Éüÿ ªİÿ ‚µÿSWVÿÜ³~ÿçàÌùÔÒÇÓ‹¼îï!uÿÿ[ÿÿAÿÿ .öÿ ¿ÿ]Vš÷5¨6K9                                                                               §vdcÉŒŒÿèĞÌÿÁzzÿÅnOÿÉvQÿ¾bMÿ£ukúS<0ÆIèÿÿ İÿÿ Éüÿ ªİÿ ‚µÿ3v§üwbKÑVB2sF8.7[”Ò–(ÿÿkÿÿ#kÿÿVıÿ>èÿOaÕş7¬8!N3&                                                                               ¼“‰ÆÙ²²ÿÜ¸¶ÿºbXÿÕˆVÿÑ‚Tÿ½bLÿ¢tjùF+!³Zàÿÿ İÿÿ Éüÿ «Şÿ †¹ÿ4ƒ¯ş7#¯:(S@7.SŒÍV\¯ÿÿS±ÿÿŸÈüÿ§ëÿ3côÿKÿÿ;#®>%"RF.#U                                                                          ÚÉÇÍ™˜ÿèĞÎÿÍ—–ÿÔˆZÿÛ•aÿÖŒXÿ¹ZKÿ¦ˆôH/$£\Ôõñ"ãÿÿ$Òüÿ>¶İÿ)’½ÿ:…°ı:(¦>0&J@33D3D‡Íÿÿf³øÿüúúÿî××ÿĞ ¥ÿfl±ú=$¹B)!dF.'!U++                                                                       °…xfÎššÿæËÈÿÖ—zÿãº¬ÿåÃ¾ÿâ¹ªÿ¹ZKÿ€cXæI0$u Ğ¶Àßÿÿéòöÿ¦ÊÛÿb¡Àÿuœ·ø?.%–H80@DDDIII}±ÖeµÊåìû÷÷ÿî××ÿÖ¢¢ÿ´ˆ…ı;!ÏB&‡E+;P0 €                                                                      Á›”»ßÀ¿ÿ×­¬ÿÏ‘Œÿ¾ppÿ·__ÿÃzzÿº_TÿcXßE+ vQR]J»Üşüõùıÿ»×äÿx®Éÿu…–è@/'|J:50MMM
+@@@^QCÆ¸´§÷ïïÿòââÿÛ­­ÿÃzzÿrTJî;!°?%aD&"I$$                                                                    È•“ıë×ÕÿÊÿÍÿ¾ooÿ·``ÿÂxxÿ¹]UÿbG;É;#_C/(&™Âï¾äñÿÿÑäíÿ¼ÒÿegoÍ<*"aB11333€€ `P@Èº¶¤öîîÿôææÿÕ  ÿÄzzÿ­ZXş:Î="†A%7;'                                                                J˜İY4Úÿy–·ÿ™Paÿ¨pÿ¬z‹ÿªwˆÿ­}ÿ£Zaÿ4±4S;'k‰¯8ÁêÿÿÂë÷ÿkËéÿ7':)"K@3& UU€€ m[IÈ¸´ öîîÿèÒÑş€zùÄ{{ÿ®KKÿh_ô;!Š?$9;'                                                                s²ì¼-†Õÿ
+^¥ÿ{ÿzÿ	„ÿ	„ÿ'ÿ3F›ÿ3¯3P.I77mÒöÔ ÌÿÿRÒø÷:.'n<2-3;;;   ÿÿ ]FFË»¸—ôééÿóääÿÑ——ÿÆÿ²SSÿ®\YıA&jA''@                                                                  b­òû,‰ÛÿOªÿ7ÿ1˜ÿ1˜ÿB©ÿ@§ÿ9Y¯ÿ3¯3P3+++k¿æZ[Üÿşf¿ä²94/1777+++      ff3ÕÆÃ‹ôééÿóääÿÛ­­ÿÁttÿ°{tùR5(ŸL0&JQ:#U                                                              g³ÿRQ¨ÿÿ2“ñÿI®ÿG­ÿF­ÿG®ÿYÀÿV½ÿ>i¾ÿ3¯4 O3   @@@333
+777@@++++              mIIÌÂ¾AáØØà¾¾ü¾ooÿ‹ndÅM2(zS<.7[I7ÿ                                                              ŒÈıº[±ÿÿ,‰ÛÿU¼ÿV½ÿ\Ãÿ\Ãÿ&vİÿ#kÒÿDxÈş5 ®4$O3&                                      €@@]FFªŒLÈŠ‰ÿ•{s˜O2)W\;.'M33
+                                                               zÉÿş\¹ÿÿ,†íÿ"hÏÿ$mÔÿ&rÙÿ&rÙÿ+‚éÿ+‚èÿJŠÙı8& ª9,%L66(                                               €  U9	¹ˆñskN4''U9+€@@                                                            £Ùÿ7gËÿÿ`Äÿÿ,‡îÿ-‡íÿ,‡îÿ-ˆïÿ,†íÿ7™øÿ/öÿa™Ø÷<+&š@51D<<<                                                      U++F.M3
+f33                                                               µåÿo|ŞÿÿC©şÿC©şÿ; ıÿ5›ÿÿ5›ÿÿ4—úÿM³ÿÿ>¤ÿÿt©Üé@3,oE::0@@@                                                                                                                                    ÅíÿW`Äÿÿ`Æÿÿ`Æÿÿ`Æÿÿ`Æÿÿ`Æÿÿ`Æÿÿ`Æÿÿ‘­Ğÿ•¸Î¥B832I==f33                                                                                                                                           ÂíÿÀìÿUÂíÿaÂíÿJÂíÿ=Âíÿ@Âíÿ8Âíÿ        ;;;                                                                                                                                                                                                                                                                                                                    ÿÿ€ ÿÿ  ÿÿ  ÿ  ÿÿ  ?ÿ  ÿÿ  ?ÿ  ÿÿ  ÿ  ÿş  ÿ  ÿş  ÿ  ÿş  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿü  ÿ  ÿø  ÿ  ÿø  ÿ  ÿø  ÿ  ÿø  ÿ  ÿø  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿğ  ÿ  ÿà  ÿ  ÿà  ÿ  ÿà  ÿ  ÿğ  ÿ  ÿğ   ÿ  ÿğ   ÿ  ÿà   ÿ  ÿà   ÿ  ÿà   ÿ  ÿÀ     ÿÀ     ÿÀ     ÿÀ     ÿ€     ÿ€     ÿ€     ÿ     ÿ    ÿ ÿ€ÿ  ş ÿÀÿ  ş ÿãÿ  ş ÿÿÿ  ÿ ßÿÿÿ  ÿÿÿÿÿÿ  (       @                                                                  €€€€€`thQobU'mZL6eQI?aMBB`L@@dMD8dQD)oYNqqU	€€€                                                                        €€ qUU	o^UjVKAfREg^K?…ZE9”S?2™S=1–T>3ˆZD6l_M>FiSK"t]F€€€                                                                    ff3jUJtcXKƒw›­£šÓ²©¡ç°¦î«¡—ï‘†ìn\QÛP;/ºQ;.‹YF9PcRBmII                                                                  t]F~mb8¶­¢¬ÊÂ»æŞÍ¿ùîÜÉşÿéÓÿÿæÌÿÿâÆÿÛĞ¿ı™‹}óO9,ÈN9,†YE9?cUGUUU                                                            UUUaI=¨‘uîëàü×İÉş›¼ÿr§bÿâĞ£ÿÿ×¯ÿÙÄ¹ÿêÆ«ÿïàÂÿ›òE.!±T</adM>!€€U                                                            mII_I3#ÕÍ¿ÇçÑ±ú±¿“ÿP–Oÿ%ˆ*ÿâÄŒÿİÃªÿ!wÿÿLüÿÿÌ™ÿÜÒ½şU@4ÑO9+ZF<3t]Fÿ                                                      ÿ  jU@’ƒvJìãËÿç×´ÿ¡ºˆÿ1Œ4ÿ*†2ÿ>œµÿ½½³ÿ*‰ÿÿVÿÿÆª¯ÿèáÊÿreéI3&šTA1C`P@€                                                      €  `@0¹§‡‰Û¾‡ÿÂÄ˜şŠ¯tÿ)‰/ÿ4wNÿ’Âÿ«Œnÿ2–ÿÿdÿÿXtäÿİÂÿ¯¥•öB+«L6&Q]F.UU                                                     €  M3&Â©°Ø±uÿ¥¾•ÿK•Lÿ ‡(ÿ9qZÿ ¥Øÿy—‘ÿO ôÿ!vÿÿJúÿÚ‘XÿÈ» ü>&ºI4$bX@8 €U+                                                    €@@U9/Ğ»—Öä©sÿ˜Á˜ÿ=@ÿ0‹5ÿ.aeÿ «ŞÿjˆtÿlšÊÿ(…ÿÿXüÿ¬…†ÿåÖµÿK6(ÍK6*z^H=.fMM
+                                                  €`@YF9(çÙ¼ÿûÌ›ÿŒºŒÿ"‡)ÿ?Aÿ$q‚ÿ ¯âÿjˆrÿ£¹ÿ,ˆşÿbüÿUiÒÿåÔ²ÿp`SâM7*‘XC6=mII€€                                             ÿÿ jUU«¡–\ëâÌÿÒÉ ÿ„µ„ÿ"‡)ÿ*†ÿ¦ÿ ²åÿkŠvÿİ¾’ÿ7šÿÿfıÿ!TöÿÑÉÃÿœ’…ñF0"£P8-I^C6€€                                             €€ `P@Ã¾³‰ğíßÿ¾Ö³ÿTWÿ(‰.ÿ1‘†ÿ”¸ÿ ³æÿI’˜ÿğÆ†ÿ>–üÿ"küÿTÿÿhŠâÿ¼µªø?(±I2&WX;1@@@                                            €€ Y@3ÓÏÄ°ïòéÿ°Ò²ÿ9‘>ÿ:>ÿAgÿ&ªĞÿ ¿òÿ&™¶ÿõÑ”ÿx¿ğÿ0ıÿcşÿW{îÿçæÛş=&ÁI3(mWC<&mII                                            €@@UB/àŞÓÖìğêÿµÒ´ÿ§Êÿ½×šÿ¸ĞÿäŞÿĞĞÿŒ³«ÿğİªÿéã¸ÿÊÖÊÿË¶ŸÿJsäÿÏ×ëÿZF;ÖM:0…[H?5jUUÿÿÿ                                       ``@\H;'òóèÿß·‹ÿŠÛŠÿ0Ÿ<ÿ f ÿ]?ÿ»ëÿ ¡ÔÿhŠÿÃr?ÿÀoÿ‚}£ÿ ˜«ÿ¾­§ÿÈ±¡ÿŠéN;2”ZFB>fUUÿÿÿ                                    ÿÿ t]F±¨Xß·‹ÿ©ì®ÿ;¿YÿŒ'ÿ f ÿ`fÿ Éúÿ ¡ÔÿhŠÿÃr?ÿŞeÿ˜ÿKüÿ	0èÿ†Àş™˜ğI50šQB>B`PP€€                                     ÿÿ t]FÏËÀÜÏªÿgëˆÿ;¿Yÿ„ ÿ f ÿ)w†ÿ Ğşÿ ­àÿ z­ÿÃr?ÿæ¯xÿ‡”ºÿ?lãÿ 9üÿ¸ÿ‰}‚ğA-( D22GG99€                                         ``@ÜÙÎ‚Ê¨€ÿß·‹ÿ®KHÿ®KHÿVV#ÿ\¡¤ÿ Ñÿÿ ¯âÿ |¯ÿÃr?ÿëÁ‹ÿ·µ±ÿ7rïÿNûÿ Ìÿof€ô8"­7$+T5 5@ @                                        €@@ÉÀµB¹™vÂéÄ–ÿ¶\WÿÜ¡|ÿ®JHÿ|Ä¾ÿ Ñÿÿ ¯âÿ |¯ÿÅvCÿòÍ˜ÿÒË²ÿb’ãÿ5kòÿ Aîÿ)+¥ü3¾3&j29$$$I                                        UU Y@3g[’çÏÏÿ¶\WÿÀfMÿÑ¢fÿjÏñÿ ×ÿÿ ºíÿ ˆ»ÿ§wTÿëŞÂÿÆÓØÿaœñÿ'küÿ Bıÿ*7Îÿ1/Ó1)‚273+@                                      ff3e@5 ˜tj£Şº¸ÿµUJÿÀgNÿèÁ“ÿáõÿ Ùÿÿ »îÿ ˆ»ÿ¢qPşèÜÁığîàÿU¡ÿÿ%pÿÿRÿÿ Ëÿ.!`å5!,‘6&;=3"D                                   €€€bN;]=33Æ«§âÃ||ÿÈtQÿ¾cMÿG,Ã9%t
+¹ÖÇ »îÿ ˆ»ÿQoòNA9®TLH`?0&5nÿÿ!gÿÿEîÿ5:’í;',˜=*5C<-<                                  f33bE;wVKhèÑÑÿ¾fSÿØWÿÁgNÿ; ´>/#fÄÛ¼ Ãöÿ “Æÿ,eì7//”:6:B@@@Ddëõ¸Îóù–İÿCG†æ?(%¥@+'TE11@@@                               U99	ŠiaE~w°İ¶±ÿÜ¡|ÿß©‰ÿÈuTÿB%°F. _q¬Î›¶àîÿj¥ÃÿDh‹á;//‚?:?5QCQ€’¤DÔËÉ½äÂÂÿw_hì<$¿<"w@%0@+                             €IIIa[[À©¥ØÑ˜•ÿ½mmÿ¸bbÿdOöI,°F/#Wu‘µmìó÷ÿ¡ÇòÿMc~Ë<0+jA;;'bNNšŠ…9áÚØÎçÊÊÿ»‘‹ÿN/!à9@"LC,@                          @@€CNY{ovwàÉËÿÇÿÃyyÿÀssÿ…]KôD*"¦@,(Le¢FÌİñÕªÓ÷ÿOT^:*$O;11MMM
+šŠ…8îçæäÓ£¢şÄ||ÿ»‘‹ÿ; ª@#XF,f3                        IImEg”1Pw«?ÿ&&|ÿ*/…ÿ-8ÿA:]ò5$$–6+.BT[r!G²ãHÅÿÿ5*$[8)23""UUU§”2òééíİµµÿÃyyÿšbOÿd;)´E(FI1@                        €UUjP{®S]„·»;™ÿ+†ÿ6šÿE§ÿ27[è3')2.6=<<KC©×?HÅÿÿ4'!'1$++ UUU¼ª©-éáàäèÙÚÿ­~sÿyN@ÏA$jF),F..ÿ                      UUªUcqj¹qHw¶á?ÿ:ÿU¼ÿ!Rµÿ1Ajæ5)-ˆ83<7;;N@@@@@@9	33       UUU;''»‘‹ÿ²†|ÿL- m@&DN''f33                      ff™nŠ¥&r”¶ƒ6}ÒùK¬ÿ O²ÿ%oÔÿ'pÖÿ8Pzâ8-/|:5@0.FF                        U  .ËŠnÿXMPF#F..€€€                            ™Öÿ$Àğ]3{Õø R´ş#`Åş'oÕÿ.âş^©ù5                                                                                    ÿ€ÿÿ ÿÿ  ÿş  ÿş  ÿş  ü  ü  ü  ü  ?ø  ?ø  ?ø  ?ø  ?ø  ğ  ğ  ğ  ğ  ø  ø  ğ  ğ  à  à  à  à  À  À  À  € 8àÿÿ(                                                     ]F6!N;(R@+‡8"¤8©>%™J3%nXA37iK<ªUU                        ‡vfP€špÖª¸{ÿÛÆ¾ÿœŸÇş€kZäE- ©T</afI:#mII                    rXF°¡ƒiŸYÿ>‹bÿjÀÿ'iòÿ·¥ıZF7ÔN7*†]A37bN;ÿÿ                 Œr[:¾¯}ñ]›Vÿ#€yÿT›±ÿ*vøÿŒƒªÿ—„nïF0! N9+HcG9€€                 ©™ˆ]ÄÀ’ÿR–Oÿ†’ÿh šÿSàÿEoáÿ¸ª˜ø?'±H1#XX;1€@@                ÇÀ·“¨Ç ÿT”Nÿœ³ÿh²°ÿ‡·Úÿ!oıÿÊÍÙş>&ÁI3%mWC6&``@           sbYÑÎÁ´¥Ğ›ÿk£^ÿJ½Éÿu­«ÿË¿§ÿB|ïÿ˜¯ğÿ\I=×G2*…R?:5UU@ÿ           ”ˆ2Âéºì9»Iÿf!ÿ ¦Úÿ:{ÿĞŠZÿ:]Şÿ_væÿ‰{rç?++•D48@UDD€          ĞÉ¿R¼³†Ï’ˆIÿZoMÿÁñÿ.„ÿäªpÿO|æÿ.äÿldì8$+œ9'5H6(6€          wcWÊ¥’å×|bÿ¦ˆıÎ÷ü&‡¢ÿâ»ü}ªêû 6øÿ$…á7$)¡7$+T=)3@ @            Å ˆØŞ–[şpaWÔ²Êİ¼ÿsb¼^hƒ\üÿ,>·å<)-®<$"j;'!'@              æ½“òŞ’Sü8"­S›¯PªÙÿ</)|D4-Y³½Ü×ªÂıF.'·@%„A%7;''            Œuü~]eı6!©p•˜¦Îõş<0*U@3+<ĞÀº¥Ö¡šÿ–^Eë@%{?&5@+        ;†¯-“ÿ!=•ş6&! L\mjJÃûê<6/&F5,àÑÑÀÈœ˜ÿ‘[Jâ@%L<+I$$        bÇáI±ÿ+tÔú:22?7;AF:F333
+@@@¿°«9½ƒôA*+@$33
+           gµüŠ-sÕıu¾ş^                                            ğ  ğ  à  à  à  à   À  À &À °À uÿà •ÿà Lÿà (ÿÀ ZÿÀ ØÿÇÿ‘ÿ   	 00   h        è      (   00    ¨         ¨       h   00     ¨%          ¨        h  	     (       @                                  €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                    ˆˆˆˆˆ€wwwwwwp   ‡÷÷xx wÿÿÿÿp   ‡ÿwwˆ€wÿÿÿÿp   ‡÷÷xx wÿÿÿÿp   ‡ÿwwˆ€wÿÿÿÿp   ‡÷÷xx wÿÿÿÿp   ‡ÿwwˆ€wÿÿÿÿp   ‡÷÷xx wÿÿÿÿp   ‡ÿwwˆ€wÿÿÿÿp   ‡÷÷xx wwÿÿÿÿp  ˆˆˆˆ  wÿÿÿÿp  ÿÿwxxwÿÿÿÿp  ww‡ˆwÿÿÿÿp  ÿÿ÷xxÿÿÿÿp   ˆˆˆˆˆˆwÿÿÿÿÿp   „DAw0wÿÿÿÿp   FÄ‘;swÿÿÿÿp  lA‘s·0wÿÿÿp  FÄq‘;ˆwÿÿÿp pGq‘ów€wÿ÷p €‡q‘ÿ€ÿwp  ‡ñ‘ÿø  ÿ÷wp‡  ñÿÿ €ÿwwp  øxÿÿğ÷wwp   øøÿÿÿÿğ      øˆÿÿÿÿøÿx    ğ ÿÿÿÿø÷€    ğ ÿÿÿÿÿøx     øÿÿÿÿÿø€     ÿÿÿÿÿÿÿÿø      ˆˆˆˆˆˆˆˆˆˆ   ş   ü   ü   ü   ü   ü   ü   ü   ü   ü   ü   ø   ø   ø   ø   ü   ü   ü   ø   ğ   à   À   „      œ   ü   ü  ü  ü  ü  ü  ü  ?(   0   `         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                            ˆˆˆˆˆˆˆˆwwwwwwwwwp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wÿÿÿÿÿÿÿp    ‡ÿÿÿww‡ˆwwÿÿÿÿÿÿÿp    ‡ÿÿ÷÷wxˆ€wwÿÿÿÿÿÿÿp   ˆˆˆˆˆˆ    wwÿÿÿÿÿÿÿp   ÿÿ÷÷w‡ˆˆ wwÿÿÿÿÿÿÿp   ÿÿÿwwxx€€wwÿÿÿÿÿÿÿp   ÿÿ÷÷w‡ˆˆ wwÿÿÿÿÿÿÿp   ÿÿÿwwxx€€wwÿÿÿÿÿÿÿp   ÿÿ÷÷w‡ˆˆ wÿÿÿÿÿÿÿp    ˆˆˆˆˆˆˆˆˆwÿÿÿÿÿÿÿÿp    tlÄww0wÿÿÿÿÿÿÿÿp    FÌ@?»swÿÿÿÿÿÿÿp    lÄsû·0wwÿÿÿÿÿÿÿp    FÌ@‘w?»swÿÿÿÿÿÿp   lÄ™wóû·0wwÿÿÿÿÿÿp   FÌ@q‘‘wÿ?³ˆwÿÿÿÿ÷p  lÄq™wÿó7w€wwÿÿÿÿwp  ‡€@wq‘‘wÿÿ‡ÿxwÿÿ÷wp  ÷xwq™wÿÿøw€ wÿÿwwp €÷€wñ‘‘wÿÿÿˆ  ÿÿ÷wwp   ñ™wÿÿÿø € ÿÿwwwp€  ÿñwÿÿÿÿ€ˆÿ÷wwwpˆ€  ÿøwˆwÿÿÿÿøˆÿÿwwwwp €  ÿø÷xwÿÿÿÿÿÿÿ÷wwwwp    ÿø÷xwÿÿÿÿÿÿÿğ         ÿøˆˆwÿÿÿÿÿÿÿøÿÿÿx     ÿø  wÿÿÿÿÿÿÿøÿÿ÷€     ÿø  wÿÿÿÿÿÿÿøÿÿx      ÿø  ÿÿÿÿÿÿÿÿøÿ÷€      ÿøÿÿÿÿÿÿÿÿøÿx       ÿø‡‡ÿÿÿÿÿÿÿÿø÷€       ÿÿÿÿÿÿÿÿÿÿÿÿÿøx        ÿÿÿÿÿÿÿÿÿÿÿÿÿø€        ˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€    ÿ€      ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ş       ş       ş       ş       ş       ş       ÿ       ÿ€      ÿ€      ÿ€      ÿ       ş       ü       ø       ğ       à       À€      €      €      €      Ï€      ÿ€      ÿ€     ÿ€     ÿ€     ÿ€     ÿ€     ÿ€   ?  ÿ€     ÿ€   ÿ  ÿ€  ÿ  (                €                         €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ  €      ÷ˆwwp÷xÿp÷ˆÿp÷xÿpwwˆÿp‡ÿ÷w€ÿpˆˆˆˆ€ÿp „A;ÿp L	°wÿppy;÷pˆùø wp€ø‡ÿ   ÷‡ÿÿ€ ğÿÿˆ  ˆˆˆˆˆ€ À   €   €   €   €   €           À   À   €           À  À  À  (       @                                  €  €   €€ €   € € €€  ÀÀÀ ÀÜÀ ğÊ¦       """ ))) UUU MMM BBB 999 €|ÿ PPÿ “ Ö ÿìÌ ÆÖï Öçç ©­   3   f   ™   Ì  3   33  3f  3™  3Ì  3ÿ  f   f3  ff  f™  fÌ  fÿ  ™   ™3  ™f  ™™  ™Ì  ™ÿ  Ì   Ì3  Ìf  Ì™  ÌÌ  Ìÿ  ÿf  ÿ™  ÿÌ 3   3 3 3 f 3 ™ 3 Ì 3 ÿ 33  333 33f 33™ 33Ì 33ÿ 3f  3f3 3ff 3f™ 3fÌ 3fÿ 3™  3™3 3™f 3™™ 3™Ì 3™ÿ 3Ì  3Ì3 3Ìf 3Ì™ 3ÌÌ 3Ìÿ 3ÿ3 3ÿf 3ÿ™ 3ÿÌ 3ÿÿ f   f 3 f f f ™ f Ì f ÿ f3  f33 f3f f3™ f3Ì f3ÿ ff  ff3 fff ff™ ffÌ f™  f™3 f™f f™™ f™Ì f™ÿ fÌ  fÌ3 fÌ™ fÌÌ fÌÿ fÿ  fÿ3 fÿ™ fÿÌ Ì ÿ ÿ Ì ™™  ™3™ ™ ™ ™ Ì ™   ™33 ™ f ™3Ì ™ ÿ ™f  ™f3 ™3f ™f™ ™fÌ ™3ÿ ™™3 ™™f ™™™ ™™Ì ™™ÿ ™Ì  ™Ì3 fÌf ™Ì™ ™ÌÌ ™Ìÿ ™ÿ  ™ÿ3 ™Ìf ™ÿ™ ™ÿÌ ™ÿÿ Ì   ™ 3 Ì f Ì ™ Ì Ì ™3  Ì33 Ì3f Ì3™ Ì3Ì Ì3ÿ Ìf  Ìf3 ™ff Ìf™ ÌfÌ ™fÿ Ì™  Ì™3 Ì™f Ì™™ Ì™Ì Ì™ÿ ÌÌ  ÌÌ3 ÌÌf ÌÌ™ ÌÌÌ ÌÌÿ Ìÿ  Ìÿ3 ™ÿf Ìÿ™ ÌÿÌ Ìÿÿ Ì 3 ÿ f ÿ ™ Ì3  ÿ33 ÿ3f ÿ3™ ÿ3Ì ÿ3ÿ ÿf  ÿf3 Ìff ÿf™ ÿfÌ Ìfÿ ÿ™  ÿ™3 ÿ™f ÿ™™ ÿ™Ì ÿ™ÿ ÿÌ  ÿÌ3 ÿÌf ÿÌ™ ÿÌÌ ÿÌÿ ÿÿ3 Ìÿf ÿÿ™ ÿÿÌ ffÿ fÿf fÿÿ ÿff ÿfÿ ÿÿf ! ¥ ___ www ††† ––– ËËË ²²² ××× İİİ ããã êêê ñññ øøø ğûÿ ¤   €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                       ìğõôñğïï÷ìm ¼¼¼¼¼¼¼¼¼¼¼¼¼       ì¼õôñ¼ï’ím ¼¼¼õõõõõõõõõ¼       ì¼ôôñğï÷ím ¼¼¼õõõõõõõõõ¼       ì¼õôòğïï÷ím ¼¼¼õõõõõõõõõ¼       ì¼õôñ¼ï’ím ¼¼¼õõõõõõõõõ¼       ì¼ôóğïï’ìm ¼¼¼õõõõõõõõõ¼       ì¼õôñ¼ï’ìm ¼¼¼õõõõõõõõõ¼       ì¼õôòï’’ëm ¼¼¼õõõõõõõõõ¼       ì¼óñï÷’ìëm ¼¼¼õõõõõõõõõ¼       ì¼ó¼¼÷÷ììëm ¼¼¼¼õõõõõõõõ¼      ì¼ïïïëëëmmm   ¼¼¼õõõõõõõõ¼      ì¼õõôñ¼ï÷íìëm ¼¼¼õõõõõõõõ¼      ì¼õõóñ¼ï÷íìëm ¼¼¼õõõõõõõõ¼      ì¼õõóñï÷íìëm ¼ğõõõõõõõõõ¼       ìììììììììììëïğõõõõõõõõõõ¼       ì  ¼¼õõõõõõõõõ¼       üc û ¼¼õõõõõõõõ¼      üc û ¼¼õõõõõõõ¼     ü¼ù ¼¼õûì ¼¼¼õõõõõõ¼    ìï ¼¼ù ¼¼õõ’ë ¼¼¼õõõõ¼¼   ìõì ì¼ğù ¼ğõõõìñ’ë ğğõõõ¼ğ¼  ìì   ìñõù ¼ğõõõõìñ   õõõğğ¼ğ ìï    ìõõìë  ğğõõõõõ  ì õõğğñğñ  ì    ìõõì ññõõõõõõ  õõññññññ       ìõõñ ññõõõõõõõõõõ             ìõõ  ñòõõõõõõõõõõìõõïì        ìõõ    òòõõõõõõõõõõìõì         ìõõê   õõõõõõõõõõõõìì          ìõõmìm õõõõõõõõõõõõìì           ìõõõõõõõõõõõõõõõõõõì            ìììììììììììììììììììì      ş   ü   ü   ü   ü   ü   ü   ü   ü   ü   ü   ø   ø   ø   ø   ü   ü   ü   ø   ğ   à   À   „      œ   ü   ü  ü  ü  ü  ü  ü  ?(   0   `          	                        €  €   €€ €   € € €€  ÀÀÀ ÀÜÀ ğÊ¦       """ ))) UUU MMM BBB 999 €|ÿ PPÿ “ Ö ÿìÌ ÆÖï Öçç ©­   3   f   ™   Ì  3   33  3f  3™  3Ì  3ÿ  f   f3  ff  f™  fÌ  fÿ  ™   ™3  ™f  ™™  ™Ì  ™ÿ  Ì   Ì3  Ìf  Ì™  ÌÌ  Ìÿ  ÿf  ÿ™  ÿÌ 3   3 3 3 f 3 ™ 3 Ì 3 ÿ 33  333 33f 33™ 33Ì 33ÿ 3f  3f3 3ff 3f™ 3fÌ 3fÿ 3™  3™3 3™f 3™™ 3™Ì 3™ÿ 3Ì  3Ì3 3Ìf 3Ì™ 3ÌÌ 3Ìÿ 3ÿ3 3ÿf 3ÿ™ 3ÿÌ 3ÿÿ f   f 3 f f f ™ f Ì f ÿ f3  f33 f3f f3™ f3Ì f3ÿ ff  ff3 fff ff™ ffÌ f™  f™3 f™f f™™ f™Ì f™ÿ fÌ  fÌ3 fÌ™ fÌÌ fÌÿ fÿ  fÿ3 fÿ™ fÿÌ Ì ÿ ÿ Ì ™™  ™3™ ™ ™ ™ Ì ™   ™33 ™ f ™3Ì ™ ÿ ™f  ™f3 ™3f ™f™ ™fÌ ™3ÿ ™™3 ™™f ™™™ ™™Ì ™™ÿ ™Ì  ™Ì3 fÌf ™Ì™ ™ÌÌ ™Ìÿ ™ÿ  ™ÿ3 ™Ìf ™ÿ™ ™ÿÌ ™ÿÿ Ì   ™ 3 Ì f Ì ™ Ì Ì ™3  Ì33 Ì3f Ì3™ Ì3Ì Ì3ÿ Ìf  Ìf3 ™ff Ìf™ ÌfÌ ™fÿ Ì™  Ì™3 Ì™f Ì™™ Ì™Ì Ì™ÿ ÌÌ  ÌÌ3 ÌÌf ÌÌ™ ÌÌÌ ÌÌÿ Ìÿ  Ìÿ3 ™ÿf Ìÿ™ ÌÿÌ Ìÿÿ Ì 3 ÿ f ÿ ™ Ì3  ÿ33 ÿ3f ÿ3™ ÿ3Ì ÿ3ÿ ÿf  ÿf3 Ìff ÿf™ ÿfÌ Ìfÿ ÿ™  ÿ™3 ÿ™f ÿ™™ ÿ™Ì ÿ™ÿ ÿÌ  ÿÌ3 ÿÌf ÿÌ™ ÿÌÌ ÿÌÿ ÿÿ3 Ìÿf ÿÿ™ ÿÿÌ ffÿ fÿf fÿÿ ÿff ÿfÿ ÿÿf ! ¥ ___ www ††† ––– ËËË ²²² ××× İİİ ããã êêê ñññ øøø ğûÿ ¤   €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ          ì                                              ìğôôôôóñ¼ï÷íìëëm ¼¼¼¼¼¼¼¼¼¼¼¼¼¼¼¼¼¼¼         ìğõõõôòğ¼ïï÷íìëmm ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ï÷’ììmê ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ïï÷íìëmm ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôóñ¼ï÷íìëëêC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ïï÷’ìëëmC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ï÷’ìëmmC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ïï÷íìëmmC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôóğ¼ï÷íìëëmC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ïï÷íììëC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğ¼ï÷íììêC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğõõõôòğïï÷íìmêC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğòòòòğğïï÷íìëmêC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğòòòñğï÷÷íìëmêC ¼¼¼¼õõõõõõõõõõõõõõ¼         ìğòòğğï÷÷’ììëmêC ¼¼¼¼¼õõõõõõõõõõõõõ¼        ìïïï÷÷÷mmêêê        ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôóñ¼ïï÷íìëëê ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôòğ¼ï÷’ìëëê ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôòğ¼ïï÷’ìëmm ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôòğ¼ï÷íìëëê ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôòñ¼ïï÷íìëmm ¼¼¼¼õõõõõõõõõõõõõ¼        ìõõõõõõôòñ¼ïï÷íìëëm ¼¼¼õõõõõõõõõõõõõõ¼         ììììììììììììììììììììì¼¼õõõõõõõõõõõõõõõ¼          ì_  õXX0 ¼¼¼¼¼õõõõõõõõõõõõõõ¼          ìŠ¦  ¼õ7X0 ¼¼¼¼¼õõõõõõõõõõõõõ¼          Šee    ¼¼õ87R ¼¼¼¼¼õõõõõõõõõõõõ¼         kŠ¦ ù  ¼¼õõû;R ¼¼¼¼¼õõõõõõõõõõõ¼        Še õù  ¼¼õõõûûX ¼¼¼¼¼õõõõõõõõõõ¼       Še õõù  ¼¼õõõõûëì ¼¼¼¼¼õõõõõõõõ¼¼      ììkk õõõù  ¼¼õõõõññ÷ì ¼¼¼¼¼õõõõõõ¼¼¼      õ¦ õõõõù  ¼¼õõõõõìòòñ÷ì ¼¼¼¼õõõõõ¼¼¼¼       ì ìõõõõù  ¼¼õõõõõõìõòì   ¼¼õõõõõ¼¼¼¼¼   mC   ìõõõõù  ¼¼õõõõõõõì  C õõõõõ¼¼¼¼¼¼  êìmêC  ìõõõõù  ¼¼õõõõõõõõìêmì ôõõ¼¼¼¼¼¼¼ mìììë    ìõõõõ ¼¼õõõõõõõõõëìmìììõõ¼¼¼¼¼¼¼¼  ìõì     ìõõõõìô¼÷ì ¼¼õõõõõõõõõõìëmmõõ¼¼¼¼¼¼¼¼¼   ì      ìõõõõìõñïì ¼¼õõõõõõõõõõõìëõõõì          ìõõõõìõó’ ¼¼õõõõõõõõõõõõõõõõìõõõõõõ¼ì         ìõõõõì’’’’ ¼¼õõõõõõõõõõõõõõõõìõõõõõ¼ì          ìõõõõì ¼¼õõõõõõõõõõõõõõõõìõõõõ¼ì           ìõõõõìmm ¼¼õõõõõõõõõõõõõõõõìõõõ¼ìC            ìõõõõììëmê ¼¼õõõõõõõõõõõõõõõõìõõ¼ì             ìõõõõë’ìëë ¼¼õõõõõõõõõõõõõõõõìõ¼ì              ìõõõõììì õõõõõõõõõõõõõõõõõõì¼ì               ìõõõõõõõõõõõõõõõõõõõõõõõõõõõõìì                ìõõõõõõõõõõõõõõõõõõõõõõõõõõõõì                 ìììììììììììììììììììììììììììììì         ÿ€      ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ÿ       ş       ş       ş       ş       ş       ş       ş       ÿ       ÿ€      ÿ€      ÿ€      ÿ       ş       ü       ø       ğ       à       À€      €      €      ‡€      Ï€      ÿ€      ÿ€     ÿ€     ÿ€     ÿ€     ÿ€     ÿ€   ?  ÿ€     ÿ€   ÿ  ÿ€  ÿ  (                                         €  €   €€ €   € € €€  ÀÀÀ ÀÜÀ ğÊ¦       """ ))) UUU MMM BBB 999 €|ÿ PPÿ “ Ö ÿìÌ ÆÖï Öçç ©­   3   f   ™   Ì  3   33  3f  3™  3Ì  3ÿ  f   f3  ff  f™  fÌ  fÿ  ™   ™3  ™f  ™™  ™Ì  ™ÿ  Ì   Ì3  Ìf  Ì™  ÌÌ  Ìÿ  ÿf  ÿ™  ÿÌ 3   3 3 3 f 3 ™ 3 Ì 3 ÿ 33  333 33f 33™ 33Ì 33ÿ 3f  3f3 3ff 3f™ 3fÌ 3fÿ 3™  3™3 3™f 3™™ 3™Ì 3™ÿ 3Ì  3Ì3 3Ìf 3Ì™ 3ÌÌ 3Ìÿ 3ÿ3 3ÿf 3ÿ™ 3ÿÌ 3ÿÿ f   f 3 f f f ™ f Ì f ÿ f3  f33 f3f f3™ f3Ì f3ÿ ff  ff3 fff ff™ ffÌ f™  f™3 f™f f™™ f™Ì f™ÿ fÌ  fÌ3 fÌ™ fÌÌ fÌÿ fÿ  fÿ3 fÿ™ fÿÌ Ì ÿ ÿ Ì ™™  ™3™ ™ ™ ™ Ì ™   ™33 ™ f ™3Ì ™ ÿ ™f  ™f3 ™3f ™f™ ™fÌ ™3ÿ ™™3 ™™f ™™™ ™™Ì ™™ÿ ™Ì  ™Ì3 fÌf ™Ì™ ™ÌÌ ™Ìÿ ™ÿ  ™ÿ3 ™Ìf ™ÿ™ ™ÿÌ ™ÿÿ Ì   ™ 3 Ì f Ì ™ Ì Ì ™3  Ì33 Ì3f Ì3™ Ì3Ì Ì3ÿ Ìf  Ìf3 ™ff Ìf™ ÌfÌ ™fÿ Ì™  Ì™3 Ì™f Ì™™ Ì™Ì Ì™ÿ ÌÌ  ÌÌ3 ÌÌf ÌÌ™ ÌÌÌ ÌÌÿ Ìÿ  Ìÿ3 ™ÿf Ìÿ™ ÌÿÌ Ìÿÿ Ì 3 ÿ f ÿ ™ Ì3  ÿ33 ÿ3f ÿ3™ ÿ3Ì ÿ3ÿ ÿf  ÿf3 Ìff ÿf™ ÿfÌ Ìfÿ ÿ™  ÿ™3 ÿ™f ÿ™™ ÿ™Ì ÿ™ÿ ÿÌ  ÿÌ3 ÿÌf ÿÌ™ ÿÌÌ ÿÌÿ ÿÿ3 Ìÿf ÿÿ™ ÿÿÌ ffÿ fÿf fÿÿ ÿff ÿfÿ ÿÿf ! ¥ ___ www ††† ––– ËËË ²²² ××× İİİ ããã êêê ñññ øøø ğûÿ ¤   €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                  óõò¼ï’ ¼¼¼¼¼¼  óõò¼ïì¼¼õõõ¼  òõóğ’ì¼¼õõõ¼  óóğï’ì¼¼õõõ¼  ïï’÷më¼¼õõõ¼ ¼õõõõïì¼õõõ¼ ììëììëìì¼õõõ¼   ìû ¼¼õõõ¼   ü cû ¼¼õõ¼  ìï ù¼û ¼õ¼¼ mì õù¼õì  ¼¼¼ m ìõõìì¼õõmõ      ìõõïì¼õõõõìõì   ìõõm ¼õõõõìì    ììììììììììì   À   €   €   €   €   €           À   À   €           À  À  À           è  
+ 00   h      (         ¨   00    ¨       h         (       @                                  €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                 ‡wwwwwwwwwwwwwwpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpÿÿÿÿÿÿÿÿÿÿÿÿÿÿpˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€                                    	              ™      ™       	™      ™      ™™™™™™™™™™      	™      ™       ™      ™        	                          ÿÿÿÿÿÿÿÿ                                                                                ÿÿÿÿÿÿÿÿÿ¿ıÿÿ?üÿş?üü  ?ş?üÿ?üÿÿ¿ıÿÿÿÿÿ         è       (       @                                  €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                 wwwwwwwww      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   ™ ÿÿÿÿÿÿÿÿ÷  	™™ ÿÿÿÿÿÿÿÿ÷  ™™™ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷  ™™™ÿÿÿÿÿÿÿÿ÷  	™™ ÿÿÿÿÿÿÿÿ÷   ™ ÿÿÿÿÿÿÿÿ÷   	  ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ÿÿÿÿÿÿÿÿ÷      ˆˆˆˆˆˆˆˆˆ      € ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ï€ Ç€ ƒ€ € ï€ ï€ ï€ ï€ ï€ ï€ ï€ ï€ ï€ ï€ ï€ ï€ € ƒ€ Ç€ ï€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ         è       (       @         €                        €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                 xˆˆˆˆˆˆˆ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       ÿÿÿÿÿÿÿø        ÿÿÿÿÿÿÿ€       wwwwwwwp                                                    	              ™      ™       	™      ™      ™™™™™™™™™™      	™      ™       ™      ™        	                                                          ÿÿÿÿÿÿÿÿ  ÿ  ?ÿ€ ÿÀ ÿà ÿğ ÿø ÿü  ÿş  ÿ  ?ÿ€ ÿÀ ÿà ÿğ ÿø ÿü  ÿş  ÿÿÿÿÿÿÿÿÿÿÿÿÿ¿ıÿÿ?üÿş?üü  ?ş?üÿ?üÿÿ¿ıÿÿÿÿÿÿÿÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                  €              ø              ÿ€             ÿø             ÿÿ€            ÿÿø            ÿÿÿ€          ÿÿÿø    	™     ÿÿÿÿ€   ™™    ÿÿÿÿø  	™™™    ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€        ÿÿÿÿÿ€         ÿÿÿÿ€         ÿÿÿÿ€          ÿÿÿ€          ÿÿÿ€ 	™™™       ÿÿ€  ™™       ÿÿ€  	™         ÿ€            ÿ€              €              €               p       ûÿÿÿùÿÿÿøÿÿÿøÿÿø?ÿÿøÿÿøÿÿøÿÿøÿøş?ø üø xø ?ø ?ø ?ø ?ø ?ø ?ø ?ø ?ø ?ü ?ş ?ÿ ?ÿ€8ÿÀ<ÿà>?ÿğ?ÿø?ÿÿü?ÿÿş?ÿÿÿ?ÿ         è       (               <                       ÿÿÿ õT  ÿş  ÷ı  ÿÿ  ÷ı.Bÿş A÷ıGH÷ÿBM÷ıARÿşW.UP ÿşPC÷şRZ÷şMP÷şSP    (               <                       ÿÿÿ T  ßş  ı  Wÿ  İı.Bßş AİıRIÿÿT.UP ÿşIGıí.Bıô Aı OWıôMPıìSP    (   ğ           ¼                        ¿  ¿   ¿¿ ¿   ¿ ¿ ¿¿  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  aw  pp™ w w w w w  #w !w pw  ÿ w  	ww ˆ wwpw w  w w wˆ wp	 p pww wˆ	w p p w p  ˆ™w p w w w  w	ÿw 	ˆwˆ wp	 p p xˆp wÿğwˆw wˆpwpp w wwww ğww w w w  w	ÿw ˆ ˆwˆ w!wwˆpw ğwxw 
+ğw xxxx€wppw ğw w w w wp w w w  w	ÿw ğ	ˆwˆ	 €w w w pw pÿ wpww  ‡xxx€wppw w w ğww  
+ww w 
+w  w	ÿwÿ	ˆ pˆwwwwˆpwÿw pÿğwˆp p	 p  ppğ ğww  p ww w w  ‡w™  w	ÿwÿ
+  w€  ˆ€ww wpˆp wÿwp w  ‡xxx€ €w ™w p wøww  p™	w w w  w ‡p  w	ÿw	ÿwww 	ww wpwww ğwx ÿ  w ‡xp pw p p wğğw  p wp w w w  w	ÿw	ÿwww 
+w	w wp ww ğw ˆpÿwˆˆ	  x p  w w wÿÿ p p™	w p w w €  w	ÿwÿ www 
+w	w wpw
+ wˆ ÿw  ‡xpˆ€wppw wÿ p ww  
+w€€w  wÿ w w wwwppwwwppw pww ÿğw  ‡xpˆpwpwppw wÿw	w w w   wÿw  ww w w w w ww
+ w ğwˆ €ww€w €pwwwwÿw€ppw w w   wÿ wwpww 	w w  pp™ w w  ww 	w w	w w  w€   w w w !w p ww  w w wppw €       (                                      ÿÿÿ €               (                                      ÿÿÿ Ç   ÿ           (                                      ÿÿÿ G   ç   G       (                                      ÿÿÿ g   ÷   ÷   g   (                                      ÿÿÿ w   ÿ   ÿ   ÿ   wÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ(                                      ÿÿÿ 3   {   ÿ   ÿ   { E3ÿÿüIÿÿüIÿÿüIÿÿüIÿÿü(                                      ÿÿÿ 8   }   ÿ   ş   ÿOBJ}CTS8DART         €      (                                       ÿÿÿ <   ~   ÿ   ÿ   ÿÿğ ÿÿÿÿ~Àÿ<ÿÿÀÿÿÿÿÀÿÿÿÿÀÿÿÿ(   À          î                        ¿  ¿   ¿¿ ¿   ¿ ¿ ¿¿  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ™	<™f™D™	 ÿ™™	 ™	ÿ$™  ™ ,™	™f f™GI™	™øğ:™ Í™€ ‰™ÿ'™  ™	)™ ™ ™``f™GD™ ™øğ™I,™ ™ ™ ‚™ ™€™ù(™  ™					 	™ ™ `™ ö	 ™GD™ ™øğ™I™ ™ ™ ™ 
+™ w	™ ™ ™ ™ ™ ™ˆ	™ˆ™ ™ÿ&™  ™	™	™	™	w ™ ™ f`™ ö	 ™ GD™ ™ÿ	™I
+™ ™	™ ™ ™	™w	w	™ w ™w 	ˆ	™ˆ™ˆ	™ˆ™ ˆ ™ˆ™ˆ	™ˆ™ ™ÿ™ ™ÿ™   		™ 	 ™w™ ™ f`™ ö	 	™ wøD™ 	™ ™I™ ™	™ ™ ™	™w 	w	™w 	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ	Ÿwùˆ	Ÿwù  ™	™	w 0™ ™ f`™ ø	 ™wø€™ ÷	 ™ ™G™ À ™ ™ 	™ 
+™w 	w ™w	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ ™ˆ	™
+ €	÷
+ÿù
+ €	÷
+ÿŸ  ™	™	™ 	û 0™  ™`  f`™ ø	™wğ
+™ ğ	 
+™3	™I™ ÀÀ™	™ ™ ™ 	™w 	w	™w	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ		™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™	™û 0™ ` `™ ø 	™
+w		™ ·	 ™3	™G™ ÀÌÀ™	™ ™ ™ ™w	™w	™w	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ		™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™	™û 0™ f 	™ ™
+w	
+™ °	 ™ 0™G™ ÀÌÀ™	 ™ ™ ™w	™w	™w	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ		™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™	™	™	™û™ pf ™ w	
+™ ÷	 ™ 0™G™Ì	™	 ™ ™ ™w	™w	™w 	w	ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™ˆ	™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™	™	™û ™ pÿ ğ™	 w	™ 
+™ 0™G 	™ğÉ ™ ™ ™	™w	™w	™ w ™w	ˆ	™ˆ™ˆ	™ˆ™ ˆ ™ˆ™ˆ	™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™	™	™û	™ ÿ ™  ÿw	™  	ˆ
+™ 0™G ğ		™ ™ ™	™w	™w	™ ™w 	ˆ	™ˆ™ˆ	™ˆ™ ™ˆ	™ˆ™	™Ÿ÷	™÷	™Ÿ÷	™÷—  ™	™ ™					™ 
+™™ 	ÿw€™ ÿ	ˆ	™ 0™GD 
+™ 
+™ ™ ™ ™w	™ ™ ™ 6™ˆ	™ˆ™
+ €	÷
+ÿù
+ €	÷
+ÿŸ  ™ ™	+™ ™ ™ w ™		™ 0™I”™	
+™ ™ ™	 †™
+ ™ˆ	Ÿwùˆ	Ÿwù  ™	O™ ™ ™ =™ É™ ™ÿ™ ™ÿ™     (   \   	         l                       ÿÿÿ îßşş6ÿümğîßşûıÖü­ğï?ÿ|ÿıÙü³ğ	ï?ï¼ÿÙü³ğ îßÿÛœ6ümğ îßÿëıöü­ğïÿÿïÿıÿü¿ğÿşïÿıßÿû¿ğïÿÿÿş?ÿüÿõ    (   H           ğ                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ     »»  »€ ƒ3{»»€ ƒ3{»  
+» 3»
+» 3»  	» 	}™ 	» 	}™   »p }™ÿ»p }™3»  »tD}™ÿ»tD}™7»  »LÏ ÌÙ ™ÿ ˆÿ»LÏ ÌÙ ™   »GÌ}™ÿ/ªˆ ñ»GÌ}™²/ª  »GÌ A}™ÿ/ª ˆ»GÌ A}™ ‹/
+ª   »GÌ AÙÿ/ª" ˆ»GÌ AÙ²*;ª"   »GÌ@ÿ/ª" ÿ»GÌ@»/ª"   »GÌ@»ÿ/ª" ÿ»GÌ@»»/ª"   »GÌ@»ÿ/ª" ÿ»GÌ@	»/ª"   »GÌ@»ÿ/ÿ" ÿ»GÌ@»»/ÿ"   »G w@»ÿ"r ÿ»G w@»»"r   »GwÌp»ÿ"pÿ»GwÌp»"p  »GÌ»ÿ"ÿ»GÌ»»"  »tÌH»ÿ»tÌH»	»  »tD‹» »tD‹»   »»  »»       (   H                                   ÿÿÿ ÿÿÿÿÿÿÿÿÿÿ  ÿÿÿÿÿÿÿÿÿÿPBÿÿÿÿÿÿÿ;ûÿARÿÿÿÿÿÿìoÿÿRRÿÿÿÿõÿüûßÿCHÿÿÿÿ—ÿÓfÿÿPCÿÿÿ÷ÿ÷—şÿSZÿkÿù~ÿûwÏÿSZÿ™ÿüçÿÛ‰ïÿATÿÿù`ÿıs=ÿRTÿCÿşÿú‰ÿ.BÿÿıÁ¿;ÿ CÿBÿ÷?×äÿCAÿ£ÿøAŸğ€ÿARÿ[ÿÿC÷LkÿREÿÛÿÿHïgi7ÿ.BÿÿÿüéoêáMÿBMÿÿÿşõÿé€_ÿCOÿÿÿÿï¿à ÿ CÿÿÿÿÑÿı€kÿ CÿÿÿÿÿÿıÛÿÿ CÿÿÿÿÿÿğÛÿÿ CÿÿÿÿÿÿÿŸÿÿP ÿÿÿÿÿÿÿûÿÿP (                                      ÿÿÿ ÿ  ÿ  ÿ   
+  (                                      ÿÿÿ ÿ  oÿ  l€  ø  (   €           Š                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ U U U $U U  U P UîUwU ÿ U ˆwpU  PˆwU‡Ux 0 7 P	w Pÿ  	P‡ …cU   Pˆÿ‡p pUpU 8
+ 
+€wuWwUPwÿğ øˆğ ÿÿÿU ğ	U  Pw pU ÷pU xƒ
+ 8 8÷÷ ÷ U  w  ğUÿpˆğÿU	U  Pw pU pU ğŠ 8p÷÷ ÷ Uwÿ ğÌpÿ	DÿDõU ğU U   Pˆÿ‡ppU UP 
+ pwU pÿğÿpˆğOOOD ôEPğUU  PˆwU÷ÿ ~
+ 
+
+ïp÷÷ ÷ UwÿUÌ ÷ˆğDôODÿ Uğ ğUU  U U ÷pi  ğU 
+şp÷ğ U w ğUÿpÿOOODôDUøUU  PwˆU øpÿ p
+ ş Wwˆ PwU ÿDÿDÿDõU ğğ   Pw  	pˆÿ…sU‡ ÿp
+ï ·÷ğˆ PÏÌ UÿÿDÿUÿwÿ  Pw p Pîÿ P~ 
+ş ·÷ğˆUÌUÿ ÿğÿDÿUÿ  Pw pU ÿğU ş
+ï ·w €U	wUÿÿUÿ   Pw xø€	UUïï P U UÌ ÿÿÿUÿ  Pwˆ	U Uw U ÿÌU  	U  U P 
+UU U 1U‘Q         (   º                                     €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€      ˆˆˆˆˆˆ   ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€    ˆˆˆˆˆˆˆˆˆˆˆ ˆˆˆˆˆˆˆˆˆˆˆˆˆ€      ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€ÿÿÿÿÿğˆˆˆˆˆˆˆˆ†ˆˆˆˆˆ   ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ0ˆˆˆˆˆˆˆˆˆˆˆˆˆ€ÿÿÿÿÿ÷ˆˆˆˆˆˆˆˆˆˆ„DDDDD€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ   ˆˆˆˆ  ˆˆˆˆˆ€  ˆˆˆˆ      ˆ€ûˆˆˆˆˆˆˆˆˆˆˆˆ€      ˆˆˆˆˆˆˆˆˆˆOÿÿÿÿô€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆ ˆˆˆˆˆˆ ˆ€ˆˆˆÿÿÿÿÿˆˆ°ˆˆˆˆDDDDDDDDˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ„ÿÿñô€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆ ˆˆˆˆˆˆ ˆ€ˆˆˆüüüüÿˆˆ€ûˆˆHˆ ˆˆˆ„ˆ€    ˆDDDDDDDDˆOÿô€ÿÿñÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆ€ˆˆˆˆˆ ˆ€ˆˆˆüüüüÿˆˆˆ° ˆˆH€ €ˆ„ˆ€÷p÷ˆHˆˆˆˆˆˆ„„ÿÿñÿô€ÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€  ˆˆˆˆˆ€ˆˆˆˆˆ ˆ€ˆˆˆüüüÿÿˆˆˆ€ûˆH€€ €ˆ„ˆ€ÿğÿˆHˆˆˆˆˆˆ„Oÿÿÿÿô€ÿñğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆˆ ˆˆˆˆˆ ˆ€ˆˆˆüüüğ ˆˆˆˆ°€ˆH€ˆ ˆ„        Hˆˆˆˆˆˆ„„ÿÿñÿô€ÿÿÿñğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆˆ ˆˆˆˆˆ ˆ€ˆˆˆüüüğğˆˆˆˆˆ€ûˆˆ ˆ ˆˆˆp÷p÷pˆˆˆˆˆˆˆˆˆOÿô€ÿÿñÿñğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ€ € ˆˆˆˆˆˆ€ˆˆˆˆ ˆ€ˆˆˆÿÿÿğˆˆˆˆˆˆ°ˆˆ€ ˆˆˆğÿğÿğˆˆˆˆˆˆˆˆˆ„ÿÿñô€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆ   ˆˆˆˆˆˆ  ˆˆ€   ˆˆˆ     ˆˆˆˆˆˆˆ€ûˆˆˆ ˆˆˆ        ˆˆˆˆˆˆˆˆˆˆOÿÿÿÿô€ôDDDDğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ„DDDDD€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€ÿÿÿÿÿğˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ€      ˆˆˆˆˆˆˆˆˆˆˆˆˆˆ   (              Š                         ¿  ¿   ¿¿ ¿   ¿ ¿ ¿¿  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ Ì Ì  
+Ì Ì  
+Ì Ì  Ìˆ Ì  Ì ˆÌ Ì  Ì €Ì ÀÌ  Ì €Ì ÀÌ  Ì€Ì  Ì ŒÈ Ì  Ì ŒÈŒÈÌ  ÌˆŒŒŒÌ  ÌˆÌ         (              ˆ                         ¿  ¿   ¿¿ ¿   ¿ ¿ ¿¿  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ Ì Ì  ÌÀˆ ™ˆÀ  ÌÀw€Ì  Ì Ì  Ìÿ€Ì  Ì ğÌ  Ìÿ€Ì  Ì ğÌ  Ìÿ€Ì  Ì ğÌ  Ìÿ€Ì  Ì
+ Ì   (                                        €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ÌÌÈw|ÌÌÌÌÌ  ÌÌpˆ†ŒÌÌÌÌ  ÌÈ ÌÈhÌÌÌÌ  ÌÈ ÌÌvŒÌÌÌ  ÌÈ ÌÌ†lÌÌÌ  ÌÈ ŒÌÆhÌÌÌ  ÌÌ |ÌÆhÌÌÌ  ÌÌpÌÇfÌÌÌ  ÌÌÀÌÇhÌÌÌ  ÌÌÈ ÌÇhÌÌÌ  ÌÌÌ€x†lÌÌÌ  ÌÌÌÌ‡hÌÌÌÌ  (                                        €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ÌÌÈw|ÌÌÌÌÌ  ÌÌpˆ†ŒÌÌÌÌ  ÌÈ ÌÈhÌÌÌÌ  ÌÈ ÌÌvŒÌÌÌ  ÌÈ ÌÌ†lÌÌÌ  ÌÈ ŒÌÆhÌÌÌ  ÌÌ |ÌÆhÌÌÌ  ÌÌpÌÇfÌÌÌ  ÌÌÀÌÇhÌÌÌ  ÌÌÈ ÌÇhÌÌÌ  ÌÌÌ€x†lÌÌÌ  ÌÌÌÌ‡hÌÌÌÌ  (                                        €  €   €€ €   € € €€  €€€ ÀÀÀ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ÌÌÌÌÌÌÌÌÌÌ  ÌÌ™—Ì™|ÌÌÌ  ÌÉ™™y—œÌÌÌ  ÌÉœÇ™œyÌÌÌ  ÌÉœÌy—ÌÌÌÌ  ÌÉœÌÇ™ÌÌÌÌ  ÌÇ™ÌÌ™|ÌÌÌ  ÌÌ™ÌÌyœÌÌÌ  ÌÌyœÌÉ—ÌÌÌ  ÌÌÇ™ÌÇ™ÌÌÌ  ÌÌÌyœÇ™|ÌÌ  ÌÌÌÌ™™wœÌÌ  	 	 (       @                                ÿÿÿ                                                          À         8  &  )%  O<€ € @ € @ O<€ )%  &  8          À  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ?ÿÿşÿÿüÿÿøÿÿøÿÿæÿÿÆÿÿ€ ÿ  ?ÿ  ?ÿ€ ÿÆÿÿæÿÿøÿÿøÿÿüÿÿşÿÿÿ?ÿÿ          @   4         (       @         €                       ÿÿÿ                                                 €  €  €  B‚  ¢… >ü€€@€ €@>ü€ ¢…  B‚  €  €  €                    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿÿüÿÿüÿÿüÿÿ¼}ÿÿxÿş  ü  ?ø  ü  ?ş  ÿxÿÿ¼}ÿÿüÿÿüÿÿüÿÿşÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                                             ¨ª                                                         ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿÿÿÿø ÿÿÿÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿıÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                                             À  @  @  @  @  p    ü€ € € ü€   p  @  @  @  @  À  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿøÿÿøÿÿÀÿàÿÀÿøÿÿøÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿ          @   4         (       @                                ÿÿÿ                      @  @  @  @  @  @  @  @     üà  € üà     @  @  @  @  @  @  @  @                         ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿüÀüÀüÀÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿş?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                  p   ˆ   ´   º   ]   .€  P  ¨  È  „         Q   "                                    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ€ÿÿÿÀÿÿà/ÿÿğÿÿøÿÿüÿÿşÿÿü ÿÿş ÿÿÿ€ÿÿÿÁÿÿÿãÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                      € ‚@ …  ˆĞ h ¨4 ì –
+ ¿ ßˆ îĞ  ÷   
+À  €                                    ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿü?ÿÿøÿÿğÿÿàÿÿÀÿÿ€ÿÿ ÿÿ ÿÿ€ÿÿÀÿÿàÿÿğ?ÿÿøÿÿüÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                 
+   	   €  @  	        Ğ  È  è  D  4   º   º   D   8                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿûÿÿÿñÿÿÿğÿÿÿğÿÿğ?ÿÿğÿÿğÿÿøÿÿøÿÿüÿÿüÿÿşÿÿşÿÿÿÿÿÿÿÿÿƒÿÿÿÇÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4       
+ 	 (       @                                ÿÿÿ                                  	   €  (€ Ñ  "  'Ä  _è  _è  ¿ô  ¿ô  ¿ô  ¿ô  _è  _è  '  `  €                             ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿùÿÿÿğÿÿÿàÿÿÀÿø ÿÿàÿÿÀÿÿ€ÿÿ€ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ€ÿÿ€ÿÿÀÿÿàÿÿøÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                          ü     „   D   ¤  T  bŒ  U   J   D   B   A                                         ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿşÿÿÿÿÿÿƒÿÿÿÿÿş#ÿÿœsÿÿˆÿÿÿÿÿÿƒÿÿÿÿÿÿ€ÿÿÿ€ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                          ?€   €  !   "   %   *€  1F   ª   R   "   B   ‚   ş                                     ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÀÿÿÀÿÿÀÿÿÿÁÿÿÿÀÿÿÿÄÿÿÎ9ÿÿÿÿÿÿÿÿÿÁÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                                    (
+  H	  ø€  @ ø€ H	  (
+                                               ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿçóÿÿÇñÿÿ‡ğÿÿ  ş  ?ÿ  ÿ‡ğÿÿÇñÿÿçóÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4         (       @                                ÿÿÿ                                     €  @       ğ  €  €  €  €  €  ğ       @  €                                ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿÿüÿÿø?ÿÿğÿÿàÿÿàÿÿüÿÿüÿÿüÿÿüÿÿüÿÿàÿÿàÿÿğÿÿø?ÿÿüÿÿşÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4          (       @                                ÿÿÿ                                         €0  H  €„ A  ‚- D]  ¨º Jt  «h Y      [À                                         ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÏÿÿÿ‡ÿÿÿÿÿşÿÿü ÿÿø ÿÿğÿÿğÿÿğÿÿğÿÿğÿÿğ?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4  !       (       @                                ÿÿÿ                                                                           ÿş                                      ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4  "       (       @                                ÿÿÿ                                                      €  €  €  ş  €  €  €                                                 ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @   4  #          & F i l e      á& N e w 	 C t r l + N     á& O p e n . . . 	 C t r l + O     á& S a v e 	 C t r l + S     áS a v e   & A s . . .           "“F r o m   S c a n n e r   o r   & C a m e r a . . .           	áP r i n t   P r e & v i e w     áP a g e   S e t & u p . . .     á& P r i n t . . . 	 C t r l + P           “S & e n d . . .           MáS e t   A s   & B a c k g r o u n d   ( T i l e d )     KáS e t   A s   B a c & k g r o u n d   ( C e n t e r e d )          áR e c e n t   F i l e         € AáE & x i t 	 A l t + F 4    & E d i t     +á& U n d o 	 C t r l + Z     ,á& R e p e a t 	 C t r l + Y           #áC u & t 	 C t r l + X     "á& C o p y 	 C t r l + C     %á& P a s t e 	 C t r l + V      áC & l e a r   S e l e c t i o n 	 D e l     *áS e l e c t   & A l l 	 C t r l + A           “C & o p y   T o . . .   €  “P a s t e   & F r o m . . .    & V i e w     è& T o o l   B o x 	 C t r l + T     è& C o l o r   B o x 	 C t r l + L     è& S t a t u s   B a r     .“T & e x t   T o o l b a r          & Z o o m     &“& N o r m a l   S i z e 	 C t r l + P g U p     '“& L a r g e   S i z e 	 C t r l + P g D n     (“C & u s t o m . . .           -“S h o w   & G r i d 	 C t r l + G   € ,“S h o w   T & h u m b n a i l   € )“& V i e w   B i t m a p 	 C t r l + F    & I m a g e     0“& F l i p / R o t a t e . . . 	 C t r l + R     1“& S t r e t c h / S k e w . . . 	 C t r l + W     2“& I n v e r t   C o l o r s 	 C t r l + I     3“& A t t r i b u t e s . . . 	 C t r l + E     4“& C l e a r   I m a g e 	 C t r l + S h f t + N   € Ô& D r a w   O p a q u e    & C o l o r s   € Õ& E d i t   C o l o r s . . .    & H e l p     Fá& H e l p   T o p i c s         € @á& A b o u t   P a i n t          & E d i t     +á& U n d o 	 C t r l + Z     ,á& R e p e a t 	 C t r l + Y           #áC u & t 	 C t r l + X     "á& C o p y 	 C t r l + C     %á& P a s t e 	 C t r l + V      “P a s t e   & F r o m . . .      áC & l e a r   S e l e c t i o n 	 D e l   € *áS e l e c t   & A l l 	 C t r l + A          & V i e w     è& T o o l   B o x 	 C t r l + T     è& C o l o r   B o x 	 C t r l + L     è& S t a t u s   B a r     .“T & e x t   T o o l b a r          & Z o o m     &“& N o r m a l   S i z e 	 C t r l + P g U p     '“& L a r g e   S i z e 	 C t r l + P g D n     (“C & u s t o m . . .           -“S h o w   & G r i d 	 C t r l + G   € ,“S h o w   T & h u m b n a i l   € )“& V i e w   B i t m a p 	 C t r l + F    & I m a g e     0“& F l i p / R o t a t e . . . 	 C t r l + R     1“& S t r e t c h / S k e w . . . 	 C t r l + W     2“& I n v e r t   C o l o r s 	 C t r l + I     3“& A t t r i b u t e s . . . 	 C t r l + E     4“& C l e a r   I m a g e 	 C t r l + S h f t + N   € Ô& D r a w   O p a q u e    & C o l o r s   € Õ& E d i t   C o l o r s . . .          & H e l p     Bá& H e l p   T o p i c s         € @á& A b o u t   P a i n t          & F i l e     
+áU p d a t e     áS a v e   C o p y   & A s . . .           "“F r o m   S c a n n e r   o r   & C a m e r a . . .           	áP r i n t   P r e & v i e w     áP a g e   & S e t u p . . .     á& P r i n t . . . 	 C t r l + P           “S & e n d . . .         € AáE & x i t    & E d i t     +á& U n d o 	 C t r l + Z     ,á& R e p e a t 	 C t r l + Y           #áC u & t 	 C t r l + X     "á& C o p y 	 C t r l + C     %á& P a s t e 	 C t r l + V      “P a s t e   & F r o m . . .      áC & l e a r   S e l e c t i o n 	 D e l   € *áS e l e c t   & A l l 	 C t r l + A    & V i e w     è& T o o l   B o x 	 C t r l + T     è& C o l o r   B o x 	 C t r l + L     è& S t a t u s   B a r     .“T & e x t   T o o l b a r          & Z o o m     &“& N o r m a l   S i z e 	 C t r l + P g U p     '“& L a r g e   S i z e 	 C t r l + P g D n     (“C & u s t o m . . .           -“S h o w   & G r i d 	 C t r l + G   € ,“S h o w   T & h u m b n a i l   € )“& V i e w   B i t m a p 	 C t r l + F    & I m a g e     0“& F l i p / R o t a t e . . . 	 C t r l + R     1“& S t r e t c h / S k e w . . . 	 C t r l + W     2“& I n v e r t   C o l o r s 	 C t r l + I     3“& A t t r i b u t e s . . . 	 C t r l + E     4“& C l e a r   I m a g e 	 C t r l + S h f t + N   € Ô& D r a w   O p a q u e    & C o l o r s   € Õ& E d i t   C o l o r s . . .    & H e l p     Fá& H e l p   T o p i c s         € @á& A b o u t   P a i n t              T e x t     +áU n d o           #áC u t     "áC o p y     %áP a s t e      áC l e a r   S e l e c t i o n     *áS e l e c t   A l l         € .“T e x t   T o o l b a r        S e l e c t i o n     #áC u & t     "á& C o p y     %á& P a s t e      áC & l e a r   S e l e c t i o n     *áS e l e c t   & A l l           “C & o p y   T o . . .      “P a s t e   & F r o m . . .           0“F l i p / & R o t a t e . . .     1“& S t r e t c h / S k e w . . .   € 2“& I n v e r t   C o l o r s              T h u m b n a i l   € YáT h u m b n a i l          A *á   C "á   E 3“   F )“   G -“   I 2“   L è   N  á   N 4“   O á   P á   R 0“   S á   T è   V %á   k ›    +á   .  á   . #á    \á   Y ,á   - "á   - %á   " '“   ! &“   m š   W 1“   X #á  ‹ Z +á   A *á   C "á   E 3“   F )“   G -“   I 2“   L è   N 4“   R 0“   T è   V %á   k ›    +á   .  á   . #á    ]á   p Bá   Y ,á   - "á   - %á   " '“   ! &“   m š   W 1“   X #á  ‹ Z +á   A *á   C "á   E 3“   F )“   G -“   I 2“   L è   P á   R 0“   S 
+á   T è   V %á   k ›    +á   .  á   . #á    \á   p Fá   Y ,á   - "á   - %á   " '“   ! &“   m š   W 1“   X #á  ‹ Z +á  À È     2 ( È U     G r i d   S e t t i n g s    M S   S h e l l   D l g       P       : ÿÿÿÿ€                                            P      , 
+ Øÿÿ€ & P i x e l   G r i d      P      ) 
+ ×ÿÿ€ & T i l e   G r i d         P     #  	 ÿÿÿÿ‚ & W i d t h :     € P    * !    ÿÿ         P    P #  	 ÿÿÿÿ‚ p i x e l s         P     9  	 ÿÿÿÿ‚ H & e i g h t :       € P    * 7    
+ÿÿ         P    P 9  	 ÿÿÿÿ‚ p i x e l s        P      2   ÿÿ€ O K         P      2   ÿÿ€ C a n c e l           À È         ê z     A t t r i b u t e s    M S   S h e l l   D l g     P        /ÿÿ‚         P        0ÿÿ‚         P        1ÿÿ‚         P     ,  
+ ÿÿ‚ & W i d t h :     € P    * *    ÿÿ         P    \ ,  
+ ÿÿ‚ & H e i g h t :       € P    { *    
+ÿÿ        P     : š  ÿÿÿÿ€ U n i t s     	 P     F & 
+ ÿÿ€ & I n c h e s     	 P    ? F  
+ ÿÿ€ C & m     	 P    i F " 
+ ÿÿ€ & P i x e l s      P     Z š  ÿÿÿÿ€ C o l o r s       	 P     f B 
+ 7ÿÿ€ & B l a c k   a n d   w h i t e       	 P    i f $ 
+ 8ÿÿ€ C o & l o r s      P     z š 0 ÿÿÿÿ€ T r a n s p a r e n c y        P     † ~ 
+ ,ÿÿ€ U s e   & T r a n s p a r e n t   b a c k g r o u n d   c o l o r       P    ! ” I  -ÿÿ€ S e l e c t   & C o l o r . . .        P    w ”   .ÿÿ‚        P    °  2   ÿÿ€ O K         P    °  2   ÿÿ€ C a n c e l         P    ° ) 2  ÿÿ€ & D e f a u l t           À È    
+   È S     C u s t o m   Z o o m    M S   S h e l l   D l g       P      /  )ÿÿ‚ C u r r e n t   z o o m :      P    =  1 	 9ÿÿ‚        P       9 ÿÿÿÿ€ Z o o m   t o     	 P     & ! 
+ :ÿÿ€ & 1 0 0 %     	 P     9 ! 
+ ;ÿÿ€ & 2 0 0 %     	 P    8 & ! 
+ <ÿÿ€ & 4 0 0 %     	 P    8 9 ! 
+ =ÿÿ€ & 6 0 0 %     	 P    ^ & ! 
+ >ÿÿ€ & 8 0 0 %      P      2   ÿÿ€ O K         P      2   ÿÿ€ C a n c e l       @  @         ë         M S   S h e l l   D l g   !P        n ‚ h ÿÿ…       !P    s   # ‚ g ÿÿ…       !P    ›   P ‚ Œ ÿÿ…       À È    	    È k     F l i p   a n d   R o t a t e    M S   S h e l l   D l g      P       ^ ÿÿÿÿ€ F l i p   o r   r o t a t e       	 P      M 	 ?ÿÿ€ & F l i p   h o r i z o n t a l       	 P     ! H 	 @ÿÿ€ F l i p   & v e r t i c a l       	 P     . H 	 Aÿÿ€ & R o t a t e   b y   a n g l e       	 P    1 <  
+ Bÿÿ€ & 9 0 °       	 P    1 I  
+ Cÿÿ€ & 1 8 0 °     	 P    1 V ! 
+ Dÿÿ€ & 2 7 0 °      P      2   ÿÿ€ O K         P      2   ÿÿ€ C a n c e l       À È      0 è –     S t r e t c h   a n d   S k e w    M S   S h e l l   D l g    P        C ÿÿÿÿ€ S t r e t c h       P        ÿÿ‚ ÿÿr     P    5  (  Eÿÿ‚ & H o r i z o n t a l :       € P    _     ûÿÿ         P    ‚    %ÿÿ‚ %       P     -    ÿÿ‚ ÿÿs     P    5 3 (  Fÿÿ‚ & V e r t i c a l :       € P    _ 2    üÿÿ         P    ‚ 4   &ÿÿ‚ %      P     M   C ÿÿÿÿ€ S k e w         P     Z   !ÿÿ‚ ÿÿt     P    5 a (  Gÿÿ‚ H & o r i z o n t a l :       € P    _ `    ıÿÿ         P    ‚ b   'ÿÿ‚ D e g r e e s       P     s   "ÿÿ‚ ÿÿu     P    5 y (  Hÿÿ‚ V & e r t i c a l :       € P    _ x    şÿÿ         P    ‚ z   (ÿÿ‚ D e g r e e s      P    ¯  2   ÿÿ€ O K         P    ¯  2   ÿÿ€ C a n c e l       À È          _     C o l o r   T a b l e    M S   S h e l l   D l g      P    I  2   ÿÿ€ O K         P    I  2   ÿÿ€ C a n c e l       ¡P      ? Z Kÿÿƒ       Ä È    %     ^×     P a g e   S e t u p    M S   S h e l l   D l g     P      f ° ÿÿÿÿ€ P r e v i e w      P     6 P P 8ÿÿ‚        P    ` :  P 9ÿÿ‚        P     Š P  :ÿÿ‚        P    v  à 8 1ÿÿ€ P a p e r       P    ~  $  Aÿÿ‚ S i & z e :       #P    ®      qÿÿ…         P    ~ , $  Bÿÿ‚ & S o u r c e :       #P    ® *     rÿÿ…        P    v D @ 8 0ÿÿ€ O r i e n t a t i o n      P    ~ R 4   ÿÿ€ P & o r t r a i t       P    ~ f 4  !ÿÿ€ L & a n d s c a p e        P    ¾ D ˜ 8 3ÿÿ€ M a r g i n s       P    Æ T    Nÿÿ‚ & L e f t :         ƒP    æ R    ƒÿÿ         P    T    Oÿÿ‚ & R i g h t :       ƒP    0R    …ÿÿ         P    Æ h    Pÿÿ‚ & T o p :       ƒP    æ f    „ÿÿ         P    h    Qÿÿ‚ & B o t t o m :         ƒP    0f    †ÿÿ        P    v € @ 8 ºÿÿ€ C e n t e r i n g      P    ~  4  »ÿÿ€ & H o r i z o n t a l      P    ~ ¢ 4  ¼ÿÿ€ & V e r t i c a l      P    ¾ € ˜ 8 ½ÿÿ€ S c a l i n g      P    Æ  0  ¾ÿÿ€ A & d j u s t   t o :       P    Æ ¢ 0  ¿ÿÿ€ & F i t   t o :         ƒP    ø    Àÿÿ         P     0  Áÿÿ‚ %   n o r m a l   s i z e       ƒP    ø ¢   Âÿÿ         P    ¤   Ãÿÿ‚ b y         P    ¢   Äÿÿ         P    .¤   Åÿÿ‚ p a g e ( s )      P    ¾ À 0   ÿÿ€ O K         P    ò À 0   ÿÿ€ C a n c e l         P    &À 0  ÿÿ€ & P r i n t e r . . .       P    v À 0  ÿÿ€ & H e l p     \4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                        ¼   S t r i n g F i l e I n f o   ˜   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   4   F i l e D e s c r i p t i o n     P a i n t   b !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 0 5 )     0   I n t e r n a l N a m e   M S P A I N T   € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   @   O r i g i n a l F i l e n a m e   M S P A I N T . E X E   j %  P r o d u c t N a m e     M i c r o s o f t

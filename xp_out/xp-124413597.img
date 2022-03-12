@@ -1,0 +1,1071 @@
+om' value cannot be greater than the 'To' value.";
+alert(L_PAGERANGE_ErrorMessage);
+;
+if (!g_fPreview)
+PrintNow(true);
+}
+else
+{
+g_cLeftToPrint = 1;
+Printer.updatePageStatus(1);
+var strSel;
+if (Printer.selection)
+{
+strSel = "S";
+}
+else if (Printer.frameActive && !!g_strActiveFrame)
+{
+strSel = g_strActiveFrame;
+}
+else
+{
+strSel = "C";
+}
+PrintSentinel(strSel, true);
+}
+}
+function PrintSentinel(strDoc, fRecursionOK)
+{
+if (g_fCheckAutoFit || g_fCheckOrphan || !g_aDocTree[strDoc] || !g_aDocTree[strDoc].ReadyToPrint())
+{
+window.setTimeout("PrintSentinel('" + strDoc + "'," + fRecursionOK + ");", 500);
+return;
+}
+g_aDocTree[strDoc].Print(fRecursionOK);
+}
+function PrintDocumentComplete()
+{
+g_cLeftToPrint--;
+if (g_cLeftToPrint <= 0)
+{
+Close();
+}
+}
+function PrintNow(fWithPrompt)
+{
+if (!g_aDocTree["C"] ||
+!g_aDocTree["C"]._aaRect[1][0] ||
+!g_aDocTree["C"]._aaRect[1][0].contentDocument.body)
+{
+window.setTimeout("PrintNow('" + fWithPrompt + "');", 100);
+return;
+}
+var oDoc = g_aDocTree["C"]._aaRect[1][0].contentDocument;
+var fConfirmed;
+var fFramesetDocument = (oDoc.body.tagName.toUpperCase() == "FRAMESET");
+var fActiveFrame = (oDoc.getElementsByTagName("HTML").item(0).__IE_ActiveFrame != null);
+Printer.framesetDocument = fFramesetDocument;
+Printer.frameActiveEnabled = fActiveFrame;
+if (g_fPreview)
+{
+Printer.frameActive = (g_nFramesetLayout == 1 || g_nFramesetLayout == 3);
+Printer.frameAsShown = (g_nFramesetLayout == 0);
+Printer.currentPageAvail = true;
+}
+else
+{
+Printer.frameActive = fActiveFrame;
+Printer.frameAsShown = false;
+Printer.currentPageAvail = false;
+}
+Printer.selectionEnabled = !!(dialogArguments.__IE_ContentSelectionUrl);
+Printer.selection = Printer.selectionEnabled && (g_nFramesetLayout == 3);
+fConfirmed = (eval(fWithPrompt)) ? Printer.showPrintDialog() : Printer.ensurePrintDialogDefaults();
+if (fConfirmed)
+{
+if (Printer.selection && dialogArguments.__IE_ContentSelectionUrl && g_aDocTree["S"]==null)
+{
+CreateDocument(dialogArguments.__IE_ContentSelectionUrl, "S", true);
+}
+Printer.usePrinterCopyCollate =(Printer.deviceSupports("copies") >= Printer.copies &&
+(!Printer.collate || Printer.deviceSupports("collate")) );
+PrintAll();
+}
+else
+{
+if (!g_fPreview)
+{
+Close();
+}
+else
+{
+Printer.tableoflinks = false;
+}
+}
+}
+function CPrintDoc_ReadyToPrint()
+{
+if(g_fCheckAutoFit || g_fCheckOrphan) return false;
+return (this._nStatus == 4 && this._aaRect[1][0].contentDocument.readyState == "complete");
+}
+function CPrintDoc_Print(fRecursionOK)
+{
+if (!this.ReadyToPrint())
+{
+HandleError("Printing when not ready!", document.URL, "CPrintDoc::Print");
+return;
+}
+var nCount = (Printer.usePrinterCopyCollate) ? 1 : Printer.copies;
+var nFrom;
+var nTo;
+;
+if (fRecursionOK)
+{
+var fFrameset = (this._aaRect[1][0].contentDocument.body.tagName.toUpperCase() == "FRAMESET");
+if (Printer.frameActive)
+{
+var n = parseInt(this._aaRect[1][0].contentDocument.getElementsByTagName("HTML").item(0).__IE_ActiveFrame);
+if (n >= 0)
+{
+var oTargetFrame = (fFrameset)
+? this._aaRect[1][0].contentDocument.getElementsByTagName("FRAME").item(n)
+: this._aaRect[1][0].contentDocument.getElementsByTagName("IFRAME").item(n);
+if (IsPersistedDoc() &&
+(oTargetFrame.src == "res://IEFRAME.DLL/printnof.htm" ||
+oTargetFrame.src == "about:blank"))
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, true);
+}
+else
+{
+this.CreateSubDocument(oTargetFrame.src, true);
+this.PrintAllSubDocuments(true);
+}
+PrintDocumentComplete();
+return;
+}
+}
+if (fFrameset)
+{
+if (!Printer.frameAsShown)
+{
+this.PrintAllSubDocuments(true);
+if (IsPersistedDoc())
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, false);
+}
+PrintDocumentComplete();
+return;
+}
+else
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, false);
+}
+}
+else
+{
+if (Printer.allLinkedDocuments)
+{
+this.BuildAllLinkedDocuments();
+this.PrintAllSubDocuments(false);
+}
+}
+}
+if (Printer.printNonNative(this._aaRect[1][0].contentDocument) )
+{
+g_fDelayClose = !g_fPreview;
+PrintDocumentComplete();
+return;
+}
+if (Printer.selectedPages)
+{
+nFrom = Printer.pageFrom;
+nTo = Printer.pageTo;
+if (nFrom < 1)
+{
+nFrom = 1;
+}
+if (nTo > this.Pages())
+{
+nTo = this.Pages();
+}
+}
+else if ( Printer.currentPage
+&& this._strDoc == DisplayDocument())
+{
+nFrom = (this.Pages() >= g_nDispPage) ? g_nDispPage : this.Pages();
+nTo = nFrom;
+}
+else
+{
+nFrom = 1;
+nTo = this.Pages();
+}
+if (nTo < nFrom)
+{
+PrintDocumentComplete();
+return;
+}
+;
+;
+;
+if (Printer.startDoc(this._aaRect[1][0].contentDocument.URL))
+{
+if (Printer.collate)
+{
+var fExtraPage = (Printer.duplex && ((nFrom - nTo) % 2 == 0));
+var j;
+for (j = 0; j < nCount; j++)
+{
+for (i = nFrom; i <= nTo; i++)
+{
+Printer.printPage(this.Page(i).children[0]);
+}
+if (fExtraPage)
+{
+Printer.printBlankPage();
+}
+}
+}
+else
+{
+var fDuplex = Printer.duplex;
+for (i = nFrom; i <= nTo; i++)
+{
+for (j = 0; j < nCount; j++)
+{
+Printer.printPage(this.Page(i).children[0]);
+if (fDuplex)
+{
+if (i < nTo)
+{
+Printer.printPage(this.Page(i+1));
+}
+else
+{
+Printer.printBlankPage();
+}
+}
+}
+if (fDuplex)
+{
+i++;
+}
+}
+}
+Printer.stopDoc();
+}
+PrintDocumentComplete();
+}
+function CPrintDoc_RectComplete(fOverflow, strElement)
+{
+var nStatus = parseInt(strElement.substr(5,1));
+var nPage = parseInt(strElement.substr(strElement.lastIndexOf("p") + 1));
+;
+;
+if (nStatus > this._nStatus)
+{
+return false;
+}
+if (nPage != this._acPage[nStatus] - 1 + this._anMerge[nStatus])
+{
+return false;
+}
+if (nStatus != this._nStatus)
+{
+if (!fOverflow)
+{
+return false;
+}
+this.StopFixupHF();
+if (this._nStatus == 4)
+{
+g_nDocsToCalc++;
+}
+this._nStatus = nStatus;
+}
+if (fOverflow)
+{
+this.AddPage();
+}
+else
+{
+switch (this._nStatus)
+{
+case 0:
+this._nStatus = 1;
+this.AddFirstPage();
+this._aaRect[this._nStatus][0].contentSrc = this._strDocURL;
+break;
+case 1:
+this._nStatus = 2;
+this.AddTableOfLinks();
+break;
+case 2:
+this._nStatus = 3;
+if (this._strDoc == DisplayDocument()) {
+ChangeDispPage(g_nDispPage);
+}
+this.FixupHF();
+break;
+}
+}
+if (this._strDoc == DisplayDocument())
+{
+spanPageTotal.innerText = this.Pages();
+updateNavButtons();
+}
+}
+function CPrintDoc_AddPage()
+{
+var newHTM = "";
+var aPage = this._aaPage[this._nStatus];
+var aRect = this._aaRect[this._nStatus];
+;
+(this._acPage[this._nStatus])++;
+HeadFoot.URL = this.EnsureURL();
+HeadFoot.title = this.EnsureTitle();
+HeadFoot.pageTotal = this.Pages();
+HeadFoot.page = HeadFoot.pageTotal;
+if (this._acPage[this._nStatus] <= aPage.length)
+{
+var oPage = aPage[this._acPage[this._nStatus] - 1];
+oPage.children("header").innerHTML = HeadFoot.HtmlHead;
+oPage.children("footer").innerHTML = HeadFoot.HtmlFoot;
+}
+else
+{
+var classLayoutRect = "mRect";
+var classHeader = "divHead";
+var classFooter = "divFoot";
+var nNewPageNumber = aPage.length + 1;
+classLayoutRect += " mRectAtPage";
+classHeader += " divHeadAtPage";
+classFooter += " divFootAtPage";
+if ((nNewPageNumber % 2) == 1 && !g_fRTL || (nNewPageNumber % 2) == 0 && g_fRTL)
+{
+classLayoutRect += " mRectAtPageRight";
+classHeader += " divHeadAtPageRight";
+classFooter += " divFootAtPageRight";
+}
+else
+{
+classLayoutRect += " mRectAtPageLeft";
+classHeader += " divHeadAtPageLeft";
+classFooter += " divFootAtPageLeft";
+}
+if (nNewPageNumber == 1)
+{
+classLayoutRect += " mRectAtPageFirst";
+classHeader += " divHeadAtPageFirst";
+classFooter += " divFootAtPageFirst";
+}
+classLayoutRect += " mRectUserOverride";
+classHeader += " divHeadUserOverride";
+classFooter += " divFootUserOverride";
+newHTM = "<DIV class=divPage><IE:DeviceRect media=\"print\" class=page id=mDiv" + this._nStatus + this._strDoc + "p" + aPage.length + ">";
+newHTM += "<IE:LAYOUTRECT id=mRect" + this._nStatus + this._strDoc + "p" + aRect.length;
+newHTM += " class='" + classLayoutRect + "' nextRect=mRect" + this._nStatus + this._strDoc + "p" + (aRect.length + 1);
+newHTM += " onlayoutcomplete=\"OnRectComplete('" + this._strDoc + "', " + g_ObsoleteBar + ")\"";
+newHTM += " tabindex=-1 onbeforefocusenter='event.returnValue=false;' ";
+newHTM += " />";
+newHTM += "<DIV class='" + classHeader + "' id=header>";
+newHTM += HeadFoot.HtmlHead;
+newHTM += "</DIV>";
+newHTM += "<DIV class='" + classFooter + "' id=footer>";
+newHTM += HeadFoot.HtmlFoot;
+newHTM += "</DIV>";
+newHTM += "</IE:DeviceRect></DIV>";
+MasterContainer.insertAdjacentHTML("beforeEnd", newHTM);
+aPage[aPage.length] = eval("document.all.mDiv" + this._nStatus + this._strDoc + "p" + aPage.length);
+aRect[aRect.length] = eval("document.all.mRect" + this._nStatus + this._strDoc + "p" + aRect.length);
+}
+}
+function CPrintDoc_AddFirstPage()
+{
+this._acPage[this._nStatus] = 0;
+if (this._anMerge[this._nStatus] == 0)
+{
+this.AddPage();
+}
+else
+{
+var aRect = this._aaRect[this._nStatus];
+var oPage = this._aaPage[this._nStatus - 1][this._acPage[this._nStatus - 1] - 1];
+var oTop = this._aaRect[this._nStatus - 1][this._acPage[this._nStatus - 1] + this._anMerge[this._nStatus - 1] - 1];
+var nTop = oTop.offsetTop + oTop.scrollHeight*g_nScalePercent/100;
+var nHeight = oTop.clientHeight - oTop.scrollHeight;
+;
+;
+if (aRect.length > 0)
+{
+var oNode = aRect[0];
+oNode.style.marginTop = nTop + "px";
+oNode.style.pixelHeight = nHeight;
+if (oNode.parentElement != oPage)
+{
+oPage.insertBefore(oNode);
+}
+}
+else
+{
+var newHTM;
+var oNode;
+newHTM = "<IE:LAYOUTRECT id=mRect" + this._nStatus + this._strDoc + "p0";
+newHTM += " class=mRect nextRect=mRect" + this._nStatus + this._strDoc + "p1";
+newHTM += " onlayoutcomplete=\"OnRectComplete('" + this._strDoc + "', " + g_ObsoleteBar + ")\"";
+newHTM += " tabindex=-1 onbeforefocus='event.returnValue=false;'";
+newHTM += " />";
+oPage.insertAdjacentHTML("beforeEnd", newHTM);
+oNode = eval("document.all.mRect" + this._nStatus + this._strDoc + "p0");
+aRect[0] = oNode;
+oNode.style.marginTop = nTop + "px";
+oNode.style.height = nHeight + "px";
+}
+}
+}
+function CPrintDoc_InitDocument(fUseStreamHeader)
+{
+var fReallyUseStreamHeader = (fUseStreamHeader && (dialogArguments.__IE_OutlookHeader != null));
+this._anMerge[1] = (fReallyUseStreamHeader) ? 1 : 0;
+this._nStatus = ((fReallyUseStreamHeader) ? 0 : 1);
+this.AddFirstPage();
+this._aaRect[this._nStatus][0].contentSrc = (fReallyUseStreamHeader)
+? dialogArguments.__IE_OutlookHeader
+: this._strDocURL;
+}
+function CPrintDoc_PrintAllSubDocuments(fRecursionOK)
+{
+if (this._aDoc)
+{
+var nDocs = this._aDoc.length;
+var i;
+g_cLeftToPrint += nDocs;
+for (i = 0; i < nDocs; i++)
+{
+PrintSentinel(this._aDoc[i]._strDoc, fRecursionOK);
+}
+}
+}
+function CPrintDoc_BuildAllLinkedDocuments()
+{
+var strURL = this._aaRect[1][0].contentDocument.URL;
+var aLinks = this._aaRect[1][0].contentDocument.links;
+var nLinks = aLinks.length;
+var i;
+var j;
+var strLink;
+for (i = 0; i < nLinks; i++)
+{
+strLink = aLinks[i].href;
+if (strURL == strLink || UnprintableURL(strLink))
+{
+continue;
+}
+for (j = 0; j < i; j++)
+{
+if (strLink == aLinks[j].href)
+{
+break;
+}
+}
+if (j < i)
+{
+continue;
+}
+this.CreateSubDocument(strLink, false);
+}
+}
+function OnBuildAllFrames(strDoc)
+{
+if (!g_aDocTree[strDoc] ||
+!g_aDocTree[strDoc]._aaRect[1][0] ||
+!g_aDocTree[strDoc]._aaRect[1][0].contentDocument.body)
+{
+window.setTimeout("OnBuildAllFrames('" + strDoc + "');", 100);
+return;
+}
+g_aDocTree[strDoc].BuildAllFrames();
+}
+function IsPersistedDoc()
+{
+return (!!g_aDocTree["C"]._aaRect[1][0].contentDocument.getElementsByTagName("HTML")[0].__IE_DisplayURL);
+}
+function CPrintDoc_BuildAllFrames()
+{
+var aFrames = this._aaRect[1][0].contentDocument.getElementsByTagName("FRAME");
+var nFrames = aFrames.length;
+var nActive = parseInt(this._aaRect[1][0].contentDocument.getElementsByTagName("HTML").item(0).__IE_ActiveFrame);
+var i;
+var strSrc;
+var strDoc;
+if (nFrames > 0)
+{
+this._fFrameset = true;
+}
+for (i = 0; i < nFrames; i++)
+{
+strSrc = (!aFrames[i].src) ? " " : aFrames[i].src;
+if (strSrc == "res://IEFRAME.DLL/printnof.htm")
+{
+continue;
+}
+strDoc = this.CreateSubDocument(strSrc, true);
+if (i == nActive)
+{
+g_strActiveFrame = strDoc;
+}
+g_nFramesLeft++;
+OnBuildAllFrames(strDoc);
+}
+g_nFramesLeft--;
+if (g_nFramesLeft <= 0)
+{
+BuildAllFramesComplete();
+}
+}
+function CPrintDoc_CreateSubDocument( docURL, fUseStreamHeader )
+{
+if (!this._aDoc)
+this._aDoc = new Array();
+var nDoc = this._aDoc.length;
+var strDoc = this._strDoc + "_" + nDoc;
+CreateDocument(docURL, strDoc, fUseStreamHeader);
+this._aDoc[nDoc] = g_aDocTree[strDoc];
+return (strDoc);
+}
+function CPrintDoc_AddTableOfLinks()
+{
+;
+if (!g_fTableOfLinks)
+{
+this._nStatus = 3;
+ChangeDispPage(g_nDispPage);
+this.FixupHF();
+}
+else
+{
+var oTableOfLinks = BuildTableOfLinks(this._aaRect[1][0].contentDocument);
+if (oTableOfLinks != null)
+{
+var oBody = oTableOfLinks.body;
+this.AddFirstPage()
+this._aaRect[this._nStatus][0].contentSrc = oBody.document;
+}
+else
+{
+this._nStatus = 3;
+ChangeDispPage(g_nDispPage);
+this.FixupHF();
+}
+}
+}
+function OnTickHF( strDoc )
+{
+if (!g_aDocTree[strDoc])
+{
+HandleError("Document " + strDoc + " does not exist.", document.URL, "OnRectComplete");
+return;
+}
+g_aDocTree[strDoc].TickHF();
+}
+function CPrintDoc_TickHF()
+{
+var i, j;
+var iTo, jTo;
+var aTok;
+var oTok;
+var nStartPage = this._nNextHF;
+var cPages = this.Pages();
+iTo = nStartPage + 2;
+if (iTo > cPages)
+{
+iTo = cPages;
+}
+for (i = nStartPage; i <= iTo; i++)
+{
+aTok = this.Page(i).children[0].getElementsByTagName("SPAN");
+for (j=0, jTo = aTok.length; j < jTo; j++)
+{
+oTok = aTok[j];
+if (oTok.className == "hfPageTotal")
+{
+oTok.innerText = cPages;
+}
+else if (oTok.className == "hfUrl" && oTok.innerText == "")
+{
+oTok.innerText = this.EnsureURL();
+}
+else if (oTok.className == "hfTitle" && oTok.innerText == "")
+{
+oTok.innerText = this.EnsureTitle();
+}
+}
+}
+this._nNextHF = i;
+if (iTo == cPages)
+{
+this._nStatus = 4;
+if (--g_nDocsToCalc == 0)
+{
+window.setTimeout("CalcDocsComplete()", 1);
+}
+}
+else
+{
+this._nTimerHF = window.setTimeout("OnTickHF('" + this._strDoc + "');", 250);
+}
+}
+function CPrintDoc_FixupHF()
+{
+;
+this.TickHF();
+}
+function CPrintDoc_Pages()
+{
+var i;
+var c;
+for (i = 0, c = 0; i < 3; i++)
+{
+c += this._acPage[i];
+}
+return c;
+}
+function CPrintDoc_Page(nPage)
+{
+var i;
+var n = nPage;
+if (n <= 0)
+return null;
+for (i = 0; i < 3; i++)
+{
+if (n <= this._acPage[i])
+{
+return this._aaPage[i][n - 1].parentElement;
+}
+n -= this._acPage[i];
+}
+return null;
+}
+function CPrintDoc_EnsureURL()
+{
+if (this._strURL == null)
+{
+if (this._aaRect[1][0] && this._aaRect[1][0].contentDocument)
+{
+this._strURL = this._aaRect[1][0].contentDocument.URL;
+}
+if (this._strURL == null)
+{
+return "";
+}
+}
+return this._strURL;
+}
+function CPrintDoc_EnsureTitle()
+{
+if (this._strTitle == null)
+{
+if (this._aaRect[1][0] && this._aaRect[1][0].contentDocument)
+{
+this._strTitle = this._aaRect[1][0].contentDocument.title;
+}
+if (this._strTitle == null)
+{
+return "";
+}
+}
+return this._strTitle;
+}
+function CPrintDoc_ResetDocument()
+{
+var i;
+for (i=0; i<3; i++)
+{
+this._aaRect[i] = new Array();
+this._aaPage[i] = new Array();
+this._acPage[i] = 0;
+}
+MasterContainer.innerHTML = "<div id=\"EmptyPage\" class=\"divPage\" style=\"position:absolute; left:0px; top:0px; display:none;\"><div class=\"page\">&nbsp;</div></div>";
+this.StopFixupHF();
+}
+function CPrintDoc_ResetTableOfLinks()
+{
+if (this._nStatus <= 2)
+return;
+this.StopFixupHF();
+this._nStatus = 2;
+this.AddTableOfLinks();
+}
+function CPrintDoc_StopFixupHF()
+{
+if (this._nTimerHF != -1)
+window.clearTimeout(this._nTimerHF);
+this._nTimerHF = -1;
+this._nNextHF = 1;
+}
+function CPrintDoc(nDocNum, strDocURL)
+{
+var i;
+this._aDoc = null;
+this._strDoc = nDocNum;
+this._strDocURL = strDocURL;
+this._nStatus = 0;
+this._aaPage = new Array(3);
+this._aaRect = new Array(3);
+this._acPage = new Array(3);
+this._anMerge = new Array(3);
+for (i=0; i<3; i++)
+{
+this._aaPage[i] = new Array();
+this._aaRect[i] = new Array();
+this._acPage[i] = 0;
+this._anMerge[i]= 0;
+}
+this._nNextHF = 1;
+this._nTimerHF = -1;
+this._strURL = null;
+this._strTitle = null;
+this._fFrameset = false;
+this._nStartingPage = 0;
+}
+function GetAuthorSpecifiedMargins(strRequestedPseudoClass)
+{
+var oAuthorSpecifiedMargins = {left:null, right:null, top:null, bottom:null};
+var oDocumentToPrint;
+if (g_oPrintedDocument != null)
+{
+oDocumentToPrint = g_oPrintedDocument;
+}
+else if (g_aDocTree["C"] && g_aDocTree["C"]._aaRect[1][0] && g_aDocTree["C"]._aaRect[1][0].contentDocument)
+{
+oDocumentToPrint = g_aDocTree["C"]._aaRect[1][0].contentDocument;
+}
+if (oDocumentToPrint != null)
+{
+var hadTopImportant = false;
+var hadRightImportant = false;
+var hadBottomImportant = false;
+var hadLeftImportant = false;
+var arStyleSheets = oDocumentToPrint.styleSheets;
+for (var iStyleSheet in arStyleSheets)
+{
+var arPages = arStyleSheets[iStyleSheet].pages;
+for (var iPage in arPages)
+{
+if (arPages[iPage].pseudoClass == strRequestedPseudoClass)
+{
+var pageBoxWidth;
+var pageBoxHeight;
+if (Printer.orientation == "portrait")
+{
+pageBoxWidth = Printer.pageWidth * 10;
+pageBoxHeight = Printer.pageHeight * 10;
+}
+else
+{
+pageBoxWidth = Printer.pageHeight * 10;
+pageBoxHeight = Printer.pageWidth * 10;
+}
+var top = Printer.getPageMarginTop(arPages[iPage], pageBoxWidth, pageBoxHeight);
+var right = Printer.getPageMarginRight(arPages[iPage], pageBoxWidth, pageBoxHeight);
+var bottom = Printer.getPageMarginBottom(arPages[iPage], pageBoxWidth, pageBoxHeight);
+var left = Printer.getPageMarginLeft(arPages[iPage], pageBoxWidth, pageBoxHeight);
+if (top != null)
+{
+var topImportant = Printer.getPageMarginTopImportant(arPages[iPage]);
+if (topImportant || !hadTopImportant)
+{
+oAuthorSpecifiedMargins.top = top / 1000;
+hadTopImportant |= topImportant;
+}
+}
+if (right != null)
+{
+var rightImportant = Printer.getPageMarginRightImportant(arPages[iPage]);
+if (rightImportant || !hadRightImportant)
+{
+oAuthorSpecifiedMargins.right = right / 1000;
+hadRightImportant |= rightImportant;
+}
+}
+if (bottom != null)
+{
+var bottomImportant = Printer.getPageMarginBottomImportant(arPages[iPage]);
+if (bottomImportant || !hadBottomImportant)
+{
+oAuthorSpecifiedMargins.bottom = bottom / 1000;
+hadBottomImportant |= bottomImportant;
+}
+}
+if (left != null)
+{
+var leftImportant = Printer.getPageMarginLeftImportant(arPages[iPage]);
+if (leftImportant || !hadLeftImportant)
+{
+oAuthorSpecifiedMargins.left = left / 1000;
+hadLeftImportant |= leftImportant;
+}
+}
+}
+}
+}
+}
+return oAuthorSpecifiedMargins;
+}
+function CompareMarginObjects(oMarginObject1, oMarginObject2)
+{
+if (oMarginObject1 == null && oMarginObject2 == null)
+{
+return true;
+}
+else if (oMarginObject1 == null && oMarginObject2 != null)
+{
+return false;
+}
+else if (oMarginObject1 != null && oMarginObject2 == null)
+{
+return false;
+}
+else
+{
+if (CompareIndividualMargins(oMarginObject1.left, oMarginObject2.left) &&
+CompareIndividualMargins(oMarginObject1.right, oMarginObject2.right) &&
+CompareIndividualMargins(oMarginObject1.top, oMarginObject2.top) &&
+CompareIndividualMargins(oMarginObject1.bottom, oMarginObject2.bottom)
+)
+{
+return true;
+}
+else
+{
+return false;
+}
+}
+}
+function CompareIndividualMargins(oMargin1, oMargin2)
+{
+if (oMargin1 == null && oMargin2 == null)
+{
+return true;
+}
+else if (oMargin1 == null && oMargin2 != null)
+{
+return false;
+}
+else if (oMargin1 != null && oMargin2 == null)
+{
+return false;
+}
+else
+{
+if (oMargin1 != oMargin2)
+{
+return false;
+}
+else
+{
+return true;
+}
+}
+}
+function ApplyAuthorSpecifiedMargins(strAuthorPagePropertiesType, oAuthorSpecifiedMargins)
+{
+if (strAuthorPagePropertiesType != "AtPage" && strAuthorPagePropertiesType != "AtPageLeft" && strAuthorPagePropertiesType != "AtPageRight" && strAuthorPagePropertiesType != "AtPageFirst")
+{
+HandleError("Invalid Author Specified Page Type", document.URL, "CPrintDoc::ProcessAuthorSpecifiedPageProperties");
+return null;
+}
+var strSelectorName = ".mRect" + strAuthorPagePropertiesType;
+var oRule = GetRuleFromSelector(strSelectorName);
+if (oRule == null)
+{
+HandleError(strSelectorName + " rule does not exist!", document.URL, "CPrintDoc::ProcessAuthorSpecifiedPageProperties");
+return null;
+}
+if (oAuthorSpecifiedMargins.left != null)
+oRule.style.marginLeft = oAuthorSpecifiedMargins.left == null ? "" : oAuthorSpecifiedMargins.left + "in";
+if (oAuthorSpecifiedMargins.right != null)
+oRule.style.marginRight = oAuthorSpecifiedMargins.right == null ? "" : oAuthorSpecifiedMargins.right + "in";
+if (oAuthorSpecifiedMargins.top != null)
+oRule.style.marginTop = oAuthorSpecifiedMargins.top == null ? "" : oAuthorSpecifiedMargins.top + "in";
+if (oAuthorSpecifiedMargins.bottom != null)
+oRule.style.marginBottom = oAuthorSpecifiedMargins.bottom == null ? "" : oAuthorSpecifiedMargins.bottom + "in";
+strSelectorName = ".divHead" + strAuthorPagePropertiesType;
+oRule = GetRuleFromSelector(strSelectorName);
+if (oRule != null)
+{
+if (oAuthorSpecifiedMargins.left != null)
+oRule.style.left = oAuthorSpecifiedMargins.left == null ? "" : oAuthorSpecifiedMargins.left + "in";
+}
+strSelectorName = ".divFoot" + strAuthorPagePropertiesType;
+oRule = GetRuleFromSelector(strSelectorName);
+if (oRule != null)
+{
+if (oAuthorSpecifiedMargins.left != null)
+oRule.style.left = oAuthorSpecifiedMargins.left == null ? "" : oAuthorSpecifiedMargins.left + "in";
+}
+return null;
+}
+function ExtractNumericValueFromMarginStyleOfLayoutRectangle(strMarginStyle)
+{
+var value = null;
+if (strMarginStyle == null || strMarginStyle.length == 0)
+{
+value = null;
+}
+else if (strMarginStyle.length == 1)
+{
+if (strMaginStyle.charAt(0) == '0')
+{
+value = 0;
+}
+else
+{
+value = null;
+}
+}
+else if (strMarginStyle.length < 3)
+{
+value = null;
+}
+else
+{
+var chLast = strMarginStyle.charAt(strMarginStyle.length - 1);
+var chBeforeLast = strMarginStyle.charAt(strMarginStyle.length - 2);
+if ( (chBeforeLast == 'i' || chBeforeLast == 'I' ) && (chLast == 'n' || chLast == 'N' ))
+{
+value = new Number(strMarginStyle.substr(0, strMarginStyle.length - 2));
+}
+else
+{
+HandleError("Unexpected unit", document.URL, "ExtractNumericValueFromMarginStyleOfLayoutRectangle");
+value = null;
+}
+}
+return value;
+}
+CPrintDoc.prototype.RectComplete = CPrintDoc_RectComplete;
+CPrintDoc.prototype.AddPage = CPrintDoc_AddPage;
+CPrintDoc.prototype.AddFirstPage = CPrintDoc_AddFirstPage;
+CPrintDoc.prototype.AddTableOfLinks = CPrintDoc_AddTableOfLinks;
+CPrintDoc.prototype.FixupHF = CPrintDoc_FixupHF;
+CPrintDoc.prototype.StopFixupHF = CPrintDoc_StopFixupHF;
+CPrintDoc.prototype.TickHF = CPrintDoc_TickHF;
+CPrintDoc.prototype.InitDocument = CPrintDoc_InitDocument;
+CPrintDoc.prototype.ResetDocument = CPrintDoc_ResetDocument;
+CPrintDoc.prototype.ResetTableOfLinks = CPrintDoc_ResetTableOfLinks;
+CPrintDoc.prototype.BuildAllLinkedDocuments = CPrintDoc_BuildAllLinkedDocuments;
+CPrintDoc.prototype.BuildAllFrames = CPrintDoc_BuildAllFrames;
+CPrintDoc.prototype.CreateSubDocument = CPrintDoc_CreateSubDocument;
+CPrintDoc.prototype.Print = CPrintDoc_Print;
+CPrintDoc.prototype.PrintAllSubDocuments = CPrintDoc_PrintAllSubDocuments;
+CPrintDoc.prototype.ReadyToPrint = CPrintDoc_ReadyToPrint;
+CPrintDoc.prototype.Page = CPrintDoc_Page;
+CPrintDoc.prototype.Pages = CPrintDoc_Pages;
+CPrintDoc.prototype.EnsureURL = CPrintDoc_EnsureURL;
+CPrintDoc.prototype.EnsureTitle = CPrintDoc_EnsureTitle;
+  ן»¿function HandleError(message, url, line)
+{
+  var str = L_Dialog_ErrorMessage + "\n\n"
+      + L_ErrorNumber_Text + line + "\n"
+      + message;
+
+  alert (str);
+  window.close();
+
+  return true;
+}
+
+function BodyOnload () 
+{
+  Printer.showPageSetupDialog();
+
+  window.close();
+}
+
+window.onerror = HandleError;
+
+
+    (       @         €                       ÿÿÿ                                      ‏נ ‏ÿÿגÿ‘Aÿ’‰ÿ“ÿׂ)ÿ׀Qÿָג9ÿִ1‏ֲa¶ֱנ¶ְ ¶  ¶  °  €  €  €  €  €      ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏ ÿÿ‏ ‏‏ üü xר pנ  €נ ! א   א  ְ   ְ € „   ÿü ?ÿü ÿÿüÿÿüÿÿü?ÿÿü?ÿÿü?ÿÿü?ÿÿ‏ÿÿ          @   4  -       (       @                                                                              7ÿÿÿÿÿÿÿÿ÷                                                                                    7½ֻֽÊÿßßßÿÝÝÝÿÚÚÚÿ״״״ÿײײײÿױױױÿ׃׃׃ÿÞ                                                                                7½׃ׁׁÿוווÿדדדÿבבבÿÞÞÞÿÜÜÜÿÚÚÚÿ״״״ÿײײײÿÞ0                                                                        7½Ù׳׳ÿלללÿךךךÿחחחÿוווÿדדדÿאאאÿÞÞÞÿÜÜÜÿÚÚÚÿ‡‡                                                                        ½ßÝÜÿףףףÿסססÿמממÿלללÿיייÿחחחÿהההÿגגגÿאאאÿÝÝÝÿ²®­ÿױ                                                                    c´שששÿֳִָÿץץץÿעעעÿנננÿמממÿכככÿיייÿזזזÿהההÿגגגÿßßßÿÞ0                                                            6÷זההÿüüüÿƒywÿרררÿצצצÿפפפÿעעעÿנננÿםםםÿכככÿטטטÿזזזÿדדדÿ‡‡                                                            ÷טזוÿÿÿÿÿ‏‏‏ÿÿûûûÿתתתÿרררÿצצצÿפפפÿעעעÿןןןÿםםםÿךךךÿטטטÿ÷¶µÿױ                                                            ÿטזוÿטזוÿ÷ÿ‏‏‏ÿ‎‎‎ÿûûûÿשששÿרררÿץץץÿףףףÿסססÿןןןÿלללÿךךךÿÿ                                                            ÷ÿ÷6ÿÿÿÿÿÿÿÿÿ‏‏‏ÿüüüÿûûûÿשששÿקקקÿץץץÿףףףÿסססÿמממÿÿ                                                                            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‎‎‎ÿüüüÿתתתÿשששÿÿץץץÿעעעÿÿ                                                                            ÿÿÿÿÿÿÿÿÿֿÊÊÿÿÿÿÿÿÿÿÿÿ‎‎‎ÿüüüÿÿרררÿצצצÿÿ                                                                        08&$ÿÿÿÿÿÿÿÿÿ†{zÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿÿûûûÿתתתÿÿ                                                                        ‡†{zÿÿÿÿÿÿÿÿÿ@/-ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿ‎‎‎ÿÿ                                                                        ױֿÊÊÿÿÿÿÿֿÊÊÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֿÊÊÿ÷                                                                        ÿÿÿÿÿÿÿÿÿ‡ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֿÊÊÿ÷                                                                        ÿÿÿÿÿÿÿÿÿ‡ÿÿÿÿÿÿÿÿÿÿÿÿÿÿֿÊÊÿÿ÷                                                                            ÷ÿÿÿÿÿÿÿÿ‡ÿÿÿÿÿÿÿÿÿÿÿ÷6                                                                                    6÷÷6÷ÿÿÿÿÿÿÿÿ÷                                                                                                                6÷÷6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ÿנÿÿאÿÿְÿÿ€ÿÿ€ÿÿ  ÿ‏  ÿ‏  ÿ‏  ÿ‏  ÿÿא ÿÿא ÿÿְ ÿÿְ ÿÿְ ÿÿְ ÿÿְÿÿְÿÿְ?ÿÿü?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @    ¬  .       (       @                                                                              7ÿÿÿÿÿÿÿÿ÷                                                                                    7½ֽֽֿÿבבבÿÞÞÞÿÛÛÛÿÙÙÙÿײײײÿװװװÿׂׂׂÿÞ                                                                                7½׳ױױÿךךךÿחחחÿדדדÿאאאÿÝÝÝÿÛÛÛÿ״״״ÿײײײÿÞ0                                                                        7½ßÝÜÿעעעÿןןןÿלללÿיייÿזזזÿדדדÿאאאÿÝÝÝÿÚÚÚÿ‡‡                                                                        ½ודדÿתתתÿקקקÿץץץÿעעעÿןןןÿכככÿטטטÿוווÿגגגÿßßßÿ³¯®ÿױ                                                                    c´ÿÿÿÿָֹֽÿûûûÿשששÿקקקÿפפפÿסססÿמממÿכככÿחחחÿהההÿבבבÿÞ0                                                            6÷טזוÿÿÿÿÿ†{zÿ‏‏‏ÿ‎‎‎ÿûûûÿשששÿצצצÿףףףÿנננÿםםםÿךךךÿחחחÿ‡‡                                                            ÷טזוÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿüüüÿתתתÿרררÿץץץÿעעעÿןןןÿלללÿ½¹¸ÿױ                                                            ÿטזוÿטזוÿ÷ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿüüüÿתתתÿקקקÿץץץÿעעעÿןןןÿÿ                                                            ÷ÿ÷6ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‎‎‎ÿûûûÿשששÿקקקÿפפפÿÿ                                                                            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿÿûûûÿשששÿÿ                                                                            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‏‏‏ÿַָּÿ÷                                                                            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֿÊÊÿ÷                                                                            ÿֿÊÊÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֿÊÊÿÿ÷                                                                                6÷ÿ÷ÿÿÿÿÿÿÿÿ÷ÿ÷6                                                                                                    6÷÷6                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        ÿנÿÿאÿÿְÿÿ€ÿÿ€ÿÿ  ÿ‏  ÿ‏  ÿ‏  ÿ‏  ÿÿא ÿÿא ÿÿא ÿÿאÿÿאÿÿü?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ          @    ¬  /       (                                                                                         			N4                                                       h8m¨üBSiת   $                                               h:n©ü"VÿFTgכ   $                                           h7n©ü'Z‘ÿ?Upס#.;T                –‘–‘p–‘·–‘ך–‘ך•¸Jjˆּ6m©ת,^–ÿF]xש#.;T                —’>–‘°¡™ÿÊַ¿ÿֳֹֽÿ־ָֻÿ׀ַּÿ¬¦£ÿfƒ£üF]xש,6CX                •‘!–‘°°×¢ÿװֳׁסחד״Ýרףך׃רעכ׃יהÜß׳ׂÊס¿µ²ÿpx„ׁ—’o            ™™™–‘p”ÿ׳־»סףוױװÿףט׃ֱeÿ³VÿÿפךּפךÝײÚַֿע®₪¢ÿ–‘¡                –‘·ְ³£ÿטÙֳÞÿנבױÿעוװÛ€ÿֿtÿÿעוֽÿףזֽךא׃אױֲ¼ÿ–‘»                –‘ךֿ÷ ÿשז׀ױֲgÿֿtÿÚÿß„ÿÛ€ÿֿtÿשםÞײÙÊ¿ÿ–‘ך                –‘ך׀¸ÿתהֻ״­RÿµZÿֲgÿֿtÿÚÿß„ÿשלÜÙÚÊ¼ÿ–‘ך                –‘·¾¨ÿןÙ¼זÿהֹÙÿדָ׳­RÿµZÿÿז־׃ÿטֿׂכÚִדײֳ³ÿ–‘·                –‘p¡•‰ÿךׂ°רתןבםÿל״ח­Rÿ­RÿÿכײבשטױזטÝּק±¨ ÿ–‘p                –‘–‘°¯ÿי״ְûץז׳ץ‎מÝן‎מÜםקךÚסםאׁש¿´×ÿ–‘°–‘                    –‘9–‘°¢—ÿ¼¯¡ÿבֽ¸ÿט׳ֳÿְֻ´ÿ¬£ÿ–‘°–‘9                            –‘–‘p–‘·–‘ך–‘ך–‘·–‘p–‘                    ÿש  ÿנ  ÿא  ÿֱ  א  ְ  €     €  €  €  €  €  €  ְ  א                l  0       (                                                                                         			N4                                                       h8m¨üBSiת   $                                               h:n©ü"VÿFTgכ   $                                           h7n©ü'Z‘ÿ?Upס#.;T                –‘–‘p–‘·–‘ך–‘ך•¸Jjˆּ6m©ת,^–ÿF]xש#.;T                —’>–‘°¡™ÿÊַ¿ÿֳֹֽÿ־ָֻÿ׀ַּÿ¬¦£ÿfƒ£üF]xש,6CX                •‘!–‘°°×¢ÿװֳׁסחד״Ýרףך׃רעכ׃יהÜß׳ׂÊס¿µ²ÿpx„ׁ—’o            ™™™–‘p”ÿ׳־»סףוױװÿףט׃ÿףטÿÿףטÿÿפךּפךÝײÚַֿע®₪¢ÿ–‘¡                –‘·ְ³£ÿטÙֳÞÿנבױÿעוװÿעוÿÿעוÿÿעוֽÿףזֽךא׃אױֲ¼ÿ–‘»                –‘ךֿ÷ ÿשז׀ױֲgÿֿtÿÚÿß„ÿÛ€ÿֿtÿשםÞײÙÊ¿ÿ–‘ך                –‘ך׀¸ÿתהֻ״­RÿµZÿֲgÿֿtÿÚÿß„ÿשלÜÙÚÊ¼ÿ–‘ך                –‘·¾¨ÿןÙ¼זÿהֹÙÿדָ׳ÿדָÿÿדָÿÿז־׃ÿטֿׂכÚִדײֳ³ÿ–‘·                –‘p¡•‰ÿךׂ°רתןבםÿל״חÿל״ÿÿל״ÿÿכײבשטױזטÝּק±¨ ÿ–‘p                –‘–‘°¯ÿי״ְûץז׳ץ‎מÝן‎מÜםקךÚסםאׁש¿´×ÿ–‘°–‘                    –‘9–‘°¢—ÿ¼¯¡ÿבֽ¸ÿט׳ֳÿְֻ´ÿ¬£ÿ–‘°–‘9                            –‘–‘p–‘·–‘ך–‘ך–‘·–‘p–‘                    ÿש  ÿנ  ÿא  ÿֱ  א  ְ  €     €  €  €  €  €  €  ְ  א                l  1     (       @                                  €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                        ‡x‡           wwxˆ‡x        xקlhˆw‡p      wˆˆ†Ghˆח‡€    xרˆˆ†lxˆ‡wˆ‡   ˆˆˆפvhˆw‡‡ˆx  ˆˆˆˆFXˆ†‡ˆˆp ˆˆˆ†FOˆ‡ˆxט‡ ˆˆ‡ˆפsHˆחˆˆˆˆ‡ g ˆצwhˆ‡xˆˆˆ€ wt„pHר‡wָˆˆ€ ww‡xˆ†ַwxˆ€ xˆרˆˆקֶwvx€ ÿÿˆllgwp ˆˆˆˆרֶ|l|gp רררררlgַd|p ‡ÿˆרֶ||fַFFPvרˆרררlלgַltt` hˆרˆרֶ|vַַַde  ˆרlל|vֶt|p   wˆˆˆlgֶַַelg     ÿlל|gl|ep     ˆll|gֶַFG       tfֶַַַlt€        ‡df||tg          VFdd€          ַ@ W           f                                        ÿÿÿÿÿÿÿÿÿüÿÿְÿ‏ ÿנ  ְ  ?€  €  €  €  €  €  €  €  €  €  €        ְ  א  נ  ü  ‏  ?ÿ  ÿְ ÿÿרÿÿנדÿÿנÿÿÿÿÿÿÿÿÿÿ(                €                         €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ‡‡‡‡‡‡€רˆˆ†Fˆpררˆפdˆpרˆ†FˆpÿררקlˆpÿvOˆFˆpÿwx†tˆpe/פeˆ€oxררˆ‡קˆx` hxרר‡ü  קˆˆx`  |hˆˆ   ֶLקx`   ְַh    ְַp   €  €  €  €  €  €  €  €      €  ְ  ְ  ְ  ְ  ִ?  ֶ  (       @                                )  3,' =76 _ Z3 g& a4 b; F-  X6$ y;' zA _A' ]G= tE# yF# bK4 pP6 {R5 pQ: LF@ \OC UXV }RF ~XG sYK iTT k`W |dS _iq cdf fbl hii cks |xp ›"
+ „4 ˆ6 …: 9 ˜9 §= †;# ‘>  ֳ< ׳; „L ˜R ¶A ·K ¿J ¹F ÷L M# C. C- ™B& •C* ™D* H, S# –U  “X& ˜X% †I5 “F0 •H0 ›L0 –N; ‹^6 £C# ¥I& «J% ¡E* £J, ×L+ ±@$ ³L$ ¼N# ²N+ µP% ½Q' µQ* »R* ¥N1 a< ”a5 ִD ֻD ִI ÊB ׁC ױM  ÊI ְG ִM ֻM ״E װJ ÚN ÊP ÛG& ֵS# ֻW& ֻX& ֵR) ֶX+ ּX* ׁT* ׁ[- ׳X1 מ_8 ‡TD UB ƒXA ‹WH ‡XI ]H ‡_W †bB €cL ‡e] •bR ”i\ n_ ¥fS «q_ §z_ o` ‚qf n „ys ‚~z •~} ×ud …ƒ| “†s ™†w –{ ˜{ { ¨€t ®ˆ} µq »‡v µ‰w ¢“} l{… w}‚ }„† r„‹ s„“ ƒƒ‚ ‰‡ ‹‹ˆ ‹ ›‘‚ ₪ƒ ¡“‚ ×›† ¦›‹ × ¸– ¥“ ¨” ¯¢ ±¢ § • ¨¡– £¡™ ²¥“ µ¨“ ¸¬— µ×™ »®› ½± ×¯ §«® ­­¬ ³®¥ ¹¯£ ¸¬« ¶°¢ »²¢ ¶´¬ ¡®¸ ¯µµ ¶µ° ÷¼÷ ף˜€ ֳ´ ֲµ£ ֵ¸¥ ָ¹¥ ִ÷× ֹ½× ֹ¿° ב¿¬ ְּ® ױֲ® ֳּ´ ֱֱ¾ ֶֿ¸ ֵׂ³ Ýְ´ װֹµ Ùֹµ װÊ» Ùֽ» Û׀¾ £¶ֳ ®½ֱ ¸ְֲ ¿ֶÊ ¾ֻׂ ־ֿÊ ׳ֳֶ ״ֵַ ׀ִֻ Üְּ Üֻּ ׳ֶׁ Ý׃ֵ װֹׁ ÞײÊ ׃װװ ß׃׃ ׳Úײ ßÙׁ ב׃ֱ ב׳ֹ דÙּ ה׳ײ הÝ׃ ךßװ לß״ זאײ יאװ חגÚ ךהÜ ־Ûא Þזו כזא םיג למט סכד ףמך מסי צעמ כצû ץפע שץף     ÿÿÿ                                                                               ¾«±¬„                      ‹“…ּ׀ח±¡ ©                 µ­סƒ71Xֵֵֹ£­­             ×¯ׂ׃ׂס?AWֵֹּ¬¡§°£×         ¢ֵׂי׃ֵֵּס>@Wֳָֹ¬££§ְ±       ¢ּיֵֵֵָּּס0>G׀ָֿ¯¡£¬­ְֵ§¥     ¢ֱֱֵֵּּּׂׂ²>G׀ּׂ¯£­°°±ְֵֵ    ¢ֵּּׂמרגֿסֹׂׂ¹­°ֱֱֳֵ°ֵּ›   ¢ֶץסכ³ׂחסßֵֿׂ ¬ְֳֵָּּּֿ   ¢ׂü  ׁחס¦z	בֿ׃ֵ¡§ֵח׃ּׂ׀ֵ    ¢גü† ‚בטפ
+Ùׂיּ$£¡¨ָי׃חּ    ¢מת#–™•ויס˜ױÜי׃ס½y—”§ּיֿ    ¢נת¶ׂיםןגסססלןגּ´û^3!†‹°ְ    ¢מתקסלממטיטמייּ¯ûַZ2`_Ot ‰     ¢ׂüממממיממטממּ¯û־Y4SROO5H"    ִֻנ‎סנממממככּµûÛ]4kSTTLKK+-   {שײֵפüפסננספּµûÜ]bolSTQML=<;-)s }צ״½י‎ץץפפּµûÛ/eokSSUQVL=E;9);   rדע½ו‎רץּ´ûÞ/cpokSTQVVV<E9,F     s´פ¼ז‎ּ³ûבZdpnkSTTVQL<<C,w       ‡צװ׳»ûהZ\ojhkSTMMM<=C&          xûשûךY.hilkRROMLK=C,€            v·Û[[f4h6PRTKIL:;&€              }s(-RihiPROKI:<&€                 ₪|,LIKOIL:)‘                     %88,))’                     qg   ~8ˆ                      ¿pN(                                                                                ÿÿÿÿÿÿÿÿÿüÿÿְÿ‏ ÿנ  ְ  ?€  €  €  €  €  €  €  €  €  €  €        ְ  א  נ  ü  ‏  ?ÿ  ÿְ ÿÿרÿÿנדÿÿנÿÿÿÿÿÿÿÿÿÿ(                                     _ x> B<: `;! n@ ]B. PB< sF' zP0 QE@ YLG |XA eYS lhf ˜ ¨ :  < < ‘? ְ2 ֿ>% Þ?/ ’C N ‘G –K ˜N" ‹X; ־@% Ü@. ְR7 ûUI ‹ƒ~ ׂ…r …ƒ ”† ˜’ • ™” – – ˜“ ›™– ¡‘ƒ ¡‘ «›’ †¢¦ ְµ© ֲ·¬ ִ÷¯ ָ¹« Ê»­ ֱ¹± ֶ»± ֶ¼² ֻ½° ָ¾µ ְֹ· ֵֻ¿ ׀ֳ¸ װָ½ ְֱֲ ױÊֱ ׳ֲּ ׳־ֶ ״ִֽ ״ֹֿ ׳ׂ־ Û׀ָ Üֹׁ Û׃ּ ßײ־ Ùױׁ Þ׳ׁ Ü׳װ ‎־ֲ ןֽׂ קַׁ רַׁ סֻׁ ץֹׁ ו׃ׂ א׳׀ חױ׃ ךװ׀ לױ׀ ב״ׂ גÚװ הÛױ הÜײ וÞÙ חאÚ טבÛ ידß ךהß כוב לזג םחה מיז לכך ןםל ףןל פסמ ûתש                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ÿÿÿ  //////////////  -[TGC>=[	34-  -][GGC=[34-  -``[GGC[64-  -agggeD[034-  -di$J[';4-  -di".
+[[?9-  '3i[]<1%  N';aaa][LEC1'T   N';]aa`[C4'W     N*;]a`G3'W     # O,;[J;'W      # P,;;%W        N''T        !  MM                    €  €  €  €  €  €  €  €      €  ְ  ְ  ְ  ְ  ִ?  ֶ  (       @          €                                                                                                                                                                                                                  €vf€wfGwhZ‡}l                                                                                            HJH!m\u€g~vzw€~zo´˜|ש¿³ÿ²₪‘ÿnÿƒzjc                                                                            ‰€nicX0ƒkY׀µ‰wÿ₪ƒÿ„ysÿgRÿֶֿ¸ÿÙֻµÿא׃ְÿ¾±ÿ×›†ÿ “ÿ…|l·„zj                                                        wfwfV~td”‹qÛµ©”ÿךוÜÿ‚qfÿM#ÿ˜Rÿ”a5ÿײֲ¯ÿַ¼©ÿָ½«ÿ©ÿ˜‹xÿ·¨“ÿ¶¨’ÿ“ˆvף€vg_                                        |tf~tc]‹q½˜~ף¶«ÿÙֽ»ÿÜ׀½ÿÜ־¸ÿךוÜÿyF#ÿ–U ÿ˜X%ÿa>ÿײֳ®ÿֹ½×ÿֵׁ³ÿ±¦•ÿ—xÿ¦ˆÿ±£ÿ¾®™ÿ«ÿƒzj±€yk                            zlT§ÿִ¹«ÿÚ־½ÿזÙּÿÛ׀¿ÿֵֿ³ÿָ¾­ÿָ»¨ÿךוÜÿtE#ÿT%ÿ“X&ÿa:ÿױֳ¯ÿֶ»¨ÿְֻ¯ÿ²§–ÿ™zÿ©‰ÿ¨‰ÿ¯¢ÿֳ´ÿ¿°›ÿ•xץvm_Z                        §ÿֵֿµÿזÛּÿ־ֳ³ÿִ÷©ÿַ¼¬ÿָ¾®ÿÊְ¯ÿֵׂ²ÿךוÜÿbK4ÿ„LÿT%ÿ_7ÿÛֹ¶ÿֱֽ­ÿ׃ָµÿµ×™ÿ™yÿ«‹ÿ«‹ÿ²¥“ÿµ¨•ÿֲ´ ÿֽ¾¨ÿ¯¢ÿ‚xh¶MLG                §ÿֱ¶§ÿ׳ֽ½ÿֳֽ³ÿֱֻ°ÿֱּ¯ÿָ½­ÿִ¹©ÿִֿ±ÿÛ־÷ÿ×¯ÿzAÿQ ÿ‰]5ÿ״ָµÿַׂ³ÿ״ֽ÷ÿ¹®ÿ“†sÿ¬‹ÿ´§“ÿ¸¬—ÿ½°ÿ¾±ÿ¾²ÿֽ¿×ÿֹ¹₪ÿ„vנ-&!3            §ÿִ»«ÿ׃ָ·ÿ־ֵµÿÙְֿÿכבײÿפםיÿא׳ָÿױֹ´ÿךוÜÿ{R5ÿa4ÿ[5ÿpP6ÿ״ֽ¿ÿֶׁ±ÿײÊ¹ÿ¼²¢ÿ|ÿµ¨”ÿ»®ÿִ¸¢ÿָ»¨ÿֶ¹§ÿֳ¶₪ÿ¼°ÿױֶ³ÿָ¸₪ÿ(#ˆ51/)        §ÿֹ¿°ÿןיבÿםחÞÿבÝײÿ§«®ÿ_iqÿ׳ּ½ÿבװֱÿךוÜÿY1ÿk`Wÿ\OCÿ_A'ÿ׳ֶׁÿײֻ·ÿÙ־¼ÿֲ¸¨ÿ£–‚ÿ´¦‘ÿָ»§ÿײÊ¶ÿֶׂ¶ÿֳֿ²ÿֲֽ±ÿֳ¸§ÿֵׂ´ÿִ·₪ÿ#€4/-6888    §ÿװÊ½ÿץץפÿ`dfÿLF@ÿ) ÿ   ÿױָ½ÿגװִÿטוÞÿpQ:ÿ¨”ÿ€cLÿb;ÿװֹׂÿױÊ¶ÿÙֿ¼ÿַ½¯ÿ”ÿ¬ˆÿ³₪ÿַ¹¥ÿÞװֳÿßײָÿײּ½ÿ־ֳ´ÿױֹ¸ÿּ¿«ÿ"Y60,        §ÿÞײֹÿץףנÿ…}yÿ¡‘„ÿo`ÿ3,'ÿװ׀ֹÿה׳ָÿחוßÿX6$ÿ]G=ÿF- ÿ=76ÿ־ֿÊÿ״־½ÿהÚֻÿֵֿ·ÿ|xpÿƒƒ‚ÿ¦‹ÿ¬ˆÿ°¡‰ÿ־ֱ®ÿהÛֻÿÜִׂÿÞ׃ִÿ׃ֶ´ÿ            §ÿחאױÿצףןÿcksÿw}‚ÿs„“ÿl{…ÿ׳ÚײÿחÜ־ÿטוÞÿUXVÿr„‹ÿ®½ֱÿ׀ִֻÿדÙÊÿÝװַÿכאײÿ¶µ°ÿiTTÿ†bBÿ~XGÿ}„†ÿ›ÿ¢“}ÿ±£ÿֻ¿­ÿהÚֻÿװֹ¹ÿƒ©            §ÿחבÙÿצףןÿ¹¯£ÿÙֽ»ÿז״ּÿלß״ÿיבװÿÞױַÿךוÜÿמבÜÿםגÛÿךßװÿטאׁÿÞױֹÿִֻ¶ÿ®¯×ÿלצתÿ§z_ÿױM ÿ·Kÿ}RFÿfblÿ€|ÿ˜ÿ{ÿ·©“ÿ¿³ ÿ¡¢¢            §ÿוßײÿקףןÿסכדÿמחßÿוÝ׃ÿזßװÿזÞ׃ÿא׳ֻÿא״ּÿבÙֽÿגÚ־ÿגÛ־ÿא״ֽÿִֻ¶ÿ¸° ÿןץרÿב¿¬ÿּFÿ¶AÿְGÿÊIÿ¯M ÿƒXAÿfdgÿ…ƒ|ÿ‚ÿ£•‚ÿ‹‹‹            §ÿ׀Ê¾ÿצסמÿוß׳ÿוÞױÿזא׳ÿהÞ׃ÿבÙֿÿדÛ׀ÿדÜׂÿהÛׁÿהÝ׃ÿוÞ׃ÿִֻ¶ÿ·°¡ÿןץרÿÝְ´ÿִD ÿ¿Jÿ¼Q'ÿ¶O&ÿ­I$ÿµH#ÿ¹Fÿ¢C ÿsYKÿhiiÿ‹‹ˆÿ            דאÝ©©₪µִ»­ÿכוÞÿשץףÿכוÞÿחבÙÿחגÙÿזß׳ÿוßײÿזא׳ÿטגÙÿחבÙÿִֻ¶ÿ¶°¢ÿםצתÿ׳ֳֶÿ׀DÿֶMÿ¿Q'ÿ¼Q'ÿ¶P)ÿ²R-ÿ©L+ÿ¢E)ÿ₪D&ÿ§=ÿ’> ÿybTÿngiS        ‡e]ÿןנטÿ¸ְֲÿֱ¸×ÿךהÝÿשץףÿכזאÿידÜÿידÝÿיהÝÿיהÝÿטדÜÿִֻ¶ÿµ°£ÿכצüÿ״ֵַÿׂC ÿֻMÿֹX,ÿֶX-ÿ¿T*ÿ·Q+ÿ±O.ÿ×L,ÿ¥K/ÿ›I.ÿ˜F-ÿ—C)ÿ˜9ÿ:ÿt-־n@?Ju5!•‘i]ÿןןטÿ¾ֻׂÿ»´§ÿßÙׁÿשץפÿןכוÿלטבÿלחבÿכזאÿִֻ¶ÿ²¯¦ÿךצ‎ÿÜÊָÿ׳: ÿÚNÿׁ[-ÿַR(ÿ½R)ÿ»R+ÿ÷R.ÿ²O/ÿ©L-ÿ£K.ÿI-ÿ›L0ÿ“F0ÿE.ÿˆ7ÿ•C+ÿ¶nXC    u3K„P?ר׃װװÿ־Ûאÿ¶´¬ÿßÙׁÿתצץÿףןלÿלטגÿִֻ¶ÿ®¯×ÿיק‎ÿÝֻּÿ׳=ÿ״Eÿױ\1ÿ־X+ÿַS*ÿ¼R)ÿ¶O)ÿ°M*ÿ×K,ÿ¥N1ÿ¡J.ÿ›H.ÿ—I0ÿB,ÿ‡9 ÿ>)י U=!            {@-z?-Þ¯×¯ÿÞזוÿ¯µµÿÝ׳ֿÿשץעÿִֻ¶ÿ«¯®ÿיק‏ÿÜ־־ÿֽB ÿװJÿÙZ0ÿׁT*ÿֶT)ÿ¼U)ÿµQ(ÿ²O*ÿ®N,ÿ×M-ÿ¢J-ÿ™C)ÿ˜D,ÿ“H0ÿ‡7"ÿ‹>&ײ¢XE                        x;(₪•~}‏ךםטÿ£¶ֳÿ¿ֶÊÿ¡®¸ÿטקÿÿß׃׃ÿÊDÿÊBÿֽZ)ÿּW'ÿֶR&ÿֳQ)ÿ÷P(ÿ´O)ÿ¯L)ÿ¨K*ÿ¦L,ÿH,ÿ™G-ÿ•G.ÿƒ4ÿ“G0׃R<	                                z?,X†^Uüךצ‎ÿםעכÿיק‏ÿה׳ײÿִDÿֳ<ÿֶQ!ÿÊW&ÿֶY)ÿֳU'ÿ÷O%ÿ´K"ÿ¬K&ÿ×K)ÿ¦L-ÿ F+ÿ—E+ÿ•D+ÿ„7ÿ”I2ֶ«gN	                                        }D1*M=ן¸¬«ÿßÊֱÿִIÿִI ÿÊPÿִMÿֳNÿ÷Lÿ»N#ÿµP%ÿ³O'ÿ×H'ÿ¥J(ÿH)ÿA&ÿ”A(ÿ…3ÿ‘F-¾¬hT                                                }D1|A/ֹA*כ„;ÿ‘> ÿ²K"ÿֻX&ÿַU#ÿַT"ÿ¿O#ÿ³M$ÿ­K%ÿ§H%ÿ¢I'ÿE(ÿ˜D(ÿˆ6ÿ•H2ֳ                                                            }D1}=)G}=(}=)־}=(‏z9$ÿˆ?'ÿ I,ÿ§J&ÿ©H%ÿ¬K&ÿ×I'ÿ₪L,ÿ™C'ÿ‰5ÿ”H1¯                                                                                ַLh›"
+ÿg&ÿm3"ר}=(ק}=(צ>(ÿ„=%ÿ:ÿ8ÿ˜H.§                                                                                ÿqT7מ_8ÿÛG&ÿ_ÿ ÿ”>(B}=(-}=(o|<(½}=(ץ~>)±                                                                                        מb>§ÙT3ÿ±@$ÿ~-ןךe:9                                                                                                                                                                                                                                                                                                                            ÿÿÿÿÿÿÿÿאÿÿ ÿר  ÿְ  ?€  €  €  €  €   €  €  €  €  €  €             €  ְ  נ  ר  ü  ‏  ÿ  ÿÿנÿÿאÿÿנÿÿÿÿÿÿÿÿÿ(                 @                      «›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ«›’ÿ        ¡‘ƒÿהÜײÿא׳׀ÿÜֹׁÿ״ִֽÿװָ¾ÿ׀ֳ¸ÿב״ׁÿzP0ÿNÿNÿֳ¹°ÿָ¹«ÿ¡‘ƒÿ        ¡‘ƒÿחאÛÿדÛױÿßײֿÿÛֹׁÿ׳ֳּÿװָ½ÿגÙׂÿx>ÿ: ÿ<ÿֱ¹²ÿָ¹«ÿ¡‘ƒÿ        ¡‘ƒÿךהßÿחאÚÿדÛױÿßײ־ÿÛ׀ָÿ׳ֲּÿדÚ׃ÿsF'ÿ<ÿ: ÿֱ¹²ÿָ¹«ÿ¡‘ƒÿ        ¡‘ƒÿלזגÿפסמÿףןלÿןםלÿלכךÿ״ֹֿÿדÚװÿ†¢¦ÿ’Cÿ‘?ÿֶ»±ÿָ¹«ÿ¡‘ƒÿ        ¡‘ƒÿמטוÿûתשÿ…ƒÿeYSÿPB<ÿÙױׁÿוÝײÿ•ÿ–Kÿ‘Gÿָ¾µÿÊ»­ÿ¡‘ƒÿ        ¡‘ƒÿןךחÿûתשÿ‹ƒ~ÿ¡‘ÿQE@ÿב״ׂÿוÝ׳ÿ|XAÿ‹X;ÿ˜N"ÿְֱֲÿֻ½°ÿ¡‘ƒÿ    taT˜’‎ְֹ·ÿûתשÿlhfÿYLGÿB<:ÿוÝ׳ÿחßÙÿ]B.ÿn@ÿ`;!ÿֵֻ¿ÿְµ©ÿ“…üsg{UְR7ÿנֻׁÿ—‘ûְֹ·ÿידßÿםחהÿכובÿחאÛÿזÞ״ÿÜ׳װÿ׳ׂ־ÿױÊֱÿֲ·¬ÿ›“†שחױ׃ÿְR7ÿְR7fְR7ÿעֻׁÿ—’‹שְֹ·ÿוßÚÿםחהÿךדßÿטבÛÿהÛױÿ׳־ֶÿִ÷¯ÿ›“‡צלױׁÿְR7ÿְR7\    ְR7fְR7ÿץֹׁÿ–’פְֹ·ÿוßÚÿםחדÿךהßÿÛ׃ּÿֶ¼²ÿ›“‡צלױׁÿְR7ÿְR7\            ְR7³ְR7ÿקַׁÿ”‘לְֹ·ÿבÚױÿÞ׳ׁÿָ¿µÿ›“‡רםױ׀ÿְR7ÿְR7\                ְR7³־@%ÿְR7ÿרַׁÿ–’ןְֹ·ÿְֹ·ÿ“…üךװ׀ÿְR7ÿְR7\                    ְ2ÿ¨ÿ_ÿְR7ÿןֽׂÿ’‡ע—‘צו׃ׂÿְR7ÿְR7\                        ûUIÿÞ?/ÿ˜ÿְR7fְR7ÿ‎־ֲÿ‎־ֲÿְR7ÿְR7\                            Ü@.ÿֿ>%ÿ־@%ÿ    ְR7fְR7ÿְR7ÿְR7\                        €  €  €  €  €  €  €              €  ְ  ְ  ְ  ְ  ִ?           ט  2    (  3       ¨  4     h  5        ¨  6      h  7              (       @                                  €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                  ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿÿÿÿÿÿÿÿÿרנ   ÿÿרÿרÿרÿÿנ   ÿרÿÿÿÿÿÿÿרÿנ   ÿÿxwwvvvloÿנ   ÿÿÿÿÿÿÿÿÿÿÿ€   ÿÿÿÿÿÿÿÿÿÿנ   ÿÿwwggglfoÿנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿרwwwgggֶoרנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿwwgvv|foרנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿwwwggf|oÿנ   ÿÿÿÿÿÿÿÿÿÿרנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿwwhgggֶoÿנ   ÿÿÿÿÿÿÿÿÿÿÿנ   ÿÿÿÿÿÿÿÿÿÿÿ€   ÿÿxwggֶÿÿרˆ€   ÿÿÿÿÿÿÿÿקˆx€   ÿÿÿÿÿÿÿÿרÿˆ€   ÿÿÿÿÿÿÿÿרÿ€    ÿÿÿÿÿÿÿÿרˆ     ÿÿÿÿÿÿÿÿˆ€     ÿÿÿÿÿÿÿÿר€     ˆˆˆˆˆˆˆˆ€     ÿÿÿÿÿÿÿÿא  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  ÿא ÿא ÿא ÿ(                €                         €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ wwwwww ÿÿÿÿÿק ÿÿÿÿÿק ÿwwgoק ÿÿÿÿÿר ÿw~voר ÿÿÿÿÿר ÿwwgֿר ÿÿÿÿÿר ÿwwgoר ÿÿÿÿÿר ÿw~ÿÿˆ ÿÿÿÿˆˆ ÿÿÿÿ€ ÿÿÿÿˆ  ˆˆˆˆ€  €  €  €  €  €  €  €  €  €  €  €  €  €  €  €  €  (       @                              ֶt" ָv" ֵx+ ֵx- Ê|- ִ}7 ֳ< ¿‰V ¿Y ¼c ¼d ¼‘h »“n ÷—w ¹™{ ¸› ֲA ֱƒJ ְ†O ·† ¶  ¼©™ ©©© ®®® ²²² ¸¸¸ ¾¾¾ ֳֳֳ ֶֶֶ ֹֹֹ ֽֽֽ ױױױ ÜÜÜ דדד ההה ךךך צצצ קרר ששש ûüü ‎‎‎                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ÿÿÿ                                                                     ''''''&&&&&&&&&&&&&&&&&         '''''''&&&&&&&&&&&&&&&&         ''''''''&&&&&&&&&&&&&&&         ''''''''''&&&&&&&&&&&$&         ''''
+	&&&&         '''''''''%&'&&&&&&&&&&&         ''''''''''''&&&&&&&&&&&         ''''
+	&&&&         '''''''''&&''%&'&&&&&&&         ''''''''''''''''&&&&&&&         ''''
+	&&&&         '''''''''''''&'''&&&&&&         '''''''''''''''''&&&&&&         ''''
+	%%%%         '''''''''''''''''''''''         '''''''''''''''''''''''         ''''	''''         '''''''''''''''''''''''         '''''''''''''''''''''''         ''''	''''         '''''''''''''''''''''''         ''''''''''''''''''''''          '''''''''           '''''''''''''''''         '''''''''''''''''&&"         ''''''''''''''''' &$           '''''''''''''''''#            ''''''''''''''''&             ''''''''''''''''                                          ÿÿÿÿÿÿÿÿא  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  ÿא ÿא ÿא ÿ(                                     zzz ִ{0 ֲ€= ½^ ½d »“n ÷•q ¹˜{ ְ†M †††   ¸›‚ ¸„ ¬¬¬ ²²² µµµ ¹¹¹ ½½½ ְְְ ֵֵֵ ÊÊÊ ßßא ווז צצצ תתû ûüü ‏‏‏                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         ÿÿÿ     
+ÿÿÿÿÿÿÿÿÿÿÿ
+   ÿÿÿÿÿÿÿÿÿÿÿ   ÿÿ	ÿÿ   ÿÿÿÿÿÿÿÿÿÿ   ÿÿ	ÿÿ   ÿÿÿÿÿÿÿÿÿÿÿ   ÿÿ	ÿÿ   ÿÿÿÿÿÿÿÿÿÿ   ÿÿ	ÿÿ   ÿÿÿÿÿÿÿÿÿÿÿ   ÿÿÿÿÿ   ÿÿÿÿÿÿÿÿ   ÿÿÿÿÿÿÿÿ    ÿÿÿÿÿÿÿÿ          €  €  €  €  €  €  €  €  €  €  €  €  €  €  €  €  (       @          €                                                                                                                                                                H   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   H                           ײײײÿרששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿץצצÿץצצÿץצצÿץצצÿ   `                            ײײײÿשששÿשששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצצצÿץצצÿץצצÿ   `                            ײײײÿשששÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצצצÿץצצÿ   `                            ײײײÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿ   `                            ײײײÿשתתÿשתתÿשתתÿשששÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿצקקÿצקקÿצקקÿצקקÿ   `                            ײײײÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿ   `                            ײײײÿתתתÿתתתÿתתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿקקקÿצקקÿצקקÿצקקÿצקקÿ   `                            ײײײÿתûûÿתתתÿתתתÿתתתÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿקקקÿצקקÿצקקÿצקקÿ   `                            ײײײÿתûûÿתûûÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿקקקÿצקקÿ   `                            ײײײÿûûûÿתûûÿתûûÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿשששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿקררÿקררÿקקקÿ   `                            ײײײÿûûûÿûûûÿתûûÿתûûÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿקררÿקררÿקררÿקררÿ   `                            ײײײÿûûûÿûûûÿûûûÿûûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿקררÿ   `                            ײײײÿûüüÿûûûÿûûûÿûûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרררÿרררÿקררÿקררÿקררÿ   `                            ײײײÿûüüÿûüüÿûûûÿûûûÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿרררÿרררÿרררÿקררÿ   `                            ײײײÿüüüÿüüüÿûüüÿûüüÿûûûÿûûûÿתûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרששÿרררÿ   `                            ײײײÿüüüÿüüüÿüüüÿûüüÿûûûÿûûûÿûûûÿûûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿרששÿרששÿרששÿרששÿרששÿ   `                            ײײײÿüüüÿüüüÿüüüÿüüüÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿרששÿרששÿרששÿרששÿ   `                            ײײײÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿûüüÿûûûÿûûûÿûûûÿûûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿשששÿשששÿרששÿ   `                            ײײײÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿûüüÿûüüÿûûûÿûûûÿûûûÿתûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿשששÿשששÿ   `                            ײײײÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿ¶ ÿ·†ÿ¸›ÿ÷—wÿ»“oÿ¼‘hÿ¼cÿ¿Yÿְ†OÿֱƒJÿֲAÿִ}7ÿֵx-ÿֶt"ÿָv"ÿשתתÿשתתÿשתתÿשששÿ   `                            ײײײÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿûüüÿûüüÿûûûÿûûûÿûûûÿûûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿשתתÿשתתÿ   `                            ײײײÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿûüüÿûûûÿûûûÿûûûÿûûûÿתûûÿתûûÿתתתÿתתתÿתתתÿשתתÿװװװÿ   `                            ײײײÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ¼©™ÿ·‡ÿ¹™{ÿ»“nÿ¼dÿ¿‰VÿֱƒJÿֳ<ÿֵx+ÿÊ|-ÿûûûÿûûûÿûûûÿתûûÿתûûÿײײײÿ־־־ÿ¿¿¿ÿ¸¸¸ÿ   V                           ײײײÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿûüüÿûüüÿûûûÿûûûÿ²²²ÿ«««ÿ©©©ÿ©©©ÿ¯¯¯ÿ¸¸¸‏   7                           ײײײÿ‏‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿûüüÿûüüÿûûûÿֶֶֶÿץץץÿפפפÿדדדÿ¼¼¼‏ddd„                              ײײײÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿûüüÿ־־־ÿתתתÿכככÿÊÊÊ‏mmm                                  ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿüüüÿüüüÿֽֽֽÿהההÿֹֹֹ‏hhh                                      ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿךךךÿֳֳֳÿַַַ‏eee~                                          ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿÜÜÜÿ¿¿¿‏kkk‚                                              ײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿּּּרp                                      א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  א  ?א  א  ÿ(                 @                      zzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿzzzÿ            †††ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ†††ÿ            ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ            ÿÿÿÿÿÿÿÿÿ¸„ÿ¹˜{ÿ»“nÿ½^ÿְ†Mÿֲ€=ÿִ{0ÿÿÿÿÿÿÿÿÿÿ            ¬¬¬ÿÿÿÿÿÿÿÿÿתתûÿתûûÿתûûÿûüüÿü‎‎ÿü‎‎ÿ‎‏‏ÿÿÿÿÿÿÿÿÿ¬¬¬ÿ            ­­­ÿÿÿÿÿÿÿÿÿ¸„ÿ¹˜{ÿ»“nÿ½^ÿְ†Mÿֲ€=ÿִ{0ÿÿÿÿÿÿÿÿÿ­­­ÿ            ±±±ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ±±±ÿ            ³³³ÿÿÿÿÿÿÿÿÿ¸„ÿ¹˜{ÿ»“nÿ½^ÿְ†Mÿֲ€=ÿִ{0ÿÿÿÿÿÿÿÿÿ³³³ÿ            µµµÿÿÿÿÿÿÿÿÿü‎‎ÿü‎‎ÿü‎‎ÿ‎‏‏ÿ‎‏‏ÿ‎‏‏ÿ‎‏‏ÿÿÿÿÿÿÿÿÿµµµÿ            ¸¸¸ÿÿÿÿÿÿÿÿÿ¸„ÿ¹˜{ÿ»“nÿ½^ÿְ†Mÿֲ€=ÿִ{0ÿÿÿÿÿÿÿÿÿ¸¸¸ÿ            ÷÷÷ÿÿÿÿÿÿÿÿÿ‎‏‏ÿ‎‏‏ÿ‎‏‏ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ¸¸¸ÿ            ¼¼¼ÿÿÿÿÿÿÿÿÿ¸›‚ÿ÷•qÿ½dÿ½^ÿÿÿÿÿÿÿÿÿÿÿÿÿווזÿßßאÿ÷÷÷ÿ            ½½½ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ÷÷÷ÿ¸¸¸ÿ¸¸¸ÿ÷÷÷ÿ            ¿¿¿ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֵֵֵÿצצצÿ÷÷÷שÝÝÝ_            ְְְÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÊÊÊÿ÷÷÷‎דוגi                ְְְÿְְְÿְְְÿְְְÿְְְÿְְְÿְְְÿְְְÿְְְÿ¿¿¿üץץץy                €  €  €  €  €  €  €  €  €  €  €  €  €  €  €  €           ט  8    (  9       ¨  :     h  ;        ¨  <      h  =       (       @                                  €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                     s1!!          37ssƒ7        s7¹{{‹S0      s7¿{x·“w·0     8¸ˆµ333‹[p     ‹{x;yw·‹s0     ·˜¸‰‹{[y‹p     x¸ˆ·339‹7°     ‹{ˆ3{yƒˆ9p     wx¸‹w····0     ¸¸ˆ7“s‹°     ‹‹ˆ··›‹ˆ3p     ‰ˆ¸‰‹ƒw··     ¸¸;s3“‰3€     ˆ‹ˆƒ‹ˆ¸¸ƒ0     ¸ˆ‹‹w·8°     ‹378˜881s      7ƒ›{y83        8¸   {q         8x   {S         ;x   ‡3         7   {s         3p   s“         9p   ƒs         s8   33         33€ 1s         y8 s0         3s337p          s¸ˆ“7           33€                        ÿÿÿÿÿ€?ÿ‏ ÿנ ÿְ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ?ÿאü?ÿנü?ÿנü?ÿנü?ÿסü?ÿסü?ÿנü?ÿנx?ÿר0ÿר ÿü ÿÿ‏ÿÿÿÿÿÿ(                €                         €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ 333333 ‹{‹{›‰ ¹³›333 {‹ˆ·¹³ ·“¹973 ‹‹‹‹;ƒ ›7·93“ ¸¸›‹{ƒ 7s377“  ‡ s   · ·   ƒ s   ƒ ·   ¸x;—    x¸{p    yw   €  €  €  €  €  €  €  €  €  ד  ד  ד  ד  א  נ  ר?  (       @                              
+1C 3E >T @W F_ CX Og Oe Nh Pk Rn Ql Ri Ur Vs Xq Xu Yw Zx \z \y ]| Zy ^{ ^| `z d{ "bz !` ,`y a‚ f‡ dƒ f… i… g‰ i j m l n o‘ p’ r” t–  g +o‹ !p &s -r 3q 2w 3x #v— .s’ !v˜ "x™ $z› ${ &| -{ (~ 5x’ 0y— >z— 6} )  Wt‚ Bz” ?€› *€¡ ,¢ .ƒ₪ /„¥ 6‚₪ 2‡¨ 3ˆ© 4‰× 6‹¬ 7­ 8® :° ;± <‘² >“´ ?”µ G†£ I‰¦ N¥ M© P× [’« A° Cµ @•¶ B—¸ C˜¹ D™÷ F›¼ G½ I˜¼ H¾ k‘¢ m’¢ n”₪ j—× k¯ p”₪ h² q± z£· Jְ K ֱ M¡ֲ O₪ֵ P¥ֶ R¦ָ S¨ֹ T©Ê V«ּ W¬ֽ X­־ V×׀ S­ײ [°׀ \±ׁ _´װ ®ֳ {­ֵ r¯ָ `µױ aµÜ f÷Ú o»Þ i¾Ý n¾Ü r÷Ù s¾ß kְß mֲב qֶו yִו sָח uÊי yֻך €×¾ ¯ְ •»ֻ •ֱױ ¸׃ß €־כ ־ז †׀ל ‰ׁל ׃ם “ױמ ״ן ״ן Úנ ₪Üס ®ßע ²בף ¸הפ ¾זץ ֵחפ ֵטצ ָיצ ּכק ׂםר                                                                                                                                                                                                                                                                                                                                                     ÿÿÿ                                          “n                     :GUUUP-x:D                o	_PURUUUUt>%3             E%t…£zsttcUPCxx_:            Qƒ‡‹£cQL:-$%%sJct            ‹…… QGPPQUUc™‡_::            _xssx‡¥ttsc_UP‡ussG            -cx‡‘¥_PG:-%%-c-P‹            :ƒ‹…ƒ¡ULQRUccs™‹Q*-            cxxxƒ§txuscUU‹xpcC            -u…¡§_PLG:**:…c-G‹            :‹‹‡¢_PPUUUcs…L%-            cƒƒƒ©xzxtppszcUJ            :£§§cPJ>:-*Gx`*>‹            G™™£ƒsz…‹ƒ‡t'-            c‹™¡£™‹ƒ……}xQ…‡            z™….#Fsccspc/>F             ‚GP3P_ptxP/                 •6      h„5                  *‡x–      h|3                  -t_–      lu5                  -UB–      hp/                  >A–      j]1&                  *J–      k@&&                  .%^’      7.&&                  W8_’    m6F                  ’:P:\  Y$*&’                   Z6P%'G[                     Xs§G%Z                       6P*&”                                                 ÿÿÿÿÿ€?ÿ‏ ÿנ ÿְ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ÿ€ ?ÿאü?ÿנü?ÿנü?ÿנü?ÿנü?ÿנü?ÿנü?ÿנx?ÿנ0?ÿר ÿü ÿÿ‏ÿÿÿÿÿÿ(                                     >z› x¦ Gs Sv Et’ N}— D{› Uw Rz’ Vx‘ Q|— S}˜ [~˜ ¹ ‘¾ V€˜ ]ƒ› H‰© Y“® l§ q“© {—× u™® ״  •ֲ "—ִ $™ֶ )Ê +ּ , ֽ 0₪ׁ 3§װ 3«׳ 5×ײ 3¬Ù 9®Ú 4±Ü ;°Ü 4´ב ?´א N°ׂ m±ֹ C¸ה E÷ו G¼ח I¾י kֲÞ Kְכ Lֱל Qֵנ Vֻץ ^׃‎ mַד dָז dָט sֻה `ױÿ dױÿ hײÿ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ÿÿÿ     00.,,,4((     "   000.,,9((     $   0020..9((      &   003200;((   
+
+     
+7
+   #       7
+   #       7
+   #       6   '       5*%        /8/)          
+      €  €  €  €  €  €  €  €  €  ד  ד  ד  ד  א  נ  ר?  (       @          €                                                                                                                                                                                      -n‹*k×ToלKdצAWü3Eÿ@Wÿ
+1CÿE]ס=Ou   
+                                                                       /qBOküZxÿ$z›ÿ*€¡ÿ=’³ÿ=’³ÿ=’³ÿ7­ÿt–ÿV«ּÿ$z›ÿUrÿ;N´<                                                         +mVtשNhÿsָחÿ@•¶ÿ6‹¬ÿ;±ÿ;±ÿ=’³ÿ=’³ÿ=’³ÿ;±ÿrַזÿP¥ֶÿ(~ÿiÿ\yÞ$-R   &                                     0r&#eƒÛVs‏mÿO₪ֵÿg»Ûÿ¸הפÿX­־ÿP¥ֶÿR§ָÿP¥ֶÿF›¼ÿ?”µÿ6‹¬ÿ,¢ÿ_´װÿT©ÊÿV«ּÿ@•¶ÿ&|ÿ8Ft   E   8   %      	                      Rm‏9¯ÿ[°׀ÿ`µױÿi¾Ýÿkְßÿ¸הפÿD™÷ÿ9¯ÿ2‡¨ÿ&|ÿo‘ÿiÿiÿiÿ\±ׁÿM¢ֳÿ2‡¨ÿF›¼ÿP¥ֶÿ6Dt   H   B   8   ,                       \zÿlֱאÿe¹Ùÿe¹Ùÿ`µױÿ[°׀ÿ₪Üסÿ:°ÿ.ƒ₪ÿ3ˆ©ÿ6‹¬ÿ;±ÿ=’³ÿ@•¶ÿG½ÿ†׀לÿj¿Þÿ@•¶ÿ'}ÿ&|ÿ8Fq   G   A   9   0   '                   @•¶ÿU×ֻÿP¥ֶÿO₪ֵÿX­־ÿi¾ÝÿֵטצÿZ¯ֿÿR§ָÿQ¦ַÿL¡ֲÿG½ÿA–·ÿ:°ÿ8®ÿi¾ÝÿR§ָÿK ֱÿJְÿ-‚£ÿ<Kl   @   8   -   #                      v—ÿG½ÿW¬ֽÿi¾Ýÿyֻךÿ״ןÿֵטצÿB—¸ÿ7­ÿ,¢ÿ%{ÿr”ÿo‘ÿkÿo‘ÿ`µױÿH¾ÿ!w˜ÿ6‹¬ÿnֳגÿ2\oD   !               
+                %{ÿa¶ײÿi¾Ýÿg»Ûÿa¶ײÿ_´װÿ®ßעÿ>“´ÿ2‡¨ÿ9¯ÿ:°ÿ>“´ÿA–·ÿF›¼ÿM¢ֳÿ‰ׁלÿkְßÿ9¯ÿo‘ÿo‘ÿn¯                                    B—¸ÿU×ֻÿT©ÊÿU×ֻÿa¶ײÿrַזÿָיצÿ[°׀ÿS¨ֹÿW¬ֽÿR§ָÿO₪ֵÿH¾ÿ@•¶ÿ>“´ÿnֳגÿV«ּÿI¿ÿD™÷ÿ,¢ÿ8cv;                                   s•ÿT©Êÿf÷ÚÿyֻךÿÚנÿ®ßעÿָיצÿB—¸ÿ7­ÿ2‡¨ÿ*€¡ÿ"x™ÿo‘ÿo‘ÿ"x™ÿb·׳ÿI¿ÿt–ÿ.ƒ₪ÿnֳגÿ-UhL   )   &                            (~ÿlֱאÿuÊיÿuÊיÿnֳגÿg»Ûÿ²בףÿ@•¶ÿ5«ÿ8®ÿ;±ÿ=’³ÿ@•¶ÿG½ÿP¥ֶÿ“ױמÿf÷Úÿ2‡¨ÿiÿq“ÿNz)                     
+             E»ÿ`µױÿa¶ײÿa¶ײÿnֳגÿ‰ׁלÿׂםרÿ^³׃ÿW¬ֽÿY®ֿÿU×ֻÿR§ָÿJְÿI¿ÿK ֱÿsָחÿY®ֿÿD™÷ÿ<‘²ÿ2‡¨ÿ£־ג                                    #yÿ]²ׂÿqֶוÿ‰ׁלÿ¸הפÿֵטצÿּכקÿB—¸ÿ7­ÿ2‡¨ÿ) ÿ"x™ÿq“ÿr”ÿ-‚£ÿS¨ֹÿC˜¹ÿo‘ÿ) ÿnֳגÿ£־ג                                        q±־*€¡ÿuÊיÿ‰ׁלÿ€־כÿuÊיÿ†׀לÿ¾זץÿa¶ײÿM¢ֳÿX­־ÿ]²ׂÿj¿Þÿnֳגÿqֶוÿ`µױÿ]²ׂÿkְßÿP¥ֶÿmÿr”ÿ£־ג                                        q±־D™÷ÿnֳגÿ€־כÿ²בףÿ¾זץÿ‰ׁלÿ€־כÿnֳגÿ`µױÿg»Ûÿf÷ÚÿZ¯ֿÿT©Êÿ_|ÿd{ÿXqÿOgÿ8®ÿf÷Úÿg»Ûף¥ֿג                                        p°ֽY®ֿÿ†׀לÿf÷Úÿ gÿi…ÿ"bzÿ3y•ןI¿ÿF›¼ÿH¾ÿK ֱÿJְÿF›¼ÿ_|ÿs¾ßÿ+o‹ÿSjÿo‘טf‡׃jb“ֱױ                                            9²µ*€¡ÿ3ˆ©ÿ`zÿ״ןÿp¹Ùת(p‹ן7­ÿB—¸ÿJְÿR§ָÿT©Êÿ8®ÿ\xÿo»Þÿ.s‹ÿ]|ÿ                                                                    K–¸–#v—ÿ׃םÿrֱהס`÷׃                        OiaµÜÿ2wÿ[zÿ                                                                        p’ÿi¾ÝÿM¦־עw×ֲƒ                        MhS­ײÿ/r‹ÿ^{ÿ                                                                        q“ÿQ¦ַÿ9±סv×ֲƒ                        Mh™S¥ָÿ3xÿZxÿ                                                                        r”ÿ=’³ÿ*t˜נv×ֲƒ                        NiI˜¼ÿ,q‰ÿ!`ÿ                                                                        aÿ*€¡ÿb…״'c‚:                        _|¥A°ÿ&sÿkÿ[›¸                                                                    ]{ÿmÿ6‚₪ÿ'f†n                        +o²0y—ÿmÿjÿ                                                                        e…‎iÿB±ÿ$p’ׁ                        "kסdƒÿnÿkÿ                                                                        *s•Übƒÿ!w˜ÿC”´ÿ/t•›                /t•¹^}ÿNhÿ!pÿ&s•ך                                                                        /qYPkÿ"x™ÿ6‹¬ÿ${ÿ,s”ֶ1s‘F1s‘n,s”ױf‡ÿ>Tÿo‘ÿo‘ÿ/qY                                                                            -z›״F_ÿ!w˜ÿ4ˆ¨ÿo‘ÿ]|ÿ]|ÿmÿXuÿSoÿ-‚£ÿ-y™װ                                                                                    +x™ÜRlÿO¢ֲÿֵחפÿ־זÿ\±ׁÿ/„¥ÿ^}ÿg‰ÿ-y׳                                                                                            8¢£!v™‏5«ÿr”ÿ\{ÿRnÿk‎8‡                                                                                                                                                                                                    ÿÿÿÿÿ€ÿü  ÿנ  ?€  €  €   €   €   €  `€  €   €   € € ÿ  ÿ  ÿ  ÿ€ ?ÿאü?ÿנü?ÿנü?ÿנü?ÿנüÿנü?ÿנü?ÿנx?ÿנ ?ÿר ÿü ÿÿ‏ÿÿÿÿÿÿ(                 @                      x¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿx¦ÿ            KְכÿKְכÿI¾יÿE÷וÿD¹וÿC¸הÿ^׃‎ÿ?´אÿ, ֽÿ, ֽÿ, ֽÿ?´אÿx¦ÿ            3§װÿ3§װÿ$™ֶÿ$™ֶÿ"—ִÿ •ֲÿ5×ײÿ¹ÿy§ÿy§ÿy§ÿ‘¾ÿx¦ÿ            KְכÿKְכÿMֲםÿH½טÿG¼חÿF»זÿ`ױÿÿ?´אÿ, ֽÿ, ֽÿ, ֽÿ?´אÿx¦ÿ            3§װÿ3§װÿ+ּÿ*ֻÿ(ֹÿ%ַÿ9®Úÿ¹ÿy§ÿy§ÿy§ÿ‘¾ÿx¦ÿ            KְכÿKְכÿRֶסÿLֱלÿJ¿ךÿI¾יÿdױÿÿ?´אÿ, ֽÿ, ֽÿ, ֽÿ?´אÿx¦ÿ            3§װÿ3§װÿ1¥ׂÿ0₪ׁÿ, ֽÿ*ֻÿ;°Üÿ¹ÿy§ÿy§ÿy§ÿ‘¾ÿx¦ÿ            KְכÿKְכÿVֻץÿQֵנÿMֲםÿJ¿ךÿhײÿÿ?´אÿ, ֽÿ, ֽÿ, ֽÿ?´אÿx¦ÿ            x¦ÿx¦ÿN}—ÿN}—ÿN}—ÿx¦ÿx¦ÿx¦ÿRz’ÿN}—ÿGsÿx¦ÿx¦ÿ                    Q|—ÿdָטÿWwÿ            Eu“ÿ3«׳ÿD{›ÿ                            S}˜ÿeֹטÿVx‘ÿ            Ft’ÿ3¬Ùÿ>z›ÿ                            S}˜ÿeֹטÿVx‘ÿ            Ft’ÿ3¬Ùÿ>z›ÿ                            V€˜ÿdָזÿ]ƒ›ÿ            H‰©ÿ4´בÿ[~˜ÿ                            S}˜Ùmַדÿm±ֹÿu™®ÿ{—×ÿY“®ÿ4±Üÿ״ÿS}˜Ù                            {—×hS}˜ÿkֳßÿsֻהÿkֲÝÿN°ׂÿ״ÿS}˜ÿ{—×h                                {—×hY›ÙVx’ÿSvÿTw‘ÿS}˜Ù{—×h                    €  €  €  €  €  €  €  €  €  ד  ד  ד  ד  א  א  נ           ט  >    (  ?       ¨  @     h  A        ¨  B      h  C              (   0   `                                      €   €€ €   € € €€  ְְְ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ™™‘™™™™™™‘™™‘™™™™™™‘™™™™™™™™‘™™™ ™™™        9™™™        סÿÿÿÿÿÿÿ™™™™™ÿÿÿÿÿÿÿÿסˆˆˆˆˆˆ‰™™»™™˜ˆˆˆˆˆˆˆ™™“39™™™™x™™‘™™‘x™™xxˆ                    ˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆקwwwwwwwwwwwwwwwwwwx€קwwwwwwwwwwwwwwwwwwxˆקwwwwwwwwwwwwwwwwwwxˆ€קwÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿקwxˆˆקwˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ‡wxˆˆקwwwwwwwwwwwwwwwwwwxˆˆקwÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿקwxˆˆקwˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆ‡wxˆˆקwwwwwwwwwwwwwwwwwwxˆˆקwwwwwwwwwwwwwwwwwwxˆˆקwwwwwwwwwwwwwwr"'wxˆˆקwwwwwwwwwwwwwwz×§wxˆˆקwwwwwwwwwwwwwwwwwwxˆˆקwwwwwwwwwwwwwwwwwwxˆˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿרˆˆ‡wwwwwwwwwwwwwwwwwwwˆˆwwwwwwwwwwwwwwwwwwwxˆ‡wwwwwwwwwwwwwwwwwwwˆwwwwwwwwwwwwwwwwwwwxˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆˆÿüאÿÿ  ÿ‏ֱÿÿ  ÿÿƒÿÿ  ÿÿƒÿÿ  ÿÿְÿÿ  ÿÿאÿÿ  ÿÿנ?ÿÿ  ÿÿְÿÿ  `      `      `      ÿÿ ÿÿ  ÿ‏Aÿÿ  ÿü`ÿÿ  ÿÿרÿÿ  ÿÿרÿÿ  ÿÿרÿÿ  ְ    ?  €      €      €      €      €      €      €      €      €      €      €      €      €      €      €      €      ְ      א      נ      ר      ü      ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  (       @                                      €   €€ €   € € €€  ְְְ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ™‘™™™™™‘™‘™™™™™‘™™	™™     ™™™     סÿÿÿÿש™›™™ÿÿÿÿÿˆˆˆˆ™™ˆ‰™˜ˆˆˆˆ™‘™™             ˆˆˆˆˆˆˆˆˆˆˆˆˆקwwwwwwwwwwwx€קÿÿÿÿÿÿÿÿÿÿקxˆקˆˆˆˆˆˆˆˆˆˆ‡xˆקÿÿÿÿÿÿÿÿÿÿקxˆקˆˆˆˆˆˆˆˆˆˆ‡xˆקwwwwwwwwwwwxˆקwwwwwwwww"'xˆקwwwwwwwww×§xˆÿÿÿÿÿÿÿÿÿÿÿÿרˆ‡wwwwwwwwwwwwˆwwwwwwwwwwwwxˆˆˆˆˆˆˆˆˆˆˆˆˆÿÿÿÿÿÿÿÿÿÿÿÿÿ‡ֳÿÿֳ‡ÿÿבÿÿנÿÿר?ÿÿנÿ@  @  @  ÿ„Cÿÿüÿÿüÿְ  €  €  €  €  €  €  €  €  €  €  ְ  א  נ  ÿÿÿÿÿÿÿÿÿÿÿÿ(                                             €   €€ €   € € €€  ְְְ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ‘‘™™‘   ™™   wwy—‰—ww      ‡ÿÿÿÿÿx‡ˆˆˆˆˆx€‡wwwwwx€‡wwwwrx€ÿÿÿÿÿר€wwwwww€ˆˆˆˆˆˆשü?	™‏      ‏™™‏  €  ÿÿ  ™›  ÿÿ  ÿ  ˆˆ€ ™ˆְ˜ˆÿÿˆ(   0   `                             ½ "!ִ &%ֽ %$¿ *)ױ 76מ @?פ FE‎     ןֳֳ ח¼¼ קÊÊ ׳°° ֵ¡¡ ß·· t`` ֿ¬¬ ַ§§ ƒƒ ”|| ¿¡¡ ¹ „„ “|| ‘zz ™‚‚ ‹vv דֲֲ €mm ×’’ …rr aSS {jj °˜˜ £ }mm m__ ‹zz כֿֿ vhh h\\ ˜‡‡ maa [QQ znn e[[ ~~ [SS RKK ֲ´´ ֽ¿¿ JEE zrr OJJ XSS גײײ vpp ¼³³ ₪ >;; ֵ¼¼ ZVV B?? ^ZZ pll QNN ‡ƒƒ IGG ˆ…… jhh :99 סממ €~~ ÷¹¹ ”““ Ù־ֽ <:9 ¯¥™ ÿסא ZUO ÿסß פחײ ]€ Ib .> 1¹ )״ !;X Hoװ "k 3« "1— :MÊ .6ֻ #)¸ -4Þ 6>ה 26½ mr‎ ¼ ¼ ½ !"ֵ ""ֵ %%ֽ ))ױ **ױ %%¹ ##¬ ..Þ ..Ý &&´ 22ז ‰ 66ם ;;ץ ==û <<ץ :<מ ??ÿ >>ת AAÿ CCץ JJÿ UU‎ GG׃ ((t [[‏ TTד 00y hhÿ eeצ iiû mmÿ mmû vwת yyÿ ll׳ ††û ÿ vv״ FFj hh ii ''1 33> „„ EEO }}‰ ÿÿÿ üüü ûûû צצצ ץץץ ףףף ססס מממ םםם ךךך ייי זזז ההה גגג אאא ßßß ÝÝÝ ÚÚÚ ÙÙÙ ׳׳׳ װװװ ׂׂׂ ׁׁׁ ־־־ ּּּ ֹֹֹ ַַַ ֵֵֵ ֳֳֳ ְְְ ¿¿¿ ¼¼¼ »»» ¹¹¹ ··· µµµ ³³³ °°° ¯¯¯ ¬¬¬ ««« ¨¨¨ ¦¦¦ ¥¥¥ £££       ››› ™™™ ——— ””” ’’’    ‹‹‹ ˆˆˆ ††† ……… ‚‚‚ €€€  }}} {{{ yyy www ttt sss ppp ooo mmm kkk hhh fff ddd ccc ___ \\\ [[[ XXX VVV UUU SSS QQQ OOO MMM JJJ III GGG DDD AAA >>> === ;;; 888 777 555 333 /// *** &&& $$$ !!!       ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ״״והײÿÿÿÿÿÞודÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‰dedl“׃ÿÿÿÿ c oÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‰gfflמ׃ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ‰hhq‎‘khhÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÚוווווווווווווודajjY^ji~ךווווווווווווווווÚÿÿÿתתתתתתתתתתתתתתתתת_nmnnmnZüתתתתתתתתתתתתתתתתתוÿÿÿֶÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙV`pppp]RÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙÙתוÿÿÿֶ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿VXrrWSָ¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿¿תוÿÿÿֶ                 UvussaTÊ©               תוÿÿÿֶPPNPNNNNPNNPPNPNK`x‡tt[OMQPPPPPPPPPPPPPPתÚÿÿÿÿֶֶֶֶֶֶֶֶֶֶֶֶֶֶֶּ}w|…|ywסÙֶֶֶֶֶֶֶֶֶֶֶֶֶֶָÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿw{‚\UVbz״ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿˆw‹‹€<¢¿ˆ‹|”ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿˆ„„†’P ֱÙ}ƒ„ƒÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֶQ×ֽÞûוÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ־Mßףר‏מÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿßעLסקש‏üײÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿßכץÙ´<#;שעטÚÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿßמןֽ©¥¨:0(צFםד־ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿßןהֲ¾µ¨×¬ֵקקק(3ץנחÚÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿוןױ·¥§עׁ¬¿Ü5קקקקק;$צעלגÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿייֹ®¥§©«¾ׁלהֽB)קעמכיטימ/3פןזײÿÿÿÿÿÿÿÿÿÿÿÿÿÿÛיßְ¥¥¨©«ֱÝמ׳¼¶¸D.קמוÞÜÙײװׁװß% צעךßÿÿÿÿÿÿÿÿÿÿאיװ¶¥¦¨×²ֽזÝֶ´·¸÷¼H4קמוÞÜÙײװׁ־ֻיß4+פןוײÿÿÿÿÿדדÊ­¥§¨×ֲ״ו׀÷µ·¸»½¾ְײEקמוÞÜÙײװׁ־ֻקקF->עÞÿÿÝÝ½©¥§©±ֽוױִ³I·¹¼½¿ֱ¼¬¶ÛכלךÞÜÙײװׁ־ֻקקקקק		טÿÿָ¹ד¨­¿׳בֹ¶³¶¸÷¼½ְ¾±›¯ִ³²ַÝכ=ה״װׁ־ֻקקקקק
+	כÿÿִ±ֽׁÝׁ»²´·¸÷¼¾ְ´¥ ¥¦´ֳ±¨©©³ַEAגאװֻקקקקק"לÿÿ׃ײ׳ֳ´³µ·¸»½¾¹©¡£₪₪¥¦¦§§¨¨©©«´JEA?ווCקקלÿÿװI²³I·¹¼½»®¡  ¡¡₪¨«¯°±¸¹÷»÷¶·¶°IJ@6-$%!#לÿÿֹ³¶¸÷¼»³¥¥¬²±°©¨¢¢¥§×¬«±¯99121ָ@=."!'לÿÿּ¸÷¼´«¢¦£ ¢©¯­© ›˜—•–™›¢¥¢—•G7	KIJ8,"*וÿÿ־¸­₪¡£§¥₪©¥¢₪₪¡›˜—•–™›¢¥¢—•˜¡&«ּֿ¶ֶC׳ÿÿÊ¨™ ››¹ÙÙ¿£›₪₪¡›˜—•–™›¢¥¢—•˜¡7&×¾׳ׂ־׳ÿÿÿÿִָ¾¬•¹Ùנקקזׁ¸₪¡›˜—•–™›¢¥¢—•˜¡2ֻׁׁÿÿÿÿÿÿÿÿÿÿÿֵֶָ¶•§ֱבקC־¡›˜—•–™›¢¥¢—•©־׃ֿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֶַָ®₪₪¡›˜—•–™›¢¥¢₪»ָָֹÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֱָָ­›˜—•–™›µ־׀ֿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿָֹֹ·₪˜—• ¸ּֿֿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿֵָÊÊּÊÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ  ÿÿƒאÿÿ  ÿÿאÿÿ  ÿÿ€ֱÿÿ  ÿÿְÿÿ  א      ְ      ְ      ְ      ְ      ְ      א      ÿÿְÿÿ  ÿÿ€ÿÿ  ÿÿ€ÿÿ  ÿÿרÿÿ  ÿÿרÿÿ  ÿÿנÿÿ  ÿÿְÿÿ  ÿÿ  ?ÿ  ÿü  ÿ  ÿנ  ÿ  ÿְ     ‏      ר      א      €      €      €      €      €      €      €      €      €      ְ    ?  ר   ÿ  ÿ€  ÿ  ÿר  ÿÿ  ÿÿ ÿÿ  ÿÿאÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  (       @                             ('ײ *)ַ 87ק ;:‎ ON‎ YXÿ +*M     ך½½ כ¿¿ א·· ױ°° ¾ ±’’ ַ§§ « ƒoo » yy ¯—— uee …… }ll hZZ וָָ ₪ ~nn oaa m__ zkk h\\ ‡xx || SKK יװװ בּּ lbb PII F@@ ˜ wnn NHH b[[ Ý׀׀ xqq ¬££ ¶­­ ´¬¬ ¦ GDD ¡›› ‡‡ URR ®¨¨ חאא ְ÷÷ CAA ÷¶¶ hff :99 ‹‹ lkk dcc tmg ÿסא üמÝ לßֿ ÿסß Þֲׂ {um $¬׳ 4©׃ ™Ù 4N 4u  *y² 9‡ Ejֻ Rxע $;ׁ /Fß #. $(¶ 9@פ !"ֿ ##ױ ""־ &&ׂ &&ֿ ,,Ý &)¿ --א --ß ((ָ 22ך 33ט 77צ ,,ֳ ((® 23װ @@ÿ @Cץ ''w ** Q VWÿ YZÿ __ÿ ``ÿ ``ק abצ QQֻ \\ה llÿ ooת ssץ llה zzÿ ffײ xxא „„ו JJ| DDh nn¥ '': FFf XXv \\y --7 SSe yyƒ ppr ÿÿÿ ‎‎‎ ששש צצצ ץץץ ףףף ססס מממ םםם כככ טטט זזז ווו דדד אאא ÞÞÞ ÝÝÝ ÛÛÛ ״״״ ײײײ ױױױ ׃׃׃ ׀׀׀ ֿֿֿ ֽֽֽ ֻֻֻ ֹֹֹ ַַַ ֵֵֵ ֲֲֲ ֱֱֱ ¾¾¾ ½½½ ÷÷÷ ¹¹¹ ¶¶¶ ´´´ ²²² ±±± ¯¯¯ ¬¬¬ ««« ¨¨¨ ¦¦¦ ¥¥¥ £££       ™™™ ——— ••• ’’’    ‹‹‹ ‰‰‰ ‡‡‡ „„„ ‚‚‚  ~~~ ||| zzz xxx www sss ppp ooo lll kkk iii fff ddd ccc aaa ___ \\\ XXX WWW UUU SSS QQQ OOO LLL KKK III FFF DDD CCC @@@ ::: 888 777 333 &&& %%%                                                                                                יייייייייייייייייייייייייייייייייייייייייי}ƒיייי~z~יייייייייייייייייייייwVTfַייUa~ייייייייייייייייייייייvXWh€b ]~יייייייייייייָ׃׃׃׃׃׃׃׃׃O\ZR[Y׃׃׃׃׃׃׃׃׃׃׃׃יההההההההההההHP_^_Lוהההההההההההßיµ¯¯¯¯¯¯¯¯¯¯¯FM`cI¼¯¯¯¯¯¯¯¯¯¯הßיµCCC@@CCC@@@KejQ?DCCCCCCCCCה׃יµµµµµµµµµµµ‚Sitxdg׳»µµµµµµµµµיייייייייייייpqnJGNlmyייייייייייייייייייייייkku{A°|orsייייייייייייייייייייייייי·B¾חÞיייייייייייייייייייייייייייֹEגטזָֽיייייייייייייייייייייייֶׁÛ½0)בÚָׁיייייייייייייייייייֶײֽ·”–-!8Ýױָיייייייייייייייֶװֲ•Ü₪ֱ($דדדאÛָׂייייייייייֿׁ°™–™´׀Ê¸2*Úֹֻּֿ: %ßײָיייייֶ׃ֳ¦”–¥ֳ־¹©¨«<4Úֲֶֹֿ¾ֲÙ1Û־ייְ´•´ֲֹ«¦©¬®¨±װÛֲֶֹֿ¾ֶדד&Þיֶ¹«ֱֵ³₪§×­×™–¿­ְ׀־ִ¾ֶדדד
+	ßי®¶ֳ¶¦¥¨«©‘‘“”•–—˜™¨<=>Ù;דßי­©£¥©×¡•’›£¦₪₪¬7.3,ßי­§×¢™’“‘‘–›™†„‡‹”‰†6#95'״י©‘’—±›”‘†„‡‹”‰…ˆ"+¾´½ייי§¥ ˆ¯ַßÚֶ®–†„‡‹”‰…ˆ/µ²יייייייי§§§— ÷®–†„‡‹”•£¨§ייייייייייייייי§×©†„‡¨±­ייייייייייייייייייייייי©§¥¥©©ייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייייÿÿÿÿÿֳַÿÿֱ‡ÿÿאÿ€              ÿאÿÿְÿÿר?ÿÿרÿÿאÿÿ€ ÿ‏  ר  ְ  €                 €  נ  ÿ ÿÿנ?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ(                                    32ף 43מ ?=ץ ZY¾ .     ·˜˜ vv tdd “€€ „uu WNN Þּּ 3// VPP HCC smm >;; too EBB |ww ˆˆ NKK  מךך |{{ ™™ ‚ ˜‹ ÿסא ÿסß 2¬ױ I×ׁ 6W F€ C| !iÙ &V­ /v Tjװ `oÝ Tbנ !)¨ agÜ (/ױ © ''א ''Þ $$÷ ,-ב (*ֻ DDס OOÿ TU‎ ##g MMÜ \\ÿ ]]כ AA 66u ""F 66Y BBi ++= yy  [[v CCT üüü קקק עעע ללל זזז בבב ßßß ÞÞÞ ״״״ ׃׃׃ ׁׁׁ ׀׀׀ ֹֹֹ ַַַ ֳֳֳ ¹¹¹ ¸¸¸ µµµ ®®® ¥¥¥ ₪₪₪ £££   ™™™ ˜˜˜ ’’’   ˆˆˆ ‚‚‚  €€€  ||| zzz xxx ttt sss qqq ppp kkk jjj aaa XXX UUU SSS QQQ OOO MMM @@@ 333 &&&                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              yyyy@;?to=6Ayyyyykoo:/-!".0Boooowwwww$1*2,wwwwu[( #wo[[[[[ +4&i[[[[yyyyyy%5')3>yyyyyyyyy88<97yyyyyyyyyy]sxqjyyyyyyych_Vpjyyy``OXdatkerfVU\aWRM^glbnvmYZTPHGNKMQ	
+eYLJPHIECFIDyyYYglSECFIDYYYyyyyyyYYYYYYYyyyyyyyyyyyyyyyyyyyyyנµµ€ µµ  µ‚  tx g׳רµµנµµרייאיי€ יי  יp  JG my€יינייÿÿיי(   0   `                                                                                                                                       	                                                                                                                                                 6   ‹   §   ¥   †   /                 S   ˜   §   £   s                                                                                                                              ½P¼ÿ½ÿ¼ÿ¬ר¼   €   "       ˆ‡½ÿ¼ÿ½ÿ°ף)J                                                                                                                                   !!ִ""ֵÿ!"ֵÿ!"ִÿ§ץ   ¹   z   /]f! ¾ת"!ִÿ""ִÿ  ¾תUn                                                                                                                            ##ֳ×&%ֽÿ%%ּÿ%%ֽÿ…ק   ב־""¸û%%ֽÿ&%ֽÿ%%ּÿd£   (                                                                     §   §   §   §   §   §   §   §   §   §   §   §   §   §­$%÷נ**ױÿ*)ױÿ**ױÿ"kÿ#)¸ÿ**ױÿ))ױÿ*)ױÿgך   °   §   §   §   §   §   §   §   §   §   §   §   §   §   §   §   §              &&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ''1ÿ-4Þÿ..Ýÿ..Þÿ..Ýÿ..Ýÿ..Þÿ..Ýÿ3«ÿ!!!ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ   §           ™™™ÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿ!”Úÿ49הÿ23זÿ22זÿ22זÿ32זÿ.6ֻÿ]€ÿrrrÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿsssÿ&&&ÿ   §           ™™™ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ#©װÿHoװÿ67םÿ66םÿ76מÿ76םÿ!;XÿIbÿ”””ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ&&&ÿ   §           ™™™ÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿוווÿ'„÷ÿ:<מÿ<<ץÿ@?פÿ;;ץÿ::פÿ39¼ÿ.>ÿÿ׃׃׃ÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿזזזÿ&&&ÿ   §           ™™™ÿÿסßÿÿסßÿÿסאÿÿסßÿÿסאÿÿסאÿÿסאÿÿסאÿÿסßÿÿסאÿÿסאÿÿסßÿÿסßÿÿסאÿÿסßÿÿסאÿÙֻֽÿ7Cדÿ>>תÿYZûÿvwתÿFEתÿ==תÿ==ûÿ"1—ÿZUOÿ¬£–ÿעוװÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿ&&&ÿ              ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿÿIIֿÿ??ÿÿVVÿÿmmÿÿssײÿ††ûÿVVÿÿAAÿÿ??ÿÿ00yÿ>>>ÿsssÿ•••ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ                                                                              	11ֵ§??ÿÿJJÿÿhhÿÿ:MÊÿ;™¸ÿ8 Ûÿmr‎ÿ[[ÿÿEEÿÿAAץü>ֵ   ‹   (                                                                                                                                   99חk??ÿÿˆˆÿÿÿÿTTדÿִ÷¹ÿגגגÿ¦¦¦ÿiiÿ\\ÿÿyyÿÿˆˆÿÿNNשש†   D                                                                                                                                   ??ÿ²>>תֶ>>תֶDDתַ„„ÿüמÝÿזזזÿ£££ÿsssÿ00yÿ44ׂכ>>פֻ??תֶ;;מ                                                                                                                                                       ™™™ÿצט״ÿׂׂׂÿ‹‹‹ÿgggÿ$$$ÿ   ¨                                                                                                                                                                 ‡‡‡ÿ±§›ÿfffÿ;;;ÿ///ÿÿ   ¸   )                                                                                                                                                        (   ^===ÿ<:9ÿ>>>ÿ333ÿ)))ÿÿ   ß   †   F                                                                                                                                          3v"""ֽ///ץsssÿ½½½ÿֵ¾¾ÿְ  ÿ}llÿ>;;ÿ$$$ר׃   ¬      `   0                                                                                                                	      B***Ý@@@תÿ׃׃׃ÿÜÜÜÿ׳׳׳ÿ§ÿֶ¦¦ÿRKKÿ“||ÿ„„ÿh\\ÿ...קÞ			½   £   w   @      
+                                                                                            %   R©333ך[[[ÿ   ÿ¨¨¨ÿ»»»ÿ׳׳׳ÿׂׂׂÿֿֿֿÿ ™™ÿ·ÿ333ÿ333ÿ333ÿh\\ÿ“||ÿvvÿJEEÿ&&&כÊ   ×      X   (                                                                               1
+
+
+q"""¿<<<ץ{{{ÿ¶¶¶ÿÝÝÝÿÙÙÙÿ===ÿ‚‚‚ÿ־־־ÿ¦¦¦ÿmmmÿOJJÿ¨’’ÿ333ÿ333ÿ333ÿ333ÿ333ÿ>;;ÿnnÿÿm__ÿ...קÙ·       q   ?      	                                                  	      ?ƒ000ײMMMת‘‘‘ÿÊÊÊÿÜÜÜÿÙÙÙÿװװװÿׁׁׁÿ§§§ÿ‚‚‚ÿKKKÿZZZÿÿ‡ƒƒÿ˜‡‡ÿ333ÿ===ÿFFFÿMMMÿPPPÿSSSÿQQQÿFFFÿ[SSÿƒƒÿ‘zzÿJEEÿ###חָ   ©   †   Q   %                                          O₪777ßfffÿ¥¥¥ÿÝÝÝÿÜÜÜÿ׳׳׳ÿװװװÿ׀׀׀ÿ¢¢¢ÿkkkÿGGGÿvvvÿ¬¬¬ÿ¹¹¹ÿµµµÿˆ……ÿ‰~~ÿ333ÿGGGÿYYYÿhhhÿmmmÿsssÿyyyÿ}}}ÿ‚‚‚ÿ}}}ÿfffÿ‹zzÿ‘zzÿ{jjÿ+++ףױ´      n   9      	                  *   ^***¹FFFנ|||ÿ¹¹¹ÿÝÝÝÿÛÛÛÿ׳׳׳ÿׂׂׂÿְְְÿÿVVVÿkkkÿ™™™ÿ¼¼¼ÿ···ÿµµµÿ°°°ÿ¬¬¬ÿ€~~ÿyssÿ333ÿGGGÿYYYÿhhhÿmmmÿsssÿyyyÿ}}}ÿ‚‚‚ÿˆˆˆÿÿQQQÿfffÿ{qqÿ’{{ÿvvÿXNNû###חִ   §   †   O   	       o666ֿVVVץÿּּּÿÝÝÝÿÙÙÙÿײײײÿׂׂׂÿ   ÿtttÿYYYÿ„„„ÿ°°°ÿ»»»ÿ···ÿ´´´ÿ¯¯¯ÿ«««ÿ¨¨¨ÿ₪₪₪ÿyyyÿjiiÿ333ÿGGGÿYYYÿhhhÿmmmÿsssÿyyyÿ}}}ÿ‚‚‚ÿˆˆˆÿÿ333ÿ333ÿ:99ÿfYYÿt``ÿֵ¡¡ÿ׳®®ÿ€llÿ966ףױ   ˜       TTTjjjÿ«««ÿױױױÿÜÜÜÿÙÙÙÿװװװÿֳֳֳÿ‹‹‹ÿYYYÿzzzÿÿ¿¿¿ÿ÷÷÷ÿ¶¶¶ÿ²²²ÿ­­­ÿ«««ÿ¦¦¦ÿ£££ÿ¬¬¬ÿ־־־ÿ¹¹¹ÿoooÿMMMÿKKKÿNNNÿhhhÿmmmÿsssÿyyyÿ}}}ÿ‚‚‚ÿˆˆˆÿÿ333ÿ333ÿ333ÿ333ÿ333ÿ÷ÿמֱֱÿקַַÿסֲֲÿ€llÿ   ¬   4    •••ÿ³³³ÿ]]]ÿ׳׳׳ÿּּּÿ¦¦¦ÿwwwÿcccÿ’’’ÿ¹¹¹ÿ¾¾¾ÿ¹¹¹ÿµµµÿ±±±ÿ­­­ÿ×××ÿ¥¥¥ÿ¨¨¨ÿֲֲֲÿךךךÿסססÿַַַÿÿ¿¿¿ÿְְְÿ———ÿkkkÿMMMÿYWWÿ[[[ÿtttÿ}}}ÿ‚‚‚ÿˆˆˆÿÿ333ÿ333ÿ333ÿ333ÿ333ÿ®’’ÿÞ¶¶ÿח¼¼ÿןֲֲÿ”||ÿ¼   @    ÿֲֲֲÿ‚‚‚ÿ‹‹‹ÿkkkÿƒƒƒÿ¯¯¯ÿְְְÿ¼¼¼ÿ···ÿµµµÿ°°°ÿ¬¬¬ÿ©©©ÿ¥¥¥ÿ¼¼¼ÿÜÜÜÿףףףÿחחחÿÝÝÝÿÚÚÚÿ¼¼¼ÿÿֲֲֲÿײײײÿװװװÿ׃׃׃ÿ¾¾¾ÿ–––ÿjhhÿQNNÿ_^^ÿdddÿ}}}ÿÿ333ÿ333ÿ333ÿ333ÿ333ÿ₪‹‹ÿ־««ÿ׳±±ÿß··ÿwwÿֲ   B   ~~~ÿyyyÿvvvÿÿ¼¼¼ÿ¿¿¿ÿ»»»ÿ···ÿ´´´ÿ¯¯¯ÿ«««ÿ¨¨¨ÿ²²²ÿװװװÿלללÿםםםÿהההÿאאאÿßßßÿÞÞÞÿÜÜÜÿÛÛÛÿÚÚÚÿÙÙÙÿ״״״ÿ׳׳׳ÿײײײÿװװװÿ׃׃׃ÿׁׁׁÿ½½½ÿ”““ÿjhhÿQNNÿ^ZZÿWWWÿYYYÿHFFÿ333ÿ333ÿ˜ƒƒÿ¿¢¢ÿָ§§ÿ׀­­ÿ…rrÿֲ   B[[[D|||ÿ÷÷÷ÿֱֱֱÿ¿¿¿ÿ÷÷÷ÿ¶¶¶ÿ²²²ÿ­­­ÿ«««ÿ¯¯¯ÿָָָÿהההÿםםםÿךךךÿחחחÿוווÿהההÿדדדÿßßßÿײײײÿׁׁׁÿַַַÿֵֵֵÿֳֳֳÿµµµÿ³³³ÿ±±±ÿ¯¯¯ÿ°°°ÿ¹¹¹ÿ···ÿ¹¹¹ÿִִֵÿ÷¹¹ÿ”““ÿpllÿXSSÿc]]ÿm``ÿaSSÿ‹zzÿ°˜˜ÿ¹ÿ¿¢¢ÿ}mmÿֲ   B___B‘‘‘ÿ¾¾¾ÿ¹¹¹ÿµµµÿ±±±ÿ­­­ÿ®®®ÿ¿¿¿ÿÜÜÜÿלללÿםםםÿלללÿכככÿךךךÿיייÿÝÝÝÿֿֿֿÿְְְÿֳֳֳÿֵֵֵÿױױױÿײײײÿבבבÿטטטÿגגגÿÝÝÝÿ״״״ÿׂׂׂÿ־־־ÿ׀׀׀ÿֳֳֳÿֶֶֶÿ÷µµÿ½±±ÿֳ±±ÿֿ¾¾ÿֱ¶¶ÿ•””ÿpllÿZUUÿ‹}}ÿ¢ÿ©’’ÿ°˜˜ÿvhhÿֲ   ?ddd ÿµµµÿ°°°ÿ¬¬¬ÿ¼¼¼ÿׁׁׁÿטטטÿגגגÿÚÚÚÿאאאÿחחחÿלללÿבבבÿװװװÿַַַÿּּּÿױױױÿזזזÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿךךךÿףףףÿûûûÿÿÿÿÿסממÿבױױÿדֲֲÿלֶֶÿ״־־ÿ÷÷÷ÿ•““ÿvppÿznnÿ¢ÿmbbÿ´   -    ‰‰‰ÿµµµÿּּּÿßßßÿדדדÿאאאÿ״״״ÿÜÜÜÿכככÿםםםÿßßßÿױױױÿÜÜÜÿבבבÿßßßÿÞÞÞÿדדדÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿךךךÿףףףÿûûûÿÿÿÿÿקקקÿמממÿהההÿי־־ÿצֽֽÿ׀׀׀ÿÿ†††ÿ¹¹¹ÿ™˜˜ÿIGGÿb       ÿ׳׳׳ÿץץץÿםםםÿזזזÿסססÿנננÿ³³³ÿsssÿsssÿ¦¦¦ÿאאאÿנננÿטטטÿßßßÿÞÞÞÿדדדÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿךךךÿףףףÿûûûÿÿÿÿÿקקקÿמממÿהההÿג׳׳ÿלֿֿÿׂׂׂÿ©©©ÿwwwÿzzzףMMM×///i   	        fff@ddd’‡‡‡ׁ§§§ÿ־־־ÿÿÿÿÿעעעÿ³³³ÿsssÿ@@@ÿ333ÿ333ÿVVVÿ‚‚‚ÿ´´´ÿÞÞÞÿדדדÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿךךךÿףףףÿûûûÿÿÿÿÿקקקÿמממÿהההÿÊ¿¿ÿÿlll״000™,,,J                                   dddaaaa___¢”””נ¸¸¸ÿךךךÿÿÿÿÿÙÙÙÿ£££ÿbbbÿ333ÿHHHÿ‰‰‰ÿדדדÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿךךךÿףףףÿûûûÿÿÿÿÿ׃׃׃ÿ‡‡‡ÿOOO¹000y((()                                                               ```0]]]rvvvֲ™™™ÿָָָÿיייÿיייÿßßßÿÞÞÞÿדדדÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿגגגÿÝÝÝÿגגגÿßßßÿ®®®ÿזKKK333Y                                                                                           \\\[[[QXXX¢†††ב¢¢¢ÿּּּÿטטטÿטטטÿםםםÿסססÿצצצÿûûûÿÿÿÿÿüüüÿץץץÿנננÿיייÿ»»»ÿ‡‡‡ÿdddֹ:::{6668                                                                                                                       XXX WWWrccc²‘‘‘ÿ¶¶¶ÿßßßÿצצצÿûûûÿÿÿÿÿזזזÿµµµÿעSSS©@@@i...                                                                                                                                                   TTTPQQQ’wwwׁÿuuuװJJJ—===;                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                       ÿÿאÿ  ÿÿ ְ?ÿ  ÿÿ €ÿ  ÿÿ€ ÿÿ  א      ְ       ְ       ְ       ְ       ְ       ְ       ְ      ÿÿ€ ÿ  ÿÿ€ ÿ  ÿÿ€ ÿÿ  ÿÿרÿÿ  ÿÿאÿÿ  ÿÿ€ ÿ  ÿ‏  ÿ  ÿנ  ÿ  ÿְ   ÿ  ÿ      ü      א      ְ       €       €       €       €                                       €       €      €      נ      ÿ   ÿ  ÿא  ?ÿ  ÿ‏ ÿÿ  ÿÿאÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  (       @                                                                                                                                                                                               3]3¨2¾     &        ,T4¬7ֱ†                                                                                     ֻ""־ÿ!"ֿÿiט      '?X! ֵץ##ױÿ¿נ		7N                                                                           "$$ִ²&&ֿÿ&&ׂÿEןװ×פ('ײÿ%%ַü
+
+7€                                              §   §   §   §   §   §   §   §   § °$;ׁÿ--ßÿ&)¿ÿ$(¶ÿ--אÿ,,Ýÿ
+3Þ   §   §   §   §   §   §   §   §   §   §   §   §    &&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ™Ùÿ/Fßÿ22טÿ22ךÿ33טÿ9‡ÿ%%%ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ   ¿    ™™™ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ$¬׳ÿEjֻÿ77צÿ87קÿ23װÿ4Nÿ‹‹‹ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ¦¦¦ÿ&&&ÿ   ¿    ™™™ÿÿסßÿÿסßÿÿסßÿÿסאÿÿסאÿÿסßÿÿסßÿÿסßÿÿסאÿÿסאÿÿסאÿ*y²ÿ@CץÿYZÿÿON‎ÿ;:‎ÿ#.ÿtmgÿÞֲׂÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿÿסßÿ&&&ÿ   §    ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿyyƒÿ9@פÿVWÿÿllהÿ„„וÿYXÿÿ@@ÿÿ**ÿQQQÿÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ                                               ^ >>ß׳llÿÿabצÿ4u ÿ4©׃ÿRxעÿ``ÿÿ``קÿYÊ   O                                                                                   @@ÿnEEÿÛaaÿײnn¥ÿüמÝÿ₪₪₪ÿ'':ÿ==ֵוXXשÜBBס½8;                                                                                               •••ÿלßֿÿ‡‡‡ÿÿ   ¼   0   
+                                                                                             
+   oooÿ{umÿ777ÿÿ   ג   ™   X   (                                                                                   '   X±HHHÿˆˆˆÿ¦ÿyyÿLFFüÝ·       q   ?                                                            	      3			v"""ֶ```ץ•••ÿÜÜÜÿ׳׳׳ÿ¬££ÿzkkÿSKKÿ}llÿh\\ÿ0--חָ   ×      `   0                                              N<<<ÝzzzתֹֹֹÿÚÚÚÿFFFÿ½½½ÿÿwnnÿlbbÿ333ÿ333ÿ333ÿueeÿl__ÿj\\קÞ			½   £   y   F                          *   ^'''¹PPPך¥¥¥ÿ׃׃׃ÿÙÙÙÿ׃׃׃ÿÿaaaÿlllÿ’’’ÿ¡››ÿb[[ÿJJJÿcccÿoooÿiiiÿkkkÿhffÿ||ÿm__ÿA::כ־   ¬      `   0         v333׀wwwץ¹¹¹ÿÜÜÜÿ׳׳׳ÿ÷÷÷ÿ|||ÿdddÿÿ²²²ÿ´´´ÿ¯¯¯ÿ‹‹ÿURRÿJJJÿcccÿoooÿvvvÿ~~~ÿ‡‡‡ÿ}}}ÿLLLÿ~nnÿƒooÿp``ק,((Þ			½   ›   Q;;;WWW½ÿּּּÿÛÛÛÿֶֶֶÿ›››ÿnnnÿÿ¯¯¯ÿ¹¹¹ÿ²²²ÿ¬¬¬ÿ§§§ÿ´´´ÿ£££ÿWWWÿIIIÿcccÿoooÿvvvÿ~~~ÿ‡‡‡ÿwwwÿ333ÿ333ÿF@@ÿ¾ÿך½½ÿ±’’ÿ׀   iXXXwַַַÿÿ¯¯¯ÿ€€€ÿxxxÿÿ¼¼¼ÿ¶¶¶ÿ°°°ÿ×××ÿ°°°ÿ׃׃׃ÿךךךÿ״״״ÿ„„„ÿֽֽֽÿ«««ÿ‚‚‚ÿ```ÿdddÿzzzÿ‡‡‡ÿwwwÿ333ÿ333ÿ333ÿ«ÿא··ÿכ¿¿ÿÙ   l\\\†–––ÿ|||ÿ———ÿ¹¹¹ÿ÷÷÷ÿ´´´ÿ¯¯¯ÿ²²²ÿֶֶֶÿגגגÿךךךÿדדדÿÞÞÞÿÜÜÜÿÚÚÚÿ״״״ÿײײײÿױױױÿ׃׃׃ÿ´´´ÿ‹‹ÿlkkÿdccÿLLLÿ:99ÿ333ÿ……ÿַ§§ÿױ°°ÿÙ   l^^^†²²²ÿ¾¾¾ÿ÷÷÷ÿ²²²ÿ±±±ÿֲֲֲÿÛÛÛÿםםםÿכככÿחחחÿאאאÿ׀׀׀ÿֹֹֹÿַַַÿ־־־ÿÊÊÊÿ¿¿¿ÿ¸¸¸ÿ¼¼¼ÿ½½½ÿ¬¬¬ÿְ÷÷ÿ¶­­ÿ‡‡ÿxqqÿhZZÿ‡xxÿ¯——ÿ»ÿÙ   i___†···ÿ±±±ÿֱֱֱÿׂׂׂÿאאאÿÞÞÞÿדדדÿגגגÿ״״״ÿֿֿֿÿ׃׃׃ÿוווÿסססÿשששÿÿÿÿÿצצצÿמממÿזזזÿÝÝÝÿטטטÿףףףÿרררÿחאאÿבּּÿוָָÿ÷¶¶ÿ®¨¨ÿ˜ÿ₪ÿ   ֹ   Offf€ֻֻֻÿגגגÿאאאÿחחחÿײײײÿ£££ÿֿֿֿÿךךךÿטטטÿÝÝÝÿדדדÿכככÿסססÿשששÿÿÿÿÿצצצÿמממÿזזזÿÝÝÝÿטטטÿףףףÿ‎‎‎ÿץץץÿטטטÿיװװÿÝ׀׀ÿ‡‡‡ÿÿƒƒƒף+++q   	fff€«««ֵֵֵׁÿץץץÿ¦¦¦ÿsssÿ@@@ÿKKKÿwwwÿ¨¨¨ÿ״״״ÿכככÿסססÿשששÿÿÿÿÿצצצÿמממÿזזזÿÝÝÝÿטטטÿףףףÿ‎‎‎ÿץץץÿחחחÿ´¬¬ÿ………׳aaa™,,,J                       bbbaaaQ¢­­­בײײײÿֵֵֵÿÿ¨¨¨ÿ״״״ÿכככÿסססÿשששÿÿÿÿÿצצצÿמממÿזזזÿÝÝÝÿטטטÿÛÛÛÿ÷÷÷ע©NNNi***(                                                   \\\ ZZZr²­­­נֽֽֽÿלללÿסססÿשששÿÿÿÿÿצצצÿהההÿ´´´ÿ‘‘‘ײccc444:                                                                                   WWW0hhh‚¡¡¡ֲ÷÷÷ÿ···ס§DDDi///                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ÿדֳÿÿֱƒÿÿְÿ€                 ÿְÿÿְÿÿרÿÿְÿÿ  ?ü  א  €                                  א  ‏ ÿÿאÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ(                                                  TZױ׳   ²   §2ֿYי0©   $                  §   §qֽ''Þÿ©ÿ6WÿF€ÿ''אÿ  ¹ת¿   §   §   §   §&&&ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ!iÙÿ,-בÿ!)¨ÿ(*ֻÿ(/ױÿ.ÿ&&&ÿ&&&ÿ&&&ÿ&&&ÿ   ¿™™™ÿÿסßÿÿסßÿÿסאÿÿסאÿ2¬ױÿ`oÝÿ32ףÿ43מÿC|ÿÿסßÿÿסßÿÿסßÿÿסßÿ&&&ÿ   §™™™ÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿI×ׁÿagÜÿOOÿÿ?=ץÿ/vÿsssÿ™™™ÿ™™™ÿ™™™ÿ™™™ÿ                   <&V­ÿTU‎ÿTjװÿTbנÿDDסÿCֻ   1                                **°q\\ÿÿZY¾ÿ˜‹ÿ""FÿZZכתMMÜÿ3~                                1qOOOÿ‚ÿ3//ÿט   ¬   w   @      
+             @ˆZZZ׳ת¥¥¥ÿtooÿ>;;ÿHCCÿJAAםÊ   ×      X   $   '''yyyגֹֹֹÿ£££ÿÿ‚‚‚ÿ|{{ÿMMMÿpppÿ|||ÿsmmÿo__ק811Ù±   …uuu¦®®®ÿ˜˜˜ÿ‚‚‚ÿ₪₪₪ÿ¹¹¹ÿׁׁׁÿÿxxxÿkkkÿÿaaaÿ333ÿ·˜˜ÿllם   •‚‚‚ִÿµµµÿַַַÿבבבÿזזזÿ׀׀׀ÿ״״״ÿׁׁׁÿֳֳֳÿ™™ÿ|wwÿEBBÿ“€€ÿxhhי   ƒ£££ֱ׃׃׃ÿÞÞÞÿַַַÿבבבÿßßßÿעעעÿüüüÿלללÿßßßÿקקקÿמךךÿÞּּÿÿsmm׀   @ָָָ’«««ׁxxxÿkkkÿ¸¸¸ÿעעעÿüüüÿלללÿßßßÿקקקÿִִִז———gggY                   ]]]    b°°°²ׂׂׂנזזזÿ¾¾¾ֵ₪₪₪z7778                                                                                   € ™ÿ  ™ÿ  ™ÿ  ™ÿ  ™ÿנ™ÿנ™ÿְ ™ÿ€ ™ÿ  ™ÿ  ™ÿ  ƒÿ  פÿ ÿÿאהÿÿÿוÿ   	 00   h  D      ט  E    (  F 00    ¨  G       ¨  H     h  I 00     ¨%  J        ¨  K      h  L                                 (   0   `         €                        €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                      ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ      ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ      ÿÿרÿרÿררÿרררÿ     ‹ˆÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ    ³›;;ÿÿÿרÿרÿÿÿרÿÿÿ   › ר‹רÿÿÿÿÿרÿÿÿÿÿ   ƒ° ÿ‹ררÿÿÿÿÿרÿÿÿ   ¹€ ÿÿˆw†~wˆÿÿÿרÿÿÿ   ‹0 ÿ‡llלללlgÿÿÿÿÿÿÿ  ³° ‡Lnˆמnֶgרÿרÿרÿ  ¹° FnחטטטזֶXÿÿÿÿÿÿ  ‹8 tllחטˆחלfFÿרÿÿÿ  ·¸ FFחחטמ‏~־ld(רÿÿÿ  ר‹›tdlלחחטnחל~lGÿÿÿ  ˆ‹³5fֶזללwwgלזֶֶ`ÿÿ  ˆ»–lf־~Wרÿקn־nldÿÿÿÿ  ¿¹·fֶlהÿÿÿwlלfFÿÿÿÿ  ˆ»»Fdחַÿÿ†vvVtררÿ   ˆ‹›|dlחÿÿÿרˆˆˆˆˆÿÿÿÿ   ¸³·ֶFgÿÿÿÿÿÿÿÿÿÿÿÿÿ   8·³ffֶfvvvvvvefררÿ    ·‹›vDf־־־־־ֶֶfD`ÿÿÿ    sx»µdfזזזלזזלldÿÿ    8··dFֶֶ־ֶלlfffBÿÿ    ‹‹›vdgggggזלfFAÿÿÿ    psˆ»·Gרÿÿÿ†־Fgd`ÿרÿÿ    pC¸‹{GÿÿÿצfnֶfGÿÿÿÿ     d{‹{´ÿÿÿר†לvlהרÿÿ    G¸··xÿÿרl~nvfXÿÿÿÿ     fs‹{wˆ†~gֶלdÿÿÿ     pfwˆ»·dtggזvvÿÿÿÿÿ      Wfwˆ»wwv|חHרÿÿ      ww‹‹¸ˆחw‡dˆÿÿÿÿ       w‡ˆˆ›ˆˆˆטחHÿÿÿÿ      Fxטˆ‹·ˆˆˆGÿÿˆרÿÿ      קGxÿר‹¸ˆdˆÿÿ¸ÿרר      ÿקvwˆ‹{wÿÿÿקˆxˆ‡      ÿÿרˆxxˆ·ÿÿÿרÿÿˆp      ÿÿÿÿÿר‹¸ררÿרק       ÿÿÿÿÿÿÿÿ‹³ˆÿ‡ÿˆ€       ÿÿרÿרÿÿÿˆ»;¸רר        ÿרÿÿÿÿÿרÿÿÿÿˆˆp        ÿÿÿÿÿÿÿÿÿÿÿקר         ÿÿÿרÿÿÿÿˆ€         ÿÿÿÿÿÿÿÿÿÿÿˆ          ˆרˆˆˆˆˆˆˆˆˆ      ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿא     ÿא     ÿא     ÿ      ü      רא     סא     סא     סא     בא     בא     אְ     אְ     ְ      ְ      א      א      א      נ      ר      ר      ü      ü      ü      ü      ü      ü      ‏      ‏      ÿ      ÿ      ÿ€     ÿְ     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא   ?  ÿא     ÿא   ÿ  ÿא  ÿ  ÿא  ÿ  ÿא  ÿ  (       @                                  €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                     ÿÿÿÿÿÿÿÿÿÿנ  ³¸¸ÿÿÿÿÿÿÿÿÿÿנ p ˆˆÿרÿרÿרנ ‹  ˆˆ‡ˆÿÿÿÿÿנ ¹  ˆvnn־gÿÿנ ‹  f־ˆחלgÿÿÿנ³€nnˆטט־lhÿÿנ‹°FֶטטמלfFÿרנ·±f־־|w|־ִÿÿנ‹—lfחÿקnlfרÿנ ˆ»vNֶÿÿר|vtgÿÿנ ‹‹<dgÿÿÿÿÿÿרנ ¹·fַ‡‡‡ˆxxxרÿנ x»FlלללזֶfFÿנ ;‹tfnnn־nFAÿנ w··Egַgnֶdgרנ  ‹»wÿÿרvfֶGÿÿנ  8‹wÿרלזזGÿÿנ  tc‹·ˆרקn|fxÿנ   gw»w‡f|חfÿÿנ   wˆ·gxnuÿÿÿנ   „xx»x‡…oרר€    gˆˆ·x‡wÿûרˆ€    ‡wˆ‹‡xˆÿˆxˆ€    ˆˆ‡‹xÿÿרÿˆ€    ÿרÿר‹ˆxÿ€     ÿÿÿÿÿר»‹ˆר      רÿרÿÿÿÿר€      ÿÿÿÿÿÿרר€      רˆˆˆˆˆˆ€   ÿÿÿÿÿÿÿÿÿ  נ  ח  ֿ  ֿ  ֿ  †  „  €  €  ְ  ְ  א  א  א  א  נ  נ  נ  ר  ü  ü  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  (                €                         €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ  wwwwww ‡ sxÿÿÿÿקxƒfgÿÿקwlמֶקVnFlgÿר´lÿÿÿÿק·FFDdÿר ‹־לבÿˆ xNַÿר ~‹טָÿר טƒ|קרˆ w{w{xˆ ÿÿ‹x€ ÿÿÿÿ‡  ˆˆˆˆ€ א   א   ְ   €   €   €   €   €   ְ   ְ   ְ   א   א   א  א  א  (   0   `          	                      ( ,
+ 1 ' 5$ 41+ G  N I% Q( Z3  H. Y/ W9 g*  h8  v8  L7$ R;* I>7 tI VF6 wV+ fM3 fY2 wY9 9SK JDA [J@ ]WQ c\V qoT Muf xqj „>  ƒH –J  …T •V †W £M  §V ·Y  •g ¦f ½c  ¨w µx ¥f ©| µ{ €M# „[  _2 f$ •i' r, ˆh7 ‘j3 s< ™t< ¸e& ¦y, ₪m= ¦0 ֲZ  ֲh װm  Êv װ} ֶf kL uM —yD o] u] ¡}A ³}U ƒmc za ‡~v “r w\ Z—y d‘h ¸‡ 5 ¸- ַˆ ״ˆ	 ֽ‘ Ü’	 Ú ֲ” Þ• א ב“
+ ה ח¡ ִ/ ױ£8 י§% מ´5 נ¶7 ûֱ> ’ˆW ¬P ™„n ƒz —‰| £g ×“b ­›~ ¿›p ¸¢k ֳˆC ֵE ַ–X ֵ¡K ß¯@ ע¼B Ê•` ׀›c ֹp ֳ¨u פִJ ץַQ תׁX שײg üה{ m >‘ 9× M— t N¡™ O—± Qµ® k·« Rַ÷ ‡Ù •Ù •Ü ¢׳ 8¶ֻ $§׳ 7¨ׂ *³ׂ ה #ג §י ¢ח 
+¼ן ¹מ §ע ×ע µש ¹ק -¦ה :¥ג 7²ך &·צ 5÷ץ G·ױ s¾ְ G®ה I²י Y¹ח E½ס ֶ‏ ,־û JÊָ pֿױ Oֵם Uִה Hֵף Xֹר Vׂת uִי jּר vֻק fײר xװץ בו zך‏ ‹‹‹ ˜„ ˜“ ™ ™ ¦—ˆ ²ƒ ₪›– ’¶– ´§’    ¬«« µ¨£ ¯°­ ¡¶µ ¼¹· ֵ²… ױ¹† ּ´˜ Ê¼× ֳ»µ Úֶ™ ךֽ üך‡ ױֲ¨ Þ׀¨ ֶֽ¿ ׳ּ½ Ùױ» ז׀­ ¿װ ƒ־ֹ ³־ֹ ¶ױֻ »ֽׂ ‹״ח ‘ׁכ ˆÚס ¨ײי ´Ûכ °Ûנ „זט ”דא †טר —יש ש‎ «אכ ©חר ²לק ¦ת‏ ¸üÿ ֻּÊ ׀Êֳ ײײÊ ׳ײױ דÞײ עי׳ ִ״א Úךן ָחפ Úמץ ִסת טחז נםך ףסמ גמף טץת ררש ÿÿÿ                                                                                                            מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏             מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏             מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏û‏û‏û‏û‏û‏û‏ûûûûûû‏          ¸¸אÙק‏‏‏‏‏‏‎‏‏‏û‏‏û‏‎‏‎‏‎‏‎‏‎‏û‎‏‏‎‏‏‏        §— ©י‏‏‏‏‏‏‏‎‏‏‎‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎û‏       ¢   Ýצß©©ב‎‏‏‏‏‏‏‏‏‏‏‏‏‏û‏û‏ûû‎‏‏û‏û‏‏‏      ח    מ‏‏‏ר¶¶צ‏תתתתת‏‏‏û‏‏û‎‏û‎‏‏‏û‎‏‏‎û‏      ·”    מ‏‏‏‏üֹˆs|wuw{}ֽײש‏û‏‏‏‏‏‏‏û‏‏‏‎‏‏‏      ¯”    מ‏‏־O?HEG^a`a[F/+Aֱס‏‏‏‎‏‏û‏‎‏‏‏û‏‏     ם¯“    סױI(CG`hz‚‚‚hd[D*5ְש‏‏‏‏‎‏‏‏û‏‏‎‏     ם³‘    R*Hagi€‚ƒׂׂƒ‚€igaF,נ‏û‏û‏‏‎‏‏‏û‏     ם¸א  S$F^`hi€‚ƒׂׂƒ‚€zg`^F,ױ‏‏‏‏û‏û‏‏‏‏     ם÷™–¯  +F[dgz€‚ƒׂׂƒ‚€ig`^FH,מ‏‏‏‏‏‏‎û‏‏    םםט₪–›¾	$,+Ha`gi€€yffzjhg`^FFD*
+ש‏‏û‏‏‏‏‎‏    םםל³–„,,*D^`ghh47Mom;4gda^FFD,o‏‏‏‏‎û‏‏‏     לל÷™˜,,&,[adg)oשû‏‏תֲ9da^FFD,*
+ס‏‎‏‏‏‏û‏     ללט±«…,,&*F`d2n‏‏‏‏‏‏‏o4c[GFD,&R‏‏‏‏‏‏‏‏     םלל÷<C&$D`^ע‏‏‏‏‏‏‏ס74:995 üû‏‏‏û‏‏      טל¹×†,+.G1L‏‏‏‏‏‏‏‏‏סןןןןממױױממש‏‏‏‏‏‎‏       ט‹®«L,%F.o‏‏‏‏û‏‏‏ת‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎‏‏‏‏       ט‰‹²«•2*(.5>>>N>NNNNNKK>;77ס‏‏‏‏û‏‏        †‡Þ£«‡+.G[]aabbbcaa^G11+(
+ױ‏‏‏‏‏‏‏        …‡¸«¬=&.[[[]]bbbb][ZG1.('ָ‏‏‏û‏‎‏        ‰‰Ú²¬’)%.FG[[[]]]]]Z11.('Ê‏‏‏‏‏‏‏        ‹‹Þ×¬‰%69::@@B@3\Z11.-'%ן‏‏‏‏‏‏‏        "‹א£¬¬!nûששששששתנ=ZZ10.--'
+ע‏‏‏‏‏‏‏        RU­®¸¬¬P‏‏‏‏‏‏‏‏ש:Z11W000'
+ ‏‏‏‏‏‏‏‏         
+U­®¸£¬¥ש‏‏‏‏‏‏‏ִ0\WWWW00
+ֲ‏‏‏‏‏‏‏‏         U­¹µ£¬†P‏‏‏‏‏‏ש8____WWW0ש‏‏‏‏‏‏‏‏          )V­ה³₪¬‰ַששעִ8_e_e___3-o‎‏‏‏‏‏‏‏‏           88Tה·¬¬‰))8XleveveYYש‏‏‏‏‏‏‏‏‏           JKXkה·£¬wtqqkllxxxvv8ֿ‏‏‏‏‏‏‏‏‏‏            pplqֳו·¬¬¦ֻֻּּ~rttttXָû‏‎ק‏‏‏‏‏‏‏             rֱֻֻֽÜ¸£«®׀ׁ׀׀ֻֻֻּJֶû‏‏‎בק‏‏‏‏ת‏             ָo׃׃׃װנא¬¯׳״״״װֻÊ‏‏‏‏‏בג‏‏‏ûûû             מת½ִױעףףכ³«₪Ü״־k¼ש‏‏‏‏‏‏יß‏‏‏שץמ             מ‏‏ת½ !RִֿײÛ°£#ַש‏‏‏‏‏‏‏ָָָָָָָמ»             ס‏‏‏‏‏ץÊֵ½ֲֲָי³¥פ‏‏‏‏‏‏‏‏ָ‏‏‏‏עמ¿              מ‏‏‏‏‏‏‏‏‏‏‏‏‏‎ל±«³ך‎‏‏‏‏‏ָ‏‏‏ץסֵ               מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎ך³£¢´דקüדָ‏‏עמֶ                ס‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‎רז²¨¨§¡ָתשסֶ                 מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏ָעסֵ                  מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏ûתֶסֵ                   ס‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏תץױֶ                    מ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏תמֵ                     ססעססעססעססעססעססעססעסססס            ÿÿÿÿÿÿ  ÿÿÿÿÿÿ  ÿא     ÿא     ÿא     ÿ      ü      רא     סא     סא     סא     בא     בא     אְ     אְ     ְ      ְ      א      א      א      נ      ר      ר      ü      ü      ü      ü      ü      ü      ‏      ‏      ÿ      ÿ      ÿ€     ÿְ     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא   ?  ÿא     ÿא   ÿ  ÿא  ÿ  ÿא  ÿ  ÿא  ÿ  (       @                              %
+ ; , 8- [  F"  X' Y3 E, d-  g2  v2 F  lK pJ yR ND5 TC9 gE& zN" aG7 lV; 2LO 4SM ZRI cSG glK |{U P|f yoc {rh 8  =  ‡G —H  ˆS —Z ¦F  ¾O  ¡X ´Y b ™e ×g »a ¨s ¹{ ±d €P% ‘]# f& l; ₪l( ©z+ ¢{= ÷y= Ên ֹv ׁ| ֽt ‘n@ qA “tG ƒnX ‹tY ¨}C {h ‡vp [–o _‹v Y—v m”i gz ¸‡ ·ˆ §„* ²‰" ´ˆ? ֹˆ ״‡
+ ֶ
+ Ü‘ ֻ ױ ִ– Ü’ א ה•
+ ה– ט¢ ֵ- ״. ֳ1 ֵ6 ג$ Ù£5 י§$ ף¸7 ›‚X §ƒD ³B §‡V ©•^ ·T „j †h ‹™k ‰€~ ‘„p  ˆf ±l ¥} ַ₪N Ê¨Q ף¿C ֵ§u ץֶJ ץּW שׂ[ ןֿf רײe üגu >¬ #· ?©÷ D™’ P˜ A¨ ]˜× H £ T¶× D×¸ \¯¶ Xֻ½ pִ¿ װ ‹Û Ü 
+•װ —Ü *®ֹ <¦ּ 7¶ֿ ז )ב §כ ©ש ¯ק µû ¸ÿ 3₪ד 7¹ח )¸ש 9¿‎ G­ׁ A¡Ù @´ױ m½Ý G¼ך R¸ט 	ֱ‎ ֹü &ִי )Êÿ :ֶע 0׃ÿ \ײ־ }ֶַ qװּ tֿÙ eÙׂ sÙÚ Kֳמ Tִן Mַע Qֹצ [ױü eָו n׃ם e׳ץ h׀ע fװש wÝ‎ ‡„ ”‡ ‰’ ¥”ˆ ¥— §‘ ¹«ˆ ©  ¹«– ¼° ‚§¦ «×× «³© ¿´¢ £¯° ¸·· ֲ¨ Ê¶‡ ײ²‰ ־·› Ü¼ ִ¶¥ «ֽ» לֵ ‏י‚ ÿס ֱּµ Üֹµ כׁ§ ‎״¬ ךׁ± ‰÷־ „ֱֽ ‚־ו ‚ױל ‡׀ף ׀נ  ּא §Üג ¨Ýצ …ט‎ “יץ ס‏ ›רÿ ¥זת ¥üÿ ·ת‏ ֶַָ Ù׃ַ ֱֽׂ ױױױ Ùװ׀ ÞÙ׃ ÜÜÛ דײִ גÞÚ יחׂ גאÞ טאÚ ֶגמ ׁזם ־חע ױכף ֵר‏ ךךי נמכ סנן ךנף ץצצ ץקר צרר ÿÿÿ                                                                         ך‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏     ‘— ף‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏    ‰   ÝÛÜץ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏   µˆ    ך‏פ׳ִּÊÊּ׃עת‏‏‏‏‏‏‏‏‏ת‏   ­‹    חָ8<PY__P:0fׂת‏‏‏‏‏‏‏‏‏   ¯‹    1-Pavz׀zwbY9#Aכ‏‏‏‏‏‏‏‏  ז´Ù  -Rasw׀ׁ׀yuaY;&ח‏‏‏‏‏‏‏  זא˜ #9VabwwxxvbaPP9#כ‏‏‏‏‏‏  זד™’!--PZb`7jnB\aR;9-
+ת‏‏‏‏‏  זו±“|)&(PZSAס‏‏עjTX;9- ַ‏‏‏‏‏   וג”•'":X4ר‏‏‏‏ע?]652	¸‏‏‏‏‏   וב•)#(<i‏‏‏‏‏‏‏שתתתששש‏‏‏‏‏    ¬…™¡I&,?ְְֱֱֵָָָֽֽֽ¿¿ַש‏‏‏‏    ¨²–£3 <WPVVYVRO:,%ך‏‏‏‏    ÷~‡°¡„"%PWWXXXXWO.%$ט‏‏‏‏    lƒ×¢I47BNeeKO/.%$ם‏‏‏‏     †³₪£D‏רררשלdQ/..+ת‏‏‏‏     G§¶₪‏‏‏‏‏טLQJJK.¿‏‏‏‏‏     E«¶₪„¿נ‏תןoQUUKK*ך‏‏‏‏‏      3H©±₪‚iָ¾cL^^[[M¹‏‏‏‏‏‏       =Bk״±₪‚dNfgghrq3@ר‏‏‏‏‏‏       ¸nt¾־³₪„½ֹֹֹֿt>ל‏הצ‏‏‏ם         mֻײנב₪ֲױװ¾Aiן‏‏›צןךחַ         ֳlD¹ֽמÞ¥˜ppֽ‏‏‏‏ֳֳֳֳַַ         ך‏ךַ¿¿¿ֶÚ¥{י‏‏‏‏‏ח‏‏ןֳַ         ך‏‏‏‏‏‏‏‏קא¯°ßצ‎›ח‏שח           ם‏‏‏‏‏‏‏‏‏‏ק·­­°ףחסח            ך‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏שחח             כ‏‏‏‏‏‏‏‏‏‏‏‏‏‏‏סחַ             םךםםךםםךםםךםםךםךך       ÿÿÿÿÿÿÿÿÿ  נ  ח  ֿ  ֿ  ֿ  †  „  €  €  ְ  ְ  א  א  א  א  נ  נ  נ  ר  ü  ü  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  ÿ  (                                     *>< r.  m<  q<  G9. O/1 >F >R JWD dYJ A^m ]oj mmm |kc zzz „:  “3  ”6  ›6  —E  N  «]  ₪c  ¦j  ×m ´n  ±p  °f ײW  ד_  ‏]  ְw  ִt  ִ~  ‹sJ ‡r^ ˆzq ֶ  ׂˆ  ײ‰  ז  ה  ‏ מ•  נ–  û₪  ÿ¬* ÿ½$ ÿ·1 ÿָ? ½–F ±”W —j µ•c ¢| ÿֹA ÿֱJ *n‚ /x¨ F| Tx“ g„› g™ |© G…¯ @–« y£ Y®¯ “ױ §ß  ¡ײ ,™ד I¼Þ Iא @´ה 8ֵצ ^װב Hִנ Uָצ O׃‏ uנÿ ……… ’’’ ™™™ µ£‚ °¢‘ ¡»“ ™§£ ¢¢¢ ¨©© ¬¬¬ ±°­ ±±± ´´´ ¼½° ÷÷÷ ²ײ§ ֵ־ ֵ׀‹ ˜דü »חר Ê״ß װװװ ÛÛÜ גגד ךיך םככ ןעל ממנ גפץ ןנס נסע עףפ ףפצ פץצ צקר קרש רשת תûü תüü ‏‏‏                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     ÿÿÿ       mmopppppput  J;AfjppptpvtuR H=gX	&"!VpvuuvS E>7.20($uuvvY P!(&%vvvY QGptttvvvvvZ DL:vvvZ  WM*-,-,)vvv\  3bMZp+vvv^  61cM
+/9_vvv^   #8aN<5vCvjh^   \U4@IB?FT^^^   `vjlndOKeTp^    `vvvvvvvv^^     ``````````   א   א   ְ   €   €   €   €   €   ְ   ְ   ְ   א   א   א  א  א  (   0   `          €%                                                                       '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '   '      
+                                               4   c   u   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   v   o   M                                               ־־־ÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿ   g   #                                            ־־־ÿקרשÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿפץצÿפץצÿפץצÿפץצÿפץצÿפץצÿפץצÿקקרÿ   h   #            ‡רÿ{רÿmקÿeüÿ                ־־־ÿקרשÿקרשÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿפץצÿפץצÿפץצÿפץצÿפץצÿפץצÿקקרÿ   h   #    §תÿ˜תÿˆרÿyרÿp‎ÿ_ףü*7ּמm$÷י”¸י›÷טƒ¿װÿ׳ןצÿקרשÿקרשÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿפץצÿפץצÿפץצÿפץצÿקקרÿ   h   #¬ûÿ₪תÿ—תÿ ‰שÿ&}‎ÿcךûZ דײÙÿ €Ùÿ
+‰Üÿ’ßר#גÿ-¦הÿU»טÿ¯Úלÿץקרÿקקרÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקקÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿפץצÿפץצÿפץצÿקקרÿ   h   #µüÿ¥ûÿ$—תÿ.ûÿ-|שÿM'©זה €״ÿ׳יA¥׃phֳÞ+Nִס»ֽׂÿֵוסÿ“ׁןÿ[÷ךÿ]¶דÿ°Ùכÿןץרÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿפץצÿפץצÿקקרÿ   h   #¬ûÿ¥ûÿ4—שÿ>ÿÿ:_Þק¥Üÿ׃צ,’·T            ־־־ÿררשÿקרשÿסצשÿֶלûÿy׀‎ÿvֻקÿ־זעÿפעעÿפסמÿעםךÿנכזÿסמךÿףסןÿץץץÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץץצÿקקרÿ   h   #°ûÿ+£ûÿC•תÿLÿÿZEַסױ Úÿ—ֻ״M‘            ־־־ÿררשÿררשÿררשÿקרשÿדכםÿ¡¶µÿtÿ¿›pÿ׀›cÿָ’UÿֳˆCÿֹ’XÿÊ•`ÿֹpÿֽ³—ÿÚּ¾ÿךובÿצקרÿצקרÿצצקÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   #­ûÿ8¡תÿS“תÿ[‡ÿÿu<ְןג ״ÿ™ÊׂE•©            ־־־ÿררשÿצצצÿֿ¼×ÿ³}Uÿ¸e&ÿֶfÿװm ÿײ	ÿÙÿß“ÿב–ÿÝÿײ…ÿֽxÿ¿e ÿ­[ÿ₪m=ÿ²ƒÿÜ׳ׁÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   #×ûÿ@תÿ`תÿiƒÿÿ‚;ֲנו ‘״ÿׂב"¡ָ            ־־־ÿֶֽ¿ÿkLÿPÿ»aÿׂ|ÿב–ÿם¯.ÿפֳGÿרׁ[ÿש״hÿת״gÿשׂ]ÿצֵJÿמ´3ÿוÿ׳„ÿֳiÿ L ÿ€M#ÿ¦”‚ÿךיחÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   #¦ûÿ>תÿj‹תÿtÿÿ…Dֻףד“Úÿױס%ֵE        C }sÿY/ÿL ÿּqÿÛÿח₪!ÿנ¸9ÿצָPÿש״iÿûה}ÿüךˆÿüךˆÿûה|ÿש׳iÿצַPÿס¸8ÿח₪!ÿÜÿ־wÿ³Z ÿv4 ÿpS=ÿױֽׁÿצקרÿצצקÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   # תÿ3–תÿp…שÿ{zÿÿƒRÚר׳—Ýÿ Úÿ±ß‚    E =Bÿ…> ÿֻqÿÙÿג›ÿכ¬+ÿס»?ÿץָSÿש״jÿûד~ÿüכ‹ÿüכ‹ÿתהÿש׳jÿפַRÿס¹<ÿך©'ÿß˜ÿ׳‰ÿ־wÿ»_ÿu5 ÿV9&ÿִֹֿÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   # ûÿ’תÿo€רÿtüÿ€_כ‏ֳ הÿ אÿ²ח½Gpt@ |L ÿ|9 ÿ«Uÿ־wÿÙÿג›ÿך©)ÿס¹<ÿץַPÿקװfÿ‎גxÿÿכ€ÿÿל~ÿÿוtÿüױbÿףֵOÿס·:ÿט§%ÿß—ÿ׳ˆÿ־|
+ÿֹpÿµ[ÿf. ÿN5'ÿײװׂÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   #ûÿ	שÿ^|רÿ…pתÿ‚gקÿ«.´מת זÿ²םח-U`™A ם„> ÿ«R ÿ­U ÿָrÿ״‹ÿß™ÿט¦%ÿן´7ÿפֳIÿÿ׀QÿקֶLÿß¯@ÿׁ 6ÿÙ§:ÿע¼Bÿûֱ>ÿנ²3ÿז¥$ÿÞ•ÿ׳‰ÿֽ}
+ÿָrÿֵgÿ N ÿM  ÿ[J@ÿךייÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿץצקÿץצקÿקקרÿ   h   #    שÿ9zרÿ‰mרÿˆgûÿ•J׀רלטÿ ÷üÿmÿd#ÿ±T ÿ´Yÿ¡M ÿֱiÿ׳ˆÿÞ–ÿז₪"ÿס³1ÿעµ1ÿ±{ÿ}X,ÿu]ÿ{ÿ™„nÿ‰h;ÿ²yÿכ¨'ÿו¡ÿÝ“ÿײˆÿֽ{
+ÿָpÿֲgÿ¶\ÿ{: ÿ1 ÿˆÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿץצקÿקקרÿ   h   #    ’תÿzרÿ{lקÿ’eשÿ_י‏־₪כÿ °שÿ®הÿsS-ÿ¿U ÿ³[ÿ–J ÿ³^ÿװƒÿÞ”ÿט¢ÿל¨"ÿ\ÿƒyÿחזהÿףעעÿקצקÿץץץÿמםלÿ¦ÿ”dÿח ÿÝ“ÿױˆÿ־{ÿַpÿֲgÿ÷] ÿ–I ÿP# ÿ7(ÿױׂ׀ÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿץצקÿקקרÿ   h   #    תÿ|שÿKjקÿ™dרÿeצÿ©@ֲצû ¡ןÿ ֵÿÿFÿ¾U ÿ¹\ ÿ’I ÿ R ÿ־yÿÞ”ÿכ¡ÿ¦lÿ‚yÿרשתÿרשתÿרשתÿררשÿררשÿררשÿררשÿ™‹~ÿ¼ÿםÿÜ‰ÿײ	ÿֽtÿֱhÿ°[ ÿ–K ÿh1 ÿ% ÿ…zÿפץצÿצקרÿצקרÿצקרÿצקרÿצצקÿצצקÿקקרÿ   h   #        xרÿlרÿcקÿbשÿ’bהÿÜ₪סÿ µתÿ
+¼ןÿ‘j3ÿֲZ ÿ—M ÿˆF ÿְlÿÞÿÛ‘ÿsR)ÿÝÛÛÿרשתÿרשתÿרשתÿרשתÿררשÿררשÿררשÿÜÙײÿ_2ÿ­x+ÿm)ÿ˜h(ÿ“b#ÿ„UÿsIÿjCÿZ8ÿ.ÿb^^ÿטייÿצקרÿצקרÿצקרÿצקרÿצקרÿצצקÿקקרÿ   h   #            uרÿEaקÿ_ש‏’aÚא־E½סÿ₪סÿַÿÿ:­ÿ¿[ÿ¥U ÿzB ÿ¢YÿÚ…ÿ¾w	ÿo]ÿששתÿששתÿרשתÿרשתÿרשתÿרשתÿררשÿררשÿצצצÿÙױׂÿ׀Êֳÿ־Êֶÿֶֹֽÿ־ÊֶÿֶֹֽÿֶָֻÿÊֵַÿֵֶֹÿֱֲִÿָֹֹÿכלםÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿקקרÿ   h   #            רÿ	iרÿv\צûK°­הeֶÚÿ °רÿ	´קÿַüÿ|{Uÿ»U ÿ€H ÿ}E ÿֶsÿ¢_ÿ„yÿששתÿפפפÿפףףÿףףףÿףףףÿףףףÿףפפÿףפפÿפףפÿררשÿררשÿררשÿקרשÿקרשÿקרשÿקרשÿקרשÿקרשÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿצקרÿצקרÿקקרÿ   h   #                uתÿ*^פû?קc³±ÿWÊרÿ×פÿַÿÿ*³ׂÿ¥aÿM ÿm= ÿ—Uÿ§bÿ€Vÿu<ÿy>ÿ |@ÿ¡}@ÿ¡Aÿ£Cÿ¢€Eÿ¢€Eÿ¢Eÿ}CÿzAÿ—w?ÿ‘q;ÿ‹l8ÿ…d4ÿ~^4ÿvV3ÿjN2ÿQ=-ÿ1''ÿ״׳ײÿקקרÿקקרÿצקרÿצקרÿצקרÿצקרÿקקרÿ   h   #                    hנפe=‎P”ÿ~׀Ùÿ1¸תÿ´ץÿ׀ÿÿX•‹ÿ¬O ÿyA ÿl< ÿ§`ÿ׳€ÿÛ‰ÿÝÿאÿא‘ÿב“ÿג”ÿג•ÿג•ÿב”ÿÞ‘
+ÿÙ	ÿֽ„ÿֱ{ÿ´pÿ₪cÿ‘W ÿJ ÿp= ÿK$ ÿ ÿִֶָÿקקרÿקקרÿקקרÿצקרÿצקרÿצקרÿקקרÿ   h   #                    @[[/9‚צG ›ÿl·×ÿxװעÿ­פÿֶüÿ!ֻמÿ~tFÿ“C ÿc8 ÿq@ ÿ®gÿײƒÿÚˆÿÚ‰ÿÜ‹ÿÝÿÞÿßÿא’ÿא“ÿß‘ÿÙÿֿ‡ÿִÿ·uÿ¥hÿ“Yÿ‚MÿtA ÿQ) ÿ)ÿ·µ²ÿקרשÿקקרÿקקרÿקקרÿצקרÿצקרÿקקרÿ   h   #                    $  *!1+ףH ÿM§›ÿƒ־ֹÿ\ָשÿ¯ףÿ!׃ÿÿ8¶ֻÿXÿu; ÿZ3 ÿvE ÿ¬fÿֻ|ÿׁ„ÿױ‡	ÿ״‹
+ÿÚÿÜ‘ÿÜ“ÿÛ•
+ÿÛ•	ÿ׀ÿָ†ÿ¾€ÿ±uÿ¢iÿ”\ÿ…Q ÿuD ÿR+ ÿ/ÿ¾»¹ÿקרשÿקרשÿקקרÿקקרÿקקרÿקקרÿקקרÿ   h   #                    - י9SKÿO±×ÿP²¦ÿ‹Ùבÿ=¹קÿ¹ץÿ&״ÿÿQ˜ÿ†Dÿe6 ÿS4ÿnJÿ„[ ÿ’h'ÿ—p,ÿs/ÿv.ÿ£z/ÿ¦0ÿ¢{*ÿ©|ÿֽ‘ÿֳ†ÿ¹ÿ®uÿ£kÿ–`ÿ‡S ÿxHÿR+ ÿ<)ÿַֹּÿקרשÿקרשÿקרשÿקרשÿקקרÿקקרÿקקרÿ   h   #                    +
+ָ+ÿMufÿI¼³ÿ\ִ¹ÿ‡Ûנÿ+²פÿ'ֲשÿ-׃‏ÿby\ÿl/ ÿ…ÿמםםÿטוהÿחזהÿטזהÿטזהÿיזדÿךחדÿמכטÿßÚׂÿs<ÿַ
+ÿְ…ÿµ|ÿ­vÿ£nÿhÿ’aÿ~MÿM( ÿRA5ÿגבאÿקרשÿקרשÿקרשÿקרשÿקרשÿקקרÿקקרÿ   h   #                        ’ ÿP)ÿZ—|ÿDָ¾ÿlױּÿ{ױרÿ#°פÿ-ֻ‎ÿ6ָטÿfY2ÿ…kcÿתתûÿתתûÿתתûÿשתûÿשתûÿשתûÿשתûÿששתÿחהאÿ–r*ÿֶÿ¹€ÿ´~ÿ°|ÿ­}ÿ©yÿ¡rÿ„X	ÿD" ÿsdZÿקצקÿקרשÿקרשÿקרשÿקרשÿקרשÿקרשÿקקרÿ   h   #                        *G
+ ÿI"ÿmGÿW›€ÿ@ֱּÿzÞ״ÿoֿשÿ#³פÿ2׃ÿÿC÷ֽÿR;,ÿזגגÿתתûÿתתûÿתתûÿתתûÿשתûÿשתûÿשתûÿµ©ÿ¦x	ÿִÿ÷‰ÿ÷ÿ¹‰ÿµ†ÿ­ÿ¡tÿ~Wÿ< ÿ¨–ÿררשÿררשÿררשÿקרשÿקרשÿקרשÿקרשÿקקרÿ   h   #                        6%ֵ1ÿl@ÿuNÿZ—wÿCֲֿÿƒגבÿeֹרÿ&¸צÿ7Ûÿÿ8›§ÿ‚odÿענסÿתתûÿתתûÿתתûÿתתûÿשתûÿÝÚװÿ‹iÿִ—ÿֱ“ÿֱ“ÿ¿‘ÿ¼ÿ·ˆÿ¯ÿsÿjGÿQ;)ÿודבÿררשÿררשÿררשÿררשÿקרשÿקרשÿקרשÿקקרÿ   h   #                            $\ ÿZ?ÿ{QÿTÿd‘hÿIְֿÿ…חךÿ_ָשÿ)¼רÿ6ÜÿÿD”–ÿ|Z<ÿ»¯§ÿßÜÛÿזהדÿÜ״ױÿ°¢ÿ‘n)ÿ»"ÿֵ,ÿֵ™(ÿֵ˜'ÿֲ–%ÿ¾“!ÿ÷ÿ±ƒÿ”mÿK,ÿ˜„ÿרשתÿרשתÿררשÿררשÿררשÿררשÿקרשÿקרשÿקקרÿ   i   #                            1±0!ÿy],ÿˆb(ÿa!ÿw\ÿVÊ¸ÿ‚ךעÿ]ֹûÿ*¾תÿ1׳ÿÿ^ “ÿ‰[ÿySÿoRÿwXÿˆi"ÿ5ÿ°?ÿ¾™=ÿַ<ÿַ8ÿֶ6ÿֲ™0ÿ¼’,ÿ­†(ÿnMÿZD1ÿכיטÿרשתÿרשתÿרשתÿררשÿררשÿררשÿררשÿקרשÿקקרÿ   j   $                                )1
+בK:!ÿwKÿ–xEÿr9ÿ’ˆWÿl¿§ÿ„ימÿ^־‏ÿ*¾תÿ)׀ÿÿq´­ÿֵ]ÿ¿_ÿ¯cÿ¦’`ÿ¡[ÿ₪Wÿ¯”Tÿ»Rÿִ¡Nÿַ¡IÿֵEÿ¿Fÿ‹l'ÿG+ÿַ¿¹ÿששתÿרשתÿרשתÿרשתÿרשתÿררשÿררשÿררשÿררשÿקקרÿ   k   #                                    &M
+מ[K5ÿ£gÿ§fÿ­Zÿ®‘aÿ’¶–ÿ”דאÿdװ‏ÿ(ְ‎ÿ!ֻÿÿs¾ְÿ׳·ƒÿ׳·‚ÿָ³ƒÿֲ­}ÿ÷§wÿµ¡qÿµ kÿ÷¡eÿ¾¢bÿֲ§dÿ–{AÿJ/ÿ³¨ÿששתÿששתÿךץתÿÝםפÿץרשÿרשתÿרשתÿרשתÿררשÿצצצÿקקרÿ   j   "                                        
+N'ÿWJ:ÿ­›~ÿ¼×‰ÿ¾₪€ÿַ¦~ÿ¿¹•ÿ¸ÙÊÿtײצÿ(ֱÿÿֶÿÿkֵװÿבֻ£ÿךֽÿÜָÿÙִ–ÿ׃¾ÿֹµ…ÿֶ²ƒÿֲ°ƒÿuMÿG-ÿ±¨¢ÿששתÿששתÿששתÿחעקÿ₪װטÿגמףÿרשתÿרשתÿרשתÿצצצÿעעעÿקקרÿ   ]                                               ®«¨ÿJDAÿ=1'ÿzÿֻ¾§ÿֳׂ×ÿÙֲ§ÿאÊ«ÿ׳Ûַÿ‰Úסÿ0ֳ‏ÿ½ÿÿUִהÿÙױ»ÿץ״±ÿו׃®ÿגׁ¬ÿÞ׀¨ÿֲ±ÿv_>ÿ^H4ÿְ¸²ÿשתûÿשתûÿששתÿששתÿרשתÿ¥ױיÿ½Ýיÿששתÿששתÿקקקÿףףףÿןןןÿןןןÿ   j   "                                            ־־־ÿנןןÿ˜“ÿ:2,ÿbXMÿ×¡’ÿװּ½ÿחßֿÿףוׂÿסםÜÿ²לקÿRװÿÿֱÿÿ3½נÿµֽׁÿי׃¶ÿֻµ™ÿzaÿcL4ÿ™‹}ÿטזהÿתתûÿשתûÿשתûÿשתûÿשתûÿשתûÿ°ÜםÿׁטÿûûûÿץץץÿץץץÿכככÿßßßÿÊÊֻÿ   <                                               ־־־ÿûü‎ÿûûüÿיטטÿ›™ÿf_Xÿi`Wÿ‹‚xÿ×£™ÿִ÷®ÿÙּ½ÿ³־ֹÿ]ֱÝÿ »üÿ÷תÿO—±ÿricÿ³¢ ÿיהגÿתתûÿתתûÿתתûÿתתûÿשתûÿשתûÿשתûÿ®®®ÿ®®®ÿ®®®ÿ®®®ÿ®®®ÿ®®®ÿ®®®ÿָָÊÿ>>>˜                                                   ־־־ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿאÞÞÿ¿¼»ÿ×¥¡ÿ˜”ÿ —ÿ¥•ÿ¯°­ÿ«אכÿZ׳ÿÿ²שÿKµÞÿִ״אÿתתûÿתתûÿתתûÿתתûÿתתûÿתתûÿתתûÿתתûÿ®®®ÿÿÿÿÿÿÿÿÿשששÿףףףÿבבבÿ׃׃װÿ€€€ֹ+                                                   ־־־ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿגר‎ÿ¥כûÿ?׃ÿÿֶÿÿPÊ‏ÿ¬בקÿעקתÿתתûÿתתûÿתתûÿתתûÿûûûÿ®®®ÿÿÿÿÿשששÿףףףÿבבבÿ׃׃װÿ†††ָ,                                                      ־־־ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿתûüÿדצûÿ×ךרÿS׀תÿ*¹ףÿ6±ךÿuִיÿ°Ûנÿ׳יןÿÞכןÿ³Ûםÿ®®®ÿשששÿףףףÿבבבÿ׃׃װÿ’’’ּ/                                                          ־־־ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿתûüÿכרûÿִסתÿארÿXַףÿD´םÿO±וÿN­בÿ:¥גÿ®®®ÿםםםÿבבבÿ׃׃װÿ‘‘‘ֻ,                                                              ־־־ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿתûüÿתûüÿתתûÿרררÿץץץÿץץץÿ®®®ÿבבבÿ׃׃װÿ„……ֵ-                                                                  ־־־ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿתûüÿרררÿפפפÿעעעÿכככÿ®®®ÿ׃׃װÿ”””ֿ,                                                                      ־־־ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿüü‎ÿûü‎ÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿûûüÿרררÿףףףÿןןןÿßßßÿָָÊÿ˜˜˜ֽ/                                                                          ־־־ÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿקקרÿףףףÿףףףÿÊÊֻÿ€€€ֳ'                                                                              ײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿu•—q                                          ÿא      ÿא      ÿא      ÿא      בא      €                        א       א       א       א       ְ       €                      €       €       €       ְ       א       א       נ       ר       ר       ר       ר       ר       ü       ü       ü       ‏       ‏       ÿ       ÿ€      ÿְ      ÿא      ÿא      ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא     ÿא   ?  ÿא     ÿא  ÿ  (       @          €                                                                                                                                                                                     H   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   `   H    שÿ
+xרÿjûÿSעû=דק5+Ûפ)×בװױײÿקששÿרששÿרששÿרששÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿץצצÿץצצÿץצצÿץצצÿ   `    שÿ!{ûÿ#Iׂף|’Þב
+Üר˜אß¢גֲm½Ýÿֵדןÿץקרÿקששÿרששÿרששÿרררÿקררÿקררÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצצצÿץצצÿץצצÿ   `    ‎ÿ/hורx‹Ûÿ‰ֹֿS³״<\ָל^ֹכ0 ּאÿ‡׀ףÿ׀נÿ־חעÿפצץÿקקצÿצצפÿצץףÿצץפÿצקצÿקררÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצצצÿץצצÿ   `    ‘‏ÿMDֵןֽ׃ק:”­9            ײײײÿקשתÿׁזםÿ‰÷־ÿ«³©ÿß¿›ÿ׳³ÿױ±ˆÿÙ÷ÿÜֹµÿטבÚÿעסןÿצקצÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿ   `    ‏ÿl6¼םה‘ׁץ8˜±)        ? Êְֵÿִ©ÿ÷y=ÿֽtÿ״ƒÿÝ•ÿג&ÿג"ÿÚÿÊu	ÿ±dÿ×€Yÿֱּµÿןןםÿקררÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿצקקÿ   `    …‏ÿ|9ֲןד “ײצ¥ׁN    > 	BS€P%ÿ÷aÿÛ‰ÿמ®*ÿקֻOÿüבqÿ‏ך‚ÿ‎הyÿשׂ[ÿע¶5ÿה–ÿֻqÿ”Hÿs[ÿ״װ׀ÿץצצÿקררÿקקקÿצקקÿצקקÿצקקÿצקקÿצקקÿ   `    ‎ÿ€I׀פ׳ –Üû¦ׁF;/? pX'ÿ¶_ÿדÿי§#ÿף¿Cÿר׃bÿ‎ח€ÿÿסÿÿכ…ÿתÙiÿפֱEÿך©&ÿß“ÿ׃yÿK ÿmI-ÿÊֲֵÿץצצÿקררÿקקקÿקקקÿצקקÿצקקÿצקקÿ   `    wüÿ‚Zוû¾זÿ©ÞֽB?7_[ ÿK ÿַnÿÜ‘ÿז£ ÿע¹<ÿתֿVÿקײdÿןֿfÿנּ^ÿצÊRÿצ½=ÿט¥"ÿÚ‘ÿׂ€
+ÿּoÿB ÿaG7ÿײװׁÿקררÿקררÿקררÿקקקÿצקקÿצקקÿ   `    rתÿeץÿ¥#²נ‎ §כ‎0JMü= ÿ´Y ÿµ_ÿÚ‹ÿה¡ÿע´1ÿÙ£5ÿ¢|>ÿ›]ÿ¡†dÿ©ƒDÿ״.ÿל¦ÿÛÿ׀}
+ÿּoÿ¹\ÿd- ÿzoeÿנסנÿקררÿקררÿקררÿקקקÿצקקÿ   `    pרÿhתÿ”Gֿרג©שÿ#·ÿµRÿ°U ÿ Rÿײƒ
+ÿי ÿֻÿ‹v`ÿגאßÿשתתÿשתתÿגאÞÿ†hÿׁÿח—ÿׂ~	ÿֹnÿ½b ÿ‡@ ÿ;ÿ·´²ÿצקקÿקררÿקררÿקררÿקקקÿ   `    rרÿbcתÿ—cם‏÷¯קÿ÷רÿ|{Uÿ¾O ÿI ÿֶuÿב•ÿl;ÿטטטÿתûûÿתתתÿתתתÿשתתÿגßÚÿ—vHÿֳ1ÿ¯x-ÿ₪l(ÿ‘]#ÿzN"ÿE,ÿˆÿףפפÿקררÿקררÿקררÿקררÿ   `    xרÿcתÿ`חך²G¼ז‏±ÿÿ*®ֹÿ±[ÿ’E ÿ¢^ÿּ~ÿ}kÿûûûÿצקצÿצצץÿצצץÿקקקÿצקקÿעעעÿםםלÿממםÿממםÿממםÿםמםÿכככÿןננÿץץץÿרררÿקררÿקררÿקררÿ   `        s‎‎KP׀ּׁ\¯¶ÿ*÷‏ÿְûÿgzÿ¦F ÿF ÿ×dÿ“vLÿֲ¶ ÿ¼¬‘ÿ¼­’ÿ½­’ÿ¼¬’ÿ¾®•ÿֲ¶ ÿֳ¸₪ÿ¿´¢ÿ¼°ÿ¸¬ÿ´×ÿ₪™ÿ÷··ÿלללÿרררÿרררÿקררÿקררÿ   `        ‰ÿÿJ°±¶P˜ÿeָוÿ¸ÿÿ!ֲוÿ‹i,ÿ8 ÿJÿֹxÿÛ‹
+ÿÛÿÝÿÝ“ÿß“ÿß”ÿÚÿֿ‡ÿ¿|ÿ«kÿ•Yÿ€I ÿJ! ÿQA9ÿ׃׃ׁÿרששÿרררÿרררÿקררÿ   `        d²°.>:D™’ÿpִ¿ÿPִקÿֲÿÿE®´ÿFÿg2 ÿ\ÿ׳„ÿאÿד‘ÿו”	ÿז—ÿח™ÿו—ÿÙÿָƒÿ³sÿ›`ÿ…O ÿ]1 ÿWF9ÿׁׂ׀ÿרששÿרששÿרששÿרררÿ   `           4SMÿT¶×ÿtֿÙÿ9¿‎ÿֹüÿ_‹vÿv2ÿaA ÿ‘n@ÿ£z<ÿ§€Aÿ­„Bÿ´Eÿ²@ÿ¶†ÿÊÿ»ÿ©pÿ˜bÿˆSÿ[2 ÿcSGÿÝÜÚÿרששÿרששÿרששÿרששÿ   `        ##V%
+ÿP|fÿXֻ½ÿoײםÿ/¾ÿÿ,ַמÿglKÿsqÿתתתÿטזוÿיחוÿךטוÿנמכÿÞÙׁÿ „Lÿֶÿ·~ÿ«wÿ₪s	ÿ–eÿZ4 ÿ}peÿסנןÿשששÿרששÿרששÿרששÿ   `            &!
+ םX5
+ÿY—vÿ\ײ־ÿfװשÿ-ֶÿÿ7¶ֿÿyobÿףסנÿüüüÿûüüÿûûûÿûûûÿÙ׃ַÿ£|)ÿֶ
+ÿ¸†ÿ¶†ÿ³ƒÿoÿW7	ÿ¦–ÿשתתÿשששÿשששÿשששÿרששÿ   `            &	˜C# ÿyRÿ[–oÿeÙׂÿ^ױÿÿ-ֹÿÿ?©÷ÿ°£—ÿטאÚÿץפףÿעעסÿßÛװÿ±lÿ÷ÿָ™ÿְ“ÿ¼ÿ¹‰ÿbÿlV;ÿÚױׁÿשתתÿשתתÿשתתÿשששÿשששÿ   `            &&+"טpJÿc"ÿm”iÿqװּÿZ׳ÿÿ,ֽÿÿA¨ÿ„jÿְ¨‹ÿ²¦ÿ›„Sÿ§„*ÿֵ8ÿֶ4ÿֶ›/ÿִ™+ÿ²‰"ÿlKÿ¥”ˆÿתתתÿתתתÿשתתÿשתתÿשתתÿשששÿ   `                    !	j8+תpCÿ¨}Cÿ‹™kÿ„ֱֽÿ\ױתÿ(ֿÿÿH £ÿ¦†Eÿ´ˆ?ÿ¥Sÿ©•^ÿ±—Xÿ½QÿÊ¨Qÿַ₪Nÿ‡g&ÿ„nXÿטטחÿרששÿרשתÿתתתÿשתתÿשתתÿשתתÿ   `                    1!‚G<,פ iÿַ¡uÿ»®‚ÿ«ֽ»ÿnׁםÿ#ֻÿÿC¦¼ÿ§‘ÿלֵÿֽ¸‹ÿֵ³…ÿּ¸…ÿִ®vÿqAÿ‚nYÿßÙױÿתûûÿ¥זתÿױינÿתתתÿתתתÿשתתÿװװװÿ   `                        %iZRIÿ‘„pÿ־·›ÿךׁ±ÿיחׂÿ—הûÿ0׃ÿÿ@´ױÿ‚§¦ÿ‎״¬ÿכׁ§ÿ¿®‰ÿ‡uXÿoÿגÞÛÿûûûÿûûûÿ<¦ּÿÚלעÿײײײÿ־־־ÿ¿¿¿ÿ¸¸¸ÿ   U                                ¨¦¦ÿ†~ÿ€ypÿ”‡ÿֽ¹¦ÿדײִÿ§Üגÿ:ַףÿ4¹ךÿ]˜×ÿ£~ÿ§|ÿֲµ¯ÿץץפÿûüüÿûûûÿûûûÿ¶¶¶ÿ«««ÿ©©©ÿ©©©ÿ¯¯¯ÿ¸¸¸‏   7                                ײײײÿ‏‏‏ÿװׁׂÿ÷·³ÿ¦¡ÿ¦˜ÿ¬ ÿ£¯°ÿ‚ױלÿ:ֶסÿ>¬ÿֱֽׂÿüüüÿüüüÿûüüÿûüüÿûûûÿֲֲֲÿץץץÿפפפÿדדדÿ¼¼¼‏ddd„                                   ײײײÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿףששÿֵר‏ÿ†ו‏ÿLַץÿTִןÿ¨Ýצÿ׀לשÿזסצÿG­ׁÿֵֵֵÿתתתÿכככÿÊÊÊ‏mmm                                      ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿסû‎ÿ½ס‎ÿwÝ‎ÿC¾ןÿK¼כÿSֿץÿַגמÿִִִÿהההÿֹֹֹ‏hhh                                          ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿüüüÿךךךÿַַַÿַַַ‏eee~                                              ײײײÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‏‏‏ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿ‎‎‎ÿü‎‎ÿüüüÿüüüÿÜÜÜÿָָָ‏kkk‚                                                  ײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿײײײÿּּּר‚‚‚o                      ÿ   ÿ   €   €   €   ‡   †   „   €   €   €   €   €   €   ְ   ְ   ְ   ְ   ְ   א   א   א   ר   ר   ü   ÿ   ÿ   ÿ   ÿ  ÿ  ÿ  ÿ  (                 @                              nnnÿnnnÿnnnÿnnnÿmmmÿmmmÿmmmÿmmmÿnnnÿnnnÿnnnÿnnnÿnnnÿ            zzzÿםםנÿןןסÿןנסÿננעÿססעÿסעףÿעףפÿףףץÿפפץÿץץקÿצקרÿzzzÿ0üÿ	¼‎{}׳ֲ/x¨ÿG…¯ÿÊ״ßÿךיךÿננסÿסעףÿעףפÿףףץÿפפץÿץץקÿץקרÿקרשÿ………ÿ2ץÿ@בזJn½װװװÿ™§£ÿJWDÿֶ€ ÿִ~ ÿִt ÿ°¢‘ÿפפץÿץץקÿקקרÿקרשÿרששÿ’’’ÿ;שÿT‘ױתJk¬¢|ÿ«] ÿû₪ ÿÿָ?ÿÿ½$ÿײ‰ ÿN ÿ‡r^ÿקקרÿקרשÿרששÿשתתÿ¢¢¢ÿDשÿD-ֻ‏ױ?]lü„: ÿְw ÿׂˆ ÿ±p ÿ¦j ÿֶƒ ÿ´n ÿm< ÿˆzqÿרשתÿשתתÿתתûÿ£££ÿ;תÿ">ךÿ¶ ¡ײÿq< ÿ₪c ÿ×mÿףפצÿפצקÿצקקÿקקרÿררשÿרשתÿשתתÿתûûÿתûûÿ¨¨¨ÿru1›ֽ8ֵצÿ*n‚ÿr. ÿ—E ÿ”6 ÿ•6 ÿ›6 ÿ›6 ÿ“3 ÿG9.ÿתûûÿתû‎ÿû‎‎ÿ×××ÿ    -81M¡»“ÿ^װבÿ*><ÿה ÿנ— ÿמ– ÿנ– ÿן• ÿז ÿO/1ÿüü‎ÿü‎‎ÿ‎‏‏ÿ¬¬¬ÿ    R
+ +½–Fÿֵ־ÿ^װבÿ>Fÿ¨××ÿסססÿ°fÿ‏ÿ‏] ÿ|kcÿü‎‎ÿ‎‏‏ÿ‎‏‏ÿ°°°ÿ    =,%v5ִÿ·1ÿֵ׀‹ÿ^װבÿ>RÿdYJÿÿ¬*ÿÿֱJÿײW ÿ¼½°ÿü‎‎ÿ‎‏‏ÿ‎‏‏ÿ°°°ÿ        oSB,‹sJÿÿֹAÿ²ײ§ÿHִנÿF|ÿ—jÿד_ ÿü‎‎ÿy£ÿ‎‏‏ÿגגדÿÛÛÜÿ³³³ÿ            ±°­ÿµ£‚ÿ±”Wÿ|©ÿI¼Þÿ@–«ÿ]ojÿg™ÿ§ßÿ˜™™ÿ±±±ÿ±±±ÿ³³³ÿ            ¹¹¹ÿשתתÿםככÿןעלÿגפץÿ˜דüÿUָצÿ@´הÿ»חרÿÿץץץÿ´´´שÙÙÙ_            ÷÷÷ÿûûüÿתüüÿü‎‎ÿü‎‎ÿ‎‏‏ÿ‎‏‏ÿתüüÿ‎‏‏ÿ­­­ÿ´´´‎אגßi                »»»ÿ»»»ÿ÷÷÷ÿ÷÷÷ÿ÷÷÷ÿ÷÷÷ÿ÷÷÷ÿ÷÷÷ÿ÷÷÷ÿ¹¹¹üפפפy        א   א                           €   €   €   ְ   א   א   א  א     	 00   h  M      ט  N    (  O 00    ¨  P       ¨  Q     h  R 00     ¨%  S        ¨  T      h  U     (   0   `         €                        €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                            w                      wpp                    ‡ˆ                    רx€p                   ÿ‡‡                   קp                    ‡ÿwp                   ‡x                    xרxvp                   w`                   ק                    ‡ÿw€p                   ‡‡                     ‡רx                    w€p                    xק‡                     wWps@  4p              x‡p Gxˆ‡p`             ˆwxˆˆˆˆ‚Pp             ˆxˆˆÿÿÿˆˆr             wˆˆÿÿÿÿˆר@p            xxÿÿרררÿˆ‡           ‡ררררÿÿÿˆ           ˆררÿˆpp          xˆˆÿרÿˆצ          ‡ˆˆרˆרˆˆ         xˆˆרררˆרˆˆS         ˆˆˆרˆרררt         xxˆˆˆˆˆˆרˆרˆ€         Hxˆˆרˆרררˆרˆ‚         8oטˆˆˆˆˆˆˆרנ         Hxˆˆˆרˆˆˆˆˆ€         xxˆˆרˆˆרˆרˆ„         w~ˆטטˆˆˆˆרˆˆ€         wˆˆˆרˆˆט‡         vˆˆˆרררG         ‡~רˆˆˆררˆרˆˆˆ           ‡hˆרˆˆˆˆˆ‡p          ˆVˆרˆˆˆˆˆרˆפ           vxˆˆˆˆˆˆˆw            קgˆרˆˆˆˆˆ‡@            whˆˆרˆˆˆw              ˆv~ˆןˆטw‡`              ˆwwvwxˆg                ˆˆˆˆ‡g                  FGFp                                ÿÿÿÿÿÿ  üÿÿÿÿÿ  נÿÿÿÿ  א?ÿÿÿÿ  אÿÿÿÿ  אÿÿÿÿ  אÿÿÿÿ  נÿÿÿÿ  רÿÿÿÿ  üÿÿÿÿ  ‏ÿÿÿÿ  ‏ ÿÿÿÿ  ÿ ÿÿÿ  ÿ€ÿÿÿ  ÿְ?ÿÿÿ  ÿאÿÿÿ  ÿנÿÿÿ  ÿר ÿ  ÿü  ÿ  ÿ‏  ÿ  ÿÿ  ÿ  ÿÿ  ÿ  ÿÿ   ÿ  ÿ‏   ÿ  ÿ‏     ÿü     ÿר   ?  ÿר   ?  ÿר   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿר   ?  ÿר   ?  ÿר     ÿü     ÿü   ÿ  ÿ‏   ÿ  ÿÿ  ÿ  ÿÿ  ÿ  ÿÿְ ÿ  ÿÿא ÿ  ÿÿר ?ÿ  ÿÿ‏ÿÿ  ÿÿÿÿÿÿ  (       @                                  €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                wwp             xw             xקw             ˆwP             x‡'             ˆup            w              wˆW             ˆrp             w‡P wp         ‡awwwww         x‡x€ ‡wp        ˆ    w        w€     ‡p       x   ÿÿרp      ˆ  ÿÿˆw      € ררררˆ†      wˆ ÿˆ‡p     wˆˆררררˆטp     xˆˆרררˆp     wˆˆררררˆחp     xÿˆןˆר‡p     ‡ˆˆרררטˆˆ‡      xטרˆ†      xˆררÿÿˆp       wÿˆרˆ`       xˆרˆ†         wˆˆחp         g‡ˆחp           vvp     ÿÿÿÿדÿÿÿֱÿÿÿְÿÿÿְÿÿÿאÿÿנ?ÿÿרÿÿרÿÿüÿÿ‏ÿÿÿ‡ÿÿ€ ÿÿְpÿד‏?ÿַÿÿְֿÿ ÿ ÿ ÿ  ÿ  ÿ  ÿ  ÿ  ÿ€ ÿ€ ÿְ ÿא ?ÿנ ÿרÿÿ‏ÿ(                €                         €  €   €€ €   € € €€  €€€ ְְְ   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ  p      w      ‡       ˆP      ‚       ‡pwp    W‡‡    €p    ÿ‡   x ÿ‡p  xרר‏p  xˆˆררp  xןˆˆ‡€  ‡ˆÿˆ‡   ˆררא    wxg  ßÿ  ÿ  ÿ  ַÿ  דÿ  ס  ר  ש§  ûƒ  ף  ע  נ  נ  נ  ר  ü  (   0   `          	                      """ ))) ++- --- /01 112 779 :;; ??B CCC IJJ KLL MMM LLP OPQ STU VVZ \\] }]B r_K wbL lZ ^_c aaa dcd eee fgj hgh kkl xl` zpf klp qqq stu uuu zww xp zzz ‡gK €iR ‰mQ ‡r[ u] wT –y] {_ ¦~[ wb zj “zc ›d ™i ˆ{s „} —ƒq ›ˆr  †l §‹s ­“{ ´‘p ¾—y ֲu |} ‚‚ … †…… ˆ†† ……‰  ›ƒ –‹  ‹‹‘ ‘ “““ ’”™ ›  ‘ ®•‚ ₪™ ₪“– £–   ©™ ¿¥ ´₪’ ·« ¹­ ¢ ¦£ ¢¡¢ ¡¡₪ ¦¦¦ ¬¥¥ ₪₪¨ «¦© ¦¨¬ ×©« ±©£ ´¦¨ °­« ¹«® ¼³¦ ²±® ¼³¬ ­­° ®°± °³¶ µ²´ µµµ ¸·· ·÷· ¾¹µ ·¶¸ »»¼ ֱ¡ˆ Þ¯‚ ׂ«‰ ֳ¥“ Ê¬“ ַ¬™ Ù²“ Ý´ ֻ³¡ ַ¹¥ ֽ·¨ ַ÷× ּ¼¬ ׁ÷« ֱ´· ְ¸° ֽ¿° ְ»¹ ן³¥ ז÷¬ א»· ק½÷ כֳ ûֵ“ עַ תַ™ פָ› תֹ› ״ִ¬ ־ֱ³ ֳּ» ִׁ´ ֶׂ¹ ׃Ê» חֶ¦ ךֵ£ גֶ© ךִ« ףֻ¢ תֻ¢ סֻ« פ׀¬ ûׂ× ןֲ² וֻµ י־´ ם׀¶ ף׃³ תװ± צ״· ת״´ ףײ¹ פ״» üÛ» ֲ¼ְ ֻ¿ֱ ן¼ְ ֲִִ ִִֻ ֳִָ ַָֹ ַÊֽ ֹֹֹ ֽÊֹ ֹֽֿ ּÊּ ֿֿֿ ױÊֱ Ýִּ ׃ּֽ Üֵׂ ׀׀ֿ Þ׳ֻ ßÙּ ־ֿ׀ ׂׂ׃ ÛÙײ װײÙ ßױÙ ׳״Û ״ÙÜ לֲֵ קְֳ ‎ֶָ ‎ֶֹ אַׂ כ׳ֳ ט׃ֿ וÛֿ ‎׃ֳ עÛֲ ‎Þֳ סÞÊ שÝָ üֻװ üֽÚ גÝׂ י״װ הÜß קװװ קÜױ ‎בֵ ץבֻ üהֻ ÿטֻ ךבױ הבÜ ץד׃ תזׂ קי׳ תטױ פוÚ ץךÜ שךÛ דßא üײב והה לוג קחג שחה צלב שמג üאט נךן ץנז תנד קסי ûעך פםנ ÿמע ץףנ üפף ‏שף ‎קש üûת üüû ‎תü ÿÿÿ                                                       #                                            _G                                          B¸Mpu                                         dÿ½up                                        Iכÿp½&	#                                       °SסÿE#ך                                        dVÿûGֳ                                        Sfÿכdu                                        L„ÿ¸¯&	&                                        L°ÿ`½                                        ¯JִÿEEֳ                                        ¬L״ÿ#O`                                        dSצֲ¯	                                         \Vû¯u                                         ShûOB_                                         L„ûEU	                                          S­ט&O#                              L½°((	B_ld_A                            Vֱ¬((_¯­–“††“¹½¹^	                           _rd[u“†¼כרÿÿרכֻ“¾¸B                          \ti†ßתתףתתûתתתק׳–¿¯	                         uY¼תזזןףתתףתןפפללֻ¹´#                       ¯Z¿חווזןתחןתןתןפפליֽ–¯                       ai÷זבבבןןןןןןחןןןממלױ÷¿M                     "rהׂבבזןחחןחןחןחןמממלױƒך                    #uXּׂׂׂבחחחחחחחחחחחחןמזÙַ–p                   `XÝׂ׀׀חחההחהחהחהחחחחזזזװ†ֱ                   KR’׀׀×בהההההההההההההחחזזÙ¿B                  lP£׀¥׀ÝהההÝהÝהÝהÝההההההזÚ®¹u                  q:¥¥¥×בהÝהÝÝÝÝÞהÝההההההבבָ~ֳ                  p4׀¥׀הÝÝÝÝÝÝÝÝÝÝÝÝÝהההדבÊyֳ                  p-׃ההÝÝÝÝÝÝÝÝÝÝÝÝÝההבהֹyֵ                  l-˜§ÛÝהההÝהÝÝÝÝהההההההב‹{ֳ                  &dx¦¦¦¨«««««««¨¨¥׀¥ˆ¯                   m > «¨‘‘‘ ¦¨׀׃‰¼_	                   d&+ÞההÛÛ׃««««««׃ÛÝההההֿ}״                   MU@‘ÛהÛÝÛÛÛÛÝÛÝÝÝÝÝ׃Ýה׃¡ƒ½                     ¸ +w«ÞÝÛÛÛÛÛÛÛÛÛÛÛÝÝÝהֿ}–C                     _j.הÞÛÛÛÛ«׃ÛÛÛÛÝÝÝÝ׃›~ֳ	                       ³81׀הÝÛÛÛ׃«Û׃ÛÛÛÝהÛz°                        ֳ7;£ÞÞÛÛ«ÛÛÛÛÛÞÝÛ™v…M                         OֳH*4y₪ÛÞÞÞÛÞÞÞÝxQ„O                            c¬324=z¥׀˜|?<P¯A                              #trP3444.569Ru_(                                 #bgYiiiigdU#                                     &#                                                                 ÿÿÿÿÿÿ  üÿÿÿÿÿ  נÿÿÿÿ  א?ÿÿÿÿ  אÿÿÿÿ  אÿÿÿÿ  אÿÿÿÿ  נÿÿÿÿ  רÿÿÿÿ  üÿÿÿÿ  ‏ÿÿÿÿ  ‏ ÿÿÿÿ  ÿ ÿÿÿ  ÿ€ÿÿÿ  ÿְ?ÿÿÿ  ÿאÿÿÿ  ÿנÿÿÿ  ÿר ÿ  ÿü  ÿ  ÿ‏  ÿ  ÿÿ  ÿ  ÿÿ  ÿ  ÿÿ   ÿ  ÿ‏   ÿ  ÿ‏     ÿü     ÿר   ?  ÿר   ?  ÿר   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿנ   ?  ÿר   ?  ÿר   ?  ÿר     ÿü     ÿü   ÿ  ÿ‏   ÿ  ÿÿ  ÿ  ÿÿ  ÿ  ÿÿְ ÿ  ÿÿא ÿ  ÿÿר ?ÿ  ÿÿ‏ÿÿ  ÿÿÿÿÿÿ  (       @                              AAA DCC DDD III MMM RRR UUU XXX \\] a`^ ^_a `^` bbb dcb ddc eee jhg ngi iii lkk lll qmm woq qqq rrt vqt stu vuu wwx |wz yyy |{y ~{ {{| }|| y} } „} …~€ € ‡…ƒ ……… ‰†ƒ †€ ‰‰‰ ‹‹ ‹‹ ‹  ’„ ‹  ”  —‘ ‘‘‘ •“ ””“ •”• ™ ›  £™ ₪’ ¢›• ¢ ¥ ®¦ ¡¡  ¥¡¡ ¥£₪ ¨¦£ ¨§¦ ¯§© ©©© ¯®« ««® ´«£ ³«₪ ¸¬  °©× °®® ´¬¯ ²°® ·²­ ¾´× »´­ ³±± ·µ° ¸¶· ¿¸° ¹¹÷ ¾½÷ ¼¼¾ ֹµ› ײ» ֻ¹£ ֽ¸  ֵ¼® ֿ¿® ÿֱ ףֵ— ÿֳ ÿִ’ ‏ֵ• עֵ סֶ פֹ ÿָ ‏Ê ֲֻ´ ֵֽ÷ ײֵ± Úֹ· Úֻ¼ גִ¢ וֵ¦ גָ­ עָ  עֻ¦ פֽ₪ ÿֻ  ÿּ¡ ÿ־¥ ÿׁ© ÿׂ¬ גֻ± זֿ¹ פװ´ ÿױ± ÿײ´ ÿ״· ע״¾ ÿÙ÷ ÿÛ¼ ÿÜ¿ ְְֳ ֵַֻ ֵֹּ ֽֿֿ ״ֵׁ Ùװ־ ײׂ׃ ÚÙ׳ ÜײÙ לÝּ ÿÞֲ ÿßִ ÿאֶ ÿבֹ רדֽ ÿה־ ÿזׁ ÿט׃ ÿטױ רטÙ ÿךÙ ÿלÛ ÿלÝ דÝא וßג דאג וגה ‏מא ÿנג ÿנו ÿףט ÿפכ ÿץם                                                                                                                                                                                                                                                                                                                                                     ÿÿÿ                                                                *-#                           ¢;;;                          'S¢-*                           -                           ‘Z-                           ¢I-;                          F' ;                           378                           %C‰*-                           JS    #                    %Q>#;>;-                  'XQ(>]   X;#                  ]‹         U                -6           p#               p      ©©§¥›” [              Q…    §©©§§˜†>             o    ›§§§¥››”}c            *8}   §¥¥¥››˜‚v'-           Fx}}‚”¥¥¥›™˜†w>           Xn{{}‚™›››˜”iK           Ikn{{†}†™›™›˜jF           -;tinn™†{‚”˜››™˜t-6           Q#aiii¥™”}n{‚†”‚d             (Dfee›™”„}nwU             ]*_ee”¥¥”q#               *5`e‚§¥¥¥˜€C                *?aw›§¥¥¥˜rF                  2Pq’¥’sV*                    ,?NVN?*                        -           ÿÿÿÿדÿÿÿֱÿÿÿְÿÿÿְÿÿÿאÿÿנ?ÿÿרÿÿרÿÿüÿÿ‏ÿÿÿ‡ÿÿ€ ÿÿְpÿד‏?ÿַÿÿְֿÿ ÿ ÿ ÿ  ÿ  ÿ  ÿ  ÿ  ÿ€ ÿ€ ÿְ ÿא ?ÿנ ÿרÿÿ‏ÿ(                                     === FJM WWW ZZZ \^_ bcg kif mmm nrv prt ~yt xxy €~z …| {~€ €€ ƒ |„ ‚ƒ„ ‚„„ ‡…… ‰ƒ€ †ˆ ‰ —† € ‘  ­– «˜‡ £˜ ©‰ ¡˜ ¯¦ ¡¢₪ ¦¢₪ ×₪¦ ©¬® ´¬¯ ¹³´ ¸¹¼ Ù±‹ ׃¯ ײ± ûִ ûÊ› ÿֿ Þ־¼ יֹ§ וָ¬ מֿ¯ ÿֿ¢ ‎ׁ¦ קױ² ÿױ± ÿ״¶ ÿÚ¹ ÿß÷ ÿÜ¾ ֲָֽ ßÝß ÿÞִ ÿזִ ÿגÊ ÿי־ קחײ ÿחׂ ÿטױ ÿמײ ÿךÙ ÿן״ ÿלÝ ÿעÙ ודו חוח ûןא ÿמא ÿנה ÿפז ÿעי ÿץכ ‏ץם ÿתף                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ÿÿÿ                 $             $K              %K              '=              (           %$#!         <  R B           ROB6      2  RRMBA     5 >RMMBA,	     
+.48;@FBI+     *.FC;7;: &     )-ASOBI1       3OOO0         "    ßÿ  ÿ  ÿ  ַÿ  דÿ  ס  ר  ש§  ûƒ  ף  ע  נ  נ  נ  ר  ü  (   0   `          €%                                               %   ,   #                                                                                                                                                                            J         s   K   *                                                                                                                                                                  ???ֹ¡¡¡ü‹‹‹ûה   µ   q   K   %   
+                                                                                                                                                       YWY¿ּÊּÿ“““ÿ´´µÿ¾¾¾ÿא   ©   j   E                                                                                                                                                          «¨¬ÿÿÿÿÿ׀׀ֿÿSSSÿ»÷¼ÿ·¶¶ÿ   ױ      b   :                                                                                                                                                      ”‰תכבוÿÿÿÿÿµ²´ÿdcdÿ׀ֿֿÿwwwת   ַ      Z   0                                                                                                                                                  °¥©×₪“–ÿנךןÿÿÿÿÿ‡††ÿpppÿוההÿDDDע   ¼   y   P   &   
+                                                                                                                                               ¦ז×ÿ‎תüÿüתüÿmmmÿÿװׂװÿח   ©   m   E                                                                                                                                                      ¡’–פ´¦¨ÿÿÿÿÿזההÿ``aÿ«××ÿ÷÷÷ÿײ   ›   d   :                                                                                                                                                  ™™’‎ֱ´·ÿÿÿÿÿֹֹֻÿa``ÿֲֲֳÿzyyû   ַ      Z   0                                                                                                                                                  —<ÿֲֵּÿÿÿÿÿ×§¨ÿhghÿֿֿֿÿBCCע   ÷   w   O   %   
+                                                                                                                                                –ÿßױÙÿÿÿÿÿˆ††ÿ………ÿׁ׀ׁÿד   ©   k   C                                                                                                                                                      ”‘ÿהÜßÿ‏תüÿwvvÿÿ¦¦¦‏ײ   ”   a   5                                                                                                                                                      “˜ׁ₪”—ÿפםנÿÚÙ׳ÿeedÿ¿¾¾ÿghhת   ֱ      T   (   
+                                                                                                                                                    ’–ß©˜ÿûץקÿֱֲֵÿjjkÿ½¼½ÿך   °   m   E                                                                                                                                                    ‘•ן¹«®ÿ‎קשÿÿƒƒ„ÿ£¢¢ÿÙ   —   a   5                                                                                                                                             “üֱµ·ÿשףפÿ‰‡‡ÿ¢¡¢ÿ]]]ש   ְ   z   T   .         %   <   P   \   _   Y   P   <   1   %                                                                                                    ­§­,£•˜ûֻ¿ֱÿדßאÿzwwÿÿח   ±      w   “   ³   ׂ   Þ   ו   ז   ד   Þ   ׀   ¾      g   C   0                                                                                                 ְ¶¼&‘‏ױּ־ÿֵֵּÿ{zzÿ{{{ÿ!!!נ   ßײ'')ךSSWת…ÿ¡¡¥ÿ­­±ÿ­­°ÿ¡¡₪ÿ~~€ÿNNRת!"#מא   ׃   °   g   C   *                                                                                              ֲ¸½&¨תײ׀ׁÿ¾¿¾ÿ{{{ÿ{z{ÿPPVü¡ ¥ÿֳֳֶÿֳּ»‏ִֿ¸צֻ¾­ןÊ÷¨לÊ÷×ל־ֱ°ןװֹ¿קװ־ָ‏ֽÊֹÿ£ÿ113ץ
+
+
+Ü   ֿ   ”   P   3                                                                                               —5£¡¢ÿ·÷·ÿ­­±ÿÿְ»»ÿְּ´ץְ±ßױַ¸ַזß׳½עןכµûתש´üûת¶ףנם½טב״ִÙֹ»׀ֹ÷×דÜװֶקֹֽֿÿ……‰‏ט   ױ   ₪   Y   8                                                                                             <cccû₪ÿ·¶¸ÿ¸¯¢פֱ±׃ד׳ַ½‏צמ¸üסה»ûןה»ûעךֵÿשעּÿשעֿ‏פס־üפם־‏ןמ־ÿךןּוֻֿ־ְֽ®ÛßÙּûֵֵֶÿ--/ע   ײ   ¡   Y   3                                                                                     *   qWW\ע÷¸»ÿ²¥•לֲֿ±ֳשםד¼פח״¿עזױ¼רךÛְûןהֿüעכװ‏פכׁ‏פכ׀üעך־ûסטֽשסחֻצםחֽרגß׃üÚהװײִ»ׁװÊ÷ףַָֹÿ77:פ   ױ      R   (   
+                                                                              m447ֱֲֳִÿµ¨—מÝֿ¿¼צטױְסßֲֿסßֽ¼פזװֳשםדױûמהײûןד׃üןה׀üןהֿüןה־ûמד־שםד־צןדֽצמגּצגÜׂü׀ÜÚדִֹֿ׃Ê÷פֲֳִÿי   Ê   k   E                                                                             C}¢¢¨ÿ¼²₪צֲׂ¯ֶעג׀ֳסÛֳַןÛֵ¾עßֳּûכÛ״שכß׳ûכÜ׃ûכÜׁûםÝ׀ûםÝֿûכÝ־שםÜֽרכÝֽרכÜֽצךÝ־עםßֽצהÛׁüָ׳ßÙ½¹׃Þ׳Êש“•™ÿ			ב   ¨   ]   0   
+                                                                      vaaiע¾¹µÿ»×’ׂצגֳֽמ׳ֱֶן״¿ֲס״ְֱצט׳ÙשכÛÛשט״ױשט״װûט״ׁûט״׀ûט״־ûט׳ֽשט״ּשט״ּרט״ֽצטÙֽפטÛֿפכÜ־צÝ׳ױüֶ׃אÊ²₪אוגßÿHHLש   ׃   j   E                                                                     .’¸¸½ÿ¬ןזֽ³ֹמױ»ַמױ¼ֵן׃¶¿צßָװשך״ßשחױÚûחװ׳ûחװױûח׃ׂûח׃ֿûח׃ֿûח׃־ûח׃ֽשחװֽרחױֽצחױּרח׳ֿפט״׀עכÙ׀צ׀ׁÞך÷¾בַׂ·ף°³¶ÿו      W   %                                                                  TMNQÚ×¦₪ÿ«•}ÙשÝְַןׁ¶ֹן׃²ֵסװ¶ַרח׃אשזװÞשז׀Úûז׀Ùûז׀ײûז׀ױûז׀ׂûז׀׀ûז׀׀ûז׀ֿûה׀־שזׁ־שז׃ֿרז׃׀צזױׁפטױׁעדױױüֵ׀הַ®בÜÙױÿ--0ר   ³   d   1                                                                  q‹‹‘‏¡—ש׀·׀עװ²ֻמ׀¯ָןֽ×ִצÜִÙשחױושה׀ßûהֿÜûהֽÚûדּ״ûדּײûדֽױûדּװûדּׂûדּׁûדֽ׀ûהֽ׀שהֿ׀רה׀׀רהׁׂפה׃׃עטױ׃צֽֽגÝ´¯הגÝׂû|~ÿ   ־   g   <                                                               ««¯ÿyןוִ¥ׂסֿ­ּמֽ§ֹסֽ§ֹרהֿושז׀ושדֽבûדֽßüדֻÝüדֻÜüדָÚüגָÙüגָ׳üדָײûדָױûדָװûדּ׃שדֽ׃שדֿװרדֿױרהׁױפחװײצ׳ֿÞמ¶»ך׃ִ¶פ÷»½ÿ   ß   h   A                                                               ¼¶µ·ÿ”gלמÊ¥ׂסֽ©־מַ ֹע׀®װשזׁךûדֿחûדּהüדֻגüדָבüגָßüגַÞüגֵÜüגַÛüגַÚüגַÙüגָ״ûדֻײûדֻ׳שדּײשדֽ׳רדֿ״צז׀ÙפßֿÝק¼¿לֶ®נ׀ׂװÿ   ז   j   E                                                               ֹ·¶·ÿsZםץ׀¨ׁןּ₪׀ןִ—Êפױ¶ÞûזׁלûדֻטûדָחüגָוüגַהüגֵדüגֵבüגֵßüגֵßüגֵÝüגֵÜüגֵÛüגַÚûגָÚûדֻÚשדּÚרדֽÛצזׁÛפג׀Þ‎ֲֵםְ¡ס׳״Ûÿך   j   C                                                               ּ´´´ÿ‡lSןפֽ¢װעָ ׂסִ—׀שÝִךûטױנûהּכüגֻךüגָיüגֵחüßִו‏ßִו‏ßִד‏ßֳג‏ßֳבüßִאüגִßüגֵßüגַÞûגָÝûדֽÝשדֿÞרה׀ßצד׀ב‎ֳֵנֱ¡ף״ÙÜÿי   h   ?                                                               99;ֵ­¬®ÿjRסז½“Úצָױסֱ”װצ׃®דשßֱכûדָםüהֽםüזֿמüזֽם‏דֽל‏דּכ‏דָך‏דָט‏דָח‏דָזüדֻוüהּוüהֽהûהׁוûז׀ושז׃הרז׀גצגֽגק¹µםִ§“נׂװײÿה   e   5   
+                                                            679®««¬ÿzgTץֽ¥}גüּ׳סֳ’״ע½‰ׂע»ƒ־ר»…ֿשֱױûָ™Ûüּ ßü׀§אüװ«ג‏׳°ד‏״´ד‏״´גü״¶בü״¶ßû׳´Ýûױ°Ùשׁ«ױרֿ¥ֿפּ¢ֹסֽ₪ֶסָ₪ּמ¬יּµ₪ףֳִָÿ   ׳   _   *                                                               v®°±ÿvj]ת®ˆdך‏ֻ™Ùפֳ’ÜûÙ¸םש׀©חשֵ—ßש¿Ùש»€ׂû¶wֽû¶vֻû¶vÊü¶vַü¶vֵü¶vֳû·yֳû¸{ֱש¹‚ֱש¼‡ֲרֳ‘ַצַֻצ׀×׃צÝֱßש״ִכז¸©צÜ׀ֵû¡¢¥ÿ   ְ   T                                                                      T₪¥¦סxpÿƒeGסס¿Þûִ’Ýûחֿצûחױקüזֿצüהָץüגִפ‏Ýֳף‏Ü½נ‏Ù¸מ‏Ù´ל‏״´כüÙ¶ך‏Ù¹ך‏Ü¿כüßִלüגַלüדּלûה׀םשח׃םשח׃כüֳׁעÚ¯›ץהבÚ‏WX\ת   ™   <                                                                      .ghhµ ÿo[Fר½”jכüֵÞ‏Ýְףûז׀קüדָצüדַצüגַצ‏דֵצ‏דִצ‏דַץ‏דַץ‏דַפ‏דָפ‏דָף‏דַסüדַנüדָןûגָמûגּםשהֽלûßָםןֱ°קׁ¸¥צ־ֿ׀ÿ
+
+Ü   t   #                                                                         vָֹÊ‏zpf‏‚aCפÛ¦tוÿÛ´נ‏ט׃שüדַקüגִקüßִק‏ßִק‏ßֳק‏ßֱצ‏ßֱצ‏ßֱץ‏ßֳץ‏ßִפ‏ßִףüגִעüגַסûגַנûהֻןשהּן‏׃¿ץßµרֹׁ¾‏~…û   ®   <                                                                              C†‡ˆ÷²±®ÿu_Iת™pKעך¿”ןÿמױת‏זֻשüגִשüßִש‏ßִש‏ßֱר‏Ýֱר‏Ýֱר‏ßֳק‏ßֳצ‏ßִצüßִץüגֵפüגַףûגֻףûהּסÿÝֵפךֳ×תּ³ ת׀ׁ׃ÿױ   z                                                                                    mִַÊמ„}ÿyY?ר£yUץעÙֱתÿכ׃תÿהָת‏גֵת‏ßֳת‏ßֱת‏Ýֱש‏ßֳש‏ßֳש‏ßֳר‏ßֳקüßִצüגֵצüדָפüזֽפÿגֵץנֹ¬ûֹ©תֱֶֻÿSUYן      *                                                                                      *yװײÙÿˆ{sÿ{Z=ש…küוֻµüÿטּתÿטֻûÿהַûÿגִûÿגִû‏ßֳת‏ßֳת‏ßֳש‏גֳרÿדַרÿזֻקÿחֽצ‏גֶרכִ₪üֱ ‡û½¶¯ÿ“˜ü   ¢   O   

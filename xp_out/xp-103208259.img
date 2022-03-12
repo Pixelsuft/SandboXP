@@ -1,0 +1,2862 @@
+t Printers = oService.InstancesOf("Win32_Printer")
+    
+    else
+    
+        ListPrinters = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    if Err.Number <> kErrorSuccess then         
+    
+        wscript.echo L_Text_Msg_General11_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+
+        ListPrinters = kErrorFailure
+            
+        exit function
+        
+    end if    
+             
+    iTotal = 0
+                   
+    for each oPrinter in Printers 
+    
+        iTotal = iTotal + 1                       
+
+        wscript.echo L_Empty_Text
+        wscript.echo L_Text_Msg_Printer01_Text & L_Space_Text & strServer
+        wscript.echo L_Text_Msg_Printer02_Text & L_Space_Text & oPrinter.DeviceID
+        wscript.echo L_Text_Msg_Printer03_Text & L_Space_Text & oPrinter.ShareName
+        wscript.echo L_Text_Msg_Printer04_Text & L_Space_Text & oPrinter.DriverName
+        wscript.echo L_Text_Msg_Printer05_Text & L_Space_Text & oPrinter.PortName
+        wscript.echo L_Text_Msg_Printer06_Text & L_Space_Text & oPrinter.Comment
+        wscript.echo L_Text_Msg_Printer07_Text & L_Space_Text & oPrinter.Location
+        wscript.echo L_Text_Msg_Printer08_Text & L_Space_Text & oPrinter.SepFile
+        wscript.echo L_Text_Msg_Printer09_Text & L_Space_Text & oPrinter.PrintProcessor
+        wscript.echo L_Text_Msg_Printer10_Text & L_Space_Text & oPrinter.PrintJobDataType
+        wscript.echo L_Text_Msg_Printer11_Text & L_Space_Text & oPrinter.Parameters
+        wscript.echo L_Text_Msg_Printer12_Text & L_Space_Text & CSTR(oPrinter.Attributes)
+        wscript.echo L_Text_Msg_Printer13_Text & L_Space_Text & CSTR(oPrinter.Priority)
+        wscript.echo L_Text_Msg_Printer14_Text & L_Space_Text & CStr(oPrinter.DefaultPriority)
+
+        if CStr(oPrinter.StartTime) <> "" and CStr(oPrinter.UntilTime) <> "" then
+
+            wscript.echo L_Text_Msg_Printer15_Text & L_Space_Text & Mid(Mid(CStr(oPrinter.StartTime), 9, 4), 1, 2) & "h" & Mid(Mid(CStr(oPrinter.StartTime), 9, 4), 3, 2) 
+            wscript.echo L_Text_Msg_Printer16_Text & L_Space_Text & Mid(Mid(CStr(oPrinter.UntilTime), 9, 4), 1, 2) & "h" & Mid(Mid(CStr(oPrinter.UntilTime), 9, 4), 3, 2) 
+
+        end if
+
+        wscript.echo L_Text_Msg_Printer17_Text & L_Space_Text & CStr(oPrinter.Status)
+        wscript.echo L_Text_Msg_Printer18_Text & L_Space_Text & CStr(oPrinter.Jobs)
+        wscript.echo L_Text_Msg_Printer19_Text & L_Space_Text & CStr(oPrinter.AveragePagesPerMinute)
+            
+        Err.Clear
+        
+    next
+
+    wscript.echo L_Empty_Text
+    wscript.echo L_Text_Msg_General09_Text & L_Space_Text & iTotal 
+    
+    ListPrinters = kErrorSuccess
+
+end function
+
+'
+' Get the default printer
+'
+function GetDefaultPrinter(strUser, strPassword)
+
+    on error resume next
+    
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg06_Text
+
+    dim oService
+    dim oPrinter
+    dim iRetval
+    dim oEnum
+    
+    iRetval = kErrorFailure
+    
+    '
+    ' We connect to the local server
+    '                
+    if WmiConnect("", kNameSpace, strUser, strPassword, oService) then
+        
+        set oEnum    = oService.ExecQuery("select DeviceID from Win32_Printer where default=true")
+    
+    else
+    
+        SetDefaultPrinter = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    if Err.Number = kErrorSuccess then
+    
+         for each oPrinter in oEnum
+         
+            wscript.echo L_Text_Msg_General12_Text & L_Space_Text & oPrinter.DeviceID       
+                
+         next
+         
+         iRetval = kErrorSuccess
+         
+    else
+    
+        wscript.echo L_Text_Msg_General13_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+         
+    end if     
+
+    GetDefaultPrinter = iRetval
+
+end function
+
+'
+' Set the default printer
+'
+function SetDefaultPrinter(strPrinter, strUser, strPassword)
+
+    'on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg07_Text
+    
+    dim oService
+    dim oPrinter
+    dim iRetval
+    dim uResult
+    
+    iRetval = kErrorFailure
+    
+    '
+    ' We connect to the local server
+    '                
+    if WmiConnect("", kNameSpace, strUser, strPassword, oService) then
+        
+        set oPrinter = oService.Get("Win32_Printer.DeviceID='" & strPrinter & "'")
+    
+    else
+    
+        SetDefaultPrinter = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    '
+    ' Check if Get was successful
+    '
+    if Err.Number = kErrorSuccess then
+        
+        '
+        ' The Err object indicates whether the WMI provider reached the execution
+        ' of the function that sets the default printer. The uResult is the Win32 
+        ' error code of the spooler function that sets the default printer
+        '
+        uResult = oPrinter.SetDefaultPrinter
+    
+        if Err.Number = kErrorSuccess then
+
+            if uResult = kErrorSuccess then 
+            
+                wscript.echo L_Text_Msg_General15_Text & L_Space_Text & strPrinter
+            
+                iRetval = kErrorSuccess
+            
+            else
+            
+                wscript.echo L_Text_Msg_General14_Text & L_Space_Text _
+                             & L_Text_Error_General03_Text& L_Space_Text & uResult
+            
+            end if    
+            
+        else
+         
+            wscript.echo L_Text_Msg_General14_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                         & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+                         
+        end if
+        
+    else
+    
+        wscript.echo L_Text_Msg_General14_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+                     
+        '
+        ' Try getting extended error information
+        '              
+        call LastError()              
+    
+    end if
+    
+    SetDefaultPrinter = iRetval
+
+end function
+
+'
+' Debug display helper function
+'
+sub DebugPrint(uFlags, strString)
+
+    if gDebugFlag = true then
+
+        if uFlags = kDebugTrace then
+
+            wscript.echo L_Debug_Text & L_Space_Text & strString
+
+        end if
+
+        if uFlags = kDebugError then
+
+            if Err <> 0 then
+
+                wscript.echo L_Debug_Text & L_Space_Text & strString & L_Space_Text _
+                             & L_Error_Text & L_Space_Text & L_Hex_Text & hex(Err.Number) _
+                             & L_Space_Text & Err.Description
+
+            end if
+
+        end if
+
+    end if
+
+end sub
+
+'
+' Parse the command line into its components
+'
+function ParseCommandLine(iAction, strServer, strPrinter, strDriver, strPort, strUser, strPassword)
+
+    on error resume next    
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg08_Text
+
+    dim oArgs
+    dim iIndex
+
+    iAction = kActionUnknown
+    iIndex  = 0
+
+    set oArgs = wscript.Arguments
+
+    while iIndex < oArgs.Count
+
+        select case oArgs(iIndex)
+
+            case "-a"
+                iAction = kActionAdd
+
+            case "-ac"
+                iAction = kActionAddConn
+            
+            case "-d"
+                iAction = kActionDel
+
+            case "-x"
+                iAction = kActionDelAll
+            
+            case "-l"
+                iAction = kActionList
+                
+            case "-g"
+                iAction = kActionGetDefaultPrinter
+
+            case "-t"
+                iAction = kActionSetDefaultPrinter
+
+            case "-s"
+                iIndex = iIndex + 1
+                strServer = RemoveBackslashes(oArgs(iIndex))
+
+            case "-p"
+                iIndex = iIndex + 1
+                strPrinter = oArgs(iIndex)
+            
+            case "-m"
+                iIndex = iIndex + 1
+                strDriver = oArgs(iIndex)
+                
+            case "-u"
+                iIndex = iIndex + 1
+                strUser = oArgs(iIndex)
+                
+            case "-w"
+                iIndex = iIndex + 1
+                strPassword = oArgs(iIndex)        
+
+            case "-r"
+                iIndex = iIndex + 1
+                strPort = oArgs(iIndex)
+            
+            case "-?"
+                Usage(true)
+                exit function
+
+            case else
+                Usage(true)
+                exit function
+
+        end select
+
+        iIndex = iIndex + 1
+
+    wend    
+
+    if Err = kErrorSuccess then
+
+        ParseCommandLine = kErrorSuccess
+
+    else
+    
+        wscript.echo L_Text_Error_General02_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_text & Err.Description
+        
+        ParseCommandLine = kErrorFailure        
+
+    end if    
+    
+end  function
+
+'
+' Display command usage.
+'
+sub Usage(bExit)
+
+    wscript.echo L_Help_Help_General01_Text
+    wscript.echo L_Help_Help_General02_Text
+    wscript.echo L_Help_Help_General03_Text
+    wscript.echo L_Help_Help_General04_Text
+    wscript.echo L_Help_Help_General05_Text
+    wscript.echo L_Help_Help_General06_Text
+    wscript.echo L_Help_Help_General07_Text
+    wscript.echo L_Help_Help_General08_Text
+    wscript.echo L_Help_Help_General09_Text
+    wscript.echo L_Help_Help_General10_Text
+    wscript.echo L_Help_Help_General11_Text
+    wscript.echo L_Help_Help_General12_Text
+    wscript.echo L_Help_Help_General13_Text
+    wscript.echo L_Help_Help_General14_Text
+    wscript.echo L_Help_Help_General15_Text    
+    wscript.echo L_Help_Help_General16_Text 
+    wscript.echo L_Help_Help_General17_Text
+    wscript.echo L_Empty_Text
+    wscript.echo L_Help_Help_General18_Text
+    wscript.echo L_Help_Help_General19_Text
+    wscript.echo L_Help_Help_General20_Text
+    wscript.echo L_Help_Help_General21_Text
+    wscript.echo L_Help_Help_General22_Text
+    wscript.echo L_Help_Help_General23_Text
+    wscript.echo L_Help_Help_General24_Text
+    wscript.echo L_Help_Help_General25_Text
+    wscript.echo L_Help_Help_General26_Text
+
+    if bExit then
+    
+        wscript.quit(1)
+        
+    end if
+
+end sub
+
+'
+' Determines which program is being used to run this script. 
+' Returns true if the script host is cscript.exe
+'
+function IsHostCscript()
+
+    on error resume next
+    
+    dim strFullName 
+    dim strCommand 
+    dim i, j 
+    dim bReturn
+    
+    bReturn = false
+    
+    strFullName = WScript.FullName
+    
+    i = InStr(1, strFullName, ".exe", 1)
+    
+    if i <> 0 then
+        
+        j = InStrRev(strFullName, "\", i, 1)
+        
+        if j <> 0 then
+            
+            strCommand = Mid(strFullName, j+1, i-j-1)
+            
+            if LCase(strCommand) = "cscript" then
+            
+                bReturn = true  
+            
+            end if    
+                
+        end if
+        
+    end if
+    
+    if Err <> 0 then
+    
+        wscript.echo L_Text_Error_General01_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description 
+        
+    end if
+    
+    IsHostCscript = bReturn
+
+end function
+
+'
+' Retrieves extended information about the last error that occured 
+' during a WBEM operation. The methods that set an SWbemLastError
+' object are GetObject, PutInstance, DeleteInstance
+'
+sub LastError()
+
+    on error resume next
+
+    dim oError
+
+    set oError = CreateObject("WbemScripting.SWbemLastError")
+   
+    if Err = kErrorSuccess then
+   
+        wscript.echo L_Operation_Text            & L_Space_Text & oError.Operation
+        wscript.echo L_Provider_Text             & L_Space_Text & oError.ProviderName
+        wscript.echo L_Description_Text          & L_Space_Text & oError.Description
+        wscript.echo L_Text_Error_General03_Text & L_Space_Text & oError.StatusCode
+                
+    end if                                                             
+                                                             
+end sub
+
+'
+' Connects to the WMI service on a server. oService is returned as a service
+' object (SWbemServices)
+'
+function WmiConnect(strServer, strNameSpace, strUser, strPassword, oService)
+
+    on error resume next
+
+    dim oLocator
+    dim bResult
+   
+    oService = null
+   
+    bResult  = false
+   
+    set oLocator = CreateObject("WbemScripting.SWbemLocator")
+
+    if Err = kErrorSuccess then
+
+        set oService = oLocator.ConnectServer(strServer, strNameSpace, strUser, strPassword)
+
+        if Err = kErrorSuccess then
+
+            bResult = true
+      
+            oService.Security_.impersonationlevel = 3
+
+            '
+            ' Required to perform administrative tasks on the spooler service
+            '
+            oService.Security_.Privileges.AddAsString "SeLoadDriverPrivilege"
+          
+            Err.Clear
+      
+        else
+
+            wscript.echo L_Text_Msg_General11_Text & L_Space_Text & L_Error_Text _
+                         & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                         & Err.Description
+            
+        end if
+   
+    else
+   
+        wscript.echo L_Text_Msg_General10_Text & L_Space_Text & L_Error_Text _
+                     & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                     & Err.Description
+         
+    end if                                                         
+   
+    WmiConnect = bResult
+            
+end function
+
+'
+' Remove leading "\\" from server name
+'
+function RemoveBackslashes(strServer)
+
+    dim strRet
+    
+    strRet = strServer
+    
+    if Left(strServer, 2) = "\\" and Len(strServer) > 2 then 
+   
+        strRet = Mid(strServer, 3) 
+        
+    end if   
+
+    RemoveBackslashes = strRet
+
+end function
+
+
+                                                                                                                                                                                                                              '----------------------------------------------------------------------
+'
+' Copyright (c) Microsoft Corporation. All rights reserved.
+'
+' Abstract:
+' prnport.vbs - Port script for WMI on Whistler
+'     used to add, delete and list ports
+'     also for getting and setting the port configuration
+'
+' Usage:
+' prnport [-adlgt?] [-r port] [-s server] [-u user name] [-w password] 
+'                   [-o raw|lpr] [-h host address] [-q queue] [-n number]
+'                   [-me | -md ] [-i SNMP index] [-y community] [-2e | -2d]"
+'
+' Examples
+' prnport -a -s server -r IP_1.2.3.4 -e 1.2.3.4 -o raw -n 9100
+' prnport -d -s server -r c:\temp\foo.prn
+' prnport -l -s server
+' prnport -g -s server -r IP_1.2.3.4
+' prnport -t -s server -r IP_1.2.3.4 -me -y public -i 1 -n 9100
+'
+'----------------------------------------------------------------------
+
+option explicit
+
+'
+' Debugging trace flags, to enable debug output trace message
+' change gDebugFlag to true.
+'
+dim   gDebugFlag
+const kDebugTrace = 1
+const kDebugError = 2
+
+gDebugFlag = false
+
+'
+' Operation action values.
+'
+const kActionAdd          = 0
+const kActionDelete       = 1
+const kActionList         = 2
+const kActionUnknown      = 3
+const kActionGet          = 4
+const kActionSet          = 5
+
+const kErrorSuccess       = 0
+const KErrorFailure       = 1
+
+const kFlagCreateOrUpdate = 0
+
+const kNameSpace          = "root\cimv2"
+
+
+'
+' Constants for the parameter dictionary
+'
+const kServerName      = 1
+const kPortName        = 2
+const kDoubleSpool     = 3
+const kPortNumber      = 4
+const kPortType        = 5
+const kHostAddress     = 6
+const kSNMPDeviceIndex = 7
+const kCommunityName   = 8
+const kSNMP            = 9
+const kQueueName       = 10  
+const kUserName        = 11
+const kPassword        = 12
+
+'
+' Generic strings
+'
+const L_Empty_Text                 = ""
+const L_Space_Text                 = " "
+const L_Error_Text                 = "Error"
+const L_Success_Text               = "Success"
+const L_Failed_Text                = "Failed"
+const L_Hex_Text                   = "0x"
+const L_Printer_Text               = "Printer"
+const L_Operation_Text             = "Operation"
+const L_Provider_Text              = "Provider"
+const L_Description_Text           = "Description"
+const L_Debug_Text                 = "Debug:"
+
+'
+' General usage messages
+'                                 
+const L_Help_Help_General01_Text   = "Usage: prnport [-adlgt?] [-r port][-s server][-u user name][-w password]"
+const L_Help_Help_General02_Text   = "               [-o raw|lpr][-h host address][-q queue][-n number]"
+const L_Help_Help_General03_Text   = "               [-me | -md ][-i SNMP index][-y community][-2e | -2d]"
+const L_Help_Help_General04_Text   = "Arguments:"
+const L_Help_Help_General05_Text   = "-a     - add a port"
+const L_Help_Help_General06_Text   = "-d     - delete the specified port"
+const L_Help_Help_General07_Text   = "-g     - get configuration for a TCP port"
+const L_Help_Help_General08_Text   = "-h     - IP address of the device"
+const L_Help_Help_General09_Text   = "-i     - SNMP index, if SNMP is enabled"
+const L_Help_Help_General10_Text   = "-l     - list all TCP ports"
+const L_Help_Help_General11_Text   = "-m     - SNMP type. [e] enable, [d] disable"
+const L_Help_Help_General12_Text   = "-n     - port number, applies to TCP RAW ports"
+const L_Help_Help_General13_Text   = "-o     - port type, raw or lpr"
+const L_Help_Help_General14_Text   = "-q     - queue name, applies to TCP LPR ports"
+const L_Help_Help_General15_Text   = "-r     - port name"
+const L_Help_Help_General16_Text   = "-s     - server name"
+const L_Help_Help_General17_Text   = "-t     - set configuration for a TCP port"
+const L_Help_Help_General18_Text   = "-u     - user name"
+const L_Help_Help_General19_Text   = "-w     - password"
+const L_Help_Help_General20_Text   = "-y     - community name, if SNMP is enabled"
+const L_Help_Help_General21_Text   = "-2     - double spool, applies to TCP LPR ports. [e] enable, [d] disable"
+const L_Help_Help_General22_Text   = "-?     - display command usage"
+const L_Help_Help_General23_Text   = "Examples:"
+const L_Help_Help_General24_Text   = "prnport -l -s server"
+const L_Help_Help_General25_Text   = "prnport -d -s server -r IP_1.2.3.4"
+const L_Help_Help_General26_Text   = "prnport -a -s server -r IP_1.2.3.4 -h 1.2.3.4 -o raw -n 9100"
+const L_Help_Help_General27_Text   = "prnport -t -s server -r IP_1.2.3.4 -me -y public -i 1 -n 9100"
+const L_Help_Help_General28_Text   = "prnport -g -s server -r IP_1.2.3.4"
+const L_Help_Help_General29_Text   = "prnport -a -r IP_1.2.3.4 -h 1.2.3.4"
+const L_Help_Help_General30_Text   = "Remark:"
+const L_Help_Help_General31_Text   = "The last example will try to get the device settings at the specified IP address." 
+const L_Help_Help_General32_Text   = "If a device is detected, then a TCP port is added with the preferred settings for that device."
+
+'
+' Messages to be displayed if the scripting host is not cscript
+'                            
+const L_Help_Help_Host01_Text      = "Please run this script using CScript."  
+const L_Help_Help_Host02_Text      = "This can be achieved by"
+const L_Help_Help_Host03_Text      = "1. Using ""CScript script.vbs arguments"" or" 
+const L_Help_Help_Host04_Text      = "2. Changing the default Windows Scripting Host to CScript"
+const L_Help_Help_Host05_Text      = "   using ""CScript //H:CScript //S"" and running the script "
+const L_Help_Help_Host06_Text      = "   ""script.vbs arguments""."
+
+'
+' General error messages
+'                                                 
+const L_Text_Error_General01_Text  = "The scripting host could not be determined."                
+const L_Text_Error_General02_Text  = "Unable to parse command line." 
+const L_Text_Error_General03_Text  = "Win32 error code"
+
+'
+' Miscellaneous messages
+'
+const L_Text_Msg_General01_Text    = "Added port"
+const L_Text_Msg_General02_Text    = "Unable to delete port"
+const L_Text_Msg_General03_Text    = "Unable to get port"
+const L_Text_Msg_General04_Text    = "Created/updated port"
+const L_Text_Msg_General05_Text    = "Unable to create/update port"
+const L_Text_Msg_General06_Text    = "Unable to enumerate ports"
+const L_Text_Msg_General07_Text    = "Number of ports enumerated"
+const L_Text_Msg_General08_Text    = "Deleted port"
+const L_Text_Msg_General09_Text    = "Unable to get SWbemLocator object"
+const L_Text_Msg_General10_Text    = "Unable to connect to WMI service"
+
+
+'
+' Port properties
+'
+const L_Text_Msg_Port01_Text       = "Server name"
+const L_Text_Msg_Port02_Text       = "Port name"
+const L_Text_Msg_Port03_Text       = "Host address"
+const L_Text_Msg_Port04_Text       = "Protocol RAW"
+const L_Text_Msg_Port05_Text       = "Protocol LPR"
+const L_Text_Msg_Port06_Text       = "Port number"
+const L_Text_Msg_Port07_Text       = "Queue"
+const L_Text_Msg_Port08_Text       = "Byte Count Enabled"
+const L_Text_Msg_Port09_Text       = "Byte Count Disabled"
+const L_Text_Msg_Port10_Text       = "SNMP Enabled"
+const L_Text_Msg_Port11_Text       = "SNMP Disabled"
+const L_Text_Msg_Port12_Text       = "Community"
+const L_Text_Msg_Port13_Text       = "Device index"
+
+'
+' Debug messages
+'
+const L_Text_Dbg_Msg01_Text        = "In function DelPort"
+const L_Text_Dbg_Msg02_Text        = "In function CreateOrSetPort"
+const L_Text_Dbg_Msg03_Text        = "In function ListPorts"
+const L_Text_Dbg_Msg04_Text        = "In function GetPort"
+const L_Text_Dbg_Msg05_Text        = "In function ParseCommandLine"
+
+main
+
+'
+' Main execution starts here
+'
+sub main
+
+    on error resume next
+
+    dim iAction
+    dim iRetval
+    dim oParamDict
+
+    '
+    ' Abort if the host is not cscript
+    '
+    if not IsHostCscript() then
+   
+        call wscript.echo(L_Help_Help_Host01_Text & vbCRLF & L_Help_Help_Host02_Text & vbCRLF & _
+                          L_Help_Help_Host03_Text & vbCRLF & L_Help_Help_Host04_Text & vbCRLF & _
+                          L_Help_Help_Host05_Text & vbCRLF & L_Help_Help_Host06_Text & vbCRLF)
+        
+        wscript.quit
+   
+    end if
+    
+    set oParamDict = CreateObject("Scripting.Dictionary")
+
+    iRetval = ParseCommandLine(iAction, oParamDict)
+
+    if iRetval = 0 then
+
+        select case iAction
+
+            case kActionAdd
+                iRetval = CreateOrSetPort(oParamDict)
+
+            case kActionDelete
+                iRetval = DelPort(oParamDict)
+
+            case kActionList
+                iRetval = ListPorts(oParamDict)
+
+            case kActionGet
+                iRetVal = GetPort(oParamDict)
+
+            case kActionSet
+                iRetVal = CreateOrSetPort(oParamDict)
+
+            case else
+                Usage(true)
+                exit sub
+
+        end select
+
+    end if
+
+end sub
+
+'
+' Delete a port
+'
+function DelPort(oParamDict)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg01_Text
+    DebugPrint kDebugTrace, L_Text_Msg_Port01_Text & L_Space_Text & oParamDict(kServerName)
+    DebugPrint kDebugTrace, L_Text_Msg_Port02_Text & L_Space_Text & oParamDict(kPortName)
+    
+    dim oService
+    dim oPort
+    dim iResult
+    dim strServer
+    dim strPort
+    dim strUser
+    dim strPassword
+    
+    iResult = kErrorFailure
+    
+    strServer   = oParamDict(kServerName)
+    strPort     = oParamDict(kPortName)
+    strUser     = oParamDict(kUserName)
+    strPassword = oParamDict(kPassword)
+    
+    if WmiConnect(strServer, kNameSpace, strUser, strPassword, oService) then
+
+        set oPort = oService.Get("Win32_TCPIPPrinterPort='" & strPort & "'")
+
+    else
+
+        DelPort = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    '
+    ' Check if Get succeeded
+    '
+    if Err.Number = kErrorSuccess then 
+    
+        '
+        ' Try deleting the instance
+        '
+        oPort.Delete_
+        
+        if Err.Number = kErrorSuccess then
+        
+            wscript.echo L_Text_Msg_General08_Text & L_Space_Text & strPort
+        
+        else
+        
+            wscript.echo L_Text_Msg_General02_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                         & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+        
+            '
+            ' Try getting extended error information
+            '
+            call LastError()
+        
+        end if
+        
+    else
+    
+        wscript.echo L_Text_Msg_General02_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+        
+        '
+        ' Try getting extended error information
+        '
+        call LastError()
+    
+    end if
+    
+    DelPort = iResult
+
+end function
+
+'
+' Add or update a port
+'
+function CreateOrSetPort(oParamDict)
+
+    on error resume next
+
+    dim oPort
+    dim oService
+    dim iResult
+    dim PortType
+    dim strServer
+    dim strPort
+    dim strUser
+    dim strPassword
+    
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg02_Text
+    DebugPrint kDebugTrace, L_Text_Msg_Port01_Text & L_Space_Text & oParamDict.Item(kServerName)
+    DebugPrint kDebugTrace, L_Text_Msg_Port02_Text & L_Space_Text & oParamDict.Item(kPortName)  
+    DebugPrint kDebugTrace, L_Text_Msg_Port06_Text & L_Space_Text & oParamDict.Item(kPortNumber)
+    DebugPrint kDebugTrace, L_Text_Msg_Port07_Text & L_Space_Text & oParamDict.Item(kQueueName)
+    DebugPrint kDebugTrace, L_Text_Msg_Port13_Text & L_Space_Text & oParamDict.Item(kSNMPDeviceIndex)
+    DebugPrint kDebugTrace, L_Text_Msg_Port12_Text & L_Space_Text & oParamDict.Item(kCommunityName)
+    DebugPrint kDebugTrace, L_Text_Msg_Port03_Text & L_Space_Text & oParamDict.Item(kHostAddress)
+ 
+    strServer   = oParamDict(kServerName)
+    strPort     = oParamDict(kPortName)
+    strUser     = oParamDict(kUserName)
+    strPassword = oParamDict(kPassword)
+
+    '
+    ' If the port exists, then get the settings. Later PutInstance will do an update
+    '
+    if WmiConnect(strServer, kNameSpace, strUser, strPassword, oService) then
+
+        set oPort = oService.Get("Win32_TCPIPPrinterPort.Name='" & strPort & "'")
+        
+        '
+        ' If get was unsuccessful then spwan a new port instance. Later PutInstance will do a create 
+        '    
+        if Err.Number <> kErrorSuccess then 
+
+            '
+            ' Clear the previous error
+            ' 
+            Err.Clear
+    
+            set oPort = oService.Get("Win32_TCPIPPrinterPort").SpawnInstance_
+
+        end if 
+
+    else
+
+        CreateOrSetPort = kErrorFailure
+        
+        exit function        
+    
+    end if
+
+    if Err.Number <> kErrorSuccess then
+    
+        wscript.echo L_Text_Msg_General03_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+        
+        CreateOrSetPort = kErrorFailure             
+                     
+        exit function
+    
+    end if
+
+    oPort.Name   = oParamDict.Item(kPortName)
+    PortType     = oParamDict.Item(kPortType)
+
+    '
+    ' Update the port object with the settings corresponding
+    ' to the port type of the port to be added
+    '
+    select case lcase(PortType)
+
+            case "raw"
+                 oPort.Protocol      = 1
+                 
+            case "lpr"
+                 oPort.Protocol      = 2
+                 
+            case else
+            
+                 '
+                 ' PutInstance will attempt to get the configuration of 
+                 ' the device based on its IP address. Those settings
+                 ' will be used to add a new port
+                 '
+    end select
+    
+    oPort.HostAddress   = oParamDict.Item(kHostAddress)
+    oPort.PortNumber    = oParamDict.Item(kPortNumber)
+    oPort.SNMPEnabled   = oParamDict.Item(kSNMP)
+    oPort.SNMPDevIndex  = oParamDict.Item(kSNMPDeviceIndex)
+    oPort.SNMPCommunity = oParamDict.Item(kCommunityName)
+    oPort.Queue         = oParamDict.Item(kQueueName)
+    oPort.ByteCount     = oParamDict.Item(kDoubleSpool)
+
+    '
+    ' Try creating or updating the port
+    '
+    oPort.Put_(kFlagCreateOrUpdate)
+
+    if Err.Number = kErrorSuccess then
+
+        wscript.echo L_Text_Msg_General04_Text & L_Space_Text & oPort.Name
+
+        iResult = kErrorSuccess
+
+    else
+
+        wscript.echo L_Text_Msg_General05_Text & L_Space_Text & oPort.Name & L_Space_Text _
+                     & L_Error_Text & L_Space_Text & L_Hex_Text & hex(Err.Number) _ 
+                     & L_Space_Text & Err.Description
+
+        '
+        ' Try getting extended error information
+        '
+        call LastError()
+
+        iResult = kErrorFailure
+
+    end if
+
+    CreateOrSetPort = iResult
+
+end function
+
+'
+' List ports on a machine.
+'
+function ListPorts(oParamDict)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg03_Text
+    
+    dim Ports
+    dim oPort
+    dim oService
+    dim iRetval
+    dim iTotal
+    dim strServer
+    dim strUser 
+    dim strPassword
+    
+    iResult = kErrorFailure
+    
+    strServer   = oParamDict(kServerName)
+    strUser     = oParamDict(kUserName)
+    strPassword = oParamDict(kPassword)
+
+    if WmiConnect(strServer, kNameSpace, strUser, strPassword, oService) then
+
+        set Ports = oService.InstancesOf("Win32_TCPIPPrinterPort")
+
+    else
+
+        ListPorts = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    if Err.Number <> kErrorSuccess then         
+    
+        wscript.echo L_Text_Msg_General06_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+
+        ListPrinters = kErrorFailure
+            
+        exit function
+        
+    end if    
+    
+    iTotal = 0          
+                  
+    for each oPort in Ports
+
+        iTotal = iTotal + 1
+            
+        wscript.echo L_Empty_Text
+        wscript.echo L_Text_Msg_Port01_Text & L_Space_Text & strServer
+        wscript.echo L_Text_Msg_Port02_Text & L_Space_Text & oPort.Name
+        wscript.echo L_Text_Msg_Port03_Text & L_Space_Text & oPort.HostAddress         
+
+        if oPort.Protocol = 1 then
+            
+            wscript.echo L_Text_Msg_Port04_Text
+            wscript.echo L_Text_Msg_Port06_Text & L_Space_Text & oPort.PortNumber 
+                
+        else    
+            
+            wscript.echo L_Text_Msg_Port05_Text
+            wscript.echo L_Text_Msg_Port07_Text & L_Space_Text & oPort.Queue
+                
+            if oPort.ByteCount then
+                
+                wscript.echo L_Text_Msg_Port08_Text 
+                
+            else
+                
+                wscript.echo L_Text_Msg_Port08_Text
+                
+            end if
+                
+        end if    
+            
+        if oPort.SNMPEnabled then
+                
+            wscript.echo L_Text_Msg_Port10_Text 
+            wscript.echo L_Text_Msg_Port12_Text & L_Space_Text & oPort.SNMPCommunity
+            wscript.echo L_Text_Msg_Port13_Text & L_Space_Text & oPort.SNMPDevIndex
+                
+        else
+                
+            wscript.echo L_Text_Msg_Port11_Text   
+                
+        end if
+            
+        Err.Clear
+                                        
+    next
+
+    wscript.echo L_Empty_Text
+    wscript.echo L_Text_Msg_General07_Text & L_Space_Text & iTotal 
+    
+    ListPorts = kErrorSuccess
+
+end function
+
+'
+' Gets the configuration of a port
+'
+function GetPort(oParamDict)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg04_Text
+    DebugPrint kDebugTrace, L_Text_Msg_Port01_Text & L_Space_Text & oParamDict(kServerName)
+    DebugPrint kDebugTrace, L_Text_Msg_Port02_Text & L_Space_Text & oParamDict(kPortName)
+    
+    dim oService
+    dim oPort
+    dim iResult
+    dim strServer
+    dim strPort
+    dim strUser 
+    dim strPassword
+    
+    iResult = kErrorFailure
+    
+    strServer   = oParamDict(kServerName)
+    strPort     = oParamDict(kPortName)
+    strUser     = oParamDict(kUserName)
+    strPassword = oParamDict(kPassword)
+
+    if WmiConnect(strServer, kNameSpace, strUser, strPassword, oService) then
+
+        set oPort = oService.Get("Win32_TCPIPPrinterPort.Name='" & strPort & "'")
+
+    else
+
+        GetPort = kErrorFailure
+        
+        exit function        
+    
+    end if
+
+    if Err.Number = kErrorSuccess then 
+            
+        wscript.echo L_Empty_Text
+        wscript.echo L_Text_Msg_Port01_Text & L_Space_Text & strServer
+        wscript.echo L_Text_Msg_Port02_Text & L_Space_Text & oPort.Name
+        wscript.echo L_Text_Msg_Port03_Text & L_Space_Text & oPort.HostAddress
+            
+        if oPort.Protocol = 1 then
+            
+            wscript.echo L_Text_Msg_Port04_Text
+            wscript.echo L_Text_Msg_Port06_Text & L_Space_Text & oPort.PortNumber 
+                
+        else    
+            
+            wscript.echo L_Text_Msg_Port05_Text 
+            wscript.echo L_Text_Msg_Port07_Text & L_Space_Text & oPort.Queue
+                
+            if oPort.ByteCount then
+                
+                wscript.echo L_Text_Msg_Port08_Text 
+                
+            else
+                
+                wscript.echo L_Text_Msg_Port09_Text   
+                
+            end if
+                
+        end if    
+            
+        if oPort.SNMPEnabled then
+                
+            wscript.echo L_Text_Msg_Port10_Text 
+            wscript.echo L_Text_Msg_Port12_Text & L_Space_Text & oPort.SNMPCommunity
+            wscript.echo L_Text_Msg_Port13_Text & L_Space_Text & oPort.SNMPDevIndex
+                
+        else
+                
+            wscript.echo L_Text_Msg_Port11_Text   
+                
+        end if
+        
+        iResult = kErrorSuccess
+            
+    else    
+        
+        wscript.echo L_Text_Msg_General03_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+        
+        '
+        ' Try getting extended error information
+        '
+        call LastError()
+        
+    end if
+
+    GetPort = iResult
+
+end function
+
+'
+' Debug display helper function
+'
+sub DebugPrint(uFlags, strString)
+
+    if gDebugFlag = true then
+
+        if uFlags = kDebugTrace then
+
+            wscript.echo L_Debug_Text & L_Space_Text & strString
+
+        end if
+
+        if uFlags = kDebugError then
+
+            if Err <> 0 then
+
+                wscript.echo L_Debug_Text & L_Space_Text & strString & L_Space_Text _
+                             & L_Error_Text & L_Space_Text & L_Hex_Text & hex(Err.Number) _
+                             & L_Space_Text & Err.Description
+
+            end if
+
+        end if
+
+    end if
+
+end sub
+
+'
+' Parse the command line into its components
+'
+function ParseCommandLine(iAction, oParamDict)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg05_Text
+
+    dim oArgs
+    dim iIndex
+
+    iAction = kActionUnknown
+
+    set oArgs = Wscript.Arguments
+
+    while iIndex < oArgs.Count
+
+        select case oArgs(iIndex)
+
+            case "-g"
+                iAction = kActionGet
+
+            case "-t"
+                iAction = kActionSet
+
+            case "-a"
+                iAction = kActionAdd
+
+            case "-d"
+                iAction = kActionDelete
+
+            case "-l"
+                iAction = kActionList
+
+            case "-2e"
+                oParamDict.Add kDoubleSpool, true
+
+            case "-2d"
+                oParamDict.Add kDoubleSpool, false
+
+            case "-s"
+                iIndex = iIndex + 1
+                oParamDict.Add kServerName, RemoveBackslashes(oArgs(iIndex))
+                
+            case "-u"
+                iIndex = iIndex + 1
+                oParamDict.Add kUserName, oArgs(iIndex)    
+
+            case "-w"
+                iIndex = iIndex + 1
+                oParamDict.Add kPassword, oArgs(iIndex)
+                                    
+            case "-n"
+                iIndex = iIndex + 1
+                oParamDict.Add kPortNumber, oArgs(iIndex)
+
+            case "-r"
+                iIndex = iIndex + 1
+                oParamDict.Add kPortName, oArgs(iIndex)
+
+            case "-o"
+                iIndex = iIndex + 1
+                oParamDict.Add kPortType, oArgs(iIndex)
+
+            case "-h"
+                iIndex = iIndex + 1
+                oParamDict.Add kHostAddress, oArgs(iIndex)
+
+            case "-q"
+                iIndex = iIndex + 1
+                oParamDict.Add kQueueName, oArgs(iIndex)
+
+            case "-i"
+                iIndex = iIndex + 1
+                oParamDict.Add kSNMPDeviceIndex, oArgs(iIndex)
+
+            case "-y"
+                iIndex = iIndex + 1
+                oParamDict.Add kCommunityName, oArgs(iIndex)
+
+            case "-me"
+                oParamDict.Add kSNMP, true
+
+            case "-md"
+                oParamDict.Add kSNMP, false
+
+            case "-?"
+                Usage(True)
+                exit function
+
+            case else
+                Usage(True)
+                exit function
+
+        end select
+
+        iIndex = iIndex + 1
+
+    wend
+
+    if Err = kErrorSuccess then
+
+        ParseCommandLine = kErrorSuccess
+
+    else
+
+        wscript.echo L_Text_Error_General02_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_text & Err.Description
+
+
+        ParseCommandLine = kErrorFailure
+
+    end if
+
+end  function
+
+'
+' Display command usage.
+'
+sub Usage(bExit)
+
+    wscript.echo L_Help_Help_General01_Text
+    wscript.echo L_Help_Help_General02_Text
+    wscript.echo L_Help_Help_General03_Text
+    wscript.echo L_Help_Help_General04_Text
+    wscript.echo L_Help_Help_General05_Text
+    wscript.echo L_Help_Help_General06_Text
+    wscript.echo L_Help_Help_General07_Text
+    wscript.echo L_Help_Help_General08_Text
+    wscript.echo L_Help_Help_General09_Text
+    wscript.echo L_Help_Help_General10_Text
+    wscript.echo L_Help_Help_General11_Text
+    wscript.echo L_Help_Help_General12_Text
+    wscript.echo L_Help_Help_General13_Text
+    wscript.echo L_Help_Help_General14_Text
+    wscript.echo L_Help_Help_General15_Text
+    wscript.echo L_Help_Help_General16_Text
+    wscript.echo L_Help_Help_General17_Text
+    wscript.echo L_Help_Help_General18_Text
+    wscript.echo L_Help_Help_General19_Text
+    wscript.echo L_Help_Help_General20_Text
+    wscript.echo L_Help_Help_General21_Text
+    wscript.echo L_Help_Help_General22_Text
+    wscript.echo L_Empty_Text
+    wscript.echo L_Help_Help_General23_Text
+    wscript.echo L_Help_Help_General24_Text
+    wscript.echo L_Help_Help_General25_Text
+    wscript.echo L_Help_Help_General26_Text
+    wscript.echo L_Help_Help_General27_Text
+    wscript.echo L_Help_Help_General28_Text
+    wscript.echo L_Help_Help_General29_Text
+    wscript.echo L_Empty_Text
+    wscript.echo L_Help_Help_General30_Text
+    wscript.echo L_Help_Help_General31_Text
+    wscript.echo L_Help_Help_General32_Text
+
+    if bExit then
+
+        wscript.quit(1)
+
+    end if
+
+end sub
+
+'
+' Determines which program is being used to run this script. 
+' Returns true if the script host is cscript.exe
+'
+function IsHostCscript()
+
+    on error resume next
+    
+    dim strFullName 
+    dim strCommand 
+    dim i, j 
+    dim bReturn
+    
+    bReturn = false
+    
+    strFullName = WScript.FullName
+    
+    i = InStr(1, strFullName, ".exe", 1)
+    
+    if i <> 0 then
+        
+        j = InStrRev(strFullName, "\", i, 1)
+        
+        if j <> 0 then
+            
+            strCommand = Mid(strFullName, j+1, i-j-1)
+            
+            if LCase(strCommand) = "cscript" then
+            
+                bReturn = true  
+            
+            end if    
+                
+        end if
+        
+    end if
+    
+    if Err <> 0 then
+    
+        wscript.echo L_Text_Error_General01_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description 
+        
+    end if
+    
+    IsHostCscript = bReturn
+
+end function
+
+'
+' Retrieves extended information about the last error that occured 
+' during a WBEM operation. The methods that set an SWbemLastError
+' object are GetObject, PutInstance, DeleteInstance
+'
+sub LastError()
+
+    on error resume next
+
+    dim oError
+
+    set oError = CreateObject("WbemScripting.SWbemLastError")
+   
+    if Err = kErrorSuccess then
+   
+        wscript.echo L_Operation_Text            & L_Space_Text & oError.Operation
+        wscript.echo L_Provider_Text             & L_Space_Text & oError.ProviderName
+        wscript.echo L_Description_Text          & L_Space_Text & oError.Description
+        wscript.echo L_Text_Error_General04_Text & L_Space_Text & oError.StatusCode
+                
+    end if                                                             
+                                                             
+end sub
+
+'
+' Connects to the WMI service on a server. oService is returned as a service
+' object (SWbemServices)
+'
+function WmiConnect(strServer, strNameSpace, strUser, strPassword, oService)
+
+   on error resume next
+
+   dim oLocator
+   dim bResult
+   
+   oService = null
+   
+   bResult  = false
+   
+   set oLocator = CreateObject("WbemScripting.SWbemLocator")
+
+   if Err = kErrorSuccess then
+
+      set oService = oLocator.ConnectServer(strServer, strNameSpace, strUser, strPassword)
+
+      if Err = kErrorSuccess then
+
+          bResult = true
+      
+          oService.Security_.impersonationlevel = 3
+
+          '
+          ' Required to perform administrative tasks on the spooler service
+          '
+          oService.Security_.Privileges.AddAsString "SeLoadDriverPrivilege"
+          
+          Err.Clear
+      
+      else
+
+          wscript.echo L_Text_Msg_General10_Text & L_Space_Text & L_Error_Text _
+                       & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                       & Err.Description
+            
+      end if
+   
+   else
+   
+       wscript.echo L_Text_Msg_General09_Text & L_Space_Text & L_Error_Text _
+                    & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                    & Err.Description
+         
+   end if                                                         
+   
+   WmiConnect = bResult
+            
+end function
+
+'
+' Remove leading "\\" from server name
+'
+function RemoveBackslashes(strServer)
+
+    dim strRet
+    
+    strRet = strServer
+    
+    if Left(strServer, 2) = "\\" and Len(strServer) > 2 then 
+   
+        strRet = Mid(strServer, 3) 
+        
+    end if   
+
+    RemoveBackslashes = strRet
+
+end function
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  '----------------------------------------------------------------------
+'
+' Copyright (c) Microsoft Corporation. All rights reserved.
+'
+' Abstract:
+' prnqctl.vbs - printer control script for WMI on Whistler
+'    used to pause, resume and purge a printer
+'    also used to print a test page on a printer
+'
+' Usage:
+' prnqctl [-umex?] [-s server] [-p printer] [-u user name] [-w password]
+'
+' Examples:
+' prnqctl -m -s server -p printer
+' prnqctl -x -s server -p printer
+' prnqctl -e -b printer
+'----------------------------------------------------------------------
+
+option explicit
+
+'
+' Debugging trace flags, to enable debug output trace message
+' change gDebugFlag to true.
+'
+const kDebugTrace = 1
+const kDebugError = 2
+dim   gDebugFlag
+
+gDebugFlag = false
+
+'
+' Operation action values.
+'
+const kActionUnknown    = 0
+const kActionPause      = 1
+const kActionResume     = 2
+const kActionPurge      = 3
+const kActionTestPage   = 4
+
+const kErrorSuccess     = 0
+const KErrorFailure     = 1
+
+const kNameSpace        = "root\cimv2"
+
+'
+' Generic strings
+'
+const L_Empty_Text                 = ""
+const L_Space_Text                 = " "
+const L_Error_Text                 = "Error"
+const L_Success_Text               = "Success"
+const L_Failed_Text                = "Failed"
+const L_Hex_Text                   = "0x"
+const L_Printer_Text               = "Printer"
+const L_Operation_Text             = "Operation"
+const L_Provider_Text              = "Provider"
+const L_Description_Text           = "Description"
+const L_Debug_Text                 = "Debug:"
+
+'
+' General usage messages
+'                                 
+const L_Help_Help_General01_Text   = "Usage: prnqctl [-zmex?] [-s server][-p printer][-u user name][-w password]"
+const L_Help_Help_General02_Text   = "Arguments:"
+const L_Help_Help_General03_Text   = "-e     - print test page"
+const L_Help_Help_General04_Text   = "-m     - resume the printer"
+const L_Help_Help_General05_Text   = "-p     - printer name"
+const L_Help_Help_General06_Text   = "-s     - server name"
+const L_Help_Help_General07_Text   = "-u     - user name"
+const L_Help_Help_General08_Text   = "-w     - password"
+const L_Help_Help_General09_Text   = "-x     - purge the printer (cancel all jobs)"
+const L_Help_Help_General10_Text   = "-z     - pause the printer"
+const L_Help_Help_General11_Text   = "-?     - display command usage"
+const L_Help_Help_General12_Text   = "Examples:"
+const L_Help_Help_General13_Text   = "prnqctl -e -s server -p printer"
+const L_Help_Help_General14_Text   = "prnqctl -m -p printer"
+const L_Help_Help_General15_Text   = "prnqctl -x -p printer"
+
+'
+' Messages to be displayed if the scripting host is not cscript
+'                            
+const L_Help_Help_Host01_Text      = "Please run this script using CScript."  
+const L_Help_Help_Host02_Text      = "This can be achieved by"
+const L_Help_Help_Host03_Text      = "1. Using ""CScript script.vbs arguments"" or" 
+const L_Help_Help_Host04_Text      = "2. Changing the default Windows Scripting Host to CScript"
+const L_Help_Help_Host05_Text      = "   using ""CScript //H:CScript //S"" and running the script "
+const L_Help_Help_Host06_Text      = "   ""script.vbs arguments""."
+
+'
+' General error messages
+'                                                 
+const L_Text_Error_General01_Text  = "The scripting host could not be determined."                
+const L_Text_Error_General02_Text  = "Unable to parse command line." 
+const L_Text_Error_General03_Text  = "Unable to get printer instance."
+const L_Text_Error_General04_Text  = "Win32 error code"
+const L_Text_Error_General05_Text  = "Unable to get SWbemLocator object"
+const L_Text_Error_General06_Text  = "Unable to connect to WMI service"
+
+
+'
+' Action strings
+'
+const L_Text_Action_General01_Text = "Pause"
+const L_Text_Action_General02_Text = "Resume"
+const L_Text_Action_General03_Text = "Purge"
+const L_Text_Action_General04_Text = "Print Test Page"
+
+'
+' Debug messages
+'
+const L_Text_Dbg_Msg01_Text        = "In function ExecPrinter"
+const L_Text_Dbg_Msg02_Text        = "Server name"
+const L_Text_Dbg_Msg03_Text        = "Printer name"
+const L_Text_Dbg_Msg04_Text        = "In function ParseCommandLine"
+                               
+main
+
+'
+' Main execution starts here
+'
+sub main
+
+    dim iAction
+    dim iRetval
+    dim strServer
+    dim strPrinter
+    dim strUser
+    dim strPassword
+    
+    '
+    ' Abort if the host is not cscript
+    '
+    if not IsHostCscript() then
+   
+        call wscript.echo(L_Help_Help_Host01_Text & vbCRLF & L_Help_Help_Host02_Text & vbCRLF & _
+                          L_Help_Help_Host03_Text & vbCRLF & L_Help_Help_Host04_Text & vbCRLF & _
+                          L_Help_Help_Host05_Text & vbCRLF & L_Help_Help_Host06_Text & vbCRLF)
+        
+        wscript.quit
+   
+    end if
+
+    '
+    ' Get command line parameters
+    '
+    iRetval = ParseCommandLine(iAction, strServer, strPrinter, strUser, strPassword)
+
+    if iRetval = kErrorSuccess then
+
+        select case iAction
+
+            case kActionPause
+                 iRetval = ExecPrinter(strServer, strPrinter, strUser, strPassword, L_Text_Action_General01_Text)
+
+            case kActionResume
+                 iRetval = ExecPrinter(strServer, strPrinter, strUser, strPassword, L_Text_Action_General02_Text)
+
+            case kActionPurge
+                 iRetval = ExecPrinter(strServer, strPrinter, strUser, strPassword, L_Text_Action_General03_Text)
+
+            case kActionTestPage
+                 iRetval = ExecPrinter(strServer, strPrinter, strUser, strPassword, L_Text_Action_General04_Text)
+
+            case kActionUnknown
+                 Usage(true)
+                 exit sub
+
+            case else
+                 Usage(true)
+                 exit sub
+
+        end select
+
+    end if
+
+end sub
+
+'
+' Pause/Resume/Purge printer and print test page
+'
+function ExecPrinter(strServer, strPrinter, strUser, strPassword, strCommand)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg01_Text
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg02_Text & L_Space_Text & strServer
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg03_Text & L_Space_Text & strPrinter
+    
+    dim oPrinter
+    dim oService
+    dim iRetval
+    dim uResult
+    
+    iRetval = kErrorFailure
+    
+    if WmiConnect(strServer, kNameSpace, strUser, strPassword, oService) then
+        
+        set oPrinter = oService.Get("Win32_Printer.DeviceID='" & strPrinter & "'")
+    
+    else
+    
+        ExecPrinter = kErrorFailure
+        
+        exit function        
+    
+    end if
+    
+    '
+    ' Check if getting a printer instance succeeded
+    '
+    if Err.Number = kErrorSuccess then
+    
+        select case strCommand
+        
+            case L_Text_Action_General01_Text
+                 uResult = oPrinter.Pause()
+                 
+            case L_Text_Action_General02_Text
+                 uResult = oPrinter.Resume()
+                 
+            case L_Text_Action_General03_Text
+                 uResult = oPrinter.CancelAllJobs()          
+                 
+            case L_Text_Action_General04_Text
+                 uResult = oPrinter.PrintTestPage()  
+            
+            case else
+                 Usage(true)
+                 
+        end select
+
+        '
+        ' Err set by WMI 
+        ' 
+        if Err.Number = kErrorSuccess then
+
+            '
+            ' uResult set by printer methods
+            '             
+            if uResult = kErrorSuccess then                     
+            
+                wscript.echo L_Success_Text & L_Space_Text & strCommand & L_Space_Text _
+                             & L_Printer_Text & L_Space_Text & strPrinter
+        
+                iRetval = kErrorSuccess
+                
+            else
+            
+                wscript.echo L_Failed_Text & L_Space_Text & strCommand & L_Space_Text _
+                             & L_Text_Error_General04_Text & L_Space_Text & uResult 
+            
+            end if    
+
+        else
+
+            wscript.echo L_Failed_Text & L_Space_Text & strCommand & L_Space_Text & L_Error_Text _
+                         & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+            
+        end if
+         
+    else      
+        
+        wscript.echo L_Text_Error_General03_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description
+        
+        '
+        ' Try getting extended error information
+        '            
+        call LastError()
+        
+    end if
+    
+    ExecPrinter = iRetval
+    
+end function
+
+'
+' Debug display helper function
+'
+sub DebugPrint(uFlags, strString)
+
+    if gDebugFlag = true then
+
+        if uFlags = kDebugTrace then
+
+            wscript.echo L_Debug_Text & L_Space_Text & strString
+
+        end if
+
+        if uFlags = kDebugError then
+
+            if Err <> 0 then
+
+                wscript.echo L_Debug_Text & L_Space_Text & strString & L_Space_Text _
+                             & L_Error_Text & L_Space_Text & L_Hex_Text & hex(Err.Number) _
+                             & L_Space_Text & Err.Description
+
+            end if
+
+        end if
+
+    end if
+
+end sub
+
+'
+' Parse the command line into its components
+'
+function ParseCommandLine(iAction, strServer, strPrinter, strUser, strPassword)
+
+    on error resume next
+
+    DebugPrint kDebugTrace, L_Text_Dbg_Msg04_Text
+
+    dim oArgs
+    dim iIndex
+
+    iAction = kActionUnknown
+    iIndex = 0
+
+    set oArgs = wscript.Arguments
+
+    while iIndex < oArgs.Count
+
+        select case oArgs(iIndex)
+
+            case "-z"
+                iAction = kActionPause
+
+            case "-m"
+                iAction = kActionResume
+
+            case "-x"
+                iAction = kActionPurge
+
+            case "-e"
+                iAction = kActionTestPage
+
+            case "-p"
+                iIndex = iIndex + 1
+                strPrinter = oArgs(iIndex)
+                
+            case "-s"
+                iIndex = iIndex + 1
+                strServer = RemoveBackslashes(oArgs(iIndex)) 
+                  
+            case "-y"
+                iIndex = iIndex + 1
+                strUser = oArgs(iIndex)
+                
+            case "-w"
+                iIndex = iIndex + 1
+                strPassword = oArgs(iIndex)           
+
+            case "-?"
+                Usage(true)
+                exit function
+
+            case else
+                Usage(true)
+                exit function
+
+        end select
+
+        iIndex = iIndex + 1
+
+    wend
+
+    if Err.Number = kErrorSuccess then
+
+        ParseCommandLine = kErrorSuccess
+
+    else
+    
+        wscript.echo L_Text_Error_General02_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_text & Err.Description
+        
+        ParseCommandLine = kErrorFailure
+    
+    end if
+    
+end function
+
+'
+' Display command usage.
+'
+sub Usage(bExit)
+
+    wscript.echo L_Help_Help_General01_Text
+    wscript.echo L_Empty_Text
+    wscript.echo L_Help_Help_General02_Text
+    wscript.echo L_Help_Help_General03_Text
+    wscript.echo L_Help_Help_General04_Text
+    wscript.echo L_Help_Help_General05_Text
+    wscript.echo L_Help_Help_General06_Text
+    wscript.echo L_Help_Help_General07_Text
+    wscript.echo L_Help_Help_General08_Text
+    wscript.echo L_Help_Help_General09_Text
+    wscript.echo L_Help_Help_General10_Text
+    wscript.echo L_Help_Help_General11_Text
+    wscript.echo L_Empty_Text
+    wscript.echo L_Help_Help_General12_Text
+    wscript.echo L_Help_Help_General13_Text
+    wscript.echo L_Help_Help_General14_Text
+    wscript.echo L_Help_Help_General15_Text
+
+    if bExit then
+
+        wscript.quit(1)
+
+    end if
+
+end sub
+
+'
+' Determines which program is being used to run this script. 
+' Returns true if the script host is cscript.exe
+'
+function IsHostCscript()
+
+    on error resume next
+    
+    dim strFullName 
+    dim strCommand 
+    dim i, j 
+    dim bReturn
+    
+    bReturn = false
+    
+    strFullName = WScript.FullName
+    
+    i = InStr(1, strFullName, ".exe", 1)
+    
+    if i <> 0 then
+        
+        j = InStrRev(strFullName, "\", i, 1)
+        
+        if j <> 0 then
+            
+            strCommand = Mid(strFullName, j+1, i-j-1)
+            
+            if LCase(strCommand) = "cscript" then
+            
+                bReturn = true  
+            
+            end if    
+                
+        end if
+        
+    end if
+    
+    if Err <> 0 then
+    
+        wscript.echo L_Text_Error_General01_Text & L_Space_Text & L_Error_Text & L_Space_Text _
+                     & L_Hex_Text & hex(Err.Number) & L_Space_Text & Err.Description 
+        
+    end if
+    
+    IsHostCscript = bReturn
+
+end function
+
+'
+' Retrieves extended information about the last error that occured 
+' during a WBEM operation. The methods that set an SWbemLastError
+' object are GetObject, PutInstance, DeleteInstance
+'
+sub LastError()
+
+    on error resume next
+
+    dim oError
+
+    set oError = CreateObject("WbemScripting.SWbemLastError")
+   
+    if Err = kErrorSuccess then
+   
+        wscript.echo L_Operation_Text            & L_Space_Text & oError.Operation
+        wscript.echo L_Provider_Text             & L_Space_Text & oError.ProviderName
+        wscript.echo L_Description_Text          & L_Space_Text & oError.Description
+        wscript.echo L_Text_Error_General04_Text & L_Space_Text & oError.StatusCode
+                
+    end if                                                             
+                                                             
+end sub
+
+'
+' Connects to the WMI service on a server. oService is returned as a service
+' object (SWbemServices)
+'
+function WmiConnect(strServer, strNameSpace, strUser, strPassword, oService)
+
+   on error resume next
+
+   dim oLocator
+   dim bResult
+   
+   oService = null
+   
+   bResult  = false
+   
+   set oLocator = CreateObject("WbemScripting.SWbemLocator")
+
+   if Err = kErrorSuccess then
+
+      set oService = oLocator.ConnectServer(strServer, strNameSpace, strUser, strPassword)
+
+      if Err = kErrorSuccess then
+
+          bResult = true
+      
+          oService.Security_.impersonationlevel = 3
+
+          '
+          ' Required to perform administrative tasks on the spooler service
+          '
+          oService.Security_.Privileges.AddAsString "SeLoadDriverPrivilege"
+          
+          Err.Clear
+      
+      else
+
+          wscript.echo L_Text_Msg_General06_Text & L_Space_Text & L_Error_Text _
+                       & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                       & Err.Description
+            
+      end if
+   
+   else
+   
+       wscript.echo L_Text_Msg_General05_Text & L_Space_Text & L_Error_Text _
+                    & L_Space_Text & L_Hex_Text & hex(Err.Number) & L_Space_Text _
+                    & Err.Description
+         
+   end if                                                         
+   
+   WmiConnect = bResult
+            
+end function
+
+'
+' Remove leading "\\" from server name
+'
+function RemoveBackslashes(strServer)
+
+    dim strRet
+    
+    strRet = strServer
+    
+    if Left(strServer, 2) = "\\" and Len(strServer) > 2 then 
+   
+        strRet = Mid(strServer, 3) 
+        
+    end if   
+
+    RemoveBackslashes = strRet
+
+end function 
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            # Copyright (c) 1993-1999 Microsoft Corp.
+#
+# This file contains the Internet protocols as defined by RFC 1700
+# (Assigned Numbers). 
+#
+# Format:
+#
+# <protocol name>  <assigned number>  [aliases...]   [#<comment>]
+
+ip       0     IP       # Internet protocol
+icmp     1     ICMP     # Internet control message protocol
+ggp      3     GGP      # Gateway-gateway protocol
+tcp      6     TCP      # Transmission control protocol
+egp      8     EGP      # Exterior gateway protocol
+pup      12    PUP      # PARC universal packet protocol
+udp      17    UDP      # User datagram protocol
+hmp      20    HMP      # Host monitoring protocol
+xns-idp  22    XNS-IDP  # Xerox NS IDP
+rdp      27    RDP      # "reliable datagram" protocol
+rvd      66    RVD      # MIT remote virtual disk
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                 /*++
+
+Copyright (c) 1998-1999 Microsoft Corporation
+
+Module Name:
+
+    PschdCnt.h
+
+Abstract:
+
+    Offset definition file for extensible counter objects and counters
+
+    These "relative" offsets must start at 0 and be multiples of 2 (i.e.
+    even numbers). In the Open Procedure, they will be added to the 
+    "First Counter" and "First Help" values for the device they belong to, 
+    in order to determine the absolute location of the counter and 
+    object names and corresponding Explain text in the registry.
+
+    This file is used by the extensible counter DLL code as well as the 
+    counter name and Explain text definition file (.INI) file that is used
+    by LODCTR to load the names into the registry.
+
+Revision History:
+
+--*/
+
+// PerfMon objects
+#define PSCHED_FLOW_OBJ                             0
+#define PSCHED_PIPE_OBJ                             2
+
+// Flow counters
+#define FLOW_PACKETS_DROPPED                        4
+#define FLOW_PACKETS_SCHEDULED                      6
+#define FLOW_PACKETS_TRANSMITTED                    8
+#define FLOW_AVE_PACKETS_IN_SHAPER                  10
+#define FLOW_MAX_PACKETS_IN_SHAPER                  12
+#define FLOW_AVE_PACKETS_IN_SEQ                     14
+#define FLOW_MAX_PACKETS_IN_SEQ                     16
+#define FLOW_BYTES_SCHEDULED                        18
+#define FLOW_BYTES_TRANSMITTED                      20
+#define FLOW_BYTES_TRANSMITTED_PERSEC               22
+#define FLOW_BYTES_SCHEDULED_PERSEC                 24
+#define FLOW_PACKETS_TRANSMITTED_PERSEC             26
+#define FLOW_PACKETS_SCHEDULED_PERSEC               28
+#define FLOW_PACKETS_DROPPED_PERSEC                 30
+#define FLOW_NONCONF_PACKETS_SCHEDULED              32
+#define FLOW_NONCONF_PACKETS_SCHEDULED_PERSEC       34
+#define FLOW_NONCONF_PACKETS_TRANSMITTED            36
+#define FLOW_NONCONF_PACKETS_TRANSMITTED_PERSEC     38
+#define FLOW_MAX_PACKETS_IN_NETCARD                 40
+#define FLOW_AVE_PACKETS_IN_NETCARD                 42
+
+// Pipe counters
+#define PIPE_OUT_OF_PACKETS                         44
+#define PIPE_FLOWS_OPENED                           46
+#define PIPE_FLOWS_CLOSED                           48
+#define PIPE_FLOWS_REJECTED                         50
+#define PIPE_FLOWS_MODIFIED                         52
+#define PIPE_FLOW_MODS_REJECTED                     54
+#define PIPE_MAX_SIMULTANEOUS_FLOWS                 56
+#define PIPE_NONCONF_PACKETS_SCHEDULED              58
+#define PIPE_NONCONF_PACKETS_SCHEDULED_PERSEC       60
+#define PIPE_NONCONF_PACKETS_TRANSMITTED            62
+#define PIPE_NONCONF_PACKETS_TRANSMITTED_PERSEC     64
+#define PIPE_AVE_PACKETS_IN_SHAPER                  66
+#define PIPE_MAX_PACKETS_IN_SHAPER                  68
+#define PIPE_AVE_PACKETS_IN_SEQ                     70
+#define PIPE_MAX_PACKETS_IN_SEQ                     72
+#define PIPE_MAX_PACKETS_IN_NETCARD                 74
+#define PIPE_AVE_PACKETS_IN_NETCARD                 76
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              MZê       ˇˇ  ∏       @                                   –   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$       õx	¬ﬂgëﬂgëﬂgëﬂfëıgë%:~ë⁄gë%:XëﬁgëH:"ëﬁgë:{ë›gë%:ZëﬁgëRichﬂgë        PE  L qÉ};        ‡  Ä7         ¢4     Ä5     Ä   Ä             ÄE     åd                        Ä7     9  <    >                    ÄB  H  06                                             Ä5  ∞                           .text   92     Ä2                    h.rdata     Ä5     Ä5              @  H.data   ò   Ä6     Ä6              @  ».edata    Ä7  Ä  Ä7              @  @INIT    ö   9      9                 ‚.rsrc      >  Ä   >              @  B.reloc  ¨  ÄB     ÄB              @  B                                P o l l I n t e r v a l     T r a c e L e v e l     T r a c e M a s k   I o W a i t     S y n c W a i t   Uçl$êÅÏ¨   Éel Sã]|∑@hDdk @Pjˇ6 Ö¿âE|u
+∏ö  ¿È¯   VãuxW3¿ã˛´´´´´j*3¿Yç}ƒÛ´∑ã}|AAã—¡ÈÛ´ã É·Û™∑Pˇsˇu|ˇ6 Éƒj YçUlâUÿçVâUÏçVjXâUçVâu–É∆âu@3ˆVVâE‘âE‹âEâE¯âEâEâE(âE0âEDâELçEƒPˇu|âM»âM‰âM âMâU$âM8çUlçMlh   Ä«EÃ  «EË «EÙ†6 «E4 «Eå6 «E H âU,«E<X âMHˇ 6 ã¯Vˇu|ˇ(6 ã«_^[É≈p…¬ Ã\ D o s D e v i c e s \     P T I L I N K   \ D e v i c e \     P a r a l l e l P o r t     P a r T e c h I n c   UãÏÉÏ`SVã56 Wh¢ çE–Pˇ÷hæ çE»Pˇ÷hŒ çEËPˇ÷h‚ çE‡Pˇ÷h˛ çEÿPˇ÷ã]ã=6 çE¥âE¸çE†âEÙçE¯Pj
+3ˆSfâu¯f«E˙ fâuf«EÚ ˇ◊Ö¿å.  çEPj
+CSˇ◊Ö¿å  ãMËãE‡ã]¡ãM¯çDfâC∑¿hDdk Pjfâ3ˇ6 ã¯;˛â{ÑÂ   ∑Kã56 ã—¡È3¿Û´ã É·Û™çEËPSˇ÷çE‡PSˇ÷çE¯PSˇ÷ãEËãMÿã]fÉ# »ãE¯çDfâC∑¿hDdk Pjˇ6 ã¯Öˇâ{uPãEˇpˇ(6 Îs∑Kã—¡È3¿Û´ã É·Û™çEËPSˇ÷çEÿPSˇ÷çE¯PSˇ÷ãM–ãE»ã}fÉ' ¡ãMçDfâG∑¿hDdk Pjˇ6 ã–Ö“âWuã5(6 PãEˇpˇ÷j ˇsˇ÷2¿Î3∑Oã˙ã—¡È3¿Û´ã É·Û™çE–Pˇuˇ÷çE»Pˇuˇ÷çEPˇuˇ÷∞_^[…¬ UãÏÅÏà   Sã¸5 VW3ˇWWçEPˇ”ãuçEËPçEPjj çE»PWWˇvh0  ˇ 6 ;«t|ãNã–ˇ6 ;«å≤   WWWWçEPˇ6 ;«åú   ãE»âF0ãEÃâF4ãE–âF8ãE‘âF<ãE‹âF@ãE‰WâFDWçEPˇ”çEËPçEPjjPçÖxˇˇˇPWWˇvhT  ˇ 6 ;«u∏ö  ¿ÎBãNã–ˇ6 ;«|3WWWWçEPˇ6 ;«|!ãUÄ;◊ãNâVHtÉ¬âQãVHâQÎâyây_^[…¬ ÃUãÏQVçE¸Pˇ∞5 ãuÉf, çF$9 uˇu¸ˇ‘5 Î%ããââBçA®âF,3…É¿8áˇu¸ˇ‘5 VËÈ#  ^…¬ Vãt$ãF8@@Pˇ†5 É»PãF8@@Pˇ§5 ^¬ ÃVãt$ãFXãN\ââH3¿äF%Pˇ‘5 Éf 2“ãŒ«F  ¿ˇ¥5 ^¬ ÃUãÏãEVãp(çEPˇ∞5 ãU∏ä çJ8áçBXçNãqââpââAãR`ÄJˇuˇ‘5 ∏  ^]¬ UãÏQVçE¸Pˇ∞5 ãEÉ¿9 u3ˆÎããâçq®âB3¿çN8áˇu¸ˇ‘5 ÖˆtãF`ã@ãMâãEâ0ãvÖˆu3¿ÎˆFtãFÎj j j jj Vˇ∏5 ^…¬ ÃãL$ãD$âAãD$Ö¿ù¬âAˇ¥5 ¬ ¬ ÃUãÏQãESãX(VWã=∞5 çE¸Pˇ◊çs$Î)ããâÉ¿®âqPˇu∆@$äM¸É`8 àH%Ëù˛ˇˇçE¸Pˇ◊96u”çsÎ)ããâÉ¿®âqPˇu∆@$äM¸É`8 àH%Ëk˛ˇˇçE¸Pˇ◊96u”ˇu¸ˇ‘5 ãMÉa Éa 2“ˇ¥5 _^3¿[…¬ Sã\$Wã{Öˇt9Uã-(6 Vãw(Ä~L tçFPPˇ¿5 j ˇvTˇ’j ˇv\ˇ’Wˇº5 ã{Öˇu—^]_[¬ ÃãD$É¯v∏ö  ¿ÎKVWã<Ö‡6 Öˇu∏ö  ¿Î5ãwÖˆtÚÄ~ uã@@Pˇ†5 É»Pã@@Pˇ§5 ãD$â8ãD$â03¿_^¬ UãÏãEÅ8PTIEuã@Ö¿u∏ö  ¿ÎãMâH8ãMâH<ãMâH@ãMâHD3¿]¬ ¬ ÃSVãt$ãFÖ¿Wã=§5 tj5Pˇ◊ªÂ   Sˇ6ˇ◊ã@j@Pˇ◊jˇú5 ã@j@Pˇ◊j ˇ6ˇ◊Sˇ6ˇ◊ã@j@Pˇ◊_^[¬ ÃVãt$äFQÑ¿WÑâ   <ÑÅ   <u6Ä~Rã=§5 uãFÖ¿tj5Pˇ◊∆FPÎ∆FPhÂ   ˇ6ˇ◊ã@j@Pˇ◊Îc<u_äFR<v0<t&v.<v<u&ãFÖ¿∆FPtj5Pˇ§5 Î∆FPÎ
+∆FPÎÄfP VËˇˇˇÎã=§5 hÂ   ˇ6ˇ◊ã@j@Pˇ◊ÄfP _^¬ ÃQQSUVãt$ˇÜ‡   Wã=§5 hÂ   ˇ6ˇ◊ã@j@Pˇ◊jˇú5 ã@j@Pˇ◊j ˇ6ˇ◊h‡   ˇ6ˇ◊ãã-†5 @Pˇ’h·   ˇ6àD$ˇ◊ã@Pˇ’h‚   ˇ6äÿˇ◊ã@Pˇ’h„   ˇ6àD$ˇ◊ã@Pˇ’àD$ã@j@Pˇ◊hÂ   ˇ6ˇ◊äL$äD$ä—¿Ë–‚2¬–·$2¡äL$¿Îä—–‚2⁄Ä„–·2ŸÄ˚ u\<t<uTÄ~R u?ã@hÏ   @P∆FRˇ◊h•   ˇ6ˇ◊ã@Pˇ’ˇ6ˇ’<•ujZˇ6ˇ◊ã@Pˇ’ˇ6ˇ’<Zu∆FRã@j@P∆FQˇ◊ÎxÉd$ ã@j@Pˇ◊ãú5 jˇ”Éd$ ã@Pˇ’®uˇD$É|$rÎã@j@Pˇ◊É|$r&jˇ”3€ã@Pˇ’®tCÉ˚rÉ˚rˇD$É|$rùÉ|$ï¿˛»É‡àFQVËô˝ˇˇ_^][YY¬ SVã5†5 Wˇt$ˇ÷äÿÄ„¯3ˇˇt$ˇ÷$¯:ÿtGÉˇäÿrÏ_^ä√[¬ ãD$ääL$Ä·—Ä‚àf∂“SUVãt$fâäT$¿ÍÄ‚àT$äT$3€Ä‚àf∂“ÄÒ¯–·Wã=§5 ¡‚f	äT$Ä‚àT$äT$QÄ‚àä˙ãT$¡ÍÄ‚àT$f	äT$Ä‚àf∂¬¡‡f	ãt$ˇ6ˇ◊ã-†5 3€9^lvã@Pˇ’®tjˇú5 C;^lrË;^lÑﬁ   ã@Pˇ’äÿ3¿äD$ –‡4ÒÄ„Pˇ6ˇ◊Éd$ É~l vã@Pˇ’®ujˇú5 ˇD$ãD$;Flr·ãD$;FlÑç   ã@Pˇ’$àD$ 3¿äD$4¯–‡Pˇ6ˇ◊Éd$ É~l vã@Pˇ’®tjˇú5 ˇD$ãD$;Flr·ãD$;Flt?ã@Pˇ’$àD$3¿äD$–‡4ÒPˇ6ˇ◊3ˇ;~lsã@Pˇ’®ujˇú5 G;~lrË;~lu2¿Î0ã@Pˇ’f∂L$$f∂¿¿Î
+\$ ¡‡¡f∂À¡‡¡ãL$$fâ∞_^][¬ ÃSUVãt$Wã=†5 3Ìª   ã@Pˇ◊$:D$uã@Pˇ◊:D$tjˇú5 E;ÎrŸ_;Î^]ï¿[¬ QQSUVãt$Wã=§5 j[8^QÖ  hÌ   ˇ6ˇ◊ãj√Pˇ◊ãj√Pˇ◊3Ì;nps(ã@PË]˝ˇˇ$<‡Ñõ   <Ätjˇú5 E;npr€;npÑ¥  3¿äÜ  àD$Pˇ6ˇ◊ãj√Pˇ◊h†   VË'ˇˇˇÑ¿Ñá  3¿äFS D$Pˇ6ˇ◊ãj√Pˇ◊h‡   VË˝˛ˇˇÑ¿Ñ]  ãhÓ   √Pˇ◊ˇ6ã-†5 ˇ’ D$<v0ˇÜò   È:  ΩÂ   Uˇ6ˇ◊ãj√Pˇ◊ˇÜƒ   Uˇ6ˇ◊jÈ  àÜ  ãhÌ   √Pˇ◊j VËç˛ˇˇÑ¿ÑÌ   ˇ6ˇ’:D$u§h•   ˇ6,[ D$ˇ◊ãj√Pˇ◊j`VË[˛ˇˇÑ¿Ñª   ãD$  D$Pˇ6ˇ◊ãj√Pˇ◊Ω†   UVË1˛ˇˇÑ¿Ñë   3¿äFP D$Pˇ6ˇ◊ãj√Pˇ◊h‡   VË˛ˇˇÑ¿tkãD$$ D$Pˇ6ˇ◊ãj√Pˇ◊j VËÂ˝ˇˇÑ¿tIäD$% D$àD$$ˇt$$ˇ6ˇ◊ãj√Pˇ◊j`VËº˝ˇˇÑ¿t ˇt$ˇ6ˇ◊ãj√Pˇ◊UVË†˝ˇˇÑ¿Ö  ˇÜ†   hÂ   È÷˛ˇˇãj√Pˇ◊ΩÂ   Uˇ6ˇ◊hÌ   ˇ6ˇ◊Éd$ É~p vNã@PËD˚ˇˇ<ËtY<ÿt=ãD$3“π»   ˜ÒÖ“uãj√Pˇ◊Uˇ6ˇ◊hÌ   ˇ6ˇ◊jˇú5 ˇD$ãD$;Fpr≤ãD$;FpuÅÜ∞      ÈX  ˇÜƒ   ÈS  Äd$ 3¿äfSçL$QçL$ QçL$QäÜ  PVËË˙ˇˇÑ¿uÅÜ¥      È  ãD$ã»˜—:ËtÅÜ∞      È˘   <vÅÜ¥      ÈÊ   àÜ  çD$PçD$ PçD$P3¿äfPäD$,PVËÇ˙ˇˇÑ¿uÅÜ∏      ÈÆ   fãD$f;D$tÅÜº      Èì   çD$PçD$ PçD$Pˇt$0VË;˙ˇˇÑ¿uÅÜº      ÎjfãD$f;D$tÅÜ¿      ÎRhÍ   ˇ6ˇ◊ãj√Pˇ◊Éd$ É~p v"ã@PËª˘ˇˇ<–tjˇú5 ˇD$ãD$;FprﬁãD$;Fpu"ÅÜ¿      ˇÜ†   Uˇ6ˇ◊jã√Pˇ◊2¿Î∞_^][YY¬ UãÏÄ} Sã§5 VãuWtˇuˇ6ˇ”Ée ø   ã@Pˇ†5 $¯:Etjˇú5 ˇE9}rﬂ9}t<Ä} tˇuÎˇuˇ6ˇ”Ée ã@Pˇ†5 $¯:Etjˇú5 ˇE9}rﬂ9}u2¿ÎÄ} uˇuˇ6ˇ”∞_^[]¬ ÃSã\$UVãt$Wã=§5 Sˇ6ˇ◊ã-ú5 jˇ’ã@j@Pˇ◊jˇ’ã@j
+@Pˇ◊ã@j@Pˇ◊jˇ’ˆ√∆D$t
+ˆ√u∆D$Ïãˇt$@@Pˇ◊jˇ’hÂ   ˇ6ˇ◊_^][¬ ÃÉÏSUVãt$äFP3ÌÑ¿WÑ¢  äñ  Ñ“Ñî  äNQÄ˘u<Ö}  :–Ñ  Èp  Ä˘Ög  <Ñ¬  Ä˙Ñπ  <ÑN  :¡ÖF  9nÑ=  9nÑ4  ã§5 h„   ˇ6ˇ”3ˇ9npvã@PË¥˜ˇˇ<òtjˇú5 G;~prÂ;~pÑ®  hê   hÄ   hÍ   hË   jVË˛ˇˇÑ¿Ñ   hÛ   VË†˛ˇˇã=ú5 âl$ Ω   ã@Pˇ†5 ®tjˇ◊ˇD$ 9l$ r‰9l$ Ñä  ã@j@Pˇ”juˇvˇ”3€ã@Pˇ†5 ®u	jˇ◊C;›rÈ;›ÑY  fÉ~VÖZ  ∑~T∑D$(3“˜˜Éd$  ãò5 Ö¿âT$âD$vFãD$$âD$Wˇt$ˇvˇ”Éd$( ˇvˇ†5 ®u
+ˇD$(9l$(rÈ9l$(tDˇD$ ãD$ |$;D$r¬É|$ tØ|$ ˇt$|$(Wˇvˇ”3ˇˇvˇ†5 ®uG;˝rÓ;˝uˇÜº   È≠  j5ˇvˇ§5 VËyÛˇˇÈA  ∑D$(jôY˜˘Ö“tˇD$(ã=§5 h„   ˇ6ˇ◊3€3Ì9^pvã@PËˆˇˇ<òtjˇú5 E;nprÂ;npuˇÜ®   ÈA  hê   hÄ   hÍ   hË   jVË^¸ˇˇÑ¿uˇÜ∞   È  hÒ   VËÊ¸ˇˇΩ   ã@Pˇ†5 ®tjˇú5 C;›rÂ;›t*ã@j@Pˇ◊3€ã@Pˇ†5 ®ujˇú5 C;›rÂ;›uˇÜ¥   È≤   ∑D$(3ÌÖ¿âD$Ü˝˛ˇˇã\$$3¿ä+Pˇ6ˇ◊ã@j@Pˇ◊Éd$( É~l vã@Pˇ†5 Ñ¿xˇD$(ãD$(;FlrÂãD$(;FltS3¿Eä+Pˇ6ˇ◊ã@j@Pˇ◊Éd$( É~l vã@Pˇ†5 Ñ¿yˇD$(ãD$(;FlrÂãD$(;FltE;l$ÇpˇˇˇÈd˛ˇˇˇÜ∏   VË◊Òˇˇ2¿Èü  ã\$(∑√jôY˜˘Ö“tCãã-§5 @j@Pˇ’h„   ˇ6ˇ’3ˇ9~pvã@PË^Ùˇˇ<òtjˇú5 G;~prÂ;~puˇÜ®   Î†ã~lÉd$  ∑√¡ÁÖ¿âD$Ü  ãD$ ãL$$ä3¿ÄÛàä√–‡Pˇ6ˇ’Éd$( ÄÀ¿ÎÖˇà\$v ã@Pˇ†5 ®tjˇú5 ˇD$(9|$(r‡9|$(Ñ‡   ˇt$ˇ6ˇ’ˇD$ ãD$$ãL$ äÄÛàä√–‡àD$Îã@Pˇ†5 ®ujˇú5 ˇD$(9|$(r‡9|$(Ñù   ˇt$ˇ6ˇ’ÄÀ¿Îà\$ã\$(;ﬂsã@Pˇ†5 ®tjˇú5 C;ﬂrÂ;ﬂtYˇt$ˇ6ˇ’Îã@Pˇ†5 ®ujˇú5 C;ﬂrÂ;ﬂt;ˇD$ ãD$ ;D$ÇË˛ˇˇhÂ   ˇ6ˇ’ã@j@Pˇ’∞_^][Éƒ¬ ˇÜ∞   ÈE˛ˇˇˇÜ¥   È:˛ˇˇÃUãÏQVãuÖˆu
+∏ö  ¿È  É~ u3¿È  f˜Eˇˇt
+∏  ¿ÈÒ   Wç~3…â}¸A3¿±Ö¿t3¿È’   ãˇÜà   S@PËxÚˇˇãj[√PËkÚˇˇÉe Ä~Q uVËßˇˇã@PËRÚˇˇ$<‡uˇÜË   3¿9Ü   á  VâË®  Î«ˇuˇuVË~ÙˇˇÑ¿tqÄæ  wˇuˇuVË∑˘ˇˇÑ¿toˇÜê   ˇÜå   çÜ¯   Pˇƒ5 Ä~ uã√Pˇ†5 É»Pã√Pˇ§5 ã@PË√Òˇˇã√PËπÒˇˇ3¿É' [_^…¬ ãÄfQ @PË†Òˇˇã√PËñÒˇˇã@PËçÒˇˇã√PËÉÒˇˇˇEÉ}t~3ˇ9~pv)ã@PËjÒˇˇ$<‡t<†tjˇú5 G;~prﬂÎˇÜ‰   ã@PËAÒˇˇã√PË7Òˇˇ;~pã}¸Ñ?ˇˇˇÈø˛ˇˇâÜê   ã√Pˇ†5 É»Pã√Pˇ§5 ∏<  ¿ÈEˇˇˇÉ¶ê    Ä~ uÈÎÕÃSã†5 Vãt$W3ˇ9~lvã@Pˇ”®tjˇú5 G;~lrË;~lu2¿Èï  ãU@Pˇ”ã|$äãl$¿Ë»f∂¿Ä·àfâE ãD$ Ö¿tä Î3¿ä4¯–‡Pˇ6ˇ§5 Éd$ É~l vã@Pˇ”®ujˇú5 ˇD$ãD$;Flr·ãD$;Flu2¿È  ã@Pˇ”ä¿Ë»f∂¿Ä·à¡‡f	E ãD$ Ö¿tä@Î3¿ä–‡4ÒPˇ6ˇ§5 Éd$ É~l vã@Pˇ”®tjˇú5 ˇD$ãD$;Flr·ãD$;Fltãã@Pˇ”ä¿Ë»Ä·à3…äËãD$ f	M Ö¿tä@Î3¿ä4¯–‡Pˇ6ˇ§5 Éd$ É~l vã@Pˇ”®ujˇú5 ˇD$ãD$;Flr·ãD$;FlÑˇˇˇã@Pˇ”ä¿Ë»f∂¿Ä·à¡‡f	E ãD$ Ö¿tä@Î3¿ä–‡4ÒPˇ6ˇ§5 ∞]_^[¬ ÃUãÏQQVãuÄ~Qu2¿È~  ãSWã=§5 @j@Pˇ◊3€;^tsã@PË·Óˇˇ<Ëtjˇú5 C;^trÂ;^tuÅÜ»      È  Äe hÎ   ˇ6ˇ◊äNPä¡$àE¯ˆ–$àE˙çE¯P¿ÈçEPàM˘çE¸ˆ—PÄ·VàM˚Ëë˝ˇˇÑ¿uÅÜÃ      È≥   äE¸àÜ  3€SçEPçE¸PVËd˝ˇˇÑ¿uÅÜ–      ÈÜ   fãE¸Ä¸ãMàvÅÜÃ      Îlà¶  SçEPçE¸PVË"˝ˇˇÑ¿uÅÜ‘      ÎGfÉ}¸∑E¸ãMârLfÅ}¸ wD;^tsã@PËÿÌˇˇ<–tjˇú5 C;^trÂ;^tuÅÜÿ      ˇÜ§   ÎhÍ   ˇ6ˇ◊≥ÎˇÜ‹   hÂ   ˇ62€ˇ◊ã@j@Pˇ◊_ä√[^…¬ ÃÉÏSUVãt$äFP3ÌÑ¿WÑ±  äñ  Ñ“Ñ£  äNQÄ˘Ñê  Ä˘Öá  <Ñ∂  Ä˙Ñ≠  <Ñn  :¡Öf  9nÑ]  9nÑT  3ˇ9ntvã@PË Ìˇˇ<òtjˇú5 G;~trÂ;~tÑî  ã§5 h„   ˇ6ˇ”h–   h¿   h‚   h‡   UVËOÛˇˇÑ¿ÑÎ  3Ìø   ã@Pˇ†5 ®ujˇú5 E;ÔrÂ;ÔÑ¡  h„   VË¥Ûˇˇ3Ìã@Pˇ†5 ®u®ujˇú5 E;Ôr·;ÔÑç  ã@j@Pˇ”ã@j @Pˇ”juˇvˇ”fÉ~VÖu  ∑FT3Ì9l$(âD$vvÉd$ ˇvˇ†5 ®àD$ tjˇú5 ˇD$9|$r›9|$tcˆD$ t*ãD$≈;D$(âD$ wˇt$ãD$(ËUˇvˇî5 ãl$ Îˇvˇ†5 ãL$$à)E;l$(räj5ˇvˇ”ã@j@Pˇ”VËÕËˇˇÈ‡  ˇÜ‘   È√  ˆD$(tˇD$(ãú5 3ˇ9ntvã@PËdÎˇˇ<òt
+jˇ”G;~trÈ;~tuˇÜ¨   ÈÑ  h„   ˇ6ˇ§5 h–   h¿   h‚   h‡   UVË≤ÒˇˇÑ¿uˇÜ»   ÈM  âl$ã-†5 ø   ã@Pˇ’®ujˇ”ˇD$9|$rË9|$tQh·   VËÚˇˇÉd$ ã@Pˇ’®tjˇ”ˇD$9|$rË9|$t#Éd$ ã@Pˇ’®ujˇ”ˇD$9|$rË9|$uˇÜÃ   Èƒ   ã@h‰   @Pˇ§5 3ˇ9|$(Üœ˛ˇˇÎãú5 Éd$ É~l vã@Pˇ’Ñ¿xjˇ”ˇD$ãD$;FlrÂãD$;Fltkˇ6ˇ’ãL$$àã@hÊ   @Pˇ§5 3€9^lvã@Pˇ’Ñ¿yjˇú5 C;^lrË;^lt,ˇ6Gˇ’ãL$$àã@h‰   @Pˇ§5 G;|$(ÇeˇˇˇÈ-˛ˇˇˇÜ–   VËÙÊˇˇ2¿È  ˆD$(tˇD$(ãã=§5 @j@Pˇ◊3€3Ì9^tvã@PËâÈˇˇ<òtjˇú5 E;ntrÂ;ntuˇÜ¨   hÂ   ˇ6ˇ◊ã@j@Pˇ◊Îúh„   ˇ6ˇ◊ãnl¡Â9\$(â\$ÜM  ã†5 Éd$ ÖÌvã@Pˇ”®tjˇú5 ˇD$9l$r‰9l$Ñ  ã@Pˇ”àD$ ¿‡Pˇ6ˇ◊ãD$ãL$$»äD$ ¿ËâL$àÎã@Pˇ”®ujˇú5 ˇD$9l$r‰9l$Ñÿ   ã@Pˇ”àD$ É»Pˇ6ˇ◊äD$ ãL$$ˇD$Îã@Pˇ”®tjˇú5 ˇD$9l$r‰9l$ÑÉ   ã@Pˇ”àD$ ¿‡Pˇ6ˇ◊ãD$ãL$$»äD$ ¿ËâL$àÎã@Pˇ”®ujˇú5 ˇD$9l$r‰9l$tAã@Pˇ”àD$ É»Pˇ6ˇ◊äD$ ãL$$ˇD$ãD$;D$(Çπ˛ˇˇã\$Î,ˇÜ»   Èq˛ˇˇˇÜÃ   Èf˛ˇˇã@PË…Áˇˇ<®tjˇú5 C;›rÊ;›Ñ>˛ˇˇ∞_^][Éƒ¬ ãD$Ö¿u2¿Îã @PËèÁˇˇ$<‡î¿¬ Ã∏   √QQSVãt$ãÄf É~ â\$Ñw  UWã=§5 É√jSâ\$ˇ◊ˇvã-†5 ˇ’$<ujSˇ◊ˇvˇ’$<Ñ7  jSˇ◊j5ˇvˇ◊ˇvˇ’<5Ö  ˇvˇ’®Ö  ®Ñ	  Sˇ’®àD$ u®Öˆ   j4ˇvˇ◊ˇvˇ’®Ö€   ®Ñ”   ‡   Pˇvˇ◊ˇt$ˇ’äÿãD$@Pˇ’É„pt É˚tÉ˚ Öñ   «F   Î«F   Î«F   3¿äD$ ® t
+É‡ﬂPˇt$ˇ◊j5ˇvˇ◊h’   ˇvˇ◊3€ˇvˇ’®u7ãFHt!HtHHu!j ˇvˇå5 Îj ˇvˇê5 Îj ˇvˇ◊CÅ˚    r¿Å˚    r3€É˚râ^ ∆Fj5ˇvˇ◊jˇt$Î
+j5ˇvˇ◊jSˇ◊_]^[YY¬ ¬ ÃUãÏãUãMfãfÖ¿tÉ} tfâAABBˇM3¿Î‰fÉ! ]¬ ÃUãÏÉÏSã]çE¯PçEPçEËPSË¨‹ˇˇÑ¿Ñ±   VçEP3ˆVVjçEPhÄ  ˇuˇÃ5 Ö¿}VÎZãEãp(W3¿j`Yã˛Û´ãEâFãEÉHãEâFã√¡‡â^«PTIEâ∞‡6 «Ä6 InitçEPçE¯Pˇ»5 Ö¿_}ÄfL j ˇu¸ˇ(6 Î∆FLãE¯âFPãE¸âFTãEËâFXãEÏâF\j ˇuÙˇ(6 ^[…¬ Vãt$ãFÖ¿t6ˇÄî   ˇvhˇV`Ñ¿tˇvË˝ˇˇÑ¿u
+ˇvhˇVd2¿ÎãFVj É¿tPˇ–5 ∞^¬ UãÏSä]VãuW∂√Hç~HjàYtHuâNÎ«F   ˇÑ5 jh∏   WVàEËxÒˇˇäMˇà5 Ä˚uÉf _^[]¬ ÃUãÏQSã]Vãs,3…9N}2“ãŒˇ¥5 SË'ﬁˇˇÈà   ãF;¡Wã~`tLˆ@tã@ÎjQQjQPˇ∏5 Ö¿âE¸t,±ˇÑ5 jˇwàEˇu¸ˇsËˇˇäMâE¸ˇà5 ãE¸Î∏  ¿Ö¿âF|
+ãGâF≤ÎÉf 2“ãŒˇ¥5 ˇsDˇS@SËõ›ˇˇ_^[…¬ SVãt$Wˇv,ˇ$6 çæ  ãœˇ®5 çé  ˇ	ãä–ãœˇÄ5 Ö€uVËˇˇˇ_^[¬ UãÏÉÏ,SV3€SSSSh¿6 ˇ6 ˇ§6 tâ]¸È‡   æ7 WãŒˇ®5 ä–ãŒ«6 ClosˇÄ5 ãEãp(ã~çÜ¿   Pâ]¸ˇ‡5 ;˚u«E¸( ¿Èî   jWâ_8â_<â_@â_DË&˛ˇˇSSçE‘Pâ_ˇ¸5 çEÙPçE‘PjSSjçE‰P«E‰&) âuË«EÏd âuˇvh8  ˇ 6 ;√tãNã–ˇ6 Ö¿|SSSSçE‘Pˇ6 Sˇvˇ(6 ãNâ^â^ˇ‹5 â^_Sh¿6 ˇÿ5 ãMãu¸2“âqâYˇ¥5 ã∆^[…¬ ÃVãt$çFpPˇ‡5 Ñ¿t	É¶   Î+SWçæ  ãœˇ®5 çé  É˛ãä–ãœˇÄ5 _Ö€[uVËâ˝ˇˇ∏  ¿^¬ Vãt$ãF,ã@`«@Ë,  ÉË$∆ ãF,ã@`ÉË$«@Ú+ âp ∆@‡çÜò   Pˇ∂º   çFpˇ∂∏   «Ü     Pˇ‰5 ãV,ãNˇ6 ^¬ UãÏãESWãx(çEPˇ∞5 É, ãUt#V∏ä çJ8áçO$ãqçBXâpâââA2€^ÎâW,≥ãR`ÄJˇuˇ‘5 Ñ€tWË:ˇˇˇ_∏  []¬ ÃL P T ?   UãÏÉÏlãEÉ¯v
+∏ö  ¿È∏   ãÖ‡6 V3ˆ;∆u
+∏ö  ¿Èü   çMQçM¸QhÄ   É¿XPˇË5 Ö¿|€VVçE‰Pˇ¸5 çEÙPçE‰PjjPçEîPVVˇuhT  ˇ 6 ;∆tIãMã–ˇ6 ;∆|+VVVVçE‰Pˇ6 ;∆|Wã}jcˇu‹WËO˙ˇˇfâ∑∆   _Îjch- ˇuË6˙ˇˇãM¸ˇ‹5 3¿^…¬ UãÏÉÏ8VW3ˇWWçE»Pˇ¸5 ãuçE¯PçE»PjjçEÿPjçEËPˇv«EË&) h4  âuÏ«Ed âuÙˇ 6 ;«u∏ö  ¿Î:ãNã–ˇ6 ;«|+WWWWçE»Pˇ6 ;«|ãE¯;«|ãM‹âN`ãM‡âNdãM‰âNh_^…¬ UãÏãEHtEHt+HtHu`ãEãH@É` Ö…tRj jˇpDˇ—ÎGãE«@   Î;ãEãH@Ö…«@   t*j jÎ÷VãujV«F   Ëy˙ˇˇãF@Ö¿t	j jˇvDˇ–^]¬ UãÏãEVãpÖˆtYÉ~uSSã]Wã}ã√+Ü¯   ãœé¸   âMx=Ä√…vjVË"˙ˇˇ+û¯   æ¸   â}xÅ˚Ä—vjVË%ˇˇˇ_[^]¬ UãÏÉÏSVãu3€;ÛÑ^  9^8ÑU  3…Wç~A3¿±Ö¿Ö?  ˇÜÄ   ˇÜ   8^QuVËä‹ˇˇçEPçE¸PVËÔˇˇÑ¿uà^Qâûê   âÈ  Äæ  wÁ∂EÉËÑ¢   HHÖË   çE¯PçEÙPˇvDˇV8;√âEuˇÜÏ   ÎæãM¸9MÙsˇu¯Sh#  ¿PÎQPVËGˇˇÑ¿uˇu¯âûê   Sh<  ¿ˇuˇvDˇV<ÎÑˇÜê   ˇÜÑ   çÜ¯   Pâû   ˇƒ5 8^Qu∆FQˇu¯âˇu¸«F   SˇuˇvDˇV<ÎN∏∏   9E¸âEÙá0ˇˇˇˇu¸çÜ   PVË≈ÔˇˇÑ¿ÑˇˇˇˇÜê   8^Qâû   u∆FQ∂Ü   PVâË¨˝ˇˇ_^[…¬ ÃVãt$ˇvËy˛ˇˇˇvDˇV@^¬ ÃUãÏÉÏVæ7 ãŒˇ®5 Å=6 Closä–ãŒuˇÄ5 Èµ   WˇÄ5 ã}É ˇÖˇπÄigˇÑö   ãwÖˆÑè   çÜ   É8
+vÉ  çáË   PRQÎiçE¯Pˇƒ5 Ä~ tˇwËÕÙˇˇÑ¿tˇwË›˝ˇˇãE¯+F0ãM¸N4âMÙx!=Ä√…vˇu¸ˇu¯WËK˝ˇˇãE¯âF0ãE¸âF4çáË   Pˇ∑  ˇ∑  Å«¿   Wˇ‰5 _^…¬ ÃQSW3€SSSSh¿6 ˇ6 9§6 t
+ø  ÄÈc  ãD$ã@`ˆ@t
+ø ¿ÈL  ãD$UVãp(çnUçFPhÄ   çFXPˇË5 ã¯;˚å   ãE ä@0ãN˛¿àA0çFâ@â hDdk çF$h∏  â@â Sâ^,ˇ6 ãË;Îu
+øö  ¿Èﬁ  jnY3¿ânã˝VÛ´ËU‘ˇˇã¯;˚}SUˇ(6 â^È∂  ãF8ÄeO âE ∏   âEl«Ep @  âEt∆EL∆EN°7 ;√tâEl°7 ;√tâEpUVËzÛˇˇÄ} tfãE fâETfãE∆ERfâEVÄe Éœˇ«Ü  êõ˜ˇâæ  9 7 u2ãFPh0 É¿tPˇÙ5 VˇvËù˙ˇˇÖ¿})∆Eâæ  âæ  Î∆Eâæ  ° 7 ˜ÿâÜ  ã5 çFpPˇ”Vh~* çÜò   PˇÙ5 É¶   çÜ  P«Ü∏   Ä˝âæº   ˇÏ5 çD$PçD$PˇvËΩ÷ˇˇVh®	 hà	 h	 VË◊ˇˇÄ} uãF8@@Pˇ†5 É»PãF8@@Pˇ§5 çæ¿   Wˇ”Vh1 çûË   SˇÙ5 π7 ˇ®5 ä–π7 «6 OpenˇÄ5 Sˇ∂  ˇ∂  Wˇ‰5 jUËˇÙˇˇ3ˇˇ§6 3€^]Sh¿6 ˇÿ5 ãL$2“âyâYˇ¥5 ã«_[Y¬ ÃVWˇt$h 7 Ë∏Œˇˇ°7 ãt$£†6 °7 £å6 3ˇWVËyÛˇˇGÉˇrÛÉ~ u∏  ¿ÎNj «F8Ú1 «F@¿* «FD¿ «FHÆ, «ÜÄ   ¨	 «F4N
+ É%§6  h¿6 ˇ¯5 h7 ˇÏ5 3¿_^¬                                                                        j=  \=  N=  :=  &=  =  Ú<  ÷<  ƒ<  ∞<  ~=      ;  ";  8;  X;  j;  Ç;  ñ;  ∏;   ;  Ó:  Ï;  ˛;  <  &<  4<  P<  h<  |<  é<  ⁄:  ∫:  ™:  í:  z:  ^:  <:  $:  :   :  ﬁ;  Ï9          qÉ};       $   L6  L6  RSDSæUkwXü™FéEêÀBÜnj   ptilink.pdb                 ™U ˇáxˇ  <  s                                                                                                                                                                                                                                                       ^m};    8     	   	   ®7  Ã7  7  2  ö
+  Z&  (  $-  z&  v/  ¯
+  &  8  8  '8  88  N8  c8  w8  8  î8            PTILINK.SYS PtiCleanup PtiInitialize PtiIsReadPending PtiPortNameFromPortId PtiQueryDeviceStatus PtiQueryMaxReadSize PtiRead PtiRegisterCallbacks PtiWrite                                                                                                    l9          ¢<  ∞5  <9          í=  Ä5                      j=  \=  N=  :=  &=  =  Ú<  ÷<  ƒ<  ∞<  ~=      ;  ";  8;  X;  j;  Ç;  ñ;  ∏;   ;  Ó:  Ï;  ˛;  <  &<  4<  P<  h<  |<  é<  ⁄:  ∫:  ™:  í:  z:  ^:  <:  $:  :   :  ﬁ;  Ï9      M ExFreePoolWithTag ORtlQueryRegistryValues  ãmemmove @ ExAllocatePoolWithTag öRtlAppendUnicodeStringToString  RtlIntegerToUnicodeString RtlInitUnicodeString  `KeWaitForSingleObject ŸIofCallDriver (IoBuildDeviceIoControlRequest KeInitializeEvent ôIoReleaseCancelSpinLock IoAcquireCancelSpinLock ⁄IofCompleteRequest  ¢MmMapLockedPagesSpecifyCache  IIoDeleteDevice  KIoDeleteSymbolicLink  'KeQuerySystemTime CIoCreateUnprotectedSymbolicLink 8IoCreateDevice  KeInsertQueueDpc  -IoCancelIrp 5KeReleaseMutex  !ObfDereferenceObject  ÓKeCancelTimer TKeSetTimer  fIoGetDeviceObjectPointer  KeInitializeSpinLock  KeInitializeTimer KeInitializeDpc KeInitializeMutex ntoskrnl.exe  Y WRITE_PORT_UCHAR  S READ_PORT_UCHAR I KeStallExecutionProcessor V WRITE_PORT_BUFFER_UCHAR P READ_PORT_BUFFER_UCHAR  [ WRITE_PORT_USHORT Z WRITE_PORT_ULONG  M KfLowerIrql N KfRaiseIrql O KfReleaseSpinLock L KfAcquireSpinLock HAL.dll                                                                                                                           Ä                  0  Ä               	  H   `>  ¥                  ¥4   V S _ V E R S I O N _ I N F O     ΩÔ˛             (
+?                          S t r i n g F i l e I n f o   Ó   0 4 0 9 0 4 B 0   X   C o m p a n y N a m e     P a r a l l e l   T e c h n o l o g i e s ,   I n c .   à 0  F i l e D e s c r i p t i o n     P a r a l l e l   T e c h n o l o g i e s   D i r e c t P a r a l l e l   I O   L i b r a r y   X   F i l e V e r s i o n     1 . 1 0   ( X P C l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   8   I n t e r n a l N a m e   p t i l i n k . s y s   Ä .  L e g a l C o p y r i g h t   C o p y r i g h t   ( C )   P a r a l l e l   T e c h n o l o g i e s   1 9 9 5 - 1 9 9 7   @   O r i g i n a l F i l e n a m e   p t i l i n k . s y s   j %  P r o d u c t N a m e     M i c r o s o f t Æ   W i n d o w s Æ   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	∞                                                                                                                î   å3€3O4V4]4d4k4r4|4Ö4ë45$5/5:5E5P5_5Œ5Â556K6°6∞67=7L7b7π7œ7·7848U8q8Å8¢8∑8–8ÿ8 99C9~9°9ª9.:A:^:r:á:Ø:“:·:D;f;±;
+<*<\<v<ñ<á=>y>Ã>Â>+?}?«?   |   0E0f0≥0-1Ó2K4ú4Ω4Ã4˘45B5M5-6R6ñ6©6·67E7ê7≥7◊7˛7Y8e8É8è8‚8%9|9®9::Y:e:ù:©:∆:“:<<.<¢<Â<Ù<=4=Ü=£=˚=>f>É>ÿ>?%?    º   .011X1d1à1ò1Á1˜122A2Ü2¡2ı2Ñ3ò3‚3˚3"4X4}4≈4‡415{5Ã5=6†6µ6Ω7 7â8«8Õ8ﬂ8Û89d9ô9≥9·9::>:g:ä:ò:¨:œ:’:€:Í:Û:˝:; ;S;l;v;á;ñ;®;≤;¡;À;—;Â;˝;</<l<ö<¶<ø<Œ< =?=g=w=ó=¶=∏=‹=Ì=
+>-><>E>[>m> 0  |   r0111.1:1{1Á1¸122K2á2∑2Ë2Ù293D3N3|3ä3ñ3£3«3ﬂ3‰3È344 4-42484?4E4O4c4s4}4É4ï4©4≥4º4¡4∆4Î4Ú4˘4 5
+5555#5(5.5                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          '----------------------------------------------------------------------
+'    pubprn.vbs - publish printers from a non Windows 2000 server into Windows 2000 DS
+'    
+'
+'     Arguments are:-
+'        server - format server
+'        DS container - format "LDAP:\\CN=...,DC=...."
+'
+'
+'    Copyright (c) Microsoft Corporation 1997
+'   All Rights Reserved
+'----------------------------------------------------------------------
+
+'--- Begin Error Strings ---
+
+Dim L_PubprnUsage1_text
+Dim L_PubprnUsage2_text
+Dim L_PubprnUsage3_text      
+Dim L_PubprnUsage4_text      
+Dim L_PubprnUsage5_text      
+Dim L_PubprnUsage6_text      
+
+Dim L_GetObjectError1_text
+Dim L_GetObjectError2_text
+
+Dim L_PublishError1_text
+Dim L_PublishError2_text     
+Dim L_PublishError3_text
+Dim L_PublishSuccess1_text
+
+
+L_PubprnUsage1_text      =   "Usage: [cscript] pubprn.vbs server ""LDAP://OU=..,DC=..."""
+L_PubprnUsage2_text      =   "       server is a Windows server name (e.g.: Server) or UNC printer name (\\Server\Printer)"
+L_PubprnUsage3_text      =   "       ""LDAP://CN=...,DC=..."" is the DS path of the target container"
+L_PubprnUsage4_text      =   ""
+L_PubprnUsage5_text      =   "Example 1: pubprn.vbs MyServer ""LDAP://CN=MyContainer,DC=MyDomain,DC=Company,DC=Com"""
+L_PubprnUsage6_text      =   "Example 2: pubprn.vbs \\MyServer\Printer ""LDAP://CN=MyContainer,DC=MyDomain,DC=Company,DC=Com"""
+
+L_GetObjectError1_text   =   "Error: Path "
+L_GetObjectError2_text   =   " not found."
+L_GetObjectError3_text   =   "Error: Unable to access "
+
+L_PublishError1_text     =   "Error: Pubprn cannot publish printers from "
+L_PublishError2_text     =   " because it is running Windows 2000, or later."
+L_PublishError3_text     =   "Failed to publish printer "
+L_PublishError4_text     =   "Error: "
+L_PublishSuccess1_text   =   "Published printer: "
+
+'--- End Error Strings ---
+
+
+set Args = Wscript.Arguments
+if args.count < 2 then
+    wscript.echo L_PubprnUsage1_text
+    wscript.echo L_PubprnUsage2_text
+    wscript.echo L_PubprnUsage3_text
+    wscript.echo L_PubprnUsage4_text
+    wscript.echo L_PubprnUsage5_text
+    wscript.echo L_PubprnUsage6_text
+    wscript.quit(1)
+end if
+
+ServerName= args(0)
+Container = args(1)
+
+
+on error resume next
+Set PQContainer = GetObject(Container)
+
+if err then
+    wscript.echo L_GetObjectError1_text & Container & L_GetObjectError2_text
+    wscript.quit(1)
+end if
+on error goto 0
+
+
+
+if left(ServerName,1) = "\" then
+
+    PublishPrinter ServerName, ServerName, Container
+
+else
+
+    on error resume next
+
+    Set PrintServer = GetObject("WinNT://" & ServerName & ",computer")
+
+    if err then
+        wscript.echo L_GetObjectError3_text & ServerName & ": " & err.Description
+        wscript.quit(1)
+    end if
+
+    on error goto 0
+
+
+    For Each Printer In PrintServer
+        if Printer.class = "PrintQueue" then PublishPrinter Printer.PrinterPath, ServerName, Container
+    Next
+
+
+end if
+
+
+
+
+sub PublishPrinter(UNC, ServerName, Container)
+
+    
+    Set PQ = WScript.CreateObject("OlePrn.DSPrintQueue.1")
+
+    PQ.UNCName = UNC
+    PQ.Container = Container
+
+    on error resume next
+
+    PQ.Publish(2)
+
+    if err then
+        if err.number = -2147024772 then
+            wscript.echo L_PublishError1_text & Chr(34) & ServerName & Chr(34) & L_PublishError2_text
+            wscript.quit(1)
+        else
+            wscript.echo L_PublishError3_text & Chr(34) & UNC & Chr(34) & "."
+            wscript.echo L_PublishError4_text & err.Description
+        end if
+    else
+        wscript.echo L_PublishSuccess1_text & PQ.Path
+    end if
+
+    Set PQ = nothing
+
+end sub
+                                                                                                                                                                                                                                                                                                                                                                                                    INDX( 	 Ñ]            (     Ë        u   ÿ»»ÿ        Ω     p Z     /      ¿|VÎg4ÿ 8›Æû»p˝P†¨4ÿXÎg4ÿ        ‡             e g a 8 0 8 5 2 . f o n      	     p Z     /       
+µÔg4ÿ 8›Æû»p˝P†¨4ÿ 
+µÔg4ÿ                     e g a 8 0 8 5 7 . f o n      	     p Z     /      `'´Óg4ÿ 8›Æû»p˝P†¨4ÿ`'´Óg4ÿ        †             e g a 8 0 8 6 6 . f o n      Î     p Z     /      ê◊nÌg4ÿ 8›Æû»p˝P†¨4ÿ¿^pÌg4ÿ        0             e g a 8 0 8 6 9 . f o n      ò     p Z     /       8›Æû» 8›Æû»†ÑR†¨4ÿ`Z#C           ¿             e g a 8 0 w o a . f o n      j     h T     /       8›Æû» 8›Æû»–∞€h4ÿ†ZU%C    @     Ä7             	e s t r e . t t f f o w     h T     /       8›Æû» 8›Æû»–∞€h4ÿ∞C5%C          0             	f r a m d . t t f . t x     h X     /       8›Æû» 8›Æû» 8›h4ÿR8%C    `     U             f r a m d i t . t t f Ä     h X     /       8›Æû» 8›Æû» 8›h4ÿ iX%C    P     òG             g a  t a m i . t t f @     h X     /       8›Æû» 8›Æû»0øﬁh4ÿ¿ü-%C    `     º]             g e o r g i a . t t f Ñ     p Z     /       8›Æû» 8›Æû»0øﬁh4ÿ&/%C    0     Ë&             g e o r g i a b . t t f t t f Ö     p Z     /       8›Æû» 8›Æû»êÕ·h4ÿÄº3%C    p     Ãf             g e o r g i a i . t t f t t f Ü     p Z     /       8›Æû» 8›Æû»êÕ·h4ÿ Æ0%C    p     ¯o             g e o r g i a z . t t f t t f _     h V     /       8›Æû» 8›Æû»¿T„h4ÿ`ë*%C         Ë             
+i m p a c t . t t f f t     h X     /       8›Æû» 8›Æû»¿T„h4ÿ‡Û¿$g4ÿ ‡     l⁄             k a r t i k a . t t f ∞     h T     /       8›Æû» 8›Æû»€‰h4ÿê˛\%C          L             	l a t h a . t t f t f è     h T     /       8›Æû» 8›Æû» cÊh4ÿ !&g4ÿ       tÂ              	l s a n s . t t f t f ê     h V     /       8›Æû» 8›Æû» cÊh4ÿ∞∂&g4ÿ ‡      0‘              
+l s a n s d . t t f f ë     h X     /       8›Æû» 8›Æû»PÍÁh4 @L&g4ÿ       ¯Ï              l s a n s d i . t t f í     h V     /       8›Æû» 8›Æû»ÄqÈh4ÿ–·&g4ÿ       ÙË              
+l s a n s i . t t f f µ     h T     /       8›Æû» 8›Æû»ÄqÈh4ÿpÚ$C    –     |¡             	l u c o n . t t f t f ´     h X     /       8›Æû» 8›Æû»€‰h4ÿ†éÛ$C          åÒ             l _ 1 0 6 4 6 . t t f ∫     h V     /       8›Æû» 8›Æû»∞¯Íh4ÿ`%C    @     ¯1             
+m a n g a l . t t f 6 ª     h X     /       8›Æû» 8›Æû †ÑR†¨4ÿPˆ∑$C    `      <^             m a r l e t t . t t f ¢     h X     /       8›Æû» 8›Æû»‡Ïh4ÿ– —%C         h             m i c r o s s . t t f ◊     h V     /       8›Æû» 8›Æû»Óh4ÿ ‚Œ$C    0       "              
+m o d e r n . f o n t      h V     /       8›Æû» 8›Æû»Óh4ÿPc%C    †      4û              
+m v b o l i . t t f . <     h R     /       8›Æû» 8›Æû»@éÔh4ÿ@Ÿ9%C    Ä     úy             p a l a . t t f l i . =     h T     /       8›Æû  8›Æû»@éÔh4ÿ†Á<%C    †     Tü             	p a l a b . t t f t t >     h V     /       8›Æû» 8›Æû»pÒh4ÿ–n>%C    P     ‡@             
+p a l a b i . t t f t ?     h T     /       8›Æû» 8›Æû»pÒh4ÿ0}A%C    †     –í             	p a l a i . t t f i .                –     0              
+t i m e s i . t t f   π     p Z     /       8›Æû» 8›Æû» 8›Æû»pû°g4ÿ      ÿ‡             t r e b u c b d . t t f       ∫     p Z     /       8›Æû» 8›Æû» 8›Æû»`B©g4       t              t r e b u c b i . t t f       ª     p Z     /       8›Æû» 8›Æû» 8›Æû»PÊ∞g4ÿ 0                   t r e b u c i t . t t f       —     p Z     /       8›Æû» 8›Æû» 8›Æû»pË˜g4ÿ       ê             v e r d a n a b . t t f       “     p Z     /       8›Æû» 8›Æû» 8›Æû»`åˇg4ÿ `     ƒ]             v e r d a n a i . t t f                                                                                                                                   PDSIG Ä|  ∆º  HGDEF”ö  ¥Ä   |GPOS.Ø§Ω  ¥¸  <GSUBÙt≤   Ω8  	ÑLTSHƒº›  p  OS/2<WÅê  ÿ   VVDMXX/_s  Ä  ‡cmap‰HS     <cvt °ˇ  ¥   òfpgm›â•™  <  ugasp  	  0   glyf¿Ÿ  6ò  yhdmxÃ'—  p  (headŒT  \   6hheaÜL  î   $hmtxz2ªì  L  $locaÉ0¢  	\  maxpHé  ∏    nameb8ê  @  ‡postîSã˚  ∞à  ˆprep¥jù7  `   ⁄      ÷ë¶_<ı      ≤?°Å    ∑(˚s˙∏
+    	           ˙∏ 
+c˚s˛'
+               	   	 l  j    @ R    u   rê   Õ Õ    Õ Õ   f∏                         MS   @  %Ã€˙∏  H                 ˇˇ     ˆ        2          2        7        >        K        P        \      	 4 a      
+ ò ï       !-  	   dN  	  
+≤  	  º  	     	  
+‰  	  Ó  	  
+  	 	 h  	 
+0x  	  B®© 2001 Microsoft Corporation. All rights reserved.RaaviRegularRaavi RegularRaaviVersion 1.06RaaviRaghunath Joshi (Type Design Director), Apurva JoshiRaavi is an OpenType font for the Indic script- Gurmukhi. It is based on Unicode, contains TrueType outlines and has been designed for use as a UI font.http://www.ncst.ernet.in/~rkjoshi ©   2 0 0 1   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d . R a a v i R e g u l a r R a a v i   R e g u l a r R a a v i V e r s i o n   1 . 0 6 R a a v i R a g h u n a t h   J o s h i   ( T y p e   D e s i g n   D i r e c t o r ) ,   A p u r v a   J o s h i R a a v i   i s   a n   O p e n T y p e   f o n t   f o r   t h e   I n d i c   s c r i p t -   G u r m u k h i .   I t   i s   b a s e d   o n   U n i c o d e ,   c o n t a i n s   T r u e T y p e   o u t l i n e s   a n d   h a s   b e e n   d e s i g n e d   f o r   u s e   a s   a   U I   f o n t . h t t p : / / w w w . n c s t . e r n e t . i n / ~ r k j o s h i                                                  	
+ !"                          #$%&'                           ()*+                                                                          ,     -.  /01                                          "   <     # @ _ ~ † ◊ ˜	e
+
+
+
+
+(
+0
+3
+6
+9
+<
+B
+H
+M
+\
+^
+t    &"%Ãˇˇ     % [ { † ◊ ˜	d
+
+
+
+
+*
+2
+5
+8
+<
+>
+G
+K
+Y
+^
+f    &"%Ãˇˇˇ„ˇ‚ˇ»ˇ≠ˇcˇ\ˇ:  ˆ2ˆ0ˆ,ˆ*ˆ)ˆ(ˆ'ˆ&ˆ$ˆ#ˆˆˆˆ  ‡ﬂ‡‡‡ﬁ €!                .                                            ë ¯ p q r s t u v w x y Ü { | } ~       5 \ ˘∞Zv®⁄Clè•ª‡Km≈5ÄŒMç!¢√Ú,MÖÔ	©	…	Ó
+
+A
+W
+Æ
+ƒÖÆ«‡%Tj∏‹Üûπ”È-‹ÚqŸ6Ωeªr∂rJ√qÏnﬂVºîÎ_‡óÓ[≤`xﬁˆN™«Ê;ÖΩ'Ló…  E h Ç ò!7!Z!´!¯"f"¯#|#Ã$g$¬%%|%‹&&{'*(8(P(h(∞))n)ƒ*0*}*»++I+û+¿+‰+¸-.F//2/Q/g/}/ì/©/ø/’/Î000-0C0\0v0ô0Ø0“0Ë0˛1101H1^1x1í1®1æ1÷1Ï22222H2c2y2ê2ß2æ2‘2Î333.3D3Z3p3Ü3ú3≤3»3ﬁ3ı44-4C4j4Ä4ó4º4Â55,5N5p5í5µ5€5˚66?6U6z6†6≈6Ë77<7\7ä7∏7ÿ7¯88A8e8á8ß8Œ8Ù99N:T:`:|:õ:π:”:Ô;	;#;9;S;_;k;w;É;è;õ;ß;≥;ø;À;ˆ<J<é<™<»<‰<¯  	*"**""	000'(''"('(('' *0000(''"('''(''"('((''(''"('('0002        ¯ˇ  ˇ˚ 	 	ˇ˛ 
+ ˇ˛  ˇ˛  ˇ¯  ˇ˜  ˇ˜  ˇˆ  ˇˆ  ˇˆ  ˇÛ  ˇÛ  ˇÛ  ˇÒ  ˇÒ  ˇ  ˇ  ˇÔ  ˇÔ  ˇÔ  ˇÌ  ˇÌ  ˇÌ  ˇÏ    ˇÎ ! !ˇÎ " "ˇÈ # #ˇË $ $ˇË % %ˇÁ & &ˇÁ ' 'ˇÊ ( (ˇÊ ) )ˇÂ * *ˇÂ + +ˇÂ , ,ˇ„ - -ˇ„ . .ˇ„ / /ˇ‚ 0 0ˇ· 1 1ˇ‡ 2 2ˇﬁ 3 3ˇﬁ 4 4ˇﬁ 5 5ˇ› 6 6ˇ‹ 7 7ˇ‹ 8 8ˇ‹ 9 9ˇ€ : :ˇ€ ; ;ˇ⁄ < <ˇŸ = =ˇŸ > >ˇÿ ? ?ˇ◊ @ @ˇ’ A Aˇ’ B Bˇ‘ C Cˇ‘ D Dˇ‘ E Eˇ“ F Fˇ“ G Gˇ“ H Hˇ“ I Iˇ— J Jˇ– K Kˇœ L LˇŒ M MˇŒ N NˇŒ O OˇÀ P PˇÀ Q QˇÀ R Rˇ  S Sˇ  T Tˇ  U Uˇ» V Vˇ» W Wˇ» X Xˇ» Y Yˇ∆ Z Zˇ≈ [ [ˇ≈ \ \ˇƒ ] ]ˇ√ ^ ^ˇ√ _ _ˇ¡ ` `ˇ¡ a aˇ¡ b bˇ¿ c cˇ¿ d dˇø e eˇæ f fˇæ g gˇΩ h hˇΩ i iˇª j jˇª k kˇ∫ l lˇπ m mˇπ n nˇ∏ o oˇ∑ p pˇ∑ q qˇ∑ r rˇ∂ s sˇµ t tˇ¥ u uˇ≥ v vˇ≥ w wˇ≥ x xˇ≤ y yˇ∞ z zˇ∞ { {ˇ∞ | |ˇØ } }ˇÆ ~ ~ˇÆ  ˇ≠ Ä Äˇ≠ Å Åˇ≠ Ç Çˇ™ É Éˇ™ Ñ Ñˇ™ Ö Öˇ© Ü Üˇ© á áˇß à àˇß â âˇ¶ ä äˇ¶ ã ãˇ¶ å åˇ• ç çˇ§ é éˇ§ è èˇ£ ê êˇ¢ ë ëˇ¢ í íˇ† ì ìˇ† î îˇ† ï ïˇü ñ ñˇû ó óˇù ò òˇù ô ôˇú ö öˇú õ õˇú ú úˇö ù ùˇô û ûˇô ü üˇò † †ˇò ° °ˇó ¢ ¢ˇî £ £ˇî § §ˇî • •ˇì ¶ ¶ˇí ß ßˇí ® ®ˇí © ©ˇë ™ ™ˇë ´ ´ˇè ¨ ¨ˇé ≠ ≠ˇç Æ Æˇç Ø Øˇå ∞ ∞ˇã ± ±ˇã ≤ ≤ˇä ≥ ≥ˇä ¥ ¥ˇä µ µˇà ∂ ∂ˇà ∑ ∑ˇà ∏ ∏ˇà π πˇÜ ∫ ∫ˇÑ ª ªˇÑ º ºˇÉ Ω ΩˇÉ æ æˇÉ ø øˇÇ ¿ ¿ˇÅ ¡ ¡ˇÅ ¬ ¬ˇÄ √ √ˇÄ ƒ ƒˇÄ ≈ ≈ˇ~ ∆ ∆ˇ} « «ˇ| » »ˇ| … …ˇ{    ˇz À Àˇz Ã Ãˇy Õ Õˇy Œ Œˇy œ œˇw – –ˇw — —ˇw “ “ˇv ” ”ˇv ‘ ‘ˇs ’ ’ˇr ÷ ÷ˇr ◊ ◊ˇr ÿ ÿˇr Ÿ Ÿˇp ⁄ ⁄ˇp € €ˇp ‹ ‹ˇo › ›ˇo ﬁ ﬁˇn ﬂ ﬂˇm ‡ ‡ˇl · ·ˇl ‚ ‚ˇj „ „ˇi ‰ ‰ˇi Â Âˇh Ê Êˇh Á Áˇh Ë Ëˇg È Èˇf Í Íˇf Î Îˇf Ï Ïˇe Ì Ìˇc Ó Óˇc Ô Ôˇa  ˇa Ò Òˇa Ú Úˇ_ Û Ûˇ_ Ù Ùˇ_ ı ıˇ^ ˆ ˆˇ^ ˜ ˜ˇ^ ¯ ¯ˇ] ˘ ˘ˇ\ ˙ ˙ˇ[ ˚ ˚ˇ[ ¸ ¸ˇZ ˝ ˝ˇX ˛ ˛ˇX ˇ ˇˇW@1!##$@F!/#/ #/ /± B≤à ∞"Qä#x∞@Rx±
+ à∏ Ux±B∞!!∞K KTB∞K KSB∞CX K∞<RK∞	P[X±éYK∏êRK∞	P[X±éYY∞à∏ T∞à∏ T∞CZ[X∏±éÖπ  ∞K`ÖçY∞P∞dKSX∞ÄY∞2KSX∞êY ss+s+s+++++++  @:QPONMLKJIHGFEDCBA@?>=<;:98765/.-,(&%$#"
+	 ,E#F` ∞&`∞&#HH-,E#F#a ∞&a∞&#HH-,E#F`∞ a ∞F`∞&#HH-,E#F#a∞ ` ∞&a∞ a∞&#HH-,E#F`∞@a ∞f`∞&#HH-,E#F#a∞@` ∞&a∞@a∞&#HH-, < <-, E# ∞ÕD# ∏ZQX# ∞çD#Y ∞ÌQX# ∞MD#Y ∞&QX# ∞D#Y!!-,  EhD ∞` E∞FvhäE`D-,±
+C#Ce
+-, ±
+C#C-, ∞(#p±(>∞(#p±(E:± -, E∞%Ead∞PQXED!!Y-, E∞ C`D-,∞C∞Ce
+-, i∞@a∞ ã ±,¿äå∏ b`+d#da\X∞aY-,äEääá∞+∞)#D∞)z‰-,Ee∞,#DE∞+#D-,KRXED!!Y-,∞%# äı ∞`#ÌÏ-,∞%# äı ∞a#ÌÏ-,∞%ı ÌÏ-, ∞` < <-, ∞a < <-, ∞C∞C-,!!d#dã∏@ b-,!∞ÄQXd#dã∏  b≤ @/+Y∞`-,!∞¿QXd#dã∏Ub≤ Ä/+Y∞`-,d#dã∏@ b`#!-,E#E`#E`#E`#vh∞Äb -,∞&∞&∞%∞%E#E ∞&`bch ∞&aeä#DD-, E∞ TX∞@D E∞@aD!!Y-,E±0/E#Ea`∞`iD-,KQX∞/#p∞#B!!Y-,KQX ∞%EiSXD!!Y!!Y-,E∞C∞ `c∞`iD-,∞/ED-,E# Eä`D-,E#E`D-,K#QXπ 3ˇ‡±4 ≥3 4 YDD-,∞CX∞&EäXdf∞`d∞ `f X!∞@Y∞aY#XeY∞)#D#∞)‡!!!!!Y-,∞CX∞%Ed∞ `f X!∞@Y∞a#XeY∞)#D∞%∞% XY∞%∞% F∞%#B<∞%∞% F∞%∞`#B< X Y∞%∞%∞)‡∞%∞%∞)‡∞%∞% XY∞%∞%CH∞%∞%∞`CH!Y!!!!!!!-,∞CX∞%Ed∞ `f X!∞@Y∞a#XeY∞)#D∞%∞% XY∞%∞% F∞%#B<∞%∞%∞%∞% F∞%∞`#B< X Y∞%∞%∞)‡∞) EeD∞%∞%∞)‡∞%∞% XY∞%∞%CH∞%∞%∞%∞%∞`CH!Y!!!!!!!-,∞%  F∞%#B∞%∞%EH!!!!-,∞% ∞%∞%CH!!!-,E# E ∞ P X#e#Y#h ∞@PX!∞@Y#XeYä`D-,KS#KQZX Eä`D!!Y-,KTX Eä`D!!Y-,KS#KQZX8!!Y-,KTX8!!Y-,-,-,-,-, ä#KSäKQZX#8!!Y-,  äI∞ QX∞@# ä84!!Y-,F#F`ääF# Fä`äa∏ˇÄb# #ä±KKäpE` ∞ PX∞a∏ˇ∫ã∞FåY∞`h:-, ä#Idä#SX<!Y-   (P  ˇÿ † ê p — | h   | ™ í  ˇÿ w(                                                                                                                      Ä    Ä  Ä  Ä Îú ÌB ÍB ˘ÿ ¶Ã ëV ∆V ¡4 £ €0 òH ñ0 ∞ ≠  iV ±| ¥ñ ≤ñ Vñ ¿D €ñ Æñ ëD ‹0 ∞0 ôÿ ’Lÿ Îº ÃÏ ”ú Â ¨ú ±ò ˜Xˇ¸| ÑC| Ñÿ ° ºXˇ¸ˇ¸Ä ∂~ ∏ ˇ ˇ8  ˛ùÿ  ¥  j  j  à  à  §  ÿ  à  ÿ  P  (  ƒ  §  Ï  ú  `  Ä  Ä  Ä  `  Ä  `  `  Ï  `  `  `  (  `  (  Ï  t  Ï  <  §  (  §  §  Ï  <  <  (    ˛⁄‹  F   ˛  ˚£  ˚£  ˝+  ¸  ¸I  ˝d  ˛∏(  ƒ  Ä  `  Ï  Ñ ò` yd Nd [, På [å Çú B, C, C ‡ˇU˛Ú§  à  
+c a‹   ˛  ˝+  ¸˙  ¸I  ˝d§˝d  ˇU  ˝‰  ˝ë  ˝>ˇ¿à  à  à  ƒ  ƒ  ƒ  TP  §  Ï  ú  `  Ä  Ä  `  Ä  `  Ï  `  `  `  (  `  (  t  Ï  <  §  (  Ï  <  (  P  (  ƒ  §  Ï  ú  `  Ä  Ä  Ä  `  Ä  `  `  Ï  `  `  `  (  `  (  Ï  t  Ï  <  §  (  §  §  Ï  <  <  (  P  (  ƒ  §  Ï  ú  `  Ä  Ä  Ä  `  Ä  `  `  Ï  `  `  `  (  `  (  Ï  t  Ï  <  §  (  §  Ï  <  (    ˇ‹  ˇ% dÿ  ¥  j  j  à  à  §  ÿ  à  ÿ  ÷  ˝‰  ˝ë  ˝>  ˚s  ˚s  ˚s  ˚s  ˚s  ˚s  ˝ô  ˝I  ¸’  ˝ô  ˝I  ¸’˚¨     	 	 	                  	                
+ 
+		 
+                  
+                 		
+
+ 		                  		                 						 	
+
+			        	        					  	
+
+		                 
+
+
+		
+
+
+ 
+
+
+		
+	
+																							        				        																																																																			  
+
+
+		
+	
+                 
+					
+	
+	
+			 
+
+
+
+
+
+		
+
+	
+	
+
+
+	
+										
+		
+	
+
+				        	
+
+					
+        	
+
+
+
+
+
+	
+	
+	
+
+	
+								
+		
+						
+
+	
+	
+
+
+	
+										
+		
+	
+
+						
+
+	
+	
+
+
+	
+										
+		
+	
+			  	
+
+
+
+
+
+                 		
+			
+		
+							 
+
+	
+
+
+	
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	
+	
+
+	
+
+
+        
+
+
+	
+		
+
+	
+        	
+
+
+
+	
+
+
+
+
+
+	
+
+
+
+
+
+
+	
+
+	
+
+
+
+	
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	
+	
+
+	
+
+
+
+
+	
+
+
+
+
+
+
+
+	
+
+
+
+
+
+	
+	
+
+	
+
+  	
+
+	
+                 
+
+
+						
+	
+					
+
+
+ 	
+
+
+
+
+
+
+
+
+
+
+
+
+        
+
+			
+		
+
+	        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+	                	 	
+
+
+
+
+
+
+
+	
+
+	 
+
+
+
+
+
+        
+
+		
+
+
+        
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+                	 	
+
+
+
+
+
+
+
+
+
+
+ 
+        
+
+
+
+
+
+          
+	                
+ 	
+		
+
+         
+
+	          	                
+ 			         	          
+                 							         		          
+                 
+				
+
+         	
+                           
+
+
+	
+
+
+	         
+
+                           
+
+
+
+	         
+                          # 
+         #                          & 					         &                           * 
+
+
+				 
+
+  	       *        	                  !+ 
+
+
+				!
+
+   	       +        
+                   %0 
+
+
+
+%!! $ 		       0		          $                *7 !!	*%% ("" 
+       7
+    	      (""                .< $$"
+"".")) ",%%  " "!                 !  <    	       !!!      !         !          ",%%  " "                2A ''% !!%%2%,, %0((##%#%! $##""""""""""" " "!# ##!!          $""   #A    
+    ###$$$!##""""""""" " "!# ! ! $##""""""""""" " "!# ##!! ! $##""""""""""" " "!# #!   %0((##%#%                  Ä  Ä     3!%!!Ä ˝Ä ˛  ¯ Ä   Î  ïP   @  ??˝Œ/Ì‘Ì10#3#53Ñåå™™bÓ˙∞§   ÌA∏ƒ   #@  ?¿›¿/ﬁÌ99Ì9910###∏.O.u.O.ƒ˛}É˛}É  Í  Y<   À@â//
+	     &  //?¿?¿99//¿˝¿¿˝¿–¿/‹ÌÌ÷2ƒ2‘]Ì‹˝÷2ƒ210 ]]#3#####73#7!333#3YıV˘ˇVãW‰WãWÓÙW˚VãW‰WäV™ÁYÁ…à˛πà˛ér˛éràGàs˛çs˛çÜ˛∂  ˘ˇÿLf    ) 5 ≈@24	4È4˘422Ê2ˆ2..Ê.ˆ.,	,È,˘,(H$∏ˇ@OH 0 *7   " -3	&	 ?Ì‹]Ì∆2?Ì¿2‹]Ì/]Ì‹qÌ∆÷qÌ∆á+á}ƒ‹]qÌ10qq++]qq]qq]qq]qq#"&54632%'#"&546324&#"32764&#"326Bâ__ââ__â
+¸%x‹â__àà__â˛E44D!#44#"èE44DD44EaióóiiññN˙¿MA˚piïïiiòò"8VV88*--*¸≠8WW88VV   ¶ˇÎzæ  ) 2 ≤@k[2d/V/âF*Är&6& &k+{+ã+I+Y++*
+}*ç**-+&"
+"- 4-"&&Ü&
+&1 1  ?3?Ì?Ì9/99]/‘ÌÌ÷∆2999/99Ì99Ì99]}áƒƒƒ ]]áƒƒƒ ]]]10]]]]]%'!"'&54%&5476326534&#"67632ztœΩ˛˚¡Öâ≠daíích¸d>ôd˛yeOß5M\'=µ˛f’\XÑ±}tÕÎx|ΩÒ¿∂zèZXW[è™©˛ü}„˛Ô∂NYß?C G7(>˝óã∞ÅNJ   ëA;ƒ  @   ?Õ/]Ì9910#;-O.ƒ˛}É   ∆˛˝¢  )@wÑ     
+  /3/3/Ìﬁ]]2∆210]&547 ¢`´—“™X˛–RUûeØ⁄˚˘⁄Ø]˛¨˛/‚Õ÷   ¡˛˝ë  +@yiX
+à		 	
+ /3/3/Ìﬁ]2∆210]]]' 7 ë__†r+˛ÌwAòˆ¯Í√QêªíÜR˛F  £ ªê®  |@@
+		    	    /¿Ã]999/3¿2˝¿Ã]999/3¿2/˝Ã]9/3¿2¿99Ã]9/3¿2¿9910!'#'7!5!'737!ê˛Ï÷A∆e∆A÷˛Ó÷A∆e∆A÷˛∆A÷˛Ó÷A∆e∆A÷˛Ï÷A∆   € ó
+    @	 	 /¿Œ˝¿Œ/Œ¿˝Õ¿10!#!5!3!
+˛§w˛§\w\Û˛§\{\˛§   ò˛¯Å ∆  @  ?ÌÃ2/]∆2Ì910%'7#53Åß;ãs—
+˛¸*ﬁ∆  ñ=≤≈  µ  /Ì/∆10!5!≤˝‰=à   ∞  Å ∆  @
+   ?Ì/]Ì10!#53Å——∆  ≠ˇ¢[  *@X     ?3?3/÷á+á}ƒ10]'[¸≈s; ˙ÿI*  iˇÿ∑P   j@N)iy&fv&fv)iyÑ6F9Iã
+ã9I6FÑ ! ?Ì?Ì/]ÌﬁÌ10]]]]]]]]]]]]! '&76! 4'&#"3276∑Öñ˛ı˛ıóÜÜóñÖ¢bn¥¥occo¥¥nbñ˛ﬂ¬€€√  ¡ŸŸ¡˛‡÷°¥¥°÷÷£∂∂¢  ±  <  #@ @ê ??Õ29/]Ì3Œ910!#'73<™çTÎ†\ÇV‡  ¥  »P  P@1YXö©fvÖ& 		 ?Ì?˝∆2/Ìƒ2ﬁƒÌ10 ]]]]]]]]]!!&5476%654#"'67632»ûììûW˝	ü%û·ΩsbNÖ^a¶lpÁ∞êrsã•í,#ˇ±*»|z’ûat7&_c  ≤ˇÿœQ % o@U%Ñ!Yiyk{Y&!$∏ˇ¿@'H$""`  '$ 	 ?˝∆2?Ì9/Ì9∆2/ƒﬁ]Ì‘Ì9/9+10 ]]]]]]#"'532765!#532654'&#"563 œ+;ojÄøü≥´iZ`˛Ù_ZaÉTLkûï®Wÿò»[NPn=:hïjFKfî~`g>8è˛õ¥u]   V  ^(  V@0
+
+//
+/ ?/]?9/¿˝¿¿9//]ﬁ]¿Õ˝¿9/á+}ƒ10##!3!33^Áû˝}crû-|πûÁ
+˛ˆ
+”K˛È˝å√˛=   ¿ˇÿ)(  C@)iy9IYfv 		 ?3Ì2?Ì9/Ì/∆ÌﬁÌƒ10]]]#"'5327654'&#!!!32)ùéøÏìç‹~gxWOÖ˛â<˝h⁄¿wêê«~s8•=EQÉÉE?êí˛úYl   €ˇÃh<  ' Å@V9&i&F"V"FVitÑfE)â
+z
+áv)9@  ) O4 $$ ?Ì?Ì9/3Ì2]/]Ì2ﬁ]ƒÌ10 ]]]]]]]]]]]]]]]# '&76!3#"6324'&#"3276h}Ä≥˛ÛxXõÆ*ßÅ˛Éi∞î•zÉúPJo[Ø'LVÅtONzÆÅÌ≠«‡ö±éŸugp¨mA=fDÄerTQ  Æ  (  6@ oè H 	 	 ??Ì2/3∆Ì2Œ9]+]10#&5476767!5!ÑÉ©Ro≥fMú}}˝ÖVàöö»õ”Ã/#.$‘‘û¬óó†   ëˇÿP  ' 3 â@[k2{2Y2r.c.V.Ñ"ãÖ&)ãâÜ(*&$( 5$,	&* H*&0 0 ?Ì?Ì9+]/Ì‘ÌﬁÌ‘99Ì9910 ]]]]]]]]]]]]]]#"'&54767&5476324'&#"64%3276oÀÕ|o^2ú¸vi©©iv¸õ4^«PD^^DPÚÚ0˛ﬁ˛ﬁJVÇÉUJHälzwjèÜe6g°ú°UMMU°ú°g7e@\4--4\v||˝±ùûûùNIVSG  ‹ˇÿiP  ' á@ZFe#i IYY6Ötyâ&fzXzä@  )"OIY;%%		 ?3Ì2?Ì9/3Ì2]]/]ƒÌﬁ]Ì210 ]]]]]]]]]]]]]]!"'532767#"&547632&'&#"326ióß˛Ì~iÄE€|m∞îπÈâÄºÏ{a∂MTntT]önV±•˛„Õ„ö®îÂvÎπ∏phÏªJtht=Dpnõa   ∞  Ä   @   ?˝ﬁÌ/]¿˝¿10#53#53Ä––––L∆¸Ó∆  ô˛˙Ä   *@	
+  
+
+
+ ?Ã2˝ﬁÌ/]¿∆2˝¿910#53'7#53Ä––¨5ì|–L∆¸˝	˛ˇ%·∆   ’ qÌ§  J@%    6 /ÕÕ/¿3]÷¿2á+á}ƒ3/á+á}ƒ10%5Ì ¸¯ ¸±˙âÁh‰Ü˛n  Ltµâ   @ 	  /ÌﬁÌ/¿÷¿10!5!!5!µ˝ói˝ói˙è˝Îè  Î q§  B@!     /ÕÕ/¿23÷¡3á+á}ƒá+á}ƒ10'7¸ O¸± ¯X˛âííÜ˛   Ã  √ ! % ]@; ' zäk$ä'yh
+   	
+%#
+%# ?Ì?˝Œ9/]/Ì‘˝‹]ÌﬁÌ10 ]]]]]]]]#5476767654'&#"#6632#53;(_k$=í;'Zn9JCVyñêÎ≥ñsy˛ÜππqvS6EM,IfuuèZ<;I @dV83âw±ﬂ^c˙˛Ø   ”ˇÓ ; D §@kuBÖBVBV@f@f)Ü)$)T)v%$%d$i!y!â!+!YiyâxA- --<A<A<' F4'=?C8#<C
+.0-+
+ /ﬁ2Ì2Ì29/Ì?Ì9/3∆Ì2/Ì‘Ì99//≈≈˝ƒ]Ì10]]]]]]]]]]]]]#"'&'#"'&5476325332765'&! !27# '&7! &# 32BX©\D2<nß∂`Rpu∏qmü ;b1!û´˛ƒ˛ﬁ∆¡∞∫:πõöª˛èÂ‹ÊÓct‘»˝´gb˛˚‰äó∆£ÿ7']fë{¿ªÖBP˝0>*1¥{áC¡“›ÿ˛”˛¡Ãÿ.é$ˇıug¸ıË˝á‘6˛ÿ˛Ã   Â˛‹Î#  @  /Ì/Ì/˝›¿10!!!!Î˝˙˛ãu˛‹Gê˘⁄  ¨ˇ¢Z  ,@X    ?3?3/∆á+á}ƒ10]7Zs¸≈sI(K   ±˛‹≥#  @   /Ì/Ì/Ì›¿10!5!!5!≥˝˛q˛è˛‹ë&ê   ˜ª°$  ?@!    /›¿/Õ23Õ2á+á}ƒá+á}ƒ10%'°F˛Ò˛ÒFUS‚‚S  ˇ¸˛Ã\ˇT  µ  /Ì/∆10!5!\˚†`˛Ãà   Ñ˛‹˘# % :@F(%	 	
+		%%  /Ì/Ì9/Ì9/Œ–Ì˝9ﬁ¿10 ]]# '&4'&'5676576!3#"33˘t˛˙L:VY∆∆YV:LtLÆ8<,: Æ}*æw˛‹mT»]aîa]»TlÄ26´ÓZxPE∑º‡-_ C˛îÀ  ∑ ///]Ì10#3Ààà˛î|  Ñ˛‹˘# & <@($G "
+ &  
+
+	 /Ì/Ì9/Ì9/˝∆9ﬁ¿–Ì10 ]]"!#5327654767&'&54'&##53 3˘∆ZU;L˛˚tw∏+B@Æ…;,=7ÆLtL;UZ∆6b]»˛ÓTmÄc.ﬁ∏^[DOx[Ì¨62ÄmS˛Ó»]b   °î>ñ  j@"hxàgwá HfEE∏ˇ‡@Hi!
+ /ƒ˝‹ƒÌ9999/Ì÷99]+Ì99]]]+10]]#"'&'&#"#54763232673>3H∆∏}L=J∞á3H∆~X+cYY∞áf·dç∏pB˛`-·dçM&ä}`   º  W ∆    #@		 ?¿¿˝¿¿/Ì‹Ì‹Ì10!#53#53#53W——˝õ——˝õ——∆∆∆∆∆ ˇ¸‹\d  @     /Ì/∆]10!5!\˚†`‹à ˇ¸Õm  @     /Ì/∆]10!5!¯‡ Õ†  ∂®Ω†  @   ?ÌÃ2/˝∆29103#547Ω¥¢ı∞{˛Ì¿Ω   ∏‰´“  @ ?ÌÃ2/∆2Ì910'#53´¨?òôÛ"˛÷&¿  ˇ é”    (@ 
+
+
+  /˝ﬁÌﬁÌ/]¿Œ˝¿Œ10#53!5!#53ﬁππ%¸¸˛€ππ#∞˛#u˛#∞   ˇˆk  µ  /Ì/∆10!5!¸¸ˆu  8 ÁÀz  h@B
+ 	 	
+   	
+		
+_ ü Ø  ê†
+	  /3¿2‹2¿2/]‹]∆á+á}ƒ∆á+á}ƒ10''7'77ÀP¯¯P¯˚P¯¯P¯7P¯¯P¯˚P¯¯P¯ ˛ù∏ˇgÇ  @
+ 	
+@H/ /_]+Ì/Ì10#"&54632ô;**;;**;*;;**;;     2 6 ∂@p9.F-V-f-,09/00468#$F(V(f((Ñ&v&D&T&d&6&&$0@$,Ñ(r(4((&6#
+
+4022#6  ??˝¿9/33Ì229/9/¿9]]]÷Ì/÷ƒ]˝≈9]]]]9]9ﬁÕ˝¿9/3˝ƒ]9]910]]##&#"#"54654'&'#"&54654'&'#536767632!∏†7+S8yob-*9mfÉ4CK2+;iûóA66PIç[F,THXò˚hL˛ë&ØCRsmL_Ø31—G=6Ñ.FLA*êpòDD_+:”¢¶Hˇˇ    Ã2 6 5   aÿ   @`::  P>  /5/5+5 ˇˇ    É% 6 b   |«   ±∏ˇÕ@
+44P6  /5/55+55ˇˇ    Ç% 6 |   cj   π ˇÆ@
+**  P;  /55/5+5ˇˇ  ˛n†˛6 }   dV   @	 B>P@ /5+5 ˇˇ  ˝8†˛6 }   eO   @ B>P@ /55+55 ˇˇ    º˛6 |   f   @	 &%P& /5+5 ˇˇ    Æ6 5   g(   @	 87P8 /5+5     †˛ % 0 ; ¶@Dâ;T8Z3j3y/â/)9yk(Ñ6v6,6*pÄTd6F1'%=($∏ˇ@"H$*5,,:'%% % : ?Ì?¿‹Ì9/˝¿¿9/Ì9/ﬁ22Ì2+2ﬁÃÌ‘Ì9]]]99]]‹Ì10 ]]]]]]]## 47#5367632#&#"!5!!2764'&#!3 †u˛ÈDò{∏˛™õniÖ;ö§∏ìÑ-ŒO¯ãys8z˛È¸Ç2nhdèubÇ˛ê.`uë5ò_˛–§D8?Y™VFÉñ9(ê◊|ÉUMmq\WÖÔ_I[£xzv˝àyC9†qäˇˇ    Ç6 5   i‹   @	 @85P8 /5+5      h(  % Ñ@v"Ü"vÜçK[{ ∏ˇ@2H$4D ' 
+$$$$  ??˝¿99//Ì99Ì99/ﬁÌﬁ–ÌÕ9]]+Ì9]]10]]##'!"'&54763 6!5!&!"32h∏ss†?¥˛ ¶pwvmû?∏>˚h˛õ˛˘WAJJAcÚò˛q◊—˛ü#{∏[a£õ^X–†2ê˝«-2S_3-     @(   o@?&6FÜ
+
+)â)  ??¿˝¿99//Ì99]Ì9]9]/Œ9/9Ì299]ﬁÕ˝¿¿10### '654'#5!!!5!32@∏†ú—˛≠«ñ8ø+hQX˛®˝®On‹Èò˚hÖXÕœ™≤sê◊æï˝øppV     ‹(    N@-Üi
+y
+"P_  ?¿Ì?˝¿¿9/Ì/]∆]ÌﬁÕÌ9/˝¿10]]##!#"'&54763!!5!!" 32‹∏†˛‹ÛÆ¡∫a4yn˝@‹¸‰˛∫K7nSò˚hò¸Ø˛π–»ûî0Öê¸)"-q˛⁄     º( 3 v@B++1-#è!!!135 !- 	H
+
+1//'3  ??¿¿˝¿9/3Ì29/Ì9+9/Œ]9/9ÌÌ9ﬁÕ˝¿9/]≈Ì99/10###"'#"'&'67654'#53327&47632327!º∏†+\”Z`{]gr1--59ƒ˛S!+vHfy6##00"ÆS4Xò˚hh
+èM<Be==ZÅ[eêX?QhÀÜHZznP0':1B∏˛ΩÇ      (   * Ã@^+(	¶"&iyâ∂	!
+
+/
+
+
+% ,%  /#∏ˇ‡@+H!##)  )	)  
+ ?3ﬁ]Ì99]]?˝¿99//]99+ÌÌ/ﬁ]Ì‘]ÌﬁŒÌ9/]93]10 ]]]]]]]]]]!!2&'#"'&54!2654!!#5!&#"32¸
+««tä˛ﬂY|)TØxxbr¿”˛€˝ôn˝\ëX{B.3]òƒO]¿˛˚ëme3f7<Fq‡„k´Õcê˚Ùç^'     ¥(   E@%]V !			  ?Ì?˝¿99//˝≈/Ã9/Ì9ﬁŒ˝¿10]]#!"'&55&547632!!5!5!3 ¥∏˝ÎæÅë¿SI5R&º˚§¥˛®˝]gOxuò˝5˛3n{÷◊iE@8êiê¸†»ﬁïF7   ˇƒx( $ 0 > ¥@1Ö;ä/I:-	)'7%=9)∏ˇ@CH)-1++9%  @9 "5)
+ ü
+Ø
+  ü Ø 
+ 
+ -!$ =- ?˝≈?˝¿99//]]ÌÌÌ9/ﬁÌ‘]Ì9ﬁŒÌ‘Ì9/Ì99+910]]]]]]]]]]]]#!"3!2!#"'&547&54763!5!5!4&#!676%4'&#"36x∏˝qÅ6j⁄◊ÖWZÚã˛Ú7´~†d_üeÂ√˚„x˛‡N?˛Í>öAè˝˚ &IE5>}Vlò˛ç_qORÑÕH*?QôåP>à∆D+‘ê˚‹?I[É$'
+'O5A"&AL$$      ò(  @@!
+
+/  ?¿?˝¿99//˝≈/‹]Ì99/ﬁÕ˝¿10##!#&54632!!5!ò∏ü˝q†Æò;Rú˚øòò˚h"˝ﬁ#`:ÖÜÃê    ˇƒò( * 4 < ¿@vã1Y1i19IvÜ%..,+ç5[5k5{559[k	9pÄ, *>9,'#'#'(Ü5;7"$."üØ/""";+'* 	; ?ŒÌ99?˝¿¿99//]]˝ƒ9Ì99]/Ã99//ÌÌﬁÕ÷Ì9]9/99]Ì99]]Ì9/Ì10]]]]##&'#"'&54763267654!!53&#5!!327676&#"32òu[“∫gV~ >´5@RäWkB?be]8PW?S˛«˝òÔj&œò˛‚¸˜ |koÉ?:˛\DC¶ ò˛◊âJÏvaP+3g'M	4@Äa<:\6{,9J»üÅ êêÓí;>VP¸öâ7T   ˇõò( & - o@?Ü+!--)'
+ /)#$
+!'
+
+)#&    ?]Ì?˝¿¿99//˝¿˝≈/ﬁÌ‘ÌﬁŒ¿¿9/3Ì2Ì9/Ì10]]#!"3!!!2363!!"'&547 4%&'#5!!ò∏¸¶ã0)9S˝ö ˛ñæbì˛_˚ò˛®˝[/+6ò˛w6 ´,<o†*>£9<Ô*é∆ê˛Tde^-   ˇ˛x(  U@3{lyj &&%  ?˝∆?˝¿9/Ì99]]/ﬁÌ]ﬁŒ∆Ì10]]]]## 327#"'&'!5!5!x∏h˛‹ñ‚èN~àß⁄Ì∂êÅ¯µ∞R∫Ì˚‡xò˛p':Æû[b:_>1àÖÌØÒê      ò(  " ~@Qã!ÑÑãyY
+V6!6IIP`Ä $/?;)  ?Ì?˝¿9/¿Ì]]/ﬁ]Ì∆ﬁ]Ì9/Ì910 ]]]]]]]]]]]!#"'&5%5!5!4'&'3276ò˝tŸ≥¶––¶≥ÿ˝ïò˛≠åjõñgÑÖyäãyÜò„µ˛“«äÅÅä«.µ„ê¸™tbJ/.KbtÇ^UU^    ˇ˙x( ) 3 º@wf1Ü1w1àY8$ &D'    *0)50'dtÑ*2.""$/oüØ/2&) 2 ?Ì?˝¿9///]]]Ì99/Ì99]/ﬁÌﬁÕ‘Ì9/Ì9/]_]9]]Ì99]]10 ]_]]]##"'&54763267654''&76326!5!&'&#"!2x∏⁄k("Ã°—ΩÑ≥hPoÜÛ6E6B¡†∫ΩıÆ{÷˚ﬂx˝$1L@itT!ò˛¢ÉNOCg¿fP8M†g3(¢Ç/:@çi0
+
+k}(oê˚we)"0Ö     
+x( ! ) q@@â*&&" +`pÄT&($			(! ( ?Ì?˝¿99//ƒÌ9/Ì99]]/‹Ì99/ﬁŒÌ‘Ì9/Ì10 ]]#!67632# '&&54632!!5!4#"32x∏¸πˆfHgkf?Aàhô˛∫òí"ìÄ?L+±˚‡x˛œNQà)ﬂò˛˛áhÜ<V8;dâC4úñ]X:Ö{Jê˚‰5©     ( , Å@MâyâvÜtÑf'")) 
+&& . *
+$	'& $$$),  ?Ì?˝¿9/]3‘Ì99Ì29//ﬁÌﬁŒ∆9/Ì9/Ì10 ]]]]]]]]!3#"'&#"!27632#"'&5476325$!5!¸Ì&”}˝(±_èçX?D\p≠ëµççœá•jiì]W˛∆(˛≤ò∫?&õÌ%/4Vœ4+uF7Na¿íebWoê   ˇ˙x( # u@ipÄvÑ∏ˇ¿@3Ho## `%!P # 	 ?Ì?˝¿99//]Ì999///Œﬁ]ÌÕ]‘Ì9/999+]10]]]##"'&543"3 54'#"54326!5!x∏⁄µΩê›ô§œÄuã¡ÖòÙ˚¢á◊˚ﬂxò˛¢Éw⁄«]H@QÄçŸèq'qÇ(iê      x(   " w@C		$
+
+
+y
+
+ Hyp  ??˝¿¿99//]9]Ì3Ì2+9]/Œ99//ÌÌÌ9ﬁÕ˝¿¿10]##!"'&'67654'#5!!5!3276x∏†â˛ÍâÑãF((FB˜x˛®˝í(G˝§B_πpsÑò˚hÖN:<a==Éô§Pê˛N"a¡˛Œ¢kXL     x(   a@:kZKás$Td
+ "   ?Ì?˝¿99//˝≈9//‹Ì99/ﬁŒƒÌ10]]]]]]#!!2$32# '&&'&54632!!5!x∏¸π:owXø£î˛Ô¢ëH2uBO)∏˚‡xò˛˛ÇyZL»µ6Dâ{Jê      @(   V@/iyâ  ??˝¿¿9/3Ì2]99/ﬁÌ99//ÌÌﬁÕ˝¿10### '67654'#5!!326@∏†õ“˛Ø…33NB”@˛®˝ú1zaﬂeÕò˚hÖX◊HGÖÇáwê˝TãáßºVA    x( ( y@JÑã@P`ê$
+$$  ` *?  &$;)%( 
+ ?–ÌÌ?˝¿9/Ì]]¿/ﬁ]Ì∆ﬁ]qÌ9/Ì9/39/]310]]!'$54'&'&#"&'&547675!5!x˝ë—Ç©fa≠/z\rEEs_}/≠af™ÑÕ˝óxòÂ:eÉ∏∞|u6òPÔ]ZD''EZ]ÔPò6u|∞¥Öh9Âê      @(  Q@,iyâ  ??¿Ì9/3]Ì2¿99/Œ9/ÌÌ9ﬁÕ˝¿10### '67654'#5!3267!@∏†õ“˛Ø…33NB”IlzaﬂeÕ;Xò˚hÖX◊HGÖÇáwêÁªßºVA6‰      (   ( h@<9Wà)%%! *Ñbr%'#'  ' ?Ì?˝¿99//ÌÌ99]]/ﬁÌﬁŒÌ‘Ì9/Ì10 ]]]]#!"67632# '&4763!!5!4#"32∏˝u√*fHgkf?Aàhô˛„ø B;ï;¸T˛ÍNQà)ﬂò˛7a˛æmÜ<V8;dâC4§Æó83(ê˚⁄5©     å(   $ ~@IÇÜ{\l!9
+&!
+)
+
+##!####  ??˝¿¿99//]9Ì3993Ì29]/›Ì÷ÌﬁÕ˝¿¿9]910]]]]##5!"'&'6767$#5!!5' '76å∏†ëˇ g~ë/JBG˛∆SWå˛®¸«DÔîr˛ƒJ•BT√ÿò˚hÏ2.5OOcW7p|ê˝⁄ñ˛ÚT4˛§∂jn@     ( 2 > ∑@wJ9hU%{3ã3y+â+X+h+3+7/7âx" 72@7%  %%/%%0&++)!;)535;5;5/2  ?Ì?˝¿99//9ÌÌ9]9//Œ]9/]ÌﬁÕ9]]]]‘Ì9Ì99]]]10]]]]]]##"'&'&543327654'#"'&5476326767!5!&#"3276¨"8eµöŸâÜò,.<ß¬ènã9nRVÑt]nÜX™∞ú ¸H˝˜p{›C5'n.Kòm~èHÄ¢Ãq`?Is(^8FÄeOO5@kì7%j4pfHê˝¢FO	     T(  J@(		&	   ??¿˝¿99//Ì/ﬁÌ299/9ﬁÕ˝¿10]##!#"&54767654!5!!!T∏†˛5DÑ;R9449Y˛˚ÄQ-˛Xò˚h^.ïrìR:LC::Md£7êÔ˛≈*     º(   t@@Vfv 
+
+
+ 
+  ??˝¿99//Ì9Ì9¿99/Œ]99//ÌÌÌﬁÕ˝¿9/Ì10]##!# 654'"#5!!327º∏†˛Ê±e˛ÃûÇZ+_º˛®¸÷QdM¿A7ò˚h`˛ñ3Dß®πâê˝ÿò≤êÜ«ßÉ   ˇ˙@(   K@/âtÇd6FV  ?Ì?˝¿9/Ì/ﬁÌﬁÃ˝¿10]]]]]#!"'&54763!!5!5!"32@∏˛¨Ó˜ÙH8Xµ¸@˛®˝™U≥¿©¥ò¸ı˛m√¿∞Ä>0}ê¸z⁄"0]åñ    ˇÌº( . 3 ¥@nd3t3d1t1g'w'ÜÜgw! )+2  @ O  / 50+%,2[)[42&222 0+.  ! ?¿˝¿?˝¿¿99//]]Ì]–Ì]Ì/ﬁÌ‘ÌﬁŒ‘ÌÌ9=///]]3¿9999310 ]]]]]]!'67654'&'&'&'&54767&'!5!!6º˛©':ì>`ò}∂*z\~?.kO££Ok.?~\z*∂}ò`>ì:'˛—º˛	˛
+„„ò◊x`FkÖ¶Çk3ö"=S`hK7?pMMp?7Kh`S="ö3kÇ¶ÖkF`x◊êê˛÷¬¬ ˇˇ  ˇxº(6 Z   `r » @ 4 44P7 /5+]5      ( " _@79-
+
+ $ 
+"  ?Ì?˝¿99//ÌÌ2/ﬁÌﬁŒ¿Ì¿9/3Ì210]]]]#!"!!!3"'$547&'&5!!5!5!∏˝Ö¡1˛Ÿ}î„§˛˚Ü_oÉπ¸Tò˛°èãú._'†2Pº3ITÑ5¥ê ˇˇ  ˇ¿T(6 ^   `e @  P" /5+]5      T(   G@$   ??˝¿¿99//Ì/ﬁÌ99//Ì99ﬁÕ˝¿10##!#"&54767654!5!!T∏†˛5DÑ;R9449Y˛˚T˛®˝≠8ò˚h^.ïrìR:LC::Md£7ê˝÷ö}˛„    ˇ˙@(  Y@9àdtÉ6FV	$   ?Ì?˝¿9/Ì/ﬁÌﬁŒÌ9/10]]]]]]]#!"'&54763!!"32!5!@∏˛¨Ó˜ÙH8X¢˛ΩU≥¿©¥¸@ò¸ı˛m√¿∞Ä>0ü"0]åñˆê  ˛⁄˛∞ˇ™ˇÄ  µ 
+
+	 /Ì/Ì10#"&54632V=++==++=Ë+==++==   bÙ(  @   ?˝Õ¿/ﬁ˝Œ10###5!ÙÃ∞xÙò˝ 6ê      %  Z@vÜk∏ˇ¯@'Hi 	0ê†
+
+
+  ?¿˝¿‹Ì9/?/›]¿˝¿÷ﬁÌ10]+]]]#&'&#"3##!5!47632†B=IäI7ΩΩ†˛ˇ[s‹å·œS4/Åbzê˚hòê∫éµ“  ˛  %  H@*wáfiyâ 	  ??˝¿¿‹Ì9//›¿˝¿ﬁÌ∆10]]]###53#"#66323˙™ttÂI=B†·å⁄mR˙ò˚hòê]/4SÑ“µà¿  ˚£˛nˇ9ˇÅ  4@iyfvÑã  0
+
+ /]Ìﬁ¿˝¿/3]Õ2]10]]! '6732767«ƒ˛˘˛˙≈.2<cp\[yg02ˇììA?*"'+$$? ˚£˝8ˇ9ˇÅ   f@BÑfvÑfv/?Oãiy ãiy 
+ /˝ﬁÌ–ÌﬁÌﬁÌ–Ì/2]]¿2]]›]2]]¿2]]10! '6732767! '6732767«ƒ˛˘˛˙≈.2<cp\[yg02.ƒ˛˘˛˙≈.2<cp\[yg02ˇììA?*"'+$$?˛âììA?*"'+$$?  ˝+ˇe˛ 	 #@iyâ	    ?›Ì/ÌŒ10]]#&'&##532õ†^7mc5DÒê;w† ¸ˇfÆ  X@8(Xh+$$
+H
+/  
+
+/  P`   ?‹]Ì9/Ì]9]/˝ﬁ¿_]9+10 ]]]]#&'&##532&##532ö†P5Cùqû;:TNqûeö.ë&1†õñ˛ˇM ¸IˇaÇ  /@(e
+u
+Ö
+K[:    ?Ã/Ì‹Ì10]]]]#4'&'&53ü†§Ò?§†§òò§X;V-uÂûYCBX  ˝dX 6Ç  [@ 
+	 ∏ˇ‡@-H	OØﬂ/?_oèüøœÔ
+ /]q∆Ã9/99]+]/Ìﬁ˝9‘Ì10#4'&#"#47&'&536û(%;8.4†ûÇ:T†í⁄4íY_854;^¡o!*>qY+B#b  ˛∏˝… ^ˇƒ  5@ ó◊   /? 0 ?]3Õ]2/Õá+á}ƒ10]7^~˛ÿÅ˛*aü\ˇˇ    @(6 @   `ÔÄ ,±#∏ˇ¿@H ##
+P ∏ˇ¿@H   P   /]+5++5ˇˇ  ˇx‹(6 A   `l » ±!∏ˇ¿@H !!P$ /5++5ˇˇ  ˇ¿ò(6 F   `Ø @	 P /5+5    ˇƒx( 1 ß@X"*&yâ
+f	∏ˇ‡@CH3&1.3vÜ&/((*."*o$$è$$**$1 
+	
+ ?3÷222Ì∆9?Ì9///]Ì93¿9//Œ9/3]ﬁÌÕ‘9]+∆2]229/33]Ì9910]#&'#"&#6732654'&'#"54326767!5!x∏fÇç{|o(gcè`' o˛∞%JOhI|¶«4(3ÖòÙ˚úçr.3˚ﬂxòè™Nrô©yëe1w.'ed!DSé}<=/'qÇ(49?qêˇˇ  ˇ†(6 T   `t  ,±)∏ˇ¿≥H)∏ˇ¿≥H)∏ˇ¿@	
+H ))P, /5++++5  ò Ó-   L@2jz[fvUufUzi[p  	 /ÌﬁÌ/Ìﬁ]Ì10]]]]]]]]]]#"&546324'&#"326Ó¯≥≥¯ªª†>LÅÄL?ILvsòçÆÔÔÆªÂÂªeSddSevQU®   yˇƒË$   5@)	   ?Ì?˝ﬁ2Ì2/Ì‘9˝ŒﬁÌ10 ]$5#"&54763254#"32Ë˛Â
+%%~úRQxó4!
+u˛˙N{x!<%‰õ}vMJâS∂˛˛ÉïD%∏m|   Nˇ»¯ " m@CÑv;Ks4D	 $	/     ?Ì/Ì99//3Õ]˝Õ]9/∆2ﬁ∆2Ì999]]10]]]%&'&'#"543267654&#"'6632 (y[¢loŸÈykk>B√£ºèeræÄÂ!˛ˆ\1;böCò$ëéE8_cv§»w|WD˛⁄Ê˛—≠Z&   [ˇÖ	 - õ@_â z yâÖ&()p,Ä,,,, )	Ä$@
+H /$%,%$$""/'' ?Ì‘Ì9/]Ì99//Ì9/39/∆2ﬁƒ+29]]Ì99‘Ì9/9]]10 ]]]]]]&'&'#"'&5432$54!#5327654'&#"'63 	˛€A})ÄOCX-åAw™m≥ ˛ ÕÎjH^ÇI†®ª8÷≈W<õôÈA."ö#/(W"exnçÀ°"-^|)GóP˛§Fõ$w  Pˇƒ‹	  ' Å@S('" "ã y  + H	Ñp4ãy%
+ ?Ì/3]]9]]]]+]¿2]]/Œ2˝ﬁ]˝Œ2999910]]]]]]#"'&54767&764'&'326‹˜‚t Ijc}}cjI t‚˜{›Ò≈˛ﬂ8^n;gCCg£˛’ÛÖ0ohÖ[UU[Öho0ÖÛ+f˛ı¸Œ9˚<OlO<:\\   [  -Î  C@#X  ??9/3Ì2¿99]/ÌﬁÌﬁÌﬁ˝¿10!##"'&'67654&'332673-†{‡ö}î,'(9A#™Ze"[INW◊-†S*=Há45fíPﬁ'¨©Õò5"Í  Ç  : 9 ñ@\V5t,Ñ,e,V,t!e!kzäkÑ!  
+$#9 0;*
+3 9.0#$90$$097&/7 ?Ì/]›ÌÌ9///3Ì93/Ì‘Ìﬁƒ29÷2∆9/]3Ì10 ]]]]]]]]]]%#"'&547&54767&5476323"&#"&#"33# 327π¿…è∏†úál≠NKyGFDh-[#uzìLÑ_\ÉÏÀ˛ùÖjÇ£•CCLcƒ•\]±®\J2Ek><ß+G'ú+|S75Ø°j:/;  Bˇ˙G/  U@4ãyjiã'X
+ rÇT  ?3?Ì9/]3/Ìƒ2]]ﬁÌ10 ]]]]]]]&'6754'&#"&547632Gœôﬁ_ºî«JMjRt@5WS_c£±Ôú€˛‹⁄…_´»±_IKkFRk1uñé_dË  C  ’3  E@'eu%) 
+   ?˝∆2?›Ì2/3ÃÌ22ﬁ∆210 ]]]]%# &4'&54632!!327’õÿ˛∫û|∏É@\&!¸ıVr˘óyoo›\RG	â?w®ü/k˛È∞ÎM  C  ’‰ ) [@3e&u&%%%%)#)  +!#
+!  )' ?˝∆2?›¿‹ÌÌ2/3ÃÌ22ﬁ∆2∆9/Ì210 ]]]]%# &4'&54632!&54763"3!327’õÿ˛∫û|∏É@\&]HöDE&#1¸ıVr˘óyoo›\RG	â?w®,7ë9,†?.ü/k˛È∞ÎM  ˇUòD   a@<¿–‡œﬂÔ ˇ/?@	H	  ?Ì‹Ì9/+Ì–Ì/‘Ì›]‘]Ì99//]]3310'654#"&'&547632#53#;96cb6:;"D>`a>D"¯¯l44:m'+XX+'m:44h;55;˝ƒê ˛Úòb   #@ 	  ?Ìﬁ˝‹¿/Õ‘ÌﬁÌ10#"'&53327!5!b`\||\`†ññ^˛‡ éa]]aé≠≠˝îê     º(  $ \@3ÜC6[ & $	 	 ?Ì?˝¿¿99//99Ì9/›Ì9/Ì‹Œ∆Ì9]10]]]#!"3267# 6767&'&#5!!3º¬˛{di]5‘»õîì=oi≠˛·˛¬918m)$tûº˛ù˝‰"5åò˝µA:MÂ>â<8ve3<@'|Rê

@@ -1,0 +1,3574 @@
+nt cannot be found!", document.URL, "DisplayDocument");
+}
+}
+function TotalDisplayPages()
+{
+if (g_nFramesetLayout == 2)
+return g_nTotalPages;
+return g_aDocTree[DisplayDocument()].Pages();
+}
+function DisplayPage(nWhichPage)
+{
+;
+if (g_nFramesetLayout != 2)
+return g_aDocTree[DisplayDocument(nWhichPage)].Page(nWhichPage);
+return g_aDocTree[DisplayDocument(nWhichPage)].Page(nWhichPage - g_aDocTree[DisplayDocument(nWhichPage)]._nStartingPage + 1);
+}
+function ChangeZoom(nNewVal)
+{
+if (nNewVal < 10)
+nNewVal = 10;
+else if (nNewVal > 1000)
+nNewVal = 1000;
+else if (isNaN(nNewVal))
+nNewVal = g_nZoomFactor;
+if (nNewVal != g_nZoomFactor)
+{
+MasterContainer.style.zoom = nNewVal + "%";
+g_nZoomFactor = nNewVal;
+updateZoomButtons();
+PositionPages(g_nDispPage);
+}
+return g_nZoomFactor;
+}
+function BuildTableOfLinks( docSource )
+{
+var aLinks = docSource.links;
+var nLinks = aLinks.length;
+if (nLinks > 0)
+{
+var fDuplicate;
+var i;
+var j;
+var newHTM;
+var docLinkTable = document.createElement("BODY");
+var L_LINKSHEADER1_Text = "Shortcut Text";
+var L_LINKSHEADER2_Text = "Internet Address";
+newHTM = "<CENTER><TABLE BORDER=1>";
+newHTM += "<THEAD style=\"display:table-header-group\"><TR><TH>"
++ L_LINKSHEADER1_Text
++ "</TH><TH>" + L_LINKSHEADER2_Text + "</TH></TR></THEAD><TBODY>";
+for (i = 0; i < nLinks; i++)
+{
+fDuplicate = false;
+for (j = 0; (!fDuplicate) && (j < i); j++)
+{
+if (aLinks[i].href == aLinks[j].href)
+fDuplicate = true;
+}
+if (!fDuplicate)
+newHTM += ("<TR><TD>" + aLinks[i].innerText + "</TD><TD>" + aLinks[i].href + "</TD></TR>");
+}
+newHTM += "</TBODY></TABLE></CENTER>";
+docLinkTable.innerHTML = newHTM;
+return docLinkTable.document;
+}
+return null;
+}
+function CreateDocument( docURL, strDocID, fUseStreamHeader )
+{
+if (g_aDocTree[strDocID])
+return;
+g_aDocTree[strDocID] = new CPrintDoc( strDocID, docURL );
+g_aDocTree[strDocID].InitDocument( fUseStreamHeader );
+}
+function ChangeFramesetLayout( nNewLayout, fForce )
+{
+if ( g_nFramesetLayout == nNewLayout
+&& !fForce)
+return;
+UndisplayPages();
+g_nFramesetLayout = nNewLayout;
+switch ( nNewLayout )
+{
+case 0:
+case 1:
+break;
+case 2:
+g_nTotalPages = 0;
+for (i in g_aDocTree)
+{
+if ( g_aDocTree[i]._fFrameset
+|| i == "S")
+g_aDocTree[i]._nStartingPage = 0;
+else
+{
+g_aDocTree[i]._nStartingPage = g_nTotalPages + 1;
+g_nTotalPages += g_aDocTree[i].Pages();
+}
+}
+break;
+default:
+HandleError("Impossible frameset layout type: " + nNewLayout, document.URL, "ChangeFramesetLayout");
+}
+ChangeDispPage(1);
+}
+function EnsureDocuments()
+{
+var i;
+var tmp;
+var top = Printer.marginTop / 100;
+var bottom = Printer.marginBottom / 100;
+var left = Printer.marginLeft / 100;
+var right = Printer.marginRight / 100;
+var pageWidth = Printer.pageWidth / 100;
+var pageHeight = Printer.pageHeight / 100;
+var linktable = Printer.tableOfLinks;
+var upTop = Printer.unprintableTop / 100;
+var upBottom = Printer.unprintableBottom / 100;
+var header = Printer.header;
+var footer = Printer.footer;
+if (header)
+{
+tmp = upTop + (27 / 100);
+if (tmp > top)
+top = tmp;
+}
+if (footer)
+{
+tmp = upBottom + (27 / 100);
+if (tmp > bottom)
+bottom = tmp;
+}
+if (upTop != g_nUnprintTop)
+{
+g_nUnprintTop = upTop;
+oRule = GetRuleFromSelector(".divHead");
+if (oRule == null)
+{
+HandleError("'.divHead' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.top = upTop + "in";
+}
+if (upBottom != g_nUnprintBottom)
+{
+g_nUnprintBottom= upBottom;
+oRule = GetRuleFromSelector(".divFoot");
+if (oRule == null)
+{
+HandleError("'.divFoot' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.bottom = upBottom + "in";
+}
+if ( top != g_nMarginTop
+|| bottom != g_nMarginBottom
+|| left != g_nMarginLeft
+|| right != g_nMarginRight
+|| pageWidth != g_nPageWidth
+|| pageHeight != g_nPageHeight
+|| header != g_strHeader
+|| footer != g_strFooter )
+{
+var conWidth = pageWidth - left - right;
+var conHeight = pageHeight - top - bottom;
+var oStyleSheet = document.styleSheets[0];
+var oRule;
+if (conWidth < 0)
+conWidth = 0;
+if (conHeight < 0)
+conHeight = 0;
+UndisplayPages();
+g_nTotalPages = 0;
+g_nDocsToCalc = 0;
+for (i in g_aDocTree)
+{
+g_nDocsToCalc++;
+g_aDocTree[i].ResetDocument();
+}
+g_nMarginTop = top;
+g_nMarginBottom = bottom;
+g_nMarginLeft = left;
+g_nMarginRight = right;
+g_nPageWidth = pageWidth;
+g_nPageHeight = pageHeight;
+g_fTableofLinks = linktable;
+g_strHeader = header;
+g_strFooter = footer;
+HeadFoot.textHead = g_strHeader;
+HeadFoot.textFoot = g_strFooter;
+oRule = GetRuleFromSelector(".page");
+if (oRule == null)
+{
+HandleError("'.page' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.width = pageWidth + "in";
+oRule.style.height = pageHeight + "in";
+oRule = GetRuleFromSelector(".mRect");
+if (oRule == null)
+{
+HandleError("'.mRect' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.marginLeft = left + "in";
+oRule.style.marginRight = right + "in";
+oRule.style.marginTop = top + "in";
+oRule.style.marginBottom = bottom + "in";
+oRule.style.width = conWidth + "in";
+oRule.style.height = conHeight + "in";
+oRule = GetRuleFromSelector(".divHead");
+if (oRule == null)
+{
+HandleError("'.divHead' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.left = left + "in";
+oRule.style.width = conWidth + "in";
+oRule = GetRuleFromSelector(".divFoot");
+if (oRule == null)
+{
+HandleError("'.divHead' rule does not exist!", document.URL, "CPrintDoc::EnsureDocuments");
+}
+oRule.style.left = left + "in";
+oRule.style.width = conWidth + "in";
+for (i in g_aDocTree)
+{
+g_aDocTree[i].InitDocument((g_aDocTree[i]._anMerge[1] == 1));
+}
+if (g_nFramesetLayout == 2)
+ChangeFramesetLayout(g_nFramesetLayout, true);
+PositionPages(g_nDispPage);
+}
+else if (linktable != g_fTableOfLinks)
+{
+g_fTableOfLinks = linktable;
+for (i in g_aDocTree)
+{
+g_aDocTree[i].ResetTableOfLinks();
+}
+}
+}
+function buttonRaise( elem )
+{
+elem.style.borderStyle = "outset";
+elem.style.borderColor = "threedhighlight";
+}
+function buttonLower( elem )
+{
+elem.style.borderStyle = "solid";
+elem.style.borderColor = "threedface";
+}
+function buttonDepress(elem)
+{
+elem.style.borderStyle = "inset";
+elem.style.borderColor = "threedshadow";
+}
+function buttonOver()
+{
+var imgSrc = event.srcElement;
+g_imgUnderMouse = imgSrc;
+if (imgSrc == begin ||
+imgSrc == prev ||
+imgSrc == next ||
+imgSrc == end)
+{
+updateNavButtons();
+}
+else if (imgSrc == zoomIn ||
+imgSrc == zoomOut)
+{
+updateZoomButtons();
+}
+else
+{
+imgSrc.src= "" + imgSrc.id + "_hilite.gif";
+buttonRaise( imgSrc.parentNode );
+}
+}
+function buttonOut()
+{
+var imgSrc = event.srcElement;
+g_imgUnderMouse = null;
+if (imgSrc == begin ||
+imgSrc == prev ||
+imgSrc == next ||
+imgSrc == end)
+{
+updateNavButtons();
+}
+else if (imgSrc == zoomIn ||
+imgSrc == zoomOut)
+{
+updateZoomButtons();
+}
+else
+{
+imgSrc.src= "" + imgSrc.id + ".gif";
+buttonLower( imgSrc.parentNode );
+}
+}
+function buttonDown()
+{
+buttonDepress(event.srcElement);
+}
+function HandlePageSelect()
+{
+event.srcElement.value = ChangeDispPage(parseInt(inputPageNum.value));
+MasterContainer.focus();
+}
+function HandlePageSetup()
+{
+if (Printer.showPageSetupDialog())
+EnsureDocuments();
+}
+function HandleForwardPage()
+{
+ChangeDispPage(g_nDispPage + 1);
+MasterContainer.focus();
+}
+function HandleBackPage()
+{
+ChangeDispPage(g_nDispPage - 1);
+MasterContainer.focus();
+}
+function HandleFirstPage()
+{
+ChangeDispPage(1);
+MasterContainer.focus();
+}
+function HandleLastPage()
+{
+ChangeDispPage(TotalDisplayPages());
+MasterContainer.focus();
+}
+function NumericFromSpecialZoom(fnBounder)
+{
+var iMaxNumericZoom = selectZoom.options.length-1-3;
+var iBelow = -1;
+var nBelow = 0;
+var iAbove = iMaxNumericZoom + 1;
+var i;
+for (i = 0; i <= iMaxNumericZoom; i++)
+{
+var nThisIndex = parseInt(selectZoom.options[i].value);
+if (nThisIndex >= g_nZoomFactor)
+{
+iBelow = i;
+nBelow = nThisIndex;
+}
+else
+{
+break;
+}
+}
+if (nBelow > g_nZoomFactor)
+{
+iAbove = iBelow + 1;
+}
+else
+{
+iAbove = iBelow;
+}
+return fnBounder(iBelow, iAbove);
+}
+function HandleZoom(nZoomIndexDelta)
+{
+var iCurrZoom = selectZoom.selectedIndex;
+var iMaxNumericZoom = selectZoom.options.length-1-3;
+if (iCurrZoom > iMaxNumericZoom)
+{
+var fnRemapBounder = null;
+if (nZoomIndexDelta == 1)
+{
+fnRemapBounder = Math.min;
+}
+else
+{
+fnRemapBounder = Math.max;
+}
+iCurrZoom = NumericFromSpecialZoom(fnRemapBounder);
+}
+selectZoom.selectedIndex = Math.min(Math.max(0, iCurrZoom + nZoomIndexDelta), iMaxNumericZoom);
+ChangeZoom(parseInt(selectZoom.options[selectZoom.selectedIndex].value));
+}
+function HandleDynamicZoom()
+{
+var nZoomType = parseInt(selectZoom.options[selectZoom.selectedIndex].value);
+if (nZoomType < 0)
+{
+var nZoomFactor = 100;
+var xPageWidth = getPageWidth();
+switch (nZoomType)
+{
+case -1:
+nZoomFactor = Math.floor(((OverflowContainer.offsetWidth - 20) * 100) / xPageWidth);
+break;
+case -2:
+var xZoom = Math.floor(((OverflowContainer.offsetWidth - 20) * 100) / xPageWidth);
+var yZoom = Math.floor(((OverflowContainer.offsetHeight - 20) * 100) / getPageHeight());
+nZoomFactor = Math.min(xZoom, yZoom);
+break;
+case -3:
+nZoomFactor = Math.floor(((OverflowContainer.offsetWidth - 30) * 100) / (2 * xPageWidth));
+break;
+default:
+nZoomFactor = 100;
+break;
+}
+ChangeZoom(nZoomFactor);
+}
+}
+function HandleZoomSelect()
+{
+var nZoomFactor = parseInt(selectZoom.options[selectZoom.selectedIndex].value);
+if (nZoomFactor < 0)
+{
+HandleDynamicZoom();
+}
+else
+{
+ChangeZoom(nZoomFactor);
+}
+}
+function HandleFramesetSelect()
+{
+ChangeFramesetLayout(parseInt(selectFrameset.options[selectFrameset.selectedIndex].value), false);
+}
+function HandleZoomInButton()
+{
+HandleZoom(-1);
+MasterContainer.focus();
+}
+function HandleZoomOutButton()
+{
+HandleZoom(1);
+MasterContainer.focus();
+}
+function HandleInputKeyPress()
+{
+var keyStroke = event.keyCode;
+if (keyStroke == 13)
+{
+event.srcElement.onchange();
+}
+else if (keyStroke < 48 || keyStroke > 57)
+{
+event.returnValue = false;
+}
+}
+function Close()
+{
+Printer.updatePageStatus(-1);
+if (g_fDelayClose)
+{
+g_fDelayClose = false;
+window.setTimeout("Close()", 120000);
+return;
+}
+window.close();
+}
+function PrintAll()
+{
+var i;
+var nFirstDoc;
+if ( g_nFramesLeft > 0
+&& Printer.framesetDocument
+&& !Printer.frameAsShown )
+{
+window.setTimeout("PrintAll()", 100);
+return;
+}
+EnsureDocuments();
+if (Printer.copies <= 0)
+{
+Close();
+}
+else if ( Printer.selectedPages
+&& Printer.pageFrom > Printer.pageTo )
+{
+var L_PAGERANGE_ErrorMessage = "The 'From' value cannot be greater than the 'To' value.";
+alert(L_PAGERANGE_ErrorMessage);
+;
+if (!g_fPreview)
+PrintNow(true);
+}
+else
+{
+g_cLeftToPrint = 1;
+Printer.updatePageStatus(1);
+PrintSentinel(((Printer.selection)
+? "S"
+: (Printer.frameActive && !!g_strActiveFrame)
+? g_strActiveFrame
+: "C"),
+true);
+}
+}
+function PrintSentinel( strDoc, fRecursionOK )
+{
+if ( !g_aDocTree[strDoc]
+|| !g_aDocTree[strDoc].ReadyToPrint() )
+{
+window.setTimeout("PrintSentinel('" + strDoc + "'," + fRecursionOK + ");", 500);
+return;
+}
+g_aDocTree[strDoc].Print(fRecursionOK);
+}
+function PrintDocumentComplete()
+{
+g_cLeftToPrint--;
+if (g_cLeftToPrint <= 0)
+{
+Close();
+}
+}
+function PrintNow( fWithPrompt)
+{
+if ( !g_aDocTree["C"]
+|| !g_aDocTree["C"]._aaRect[1][0]
+|| !g_aDocTree["C"]._aaRect[1][0].contentDocument.body)
+{
+window.setTimeout("PrintNow('" + fWithPrompt + "');", 100);
+return;
+}
+var oDoc = g_aDocTree["C"]._aaRect[1][0].contentDocument;
+var fConfirmed;
+var fFramesetDocument = (oDoc.body.tagName.toUpperCase() == "FRAMESET");
+var fActiveFrame = (oDoc.all.tags("HTML").item(0).__IE_ActiveFrame != null);
+Printer.framesetDocument = fFramesetDocument;
+Printer.frameActiveEnabled = fActiveFrame;
+if (g_fPreview)
+{
+Printer.frameActive = (g_nFramesetLayout == 1);
+Printer.frameAsShown = (g_nFramesetLayout == 0);
+Printer.currentPageAvail = true;
+}
+else
+{
+Printer.frameActive = fActiveFrame;
+Printer.frameAsShown = false;
+Printer.currentPageAvail = false;
+}
+Printer.selectionEnabled = !!(dialogArguments.__IE_ContentSelectionUrl);
+Printer.selection = false;
+fConfirmed = (eval(fWithPrompt)) ? Printer.showPrintDialog() : Printer.ensurePrintDialogDefaults();
+if ( fConfirmed )
+{
+if ( Printer.selection
+&& dialogArguments.__IE_ContentSelectionUrl )
+{
+CreateDocument(dialogArguments.__IE_ContentSelectionUrl, "S", true);
+}
+Printer.usePrinterCopyCollate = ( Printer.deviceSupports("copies") >= Printer.copies
+&& ( !Printer.collate
+|| Printer.deviceSupports("collate") ));
+PrintAll();
+}
+else
+{
+if ( !g_fPreview )
+{
+Close();
+}
+else
+{
+Printer.tableoflinks = false;
+}
+}
+}
+function HandlePrintClick()
+{
+PrintNow(true, true);
+}
+function CPrintDoc_ReadyToPrint()
+{
+if ( this._nStatus == 4
+&& this._aaRect[1][0].contentDocument.readyState == "complete")
+{
+return true;
+}
+return false;
+}
+function CPrintDoc_Print( fRecursionOK )
+{
+if (!this.ReadyToPrint())
+{
+HandleError("Printing when not ready!", document.URL, "CPrintDoc::Print");
+return;
+}
+var nCount = (Printer.usePrinterCopyCollate) ? 1 : Printer.copies;
+var nFrom;
+var nTo;
+;
+if (fRecursionOK)
+{
+var fFrameset = (this._aaRect[1][0].contentDocument.body.tagName.toUpperCase() == "FRAMESET");
+if (Printer.frameActive)
+{
+var n = parseInt(this._aaRect[1][0].contentDocument.all.tags("HTML").item(0).__IE_ActiveFrame);
+if (n >= 0)
+{
+var oTargetFrame = (fFrameset)
+? this._aaRect[1][0].contentDocument.all.tags("FRAME").item(n)
+: this._aaRect[1][0].contentDocument.all.tags("IFRAME").item(n);
+if ( IsPersistedDoc()
+&& ( oTargetFrame.src == "res://SHDOCLC.DLL/printnof.htm"
+|| oTargetFrame.src == "about:blank" ))
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, true);
+}
+else
+{
+this.CreateSubDocument(oTargetFrame.src, true);
+this.PrintAllSubDocuments(true);
+}
+PrintDocumentComplete();
+return;
+}
+}
+if (fFrameset)
+{
+if (!Printer.frameAsShown)
+{
+this.PrintAllSubDocuments(true);
+if (IsPersistedDoc())
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, false);
+}
+PrintDocumentComplete();
+return;
+}
+else
+{
+Printer.printNonNativeFrames(this._aaRect[1][0].contentDocument, false);
+}
+}
+else
+{
+if (Printer.allLinkedDocuments)
+{
+this.BuildAllLinkedDocuments();
+this.PrintAllSubDocuments(false);
+}
+}
+}
+if (Printer.printNonNative(this._aaRect[1][0].contentDocument) )
+{
+g_fDelayClose = !g_fPreview;
+PrintDocumentComplete();
+return;
+}
+if (Printer.selectedPages)
+{
+nFrom = Printer.pageFrom;
+nTo = Printer.pageTo;
+if (nFrom < 1)
+nFrom = 1;
+if (nTo > this.Pages())
+nTo = this.Pages();
+}
+else if ( Printer.currentPage
+&& this._strDoc == DisplayDocument())
+{
+nFrom = (this.Pages() >= g_nDispPage) ? g_nDispPage : this.Pages();
+nTo = nFrom;
+}
+else
+{
+nFrom = 1;
+nTo = this.Pages();
+}
+if (nTo < nFrom)
+{
+PrintDocumentComplete();
+return;
+}
+;
+;
+;
+if (Printer.startDoc(this._aaRect[1][0].contentDocument.URL))
+{
+if (Printer.collate)
+{
+var fExtraPage = ( Printer.duplex
+&& ((nFrom - nTo) % 2 == 0) );
+for (j = 0; j < nCount; j++)
+{
+for (i = nFrom; i <= nTo; i++)
+{
+Printer.printPage(this.Page(i).children[0]);
+}
+if (fExtraPage)
+Printer.printBlankPage();
+}
+}
+else
+{
+var fDuplex = Printer.duplex;
+for (i = nFrom; i <= nTo; i++)
+{
+for (j = 0; j < nCount; j++)
+{
+Printer.printPage(this.Page(i).children[0]);
+if (fDuplex)
+{
+if (i < nTo)
+Printer.printPage(this.Page(i+1));
+else
+Printer.printBlankPage();
+}
+}
+if (fDuplex)
+i++;
+}
+}
+Printer.stopDoc();
+}
+PrintDocumentComplete();
+}
+function CPrintDoc_RectComplete(fOverflow, strElement)
+{
+var nStatus = parseInt(strElement.substr(5,1));
+var nPage = parseInt(strElement.substr(strElement.lastIndexOf("p") + 1));
+;
+;
+if (nStatus > this._nStatus)
+return false;
+if (nPage != this._acPage[nStatus] - 1 + this._anMerge[nStatus])
+return false;
+if (nStatus != this._nStatus)
+{
+if (!fOverflow)
+return false;
+this.StopFixupHF();
+if (this._nStatus == 4)
+g_nDocsToCalc++;
+this._nStatus = nStatus;
+}
+if (fOverflow)
+{
+this.AddPage();
+}
+else
+{
+switch (this._nStatus)
+{
+case 0:
+this._nStatus = 1;
+this.AddFirstPage();
+this._aaRect[this._nStatus][0].contentSrc = this._strDocURL;
+break;
+case 1:
+this._nStatus = 2;
+this.AddTableOfLinks();
+break;
+case 2:
+this._nStatus = 3;
+if (this._strDoc == DisplayDocument())
+ChangeDispPage(g_nDispPage);
+this.FixupHF();
+break;
+}
+}
+if (this._strDoc == DisplayDocument())
+{
+spanPageTotal.innerText = this.Pages();
+updateNavButtons();
+}
+}
+function CPrintDoc_AddPage()
+{
+var newHTM = "";
+var aPage = this._aaPage[this._nStatus];
+var aRect = this._aaRect[this._nStatus];
+;
+(this._acPage[this._nStatus])++;
+HeadFoot.URL = this.EnsureURL();
+HeadFoot.title = this.EnsureTitle();
+HeadFoot.pageTotal = this.Pages();
+HeadFoot.page = HeadFoot.pageTotal;
+if (this._acPage[this._nStatus] <= aPage.length)
+{
+var oPage = aPage[this._acPage[this._nStatus] - 1];
+oPage.children("header").innerHTML = HeadFoot.HtmlHead;
+oPage.children("footer").innerHTML = HeadFoot.HtmlFoot;
+}
+else
+{
+newHTM = "<DIV class=divPage><IE:DeviceRect media=\"print\" class=page id=mDiv" + this._nStatus + this._strDoc + "p" + aPage.length + ">";
+newHTM += "<IE:LAYOUTRECT id=mRect" + this._nStatus + this._strDoc + "p" + aRect.length;
+newHTM += " class=mRect nextRect=mRect" + this._nStatus + this._strDoc + "p" + (aRect.length + 1);
+newHTM += " onlayoutcomplete=OnRectComplete('" + this._strDoc + "')";
+newHTM += " tabindex=-1 onbeforefocusenter='event.returnValue=false;' ";
+newHTM += " /><DIV class=divHead id=header>";
+newHTM += HeadFoot.HtmlHead;
+newHTM += "</DIV><DIV class=divFoot id=footer>";
+newHTM += HeadFoot.HtmlFoot;
+newHTM += " </DIV></IE:DeviceRect></DIV>";
+MasterContainer.insertAdjacentHTML("beforeEnd", newHTM);
+aPage[aPage.length] = eval( "document.all.mDiv" + this._nStatus + this._strDoc + "p" + aPage.length);
+aRect[aRect.length] = eval("document.all.mRect" + this._nStatus + this._strDoc + "p" + aRect.length);
+}
+}
+function CPrintDoc_AddFirstPage()
+{
+this._acPage[this._nStatus] = 0;
+if (this._anMerge[this._nStatus] == 0)
+{
+this.AddPage();
+}
+else
+{
+var aRect = this._aaRect[this._nStatus];
+var oPage = this._aaPage[this._nStatus - 1][this._acPage[this._nStatus - 1] - 1];
+var oTop = this._aaRect[this._nStatus - 1][this._acPage[this._nStatus - 1] + this._anMerge[this._nStatus - 1] - 1];
+var nTop = oTop.offsetTop + oTop.scrollHeight;
+var nHeight = oTop.clientHeight - oTop.scrollHeight;
+;
+;
+if (aRect.length > 0)
+{
+var oNode = aRect[0];
+oNode.style.marginTop = nTop + "px";
+oNode.style.pixelHeight = nHeight;
+if (oNode.parentElement != oPage)
+oPage.insertBefore(oNode);
+}
+else
+{
+var newHTM;
+var oNode;
+newHTM = "<IE:LAYOUTRECT id=mRect" + this._nStatus + this._strDoc + "p0";
+newHTM += " class=mRect nextRect=mRect" + this._nStatus + this._strDoc + "p1";
+newHTM += " onlayoutcomplete=OnRectComplete('" + this._strDoc + "')";
+newHTM += " tabindex=-1 onbeforefocus='event.returnValue=false;' />";
+oPage.insertAdjacentHTML("beforeEnd", newHTM);
+oNode = eval("document.all.mRect" + this._nStatus + this._strDoc + "p0");
+aRect[0] = oNode;
+oNode.style.marginTop = nTop + "px";
+oNode.style.height = nHeight + "px";
+}
+}
+}
+function CPrintDoc_InitDocument( fUseStreamHeader )
+{
+var fReallyUseStreamHeader = (fUseStreamHeader && (dialogArguments.__IE_OutlookHeader != null));
+this._anMerge[1] = (fReallyUseStreamHeader) ? 1 : 0;
+this._nStatus = (fReallyUseStreamHeader) ? 0 : 1;
+this.AddFirstPage();
+this._aaRect[this._nStatus][0].contentSrc = (fReallyUseStreamHeader)
+? dialogArguments.__IE_OutlookHeader
+: this._strDocURL;
+}
+function CPrintDoc_PrintAllSubDocuments( fRecursionOK )
+{
+if (!this._aDoc)
+return;
+var nDocs = this._aDoc.length;
+var i;
+g_cLeftToPrint += nDocs;
+for (i = 0; i < nDocs; i++)
+{
+PrintSentinel(this._aDoc[i]._strDoc, fRecursionOK);
+}
+}
+function CPrintDoc_BuildAllLinkedDocuments()
+{
+var strURL = this._aaRect[1][0].contentDocument.URL;
+var aLinks = this._aaRect[1][0].contentDocument.links;
+var nLinks = aLinks.length;
+var i;
+var j;
+var strLink;
+for (i = 0; i < nLinks; i++)
+{
+strLink = aLinks[i].href;
+if ( (strURL == strLink)
+|| UnprintableURL(strLink) )
+continue;
+for (j = 0; j < i; j++)
+{
+if (strLink == aLinks[j].href)
+break;
+}
+if (j < i)
+continue;
+this.CreateSubDocument(strLink, false);
+}
+}
+function OnBuildAllFrames( strDoc )
+{
+if ( !g_aDocTree[strDoc]
+|| !g_aDocTree[strDoc]._aaRect[1][0]
+|| !g_aDocTree[strDoc]._aaRect[1][0].contentDocument.body)
+{
+window.setTimeout("OnBuildAllFrames('" + strDoc + "');", 100);
+return;
+}
+g_aDocTree[strDoc].BuildAllFrames();
+}
+function IsPersistedDoc()
+{
+return (!!g_aDocTree["C"]._aaRect[1][0].contentDocument.all.tags("HTML")[0].__IE_DisplayURL);
+}
+function CPrintDoc_BuildAllFrames()
+{
+var aFrames = this._aaRect[1][0].contentDocument.all.tags("FRAME");
+var nFrames = aFrames.length;
+var nActive = parseInt(this._aaRect[1][0].contentDocument.all.tags("HTML").item(0).__IE_ActiveFrame);
+var i;
+var strSrc;
+var strDoc;
+if (nFrames > 0)
+this._fFrameset = true;
+for (i = 0; i < nFrames; i++)
+{
+strSrc = aFrames[i].src;
+if (strSrc == "res://SHDOCLC.DLL/printnof.htm")
+continue;
+strDoc = this.CreateSubDocument(strSrc, true);
+if (i == nActive)
+g_strActiveFrame = strDoc;
+g_nFramesLeft++;
+OnBuildAllFrames(strDoc);
+}
+g_nFramesLeft--;
+if (g_nFramesLeft <= 0)
+BuildAllFramesComplete();
+}
+function CPrintDoc_CreateSubDocument( docURL, fUseStreamHeader )
+{
+if (!this._aDoc)
+this._aDoc = new Array();
+var nDoc = this._aDoc.length;
+var strDoc = this._strDoc + "_" + nDoc;
+CreateDocument(docURL, strDoc, fUseStreamHeader);
+this._aDoc[nDoc] = g_aDocTree[strDoc];
+return (strDoc);
+}
+function CPrintDoc_AddTableOfLinks()
+{
+;
+if (!g_fTableOfLinks)
+{
+this._nStatus = 3;
+ChangeDispPage(g_nDispPage);
+this.FixupHF();
+}
+else
+{
+var oTableOfLinks = BuildTableOfLinks(this._aaRect[1][0].contentDocument);
+if (oTableOfLinks != null)
+{
+var oBody = oTableOfLinks.body;
+this.AddFirstPage()
+this._aaRect[this._nStatus][0].contentSrc = oBody.document;
+}
+else
+{
+this._nStatus = 3;
+ChangeDispPage(g_nDispPage);
+this.FixupHF();
+}
+}
+}
+function OnTickHF( strDoc )
+{
+if (!g_aDocTree[strDoc])
+{
+HandleError("Document " + strDoc + " does not exist.", document.URL, "OnRectComplete");
+return;
+}
+g_aDocTree[strDoc].TickHF();
+}
+function CPrintDoc_TickHF()
+{
+var i, j;
+var iTo, jTo;
+var aTok;
+var oTok;
+var nStartPage = this._nNextHF;
+var cPages = this.Pages();
+iTo = nStartPage + 2;
+if (iTo > cPages)
+iTo = cPages;
+for (i = nStartPage; i <= iTo; i++)
+{
+aTok = this.Page(i).children[0].getElementsByTagName("SPAN");
+for (j=0, jTo = aTok.length; j < jTo; j++)
+{
+oTok = aTok[j];
+if (oTok.className == "hfPageTotal")
+oTok.innerText = cPages;
+else if ( oTok.className == "hfUrl"
+&& oTok.innerText == "" )
+oTok.innerText = this.EnsureURL();
+else if ( oTok.className == "hfTitle"
+&& oTok.innerText == "" )
+oTok.innerText = this.EnsureTitle();
+}
+}
+this._nNextHF = i;
+if (iTo == cPages)
+{
+this._nStatus = 4;
+if (--g_nDocsToCalc == 0)
+CalcDocsComplete();
+}
+else
+{
+this._nTimerHF = window.setTimeout("OnTickHF('" + this._strDoc + "');", 250);
+}
+}
+function CPrintDoc_FixupHF()
+{
+;
+this.TickHF();
+}
+function CPrintDoc_Pages()
+{
+var i;
+var c;
+for (i = 0, c = 0; i < 3; i++)
+{
+c += this._acPage[i];
+}
+return c;
+}
+function CPrintDoc_Page(nPage)
+{
+var i;
+var n = nPage;
+if (n <= 0)
+return null;
+for (i = 0; i < 3; i++)
+{
+if (n <= this._acPage[i])
+return this._aaPage[i][n - 1].parentElement;
+n -= this._acPage[i];
+}
+return null;
+}
+function CPrintDoc_EnsureURL()
+{
+if (this._strURL == null)
+{
+if ( this._aaRect[1][0]
+&& this._aaRect[1][0].contentDocument)
+{
+this._strURL = this._aaRect[1][0].contentDocument.URL;
+}
+if (this._strURL == null)
+return "";
+}
+return this._strURL;
+}
+function CPrintDoc_EnsureTitle()
+{
+if (this._strTitle == null)
+{
+if ( this._aaRect[1][0]
+&& this._aaRect[1][0].contentDocument)
+{
+this._strTitle = this._aaRect[1][0].contentDocument.title;
+}
+if (this._strTitle == null)
+return "";
+}
+return this._strTitle;
+}
+function CPrintDoc_ResetDocument()
+{
+var i;
+for (i = 0; i < 3; i++)
+{
+this._acPage[i] = 0;
+if (this._aaRect[i][0])
+this._aaRect[i][0].contentSrc = "";
+}
+this.StopFixupHF();
+}
+function CPrintDoc_ResetTableOfLinks()
+{
+if (this._nStatus <= 2)
+return;
+this.StopFixupHF();
+this._nStatus = 2;
+this.AddTableOfLinks();
+}
+function CPrintDoc_StopFixupHF()
+{
+if (this._nTimerHF != -1)
+window.clearTimeout(this._nTimerHF);
+this._nTimerHF = -1;
+this._nNextHF = 1;
+}
+function CPrintDoc( nDocNum, strDocURL )
+{
+var i;
+this._aDoc = null;
+this._strDoc = nDocNum;
+this._strDocURL = strDocURL;
+this._nStatus = 0;
+this._aaPage = new Array(3);
+this._aaRect = new Array(3);
+this._acPage = new Array(3);
+this._anMerge = new Array(3);
+for (i=0; i<3; i++)
+{
+this._aaPage[i] = new Array();
+this._aaRect[i] = new Array();
+this._acPage[i] = 0;
+this._anMerge[i] = 0;
+}
+this._nNextHF = 1;
+this._nTimerHF = -1;
+this._strURL = null;
+this._strTitle = null;
+this._fFrameset = false;
+this._nStartingPage = 0;
+}
+CPrintDoc.prototype.RectComplete = CPrintDoc_RectComplete;
+CPrintDoc.prototype.AddPage = CPrintDoc_AddPage;
+CPrintDoc.prototype.AddFirstPage = CPrintDoc_AddFirstPage;
+CPrintDoc.prototype.AddTableOfLinks = CPrintDoc_AddTableOfLinks;
+CPrintDoc.prototype.FixupHF = CPrintDoc_FixupHF;
+CPrintDoc.prototype.StopFixupHF = CPrintDoc_StopFixupHF;
+CPrintDoc.prototype.TickHF = CPrintDoc_TickHF;
+CPrintDoc.prototype.InitDocument = CPrintDoc_InitDocument;
+CPrintDoc.prototype.ResetDocument = CPrintDoc_ResetDocument;
+CPrintDoc.prototype.ResetTableOfLinks = CPrintDoc_ResetTableOfLinks;
+CPrintDoc.prototype.BuildAllLinkedDocuments = CPrintDoc_BuildAllLinkedDocuments;
+CPrintDoc.prototype.BuildAllFrames = CPrintDoc_BuildAllFrames;
+CPrintDoc.prototype.CreateSubDocument = CPrintDoc_CreateSubDocument;
+CPrintDoc.prototype.Print = CPrintDoc_Print;
+CPrintDoc.prototype.PrintAllSubDocuments = CPrintDoc_PrintAllSubDocuments;
+CPrintDoc.prototype.ReadyToPrint = CPrintDoc_ReadyToPrint;
+CPrintDoc.prototype.Page = CPrintDoc_Page;
+CPrintDoc.prototype.Pages = CPrintDoc_Pages;
+CPrintDoc.prototype.EnsureURL = CPrintDoc_EnsureURL;
+CPrintDoc.prototype.EnsureTitle = CPrintDoc_EnsureTitle;
+</SCRIPT>
+</HEAD>
+<BODY onload="setTimeout('OnLoadBody()', 400);">
+<!-- Controls for printing -->
+<IE:TemplatePrinter id=Printer />
+<IE:HeaderFooter id=HeadFoot />
+<DIV id=idDivToolbar style="width:100%; overflow:hidden;">
+<DIV style="width=100%; border:'thin threedhighlight groove';">
+<TABLE><TR>
+<TD class="UIPane"> <BUTTON id="butPrint" title="Print Document (Alt+P)" accesskey=p><U>P</U>rint...</BUTTON></TD>
+<TD class="UISeparator"><IMG width=0 height=0></TD>
+<TD class="UIPane"> <BUTTON id="butPageSetup" accesskey=u><IMG id="printCtl" src="printctl.gif" alt="Page Setup (Alt+U)"></BUTTON></TD>
+<TD class="UISeparator"><IMG width=0 height=0></TD>
+<TD class="UIPane"> <BUTTON id="butFirstPage"><IMG id="begin" src="begin_inactive.gif" alt="First Page (Alt+Home)"></BUTTON></TD>
+<TD class="UIPane"> <BUTTON id="butBackPage"> <IMG id="prev" src="prev_inactive.gif" alt="Previous Page (Alt+LeftArrow)"></BUTTON></TD>
+<TD class="UIPane"><SPAN style="color:windowtext;"><NOBR Loc>&nbsp;<ID id=idTdPageXofYLocText1>P<U>a</U>ge</ID>&nbsp;<INPUT type=text id="inputPageNum" title="Preview Page (Alt+A)" value="1" style="height:1.5em; width: 2em; color:windowtext;" accesskey=a><ID id=idTdPageXofYLocText2> of </ID><SPAN id="spanPageTotal"></SPAN>
+&nbsp;</SPAN></NOBR></TD>
+<TD class="UIPane"> <BUTTON id="butNextPage"> <IMG id="next" src="next_inactive.gif" alt="Next Page (Alt+RightArrow)"></BUTTON></TD>
+<TD class="UIPane"> <BUTTON id="butLastPage"> <IMG id="end" src="end_inactive.gif" alt="Last Page (Alt+End)"></BUTTON></TD>
+<TD class="UISeparator"><IMG width=0 height=0></TD>
+<TD class="UIPane"> <BUTTON id="butZoomOut"> <IMG id="zoomOut" base="zoomOut" src="zoomout.gif" alt="Zoom Out (Alt+Minus)"></BUTTON></TD>
+<TD class="UIPane"> <BUTTON id="butZoomIn"> <IMG id="zoomIn" base="zoomIn" src="zoomin.gif" alt="Zoom In (Alt+Plus)"></BUTTON></TD>
+<TD class="UIPane"> <SELECT id="selectZoom" accesskey=z>
+<OPTION VALUE="500" >500%
+<OPTION VALUE="200" >200%
+<OPTION VALUE="150" >150%
+<OPTION VALUE="100" >100%
+<OPTION VALUE="75" SELECTED >75%
+<OPTION VALUE="50" >50%
+<OPTION VALUE="25" >25%
+<OPTION VALUE="10" >10%
+<!-- ID's are for localization -->
+<OPTION VALUE="-1" id="idPageWidth">Page Width</OPTION>
+<OPTION VALUE="-2" id="idWholePage">Whole Page</OPTION>
+<OPTION VALUE="-3" id="idTwoPages" >Two Pages </OPTION>
+</SELECT></TD>
+<TD class="UISeparator" id="separatorFrameset" style="display:none"><IMG width=0 height=0></TD>
+<TD class="UIPane" id="cellFrameset" style="display:none"> <SELECT id="selectFrameset" accesskey=f>
+<OPTION VALUE="0" id="idLaidOut">As laid out on screen</OPTION>
+<OPTION VALUE="1" id="idSelected">Only the selected frame</OPTION>
+<OPTION VALUE="2" id="idSeparate">All frames individually</OPTION>
+</SELECT></TD>
+<TD class="UISeparator"><IMG width=0 height=0></TD>
+<TD class="UIPane"> <BUTTON id="butHelp" title="Print Preview Help (Alt+H)" accesskey=h><U>H</U>elp</BUTTON></TD>
+<TD class="UISeparator"><IMG width=0 height=0></TD>
+<TD class="UIPane"> <BUTTON id="butClose" title="Close Print Preview (Alt+C)" accessKey=c><U>C</U>lose</BUTTON></TD>
+</TR></TABLE>
+</DIV>
+</DIV>
+<DIV id=OverflowContainer onclick="this.focus();" onfocus="butPrint.scrollIntoView();" tabindex=1 style="position:absolute; left:0; width:100%; overflow:auto; border:'thin threedhighlight inset'; background:threedshadow;">
+<DIV id=MasterContainer tabindex=0 style="width:100%; position:absolute;">
+<!-- Pages go here -->
+</DIV>
+</DIV>
+</BODY>
+</HTML>
+ <HTML XMLNS:IE>
+<HEAD>
+<?import namespace="ie" implementation="#default">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<script>
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "An error has occured raising the Page Setup Dialog.";
+var L_ErrorNumber_Text = "Error: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function BodyOnload ()
+{
+Printer.showPageSetupDialog();
+window.close();
+}
+window.onerror = HandleError;
+</script>
+</HEAD>
+<BODY onload="BodyOnload()" scroll=no>
+<!-- Printer control whose only purpose in this template is to raise the pageSetup dialog -->
+<IE:TemplatePrinter id=Printer />
+</BODY>
+</HTML>
+      <HTML id=anchbrws style="font-family: MS Shell Dlg; font-size: 8pt;
+width: 31.5em; height: 32.5em">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>General</TITLE>
+<SCRIPT>
+function BodyLoad()
+{
+var L_NotAvailable_Text = "Not available";
+var arrAll = document.all;
+for (i=0; i < arrAll.length; i++)
+{
+var elm = arrAll[i];
+if (elm.id.substring(0,1) == "_")
+{
+if (elm.innerText== "undefined" || elm.innerText == "")
+{
+elm.innerText = L_NotAvailable_Text;
+}
+}
+}
+}
+</SCRIPT>
+</HEAD>
+<BODY onload="BodyLoad()" id=bdy style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; color: windowtext" scroll=no>
+<table id=tbl1 cellPadding=3 cellspacing=2 border=0 style="font-family: MS Shell Dlg;
+font-size: 8pt;" width=100%>
+<TR>
+<TD id=tdImage>
+<img id=imgLink src=link.gif width=35 height=36 border=0>
+</td>
+<td id=td1 style="font-family: MS Shell Dlg; font-size: 8pt">
+<TEXTAREA id=_nameProp style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</td></tr>
+<tr>
+<td id=td2 style="font-family: MS Shell Dlg; font-size: 8pt" colspan=2>&nbsp;
+<hr id=hr1>
+</td>
+</tr>
+<tr>
+<Td nowrap id=td3 style="font-family: MS Shell Dlg; font-size: 8pt">Protocol:
+</TD>
+<td id=td4 style="font-family: MS Shell Dlg; font-size: 8pt">
+<TEXTAREA id=_protocolLong style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA></TD></tr>
+<tr>
+<TD id=td4a style="font-family: MS Shell Dlg; font-size: 8pt">Type:
+</TD>
+<TD id=td5 style="font-family: MS Shell Dlg; font-size: 8pt">
+<TEXTAREA id=_mimeType style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA></TD></tr>
+<tr>
+<td id=td6 style="font-family: MS Shell Dlg; font-size: 8pt"
+valign=top>Address:<br>
+(URL)
+</TD>
+<TD id=td7 style="font-family: MS Shell Dlg; font-size: 8pt" valign=top>
+<TEXTAREA id=_href style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA></TD></tr>
+</table>
+</BODY>
+</HTML>
+   GIF89a# $ ˜     h  ô  ¿  ·  ˇ   h hh ôh ¿h ·h ˇh  ô hô ôô ¿ô ·ô ˇô  ¿ h¿ ô¿ ¿¿ ·¿ ˇ¿  · h· ô· ¿· ·· ˇ·  ˇ hˇ ôˇ ¿ˇ ·ˇ ˇˇ   hh hô h¿ h· hˇ h hhhhhôhh¿hh·hhˇhh ôhhôhôôh¿ôh·ôhˇôh ¿hh¿hô¿h¿¿h·¿hˇ¿h ·hh·hô·h¿·h··hˇ·h ˇhhˇhôˇh¿ˇh·ˇhˇˇh  ôh ôô ô¿ ô· ôˇ ô hôhhôôhô¿hô·hôˇhô ôôhôôôôô¿ôô·ôôˇôô ¿ôh¿ôô¿ô¿¿ô·¿ôˇ¿ô ·ôh·ôô·ô¿·ô··ôˇ·ô ˇôhˇôôˇô¿ˇô·ˇôˇˇô  ¿h ¿ô ¿¿ ¿· ¿ˇ ¿ h¿hh¿ôh¿¿h¿·h¿ˇh¿ ô¿hô¿ôô¿¿ô¿·ô¿ˇô¿ ¿¿h¿¿ô¿¿¿¿¿·¿¿ˇ¿¿ ·¿h·¿ô·¿¿·¿··¿ˇ·¿ ˇ¿hˇ¿ôˇ¿¿ˇ¿·ˇ¿ˇˇ¿  ·h ·ô ·¿ ·· ·ˇ · h·hh·ôh·¿h··h·ˇh· ô·hô·ôô·¿ô··ô·ˇô· ¿·h¿·ô¿·¿¿··¿·ˇ¿· ··h··ô··¿·····ˇ·· ˇ·hˇ·ôˇ·¿ˇ··ˇ·ˇˇ·  ˇh ˇô ˇ¿ ˇ· ˇˇ ˇ hˇhhˇôhˇ¿hˇ·hˇˇhˇ ôˇhôˇôôˇ¿ôˇ·ôˇˇôˇ ¿ˇh¿ˇô¿ˇ¿¿ˇ·¿ˇˇ¿ˇ ·ˇh·ˇô·ˇ¿·ˇ··ˇˇ·ˇ ˇˇhˇˇôˇˇ¿ˇˇ·ˇˇˇˇˇ                                                                                                                        !˘  Å ,    # $ @ˇ 	H∞†¡ÉÆ∏¶ÇA ¥êHq¢≈ä$ \AÂö«k¥\≥h ∆«'?>¿≤eAh…ú)ìè4sŒº6"ê∆ÑYÆ z'¬7Ç§®"§D§D˝¯êÅ
+$2zDπı#R ZQàJ ô+Z¡©3'OüW`•IBk[∑=ç}"£
+øÄ£"îq-–GZ$ú YQÔF√ÖGV¸∑≤_æOH0p,µ#UôíÓJ˙öI©,	é§d‰äOÿﬁùó‡äòMu2`!{ˆ[Œc€:1	r6m∏	Y"F|≥4Wû'ëûNΩ∫u±©¥ÜAKÖv+CØk¥ı^|q≈∆”µédÒº˘ãaf?Îq¢˚˚êà/6Ú«keùs¶†ücµÊQÄ¥úEÀZœExÅƒ ñ^,òıÄ-ÙM(HzU¡U°MtìÑfe9à{&±8‡Ä“ôHVNe5¥bJ-JW·DπÂƒÄá@ﬁ»ïêÅ»‡ƒl&…"ì≈–H∂à#ge∂\b?jπ$ó±D5J	$ï@µ‰ÊõpíyQ ; <HTML id=imgbrows style="font-family: MS Shell Dlg; font-size: 8pt;
+width: 31.5em; height: 32.5em">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>General</TITLE>
+<SCRIPT>
+function wrapRegionalShortDate(dateIn)
+{
+var newDate;
+try
+{
+newDate = regionalShortDate(dateIn);
+}
+catch(e)
+{
+newDate = dateIn;
+}
+return newDate;
+}
+function regionalizeDates() {
+var fcDate = _fileCreatedDate.innerText;
+if (fcDate!= "undefined" && fcDate != "")
+_fileCreatedDate.innerText = wrapRegionalShortDate(fcDate);
+var fmDate = _fileModifiedDate.innerText;
+if (fmDate != "undefined" && fmDate != "")
+_fileModifiedDate.innerText = wrapRegionalShortDate(fmDate);
+}
+function BodyLoad()
+{
+var L_NotAvailable_Text = "Not Available";
+var arrAll = document.all;
+regionalizeDates();
+for (i=0; i < arrAll.length; i++)
+{
+var elm = arrAll[i];
+if (elm.id.substring(0,1) == "_")
+{
+if (elm.innerText== "undefined" || elm.innerText == "" || elm.innerText == "-1")
+{
+elm.innerText = L_NotAvailable_Text;
+switch (elm.id)
+{
+case "_fileSize":
+spaBytes.innerText = "";
+break;
+case "_width":
+case "_height":
+spaX.innerText = "";
+spaPixels.innerText = "";
+_width.innerText = "";
+_height.innerText = L_NotAvailable_Text;
+break;
+}
+}
+}
+}
+}
+</SCRIPT>
+<SCRIPT language=vbscript>
+function regionalShortDate(dateIn)
+'convert date to short format with current regional setting
+regionalShortDate = FormatDateTime(dateIn, 2)
+end function
+</SCRIPT>
+</HEAD>
+<BODY onload="BodyLoad()" id=bdy bgcolor=buttonface style="background: buttonface;
+font-family: MS Shell Dlg; font-size: 8pt; color: windowtext" scroll=no>
+<table cellPadding=3 cellspacing=2 border=0 id=tbl1
+style="font-family: MS Shell Dlg; font-size: 8pt; color: windowtext;"
+width=100%>
+<TR>
+<TD id=td1 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<img id=imgImage src=image.gif width=35 height=35 border=0>
+</td>
+<td id=td2 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_nameProp style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</td></tr>
+<tr>
+<td id=td3 style="font-family: MS Shell Dlg; font-size: 8pt;" colspan=2>
+<P id=par1>&nbsp;</P>
+<hr>
+</td>
+</tr>
+<tr>
+<Td nowrap id=td4 style="font-family: MS Shell Dlg; font-size: 8pt;">Protocol:
+<td id=td5 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_protocol style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<TD id=td6 style="font-family: MS Shell Dlg; font-size: 8pt;">Type:
+<TD id=td7 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_mimeType style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td8 style="font-family: MS Shell Dlg; font-size: 8pt;" valign=top>Address:<br>
+(URL)
+<TD id=td9 style="font-family: MS Shell Dlg; font-size: 8pt;" valign=top>
+<TEXTAREA id=_href style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td10 style="font-family: MS Shell Dlg; font-size: 8pt;">Size:
+<td id=td11 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<SPAN id=_fileSize style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;<SPAN id=spaBytes>bytes</SPAN>
+</tr>
+<tr>
+<td id=td17 style="font-family: MS Shell Dlg; font-size: 8pt;">Dimensions:
+<td id=td18 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<SPAN id=_width style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;
+<SPAN id=spaX>x</SPAN>&nbsp;
+<SPAN id=_height style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;
+<SPAN id=spaPixels>pixels</SPAN>
+</tr>
+<tr>
+<td id=td12 style="font-family: MS Shell Dlg; font-size: 8pt;" colspan=2>&nbsp;
+<hr>
+</tr>
+<tr>
+<td id=td13 style="font-family: MS Shell Dlg; font-size: 8pt;">Created:
+<td id=td14 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileCreatedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<td id=td15 style="font-family: MS Shell Dlg; font-size: 8pt;">Modified:
+<td id=td16 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileModifiedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+</table>
+</BODY>
+</HTML>
+GIF89a# # ˜     h  ô  ¿  ·  ˇ   h hh ôh ¿h ·h ˇh  ô hô ôô ¿ô ·ô ˇô  ¿ h¿ ô¿ ¿¿ ·¿ ˇ¿  · h· ô· ¿· ·· ˇ·  ˇ hˇ ôˇ ¿ˇ ·ˇ ˇˇ   hh hô h¿ h· hˇ h hhhhhôhh¿hh·hhˇhh ôhhôhôôh¿ôh·ôhˇôh ¿hh¿hô¿h¿¿h·¿hˇ¿h ·hh·hô·h¿·h··hˇ·h ˇhhˇhôˇh¿ˇh·ˇhˇˇh  ôh ôô ô¿ ô· ôˇ ô hôhhôôhô¿hô·hôˇhô ôôhôôôôô¿ôô·ôôˇôô ¿ôh¿ôô¿ô¿¿ô·¿ôˇ¿ô ·ôh·ôô·ô¿·ô··ôˇ·ô ˇôhˇôôˇô¿ˇô·ˇôˇˇô  ¿h ¿ô ¿¿ ¿· ¿ˇ ¿ h¿hh¿ôh¿¿h¿·h¿ˇh¿ ô¿hô¿ôô¿¿ô¿·ô¿ˇô¿ ¿¿h¿¿ô¿¿¿¿¿·¿¿ˇ¿¿ ·¿h·¿ô·¿¿·¿··¿ˇ·¿ ˇ¿hˇ¿ôˇ¿¿ˇ¿·ˇ¿ˇˇ¿  ·h ·ô ·¿ ·· ·ˇ · h·hh·ôh·¿h··h·ˇh· ô·hô·ôô·¿ô··ô·ˇô· ¿·h¿·ô¿·¿¿··¿·ˇ¿· ··h··ô··¿·····ˇ·· ˇ·hˇ·ôˇ·¿ˇ··ˇ·ˇˇ·  ˇh ˇô ˇ¿ ˇ· ˇˇ ˇ hˇhhˇôhˇ¿hˇ·hˇˇhˇ ôˇhôˇôôˇ¿ôˇ·ôˇˇôˇ ¿ˇh¿ˇô¿ˇ¿¿ˇ·¿ˇˇ¿ˇ ·ˇh·ˇô·ˇ¿·ˇ··ˇˇ·ˇ ˇˇhˇˇôˇˇ¿ˇˇ·ˇˇˇˇˇ                                                                                                                        !˘  Å ,    # # @ˇ 	H∞†¡ÉW\[»∞°√áÅHH£E¿A+P†c« ,™  ¿p#¬Å
+jt0¿à@#Z"‘Ä‰5ì'7∂‹…≥'œúÅR>zmE +J§òÙ(Cç/£¬ú˙“¡“ä@Ö™‹X cÃÜ8Ob$J∂d”ÑeÆ8kêí¶c”24ÈU∂B88tÔSΩ$ëLƒä0Óµ/9zÏË`Ñåk1-≤5®µ1W ‹i®aƒÅÙänÄ†¡à6oN.®UÆ√∞Ö]Ö¥∂m VV¨»Õ{∑Ôﬁ∑Q ^∏{uƒâpáΩπñ‡]Ç≠”"Â˘º†aÂ◊3E´ÚÙﬁΩﬁEüZP=∂J0}j<òâëYΩ*^Ã≤M⁄?7û_ ÄÍëùÂTbäıÑZÄb…˜z©©_wTE’ÅÊWKa∏gû›p¯YáX∆°‹A%û®‚@ ;   <html id=docbrows
+STYLE="font-family: MS Shell Dlg; font-size: 8pt; background: buttonface;
+width: 31.5em; height: 32.5em">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<TITLE>General</TITLE>
+<SCRIPT>
+function wrapRegionalShortDate(dateIn)
+{
+var newDate;
+try
+{
+newDate = regionalShortDate(dateIn);
+}
+catch(e)
+{
+newDate = dateIn;
+}
+return newDate;
+}
+function regionalizeDates() {
+var fcDate = _fileCreatedDate.innerText;
+if (fcDate!= "undefined" && fcDate != "")
+_fileCreatedDate.innerText = wrapRegionalShortDate(fcDate);
+var fmDate = _fileModifiedDate.innerText;
+if (fmDate != "undefined" && fmDate != "")
+_fileModifiedDate.innerText = wrapRegionalShortDate(fmDate);
+}
+function btnCertsClick()
+{
+window.dialogArguments.showSecurityInfo();
+}
+function BodyLoad()
+{
+var L_NotAvailable_Text = "Not Available";
+var L_NotEncrypted_Text = "Not Encrypted";
+var arrAll = document.all;
+if(document.dir == "rtl")
+{
+divButtons.style.pixelLeft = 15;
+}
+else
+{
+divButtons.style.pixelLeft = document.body.clientWidth - (btnCerts.offsetWidth + 15);
+}
+regionalizeDates();
+for (i=0; i < arrAll.length; i++)
+{
+var elm = arrAll[i];
+if (elm.id.substring(0,1) == "_")
+{
+if (elm.innerText== "undefined" || elm.innerText == "")
+{
+elm.innerText = L_NotAvailable_Text;
+if (elm.id == "_fileSize")
+spaBytes.innerText = "";
+else if (elm.id == "_connInfo" )
+{
+var secInfo = window.dialogArguments.secureConnectionInfo;
+if (secInfo == "")
+elm.innerText = L_NotEncrypted_Text;
+else
+elm.innerText = secInfo ;
+}
+}
+}
+}
+}
+</SCRIPT>
+<SCRIPT language=vbscript>
+function regionalShortDate(dateIn)
+'convert date to short format with current regional setting
+regionalShortDate = FormatDateTime(dateIn, 2)
+end function
+</SCRIPT>
+</HEAD>
+<BODY onload="BodyLoad()" id=bdy bgcolor=buttonface style="background: buttonface;
+font-family: MS Shell Dlg; font-size: 8pt; color: windowtext" scroll=no>
+<table cellPadding=3 cellspacing=2 border=0 id=tbl1 width=100%
+style="background: buttonface; font-family: MS Shell Dlg; font-size: 8pt;">
+<TR>
+<TD id=tdImage>
+<img id=imgPage src=page.gif width=29 height=36 border=0>
+</td>
+<td id=td1 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_nameProp style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</td></tr>
+<tr id=tr2 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<td colspan=2><hr></td></tr>
+<tr>
+<Td id=td3 style="font-family: MS Shell Dlg; font-size: 8pt;">
+Protocol:</TD>
+<td id=td4 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_protocol style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+<tr>
+<TD id=td5 style="font-family: MS Shell Dlg; font-size: 8pt;">Type:
+</TD>
+<TD id=td6 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_mimeType style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</TD>
+</tr>
+<tr>
+<TD id=td55 style="vertical-align: top;">
+Connection:
+</TD>
+<TD id=td65 style="vertical-align: top;">
+<TEXTAREA id=_connInfo style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1>
+</TEXTAREA>
+</TD>
+</tr>
+<tr>
+<td id=td 7 style="font-family: MS Shell Dlg; font-size: 8pt;
+vertical-align: top;">
+Address:<br>
+(URL)
+</TD>
+<TD id=td8 style="font-family: MS Shell Dlg; font-size: 8pt;
+vertical-align: top">
+<TEXTAREA id=_URL style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 2.7em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA></tr>
+<tr>
+<td id=td10 style="font-family: MS Shell Dlg; font-size: 8pt;">Size:
+<td id=tdBytes style="font-family: MS Shell Dlg; font-size: 8pt;">
+<SPAN id=_fileSize style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface"></SPAN>&nbsp;<SPAN id=spaBytes>bytes</SPAN>
+</tr>
+<tr>
+<td id=td11 style="font-family: MS Shell Dlg; font-size: 8pt;" colspan=2>
+<hr>
+</tr>
+<tr>
+<td id=td12 style="font-family: MS Shell Dlg; font-size: 8pt;">Created:
+<td id=td13 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileCreatedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA></TD></tr>
+<tr>
+<td id=td14 style="font-family: MS Shell Dlg; font-size: 8pt;">Modified:
+<td id=td15 style="font-family: MS Shell Dlg; font-size: 8pt;">
+<TEXTAREA id=_fileModifiedDate style="font-family: MS Shell Dlg; font-size: 8pt;
+background: buttonface; overflow: hidden; width: 24em; height: 1.5em;
+border: 0px" readonly=1 wrap=physical tabindex=-1></TEXTAREA>
+</tr>
+</table>
+<Div id=divButtons align=right
+STYLE="font-family: MS Shell Dlg; position: absolute;
+top: expression(document.body.clientHeight - (btnCerts.offsetHeight + 15));
+font-size: 8pt; background: buttonface; margin-top: .7em">
+<NOBR><BUTTON id=btnCerts onclick="btnCertsClick()" accesskey=c
+style="font-family: MS Shell Dlg; font-size: 8pt; width: 7em; height: 2.2em">
+<U>C</U>ertificates
+</BUTTON>
+</DIV>
+</BODY>
+</HTML>
+    GIF89a $ ˜     h  ô  ¿  ·  ˇ   h hh ôh ¿h ·h ˇh  ô hô ôô ¿ô ·ô ˇô  ¿ h¿ ô¿ ¿¿ ·¿ ˇ¿  · h· ô· ¿· ·· ˇ·  ˇ hˇ ôˇ ¿ˇ ·ˇ ˇˇ   hh hô h¿ h· hˇ h hhhhhôhh¿hh·hhˇhh ôhhôhôôh¿ôh·ôhˇôh ¿hh¿hô¿h¿¿h·¿hˇ¿h ·hh·hô·h¿·h··hˇ·h ˇhhˇhôˇh¿ˇh·ˇhˇˇh  ôh ôô ô¿ ô· ôˇ ô hôhhôôhô¿hô·hôˇhô ôôhôôôôô¿ôô·ôôˇôô ¿ôh¿ôô¿ô¿¿ô·¿ôˇ¿ô ·ôh·ôô·ô¿·ô··ôˇ·ô ˇôhˇôôˇô¿ˇô·ˇôˇˇô  ¿h ¿ô ¿¿ ¿· ¿ˇ ¿ h¿hh¿ôh¿¿h¿·h¿ˇh¿ ô¿hô¿ôô¿¿ô¿·ô¿ˇô¿ ¿¿h¿¿ô¿¿¿¿¿·¿¿ˇ¿¿ ·¿h·¿ô·¿¿·¿··¿ˇ·¿ ˇ¿hˇ¿ôˇ¿¿ˇ¿·ˇ¿ˇˇ¿  ·h ·ô ·¿ ·· ·ˇ · h·hh·ôh·¿h··h·ˇh· ô·hô·ôô·¿ô··ô·ˇô· ¿·h¿·ô¿·¿¿··¿·ˇ¿· ··h··ô··¿·····ˇ·· ˇ·hˇ·ôˇ·¿ˇ··ˇ·ˇˇ·  ˇh ˇô ˇ¿ ˇ· ˇˇ ˇ hˇhhˇôhˇ¿hˇ·hˇˇhˇ ôˇhôˇôôˇ¿ôˇ·ôˇˇôˇ ¿ˇh¿ˇô¿ˇ¿¿ˇ·¿ˇˇ¿ˇ ·ˇh·ˇô·ˇ¿·ˇ··ˇˇ·ˇ ˇˇhˇˇôˇˇ¿ˇˇ·ˇˇˇˇˇ                                                                                                                        !˘  Å ,     $ @ˇ 	H∞†¡ÉWå∏∆p·5Tëp¬@ECÜ◊FP–ä√å◊®–…Äñ
+$ @6‹XP!∆è0_ædIÄÕõ8sÍºYIÃã@Ø≠dÖ„A0- ¿	åë `“ËSf–üß
+DjU•W©F©b≈∫"Ï—±]≠0T÷`’ãê0I≈@J∞π6§≤Ç§*sIDùi6–€Ø7«j§˜kWº£Ω∫∏Ò‰Øãjﬁ,âå'+¨Ñ-∫ÙhŒ+Æ>ZT≥Z«™S≥-,05làAÕŸ1®ì@*^—Íb€ïrBã`')U.~Ì–È5∂¬G
+z‹˜Hä$êÑ=7^ò˙ÀsQÊ^˘j’◊ÀcIøæ}Zªgºœd~˘˚ıwﬂ-5$‡ÄkxŸO«q∆mF(·ÑÅ ;<HTML id=dlgAnalyze STYLE="font-family: MS Shell Dlg; font-size: 8pt;
+width: 30em; height: 33em">
+<HEAD>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<TITLE id=dialogTitle>
+Analyze Document
+</TITLE>
+<SCRIPT LANGUAGE="JavaScript" defer>
+window.onerror = HandleError
+function HandleError(message, url, line)
+{
+var L_Dialog_ErrorMessage = "An error has occured in this dialog.";
+var L_ErrorNumber_Text = "Error: ";
+var str = L_Dialog_ErrorMessage + "\n\n"
++ L_ErrorNumber_Text + line + "\n"
++ message;
+alert (str);
+window.close();
+return true;
+}
+function otherDocument()
+{
+return window.dialogArguments.document;
+}
+function loadBdy()
+{
+document.all.btnOk.onclick = new Function("window.close();");
+document.onkeyup = new Function("documentOnKeyUp()");
+runAnalysis();
+}
+function documentOnKeyUp()
+{
+if (window.event.keyCode == 27)
+{
+window.close();
+}
+}
+function runAnalysis()
+{
+var errorsFound, reportLocation;
+errorsFound = false;
+reportLocation = document.all.ReportArea;
+initializeResults(reportLocation);
+errorsFound = errorsFound || checkBodyWithinFrameset(reportLocation);
+errorsFound = errorsFound || checkAnythingAfterFrameset(reportLocation);
+errorsFound = errorsFound || checkUnloadedComponents(reportLocation);
+errorsFound = errorsFound || checkNonApartmentControls(reportLocation);
+errorsFound = errorsFound || checkUnloadedStyleSheets(reportLocation);
+if (errorsFound == false) {
+reportNothingFound(reportLocation);
+}
+}
+function initializeResults(reportLocation)
+{
+reportLocation.innerHTML = "&nbsp;";
+}
+function reportNothingFound(reportLocation)
+{
+var L_NoErrors_Text = "No errors found.";
+reportLocation.innerHTML = L_NoErrors_Text;
+}
+function checkBodyWithinFrameset(reportLocation)
+{
+var theDocument;
+var framesets, bodies;
+var retVal;
+var L_FramesetInBody_Text = "This document might not display properly because there is a FRAMESET within the BODY of the document. The page author can resolve this problem by<OL><li>Removing the BODY tag.</li><li>Insuring that there is no additional HTML code between the HEAD of the document and the FRAMESET.</li></ol><br><hr>";
+retVal = false;
+theDocument = otherDocument();
+framesets = theDocument.all.tags("frameset");
+if (framesets.length > 0) {
+bodies = theDocument.all.tags("body");
+if (bodies.length > 0) {
+reportLocation.insertAdjacentHTML("BeforeEnd", L_FramesetInBody_Text );
+retVal = true;
+}
+}
+return retVal;
+}
+function checkAnythingAfterFrameset(reportLocation)
+{
+var L_ContentAfterFrameset_Text = "This document might not display properly because there is content after the FRAMESET.<br><hr>";
+var theDocument;
+var framesets;
+var i, startIndex;
+var retVal;
+retVal = false;
+theDocument = otherDocument();
+framesets = theDocument.all.tags("frameset");
+if (framesets.length > 0) {
+startIndex = framesets(0).sourceIndex;
+if (window.dialogArguments.anythingAfterFrameset) {
+reportLocation.insertAdjacentHTML("BeforeEnd", L_ContentAfterFrameset_Text );
+retVal = true;
+}
+}
+return retVal;
+}
+function checkUnloadedComponents(reportLocation)
+{
+var theDocument;
+var objects, applets, embeds;
+var retVal;
+retVal = false;
+theDocument = otherDocument();
+objects = theDocument.all.tags("object");
+applets = theDocument.all.tags("applet");
+embeds = theDocument.all.tags("embed");
+retVal = checkReadyStateComplete(objects, reportLocation);
+retVal = retVal || checkReadyStateComplete(applets, reportLocation);
+retVal = retVal || checkReadyStateComplete(embeds, reportLocation);
+return retVal;
+}
+function checkReadyStateComplete(objects, reportLocation)
+{
+var L_ObjectNotInstalled_Text = "The following OBJECT did not install properly.<BR>";
+var L_AppletNotInstalled_Text = "The following APPLET did not install properly.<BR>";
+var L_EmbedNotInstalled_Text = "The following EMBED did not install properly.<BR>";
+var L_ObjectNotInstalledReasons_Text = "<br><br>This might have been caused by one of the following conditions:<OL><LI>Your current security settings prevent this OBJECT from being used.</li><li>This OBJECT was not properly installed on your computer.</li><li>The page or OBJECT was authored incorrectly.</li></ul><hr>";
+var L_AppletNotInstalledReasons_Text = "<br><br>This might have been caused by one of the following conditions:<OL><LI>Your current security settings prevent this APPLET from being used.</li><li>This APPLET was not properly installed on your computer.</li><li>The page or APPLET was authored incorrectly.</li></ul><hr>";
+var L_EmbedNotInstalledReasons_Text = "<br><br>This might have been caused by one of the following conditions:<OL><LI>Your current security settings prevent this EMBED from being used.</li><li>This EMBED was not properly installed on your computer.</li><li>The page or EMBED was authored incorrectly.</li></ul><hr>";
+var strNotInstalled;
+var strNotInstalledReason;
+var i, element;
+var retVal;
+retVal = false;
+if (objects == null)
+return retVal;
+for (i=0; i < objects.length; i++) {
+element = objects(i);
+if (element.readyState != 4 && element.readyState != "complete") {
+switch (element.tagName.toLowerCase())
+{
+case "object":
+strNotInstalled = L_ObjectNotInstalled_Text;
+strNotInstalledReason = L_ObjectNotInstalledReasons_Text;
+break;
+case "applet":
+strNotInstalled = L_AppletNotInstalled_Text;
+strNotInstalledReason = L_AppletNotInstalledReasons_Text;
+break;
+case "embed":
+strNotInstalled = L_EmbedNotInstalled_Text;
+strNotInstalledReason = L_EmbedNotInstalledReasons_Text;
+break;
+}
+reportLocation.insertAdjacentHTML("BeforeEnd", strNotInstalled);
+reportLocation.insertAdjacentText("BeforeEnd", element.outerHTML);
+reportLocation.insertAdjacentHTML("BeforeEnd", strNotInstalledReason);
+retVal = true;
+}
+}
+return retVal;
+}
+function checkNonApartmentControls(reportLocation)
+{
+var L_ObjectNotApartmentModel_Text = "The following OBJECT may not work reliably in all circumstances because it doesn't use the Apartment threading model.<br>";
+var theDocument;
+var objects;
+var i;
+var retVal;
+retVal = false;
+theDocument = otherDocument();
+objects = theDocument.all.tags("object");
+for (i=0; i < objects.length; i++) {
+element = objects(i);
+nonApartmentModel = checkCLSIDForNonApartmentModel(element);
+retVal = retVal || nonApartmentModel;
+if (nonApartmentModel == true) {
+reportLocation.insertAdjacentHTML("BeforeEnd", L_ObjectNotApartmentModel_Text);
+reportLocation.insertAdjacentText("BeforeEnd", element.outerHTML);
+reportLocation.insertAdjacentHTML("BeforeEnd", "<br><hr>");
+}
+}
+return retVal;
+}
+function checkCLSIDForNonApartmentModel(element) {
+return !(window.dialogArguments.isApartmentModel(element));
+}
+function checkUnloadedStyleSheets(reportLocation)
+{
+var theDocument;
+var links;
+var retVal;
+retVal = false;
+theDocument = otherDocument();
+links = theDocument.all.tags("link");
+retVal = checkLinkReadyStateComplete(links, reportLocation);
+return retVal;
+}
+function checkLinkReadyStateComplete(objects, reportLocation)
+{
+var i, element;
+var retVal;
+var L_StyleSheetNotInstalled_Text = "This document might not display properly because the following style sheet did not get installed: ";
+retVal = false;
+if (objects == null)
+return retVal;
+for (i=0; i < objects.length; i++) {
+element = objects(i);
+if (element.rel.toLowerCase() == "stylesheet"
+|| element.rel.toLowerCase() == "alternate stylesheet")
+{
+if (element.readyState != "complete" && element.readyState != 4) {
+reportLocation.insertAdjacentHTML("BeforeEnd", L_StyleSheetNotInstalled_Text + element.href + "<BR><hr>");
+retVal = true;
+}
+}
+}
+return retVal;
+}
+</SCRIPT>
+</HEAD>
+<BODY ID=bdy onLoad="loadBdy()" style="font-family: 'MS Shell Dlg';
+font-size: 8pt; background: threedface; color: windowtext;"
+topmargin=0 scroll=no>
+<br id=brAnalysis>&nbsp;&nbsp;Analysis of current document:<br>
+<br>
+<DIV id=ReportArea style="height: 75%; width: 93%;
+position: absolute; left: 5%; top: 12%; overflow: auto; padding: 3px;
+border-style: solid; border-width: 1px; border-color: threeddarkshadow">
+No errors found.
+</DIV>
+<br id=br2><P id=par1>&nbsp;</P>
+<DIV id=divButton style="font-family: MS Shell Dlg; font-size: 8pt;
+width: 8em; height: 2.2em; position: absolute;
+top: 27.1em; left: 20em; background: threedface;">
+</DIV>
+<BUTTON id=btnOk tabIndex=55
+style="font-family: MS Shell Dlg; font-size: 8pt;
+width: 7em; height: 2.2em; position: absolute;
+top: 27.5em; left: 21em" type=submit>
+OK
+</BUTTON>
+</BODY>
+</HTML>
+      <HTML>
+<HEAD>
+<META http-equiv="Content-Type" content="text/html; charset=iso-8859-1"></META>
+
+<SCRIPT LANGUAGE=javascript>
+var isMMInstalled=0;  //Disable MM because of DirectD flicker bug on S3 cards
+
+function LoadHashTable()
+{
+    g_HashTable = new Object();
+    g_HashTable[ 0]="{{NAq ABJ {Jr CErFrAG{gur ZvpEBFBsG VAGrEArG RKCyBErE{cEBqHpG grnz{{{fCrpvny GunAxF GB{{QnIvq PByr{OEnq fvyIrEorEt{cnHy ZnEvGM{Ovyy TnGrF{nAq{bHE OrGn grFGrEF{{{OEBHtuG GB LBH oL{{{furyy nAq PBEr QrIryBCzrAG{{{NqEvnnA PnAGrE{NynA NHrEonpu{NynA fuv{NAqErJ THyrGFxL{NAqL cnqnJrE{NEGuHE OvrErE{NEHy XHznEnIry{NFuEns Zvpunvy{OnEEL XryznA{OunEnG fuLnz{OELnA fGnEoHpx{Prz cnLn{Purr PurJ{PuEvF SEnAxyvA{PuEvF THMnx{PuEvF aLznAA{PuEvFGBCurE Q gHEArE{QnpuHnA munAt{QnA ";
+    g_HashTable[ 1]="Yv{QnACB munAt{QnEErA ZvGpuryy{QnIvq QfBHMn{QBAG FGBC JnGpuvAt LrG{RqJnEq cEnvGvF{REvp inAqrAorEt{REvx fAnCCrE{TnEL aryFBA{TErt WBArF{VAn grrtnA{WnL ZpYnvA{WBr crGrEFBA{WBunAA cBFpu{WBuA PBEqryy{WBEqnA SEnIrEG{WHqr WnpBo XnInynz{WHyvnA WvttvAF{XrA fLxrF{XHEG RpxunEqG{YrBAnEq crGrEFBA{YBHvF NznqvB{ZnGG TvAMGBA{ZnGG fDHvErF{ZrGGn RH{Zvxr fpuzvqG{Zvxr furyqBA{avAt munAt{byvIrE Yrr{crvUJn YvA{crGrE jnFFznA{cyrnFr xrrC yBBxvAt{cByvGn UHss{cEvGIvAnGu boyn{enwrrI";
+    g_HashTable[ 2]=" QHwnEv{enwrFu TnArFnA{enyCu jnyqrA{enLzBAq RAqErF{ervArE SvAx{erywn VInABIvp{evpunEq SvEGu{fnz YrIrAGrE{fnAwnL furABL{fnAxnE enznFHoEnznAvnA{fnGBFuv anxnwvzn{fpBGG ULFBz{frnA SyLAA{frrGunEnznA UnEvxEvFuAnA{fEvInGFnA cnEGunFnEnGuL{gvz aBBAnA{gBqq TErrA{gBAL PvppBAr{lnAvI VAonE{mrxr YHpnF{{{gEvqrAG QrIryBCzrAG{{{Ny OvyyvAtF{NyrK NIEnunz fuGnLtEHq{NyrKnAqrE mBGBI{NzoEBFvB OynApB{NAnAq enznxEvFuAn{NAqErJ PuvnAt{NEGnx XnynAGnEvnA{NEGuHE OrpxrE{NELr TvGGyrznA{O";
+    g_HashTable[ 3]="rA PuEBAvFGrE{OErAqnA QvKBA{OEvttF jvyyBHtuoL{OELA fpBHtnyr{PnEy RqyHAq{PunEyrF SEnAxFGBA{PuEvF TnEvrCL{PuEvF guEnFurE{PuEvF jvyFBA{PuEvFGvnA SBEGvAv{QnA QHssrx{QnIvq OnH{QnIvq QnJFBA{QrooL RAtrIvx{QvAnEGr ZBEnvF{REvp inFvyvx{SrEunA RyInABtyH{SEnAx ZnAGrx{SHAAL FGHss vF FGvyy GB pBzr{TnEL OHEq{TrBssErL crnFr{TrBEtr PurA{TvqrBA fpunyyrE{TErt SEnAxyvA{TErtBEL NEAvGF{UBnAt atHLrA{UByyL ZnExyLA{VFGInA PFrEv{WnpDHryvAr fBJryy{WrAYHAt PuvH{WrAAvsrE grrq{WrErzL N";
+    g_HashTable[ 4]="AqrEFBA{WBuA irFBA{WBFrCu Orqn{WHnA SyBJrEF{WHyvn Pnv{XrA gnz{YnwBF SEnAx{YnFMyB Tnny{YnHErAG ZByyvpBAr{YnHErAG irEAurF{YnJErApr jBBq{Yrr TnGrF{YLyr PBEovA{Zvpunry gHpxrE{Zvpunry jvAFrE{Zvxr ervyyL{ZBunA OHyHFH{ZBunA guBznF{arrGH enwCny{byvIrE frryvtrE{cuvyvC PBBCrE{enzvA UnyIvnGGv{enFuzv XBuyv{evpunEq TnEqArE{eBq PunIrM{fnz OrAG{fnzEnpu gHA{funLAr OEnqyrL{furEEv QHEnA{fEvAvInFn OHEHtnCnyyv{fGnL GHArq sBE Gur sHAAL FGHss{fGrIr OrArqvpG{fHwny cnEvxu{fHzvG P";
+    g_HashTable[ 5]="unxEnInEGL{fHAqnEnz enznAv{grq jrvAorEt{grEEL YHpnF{gBz fALqrE{jvyyvnz UFH{lvA kvr{{{cEBtEnz ZnAntrzrAG nAq QrFvtA{{{PuEvF WBArF{PuEvF aBqqrE{PuEvFGBCurE enyCu OEBJA{PuHpx bCCrEznAA{QnIr ZnFFL{Qroovr PnEtvyr{QrooL RAtrIvx{REvp eBpxrL{REvx PnFGrqB RyyrEznA{TnLAn jvyyvnzF{TvnzCvrEB fvrEEn{Unqv cnEGBIv{Wnzvyn WBuAFBA{WrnA cnByv{Wrss UrAFunJ{WrAAvsrE furGGrEyL{WrEEL QEnvA{WBr OrysvBEr{WHyvr YnEFBA{WHFG n ovG yBAtrE sBE Gur sHAAL FGHss{XnGr UnECrE{XnGuL UrJvGG{";
+    g_HashTable[ 6]="XrA bAt{XrAG fHyyvInA{XEvF ZnExry{YnHEvr NAAn RqyHAq{YrJvF TrrE{YBErA XBuAsryqrE{YBEv enFnEOrEELuvyy{ZnEx RABzBGB{ZnEx jntArE{Zvpunry QHAA{Zvpunry jnyyrAG{crGrE PuvA{crGrE WrExrJvGM{enL fHA{evpunEq PynLGBA{evpunEq eByyznA{evpunEq fGBnxyrL{fpBGG OrExHA{fpBGG VFnnpF{funJAn fJnAFBA{fvzBA fzvGu{fGrIr QBAvr{fGrIrA SErrqznA{grEv YHz{gBqq bHMGF{gBz lnELnA{gBAv VAtnyyvAn{inyrEvr UBEInGu{jnEErA aByqrE{{{hFrE RqHpnGvBA{{{NzL YnAsrnE{OErAqn cBGGF{OEHpr SrAFxr{OEHpr X";
+    g_HashTable[ 7]="nGvF{PELFGny arzrGu{QvnAr fGvryFGEn{WHyv YvA{XnG PBEqryy{XrIvA bGArF{Xvz cnEEvF{XvzorEyL barny{ZnEx UHrAGryznA{ZnEL fBopMLx{anApL envxrA{cnHy VEIvA{cuLyyvF YrIL{eBo fnAqryvA{eBorEG OEvFGBJ{frnA OrAGyrL{fHFvr UHAGrE{gvzBGuL WBuAFBA{gBAv fnqqyrESErApu{{{VAGrEzvFFvBA{{{bX{fB Jr xABJ{GurEr nEr yBGF{Bs AnzrF{urEr{{fB urEr vF {n yvGGyr FBzrGuvAt{GB oErnx HC {Gur zBABGBAL{{{SrnGHErF GunG ArIrE znqr Gur CEBqHpG{{{Sgc SByqrEF{fvGrznC{VAsBcnAr{fGnEGOnEF{jroOnAqF{gur";
+    g_HashTable[ 8]=" NAnyLMr OHGGBA{gur TEvz ernCrE fHoFpEvCGvBA VpBA{gur horEgvpxrE{OEBJFrE vA OEBJFrE{VAGryyvPEnJy{gur OEBJFrE PynJ{NHGBVc erEBHGvAt{fpEnGpu A fAvss gBByonE{TErrA nAq erq nAq lryyBJ SynFuvAt YvtuGF{NpGvIrerBEt{{{bX aBJ {gur VAGrEzvFFvBA {VF bIrE{{{Onpx GB Gur AnzrF{{{dHnyvGL NFFHEnApr{{{N Zvpunry ZBAqEL{NynA jrnGurEurnq{NyvFBA THoFrE{NAqEr arrqunz{NAqErJ Pur{NEAr TnrAM{NFurE XBovA{Or CnGvrAG sBE zBEr FGHss{OEnq XvExCnGEvpx{OEvnA PBHAGELznA{PuEvF UnAq{PuEvFGB";
+    g_HashTable[ 9]="CurE inHtunA{PEnvt QHpunEzr{QnIvq QHAyrnIL{QnIvq UrAArFFrL{QnIvq evIrF{QnIvq funJ{QnIvq lrr{QrnA PnynunA{QunAnAwnL ZnunwnA{QvnAr YnPnMr{QBA RyxvAF{QBA TEnAFGnss{QBHt fnIntr{QBHtynF QBoovAF{REvp UrorAFGErvG{REvp ZvyyrE{SnvGu fBuy{SnEvF UnGGno{SrEBMr QnHq{SErq NnEBA{TnEL ZBpx{TrBtL fnzHry{TrBEtr fGnGunxBCBHyBF{TErt YnAqBA{TErtt evIrEF{UBpx frAt Yrr{VInA XErFyvA{Wnpxvr ervq{WnFBA OnEvyr{WnFBA gnLyBE{WnL NEAByq{Wrss fGBAr{WrssrEFBA SyrGpurE{WrA XvyzrE{WrFFr in";
+    g_HashTable[10]="HtuG{WBuA arHunEGu{WBA Yrirr{WBFrCu UnLrF{WHFGvA TrEorE{XnAAnA anEnLnAnzHEGuL{XvrAjrv gFrAt{XvEx fpuyrzyrvA{YvFn UnyFGBA{ZnEp YnHvAtrE{Zvpunry TByqvAt{Zvpunry cBFyHFMAL{Zvpunry enFpuxB{ZBAvpn fBHGu{ZBEr FGHss oryBJ{avpByr f juvGGrA{byvIrE jnyynpr{bAqErw fHpu{enAqL TrEy{enAqL WnzrF{evpunEq frpuErFG{evpx OnKGrE{evpx jnqqryy{evpx mnyrJFxv{eBorEG SynzvAt{eBorEG TvyzBEr{eBA NyorEqn{eBFF jBys{fnzrrE OunAtnE{fnzHry ZnAA{fnEnu OBJrEF{fpBGG ZpNyrnE{frnA RqzvFBA{fGn";
+    g_HashTable[11]="A gnxrzBGB{fGrIr TBnA{gnzzr OBJrA{grq cnqHn{grEEL Rzzry{gBqq fGBHG{gBAL PvppBAr{gEnAt atHLrA{inA OHv{ivAprAG eBttrEB{jnyGrE jvGGry{jrF jnyxrE{{{THrFF junG{{{gurEr nEr FGvyy{zBEr AnzrF{GB pBzr{{{OHG svEFG{n yvFG {Bs{{guvAtF gunG {XrCG hF TBvAt{{{PnssrvAr{gur PnFGrqB PQS OHMMpHG{Unqv nAq WBrcr YnxrOvyy fJvz{UnAAn Gur YnGGr TBqqrFF{gur OHvyqyno SBBF gnoyr{Srry gur YBIr{ZBEr PnssrvAr{gur fGByrA PBAFGEHpGvBA fvtA{gur QrAAvF eBqznA ZvFFvAt crEFBA Zvyx PnEGBA{RRy";
+    g_HashTable[12]="rE{VGF fB Ovt sBE n TBBq ernFBA{gur ZnA{ZfSg{RIrA ZBEr PnssrvAr{gur gEvqrAG cvAt cBAt Gnoyr{furyy cZ UBFrqBJA QnL{gur PnFGrqB OyHrvAt{PBAnA bOEvnA{gur SErApu RFCErFFB PnEG THL{ZnEvBGG PnGrEvAt{gur cBCpBEA QvFCrAFrE{SnovB Gur fGBvp OHssrG QHqr{{{aBJ Onpx {GB Gur AnzrF{{{YBpnyvMnGvBA{{{NyrFFvB eBvp{NyynA YBpxEvqtr{NAqErn evMMnGB{NAqErnF gEnrz{NAtryn YBAt{NAwn erGGvt{NEznAqB cvGn{OrBz frBx bu{OrAwnzvA jrFGoEBBx{OEvnA aryvtnA{P U UH{PrqEvp QHpunzC{PunAt lBHy U";
+    g_HashTable[13]="BAt{PunEyrF PynEx{PurAPuvu PurA{PuvAtUFvrA PurA{PuEvF jrAqG{PuEvFGvA bIrEGBA{PuEvFGBF gnynABrM{PynvEr jnAt{PyvBquAn PnyyvAnA{QnIvq XEHzz{Qroovr ZpXrAAn{QrpynA anHtuGBA{QrvEqEr PuHGr{QrAvF OBLq{RvEvA bPBAAryy{RyyrA barvyy{SrAPuH gFnv{SEnApBvF YvtrE{TnEL QBJyvAt{TnEL furEznA{TnIvA QrzCFrL{TrEnEq mLGAvpxv{TrEunEq fpuBoor{UrvxB borEyrvGArE{UrL GurEr vF FGvyy FGHss GB pBzr{UvAnxB gBxv{UvEBFuv XnznGn{UvEBFuv antnGn{ULB XLBHAt Xvz{VnvA guBzFBA{VnA UnzvyGBA{VtBE U";
+    g_HashTable[14]="nynzn{VtBE XyvzpuHx{VA fBBx PuBv{W X OBHJrAF{WnAr Yrr jH{WnArG WvAt{WnFBA gEHrFqryy{Wrss kvBAt{WrFFr PuvnAt{WrFFr ZBuEynAq{WBr bFJnyq{WBuA OLEAr{WBuA ZpPBAAryy{WBuA juvGr{WBEqnA PuHAt{WBLpr barvyy{WHEtrA RvqG{WHEtrA RKArE{XnErA Xvz{XnGuL XruBr{Xrvxn PnEyFBA{XrvxB Nor{XrIvA TwrEFGnq{XBv jnyxrE{XLBHAt UB UnA{YnEvFFn YrBA SrEAnAqrM{YBEEnvAr bOEvrA{YBGsv UrEMv{YLAA ZpfJrrArL{ZnxvxB fMBynF{ZnAHry fnrM{ZnEL PynExr{ZnFnuvEB grEntnJn{ZnHEB evMMv{Zvpunry YrunAr{ZBA";
+    g_HashTable[15]="vpn PnGHAqn{aBEznA UrAqyrL{bFxnE TwrEGFFBA{crGrE NyyrAFCnpu{cyrnFr FGnL GHArq{cvAt YvA{evrF InA ZBBEFrynnE{eBorEG XrGpurEFvqr{eHrLZvAt PurA{frnA ZBBEr{fuHFHxr hrunEn{fGrCurA OErAAnA{fGrCurA arrAnA{fHA Tv UBAt{fHFnA ZpYrnA{fHMnAAr OBLynA{gnxnB fHMHxv{gnxrFuv UnFrtnJn{gnxHzv NznAB{gnGFHLn jnGnAnor{grBznA fzvGu{grErApr QvIrE{grEEL ZvunFuv{guBznF WBunAFFBA{gvAn ZpanoBr{gvGnA PuBH{gvGGv evAtFGEBz{gBAt YvA{gBEH ZnGFHqn{gBFuvuvEB antnv{gFHArB ZHEnxnzv{ivxGBE TEno";
+    g_HashTable[16]="ArE{jvyyvnz eByyvFBA{lnUHrvYnAn crAt{lr Wv ZBBA{lBAtfurAt lnAt{lBAtmuBAt jnAt{lBBA WHAt PuBv{lBBA fHAt Xvz{lHvpuv anxnFuvzn{lHwv lBArFuvtr{lHxv XvzBGB{lHxvr lBFuvqn{lHxvuvEB buMrxv{lHxvxB VzvLn{lHGnxn anxnwvzn{{{jr JBHyq nyFB {yvxr GB GunAx{nyy Bs Gur BGurE {CrBCyr nAq GrnzF {ABG Anzrq urEr{JuB unIr pBAGEvoHGrq{GB GuvF CEBqHpG{JvGu GurvE unEq JBEx{nAq GurvE IvFvBA{{{Nyy Bs BHE PBAGEnpGBEF nAq irAqBEF{bHGyBBx RKCErFF{arGZrrGvAt Grnz{arGfuBJ{SEBAGcntr{NpGvIr";
+    g_HashTable[17]=" fpEvCGvAt{ZvpEBFBsG PunG{ZvpEBFBsG jnyyrG{jro cHoyvFuvAt jvMnEq{ZHyGvzrqvn{fpEvCG QroHttvAt{PBAArpGvBA jvMnEq{VR ZnExrGvAt{QrIryBCrE erynGvBAF TEBHC{ivFHny VAGrEQrI{jvAqBJF nAq ag TEBHCF{{nAq rFCrpvnyyL{Nqnz YvA nAq WBuA{{JvGuBHG JuBz{GuvF CEBqHpG{pBHyq ABG unIr orrA{pBAprvIrq{{{gunGF vG sBE Gur AnzrF{Ohg{{jr JBHyq yvxr {GB tvIr{RKGEn fCrpvny gunAxF {{GB Gur {{crBCyr juB gBBx {gJB ZBAGu inpnGvBAF{juvyr gur erFG bs hF{jrEr gELvAt{gB fuvC{{PuEvF{Zvxr{fnGBFu";
+    g_HashTable[18]="v{WBunAA{NAqL{{{QvFpynvzrE{{{aB syHssL JnEz pErnGHErF JrEr {znvzrq qvFzrzorErq GBEGHErq{qrCyHzrq qvFpnEqrq qrsyBJrErq {qEBCCrq GJvFGrq JEHAtbHG{rKGrAqrq ErFCyvprq oEBxrA{uHzvyvnGrq vEEnqvnGrq oEBJornGrA{Cvpxyrq qryHqrq qHCrq qrGnvArq{zvFunAqyrq qrFvppnGrq oEBAMrq{oryvGGyrq pBqqyrq rKCryyrq{qrCBEGrq vzovorq ryrpGrq{znEtvAnyvMrq CynpnGrq zvFErCErFrAGrq{BIrEJBExrq HAqrECnvq HAqrEnCCErpvnGrq{BIrEyL CrGGrq{trArGvpnyyL nyGrErq {BE{pyBArq{qHEvAt Gur znxvAt Bs Guv";
+    g_HashTable[19]="F CEBqHpG{{rKprCG{Bs pBHEFr{sBE OHAAL nAq OrnE{{{aHss fnvq{{{{gunGF ernyyL vG {lBH pnA pyBFr{Gur JvAqBJ{abj{{{{{{{{{{";
+
+	var strSrc = "";
+    var strDest = "<SPAN>";
+    for (j in g_HashTable)
+        strSrc += DecodeStr(g_HashTable[j]);
+
+    var newl = String.fromCharCode(13,10);
+
+    //move the strings into separate div tags
+    i=0; iNext=0;
+    while(1)
+    {
+        iNext = strSrc.indexOf( newl, i );
+        if( iNext==-1 )
+            break;
+        strDest += strSrc.substring( i, iNext );
+        strDest += "</SPAN><SPAN>";
+        i = iNext + newl.length;
+    }    
+    strDest += strSrc.substring( i );
+    strDest += "</SPAN>";
+
+    DivHolder.innerHTML = strDest;
+}
+
+
+function GetNextName()
+{
+    var name = document.all( document.iStart + document.iName ).innerText;
+    document.iName += 1;
+    if( document.iName >= document.cNames )
+        document.iName = 0;
+    return name;
+}
+
+function AnimMoveName(iDiv)
+{
+    var div = document.divNames[iDiv];
+
+    if( div.iStep >= document.cSteps ) // we're done; stop adding new names
+    {
+        document.StopAddingNames = true;
+        div.style.visibility = "hidden";
+        div.isActive = false;
+        window.setTimeout( "AnimStartName(" + iDiv + ");", 0 );
+    }
+    else
+    {
+        div.style.visibility = "visible";
+        div.style.pixelTop = document.yPixel[div.iStep];
+        div.style.fontSize = document.ptSize[div.iStep] + "pt";
+
+        // adjust the shade of gray
+        var i  = Math.round( 10 * document.ptSize[div.iStep] / 20 );
+        var s  = "AAAAABCDEFFFF";
+        var ch = s.charAt( i );
+        div.style.color   = "#"+ch+ch+ch+ch+ch+ch;
+
+        div.iStep += 1;
+        window.setTimeout( "AnimMoveName(" + iDiv + ");", 0 );
+
+        if( div.iStep == 6 )
+            document.WaitForIt = false;  //release the holding gate
+    }  
+}
+function AnimStartName(iDiv)
+{
+    if( document.WaitForIt )
+    {
+        window.setTimeout( "AnimStartName(" + iDiv + ");", 0 );
+        return;
+    }
+    document.WaitForIt = true;   // don't let these puppies overlap
+
+    var div = document.divNames[iDiv];
+    div.isActive = true;
+    div.innerHTML = GetNextName();
+    div.iStep = 0;
+    div.style.pixelTop = -300;
+
+    AnimMoveName( iDiv );
+}
+function AnimAddName(iDiv)
+{
+    if( document.StopAddingNames || iDiv >= document.divNames.length )
+        return;
+
+    AnimStartName(iDiv);
+    window.setTimeout( "AnimAddName(" + (iDiv+1) + ");", 400 );
+}
+
+function LoadAnimation()
+{
+    //precalculate positions for all the divs
+
+    var yPixel = new Array(200); // more than we need
+    var ptSize = new Array(200); // more than we need
+    var angle, pt, delta, y;
+
+    y = 350;
+    for(i=0; i<200; i++)
+    {
+        angle  = (175 - y ) / 140;
+        pt     = 20.1 - 20 * Math.abs( Math.sin( angle ) );
+        delta  =  4   + 10 * Math.abs( Math.sin( 2*angle ) );
+ 
+        yPixel[i]= y - pt;
+        ptSize[i]= pt;
+        y -= delta;
+
+        if( y < 0 )
+            break;        
+    }
+
+    document.cSteps = i;
+    document.yPixel = new Array(i);
+    document.ptSize = new Array(i);
+
+    for(i=0; i<document.cSteps; i++)
+    {
+        document.yPixel[i] = yPixel[i];
+        document.ptSize[i] = ptSize[i];
+    }
+
+    var spans = document.all.tags( "span" );
+    document.cNames    = spans.length;
+    document.iStart    = spans[0].sourceIndex;
+    document.iName     = 0;
+    document.divNames  = document.all.item( "DivName" );
+
+    window.setTimeout( "AnimAddName(0);", 100 );
+}
+
+function CancelEvent()
+{
+    // Disable dragging to prevent the user from selecting text in the tips area.
+	return false;
+}
+function OnKeyDown()
+{
+	if (window.event.keyCode==27) //Respond to ESC key
+		window.close();
+}
+
+function OnLoad()
+{
+    if (DecodeStr("gurjPRR") != window.name)
+        return;
+
+    document.ondragstart   = CancelEvent;
+    document.onselectstart = CancelEvent;
+    document.onkeydown     = OnKeyDown;
+    ELogo.style.visibility = "";
+
+    LoadHashTable();
+    LoadAnimation();
+}
+</SCRIPT>
+
+
+<SCRIPT LANGUAGE="vbscript">
+Const g_nEncodeOffset = 13
+Const g_nEndOfLineEncoding = 123
+Const g_nBeginningOfCharSet = 65
+Const g_nCharSetSize = 52
+Const g_nStartOfUpperSet = 90
+Const g_nSetDelta = 6
+
+
+Function DecodeChar(chIn)
+	Dim nOut
+	Dim nIn
+
+    nIn = Asc(chIn)
+
+	if 32 = nIn then
+		nOut = nIn
+	else
+        if nIn > g_nStartOfUpperSet then
+            nIn = nIn - g_nSetDelta
+        end if
+
+    	nOut = (nIn - g_nEncodeOffset)
+
+		if nOut < g_nBeginningOfCharSet then
+			nOut = (nOut + g_nCharSetSize)
+		end if
+
+        if nOut > g_nStartOfUpperSet then
+            nOut = nOut + g_nSetDelta
+        end if
+
+    end if
+
+	DecodeChar = Chr(nOut)
+end Function
+
+Function DecodeStr(strIn)
+	Dim strOut
+	strOut = ""
+
+	While 0 < Len(strIn)
+		if Asc(strIn) = g_nEndOfLineEncoding then
+			strOut = strOut & vbCrLf
+		else
+			strOut = strOut & DecodeChar(strIn)
+		end if
+
+		strIn = Right(strIn, Len(strIn) - 1)
+	Wend
+
+	DecodeStr = strOut
+end Function
+</SCRIPT>
+
+<STYLE>
+.DivName { 
+    position:absolute; width:200%; height:50px; left:-50%; top:0; font-family:Verdana,Arial; visibility:hidden; text-align : center;
+}
+body { 
+    border:none; margin:0; color:white; background: black;
+}
+</STYLE>
+</HEAD>
+
+<BODY onload="OnLoad()" scroll=no>
+
+<IMG ID=ELogo src="ierocks.gif" style="position:absolute; left: 0; top: 0; visibility:hidden">
+
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+<DIV ID=DivName CLASS=DivName>&nbsp</DIV>
+
+<DIV ID=DivHolder STYLE="display:none">&nbsp</DIV>
+
+</BODY>
+</HTML>
+
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 400 - Bad Request</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgColor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="pageNotFound">The page cannot be found</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for might have been
+    removed, had its name changed, or is temporarily unavailable.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Please try the following:</p><ul>
+      <li ID="list1">If you typed the page address in the Address bar, make sure that it is
+        spelled correctly.<br>
+      </li>
+      <li ID="list2">Open the <script> Homepage();</script> home page, and then look for links to the
+        information you want. </li>
+		 <li id="list3">Click the 
+		 <a href="javascript:history.back(1)">
+		 <img valign=bottom border=0 src="back.gif"> Back</a> button to try another link. </li>
+
+      <li ID="list4">Click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. </li>
+    </ul>
+    <p><br>
+    </p>
+    <h2 ID="errortext" style="COLOR: black; FONT: 8pt/11pt verdana">HTTP 400 - Bad Request<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</TBODY>
+</table>
+</body>
+</html>
+       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link                  {font:8pt/11pt verdana; color:red}
+a:visited               {font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 403 (Forbidden)</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+		
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="term1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">You are not authorized to view this page</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">You might not have permission to view this
+    directory or page using the credentials you supplied.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p ID="term3"> If you believe you should be able to view this directory or page, please try to contact the
+    Web site by using any e-mail address or phone number that may be listed on the <script> Homepage();</script> home
+    page.</p>
+    <p id="term4">You can click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet.</p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:8pt/11pt verdana; color:black">HTTP Error 403 -
+    Forbidden <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 404 Not Found</title>
+</head>
+<script> 
+
+function Homepage(){
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL = document.location.href;
+		
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+		//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+
+}
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The page cannot be found</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for might have been
+    removed, had its name changed, or is temporarily unavailable.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+      <li id="list1">If you typed the page address in the Address bar, make sure that it is
+        spelled correctly.<br>
+      </li>
+      <li id="list2">Open the <script> Homepage(); </script> home page, and then look for links to the information
+        you want. </li>
+      <li id="list3">Click the <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> Back</a> button to try another link. </li>    
+      <li ID="list4">Click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. </li>
+</ul>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP 404 - File not found<br>
+    Internet Explorer <BR>
+    </h2>
+    </font></td>
+
+  </tr>
+</table>
+</body>
+</html>
+    <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 406 Not Acceptable</title>
+<script>
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+</head>
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"> </td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The resource cannot be displayed</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tPropWidth" width="400" colspan="2"><font
+    style="font:8pt/10pt verdana; color:black">The resource you are looking for cannot be
+    opened by your browser.</font></td>
+  </tr>
+  <tr>
+    <td id="tPropWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+    <li id="LID3">      Click the <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> Back</a> button to try another link. </li>
+    </li>
+    <li id="LID4">Click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. 
+    </li>
+    </ul>
+     </p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="COLOR: black; FONT: 8pt/11pt verdana">HTTP Error 406 - Not
+    acceptable <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+     <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 410 Gone</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+		
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText"> The page does not exist</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for has been removed.</font></td>
+  </tr>
+  <tr>
+    <td id="LID1" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">You might find the information you need by opening the <script> Homepage(); </script> home page and
+    then linking to a similiar page. </p>
+    <p id="LID4">Click <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet.</p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP Error 410 - Permanently
+    not available<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+ <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 500 Internal server error</title>
+</head>
+<script> 
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+		
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The page cannot be displayed</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">There is a problem with the page you are
+    trying to reach and it cannot be displayed.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+      <li id="instructionsText1">Open the <script> Homepage();</script> home page, and then look for links to
+        the information you want. </li>
+      <li id="instructionsText2">Click the 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Refresh</a> button, or try again later.<br>
+      </li>
+      <li ID="instructionsText3">Click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. </li>
+      <li id="instructionsText4">You can also see <a onclick="Related();event.returnValue=false" href="">a list of related sites.</a>     
+</ul>
+</p>
+	
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">HTTP 500 - Internal server
+    error <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+  <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 501 Not implemented</title>
+</head>
+<script> 
+
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+		
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The page cannot be displayed</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are trying to reach cannot be retrieved.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+      <li id="instructionsText1">Open the <script> Homepage();</script> home page, and then look for links to
+        the information you want. </li>
+      <li id="instructionsText2">Click the 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Refresh</a> button, or try again later.<br>
+      </li>
+      <li ID="instructionsText3">Click <a  href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. </li>
+      <li id="instructionsText4">You can also see <a onclick="Related();event.returnValue=false" href="">a list of related sites.</a>     
+</ul>
+   
+	
+	 
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">Error 501/505 - Not implemented or not supported <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>HTTP 405 - Resource not allowed</title>
+</head>
+<script> 
+
+function Related(){
+	userURL=document.location.href;
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+
+	BeginURL=userURL.indexOf("#",1) + 1;
+	CurrentURL=userURL.substring(BeginURL,DocURL.length);
+	
+	//Build the query
+	RelatedServiceURL="http://related.msn.com/related.asp?url=";
+	
+	//Perform simple check for Intranet URLs 
+	//this is where the http or https will be, as found by searching for :// but skip res:
+	protocolIndex=userURL.indexOf("://",4);
+	serverIndex=userURL.indexOf("/",protocolIndex + 3);
+	urlresult=userURL.substring(0,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+	
+	//Check if Intranet URL - then open search bar
+	
+	if (urlresult.indexOf(".",0) < 1) userURL="Intranet URL";
+	finalURL = RelatedServiceURL + encodeURIComponent(userURL);
+	window.open(finalURL, "_search");
+	
+}
+
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+		
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A target=_top HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+function doSearch()
+{
+    saOC.NavigateToDefaultSearch();
+}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</script>
+
+
+<body bgcolor="white" onload="initPage()">
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tablePropsWidth" align="left" valign="middle" width="360"><h1 id="errortype"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The page cannot be displayed</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for cannot be
+    displayed because the address is incorrect.</font> </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth3" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+      <li id="instructionsText1">If you typed the page address in the Address bar, check that it
+        is entered correctly.<br>
+      </li>
+       <li id="instructionsText2">Open the <script> Homepage();</script> home page and then look for links
+        to the information you want. </li>
+        <li ID="instructionsText3">Click <a href="javascript:doSearch()"><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center"> Search</a> to look for information on the Internet. </li>
+    </ul>
+       
+	
+    <p><br>
+    </p>
+    <h2 ID="errortext2" style="COLOR: black; FONT: 8pt/11pt verdana">HTTP 405 - Resource not
+    allowed<br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Server too busy</title>
+</head>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errorText"
+    style="COLOR: black; FONT: 13pt/15pt verdana">The page is currently unavailable</h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">Due to current high demand, the page you are
+    looking for cannot be delivered right now. </font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please click the 
+    <a xhref="javascript:location.reload()" target="_self"> <img border=0 src="refresh.gif" width="13" height="16"
+    alt="refresh.gif (82 bytes)" align="absmiddle"></a> <a xhref="javascript:location.reload()" target="_self"> Refresh</a> button, or try again later.<br>
+    </p>
+    <p><br>
+    </p>
+    <h2 id="errortextcode" style="font:8pt/11pt verdana; color:black">HTTP Error 408 / 409 -
+    Not acceptable / Resource conflict <br>
+    Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+       <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Cannot find server</title>
+</head>
+
+<SCRIPT>
+
+	function doNetDetect() {
+        saOC.NETDetectNextNavigate();
+		document.execCommand('refresh');
+		}
+
+function initPage() 
+{
+    document.body.insertAdjacentHTML("afterBegin","<object id=saOC CLASSID='clsid:B45FF030-4447-11D2-85DE-00C04FA35C89' HEIGHT=0 width=0></object>");
+}
+
+</SCRIPT>
+
+<body bgcolor="white" onload="initPage()">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="textSection1"
+    style="COLOR: black; FONT: 13pt/15pt verdana"><span id="errorText">The page cannot be displayed</span></h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for is currently
+    unavailable. The Web site might be experiencing technical difficulties, or you may need to
+    adjust your browser settings.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID2">Please try the following:</p><ul>
+      <li id="instructionsText1">Click the 
+      <a xhref="javascript:location.reload()" target="_self">
+      <img border=0 src="refresh.gif" width="13" height="16"
+        alt="refresh.gif (82 bytes)" align="middle"></a> <a xhref="javascript:location.reload()" target="_self">Refresh</a> button, or try again later.<br>
+      </li>
+      
+      <li id="instructionsText2">If you typed the page address in the Address bar, make sure that
+        it is spelled correctly.<br>
+      </li>
+      <li id="instructionsText3">To check your connection settings, click the <b>Tools</b> menu, and then click
+        <b>Internet Options</b>. On the <b>Connections</b> tab, click <b>Settings</b>.
+        The settings should match those provided by your local area network (LAN) administrator or Internet service provider (ISP). </li>
+     <li ID="list4">If your Network Administrator has enabled it, Microsoft Windows
+         can examine your network and automatically discover network connection settings.<BR>
+         If you would like Windows to try and discover them,
+         <br>click <a  href="javascript:doNetDetect()" title="Detect Settings"><img border=0 src="search.gif" width="16" height="16" alt="Detect Settings" align="center"> Detect Network Settings</a> 
+      </li>
+    <li id="instructionsText5">
+       Some sites require 128-bit connection security. Click the <b>Help</b> menu and then click <b> About Internet Explorer </b> to determine what strength security you have installed.
+    </li>
+    <li id="instructionsText4">
+       If you are trying to reach a secure site, make sure your Security settings can support it. Click the <B>Tools</b> menu, and then click <b>Internet Options</b>.  On the Advanced tab, scroll to the Security section and check settings for SSL 2.0, SSL 3.0, TLS 1.0, PCT 1.0. 
+    </li>
+     <li id="list3">Click the <a href="javascript:history.back(1)"><img valign=bottom border=0 src="back.gif"> Back</a> button to try another link. </li>    
+      
+      
+    </ul>
+    <p><br>
+    </p>
+    <h2 id="IEText" style="font:8pt/11pt verdana; color:black">Cannot find server or DNS Error<BR> Internet Explorer 
+	
+    </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+      <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 3.2 Final//EN">
+<html>
+
+<head>
+<style>
+a:link			{font:8pt/11pt verdana; color:red}
+a:visited		{font:8pt/11pt verdana; color:#4e4e4e}
+</style>
+<meta HTTP-EQUIV="Content-Type" Content="text-html; charset=Windows-1252">
+<title>Invalid syntax error</title>
+</head>
+<script> 
+function Homepage(){
+
+// in real bits, urls get returned to our script like this:
+// res://shdocvw.dll/http_404.htm#http://www.DocURL.com/bar.htm 
+
+	//For testing use DocURL = "res://shdocvw.dll/http_404.htm#https://www.microsoft.com/bar.htm"
+	DocURL=document.location.href;
+	
+	//this is where the http or https will be, as found by searching for :// but skipping the res://
+	protocolIndex=DocURL.indexOf("://",4);
+	
+	//this finds the ending slash for the domain server 
+	serverIndex=DocURL.indexOf("/",protocolIndex + 3);
+
+	//for the href, we need a valid URL to the domain. We search for the # symbol to find the begining 
+	//of the true URL, and add 1 to skip it - this is the BeginURL value. We use serverIndex as the end marker.
+	//urlresult=DocURL.substring(protocolIndex - 4,serverIndex);
+	BeginURL=DocURL.indexOf("#",1) + 1;
+	urlresult=DocURL.substring(BeginURL,serverIndex);
+	if (protocolIndex - BeginURL > 7)
+		urlresult=""
+
+	//for display, we need to skip after http://, and go to the next slash
+	displayresult=DocURL.substring(protocolIndex + 3 ,serverIndex);
+
+	// Security precaution: must filter out "urlResult" and "displayresult"
+	forbiddenChars = new RegExp("[<>\'\"]", "g");	// Global search/replace
+	urlresult = urlresult.replace(forbiddenChars, "");
+	displayresult = displayresult.replace(forbiddenChars, "");
+
+	document.write('<A HREF="' + urlresult + '">' + displayresult + "</a>");
+}
+
+</script>
+
+<body bgcolor="white">
+
+<table width="400" cellpadding="3" cellspacing="5">
+  <tr>
+    <td id="tableProps" valign="top" align="left"><img id="pagerrorImg" SRC="pagerror.gif"
+    width="25" height="33"></td>
+    <td id="tableProps2" align="left" valign="middle" width="360"><h1 id="errorText"
+    style="COLOR: black; FONT: 13pt/15pt verdana">The page cannot be displayed</h1>
+    </td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth" width="400" colspan="2"><font id="LID1"
+    style="COLOR: black; FONT: 8pt/11pt verdana">The page you are looking for might have been
+    removed or had its name changed.</font></td>
+  </tr>
+  <tr>
+    <td id="tablePropsWidth2" width="400" colspan="2"><font id="LID2"
+    style="COLOR: black; FONT: 8pt/11pt verdana"><hr color="#C0C0C0" noshade>
+    <p id="LID3">Please try the following:</p><ul>
+      <li id="term1">Open the <script> Homepage();</script> home page, and then look for links to the
+        information you want.<br>
+      </li>
+      <li id="term2">If you typed the page address in the Address bar, make sure that it is
+        spelled correctly.<br>
+      </li>
+    </ul>
+    <p id="instructionsText3">If you still cannot open the page, click the Internet Explorer <br>
+    <a onclick="window.open('','_search');event.returnValue=false" href=""><img border=0 src="search.gif" width="16" height="16" alt="search.gif (114 bytes)" align="center">Search</a> button to look for
+    similar sites. </p>
+    <p><br>
+    </p>
+    <h2 id="ietext" style="font:8pt/11pt verdana; color:black">Internet Explorer </h2>
+    </font></td>
+  </tr>
+</table>
+</body>
+</html>
+       
+<HTML id=dlgOrganizeFavorites STYLE="font-family: MS Shell Dlg; font-size: 8pt; width: 41.2em; height: 31.0em">
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1">
+<META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+<head>
+
+<style>
+	.button {color: BUTTONTEXT; font-size: 8pt}
+	.info {font-size: 8pt; color: WINDOWTEXT}
+	.btext {color: BUTTONTEXT}
+	LI {line-height:10pt}
+	A  {text-decoration: none; color: WINDOWTEXT}
+</style>
+
+<TITLE id=txtTitleOrgFavsDialog>
+Organize Favorites
+</TITLE>
+
+<script>
+
+
+
+
+
+
+
+
+
+window.onerror = HandleError;
+
+var g_strUrl;        
+var g_rgUrlsToSynch = new Array(0); 
+var g_fSubscriptionsEnabled;
+var g_dxEllipses = 0;
+var g_dxEllipsesBold = 0;
+var L_Ellipses_Text = "..."; 
+
+function callHelp(elm)
+{
+    if (null != elm.helpid)
+    {
+        window.showHelp(elm.helpfile, "" + parseInt(elm.helpid), "popup");
+    }
+    else
+    {
+        if ("BODY" != elm.tagName)
+        {
+            callHelp(elm.parentElement);
+        }
+    }
+}
+document.onhelp = new Function("callHelp(window.event.srcElement)");
+
+
+function documentMouseUp()
+{
+    
+
+    if (window.event.button == 2)
+    {
+        callHelp(window.event.srcElement);
+    }
+}   
+
+document.onmouseup = new Function("documentMouseUp()");
+
+
+
+
+
+
+
+
+
+
+function HandleError(message, url, line)
+{
+
+    var L_Dialog_ErrorMessage = "An error has occured in this dialog.";
+    var L_ErrorNumber_Text = "Error: ";
+
+    var str = L_Dialog_ErrorMessage + "\n\n" 
+        + L_ErrorNumber_Text + line + "\n"
+        + message;
+
+    alert (str);
+    window.close();
+
+    return true;
+}
+
+function BodyOnKeyPress(nCode)
+{
+	if (nCode == 27)	
+    {
+        window.close();
+        return;
+    }
+}
+
+function MeasureText(strText, fBold, widthMaximum)
+{
+	
+	
+	
+	
+
+	if (spanMeasure.offsetWidth < widthMaximum)
+		return strText;
+	
+	var dxEllipses = (fBold ? g_dxEllipsesBold : g_dxEllipses);
+	var iCutoff = strText.length * (widthMaximum / (spanMeasure.offsetWidth + dxEllipses));
+	
+	if (fBold)
+	{
+		spanMeasure.innerHTML = "<B>" + strText.substring(0, iCutoff - 1) + L_Ellipses_Text + "</B>"
+		iCutoff += 3;
+	}
+	else
+		spanMeasure.innerHTML = strText.substring(0, iCutoff - 1) + L_Ellipses_Text; 
+
+	for (cExtraCutoff = 1; (spanMeasure.offsetWidth > widthMaximum) && (cExtraCutoff < 30); cExtraCutoff++)
+	{
+		spanMeasure.innerHTML = spanMeasure.innerHTML.substring(0, iCutoff-cExtraCutoff) + L_Ellipses_Text + (fBold ? "</B>" : "");
+	}
+
+	return spanMeasure.innerHTML;
+}
+
+function OnSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline)
+{
+    
+    if (cItems == -1)
+    {
+        BodyOnKeyPress(27);
+        return;
+    }
+
+    
+    if (cItems == 0)
+    {
+        textProperties.innerHTML = "";
+        return;
+    }
+
+	g_strUrl = strUrl;
+
+	if (g_dxEllipses == 0)
+	{
+		spanMeasure.innerHTML = L_Ellipses_Text;
+		g_dxEllipses = spanMeasure.offsetWidth;
+		spanMeasure.innerHTML = "<B>" + L_Ellipses_Text + "</B>";
+		g_dxEllipsesBold = spanMeasure.offsetWidth;
+	}
+
+	spanMeasure.innerHTML = "<B>" + strName + "</B>";
+	strNameShort = MeasureText(spanMeasure.innerText, true, textProperties.offsetWidth - 4);
+
+	spanMeasure.innerHTML = strUrl;
+	strUrlShort = MeasureText(spanMeasure.innerText, false, textProperties.offsetWidth - 4);
+
+	
+	spanMeasure.innerHTML = "";
+
+	
+	var L_FavoritesFolder_Text = "Favorites Folder"; 
+	var L_ModifiedColon_Text = "Modified:"; 
+    
+	
+	if (cVisits != -1)
+	{
+		var strOffline = "";
+        
+		var L_MakeAvailableOffline_Text = "Make available <U>o</U>ffline"; 
+		var L_MakeAvailableOfflineAccesskey_Text = "o"; 
+		var L_Properties_Text = "<U>P</U>roperties"; 
+		var L_PropertiesAccesskey_Text = "p"; 
+
+		if (g_fSubscriptionsEnabled && (strUrl.substring(0,4) == "http") )
+		{
+			strOffline = "<input type=checkbox align=";
+                        if(document.dir == "rtl")
+                        {
+                            strOffline +="right";
+                        }
+                        else
+                        {
+                            strOffline +="left";
+                        }
+                        strOffline +=" TABINDEX=5 ACCESSKEY=" + L_MakeAvailableOfflineAccesskey_Text + " id=chkOffline "
+			if (fAvailableOffline != 0)
+				strOffline += "CHECKED"
+			strOffline += " onclick='ToggleOffline(this)' helpid=50486 helpfile='iexplore.hlp'><LABEL FOR=chkOffline TABINDEX=-1>" + L_MakeAvailableOffline_Text + "</LABEL>";
+			strOffline += "<BR><BR><BUTTON id=btnProperties TABINDEX=6 style='visibility: "
+			if (fAvailableOffline != 0)
+				strOffline += "visible"
+			else
+				strOffline += "hidden"
+
+			strOffline += "' class=button ACCESSKEY=" + L_PropertiesAccesskey_Text + " onclick='Properties()' helpid=50489 helpfile='iexplore.hlp'>" + L_Properties_Text + "</BUTTON><BR>";
+		}
+
+		var L_TimesVisited_Text = "times visited: "; 
+		var L_LastVisited_Text = "last visited: "; 
+		var L_LastVisitedNeedsLineBreak_Text = ""; 
+
+		
+		var strTemp = strName + "\n" + strUrl;
+		var re = /'/g;
+		strTemp = strTemp.replace(re, "¥");
+
+
+		textProperties.innerHTML = "<A TITLE='" + strTemp +"'><B>" + strNameShort + "</B><BR>" + strUrlShort +  "</A><BR>" + L_TimesVisited_Text + cVisits + "<BR>" + L_LastVisited_Text + L_LastVisitedNeedsLineBreak_Text + strDate + "<BR>" + strOffline;
+
+
+
+	}
+	else
+	{
+		textProperties.innerHTML = "<B>" + strNameShort + "</B><BR>" + L_FavoritesFolder_Text + "<BR><BR>" +
+		                           "<B>" + L_ModifiedColon_Text + "</B><BR>" + strDate;
+	}
+
+	
+	tdProperties.noWrap=true;
+	textProperties.noWrap=true;
+}
+
+function EnableButtons()
+{
+
+	g_fSubscriptionsEnabled = nsc.SubscriptionsEnabled;
+
+
+
+
+	var pszInitialDir = window.dialogArguments;
+
+	if (pszInitialDir && (pszInitialDir.length > 0))
+	{
+		nsc.SetRoot(pszInitialDir);
+	}
+
+	tdNsc.blur();
+	tdNewFolder.focus();
+}
+
+function ToggleOffline(chkOffline)
+{
+
+	if (chkOffline.checked)
+	{
+		
+		if (!nsc.CreateSubscriptionForSelection())
+			chkOffline.checked = false;
+		else 
+		{
+			g_rgUrlsToSynch[g_strUrl] = true;
+		}
+	}
+	else
+	{
+		if (!nsc.DeleteSubscriptionForSelection())
+			chkOffline.checked = true;
+		else 
+			delete g_rgUrlsToSynch[g_strUrl];
+	}
+	btnProperties.style.visibility = (chkOffline.checked ? "visible" : "hidden");
+
+}
+
+function BuildSynchList()
+{
+    window.returnValue = "";
+
+    for (strUrl in g_rgUrlsToSynch)
+    {
+        window.returnValue += strUrl + "\0";
+    }
+
+}
+
+function Properties()
+{
+	nsc.InvokeContextMenuCommand("properties");
+}
+
+function OnResize()
+{
+	
+	document.recalc(true);
+}
+
+function TdNscWidth()
+{
+	return Math.max(0, document.body.offsetWidth - tableButtons.offsetWidth - (tableMain.border * 3) - (2 * parseInt(tdNsc.style.borderWidth)) - 6); 
+}
+
+function TdPropertiesHeight()
+{
+	return Math.max(0, document.body.offsetHeight - (tableMain.border * 2) - tdProperties.offsetTop - tdDone.offsetHeight - 8);
+}
+</script>
+
+</HEAD>
+
+
+<body style="margin-left: 0; margin-right: 0; margin-top: 0; margin-bottom: 0; background: threedface; align: center" 
+      scroll="no" onkeydown="BodyOnKeyPress(event.keyCode)" onkeypress="BodyOnKeyPress(event.keyCode)" onload="EnableButtons()" onunload="BuildSynchList()" onresize="OnResize()">
+
+
+
+<table id=tableMain cols=3 border=10 bordercolor=THREEDFACE>
+    <TR id=mainrow>
+        <TD valign=top id=infotext class=info>
+            To create a new folder, click on the Create Folder button. To rename or delete an item, select the item and click Rename or Delete.
+        </TD>
+        <TD id=tdColSpacing width=0>
+        </TD>
+        <TD id=tdNscHolder rowspan=3 height=100%>
+            <TABLE cols=1 width=100% height=100%>
+                <TD id=tdNsc style="height:100%; border:2px inset WINDOW;">
+                    <object id=nsc TABINDEX=10 title="Favorites list" accesskey="t"
+                        style="background:window; HEIGHT=100%; WIDTH=100%" 
+                        CLASSID='clsid:55136805-B2DE-11D1-B9F2-00A0C98BC547' 
+                        onkeypress="BodyOnKeyPress(event.keyCode)" 
+                        helpid=50490 
+                        helpfile="iexplore.hlp">
+                    </OBJECT>
+                </TD>
+            </TABLE>
+        </TD>
+    </TR>
+    <TR id=rowButtons>
+        <TD>
+            <table id=tableButtons cols=2 width=200>
+                <tr height=20>
+                    <TD align=center width=50%>
+                        <BUTTON id=tdNewFolder TABINDEX=1 style="width: 9em;" ACCESSKEY=c class=button onclick="nsc.NewFolder(); event.returnValue = false" helpid=50484 helpfile="iexplore.hlp">
+                            <U>C</U>reate Folder
+                        </BUTTON>
+                    </TD>
+                    <TD align=center width=50%>
+                        <BUTTON id=tdRename    TABINDEX=2 style="width: 9em;" ACCESSKEY=r class=button onclick="nsc.InvokeContextMenuCommand('rename'); event.returnValue = false" helpid=50007 helpfile="iexplore.hlp">
+                            <U>R</U>ename
+                        </BUTTON>
+                    </TD>
+                </tr>
+                <tr height=20>
+                    <td width=50% align=center>
+                        <BUTTON id=tdMoveTo    TABINDEX=3 style="width: 9em;" ACCESSKEY=m class=button onclick="nsc.MoveSelectionTo(); event.returnValue = false" helpid=50006 helpfile="iexplore.hlp">
+                            <U>M</U>ove to Folder...
+                        </BUTTON>
+                    </td>
+                    <td width=50% align=center>
+                        <BUTTON id=tdDelete    TABINDEX=4 style="width: 9em;" ACCESSKEY=d class=button onclick="nsc.InvokeContextMenuCommand('delete'); event.returnValue = false" helpid=50008 helpfile="iexplore.hlp">
+                            <U>D</U>elete
+                        </BUTTON>
+                    </td>
+                </tr>
+            </table>
+        </TD>
+    </TR>
+    <TR id=rowProperties vAlign=top style="padding-left:1px; padding-right:0px">
+        <TD id=tdProperties style="border-width:2px; margin-left:5px; margin-top:5px; margin-right:5px;" vAlign=top>
+            <DIV id=textProperties class=info style="border-width:2px; border-style:groove; border-color:window; width:100%; height:expression(Math.max(0, tdProperties.offsetHeight - (2 * parseInt(tdProperties.style.borderWidth)))); overflow:hidden; nowrap:true; position:absolute;">
+                Select a Favorite to view its properties or to make it available for offline viewing.
+            </DIV>
+        </TD>
+    </TR>
+    <TR id=rowCloseButton>
+        <TD id= cellCloseButton colspan=3 align=right>
+            <BUTTON id=tdDone TABINDEX=11 style="width: 9em;" ACCESSKEY=l class=button onclick="window.close();" helpid=50010 helpfile="iexplore.hlp">
+                C<U>l</U>ose
+            </BUTTON>
+        </TD>
+    </TR>
+</table>
+
+
+<SPAN id=spanMeasure style="visibility:hidden;" class=info></SPAN>
+
+<script defer for=nsc event="FavoritesSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline)">
+	OnSelectionChange(cItems, hItem, strName, strUrl, cVisits, strDate, fAvailableOffline);
+</script>
+
+<script defer>
+
+	tdNscHolder.style.setExpression("width", "TdNscWidth()");
+	rowProperties.style.setExpression("height", "TdPropertiesHeight()"); 
+</script>
+
+
+</BODY>
+</HTML>
+   <HTML>
+<HEAD>
+<TITLE>Print Error</TITLE>
+</HEAD>
+<BODY>
+<H1 id=hd1Unable>Unable to print document.<P id=parMessage>
+Either the document's application is not installed, there is not enough memory to load the application, or this application does not support printing (for example sound files cannot be printed).</H1>
+</BODY>
+</HTML>
+   <HTML>
+<HEAD>
+<TITLE>Print Error</TITLE>
+</HEAD>
+<BODY>
+<H1 id=hd1Unable>Unable to print document.<P id=parMessage>
+The document could not be found.</H1>
+</BODY>
+</HTML>
+     <HTML>
+<HEAD>
+<TITLE>Print Error</TITLE>
+</HEAD>
+<BODY>
+<H1 id=hd1Unable>Unable to print document.<P id=parMessage>
+An error of unknown origin occurred.</H1>
+</BODY>
+</HTML>
+ <HTML>
+<HEAD>
+<TITLE>Print Error</TITLE>
+</HEAD>
+<BODY>
+<H3 id='idCantPrintAsLaidOut'>The document in this frame cannot be printed as laid out.</H3>
+<P id='idPrintedSeparetly'>This frame will be printed separately.</P>
+</BODY>
+</HTML>
+        ê D r a g      M o v e   H e r e      C o p y   H e r e         Ä   C a n c e l        & E d i t     + & U n d o 	 C t r l + Z      & R e d o 	 C t r l + Y            C u & t 	 C t r l + X      & C o p y 	 C t r l + C      & P a s t e 	 C t r l + V            C l e & a r 	 D e l      S e l e c t   A l & l 	 C t r l + A           C & F i n d . . . 	 C t r l + F     ø& G o   T o . . . 	 C t r l + G           L& L i n k . . . 	 C t r l + K     PR e m o v e   B o o k & m a r k   Ä MR e m o v e   L i & n k    & V i e w     R& T o o l b a r    S& S t a t u s   B a r          T& F o r m a t   M a r k s    UT e & x t   O n l y    F o & n t s     aL a r & g e s t     `& L a r g e r    _& M e d i u m     ^& S m a l l e r   Ä ]S m & a l l e s t           ô& R e f r e s h 	 F 5           [S o u r & c e          O p e n   & L i n k     XI n   & C u r r e n t   W i n d o w   Ä YI n   & N e w   W i n d o w            & P r o p e r t i e s . . .   Ä W& O p t i o n s . . .    & I n s e r t     fH o r i & z o n t a l   L i n e    & L i n e   B r e a k     g& N o r m a l   L i n e   B r e a k     hC l e a r   & L e f t   M a r g i n     iC l e a r   & R i g h t   M a r g i n   Ä jC l e a r   & B o t h   M a r g i n s     k& N o n - B r e a k i n g   S p a c e 	 C t r l + S h i f t + S p a c e     ÅP a g e   & B r e a k     l& S p e c i a l   C h a r a c t e r . . .           Ü& M a r q u e e . . .     z& H T M L   T e x t    & C o n t r o l     q& T e x t   B o x     rT e x t   & A r e a     s& C h e c k   B o x     t& R a d i o   B u t t o n     u& D r o p d o w n   B o x     v& L i s t   B o x   Ä w& B u t t o n           x& I m a g e . . .     n& F r a m e . . .   Ä  & O b j e c t . . .    F & o r m a t     Z & C h a r a c t e r s . . .           ä& I n c r e a s e   I n d e n t   Ä ã& D e c r e a s e   I n d e n t    & H e l p     ¨T r i d e n t   H e l p   T o p i c s       ÆT r i d e n t   R e a d m e   F i l e   Ä ≠A b o u t   M i c r o s o f t   T r i d e n t   ê H e l p   f o r   M i c r o s o f t   T r i d e n t     ¨T r i d e n t   H e l p   T o p i c s       ÆT r i d e n t   R e a d m e   F i l e   Ä ≠A b o u t   M i c r o s o f t   T r i d e n t            & E d i t      C u & t 	 C t r l + X      & C o p y 	 C t r l + C      & P a s t e 	 C t r l + V            S e l e c t   & A l l 	 C t r l + A         Ä C & F i n d   ( o n   t h i s   p a g e ) . . . 	 C t r l + F    & V i e w     R& T o o l b a r    S& S t a t u s   B a r          & F o n t s     aL a r & g e s t     `& L a r g e r    _& M e d i u m     ^& S m a l l e r   Ä ]S m & a l l e s t           Ù& L a n g u a g e           ZS t o & p 	 E s c     ô& R e f r e s h 	 F 5           [S o u r & c e    & D e b u g g e r     	& L a u n c h   D e b u g g e r   Ä 	& B r e a k   a t   N e x t         Ä W& O p t i o n s . . .    & H e l p     ¨T r i d e n t   H e l p   T o p i c s       ÆT r i d e n t   R e a d m e   F i l e   Ä ≠A b o u t   M i c r o s o f t   T r i d e n t   ê H e l p   f o r   M i c r o s o f t   T r i d e n t     ¨T r i d e n t   H e l p   T o p i c s       ÆT r i d e n t   R e a d m e   F i l e   Ä ≠A b o u t   M i c r o s o f t   T r i d e n t               .	L e f t - T o - R i g h t   D o c u m e n t   Ä /	R i g h t - T o - L e f t   D o c u m e n t   	 Z +     +   	 Y    	 X     .    	 C    	 -    	 V     -     .    	 . \   	 A    	 5    	 e         	 P    	 O –   q F    C Ω   V æ     k   F ¿   P ¡   r ∆  	 B 4   	 U ?   	 I 8    B 4    U ?    I 8    Z ∂  	   ∂   j …  	 E    	 L À   ! Ã  	 Q Õ   N Œ  	 L á  	 S F    { F    { F   	 F C   â K L    Í    Î   % Í   ' Î  	 C    	 -    	 A    	 5    	 e    	 P    	 O –   q F    t ô  â t õ  	 S F   	 { F    { F   â F C   â F C   	 X     .    	 C    	 -    	 V     -     .       k   r ∆  	 Z +     +   	 Y    â A    	 X     .    	 C    	 -    	 V     -     .       k   r ∆  	 Z +     +   	 Y    â A    ë e °  ë e °   C Ω  â F C    C Ω   V æ     k   F ¿   P ¡   r ∆  	 B 4   	 U ?   	 I 8    B 4    U ?    I 8    Z ∂  	   ∂   j …  	 E    	 L À   ! Ã  	 Q Õ   N Œ  	 L á  	 S F    { F    { F   	 F C   â K L   C Ω  â F C    C Ω   V æ     k   F ¿   P ¡   r ∆  	 B 4   	 U ?   	 I 8    B 4    U ?    I 8    Z ∂  	   ∂   j …  	 E    	 L À   ! Ã  	 Q Õ   N Œ  	 L á  	 S F    { F    { F   	 F C   	 H I  	 G ø  â K L  ¿ »Ä         A>     E x p l o r e r   U s e r   P r o m p t    M S   S h e l l   D l g   Ä ÅP     * 3 ≈ˇˇÅ        P     2   ˇˇÄ O K         P     2   ˇˇÄ C a n c e l         P      â 
+ ˇˇˇˇÇ S c r i p t   P r o m p t :         P      ˘  ƒˇˇÇ           ¿ »ê     d 2 Ù ü     A c t i v e X   V i e w e r   N o t   I n s t a l l e d    M S   S h e l l   D l g     P        ˇˇÇ ˇˇ  Ä P    " 
+ À  ˇˇˇˇÇ T h e   p a g e   y o u   a r e   a b o u t   t o   v i e w   c o n t a i n s   a n   e m b e d d e d   o b j e c t   o f   t h e   f o l l o w i n g   t y p e :       P     à 3   ˇˇÄ & Y e s         P    ∫ à 3   ˇˇÄ & N o     P    " q À  «ˇˇÄ & A l w a y s   c h e c k   b e f o r e   d i s p l a y i n g   t h i s   t y p e   o f   o b j e c t       P    U 0 ç  »ˇˇÇ         P    " T À  ˇˇˇˇÇ Y o u r   c o m p u t e r   d o e s   n o t   h a v e   a n   A c t i v e X   v i e w e r   f o r   t h i s   t y p e   o f   o b j e c t .   D o   y o u   w a n t   t o   d o w n l o a d   a n d   i n s t a l l   a n   A c t i v e X   v i e w e r   a u t o m a t i c a l l y ?      P    " # À + ˇˇˇˇÄ E m b e d d e d   o b j e c t   t y p e         P    ( 0 )  ˇˇˇˇÇ E x t e n s i o n :         P    ( = )  ˇˇˇˇÇ M I M E   t y p e :         P    U = ç  …ˇˇÇ           @  B         ™ 6        M S   S h e l l   D l g   Ä ÅP      ò  XˇˇÅ       S °P      ¶ $ TˇˇÉ           ¿ »ê         Ÿ }     T a b   O r d e r    M S   S h e l l   D l g      P    †  2   ˇˇÄ O K         P    † $ 2   ˇˇÄ C a n c e l         P    † B 2  ¥ˇˇÄ M o v e   & U p         P    † T 2  µˇˇÄ M o v e   & D o w n         P      é 
+ ≤ˇˇÇ & T a b   O r d e r :     	°P      é e ≥ˇˇÉ       ¿ »ê     d 2 ¯ F     R e s e t   W e b   S e t t i n g s    M S   S h e l l   D l g     P        ˇˇÇ ˇˇ  Ä P    &  «  ˇˇˇˇÇ D o   y o u   w a n t   t o   r e s e t   y o u r   W e b   s e t t i n g s   t o   t h e i r   o r i g i n a l   I n t e r n e t   E x p l o r e r   d e f a u l t s ?         P    á 2 2   ˇˇÄ & Y e s         P    æ 2 2   ˇˇÄ & N o     $P    % ! Œ 
+ `ˇˇÄ & A l s o   r e s e t   m y   h o m e   p a g e       D T         ˙         M S   S h e l l   D l g      P       2 
+ ˇˇˇˇÇ & L a n g u a g e :        !P    5   ú F  ˇˇÖ       ¿»Ä         0µ     P r i v a c y   R e p o r t    M S   S h e l l   D l g     P            ˇˇˇˇÇ P r i v a c y   R e p o r t         P        ˇˇÇ ˇˇ6Q    P    $   ˇˇÇ P r i v a c y   S t a t u s :   s t a t u s   h e r e      P      / 
+ ˇˇˇˇÇ S h & o w :        !P    9  x d ˙ˇˇÖ         P     * 
+ ˇˇˇˇÇ & W e b   s i t e s   w i t h   c o n t e n t   o n   t h e   c u r r e n t   p a g e :       ÄÅP     7 "Q ÁS y s L i s t V i e w 3 2   T h i s   l i s t   s h o w s   t h e   W e b   s i t e s   t h a t   p r o v i d e   c o n t e n t   t o   t h e   c u r r e n t   p a g e   a n d   t h e i r   c o o k i e   s t a t u s .     D o u b l e - c l i c k   a n   i t e m   i n   t h e   l i s t   t o   v i e w   i t s   p r i v a c y   s u m m a r y .         P     ã À  ˇˇˇˇÇ T o   v i e w   a   s i t e ' s   p r i v a c y   s u m m a r y ,   s e l e c t   a n   i t e m   i n   t h e   l i s t ,   a n d   t h e n   c l i c k   S u m m a r y .       P    Ÿ ã P  ˇˇÄ S & u m m a r y       ÄP     ¢ Z 
+ R I C H E D I T 2 0 W   I D S _ P R I V A C Y _ L E A R N M O R E A B O U T P R I V A C Y       P    » † 5  ˜ˇˇÄ & S e t t i n g s . . .        P    † (   ˇˇÄ & C l o s e           ê D e f a u l t     ¸A l w a y s   & A c c e p t   c o o k i e s   f r o m   t h i s   s i t e .     ˝A l w a y s   & R e j e c t   c o o k i e s   f r o m   t h i s   s i t e .   Ä ˛U s e   & d e f a u l t   b e h a v i o r   f o r   t h i s   s i t e .   ¿»Ä         ˙ h     P r i v a c y    M S   S h e l l   D l g       P        ˇˇÇ ˇˇ6Q    P    #  — + ˇˇˇˇÇ T h e   p r i v a c y   i c o n   a p p e a r s   i n   t h e   s t a t u s   b a r   e a c h   t i m e   a   c o o k i e   i s   r e s t r i c t e d   b a s e d   o n   y o u r   p r i v a c y   s e t t i n g s .     T o   s e e   a   p r i v a c y   r e p o r t ,   d o u b l e - c l i c k   t h e   i c o n   w h e n   i t   a p p e a r s .        P    H B · 
+ ˇˇÄ & D o n ' t   s h o w   t h i s   m e s s a g e   a g a i n .      P    k ) #  ˇˇˇˇÇ ˇˇ   ÄP     U i 
+ R I C H E D I T 2 0 W   I D S _ P R I V A C Y _ L E A R N M O R E A B O U T C O O K I E S       P    é S 2  ˜ˇˇÄ & S e t t i n g s . . .        P    √ S 2   ˇˇÄ O K           ¿
+¿Ä         d     M e d i a   B a r   S e t t i n g s    M S   S h e l l   D l g     P        ˇˇÇ ˇˇ    P    )  — 7  pˇˇÇ Y o u   c l i c k e d   a n   a u d i o   o r   v i d e o   l i n k .   I n t e r n e t   E x p l o r e r   c a n   p l a y   t h i s   i n   i t

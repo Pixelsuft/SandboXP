@@ -1,0 +1,2865 @@
+var g_metaDataInfo;
+function ShowMetaData(mdObject)
+{
+    if (mdObject)
+    {
+        g_metaDataInfo = mdObject;
+        var str = mdObject.getDataString();
+        if ("" != str)
+        {
+            metadata.value = str;
+            metadata.tooltip = mdObject.tooltip;
+
+            if ("" != mdObject.url)
+            {
+                metadata.enabled = true;
+                if (metadata.hoverFontStyle=="normal")
+                {
+                    metadata.hoverFontStyle = "underline";
+                }
+                else
+                {
+                    metadata.hoverFontStyle = metadata.fontStyle + " underline";
+                }
+                metadata.cursor="hand";
+            }
+            else
+            {
+                metadata.hoverFontStyle = metadata.fontStyle;
+                metadata.cursor="system";
+                metadata.enabled = false;
+            }
+            
+            metadata.toolTip = mdObject.toolTip;
+        }
+    }
+    else
+    {
+        ShowStatus(player.status);
+    }
+}
+
+function ShowStatus(sStr)
+{
+    metadata.value = sStr;
+    metadata.hoverFontStyle = "normal";
+    metadata.cursor="system";
+    metadata.tooltip = "";
+    metadata.enabled = false;
+}
+
+function RotateMetaData()
+{
+    var currentMetaDataObject = g_MetaDataCollectionManager.getNextMetaDataObject();
+    ShowMetaData(currentMetaDataObject);
+}
+
+function ForceMetaData(itemIndex)
+{
+    var meta = g_MetaDataCollectionManager.getItem(itemIndex);
+    ShowMetaData(meta);
+}
+
+function OnClickMetaData()
+{
+    if ("" != g_metaDataInfo.url)
+        player.launchURL(g_metaDataInfo.url);
+}
+
+function UpdateReceptionQuality(nReceptionQuality)
+{
+    if ( player.network.bufferingProgress < 100 )
+    {
+        return;
+    }
+    
+    var protocol = player.network.sourceProtocol;
+    if ( (protocol=="file") || (protocol=="") )
+    {
+        return;
+    }   
+
+    if ( (g_strPlayIcon == "WMPImage_PlaybackIcon")&&
+         (player.network.maxBitrate==player.network.bitRate)&&
+         (nReceptionQuality == 100) )
+    {
+        return;
+    }
+    
+    var IDIM_OLDSTRIMG_T1_14_NORMAL=1776;
+    var IDIM_OLDSTRIMG_T1_14_PACKETLOSS=1777;
+    var IDIM_OLDSTRIMG_T1_56_NORMAL=1778;
+    var IDIM_OLDSTRIMG_T1_56_PACKETLOSS=1779;
+    var IDIM_OLDSTRIMG_T1_T1_NORMAL=1780;
+    var IDIM_OLDSTRIMG_T1_T1_PACKETLOSS=1781;
+    var IDIM_OLDSTRIMG_PACKETLOSS10=1772;
+    
+    
+    
+    var imagename = "res://wmploc/RT_IMAGE/#";
+    
+    var maxBitrate = player.network.maxBitrate;
+    var currentBitrate = player.network.bitRate;    
+    var imageId=0;
+    if (currentBitrate==maxBitrate) 
+    {
+        imageId=IDIM_OLDSTRIMG_T1_T1_NORMAL;
+    }
+    else
+    {
+        if (currentBitrate >= (maxBitrate/2))
+        {
+            imageId=IDIM_OLDSTRIMG_T1_56_NORMAL;
+        }
+        else
+        {
+            imageId=IDIM_OLDSTRIMG_T1_14_NORMAL;
+        }   
+    }
+    if (nReceptionQuality > 0)
+    {
+        if(nReceptionQuality == 100)
+        {            
+            if (currentBitrate==maxBitrate)
+            {
+                QualityIcon.upToolTip="res://wmploc/RT_STRING/#2079";
+            }
+            else
+            {
+                QualityIcon.upToolTip="res://wmploc/RT_STRING/#2092";
+            }                  
+        }
+        else if( nReceptionQuality >= 95 )
+        {            
+            imageId +=1; //packet loss is one more the normal
+            QualityIcon.upToolTip="res://wmploc/RT_STRING/#2080";
+        }
+        else if(nReceptionQuality < 95)
+        {
+            imageId = IDIM_OLDSTRIMG_PACKETLOSS10;            
+            QualityIcon.upToolTip="res://wmploc/RT_STRING/#2081";
+        }
+        imagename += imageId;
+        QualityIcon.image = imagename;
+        QualityIcon.visible=true;
+    }
+}
+
+function OnTimerTransport()
+{
+    if (osMediaOpen != g_osOpenState)
+        return;
+    
+    switch(g_psPlayState)
+    {
+        case psPlaying:
+            RotateMetaData();        
+            break;
+    }
+}
+
+function OnStatusChangeTransport()
+{
+    view.timerInterval=0;
+    view.timerInterval=4000;
+    ShowStatus(player.status);
+}
+
+
+function OnBufferingChangeTransport(nProgress)
+{
+    if ( nProgress!=g_bufferingProgress)
+    {
+        g_bufferingProgress=nProgress;
+    }
+    else
+    {
+        return;
+    }
+    
+    if (nProgress == 100)
+    {
+        QualityIcon.image = "res://wmploc/RT_IMAGE/#1776";
+        QualityIcon.upToolTip="";
+        return;
+    }
+    if (nProgress > 50)
+    {
+        if (nProgress > 75)
+        {
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#1774";
+        }
+        else
+        {
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#1773";
+        }
+    }
+    else
+    {
+        if (nProgress>25)
+        {
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#1771";
+        }
+        else
+        {
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#1770";
+        }    
+    }    
+    var toolTip = "";
+    toolTip = toolTip.sprintf(g_bufferingToolTipFormatString, nProgress.toString());
+    QualityIcon.upToolTip=toolTip;
+    ShowStatus(player.status);
+}
+
+function OnDisconnectTransport()
+{
+    ShowStatus(theme.loadString("res://wmploc/RT_STRING/#2063"));
+}
+
+function PlayButtonClick(event)
+{
+    if( (player.playState==psPaused) && (event.ctrlKey) && player.controls.isAvailable('step') )
+    {
+        if (event.shiftKey)
+        {
+            player.controls.step(-1);
+        }
+        else
+        {
+            player.controls.step(1);
+        }
+    }
+    else
+    {
+        g_SetPlayPauseFocus=true;
+        player.controls.play();
+    }
+}
+
+function OnFFWD()
+{
+    if (player.PlayState == psScanForward)
+    {
+        player.controls.play();
+    }
+    else
+    {
+        player.controls.FastForward();
+    }
+}
+        
+function OnREW()
+{
+    if (player.PlayState == psScanReverse)
+    {
+        player.controls.play();
+    }
+    else
+    {
+        player.controls.FastReverse();
+    }
+}
+
+function volumeOnChange()
+{
+    player.settings.mute=false;
+}
+
+function muteOnClick()
+{
+    player.settings.mute = (player.settings.mute == true) ? false : true;
+}
+
+
+function ShowPlaybackIcon()
+{
+    g_strPlayIcon   = "WMPImage_PlaybackIcon";
+    g_strPlayTooltip="";
+    if (player.playState==psPlaying)
+    {
+        QualityIcon.image = g_strPlayIcon;
+        QualityIcon.upToolTip = g_strPlayTooltip;
+        QualityIcon.visible=true;
+    }
+}
+
+var g_IconURL="";
+
+function CheckForDecodingIcons()
+{
+    var HDCDMode = parseInt(player.currentPlaylist.getItemInfo("HDCDMode"));
+    if (HDCDMode==1)
+    {
+        g_strPlayIcon = "res://wmploc/RT_IMAGE/#1787";
+        g_strPlayTooltip = theme.loadString("res://wmploc/RT_STRING/#2098");
+        g_IconURL = mediacenter.getNamedString("HDCD_URL");
+        return;
+    }
+    else if (HDCDMode==2)
+    {
+        g_strPlayIcon = "res://wmploc/RT_IMAGE/#2030";
+        g_strPlayTooltip = theme.loadString("res://wmploc/RT_STRING/#2097");
+        g_IconURL = mediacenter.getNamedString("HDCD_URL");
+        return;
+    }
+    if (g_strPlayIcon != "WMPImage_PlaybackIcon")
+    {
+        g_strPlayIcon = "res://wmploc/RT_IMAGE/#1784";
+        g_strPlayTooltip = "";
+        g_IconURL = "";
+    }
+}
+
+
+function OnPlayStateChangeTransport(NewState)
+{
+    g_psPlayState=NewState;
+    
+    switch (NewState)
+    {
+    case psUndefined:
+            seek.foregroundProgress = 0;
+            rew.down=false;
+            ffwd.down=false;
+        break;
+
+    case psTransitioning:
+            rew.down=false;
+            ffwd.down=false;
+        break;            
+        
+    case psReady:
+            QualityIcon.visible=false;
+            QualityIcon.upToolTip = "";
+            seek.foregroundProgress = 0;
+            rew.down=false;
+            ffwd.down=false;
+        break;
+
+    case psStopped:
+            QualityIcon.visible=true;
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#2024";
+            QualityIcon.upToolTip = "";
+            ffwd.down=false;
+            rew.down=false;
+        break;
+        
+    case psPaused:
+            QualityIcon.visible=true;
+            QualityIcon.image = "res://wmploc/RT_IMAGE/#2023";
+            QualityIcon.upToolTip = "";
+            ffwd.down=false;
+            rew.down=false;
+        break;
+        
+    case psPlaying:
+            ShowPlayingIcon();
+            ShowStatus(player.status);
+            ffwd.down=false;
+            rew.down=false;
+        break;
+        
+    case psWaiting:
+            rew.down=false;
+            ffwd.down=false;
+        break;
+        
+    case psScanForward:
+            ShowPlayingIcon();
+            rew.down=false;
+            ffwd.down=true;
+        break;
+        
+    case psScanReverse:
+            ShowPlayingIcon();
+            rew.down=true;
+            ffwd.down=false;
+        break;
+        
+    case psBuffering:
+        break;
+
+    case psReconnecting:
+        break;
+    }
+}
+
+function ShowPlayingIcon()
+{
+    var sp = player.network.sourceProtocol;
+    if ( (sp=="file") || (sp=="") || (g_strPlayIcon == "WMPImage_PlaybackIcon") )
+    {
+        CheckForDecodingIcons();
+        QualityIcon.image = g_strPlayIcon;
+        QualityIcon.upToolTip = g_strPlayTooltip;
+        QualityIcon.visible=true;
+    }
+    else
+    {
+        UpdateReceptionQuality(player.network.receptionQuality);
+    }
+}
+
+function OnOpenStateChangeTransport(NewState)
+{
+    g_osOpenState=NewState;
+    switch (NewState)
+    {
+    case osUndefined:
+        tracktime.visible=false;
+        g_fIsLiveBroadcast=false;
+        break;
+        
+    case osPlaylistChanging:
+        break;
+
+    case osPlaylistLocating:
+        break;
+
+    case osPlaylistConnecting:
+        break;
+
+    case osPlaylistLoading:
+        break;
+
+    case osPlaylistOpening:
+        break;
+
+    case osPlaylistOpenNoMedia:
+        break;
+
+    case osPlaylistChanged:
+        break;
+
+    case osMediaChanging:
+        QualityIcon.visible = false;
+        ResetPlayIcon();
+        break;
+
+    case osMediaLocating:
+        QualityIcon.visible=true;
+        QualityIcon.image = "res://wmploc/RT_IMAGE/#1783";
+        QualityIcon.upToolTip="";
+        break;
+
+    case osMediaConnecting:
+        QualityIcon.visible=true;
+        QualityIcon.image = "res://wmploc/RT_IMAGE/#1783"; // uses same image as Locating
+        QualityIcon.upToolTip="";
+        break;
+
+    case osMediaLoading:
+        break;
+
+    case osMediaWaiting:
+        g_fIsLiveBroadcast = (player.currentMedia.getItemInfo("Type") == "broadcast");
+        seek.enabled = !g_fIsLiveBroadcast;
+        break;
+
+    case osMediaOpening:
+        QualityIcon.visible=true;
+        QualityIcon.image = "res://wmploc/RT_IMAGE/#2020";
+        QualityIcon.upToolTip="";
+        g_strPlayIcon = "res://wmploc/RT_IMAGE/#1784";
+        g_strPlayTooltip = "";        
+        break;
+
+    case osMediaOpen: 
+        tracktime.visible=true;
+        g_fIsLiveBroadcast = (player.currentmedia.getiteminfo("Type") == "broadcast");
+        seek.enabled = !g_fIsLiveBroadcast;
+        InitMetaDataCollection();
+        break;
+
+    case osBeginLicenseAcquisition:
+        break;
+
+    case osEndLicenseAcquisition:
+        break;
+
+    case osBeginIndividualization:
+        break;
+
+    case osEndIndividualization:
+        break;
+
+    default:
+        break;
+    }    
+}
+
+function getFormattedValue(value)
+{
+    if (player.openState!=osMediaOpen)
+    {
+        return "";
+    }
+
+    if (!g_kPositionFormatString)
+    {
+        g_kPositionFormatString = theme.loadString("res://wmploc/RT_STRING/#2091");
+    }
+    var currentValue;
+    try
+    {
+        currentValue = app.getTimeString(value);
+    }
+    catch(err)
+    {
+        currentValue = helper.getTimeString(value);
+    }
+        
+    var totalTime = player.currentMedia.durationString; 
+    var format = g_kPositionFormatString;
+  
+    format = format.replace(/%1/i, currentValue);
+    format = format.replace(/%2/i, totalTime);
+
+    return format;
+}
+
+function getDarkTextColor()
+{
+    return mediacenter.appColorDark;
+}
+
+function getHighlightTextColor()
+{
+    return mediacenter.itemPlayingColor;
+}
+
+//----------------------------------------------------------------
+// multi-speed fastforward logic
+
+var g_kFFWD_Down1 = "res://-/#1897";
+var g_kFFWD_Down2 = "res://-/#2082";
+var g_kFFWD_Down3 = "res://-/#2083";
+var g_kFastForwardRate1 = 1.4;
+var g_kFastForwardRate2 = 2.0;
+var g_kFastForwardRate3 = 5.0;
+
+function SyncFFWDButtonToRate(rate)
+{
+    var tc = player.controls.isAvailable("timeCompression");
+    if ( rate < g_kFastForwardRate1 )
+    {
+        ffwdGroup.downImage=g_kFFWD_Down1;
+        if( !tc )
+        {
+            ffwd_multi.upToolTip="res://wmploc/RT_STRING/#1804"
+        }
+        else
+        {
+            ffwd_multi.upToolTip="res://wmploc/RT_STRING/#2194"
+        }
+        ffwd_multi.down = false;
+    }
+    else if (rate < g_kFastForwardRate2)
+    {
+        ffwdGroup.downImage=g_kFFWD_Down1;
+        if( !tc )
+        {
+            ffwd_multi.downToolTip="res://wmploc/RT_STRING/#1804"
+            ffwd_multi.down = false;
+        }
+        else
+        {
+            ffwd_multi.downToolTip="res://wmploc/RT_STRING/#2195"
+            ffwd_multi.down = true;
+        }
+    }
+    else if (rate < g_kFastForwardRate3)
+    {
+        if( !tc )
+        {
+            ffwd_multi.downToolTip="res://wmploc/RT_STRING/#1804"
+            ffwdGroup.downImage=g_kFFWD_Down1;
+            ffwd_multi.down = false;
+        }
+        else
+        {
+            ffwdGroup.downImage=g_kFFWD_Down2;
+            ffwd_multi.downToolTip="res://wmploc/RT_STRING/#2196"
+            ffwd_multi.down = true;
+        }
+    }
+    else
+    {
+        if( !tc )
+        {
+            ffwdGroup.downImage=g_kFFWD_Down1;
+        }
+        else
+        {
+            ffwdGroup.downImage=g_kFFWD_Down3;
+        }
+        ffwd_multi.downToolTip="res://wmploc/RT_STRING/#1818"
+        ffwd_multi.down = true;
+    }
+}
+
+function OnFFWDMultiSpeed()
+{
+    var tc = player.controls.isAvailable("timeCompression");
+    var rate = player.settings.rate;
+
+    if (rate < g_kFastForwardRate1 && tc)
+    {
+        player.settings.rate=g_kFastForwardRate1;
+    }
+    else if (rate<g_kFastForwardRate2 && tc)
+    {
+        player.settings.rate=g_kFastForwardRate2;
+    }
+    else if (rate<g_kFastForwardRate3)
+    {
+        player.settings.rate=g_kFastForwardRate3;
+    }
+    else
+    {
+        player.settings.rate=1;
+    }
+}
+         	    é>◊   –  v M a i n   ˚  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / N o w P l a y i n g . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 6   = H˝  m e d i a c e n t e r . a p p C o l o r M e d i u m   % ‡o n l o a d   O n L o a d ( ) ;   ) ‡o n c l o s e   O n C l o s e ( ) ;     ‡o n r e s i z e   U p d a t e P a n e l s ( ) ;   å p l a y e r   M  o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e ( ) ;   M  p l a y s t a t e c h a n g e   O n P l a y S t a t e C h a n g e ( ) ;      S c r i p t C o m m a n d   O n S c r i p t C o m m a n d ( s c T y p e ,   P a r a m ) ;         d v d     ‡d o m a i n _ o n c h a n g e   i f   ( P l a y i n g D V D ( ) ) U p d a t e V i z C o n t r o l s ( ) ;   ¶    m e d i a c e n t e r   √ ‡d i s p l a y V i e w _ o n c h a n g e   U p d a t e D i s p l a y P l u g i n ( ) ; U p d a t e V i z C o n t r o l s ( ) ; U p d a t e C a p t i o n s ( ) ; U p d a t e P a n e l s ( ) ;   á ‡d i s p l a y P r e s e t _ o n c h a n g e   U p d a t e D i s p l a y P r e s e t ( ) ; U p d a t e V i z C o n t r o l s ( ) ;   ã ‡s e t t i n g s V i e w _ o n c h a n g e   U p d a t e S e t t i n g s P l u g i n ( ) ; U p d a t e S e t t i n g s T i t l e ( ) ;   è ‡s e t t i n g s P r e s e t _ o n c h a n g e   U p d a t e S e t t i n g s P l u g i n ( ) ; U p d a t e S e t t i n g s T i t l e ( ) ;   _ ‡m e t a d a t a V i e w _ o n c h a n g e   U p d a t e M e t a d a t a P l u g i n ( ) ;   c ‡m e t a d a t a P r e s e t _ o n c h a n g e   U p d a t e M e t a d a t a P l u g i n ( ) ;   O ‡e f f e c t T y p e _ o n c h a n g e   U p d a t e V i z T i t l e ( ) ;   S ‡e f f e c t P r e s e t _ o n c h a n g e   U p d a t e V i z T i t l e ( ) ;   s ‡s h o w S e t t i n g s _ o n c h a n g e   U p d a t e P a n e l s ( ) ; U p d a t e C u s t o m i z e ( ) ;   q ‡s h o w C a p t i o n s _ o n c h a n g e   U p d a t e C a p t i o n s ( ) ; U p d a t e P a n e l s ( ) ;   [ ‡s h o w R e s i z e B a r s _ o n c h a n g e   U p d a t e R e s i z e B a r s ( ) ;   W ‡s h o w E f f e c t s _ o n c h a n g e   U p d a t e V i z C o n t r o l s ( ) ;   Q ‡s h o w T i t l e s _ o n c h a n g e   U p d a t e C u s t o m i z e ( ) ;   ï ‡s h o w P l a y l i s t _ o n c h a n g e   U p d a t e P a n e l s ( ) ; U p d a t e F i l l L i n k ( ) ; U p d a t e C u s t o m i z e ( ) ;   ï ‡s h o w M e t a d a t a _ o n c h a n g e   U p d a t e P a n e l s ( ) ; U p d a t e F i l l L i n k ( ) ; U p d a t e C u s t o m i z e ( ) ;   O ‡q u i c k H i d e _ o n c h a n g e   U p d a t e C u s t o m i z e ( ) ;   q ‡f u l l S c r e e n A v a i l a b l e _ o n c h a n g e   U p d a t e F u l l S c r e e n B u t t o n ( ) ;   S ‡c a p t i o n s H e i g h t _ o n c h a n g e   U p d a t e P a n e l s ( ) ;     ‡v i z A u t o S e l e c t _ o n c h a n g e   i f ( m e d i a c e n t e r . v i z A u t o S e l e c t ) { R e s e t D i s p l a y P l u g i n ( ) ; }   d     h e l p e r     ‡l i n k R e q u e s t _ o n c h a n g e   O n L i n k R e q u e s t ( ) ;   '      –  s v F i l l   I à”  v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t ;    “      ! à‘  v M a i n . w i d t h ;   / à’  g _ C o n t r o l b a r H e i g h t ;   9 H˝  m e d i a c e n t e r . a p p C o l o r D a r k    ›  s t r e t c h     ﬁ  b o t t o m   ∫       –  s v F i l l L i n k    ”       “      ! à‘  v M a i n . w i d t h ;    ’     ; H˝  m e d i a c e n t e r . a p p C o l o r L i g h t     ›  s t r e t c h   8%   –  s v M a i n    ”       “      k à‘  v M a i n . w i d t h - m e d i a c e n t e r . p l a y l i s t W i d t h - g _ S e p W i d t h ;   # à’  v M a i n . h e i g h t ;    ˝  b l a c k    ›  s t r e t c h     ﬁ  s t r e t c h   3   –  s v M e d i a    ”       “      # à‘  s v M a i n . w i d t h ;   ô à’  s v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t - m e d i a c e n t e r . s e t t i n g s H e i g h t - g _ S e p H e i g h t ;    ˝  b l a c k    ›  s t r e t c h     ﬁ  s t r e t c h   K  é 
+  {√™®IAKØi∞l_¸3 –  p i D i s p l a y    ‚  u   ”       “      % à‘  s v M e d i a . w i d t h ;   ' à’  s v M e d i a . h e i g h t ;    9  b l a c k    ›  s t r e t c h    ﬁ  s t r e t c h      c l a s s i d   c l s i d : A A 1 A C 3 7 B - 4 9 A 8 - 4 B 4 1 - A F 6 9 - B 0 1 7 6 C 5 F F C 3 3   Ú  é   {√™®IAKØi∞l_¸3 –  p i C a p t i o n s   { à”  s v M e d i a . h e i g h t - g _ B a n n e r H e i g h t - m e d i a c e n t e r . c a p t i o n s H e i g h t ;    “      % à‘  s v M e d i a . w i d t h ;   ? à’  m e d i a c e n t e r . c a p t i o n s H e i g h t ;    9  b l a c k    ›  s t r e t c h    ﬁ  b o t t o m   	 Ÿ    ! :  C a p t i o n s V i e w      c l a s s i d   c l s i d : A A 1 A C 3 7 B - 4 9 A 8 - 4 B 4 1 - A F 6 9 - B 0 1 7 6 C 5 F F C 3 3       é   {√™®IAKØi∞l_¸3 –  p i B a n n e r   E à”  s v M e d i a . h e i g h t - g _ B a n n e r H e i g h t ;    “      % à‘  s v M e d i a . w i d t h ;   ' à’  g _ B a n n e r H e i g h t ;    9  b l a c k    ›  s t r e t c h    ﬁ  b o t t o m   	 Ÿ     :  B a n n e r V i e w      c l a s s i d   c l s i d : A A 1 A C 3 7 B - 4 9 A 8 - 4 B 4 1 - A F 6 9 - B 0 1 7 6 C 5 F F C 3 3   o  Å   Q)áé”ª* †…<ß: –  b t n H R e s i z e   ô à”  s v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t - m e d i a c e n t e r . s e t t i n g s H e i g h t - g _ S e p H e i g h t ;    “      # à‘  s v M a i n . w i d t h ;   	 Û  ˇˇ- Ó  r e s : / / w m p l o c / # 1 7 0 8    Ù  b l a c k    ›  s t r e t c h    ﬁ  b o t t o m   ? ‡o n m o u s e d o w n   O n H R e s i z e S t a r t ( ) ;   i ‡o n m o u s e m o v e   i f ( g _ H R e s i z e ) O n H R e s i z e ( e v e n t . c l i e n t Y ) ;   7 ‡o n m o u s e u p   O n H R e s i z e E n d ( ) ;    ˙  s i z e n s     €    ÙS   –  s v S e t t i n g s   Å à”  s v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t - m e d i a c e n t e r . s e t t i n g s H e i g h t ;    “      # à‘  s v M a i n . w i d t h ;   ? à’  m e d i a c e n t e r . s e t t i n g s H e i g h t ;    ˝  b l a c k    ›  s t r e t c h     ﬁ  b o t t o m   J  Å   Q)áé”ª* †…<ß:' –  b t n S e t t i n g s P r e v    ”      “     - Ó  r e s : / / w m p l o c / # 1 7 2 8   - Ô  r e s : / / w m p l o c / # 1 7 2 7   -   r e s : / / w m p l o c / # 1 7 2 6    Ù  a u t o    ¯  å   ‚  å   ‰  B    ‡o n c l i c k   P r e v i o u s S e t t i n g s ( ) ;   y  Å   Q)áé”ª* †…<ß:' –  b t n S e t t i n g s N e x t    ”      “     - Ó  r e s : / / w m p l o c / # 1 7 2 5   - Ô  r e s : / / w m p l o c / # 1 7 2 4   -   r e s : / / w m p l o c / # 1 7 2 3    Ù  a u t o    ¯  ç   ‚  ç   ‰  B  7 HŸ  b t n S e t t i n g s P r e v . v i s i b l e     ‡o n c l i c k   N e x t S e t t i n g s ( ) ;   ô  Å   Q)áé”ª* †…<ß:) –  b t n S e t t i n g s C l o s e    ”     3 à“  s v S e t t i n g s . w i d t h   -   2 0   + Ó  r e s : / / w m p l o c / # 5 2 2   + Ô  r e s : / / w m p l o c / # 5 2 4   +   r e s : / / w m p l o c / # 5 2 3    Ù  a u t o    ›  r i g h t    ¯     ‚     ‰  B    ‡o n c l i c k   m e d i a c e n t e r . s h o w S e t t i n g s = f a l s e ;   ˛   á   .⁄›”¢‚ ¿Oy¯é) –  t x t S e t t i n g s T i t l e    ”      “  +   ? à‘  b t n S e t t i n g s C l o s e . l e f t - l e f t ;    ›  s t r e t c h    V  `   X  a   W  e   Y  w h i t e    Q  b l a c k     €        é   {√™®IAKØi∞l_¸3 –  p i S e t t i n g s    ”      “      + à‘  s v S e t t i n g s . w i d t h ;   9 à’  s v S e t t i n g s . h e i g h t - t o p - 4 ;    ›  s t r e t c h    ﬁ  s t r e t c h      c l a s s i d   c l s i d : A A 1 A C 3 7 B - 4 9 A 8 - 4 B 4 1 - A F 6 9 - B 0 1 7 6 C 5 F F C 3 3     7  ! –  s v C o n t r o l b a r   K à”  s v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t ;    “      # à‘  s v M a i n . w i d t h ;   / à’  g _ C o n t r o l b a r H e i g h t ;   9 H˝  m e d i a c e n t e r . a p p C o l o r D a r k    ›  s t r e t c h     ﬁ  b o t t o m   F  Å   Q)áé”ª* †…<ß:) –  b t n C u s t o m i z e M e n u    ”      “     - Ó  r e s : / / w m p l o c / # 1 7 1 5   - Ô  r e s : / / w m p l o c / # 1 7 1 4   -   r e s : / / w m p l o c / # 1 7 1 3    ¯  ~   ‚  ~   ‰  B   Ù  a u t o     ‡o n c l i c k   C u s t o m i z e M e n u ( ) ;   N   è   ãv≥∫ÉàÏJüõ·LîyÔ! –  m n u C u s t o m i z e   	 Ÿ      £      m  Å   Q)áé”ª* †…<ß: –  b t n V i z P r e v    ”      “     - Ó  r e s : / / w m p l o c / # 1 7 2 8   - Ô  r e s : / / w m p l o c / # 1 7 2 7   -   r e s : / / w m p l o c / # 1 7 2 6    Ù  a u t o    ¯  2   ‚  2   ‰  B  / HŸ  t x t V i z T i t l e . v i s i b l e     ‡o n c l i c k   P r e v i o u s D i s p l a y ( ) ;   e  Å   Q)áé”ª* †…<ß: –  b t n V i z N e x t    ”      “  +   - Ó  r e s : / / w m p l o c / # 1 7 2 5   - Ô  r e s : / / w m p l o c / # 1 7 2 4   -   r e s : / / w m p l o c / # 1 7 2 3    Ù  a u t o    ¯  3   ‚  3   ‰  B  / HŸ  t x t V i z T i t l e . v i s i b l e     ‡o n c l i c k   N e x t D i s p l a y ( ) ;     á   .⁄›”¢‚ ¿Oy¯é –  t x t V i z T i t l e    ”      “  A   g à‘  s v C o n t r o l b a r . w i d t h   -   t x t V i z T i t l e . l e f t   -   4 8   -   4 ;    ›  s t r e t c h    Y  w h i t e    V  `   X  a   W  b   ^  4    €    6  á   .⁄›”¢‚ ¿Oy¯é! –  t x t V i z T i t l e 2    ”     ) à“  b t n V i z P r e v . l e f t ;   i à‘  s v C o n t r o l b a r . w i d t h   -   t x t V i z T i t l e 2 . l e f t   -   4 8   -   4 ;    ›  s t r e t c h    Y  w h i t e    V  `   X  a   W  b   ^  4    €    [  Å   Q)áé”ª* †…<ß: ”      “      –  b t n D V D M e n u   W  m a p p i n g I m a g e   r e s : / / w m p l o c / R T _ B I T M A P / # 2 1 5 6   A Ó  r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 8   A Ô  r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 7   A   r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 6   A Ò  r e s : / / w m p l o c / R T _ B I T M A P / # 2 1 5 5    ¯  ∆   ‚  ∆   ‰  B  C (⁄  w m p e n a b l e d : p l a y e r . d v d . t o p M e n u   ? ‡o n c l i c k   p l a y e r . d v d . t o p M e n u ( ) ;     Ù  a u t o   p  á   .⁄›”¢‚ ¿Oy¯é –  t x t D V D M e n u    ”      “  /    ]  ≈   ^  ∆   Y  w h i t e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b  	 €    - HŸ  b t n D V D M e n u . v i s i b l e   C (⁄  w m p e n a b l e d : p l a y e r . d v d . t o p M e n u     ‡o n c l i c k   p l a y e r . d v d . t o p M e n u ( ) ;   [  Å   Q)áé”ª* †…<ß: ”      “     ! –  b t n D V D R e s u m e   W  m a p p i n g I m a g e   r e s : / / w m p l o c / R T _ B I T M A P / # 2 1 5 6   A Ó  r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 8   A Ô  r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 7   A   r e s : / / w m p l o c / R T _ B I T M A P / # 1 7 1 6   A Ò  r e s : / / w m p l o c / R T _ B I T M A P / # 2 1 5 5    ¯  »   ‚  »   ‰  B  A (⁄  w m p e n a b l e d : p l a y e r . d v d . r e s u m e   = ‡o n c l i c k   p l a y e r . d v d . r e s u m e ( ) ;     Ù  a u t o   v  á   .⁄›”¢‚ ¿Oy¯é! –  t x t D V D R e s u m e    ”      “  /    ]  «   ^  »   Y  w h i t e    V  `  / HX  t x t D V D M e n u . f o n t S i z e    W  b  	 €    1 HŸ  b t n D V D R e s u m e . v i s i b l e   A (⁄  w m p e n a b l e d : p l a y e r . d v d . r e s u m e     ‡o n c l i c k   p l a y e r . d v d . r e s u m e ( ) ;   q  Å   Q)áé”ª* †…<ß:! –  b t n C u s t o m i z e    ”     7 à“  s v C o n t r o l b a r . w i d t h   -   4 7    ›  r i g h t   - Ó  r e s : / / w m p l o c / # 1 7 3 3   - Ô  r e s : / / w m p l o c / # 1 7 3 1   - Ú  r e s : / / w m p l o c / # 1 7 3 2   -   r e s : / / w m p l o c / # 1 7 3 4   - Ò  r e s : / / w m p l o c / # 1 7 2 9    ¯  |   ˘  }   ‰  B  	 ˆ  ˇˇ3 Hı  m e d i a c e n t e r . q u i c k H i d e    Ù  a u t o     ‡o n c l i c k   m e d i a c e n t e r . q u i c k H i d e = ! m e d i a c e n t e r . q u i c k H i d e ; U p d a t e C u s t o m i z e ( ) ;       Å   Q)áé”ª* †…<ß:# –  b t n F u l l S c r e e n    ”     7 à“  s v C o n t r o l b a r . w i d t h   -   2 5    ›  r i g h t   - Ó  r e s : / / w m p l o c / # 1 7 2 2   - Ô  r e s : / / w m p l o c / # 1 7 2 1   -   r e s : / / w m p l o c / # 1 7 2 0   - Ò  r e s : / / w m p l o c / # 1 7 1 9    Ù  a u t o    ¯  >   ‚  >   ‰  B    ‡o n c l i c k   m e d i a c e n t e r . f u l l S c r e e n R e q u e s t = t r u e ;   e  Å   Q)áé”ª* †…<ß: –  b t n V R e s i z e    ”      k à“  v M a i n . w i d t h - m e d i a c e n t e r . p l a y l i s t W i d t h - g _ S e p W i d t h ;   I à’  v M a i n . h e i g h t - g _ C o n t r o l b a r H e i g h t ;   	 Û  ˇˇ- Ó  r e s : / / w m p l o c / # 1 7 0 6    Ù  b l a c k    ›  r i g h t    ﬁ  s t r e t c h    ˙  s i z e w e   ? ‡o n m o u s e d o w n   O n V R e s i z e S t a r t ( ) ;   i ‡o n m o u s e m o v e   i f ( g _ V R e s i z e ) O n V R e s i z e ( e v e n t . c l i e n t X ) ;   7 ‡o n m o u s e u p   O n V R e s i z e E n d ( ) ;     €      K   –  s v S i d e b a r    ”      U à“  v M a i n . w i d t h - m e d i a c e n t e r . p l a y l i s t W i d t h ;   = à‘  m e d i a c e n t e r . p l a y l i s t W i d t h ;   # à’  v M a i n . h e i g h t ;   = H˝  m e d i a c e n t e r . a p p C o l o r M e d i u m    ›  r i g h t     ﬁ  s t r e t c h   j  é   {√™®IAKØi∞l_¸3 –  p i M e t a d a t a    ‚  t   ”       “      ) à‘  s v S i d e b a r . w i d t h ;   ? à’  m e d i a c e n t e r . m e t a d a t a H e i g h t ;    9  b l a c k    ›  s t r e t c h    ﬁ  t o p   	 Ÿ       c l a s s i d   c l s i d : A A 1 A C 3 7 B - 4 9 A 8 - 4 B 4 1 - A F 6 9 - B 0 1 7 6 C 5 F F C 3 3     Å   Q)áé”ª* †…<ß: –  b t n S R e s i z e   ? à”  m e d i a c e n t e r . m e t a d a t a H e i g h t ;    “      ) à‘  s v S i d e b a r . w i d t h ;   	 Û  ˇˇ- Ó  r e s : / / w m p l o c / # 1 7 0 8    Ù  b l a c k    ›  s t r e t c h    ﬁ  t o p   ? ‡o n m o u s e d o w n   O n S R e s i z e S t a r t ( ) ;   i ‡o n m o u s e m o v e   i f ( g _ S R e s i z e ) O n S R e s i z e ( e v e n t . c l i e n t Y ) ;   7 ‡o n m o u s e u p   O n S R e s i z e E n d ( ) ;    ˙  s i z e n s     €        Ü   ì˝ú_≠å”ö~ ¿Oé˚p –  p l M e d i a    ‚  s   „  Ñ   ‰  Ö  W à”  m e d i a c e n t e r . m e t a d a t a H e i g h t + g _ S e p H e i g h t ;    “      ) à‘  s v S i d e b a r . w i d t h ;   3 à’  s v S i d e b a r . h e i g h t - t o p ;   	 Â    7 ‚  n a m e = N a m e ; D u r a t i o n = T i m e   	 Á    	 Ë  ˇˇ ›  s t r e t c h    ﬁ  s t r e t c h      Œ   1  e d i t B u t t o n V i s i b l e   t r u e   = HÏ  m e d i a c e n t e r . a p p C o l o r M e d i u m    Ì  w h i t e   A HÔ  m e d i a c e n t e r . i t e m P l a y i n g C o l o r   U H  m e d i a c e n t e r . i t e m P l a y i n g B a c k g r o u n d C o l o r   = H
+  m e d i a c e n t e r . i t e m E r r o r C o l o r   M @s t a t u s C o l o r   m e d i a c e n t e r . a p p C o l o r D a r k   K @h u e S h i f t   m e d i a C e n t e r . b u t t o n H u e S h i f t     @s a t u r a t i o n   m e d i a C e n t e r . b u t t o n S a t u r a t i o n     /   –  v B r o w s e r   «  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / N o w P l a y i n g . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 2    ˝  b l a c k     ‡o n l o a d   O n B r o w s e r L o a d ( ) ;   ˜   é   {√™®IAKØi∞l_¸3 –  B r o w s e r 1    ”      “      ' à‘  v B r o w s e r . w i d t h ;   1 à’  v B r o w s e r . h e i g h t - t o p ;    ›  s t r e t c h    ﬁ  s t r e t c h     :  W i n d o w s M e d i a V i e w     ®    –  s v B a c k B a r   ' à‘  v B r o w s e r . w i d t h ;    ’     ; H˝  m e d i a c e n t e r . a p p C o l o r L i g h t     ›  s t r e t c h   4  Å   Q)áé”ª* †…<ß: –  b t n B a c k    ”      “     - Ó  r e s : / / w m p l o c / # 1 7 1 2   - Ô  r e s : / / w m p l o c / # 1 7 1 1   -   r e s : / / w m p l o c / # 1 7 1 0    Ù  a u t o    ¯  Å   ‚  Å   ‰  B    ‡o n c l i c k   O n B r o w s e r B a c k ( ) ;       á   .⁄›”¢‚ ¿Oy¯é –  t x t B a c k    ”      “      ]  Ä   V  `   X  a   W  b   Y  w h i t e   ; HQ  m e d i a c e n t e r . a p p C o l o r L i g h t   	 €      ‡o n c l i c k   O n B r o w s e r B a c k ( ) ;    // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+// Dimensions must match wmpnowplayinghelper.cpp
+
+var g_BannerHeight		= 36;
+var g_SepWidth			= 2;
+var g_SepHeight 		= 2;
+var g_ControlbarHeight	= 20;
+
+var g_SettingsMinHeight = 21;
+var g_SettingsMaxHeight = 500;
+var g_SidebarMinWidth	= 100;
+var g_SidebarMaxWidth	= 500;
+var g_PlaylistMinHeight = 35;
+var g_MetadataMinHeight = 26;
+
+var g_DisplayMinWidth	= 200;
+var g_DisplayMinHeight	= 19;
+var g_MediaMinHeight	= 20;
+
+var PLUGIN_TYPE_BACKGROUND				=		1;
+var PLUGIN_TYPE_SEPARATEWINDOW			=		2;
+var PLUGIN_TYPE_DISPLAYAREA 			=		3;
+var PLUGIN_TYPE_SETTINGSAREA			=		4;
+var PLUGIN_TYPE_METADATAAREA			=		5;
+var PLUGIN_TYPE_BANNERAREA				=		240;
+
+var PLUGIN_PROP_CURRENTPRESET			= "CurrentPreset"
+var PLUGIN_PROP_SKINFILE				= "SkinFile"
+
+var VIEW_FLAGSEX_ATTEMPTEDAUTORUN		=		0x0001;
+
+var g_VResize = false;
+var g_HResize = false;
+var g_SResize = false;
+
+var g_fCaptionsDetected = false;
+var g_fShowCaptions = false;
+var g_fShowBanner	= false;
+var g_fClosing = false;
+
+var g_rgSettings = new Array(
+	"AppColorView",
+	"CrossFadeView",
+	"EQView",
+	"MediaLinkView",
+	"AdvancedVideoSettingsView",
+	"AdvancedAudioView",
+	"SRSView",
+	"VideoSettingsView"
+	);
+
+var g_nSettingsTitleLeft = 0;
+
+function OnLoad()
+{
+	g_nSettingsTitleLeft = txtSettingsTitle.left;
+	g_fCaptionsDetected = helper.captionsAvailable;
+
+	plMedia.setColumnResizeMode( 0, "Stretches" );
+	plMedia.setColumnResizeMode( 1, "AutosizeData" );
+
+	ResetDisplayPlugin();
+	UpdateCaptions();
+	UpdateBannerPlugin();
+	UpdateSettingsPlugin();
+	UpdateMetadataPlugin();
+	UpdateVizControls();
+	UpdatePanels();
+	UpdateFullScreenButton();
+	UpdateSettingsTitle();
+	UpdateCustomize();
+}
+
+function OnOpenStateChange()
+{
+	if( osMediaOpen == player.OpenState )
+	{
+		g_fCaptionsDetected = helper.captionsAvailable;
+		ResetDisplayPlugin();
+		UpdateCaptions();
+		UpdateBannerPlugin();
+		UpdatePanels();
+		UpdateVizControls();
+	}
+
+	UpdateFullScreenButton();
+}
+
+function OnPlayStateChange()
+{
+	if( psPlaying == player.playState )
+	{
+		ResetDisplayPlugin();
+		UpdateCaptions();
+		UpdatePanels();
+		UpdateVizControls();
+	}
+
+	UpdateFullScreenButton();
+}
+
+function OnScriptCommand(scType, Param)
+{
+	scType = scType.toUpperCase();
+	
+	if(scType == "TEXT" ||	scType == "<SYNC" || scType == "CAPTION" || scType == "SYNCHRONIZEDLYRICLYRIC")
+	{
+		g_fCaptionsDetected = true;
+		UpdateCaptions();
+		UpdatePanels();
+	}
+}
+
+function UpdatePanels()
+{
+   if( !g_fClosing )
+   {
+	var lSettings = 0;
+	var lSidebar = 0;
+	var lMetadata = 0;
+	var lPlaylist = 0;
+	var lDisplay = 0;
+	var lCaptions = 0;
+	var lBanner = 0;
+
+	helper.calcLayout( vMain.width, vMain.height, g_fShowCaptions, g_fShowBanner );
+
+	lSettings = helper.getLayoutSize( 1 );
+	lSidebar = helper.getLayoutSize( 2 );
+	lMetadata = helper.getLayoutSize( 3 );
+	lPlaylist = helper.getLayoutSize( 4 );
+	lDisplay = helper.getLayoutSize( 5 );
+	lCaptions = helper.getLayoutSize( 6 );
+	lBanner = helper.getLayoutSize( 7 );
+
+	if( 0 != lSettings )
+	{
+		svSettings.verticalAlignment="top";
+		svSettings.top=svMain.height-g_ControlbarHeight-lSettings;
+		svSettings.height=lSettings;
+		svSettings.verticalAlignment="bottom";
+		svSettings.visible = true;
+		svMedia.height = svSettings.top-g_SepHeight ;
+	}
+	else
+	{
+		svSettings.visible = false;
+		svMedia.height = svMain.height-g_ControlbarHeight;
+	}
+
+	if( 0 != lSidebar )
+	{
+		svSidebar.width = lSidebar;
+		svMain.width = vMain.width - lSidebar - g_SepWidth;
+		svSidebar.visible = true;
+	}
+	else
+	{
+		svSidebar.visible = false;
+		svSidebar.width = lSidebar;
+		svMain.width = vMain.width;
+	}
+
+	if( 0 != lMetadata )
+	{
+		piMetadata.height = lMetadata;
+		piMetadata.visible = true;
+	}
+	else
+	{
+		piMetadata.visible = false;
+	}
+
+	if( 0 != lPlaylist )
+	{
+		if( 0 != lMetadata )
+		{
+			plMedia.top = lMetadata + g_SepHeight;
+		}
+		else
+		{
+			plMedia.top = 0;
+		}
+
+		plMedia.height = lPlaylist;
+		plMedia.visible = true;
+	}
+	else
+	{
+		plMedia.visible = false;
+	}
+
+	UpdateResizeBars();
+
+	if( 0 != lDisplay )
+	{
+		piDisplay.height = lDisplay;
+		piDisplay.visible = true;
+	}
+	else
+	{
+		piDisplay.visible = false;
+	}
+
+	piBanner.visible = ( 0 != lBanner );
+
+	if( 0 != lCaptions )
+	{
+		piCaptions.verticalAlignment = "top";
+		piCaptions.top = lDisplay;
+		piCaptions.height = lCaptions;
+		piCaptions.verticalAlignment = "bottom";
+		piCaptions.visible = true;
+	}
+	else
+	{
+		piCaptions.visible = false;
+	}
+   }
+}
+
+function ResetDisplayPlugin()
+{
+		mediacenter.displayView = helper.resolveDisplayView(false);
+		UpdateDisplayPlugin();
+		UpdateDisplayPreset();
+}
+
+var g_fSetQuickHideForBorder=false;
+
+function OnClose()
+{
+   g_fClosing = true;
+   if( g_fSetQuickHideForBorder )
+   {
+      QuickHideForBorder( false );
+   }
+}
+
+function QuickHideForBorder(fHide)
+{
+	if (fHide && (!mediacenter.quickHide) && (!g_fSetQuickHideForBorder))
+	{
+		g_fSetQuickHideForBorder = true;
+		mediacenter.quickHide=true;
+	}
+	else if ( (!fHide) && g_fSetQuickHideForBorder)
+	{
+		mediacenter.quickHide=false;
+		g_fSetQuickHideForBorder=false;
+	}
+}
+
+function UpdateDisplayPlugin()
+{
+	piDisplay.objectID = mediacenter.displayView;
+
+	// handle skin
+
+	if( piDisplay.objectID == "BorderView" )
+	{
+		QuickHideForBorder(true);		
+		var skinfile = helper.getSkinFile();
+		piDisplay.setProperty( PLUGIN_PROP_SKINFILE, skinfile );
+
+		// Reset if error
+
+		if( ( piDisplay.getProperty( PLUGIN_PROP_SKINFILE ) != skinfile ) || ( "" == skinfile ) )
+		{
+			mediacenter.displayView = helper.resolveDisplayView(true);
+			UpdateDisplayPreset();
+			QuickHideForBorder(false);
+		}
+	}
+	else
+	{
+		QuickHideForBorder(false);		
+	}
+
+	// Reset if error
+
+	if( "" == piDisplay.objectID )
+	{
+			mediacenter.displayView = helper.resolveDisplayView(true);
+			UpdateDisplayPreset();
+	}
+
+	// Reset full screen
+
+	if( piDisplay.objectID != "VideoView" && piDisplay.objectID != "VizView" )
+	{
+			mediacenter.fullScreenAvailable = false;
+	}
+
+	// Sync back
+
+	mediacenter.displayView = piDisplay.objectID;
+
+	// Update filler
+
+	UpdateFillLink();
+}
+
+function UpdateDisplayPreset()
+{
+	var displayPreset = 0;
+
+	if( piDisplay.objectID != "VideoView" && piDisplay.objectID != "VizView" && piDisplay.objectID != "BorderView" && piDisplay.objectID != "MetadataView" )
+	{
+		piDisplay.setProperty( PLUGIN_PROP_CURRENTPRESET, mediacenter.displayPreset );
+
+		// Sync back
+
+		displayPreset = piDisplay.getProperty( PLUGIN_PROP_CURRENTPRESET );
+		mediacenter.displayPreset = displayPreset;
+	}
+}
+
+function UpdateCaptions()
+{
+	var fShowCaptions = false;
+	
+	if ( mediacenter.showCaptions && !PlayingDVD() )
+	{
+		if( piDisplay.objectID == "VideoView" || piDisplay.objectID == "VizView" || piDisplay.objectID == "AlbumArtView" )
+		{		
+			fShowCaptions = g_fCaptionsDetected;
+		}
+	}
+	
+	g_fShowCaptions = fShowCaptions;
+}
+
+function UpdateBannerPlugin()
+{
+	if(player.currentMedia && (player.currentmedia.getItemInfo("BannerURL") != ""))
+	{
+		g_fShowBanner = true;
+	}
+	else
+	{
+		g_fShowBanner = false;
+	}
+}
+
+function UpdateSettingsPlugin()
+{
+	var settingsPreset = 0;
+
+	piSettings.objectID = mediacenter.settingsView;
+	piSettings.setProperty( PLUGIN_PROP_CURRENTPRESET, mediacenter.settingsPreset );
+
+	// Reset if error
+
+	if( "" == piSettings.objectID )
+	{
+			piSettings.objectID = "EQView";
+	}
+
+	// Sync back
+
+	settingsPreset = piSettings.getProperty( PLUGIN_PROP_CURRENTPRESET );
+	mediacenter.settingsView = piSettings.objectID;
+	mediacenter.settingsPreset = settingsPreset;
+
+	// Update spinners and text
+
+	if( 0 <= MapSettingsToIndex( mediacenter.settingsView ) )
+	{
+		btnSettingsPrev.visible = true;
+		txtSettingsTitle.horizontalAlignment="left";
+		txtSettingsTitle.left = g_nSettingsTitleLeft;
+		txtSettingsTitle.width = btnSettingsClose.left-txtSettingsTitle.left;
+		txtSettingsTitle.horizontalAlignment="stretch";
+	}
+	else
+	{
+		btnSettingsPrev.visible = false;
+		txtSettingsTitle.horizontalAlignment="left";
+		txtSettingsTitle.left = btnSettingsPrev.left;
+		txtSettingsTitle.width = btnSettingsClose.left-txtSettingsTitle.left;
+		txtSettingsTitle.horizontalAlignment="stretch";
+	}
+}
+
+function UpdateMetadataPlugin()
+{
+	var metadataPreset = 0;
+
+	piMetadata.objectID = mediacenter.metadataView;
+	piMetadata.setProperty( PLUGIN_PROP_CURRENTPRESET, mediacenter.metadataPreset );
+
+	// Reset if error
+
+	if( "" == piMetadata.objectID )
+	{
+			piMetadata.objectID = "MediaInfoView";
+			mediacenter.showMetadata = false;
+	}
+
+	// Sync back
+
+	metadataPreset = piMetadata.getProperty( PLUGIN_PROP_CURRENTPRESET );
+	mediacenter.metadataView = piMetadata.objectID;
+	mediacenter.metadataPreset = metadataPreset;
+
+	// Update filler
+
+	UpdateFillLink();
+}
+
+function UpdateFillLink()
+{
+	svFillLink.visible = ( ( piMetadata.objectID == "MediaInfoView" ) && ( piDisplay.objectID == "MetadataView" ) && mediacenter.showMetadata );
+}
+
+function UpdateVizControls()
+{
+	// DVD?
+
+	if( ( "VideoView" == piDisplay.objectID ) && PlayingDVD() )
+	{
+			txtVizTitle.visible = false;
+			txtVizTitle2.visible = false;
+			btnDVDMenu.visible =  ( ("videoManagerMenu" != player.dvd.domain) && ("videoTitleSetMenu" != player.dvd.domain) ); 
+			btnDVDResume.visible = !btnDVDMenu.visible;
+
+			return;
+	}
+
+	// No Viz or Border or Video?
+
+	if( ( ( mediacenter.showEffects == false ) && ( "VizView" == piDisplay.objectID ) ) || 
+			( "BorderView" == piDisplay.objectID ) || ( "VideoView" == piDisplay.objectID ) )
+	{
+			txtVizTitle.visible = false;
+			txtVizTitle2.visible = false;
+			btnDVDMenu.visible = false;
+			btnDVDResume.visible = false;
+
+			return;
+	}
+
+	// Viz or Plugin
+
+	UpdateVizTitle();
+
+	if( ( "VizView" == piDisplay.objectID ) || ( 1 < helper.viewPresetCount( piDisplay.objectID ) ) )
+	{
+			txtVizTitle2.visible = false; 
+			btnDVDMenu.visible = false;
+			btnDVDResume.visible = false;
+			txtVizTitle.visible = true;
+
+			if( "VizView" == piDisplay.objectID )
+			{
+				btnVizPrev.upTooltip="res://wmploc/RT_STRING/#1842";
+				btnVizNext.upTooltip="res://wmploc/RT_STRING/#1843";
+			}
+			else
+			{
+				btnVizPrev.upTooltip="res://wmploc/RT_STRING/#1422";
+				btnVizNext.upTooltip="res://wmploc/RT_STRING/#1423";
+			}
+
+            btnVizPrev.accName = btnVizPrev.upTooltip;
+            btnVizNext.accName = btnVizNext.upTooltip;
+	}
+	else
+	{
+			txtVizTitle.visible = false; 
+			btnDVDMenu.visible = false;
+			btnDVDResume.visible = false;
+			txtVizTitle2.visible = true; 
+	}
+}
+
+function UpdateVizTitle()
+{
+	var viewName;
+	var presetName;
+
+	if( "VizView" == piDisplay.objectID )
+	{
+			viewName = helper.effectFriendlyName( mediacenter.effectType );
+			presetName = helper.effectPresetName( mediacenter.effectType, mediacenter.effectPreset );
+	}
+	else
+	{
+			viewName = helper.viewFriendlyName( piDisplay.objectID );
+			presetName = helper.viewPresetName( piDisplay.objectID, mediacenter.displayPreset );
+	}
+
+	if (""!=presetName)
+	{
+			txtVizTitle.value = viewName + " : " + presetName;
+	}
+	else
+	{
+			txtVizTitle.value = viewName;
+	}
+
+	txtVizTitle2.value = txtVizTitle.value;
+}
+
+function PreviousDisplay()
+{
+	if( "VizView" == piDisplay.objectID )
+	{
+		if (event.shiftKey)
+		{
+			mediacenter.vizRequest = VR_VIZ_PREV;
+		}
+		else
+		{
+			mediacenter.vizRequest = VR_PRESET_PREV;
+		}
+	}
+	else
+	{
+		var presetCount = helper.viewPresetCount( piDisplay.objectID );
+		var preset = mediacenter.displayPreset;
+
+		preset = preset - 1;
+
+		if( preset < 0 )
+		{
+			preset = presetCount - 1;
+		}
+
+		mediacenter.displayPreset = preset;
+	}
+}
+
+function NextDisplay()
+{
+	if( "VizView" == piDisplay.objectID )
+	{
+		if (event.shiftKey)
+		{
+			mediacenter.vizRequest = VR_VIZ_NEXT;
+		}
+		else
+		{
+			mediacenter.vizRequest = VR_PRESET_NEXT;
+		}
+	}
+	else
+	{
+		var presetCount = helper.viewPresetCount( piDisplay.objectID );
+		var preset = mediacenter.displayPreset;
+
+		preset = preset + 1;
+
+		if( preset >= presetCount )
+		{
+			preset = 0;
+		}
+
+		mediacenter.displayPreset = preset;
+	}
+}
+
+function PreviousSettings()
+{
+	var nIndex = MapSettingsToIndex( mediacenter.settingsView );
+	var nCurrentIndex = nIndex;
+	
+	do
+	{
+		nIndex = nIndex - 1;
+
+		if( 0 > nIndex )
+		{
+			nIndex = g_rgSettings.length - 1;
+		}
+
+		mediacenter.settingsView = g_rgSettings[ nIndex ];
+
+	} while( ( MapSettingsToIndex( mediacenter.settingsView ) == nCurrentIndex ) && ( nCurrentIndex != nIndex ) );
+}
+
+function NextSettings()
+{
+	var nIndex = MapSettingsToIndex( mediacenter.settingsView );
+	var nCurrentIndex = nIndex;
+	
+	do
+	{
+		nIndex = nIndex + 1;
+
+		if( g_rgSettings.length <= nIndex )
+		{
+			nIndex = 0;
+		}
+
+		mediacenter.settingsView = g_rgSettings[ nIndex ];
+
+	} while( ( MapSettingsToIndex( mediacenter.settingsView ) == nCurrentIndex ) && ( nCurrentIndex != nIndex ) );
+}
+
+function UpdateResizeBars()
+{
+		if( plMedia.visible && piMetadata.visible )
+		{
+				btnSResize.top = piMetadata.height;
+				btnSResize.height = g_SepWidth;
+				if( mediacenter.showResizeBars )
+				{
+						btnSResize.image = "res://wmploc/#1708";
+				}
+				else
+				{
+						btnSResize.image = "res://wmploc/#1709";
+				}
+				btnSResize.visible = true;
+		}
+		else
+		{
+				btnSResize.visible = false;
+		}
+
+		if( plMedia.visible || piMetadata.visible )
+		{
+				btnVResize.horizontalAlignment='left';
+				btnVResize.left = vMain.width - plMedia.width - g_SepWidth;
+				btnVResize.width = g_SepWidth;
+				btnVResize.horizontalAlignment='right';
+				if( mediacenter.showResizeBars )
+				{
+						btnVResize.image = "res://wmploc/#1706";
+				}
+				else
+				{
+						btnVResize.image = "res://wmploc/#1707";
+				}
+				btnVResize.visible = true;
+		}
+		else
+		{
+				btnVResize.visible = false;
+		}
+
+		if( svSettings.visible )
+		{
+				btnHResize.verticalAlignment='top';
+				btnHResize.top = svMain.height - g_ControlbarHeight - svSettings.height - g_SepHeight;
+				btnHResize.height = g_SepHeight;
+				btnHResize.verticalAlignment='bottom';
+				if( mediacenter.showResizeBars )
+				{
+						btnHResize.image = "res://wmploc/#1708";
+				}
+				else
+				{
+						btnHResize.image = "res://wmploc/#1709";
+				}
+				btnHResize.visible = true;
+		}
+		else
+		{
+				btnHResize.visible = false;
+		}
+}
+
+function UpdateFullScreenButton()
+{
+	if( mediacenter.fullScreenAvailable && ( osMediaOpen == player.openState ) &&
+			( ( player.playState >= psPaused ) && ( player.playState <= psScanReverse ) ) )
+	{
+			btnFullScreen.enabled=true;
+	}
+	else
+	{
+			btnFullScreen.enabled=false;
+	}
+}
+
+function UpdateSettingsTitle()
+{
+		var viewName = helper.viewFriendlyName( piSettings.objectID );
+
+		txtSettingsTitle.value = viewName;
+}
+
+function OnVResizeStart()
+{
+		btnVResize.horizontalAlignment='left';
+		svSidebar.horizontalAlignment='left';
+		g_VResize=true;
+}
+
+function OnVResize(xPos)
+{
+		var plLeft=xPos+g_SepWidth;
+
+		if(xPos<g_DisplayMinWidth)
+		{
+				xPos=g_DisplayMinWidth;
+				plLeft=xPos+g_SepWidth;
+		}
+		else if(vMain.width-plLeft<g_SidebarMinWidth)
+		{
+				plLeft=vMain.width-g_SidebarMinWidth;
+				xPos=plLeft-g_SepWidth;
+		}
+		else if(vMain.width-plLeft>g_SidebarMaxWidth)
+		{
+				plLeft=vMain.width-g_SidebarMaxWidth;
+				xPos=plLeft-g_SepWidth;
+		}
+
+		btnVResize.left = xPos;
+		btnVResize.width = g_SepWidth;
+		svMain.width = xPos;
+		svSidebar.left = plLeft;
+		svSidebar.width = vMain.width-plLeft;
+		vMain.updateWindow();
+}
+
+function OnVResizeEnd()
+{
+		g_VResize=false;
+		btnVResize.horizontalAlignment='right';
+		svSidebar.horizontalAlignment='right';
+		mediacenter.playlistWidth=svSidebar.width;
+		mediacenter.metadataWidth=svSidebar.width;
+}
+
+function OnHResizeStart()
+{
+		btnHResize.verticalAlignment='top';
+		svSettings.verticalAlignment='top';
+		g_HResize=true;
+}
+
+function OnHResize(yPos)
+{
+		var plTop=yPos+g_SepHeight;
+
+		if(yPos<g_DisplayMinHeight)
+		{
+				yPos=g_DisplayMinHeight;
+				plTop=yPos+g_SepHeight;
+		}
+		else if(svMain.height-g_ControlbarHeight-plTop<g_SettingsMinHeight)
+		{
+				plTop=svMain.height-g_ControlbarHeight-g_SettingsMinHeight;
+				yPos=plTop-g_SepHeight;
+		}
+		else if(svMain.height-g_ControlbarHeight-plTop>g_SettingsMaxHeight)
+		{
+				plTop=svMain.height-g_ControlbarHeight-g_SettingsMaxHeight;
+				yPos=plTop-g_SepHeight;
+		}
+
+		btnHResize.top = yPos;
+		btnHResize.height = g_SepHeight;
+		svMedia.height=yPos;
+		svSettings.top=plTop;
+		svSettings.height=svMain.height-g_ControlbarHeight-plTop;
+		vMain.updateWindow();
+}
+
+function OnHResizeEnd()
+{
+		g_HResize=false;
+		btnHResize.verticalAlignment='bottom';
+		svSettings.verticalAlignment='bottom';
+		mediacenter.settingsHeight=svSettings.height;
+}
+
+function OnSResizeStart()
+{
+		g_SResize=true;
+}
+
+function OnSResize(yPos)
+{
+		var plTop=yPos+g_SepHeight;
+
+		if(svSidebar.height-plTop<g_PlaylistMinHeight)
+		{
+				plTop=svSidebar.height-g_PlaylistMinHeight;
+				yPos=plTop-g_SepHeight;
+		}
+
+		if(yPos<g_MetadataMinHeight)
+		{
+				yPos=g_MetadataMinHeight;
+				plTop=yPos+g_SepHeight;
+		}
+
+		btnSResize.top = yPos;
+		btnSResize.height = g_SepHeight;
+		piMetadata.height=yPos;
+		plMedia.top=plTop;
+		plMedia.height=svSidebar.height-plTop;
+		vMain.updateWindow();
+}
+
+function OnSResizeEnd()
+{
+		g_SResize=false;
+		mediacenter.metadataHeight=piMetadata.height;
+}
+
+function UpdateCustomize()
+{
+		btnCustomize.enabled = mediacenter.showTitles || mediacenter.showPlaylist || mediacenter.showMetadata || mediacenter.showSettings || mediacenter.quickHide;
+		btnCustomize.downimage = btnCustomize.down ? "res://wmploc/#1730" : "res://wmploc/#1734";
+		btnCustomize.accName = btnCustomize.down ? btnCustomize.downTooltip : btnCustomize.upTooltip;
+}
+
+function CustomizeMenu()
+{
+		mnuCustomize.top = btnCustomizeMenu.top+btnCustomizeMenu.height;
+		mnuCustomize.left = btnCustomizeMenu.left;
+
+		mnuCustomize.showEx( 3 );
+}
+
+function OnLinkRequest()
+{
+	theme.CurrentViewID="vBrowser";
+}
+
+function OnBrowserLoad()
+{
+	Browser1.SetProperty( "linkRequestParams", helper.linkRequestParams );
+	Browser1.SetProperty( "linkRequest", helper.linkRequest );
+}
+
+function OnBrowserBack()
+{
+	Browser1.visible=false;
+	vBrowser.updateWindow();
+	theme.CurrentViewID="vMain";
+}
+
+function PlayingDVD()
+{
+	return ( (player.currentPlaylist.count>0) && (player.currentPlaylist.item(0).sourceURL.indexOf("wmpdvd:")==0));
+}
+
+function MapSettingsToIndex( View )
+{
+	for (var i = 0; i < g_rgSettings.length; i++)
+	{
+		if (View == g_rgSettings[i])
+		{
+			return( i );
+		}
+	}
+
+	return( -1 );
+}    	      Ô   –  A l b u m A r t    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / D i s p l a y C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / A l b u m A r t . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  ,   ’  ,   ˝  b l a c k   O ‡o n l o a d   U p d a t e T i t l e s ( ) ; I n i t A l b u m A r t ( ) ;    		        ‡o n T i m e r   O n S i z e C h e c k T i m e r ( ) ;   I    p l a y e r   U  o p e n s t a t e c h a n g e   O n S t a t e C h a n g e ( N e w S t a t e ) ;   Q  p l a y s t a t e c h a n g e   O n C u r r e n t I t e m C h a n g e ( ) ;   U  c u r r e n t i t e m c h a n g e   O n C u r r e n t I t e m C h a n g e ( ) ;   E  m e d i a c h a n g e   O n M e d i a C h a n g e ( I t e m ) ;   g  p l a y l i s t c h a n g e   O n P l a y l i s t C h a n g e ( P l a y l i s t , c h a n g e ) ;      C u r r e n t M e d i a I t e m A v a i l a b l e   O n C u r r e n t M e d i a I t e m A v a i l a b l e ( b s t r I t e m N a m e ) ;   j     m e d i a c e n t e r     ‡s h o w T i t l e s _ o n c h a n g e   O n S h o w T i t l e s ( ) ;   à  á   .⁄›”¢‚ ¿Oy¯é% –  p l a y l i s t A r t i s t    ”       “     A à‘  A l b u m A r t . w i d t h   -   ( l e f t   *   2 ) ;    Y  w h i t e    ›  s t r e t c h    V  f   àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 9 5 ' ) ) ;    W  h  + HŸ  t r a c k n a m e . v i s i b l e     €    0  á   .⁄›”¢‚ ¿Oy¯é –  t r a c k n a m e    ”      “     A à‘  A l b u m A r t . w i d t h   -   ( l e f t   *   2 ) ;    Y  w h i t e    ›  s t r e t c h    V  i   àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 9 8 ' ) ) ;    W  k  9 H]  p l a y e r . c u r r e n t M e d i a . n a m e   A ‡v a l u e _ o n c h a n g e   U p d a t e T i t l e s ( ) ;   c àŸ  m e d i a c e n t e r . s h o w T i t l e s   & &   p l a y e r . c u r r e n t M e d i a     €      :	   –  s v A l b u m A r t    ‚  —   = à”  t r a c k n a m e . v i s i b l e ?   4 5   :   4 ;    “     = à‘  A l b u m A r t . w i d t h   -   l e f t   *   2 ;   C à’  A l b u m A r t . h e i g h t   -   t o p   -   l e f t ;    ˝  b l a c k    ›  s t r e t c h     ﬁ  s t r e t c h       Å   Q)áé”ª* †…<ß: –  b t n C o v e r A r t    ‚  —   Q àÓ  G e t I m a g e S t r i n g (   G e t A l b u m A r t T y p e ( )   ) ;    ›  c e n t e r    ﬁ  c e n t e r   I ‡o n M o u s e O v e r   O n C o v e r A r t M o u s e O v e r ( ) ;   9 ‡o n c l i c k   O n C l i c k C o v e r A r t ( ) ;     ‰  B  // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+var ART_NONE  = 0;
+var ART_LARGE = 1;
+var ART_SMALL = 2;
+
+var g_fBuyNow	= false;
+var g_ArtType	= ART_NONE;
+
+//
+// Initialization
+//
+
+function InitAlbumArt()
+{
+	//
+	// Note: btnCoverArt.image is also initialized .WMS file as LM
+	//		 doesn't like size changes on load!
+	//
+
+	SetAlbumArt( GetAlbumArtType(), true );
+}
+
+//
+// Events
+//
+
+function OnSizeCheckTimer()
+{
+	SetAlbumArt( GetAlbumArtType(), false );
+}
+
+function OnStateChange(NewState)
+{
+	if(osMediaOpen==NewState)
+	{
+		SetAlbumArt( GetAlbumArtType(), true );
+	}
+}
+
+function OnCurrentItemChange()
+{
+	if((osPlaylistOpenNoMedia==player.openState)&&(psReady==player.playState))
+	{
+		SetAlbumArt( GetAlbumArtType(), true );
+	}
+}
+
+function OnMediaChange(Item)
+{
+	if( player.currentMedia && player.currentMedia.isIdentical( Item ) )
+	{
+		SetAlbumArt( GetAlbumArtType(), true );
+	}
+}
+
+function OnPlaylistChange(Playlist,change)
+{
+	if( player.currentPlaylist.isIdentical( Playlist ) || (8 == change) )
+	{
+		SetAlbumArt( GetAlbumArtType(), true );
+	}
+}
+
+function OnCurrentMediaItemAvailable(bstrItemName)
+{
+	if( ( (bstrItemName == "WMPImage_AlbumArtLarge") || (bstrItemName == "WMPImage_AlbumArtSmall") ) && 
+		(osMediaOpen==player.openState) )
+	{
+		SetAlbumArt( GetAlbumArtType(), true );
+	}
+}
+
+function OnCoverArtMouseOver()
+{
+	if (g_fBuyNow) 
+	{
+		btnCoverArt.cursor = "hand";
+	}
+	else
+	{
+		btnCoverArt.cursor = "system";
+	}
+}
+
+function OnClickCoverArt()
+{
+	if (g_fBuyNow) 
+	{
+		helper.linkRequest = 4;
+	}
+}
+
+function OnShowTitles()
+{		 
+	UpdateTitles();
+	svAlbumArt.top = mediacenter.showTitles? 45 : 4;
+	svAlbumArt.height = AlbumArt.height - svAlbumArt.top;
+}
+
+//
+// Utility
+//
+
+function StartSizeCheckTimer()
+{
+	AlbumArt.timerInterval="1000";
+}
+
+function StopSizeCheckTimer()
+{
+	AlbumArt.timerInterval="0";
+}
+
+function GetAlbumArtType()
+{
+	if (!player.currentMedia)
+	{
+		return( ART_NONE );
+	}
+
+	if( svAlbumArt.width < 200 || svAlbumArt.height < 200 )
+	{
+		return( ART_SMALL );
+	}
+
+	return( ART_LARGE );
+}
+
+function SetAlbumArt( ArtType, fForce )
+{
+	if( fForce || ( ArtType != g_ArtType ) )
+	{
+		btnCoverArt.image = "";
+		btnCoverArt.image = GetImageString( ArtType );
+		if( ART_NONE == ArtType )
+		{
+			StopSizeCheckTimer();
+		}
+
+		if( ART_SMALL == ArtType )
+		{
+			StartSizeCheckTimer();
+		}
+
+		if( ART_LARGE == ArtType )
+		{
+			StartSizeCheckTimer();
+		}
+
+		g_ArtType = ArtType;
+	}
+
+	g_fBuyNow = ( 0 != ( helper.linkAvailable & 4 ) );
+}
+
+function GetImageString( ArtType )
+{
+	if( ART_NONE == ArtType )
+	{
+		return( "" );
+	}
+
+	if( ART_SMALL == ArtType )
+	{
+		return( "WMPImage_AlbumArtSmall" );
+	}
+
+	return( "WMPImage_AlbumArtLarge" );
+}
+
+function UpdateTitles()
+{
+	if (!player.currentMedia) return;
+	trackname.visible = mediacenter.showTitles;
+	playlistArtist.value = player.currentMedia.getItemInfo('artist');
+	trackname.value = player.currentMedia.name;
+}
+
+   	            –  B o r d e r    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / D i s p l a y C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / B o r d e r . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  ,   ’  ,    ˝  b l a c k        // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+   	      Å  ! –  V i d e o D i s p l a y   	 s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / D i s p l a y C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / V i d e o . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  ,   ’  ,   ˝  b l a c k     ‡o n l o a d   O n L o a d ( ) ;   à     m e d i a c e n t e r     ‡f u l l S c r e e n R e q u e s t _ o n c h a n g e   v i d e o 1 . f u l l S c r e e n = t r u e ;       â   œŒa:¸“°Õ P`'R –  v i d e o 1    “      ”     3 à‘  V i d e o D i s p l a y . w i d t h - 8 ;   5 à’  V i d e o D i s p l a y . h e i g h t - 8 ;    ›  s t r e t c h    ﬁ  s t r e t c h    F  b l a c k   3 HM  m e d i a c e n t e r . v i d e o Z o o m   K HL  m e d i a c e n t e r . u s e r V i d e o S t r e t c h T o F i t   	 G  ˇˇ E  s y s t e m     €  ˇˇ    // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+function OnLoad()
+{
+    mediacenter.fullScreenAvailable=true;
+}
+
+
+   	      ¸   –  V i z D i s p l a y    ‚  u  9 s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / D i s p l a y C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / V i z . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 6    ‘  ,   ’  ,   ˝  b l a c k     ‡o n l o a d   O n L o a d ( ) ; U p d a t e T i t l e s ( ) ; S y n c h E f f e c t C o l o r ( ) ;   ˝     p l a y e r   s  C u r r e n t M e d i a I t e m A v a i l a b l e   U p d a t e A l b u m A r t ( b s t r I t e m N a m e ) ;      o p e n s t a t e c h a n g e   i f ( N e w S t a t e = = o s M e d i a O p e n ) U p d a t e T i t l e s ( ) ;   Õ    m e d i a c e n t e r   K ‡s h o w T i t l e s _ o n c h a n g e   O n S h o w T i t l e s ( ) ;   ç ‡f u l l S c r e e n R e q u e s t _ o n c h a n g e   m y e f f e c t . f u l l S c r e e n = ! m y e f f e c t . f u l l S c r e e n ;   w ‡v i z R e q u e s t _ o n c h a n g e   O n V i z R e q u e s t ( m e d i a c e n t e r . v i z R e q u e s t ) ;     ‡i t e m P l a y i n g C o l o r _ o n c h a n g e   S y n c h E f f e c t C o l o r ( ) ;   å  á   .⁄›”¢‚ ¿Oy¯é% –  p l a y l i s t A r t i s t    ”       “     E à‘  V i z D i s p l a y . w i d t h   -   ( l e f t   *   2 ) ;    Y  w h i t e    ›  s t r e t c h    V  f   àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 9 5 ' ) ) ;    W  h  + HŸ  t r a c k n a m e . v i s i b l e     €    4  á   .⁄›”¢‚ ¿Oy¯é –  t r a c k n a m e    ”      “     E à‘  V i z D i s p l a y . w i d t h   -   ( l e f t   *   2 ) ;    Y  w h i t e    ›  s t r e t c h    V  i   àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 9 8 ' ) ) ;    W  k  9 H]  p l a y e r . c u r r e n t M e d i a . n a m e   A ‡v a l u e _ o n c h a n g e   U p d a t e T i t l e s ( ) ;   c àŸ  m e d i a c e n t e r . s h o w T i t l e s   & &   p l a y e r . c u r r e n t M e d i a     €    	  ä   0®ﬁG÷TA∏ÿktÑ]j- –  m y e f f e c t    “     = à”  t r a c k n a m e . v i s i b l e ?   4 5   :   4 ;   A à‘  V i z D i s p l a y . w i d t h   -   l e f t   *   2 ;   G à’  V i z D i s p l a y . h e i g h t   -   t o p   -   l e f t ;   7 HŸ  m e d i a c e n t e r . s h o w E f f e c t s   	 }  ˇˇ ›  s t r e t c h    ﬁ  s t r e t c h   5 HÉ  m e d i a c e n t e r . e f f e c t T y p e   y ‡c u r r e n t E f f e c t T y p e _ o n c h a n g e   U p d a t e F u l l S c r e e n A v a i l a b i l i t y ( ) ;   9 Hâ  m e d i a c e n t e r . e f f e c t P r e s e t   Y ‡c u r r e n t P r e s e t _ o n c h a n g e   S y n c h E f f e c t C o l o r ( ) ;   ﬂ‡o n m o u s e d o w n   i f   ( e v e n t . b u t t o n = = 4 ) { i f   ( e v e n t . s h i f t K e y )   p r e v i o u s ( ) ;   e l s e   n e x t ( ) ; }   i f   ( e v e n t . c t r l K e y )   { i f   ( e v e n t . s h i f t K e y )   p r e v i o u s E f f e c t ( ) ;   e l s e   n e x t E f f e c t ( ) ; }   m e d i a c e n t e r . e f f e c t T y p e = c u r r e n t E f f e c t T y p e ;   m e d i a c e n t e r . e f f e c t P r e s e t = c u r r e n t P r e s e t   q ‡o n d b l c l i c k   i f   ( e v e n t . b u t t o n = = 1 ) f u l l S c r e e n = ! f u l l s c r e e n ;     |  ˇˇ    Å   Q)áé”ª* †…<ß: –  b t n C o v e r A r t    ‚  —    ÷     5 Ó  W M P I m a g e _ A l b u m A r t L a r g e    ›  c e n t e r    ﬁ  c e n t e r     Ÿ      // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+function OnLoad()
+{
+    UpdateFullScreenAvailability();
+
+// registry controlled skunk works, Blend Album Art feature
+    var baa = theme.loadPreference("BlendAlbumArt");
+    if(baa == "true")
+    {
+        myeffect.windowed = "false";
+        btnCoverArt.visible = "true";
+    }
+    else
+    {
+        myeffect.windowed = "true";
+        btnCoverArt.visible = "false";
+    }
+// end - skunk works
+}
+
+function OnShowTitles()
+{        
+    UpdateTitles();
+    myeffect.top = mediacenter.showTitles? 45 : 4;
+    myeffect.height = VizDisplay.height - myeffect.top - myeffect.left;
+}
+
+function OnVizRequest(Request)
+{
+    switch(Request)
+    {
+        case VR_PRESET_PREV:
+            myeffect.previous();
+            break;
+        case VR_PRESET_NEXT:
+            myeffect.next();
+            break;
+        case VR_VIZ_PREV:
+            myeffect.previousEffect();
+            break;
+        case VR_VIZ_NEXT:
+            myeffect.nextEffect();
+            break;
+        default:
+            return;
+            break;
+    }
+
+    SynchViz();
+}
+
+function UpdateTitles()
+{
+    if (!player.currentMedia) return;
+    trackname.visible = mediacenter.showTitles;
+    playlistArtist.value = player.currentMedia.getItemInfo('artist');
+    trackname.value = player.currentMedia.name;
+    
+    // skunk works, Blend Album Art feature
+    UpdateAlbumArt("WMPImage_AlbumArtLarge");
+}
+
+// skunk works, Blend Album Art feature
+function UpdateAlbumArt(bstrItemName)
+{
+    if(btnCoverArt.visible && 
+        (bstrItemName == "WMPImage_AlbumArtSmall" || bstrItemName == "WMPImage_AlbumArtLarge"))
+    {
+        btnCoverArt.alphaBlend = "0";
+        btnCoverArt.image = "WMPImage_AlbumArtLarge";
+        btnCoverArt.alphaBlendTo(0xA0, 6000);
+    }
+}
+// end skunk works
+
+function UpdateFullScreenAvailability()
+{
+	mediacenter.fullScreenAvailable=myeffect.effectCanGoFullscreen;
+}
+
+function SynchViz()
+{
+    var nPreset = myeffect.currentPreset;
+    mediacenter.effectType = myeffect.currentEffectType;
+    mediacenter.effectPreset = nPreset;
+    SynchEffectColor();
+}
+
+
+function SynchEffectColor()
+{
+    try
+    {
+        if (myeffect.currentEffectType=="Bars") 
+        {
+            if ( (myeffect.currentPreset==1) || (myeffect.currentPreset==2) )
+            {
+                //ignore Ocean Mist and Fire Storm
+                return;
+            }
+            else
+            {
+                var bars = myeffect.currentEffect;
+                bars.levelColor = mediacenter.itemPlayingColor;
+                bars.peakColor  = mediacenter.appColorLight;
+            }
+        }
+        else
+        {
+            //give all viz'es a chance to synch the color
+            myeffect.currentEffect.foregroundColor = mediacenter.itemPlayingColor;
+        }
+    }
+    catch(err){}
+}
+       	      m   –  v B a n n e r   ø  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / B a n n e r . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 2    ‘  ,   ’  $   = H˝  m e d i a c e n t e r . a p p C o l o r M e d i u m     ‡o n L o a d   R e l o a d B a n n e r I m a g e ( ) ;   „     p l a y e r   Å  C u r r e n t M e d i a I t e m A v a i l a b l e   O n D o w n l o a d i n g M e d i a V i z ( b s t r I t e m N a m e ) ;      o p e n s t a t e c h a n g e   R e l o a d B a n n e r I m a g e ( ) ;     ∂  # –  s v B a n n e r I n n e r    ”      ‘  ,   ’      = H˝  m e d i a c e n t e r . a p p C o l o r M e d i u m    ›  s t r e t c h     ‡w i d t h _ o n c h a n g e   i f ( A d B a n n e r . w i d t h < w i d t h ) A d B a n n e r . h o r i z o n t a l A l i g n m e n t = ' c e n t e r ' ;   e l s e   { A d B a n n e r . h o r i z o n t a l A l i g n m e n t = ' l e f t ' ; A d B a n n e r . l e f t = 0 }       Å   Q)áé”ª* †…<ß: –  A d B a n n e r   Î ‡w i d t h _ o n c h a n g e   i f ( w i d t h < s v B a n n e r I n n e r . w i d t h ) h o r i z o n t a l A l i g n m e n t = ' c e n t e r ' ;   e l s e   { h o r i z o n t a l A l i g n m e n t = ' l e f t ' ; l e f t = 0 ; }    ›  c e n t e r   + Ó  W M P I m a g e _ A d B a n n e r   5 ‡o n c l i c k   O n B a n n e r C l i c k ( ) ;   E ‡o n M o u s e O v e r   O n B a n n e r M o u s e O v e r ( ) ;     ‰  B         // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+
+function ReloadBannerImage()
+{
+   if(osMediaOpen == player.OpenState && player.currentmedia.getItemInfo("BannerURL") != "")
+   {
+       AdBanner.image="WMPImage_AdBanner";
+   }
+}
+
+function OnDownloadingMediaViz(bstrItemName)
+{
+    if (bstrItemName=="WMPImage_AdBanner")
+    {
+        AdBanner.image=bstrItemName;
+        var strToolTip = player.currentmedia.getItemInfo("BannerAbstract");
+        AdBanner.upToolTip = strToolTip;
+    }
+}
+
+function OnBannerClick()
+{
+    if (!player.currentMedia) return;
+
+    var strTargetURL = player.currentmedia.getItemInfo("BannerInfoURL");
+    if ( strTargetURL != "")
+    {
+        player.launchURL(strTargetURL);   
+    }
+}
+
+function OnBannerMouseOver()
+{
+    if (!player.currentMedia) return;
+    
+    var strToolTip = player.currentmedia.getItemInfo("BannerAbstract");
+    AdBanner.upToolTip = strToolTip;
+
+    if ( player.currentmedia.getItemInfo("BannerInfoURL") != "")
+    {
+        AdBanner.cursor = "hand";
+    }
+    else
+    {
+        AdBanner.cursor = "system";
+    }
+}
+         	      ?   –  v C a p t i o n s   √  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / C a p t i o n s . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 2    ‘  ,   ’  d    ˝  b l a c k     ‡o n l o a d   I n i t D i s p l a y ( ) ;   ˝     p l a y e r   g  S c r i p t C o m m a n d   h a n d l e S c r i p t C o m m a n d ( s c T y p e ,   P a r a m ) ;      o p e n S t a t e C h a n g e   C a p t i o n s V i e w _ O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e ) ;         b r o w s e r    –  B r o w s e r 1    ‘  ,   ’  d    ›  s t r e t c h    ﬁ  s t r e t c h   9  r e g i s t e r a s d r o p t a r g e t   f a l s e     s i l e n t   t r u e      c l a s s i d   c l s i d : 8 8 5 6 F 9 6 1 - 3 4 0 A - 1 1 D 0 - A 9 6 B - 0 0 C 0 4 F D 7 0 5 A 2     // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+var g_fCaptionsDetected = false;
+var g_fSyncLyricsDetected = false;
+
+function CaptionsView_OnOpenStateChangeEvent(NewState)
+{
+        switch (NewState)
+        {
+        case osMediaChanging:
+                ClearDisplay();
+                break;
+        case osMediaOpen:
+                InitDisplay();
+                break;
+        }
+}
+
+function handleScriptCommand(scType, Param)
+{
+        scType = scType.toUpperCase();
+
+        if(scType == "TEXT" ||  scType == "<SYNC" || scType == "CAPTION")
+        {
+                UpdateDisplay( Param, "" );
+        }
+        else if ( (!g_fCaptionsDetected) && scType=="SYNCHRONIZEDLYRICLYRIC" )
+        {
+                UpdateDisplay( "", Param );
+        }
+}
+
+function InitDisplay()
+{
+        g_fCaptionsDetected = false;
+        g_fSyncLyricsDetected = false;
+        UpdateDisplay( "", "" );
+}
+
+function UpdateDisplay( Captions, Lyrics )
+{
+        // SAMI
+
+        if( Captions == "" )
+        {
+                Captions = helper.getCurrentScriptCommand( "TEXT" );
+        }
+        if( Captions == "" )
+        {
+                Captions = helper.getCurrentScriptCommand( "<SYNC" );
+        }
+        if( Captions == "" )
+        {
+                Captions = helper.getCurrentScriptCommand( "CAPTION" );
+        }
+        if( Captions != "" )
+        {
+                g_fCaptionsDetected = true;
+                ShowCaptions( Captions );
+        }
+
+        if( g_fCaptionsDetected )
+        {
+                return;
+        }
+
+        // Sync Lyrics
+
+        if( Lyrics == "" )
+        {
+                Lyrics = helper.getCurrentScriptCommand( "SYNCHRONIZEDLYRICLYRIC" );
+        }
+        if( Lyrics != "" )
+        {
+                g_fSyncLyricsDetected = true;
+                ShowLyrics( Lyrics );
+        }
+
+        if( g_fSyncLyricsDetected )
+        {
+                return;
+        }
+
+        // Unsync Lyrics
+
+        if( player.currentMedia && ( player.currentMedia.getAttributeCountByType("WM/Lyrics", "") > 0 ) )
+        {
+                var strLyrics = player.currentMedia.getItemInfo("WM/Lyrics");
+                ShowLyrics( strLyrics );
+        }
+}
+
+function ClearDisplay()
+{
+        if (Browser1.URL=="SAMI")
+        {
+                Browser1.showSAMIText("");
+        }
+        else if (Browser1.URL=="Lyrics")
+        {
+                Browser1.showLyrics("");
+        }
+}
+
+function ShowCaptions( strText )
+{
+        if (Browser1.URL!="SAMI")
+        {
+                Browser1.loadSpecialPage("SAMI");
+        }
+
+        Browser1.showSAMIText(strText);
+}
+
+function ShowLyrics( strText )
+{
+        if (Browser1.URL != "Lyrics")
+        {
+                Browser1.loadSpecialPage("Lyrics");
+        }
+
+        Browser1.showLyrics(strText);
+}
+
+        	      c   –  v M e d i a I n f o   ≈  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / M e d i a I n f o . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4 ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 2    ‘  ,   ’  ,  = H˝  m e d i a c e n t e r . a p p C o l o r M e d i u m     ‡o n l o a d   O n L o a d ( ) ;   I    p l a y e r   U  o p e n s t a t e c h a n g e   O n S t a t e C h a n g e ( N e w S t a t e ) ;   Q  p l a y s t a t e c h a n g e   O n C u r r e n t I t e m C h a n g e ( ) ;   U  c u r r e n t i t e m c h a n g e   O n C u r r e n t I t e m C h a n g e ( ) ;   E  m e d i a c h a n g e   O n M e d i a C h a n g e ( I t e m ) ;   g  p l a y l i s t c h a n g e   O n P l a y l i s t C h a n g e ( P l a y l i s t , c h a n g e ) ;      C u r r e n t M e d i a I t e m A v a i l a b l e   O n C u r r e n t M e d i a I t e m A v a i l a b l e ( b s t r I t e m N a m e ) ;   åÁ    –  s v L i n k B a r   + à‘  v M e d i a I n f o . w i d t h ;    ’     ; H˝  m e d i a c e n t e r . a p p C o l o r L i g h t    ›  s t r e t c h     ‡o n r e s i z e   O n L i n k B a r R e s i z e ( ) ;   »  á   .⁄›”¢‚ ¿Oy¯é –  t x t L i n k 1    ”      “      ) à‘  s v L i n k B a r . w i d t h ;   	 Ÿ     f  C e n t e r    ›  s t r e t c h    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    \  u n d e r l i n e    Y  w h i t e    h  h a n d   3 ‡o n c l i c k   O n C l i c k L i n k 1 ( ) ;   m ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   O n C l i c k L i n k 1 )     ‰  B      á   .⁄›”¢‚ ¿Oy¯é –  t x t L i n k 2    ”      “      ) à‘  s v L i n k B a r . w i d t h ;   	 Ÿ     ]  ^ L i n k 2    f  C e n t e r    ›  s t r e t c h    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    \  u n d e r l i n e    Y  w h i t e    h  h a n d   3 ‡o n c l i c k   O n C l i c k L i n k 2 ( ) ;   m ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   O n C l i c k L i n k 2 )     ‰  B  O<	   –  s v C o v e r A r t    ’  l    ‘  l   / à”  s v L i n k B a r . h e i g h t + 4 ;   G ˛  r e s : / / w m p l o c . d l l / R T _ B I T M A P / # 5 2 0   9 H 	  m e d i a c e n t e r . b a c k H u e S h i f t   = H	  m e d i a c e n t e r . b a c k S a t u r a t i o n   	 	  ˇˇ  ‚  —       Å   Q)áé”ª* †…<ß:) –  b t n C o v e r A r t C l i c k    ‚  —   + à’  s v C o v e r A r t . h e i g h t   ) à‘  s v C o v e r A r t . w i d t h    ›  s t r e t c h    ﬁ  s t r e t c h   9 ‡o n c l i c k   O n C l i c k C o v e r A r t ( ) ;     ‰  B      á 	  .⁄›”¢‚ ¿Oy¯é –  t x t A u x    “      + à‘  v M e d i a I n f o . w i d t h ;    f  C e n t e r    ›  s t r e t c h    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    Y  w h i t e     €        // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+// See MediaInfo.xls in SD for table of states
+
+var mtNone                  = 0;
+var mtCD                    = 1;
+var mtDVD                   = 2;
+var mtAudio                 = 3;
+var mtOther                 = 4;
+
+var g_MediaType             = mtNone;
+
+var lnkNone                 = 0;
+var lnkFindAlbumInfo        = 1;
+var lnkFindDVDInfo          = 2;
+var lnkDVDInfo              = 3;
+var lnkBuyCD                = 4;
+var lnkBuyDVD               = 5;
+var lnkBuyTickets           = 6;
+
+var g_rgLinkText = new Array(
+    0,
+    1452,
+    1454,
+    1456,
+    1458,
+    1460,
+    1462
+    );
+
+var g_rgLinkTooltip = new Array(
+    0,
+    1453,
+    1455,
+    1457,
+    1459,
+    1461,
+    1463
+    );
+
+var g_Link1                 = lnkNone;
+var g_Link2                 = lnkNone;
+
+var artNone                 = 0;
+var artAlbum                = 1;
+var artDVD                  = 2;
+
+var g_Art                   = artNone;
+
+var LRDetails               = 1;
+var LREdit                  = 2;
+var LRBuyNow                = 4;
+var LRBuyTickets            = 8;
+
+function OnLoad()
+{
+    svCoverArt.left=(vMediaInfo.width-svCoverArt.width)/2;
+    svCoverArt.horizontalAlignment="center"
+    txtAux.top=svCoverArt.top+svCoverArt.height+4;
+
+    Refresh();
+}
+
+function OnStateChange(NewState)
+{
+    if(osMediaOpen==NewState)
+    {
+        Refresh();
+    }
+}
+
+function OnCurrentItemChange()
+{
+    if((osPlaylistOpenNoMedia==player.openState)&&(psReady==player.playState))
+    {
+        Refresh();
+    }
+}
+
+function OnMediaChange(Item)
+{
+    if( player.currentMedia && player.currentMedia.isIdentical( Item ) )
+    {
+        Refresh();
+    }
+}
+
+function OnPlaylistChange(Playlist,change)
+{
+    if( player.currentPlaylist.isIdentical( Playlist ) || (8 == change) )
+    {
+        Refresh();
+    }
+}
+
+function OnCurrentMediaItemAvailable(bstrItemName)
+{
+    if( ( (bstrItemName == "WMPImage_AlbumArtLarge") || (bstrItemName == "WMPImage_AlbumArtSmall") ) && 
+        (osMediaOpen==player.openState) )
+    {
+        Refresh();
+    }
+}
+
+function OnClickLink1()
+{
+    OnClickLink(g_Link1);
+}
+
+function OnClickLink2()
+{
+    OnClickLink(g_Link2);
+}
+
+function OnClickLink( Link )
+{
+    switch( Link )
+    {
+    case lnkFindAlbumInfo:
+    case lnkFindDVDInfo:
+        helper.linkRequest=LREdit;
+        break;
+    case lnkDVDInfo:
+        helper.linkRequest=LRDetails;
+        break;
+    case lnkBuyCD:
+    case lnkBuyDVD:
+        helper.linkRequest=LRBuyNow;
+        break;
+    case lnkBuyTickets:
+        helper.linkRequest=LRBuyTickets;
+        break;
+    }
+}
+
+function OnClickCoverArt()
+{
+    if( g_Art != artNone )
+    {
+        helper.linkRequest=LRDetails;
+    }
+}
+
+function Refresh()
+{
+    g_MediaType = GetMediaType();
+
+    switch( g_MediaType )
+    {
+    case mtNone:
+        RefreshNone();
+        break;
+
+    case mtCD:
+        RefreshCD();
+        break;
+
+    case mtDVD:
+        RefreshDVD();
+        break;
+
+    case mtAudio:
+        RefreshAudio();
+        break;
+
+    case mtOther:
+        RefreshOther();
+        break;
+    }
+
+    svCoverArt.backgroundImage = "";
+    svCoverArt.backgroundImage = GetCoverImage();
+}
+
+function RefreshNone()
+{
+    g_Link1 = lnkNone;
+    g_Link2 = lnkNone;
+
+    UpdateLinks();
+
+    g_Art = artNone;
+
+    UpdateArt();
+
+    txtAux.value="";
+}
+
+function RefreshCD()
+{
+    var sAux = "";
+    var nLAvailable = 0;
+
+    nLAvailable = helper.linkAvailable;
+
+    g_Link1 = ( ( 0 != ( nLAvailable & LRBuyNow ) )? lnkBuyCD : lnkNone );
+    g_Link2 = ( ( 0 != ( nLAvailable & LRBuyTickets ) )? lnkBuyTickets : lnkNone );
+
+    if( ( g_Link1 == lnkNone ) && ( g_Link2 == lnkNone ) )
+    {
+        g_Link1 = lnkFindAlbumInfo;
+    }
+
+    UpdateLinks();
+
+    g_Art = artAlbum;
+
+    UpdateArt();
+
+    sAux=player.currentPlaylist.getItemInfo("Name");
+    if( "" == sAux )
+    {
+        sAux= theme.loadString("res://wmploc/RT_STRING/#917");
+    }
+    txtAux.value=sAux;
+}
+
+function RefreshDVD()
+{
+    var sAux = "";
+    var nLAvailable = 0;
+
+    var rootPlaylist = helper.getRootPlaylist( player.currentPlaylist );
+
+    if( null != rootPlaylist )
+    {
+        sAux=rootPlaylist.getItemInfo("Name");
+    }
+
+    if( "" == sAux )
+    {
+        sAux= theme.loadString("res://wmploc/RT_STRING/#950");
+    }
+
+    var fFound = false;
+
+    if( sAux != theme.loadString("res://wmploc/RT_STRING/#950") )
+    {
+        fFound = true;
+    }
+
+    nLAvailable = helper.linkAvailable;
+
+    g_Link1 = ( ( 0 != ( nLAvailable & LRBuyNow ) )? lnkBuyDVD : lnkNone );
+    g_Link2 = ( ( 0 != ( nLAvailable & LRBuyTickets ) )? lnkBuyTickets : lnkNone );
+
+    if( ( g_Link1 == lnkNone ) && ( g_Link2 == lnkNone ) )
+    {
+        if( fFound )
+        {
+            g_Link1 = lnkDVDInfo;
+        }
+        else
+        {
+            g_Link1 = lnkFindDVDInfo;
+        }
+    }
+
+    UpdateLinks();
+
+    g_Art = artDVD;
+
+    UpdateArt();
+
+    txtAux.value=sAux;
+}
+
+function RefreshAudio()
+{
+    var nLAvailable = 0;
+
+    nLAvailable = helper.linkAvailable;
+
+    g_Link1 = ( ( 0 != ( nLAvailable & LRBuyNow ) )? lnkBuyCD : lnkNone );
+    g_Link2 = ( ( 0 != ( nLAvailable & LRBuyTickets ) )? lnkBuyTickets : lnkNone );
+
+    if( ( g_Link1 == lnkNone ) && ( g_Link2 == lnkNone ) )
+    {
+        g_Link1 = lnkFindAlbumInfo;
+    }
+
+    UpdateLinks();
+
+    g_Art = artAlbum;
+
+    UpdateArt();
+
+    txtAux.value=player.currentMedia.getItemInfo("Album");
+}
+
+function RefreshOther()
+{
+    g_Link1 = lnkNone;
+    g_Link2 = lnkNone;
+
+    UpdateLinks();
+
+    g_Art = artNone;
+
+    UpdateArt();
+
+    txtAux.value=player.currentMedia.getItemInfo("Title");
+}
+
+function UpdateLinks()
+{
+    txtLink1.value = "res://wmploc.dll/RT_STRING/#" + g_rgLinkText[ g_Link1 ].toString();
+    txtLink1.tooltip = "res://wmploc.dll/RT_STRING/#" + g_rgLinkTooltip[ g_Link1 ].toString();
+    txtLink2.value = "res://wmploc.dll/RT_STRING/#" + g_rgLinkText[ g_Link2 ].toString();
+    txtLink2.tooltip = "res://wmploc.dll/RT_STRING/#" + g_rgLinkTooltip[ g_Link2 ].toString();
+
+    txtLink1.horizontalAlignment = "left";
+    txtLink2.horizontalAlignment = "left";
+
+    if( lnkNone != g_Link1 && lnkNone != g_Link2 )
+    {
+        txtLink1.width = svLinkBar.width / 2;
+        txtLink2.left  = txtLink1.width;
+        txtLink2.width = txtLink1.width;
+        txtLink1.horizontalAlignment = "left";
+        txtLink2.horizontalAlignment = "right";
+    }
+    else if( lnkNone != g_Link1 )
+    {
+        txtLink1.width = svLinkBar.width;
+        txtLink1.horizontalAlignment = "stretch";
+    }
+    else if( lnkNone != g_Link2 )
+    {
+        txtLink2.left  = 0;
+        txtLink2.width = svLinkBar.width;
+        txtLink2.horizontalAlignment = "stretch";
+    }
+
+    txtLink1.visible = ( lnkNone != g_Link1 );
+    txtLink2.visible = ( lnkNone != g_Link2 );
+
+    txtLink1.accName = txtLink1.value;
+    txtLink2.accName = txtLink2.value;
+}
+
+function OnLinkBarResize()
+{
+    if( lnkNone != g_Link1 && lnkNone != g_Link2 )
+    {
+        txtLink2.horizontalAlignment = "left";
+        txtLink1.width = svLinkBar.width / 2;
+        txtLink2.left  = txtLink1.width;
+        txtLink2.width = txtLink1.width;
+        txtLink2.horizontalAlignment = "right";
+    }
+}
+
+function UpdateArt()
+{
+    switch( g_Art )
+    {
+    case artNone:
+        btnCoverArtClick.cursor = "system";
+        btnCoverArtClick.tabStop = "false";
+        btnCoverArtClick.upTooltip = "";
+        break;
+    case artAlbum:
+        btnCoverArtClick.cursor = "hand";
+        btnCoverArtClick.tabStop = "true";
+        btnCoverArtClick.upTooltip = "res://wmploc.dll/RT_STRING/#1450";
+        break;
+    case artDVD:
+        btnCoverArtClick.cursor = "hand";
+        btnCoverArtClick.tabStop = "true";
+        btnCoverArtClick.upTooltip = "res://wmploc.dll/RT_STRING/#1451";
+        break;
+    }
+
+    btnCoverArtClick.accName = btnCoverArtClick.upTooltip;
+}
+
+function OpenMedia()
+{
+    return( ( null != player.currentMedia ) );
+}
+
+function GetMediaType()
+{
+    if( !OpenMedia() )
+    {
+        return( mtNone );
+    }
+
+    if ( (player.currentPlaylist.count>0) )
+    {
+        var sURL = player.currentPlaylist.item(0).sourceURL;
+
+        if(sURL.indexOf("wmpdvd:")==0)
+        {
+            return( mtDVD );
+        }
+        if(sURL.indexOf("wmpcd:")==0)
+        {
+            return( mtCD );
+        }
+    }
+ 
+    var sType = player.currentMedia.getItemInfo("FileType").toUpperCase();
+
+    if( ( "WMA" == sType ) || ( "MP3" == sType ) )
+    {
+        return( mtAudio );
+    }
+
+    return( mtOther );
+}
+
+function GetCoverImage()
+{
+    if( !OpenMedia() )
+    {
+        return( "res://wmploc.dll/RT_BITMAP/#" + helper.getCurrentArtID( true ).toString() );
+    }
+
+    return( "WMPImage_AlbumArtLarge" );
+}
+
+function DoACCKeyPress(keyCode, dofunction)
+{
+    if ( (keyCode==32) || (keyCode==13) )
+    {
+        dofunction();    
+    }
+}
+      	      {
+   –  S R S W o w    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / S R S W o w . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  @   ’  <    ˝  b l a c k     ‡o n l o a d   I n i t S R S ( ) ;   é     p l a y e r      o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e ,   I n i t S R S ) ;   ˇ     e q u a l i z e r S e t t i n g s    –  e q   	 €    i  c l a s s i d   c l s i d : 9 3 E B 3 2 F 5 - 8 7 B 1 - 4 5 a d - A C C 6 - 0 F 2 4 8 3 D B 8 3 B B     ‡e n h a n c e d A u d i o _ o n c h a n g e   U p d a t e S R S O n O f f ( ) ;   o   
+   ’  F    ‘  |   ”      ˝  b l a c k   	 Ÿ    ! –  D i s a b l e d G r a y    ‡      è ‡v i s i b l e _ o n c h a n g e   i f ( v i s i b l e ) a l p h a B l e n d T o ( 0 x 6 0 , 2 0 0 ) ; e l s e   a l p h a B l e n d = 0 ;   c ‡o n e n d a l p h a b l e n d   i f ( 0 = = a l p h a B l e n d ) v i s i b l e = f a l s e ;     ÷     À  á   .⁄›”¢‚ ¿Oy¯é –  s r s O n O f f    “  
+   ≥ à^  ( e q . e n h a n c e d A u d i o )   ?   ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 2 6 '   :   ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 2 5 ' ;   + ‡o n c l i c k   T o g g l e S R S ( )   g ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   T o g g l e S R S )    ‰  B   ‚  8  ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d     ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   V  á   .⁄›”¢‚ ¿Oy¯é; –  n e x t S p e a k e r S i z e _ n e x t A r r o w   } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 8 6 ' ) )    ”      ^  %   ]  W  	 €    9 ‡o n c l i c k   N e x t S p e a k e r S i z e ( ) ;   7 HŸ  n e x t S p e a k e r S i z e . e n a b l e d    h  h a n d    V  Z  } àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 8 3 ' ) )    W  \    HY  n e x t S p e a k e r S i z e . f o r e g r o u n d C o l o r   ı  á   .⁄›”¢‚ ¿Oy¯é' –  n e x t S p e a k e r S i z e   } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 0 8 ' ) )    ^  %  9 ‡o n C l i c k   N e x t S p e a k e r S i z e ( ) ;   s ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   N e x t S p e a k e r S i z e )    ‰  B  + ‚  N e x t   S p e a k e r   S i z e   3 H]  e q . c u r r e n t S p e a k e r N a m e   ! àY  g _ k L i n k C o l o r    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e   ì ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;     h  h a n d   [  Å   Q)áé”ª* †…<ß: “  ?   ”      ¯  #   ˙  h a n d   ? Ó  r e s : / / w m p l o c / R T _ B I T M A P / # 3 2 8   ï ‡o n C l i c k   p l a y e r . l a u n c h U R L ( ' h t t p : / / g o . m i c r o s o f t . c o m / f w l i n k / ? l i n k i d = 7 7 1 5 ' ) ;    ‰  B    ‚  G o   t o   S   R   S   w e b   s i t e   ¢   á 	  .⁄›”¢‚ ¿Oy¯é V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”      “  
+    ]  &  	 ^     Y  w h i t e     €    ¢   á 	  .⁄›”¢‚ ¿Oy¯é ]  '   V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”      “  ≈   	 ^     Y  w h i t e     €      s   ' –  s v S R S W o w S l i d e r s    ”  #    “  
+     ˛  r e s : / / w m p l o c / # 2 1 5 2   º  à   ê,øÚ_@”ª9 †…<ß: –  t r u B a s s    ”     - &  r e s : / / w m p l o c / # 1 7 9 3   - '  r e s : / / w m p l o c / # 1 7 9 5   - #  r e s : / / w m p l o c / # 1 7 9 2    /  4    ‘  ß    !  # F F 0 0 F F    *  0    +  1 0 0   ' H,  e q . t r u B a s s L e v e l   É ‡v a l u e _ o n c h a n g e   e q . t r u B a s s L e v e l = v a l u e ; t o o l T i p = M a t h . r o u n d ( v a l u e ) ;      h o r i z o n t a l    -  &  = H‡  n e x t S p e a k e r S i z e . a l p h a B l e n d   7 H⁄  n e x t S p e a k e r S i z e . e n a b l e d    ‰  <  + ‚  T r u e   B a s s   s e t t i n g     HŸ  n e x t S p e a k e r S i z e . e n a b l e d       à   ê,øÚ_@”ª9 †…<ß: –  w o w L e v e l    ”      “  ª   - &  r e s : / / w m p l o c / # 1 7 9 3   - '  r e s : / / w m p l o c / # 1 7 9 5   - #  r e s : / / w m p l o c / # 1 7 9 2   - (  r e s : / / w m p l o c / # 1 7 9 4    /  4    ‘  ß    !  # F F 0 0 F F    *  0    +  1 0 0    H,  e q . w o w L e v e l   { ‡v a l u e _ o n c h a n g e   e q . w o w L e v e l = v a l u e ; t o o l T i p = M a t h . r o u n d ( v a l u e ) ;      h o r i z o n t a l    -  '  = H‡  n e x t S p e a k e r S i z e . a l p h a B l e n d   7 H⁄  n e x t S p e a k e r S i z e . e n a b l e d    ‰  <  ' ‚  S   R   S   W O W   l e v e l     HŸ  n e x t S p e a k e r S i z e . e n a b l e d     // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+//
+// Initialization
+//
+
+function InitSRS()
+{
+	if (PlayingDVD())
+	{
+		nextSpeakerSize.enabled=false;
+		srsOnOff.enabled=false;
+		SetDisabledUI(true);
+	}
+	else
+	{
+		srsOnOff.enabled=true;
+		UpdateSRSOnOff();
+	}
+}
+
+//
+// Updating
+//
+
+function UpdateSRSOnOff()
+{
+	if (eq.enhancedAudio == true)
+	{
+		nextSpeakerSize.enabled=true;
+		srsOnOff.value="res://wmploc.dll/RT_STRING/#1833";
+        srsOnOff.toolTip = "res://wmploc/RT_STRING/#1826";
+		SetDisabledUI(false);
+	}
+	else
+	{
+		nextSpeakerSize.enabled=false;
+		srsOnOff.value="res://wmploc.dll/RT_STRING/#1832";
+		srsOnOff.toolTip = "res://wmploc/RT_STRING/#1825";
+		SetDisabledUI(true);
+	}
+}
+
+function NextSpeakerSize()
+{
+	var index = eq.speakerSize;
+
+	index++;
+	if (index > 2)
+		index = 0;
+
+	eq.speakerSize = index;
+}
+
+function ToggleSRS()
+{
+    eq.enhancedAudio=!eq.enhancedAudio;
+}
+         	      Í   –  E Q V i e w    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / E q u a l i z e r . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  T   ’  P    ˝  b l a c k   W ‡o n l o a d   I n i t P e r s i s t e d S e t t i n g s ( ) ;   I n i t E Q ( ) ;     ‡o n c l o s e   P e r s i s t S e t t i n g s ( ) ;     V    –  s v E Q V i e w    ‘  T   ’  P    ˝  b l a c k     “  
+   ä     p l a y e r      o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e , I n i t E Q ) ;   ’    e q u a l i z e r S e t t i n g s    –  e q   y ‡e n a b l e S p l i n e T e n s i o n _ o n c h a n g e   U p d a t e S p l i n e T e n s i o n B u t t o n s ( ) ;   m ‡s p l i n e T e n s i o n _ o n c h a n g e   U p d a t e S p l i n e T e n s i o n B u t t o n s ( ) ;   	 €    i  c l a s s i d   c l s i d : 9 3 E B 3 2 F 5 - 8 7 B 1 - 4 5 a d - A C C 6 - 0 F 2 4 8 3 D B 8 3 B B     ‡b y p a s s _ o n c h a n g e   U p d a t e E Q O n O f f ( ) ;   ˛    ’       ‘  ,  t  á   .⁄›”¢‚ ¿Oy¯é –  e q O n O f f   ) ‡o n c l i c k   T o g g l e E Q ( )    ‰  B   ‚  8  ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d     ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   T o g g l e E Q )   /  á   .⁄›”¢‚ ¿Oy¯é –  R e s e t    à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 6 3 ' ) ) ;    ]  7   ‰  B   ‚  7  ' ‡o n c l i c k   R e s e t E Q ( )    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d   - H⁄  n e x t P r e s e t . e n a b l e d   = HY  n e x t P r e s e t . f o r e g r o u n d C o l o r   c ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   R e s e t E Q )     ^  U  W   è   ãv≥∫ÉàÏJüõ·LîyÔ –  m n u E Q S e l e c t    “  ¶    ”       Ÿ    :  á   .⁄›”¢‚ ¿Oy¯é9 –  n e x t P r e s e t _ d r o p D o w n A r r o w   } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 8 5 ' ) )    ”      ^  I   ]  V  	 €    3 ‡o n c l i c k   E Q S e l e c t M e n u ( ) ;   - HŸ  n e x t P r e s e t . e n a b l e d    h  h a n d    V  Z  } àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 8 3 ' ) )    W  \    HY  n e x t P r e s e t . f o r e g r o u n d C o l o r       á   .⁄›”¢‚ ¿Oy¯é à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 6 4 ' ) ) ;    –  n e x t P r e s e t   3 H]  e q . c u r r e n t P r e s e t T i t l e    ^  I  ! àY  g _ k L i n k C o l o r   3 ‡o n c l i c k   E Q S e l e c t M e n u ( ) ;    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e   ì ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;    h  h a n d     ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   E Q S e l e c t M e n u )   o   
+   ’  H    ‘  '   ”      ˝  b l a c k   	 Ÿ    ! –  D i s a b l e d G r a y    ‡      è ‡v i s i b l e _ o n c h a n g e   i f ( v i s i b l e ) a l p h a B l e n d T o ( 0 x 6 0 , 2 0 0 ) ; e l s e   a l p h a B l e n d = 0 ;   c ‡o n e n d a l p h a b l e n d   i f ( 0 = = a l p h a B l e n d ) v i s i b l e = f a l s e ;     ÷     FÙ    ”     - ˛  r e s : / / w m p l o c / # 2 1 3 6   = H 	  m e d i a c e n t e r . b u t t o n H u e S h i f t   A H	  m e d i a c e n t e r . b u t t o n S a t u r a t i o n     –  E q u a l i z e r S l i d e r S u b v i e w   ¶  Å   Q)áé”ª* †…<ß:' –  s t D i s a b l e _ r a d i o    ”     	 ˆ  ˇˇ- Ó  r e s : / / w m p l o c / # 2 1 2 0   -   r e s : / / w m p l o c / # 2 1 2 1   - Ô  r e s : / / w m p l o c / # 2 1 2 2   e ‡o n c l i c k   d o w n = t r u e ;   e q . e n a b l e S p l i n e T e n s i o n = f a l s e ;   % Hı  s t D i s a b l e . d o w n    ¯  A   à˘  u p T o o l T i p   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B   ‚  A  w ‡o n m o u s e o v e r   s t D i s a b l e . i m a g e = ' r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 5 '     ‡o n m o u s e o u t   s t D i s a b l e . i m a g e = ' r e s : / / w m p l o c / # 5 1 2 '   Ë  Å   Q)áé”ª* †…<ß: –  s t D i s a b l e    ”      “     	 ˆ  ˇˇ+ Ó  r e s : / / w m p l o c / # 5 1 2   +   r e s : / / w m p l o c / # 5 1 2   + Ò  r e s : / / w m p l o c / # 5 1 2   ? Ô  r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 5   c ‡o n c l i c k   d o w n = t r u e ; e q . e n a b l e S p l i n e T e n s i o n = f a l s e ;    ¯  A   à˘  u p T o o l T i p   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B   ‚  A    €    Ó  Å   Q)áé”ª* †…<ß:% –  s t M e d i u m _ r a d i o    ”     	 ˆ  ˇˇ- Ó  r e s : / / w m p l o c / # 2 1 2 0   -   r e s : / / w m p l o c / # 2 1 2 1   - Ô  r e s : / / w m p l o c / # 2 1 2 2   µ ‡o n c l i c k   d o w n = t r u e ;   e q . e n a b l e S p l i n e T e n s i o n = t r u e ;   e q . s p l i n e T e n s i o n = g _ k S p l i n e T e n s i o n M e d i u m ;    ¯  @   à˘  u p T o o l T i p   # Hı  s t M e d i u m . d o w n   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B   ‚  @  u ‡o n m o u s e o v e r   s t M e d i u m . i m a g e = ' r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 4 '     ‡o n m o u s e o u t   s t M e d i u m . i m a g e = ' r e s : / / w m p l o c / # 5 0 9 '   8  Å   Q)áé”ª* †…<ß: –  s t M e d i u m    ”      “     	 ˆ  ˇˇ+ Ó  r e s : / / w m p l o c / # 5 0 9   +   r e s : / / w m p l o c / # 5 0 9   + Ò  r e s : / / w m p l o c / # 5 0 9   ? Ô  r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 4   µ ‡o n c l i c k   d o w n = t r u e ;   e q . e n a b l e S p l i n e T e n s i o n = t r u e ;   e q . s p l i n e T e n s i o n = g _ k S p l i n e T e n s i o n M e d i u m ;   	 €     ¯  @   à˘  u p T o o l T i p   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B    ‚  @  ‰  Å   Q)áé”ª* †…<ß:# –  s t T i g h t _ r a d i o    ”  *   	 ˆ  ˇˇ- Ó  r e s : / / w m p l o c / # 2 1 2 0   -   r e s : / / w m p l o c / # 2 1 2 1   - Ô  r e s : / / w m p l o c / # 2 1 2 2   ≥ ‡o n c l i c k   d o w n = t r u e ;   e q . e n a b l e S p l i n e T e n s i o n = t r u e ;   e q . s p l i n e T e n s i o n = g _ k S p l i n e T e n s i o n T i g h t ;    ¯  ?   à˘  u p T o o l T i p   ! Hı  s t T i g h t . d o w n   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B   ‚  ?  s ‡o n m o u s e o v e r   s t T i g h t . i m a g e = ' r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 3 '     ‡o n m o u s e o u t   s t T i g h t . i m a g e = ' r e s : / / w m p l o c / # 5 0 6 '   +  Å   Q)áé”ª* †…<ß: –  s t T i g h t    ”  )    “     	 ˆ  ˇˇ+ Ó  r e s : / / w m p l o c / # 5 0 6   +   r e s : / / w m p l o c / # 5 0 6   + Ò  r e s : / / w m p l o c / # 5 0 6   ? Ô  r e s : / / w m p l o c / R T _ I M A G E / # 1 7 0 3   ≥ ‡o n c l i c k   d o w n = t r u e ;   e q . e n a b l e S p l i n e T e n s i o n = t r u e ;   e q . s p l i n e T e n s i o n = g _ k S p l i n e T e n s i o n T i g h t ;    ¯  ?   à˘  u p T o o l T i p   - H⁄  n e x t P r e s e t . e n a b l e d    ‰  B    ‚  ?  Õ  à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 1 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 1 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 1 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 1 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    “  ;    ”      –  e q u a l i z e r 1   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 1   ≥ ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ;   i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 1   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 1 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 2 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 2 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 2 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 2 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 2   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 1 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 2   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 2   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 2 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 3 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 3 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 3 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 3 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 3   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 2 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 3   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 3   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 3 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 4 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 4 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 4 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 4 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 4   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 3 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 4   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 4   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 4 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 5 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 5 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 5 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 5 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 5   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 4 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 5   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 5 , v a l u e ) ;   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 5   =   v a l u e ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 6 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 6 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 6 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 6 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 6   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 5 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 6   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 6   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 6 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 7 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 7 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 7 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 7 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 7   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 6 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 7   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 7   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 7 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 8 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 8 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 8 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 8 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 8   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 7 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 8   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 8 , v a l u e ) ;   ± ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 8   =   v a l u e ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 9 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   { ‡o n m o u s e o u t   c a p 9 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   u ‡o n f o c u s   c a p 9 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   s ‡o n b l u r   c a p 9 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 9   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 8 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   # H,  e q . g a i n L e v e l 9   ≥ ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ;   i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 9   =   v a l u e ;   ] ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 9 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )     à   ê,øÚ_@”ª9 †…<ß:} ‡o n m o u s e o v e r   c a p 1 0 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ;   } ‡o n m o u s e o u t   c a p 1 0 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;   w ‡o n f o c u s   c a p 1 0 . a l p h a B l e n d T o ( g _ k L i g h t A l p h a , g _ k F a d e U p T i m e ) ; ;   u ‡o n b l u r   c a p 1 0 . a l p h a B l e n d T o ( g _ k D a r k A l p h a , g _ k F a d e D o w n T i m e ) ;    –  e q u a l i z e r 1 0   % à”  e q u a l i z e r 1 . t o p   1 à“  e q u a l i z e r 9 . l e f t   +   2 2   - &  r e s : / / w m p l o c / # 1 7 9 9   - '  r e s : / / w m p l o c / # 1 7 9 8   - (  r e s : / / w m p l o c / # 1 7 9 7   - #  r e s : / / w m p l o c / # 1 7 9 6    /  4    !  # F F 0 0 F F    *  - 1 4    +  1 4   % H,  e q . g a i n L e v e l 1 0   ≥ ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; i f   ( ! e v e n t . s h i f t K e y )   e q . g a i n L e v e l 1 0   =   v a l u e ;   _ ‡o n d r a g e n d   D o S h i f t S e n s i t i v e E Q ( e v e n t , 1 0 , v a l u e ) ;      v e r t i c a l   - HŸ  n e x t P r e s e t . e n a b l e d    ‰  <    à-  M a t h . r o u n d ( v a l u e )   ó   á   .⁄›”¢‚ ¿Oy¯é “  5   V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ]  5  	 ^     Y  w h i t e     €        à   ê,øÚ_@”ª9 †…<ß: –  b a l a n c e    ”      “  +  - &  r e s : / / w m p l o c / # 1 7 9 3   - '  r e s : / / w m p l o c / # 1 7 9 5   - (  r e s : / / w m p l o c / # 1 7 9 4   - #  r e s : / / w m p l o c / # 1 7 9 2    /  4    !  # F F 0 0 F F    *  - 1 0 0    +  1 0 0   7 H,  p l a y e r . s e t t i n g s . b a l a n c e    ,  0   — ‡v a l u e _ o n c h a n g e   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ;   t o o l T i p   =   M a t h . r o u n d ( v a l u e ) ; p l a y e r . s e t t i n g s . b a l a n c e = v a l u e ;   g ‡o n m o u s e u p   t o o l T i p = ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 8 4 5 ' ;   U ‡o n d r a g e n d   i f ( M a t h . a b s ( v a l u e ) < 1 0 ) v a l u e = 0 ;      h o r i z o n t a l    -  5   ‰  <   ‚  5    à-  M a t h . r o u n d ( v a l u e )     £ 
+   ”  S   A à‘  E q u a l i z e r S l i d e r S u b v i e w . w i d t h   C à“  E q u a l i z e r S l i d e r S u b v i e w . l e f t - 5     ’     |   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  3 1 H z    X  7    –  c a p 1    “  ?     €    x   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  6 2    X  7    –  c a p 2    “  Z     €    z   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  1 2 5    X  7    –  c a p 3    “  m     €    z   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  2 5 0    X  7    –  c a p 4    “  É     €    z   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  5 0 0    X  7    –  c a p 5    “  ò     €    |   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  1 K H z    X  7    –  c a p 6    “  ´     €    v   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  2    X  7    –  c a p 7    “        €    v   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  4    X  7    –  c a p 8    “  ﬂ     €    v   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  8    X  7    –  c a p 9    “  ˆ     €        á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    ‡  Ä    ]  1 6 K H z    X  7    –  c a p 1 0    “      €          // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+var g_kSplineTensionMedium = 3;
+var g_kSplineTensionTight  = 9;
+
+var g_kLightAlpha = 255;
+var g_kDarkAlpha  = 128;
+var g_kFadeUpTime   = 1;
+var g_kFadeDownTime = 500;
+
+//
+// Presistence
+//
+
+function InitPersistedSettings()
+{
+	var st = theme.loadPreference('splineTension');
+	if (st=='--') 
+	{
+		eq.enableSplineTension=true;
+		eq.splineTension=g_kSplineTensionMedium;
+	}
+	
+	else
+	{
+		if (st=="disabled")
+		{
+			eq.enableSplineTension=false;
+		}
+		else
+		{
+			eq.enableSplineTension=true;
+			eq.splineTension=parseInt(st);
+		}
+	}
+	
+	stDisable.down	= !eq.enableSplineTension;	  
+	stMedium.down	= (eq.enableSplineTension) && (eq.splineTension == g_kSplineTensionMedium);
+	stTight.down	= (eq.enableSplineTension) && (eq.splineTension == g_kSplineTensionTight);
+}
+
+function PersistSettings()
+{
+	if (eq.enableSplineTension)
+	{
+		theme.savePreference('splineTension',eq.splineTension);
+	}
+	else
+	{
+		theme.savePreference('splineTension','disabled');
+	}
+}
+
+//
+// Initialization
+//
+
+function InitEQ()
+{
+	if (PlayingDVD())
+	{
+		nextPreset.enabled=false;
+	}
+	else
+	{
+		UpdateEQOnOff();
+	}
+}
+
+//
+// Updating
+//
+
+function UpdateEQOnOff()
+{
+	if (eq.bypass)
+	{
+	    eqOnOff.value="res://wmploc.dll/RT_STRING/#1832";
+	    nextPreset.enabled=false;
+	    SetDisabledUI(true);
+	}
+	else
+	{
+		eqOnOff.value="res://wmploc.dll/RT_STRING/#1833";
+	    nextPreset.enabled=true;
+	    SetDisabledUI(false);
+	}
+}
+
+function UpdateSplineTensionButtons()
+{
+	with (eq)
+	{	 
+		stDisable.down = !enableSplineTension;
+
+		if (!enableSplineTension)
+		{
+			stMedium.down=false; 
+			stTight.down=false;
+		}
+	
+		else
+		{
+			stMedium.down = (splineTension==g_kSplineTensionMedium); 
+			stTight.down  = (splineTension==g_kSplineTensionTight);
+		}
+	} 
+}	 
+
+function DoShiftSensitiveEQ(event,level,newVal)
+{
+	if (eq.enableSplineTension && event.shiftKey) 
+	{
+		eq.enableSplineTension=false; 
+		eq.gainLevels(level) = newVal; 
+		eq.enableSplineTension=true;
+	}
+}
+
+function EQSelectMenu()
+{
+	var index = 0;
+	var max = eq.presetCount;
+
+	mnuEQSelect.deleteAllItems();
+
+	for (index=0; index<max; index++)
+	{
+		mnuEQSelect.appendItem( index + 1, eq.presetTitle(index) );
+	}
+
+	mnuEQSelect.checkRadioItem( eq.currentPreset + 1, true );
+
+	index = mnuEQSelect.show();
+
+	eq.currentPreset = index - 1;
+}
+
+function ResetEQ()
+{
+    eq.currentPreset=0;
+    player.settings.balance=0;
+}
+
+function ToggleEQ()
+{
+    eq.bypass=!eq.bypass;
+}   	      ì   –  C r o s s F a d e    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / C r o s s F a d e . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  @   ’  <    ˝  b l a c k     ‡o n l o a d   I n i t C r o s s F a d e ( ) ;   ﬂ     p l a y e r   Ö  o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e ,   I n i t C r o s s F a d e ) ;      m e d i a c h a n g e   O n M e d i a C h a n g e ( I t e m ) ;   ”    e q u a l i z e r S e t t i n g s    –  e q   	 €    i  c l a s s i d   c l s i d : 9 3 E B 3 2 F 5 - 8 7 B 1 - 4 5 a d - A C C 6 - 0 F 2 4 8 3 D B 8 3 B B   i ‡n o r m a l i z a t i o n _ o n c h a n g e   U p d a t e N o r m a l i z a t i o n O n O f f ( ) ;   Y ‡c r o s s F a d e _ o n c h a n g e   U p d a t e C r o s s F a d e O n O f f ( ) ;     ‡c r o s s F a d e W i n d o w _ o n c h a n g e   U p d a t e C r o s s F a d e W i n d o w ( ) ;   o   
+   ’  7    ‘  |   ”  #    ˝  b l a c k   	 Ÿ    ! –  D i s a b l e d G r a y    ‡      è ‡v i s i b l e _ o n c h a n g e   i f ( v i s i b l e ) a l p h a B l e n d T o ( 0 x 6 0 , 2 0 0 ) ; e l s e   a l p h a B l e n d = 0 ;   c ‡o n e n d a l p h a b l e n d   i f ( 0 = = a l p h a B l e n d ) v i s i b l e = f a l s e ;     ÷     _  á   .⁄›”¢‚ ¿Oy¯é- –  n o r m a l i z a t i o n O n O f f    ”       “  
+   ? ‡o n c l i c k   T o g g l e N o r m a l i z a t i o n ( )   { ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   T o g g l e N o r m a l i z a t i o n )    ‰  B   ‚    ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d     ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   :  á 	  .⁄›”¢‚ ¿Oy¯é/ –  n o r m a l i z a t i o n S t a t u s    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”       à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 4 5 ' ) ) ;   	 ^     Y  w h i t e     €    G  á   .⁄›”¢‚ ¿Oy¯é% –  c r o s s F a d e O n O f f    ”      “  
+   7 ‡o n c l i c k   T o g g l e C r o s s f a d e ( )   s ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   T o g g l e C r o s s f a d e )    ‰  B   ‚    ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d     ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   ∫   á 	  .⁄›”¢‚ ¿Oy¯é –  o v e r l a p    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”  A    “  
+    Y  w h i t e    f  c e n t e r     €      y   - –  s v C r o s s F a d e S l i d e r s    ”  #    “  
+     ˛  r e s : / / w m p l o c / # 2 1 5 4       à   ê,øÚ_@”ª9 †…<ß:' –  c r o s s F a d e W i n d o w    ”     - &  r e s : / / w m p l o c / # 1 7 9 3   - #  r e s : / / w m p l o c / # 1 7 9 2    /  4    ‘  ß    !  # F F 0 0 F F    *  0    +  1 0 0 0 0   - H,  e q . c r o s s F a d e W i n d o w   U ‡v a l u e _ o n c h a n g e   e q . c r o s s F a d e W i n d o w = v a l u e ;      h o r i z o n t a l    -  }   ‰  <   ‚  }    HŸ  c r o s s F a d e O n O f f . e n a b l e d      // Windows Media Player - Copyright 2002 Microsoft Corporation.
+//<script>
+
+//
+// Initialization
+//
+
+function InitCrossFade()
+{
+	if (PlayingDVD())
+	{
+		normalizationOnOff.enabled=false;
+		crossFadeOnOff.enabled=false;
+	}
+	else
+	{
+		normalizationOnOff.enabled=true;
+		crossFadeOnOff.enabled=true;
+	}
+
+	UpdateNormalizationOnOff();
+	UpdateCrossFadeOnOff();
+	UpdateCrossFadeWindow();
+}
+
+function OnMediaChange(Item)
+{
+	if( Item == player.currentMedia )
+	{
+		InitCrossFade();
+	}
+}
+
+//
+// Updating
+//
+
+function UpdateCrossFadeOnOff()
+{
+	if (eq.crossFade)
+	{
+		crossFadeOnOff.value="res://wmploc.dll/RT_STRING/#1916";
+	}
+	else
+	{
+		crossFadeOnOff.value="res://wmploc.dll/RT_STRING/#1915";
+	}
+
+	if (crossFadeOnOff.enabled)
+	{
+		SetDisabledUI(!eq.crossFade);
+	}
+	else
+	{
+		SetDisabledUI(true);
+	}
+}
+
+function UpdateCrossFadeWindow()
+{
+	var format = theme.loadString("res://wmploc/RT_STRING/#1918");
+
+	var num = eq.crossFadeWindow / 100;
+
+	format = format.replace(/%1/i, Math.floor(num / 10));
+	format = format.replace(/%2/i, Math.floor(num % 10));
+
+	overlap.value = format;
+}
+
+function UpdateNormalizationOnOff()
+{
+	if (eq.normalization)
+	{
+		normalizationOnOff.value="res://wmploc.dll/RT_STRING/#1912";
+	}
+	else
+	{
+		normalizationOnOff.value="res://wmploc.dll/RT_STRING/#1911";
+	}
+
+	var status = "";
+
+	if (osMediaOpen == player.openState)
+	{
+		if ((0.0 == eq.normalizationPeak) && (0.0 == eq.normalizationAverage))
+		{
+			status = theme.loadString("res://wmploc/RT_STRING/#1913");
+		}
+		else
+		{
+			status = theme.loadString("res://wmploc/RT_STRING/#1914");
+		}
+	}
+
+	if ((normalizationOnOff.enabled) && (eq.normalization)) 
+	{
+		normalizationStatus.value = status;
+	}
+	else
+	{
+		normalizationStatus.value = "";
+	}
+}
+
+function ToggleNormalization()
+{
+    eq.normalization=!eq.normalization;
+}
+
+function ToggleCrossfade()
+{
+    eq.crossFade=!eq.crossFade;
+}  	      ì   –  M e d i a L i n k    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / M e d i a L i n k . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  @   ’  <    ˝  b l a c k     ‡o n l o a d   I n i t M e d i a L i n k ( ) ;   ö     p l a y e r      o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e ,   I n i t M e d i a L i n k ) ;   )  á   .⁄›”¢‚ ¿Oy¯é –  m a r k I n    ”       “  
+   % ‡o n c l i c k   M a r k I n ( )   a ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   M a r k I n )    ‰  B   ‚  °  ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d    ]  °   ^  •    ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   (  á 	  .⁄›”¢‚ ¿Oy¯é –  m a r k I n T i m e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”       à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 5 6 ' ) ) ;   	 ^     Y  w h i t e     €    /  á   .⁄›”¢‚ ¿Oy¯é –  m a r k O u t    ”      “  
+   ' ‡o n c l i c k   M a r k O u t ( )   c ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   M a r k O u t )    ‰  B   ‚  ¢  ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d    ]  ¢   ^  ¶    ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   *  á 	  .⁄›”¢‚ ¿Oy¯é –  m a r k O u t T i m e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ”      à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 5 6 ' ) ) ;   	 ^     Y  w h i t e     €    5  á   .⁄›”¢‚ ¿Oy¯é –  s e n d L i n k    ”  (    “  
+   ) ‡o n c l i c k   S e n d L i n k ( )   e ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   S e n d L i n k )    ‰  B   ‚  £  ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d    ]  £   ^  ß    ‡e n a b l e d _ o n c h a n g e   f o r e G r o u n d C o l o r = e n a b l e d ? g _ k L i n k C o l o r : g _ k D i s a b l e d C o l o r ;   µ   á   .⁄›”¢‚ ¿Oy¯é# –  w a r n L o c a l F i l e    ”  <    “  
+    Y  # F F F F F F    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    ]  Æ    Ÿ      á   .⁄›”¢‚ ¿Oy¯é –  s l o w   	 Ÿ    } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 2 1 8 7 ' ) )   ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ]  Ê    W  u n d e r l i n e    h  h a n d   % ‡o n c l i c k   G o S l o w ( )   a ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   G o S l o w )    ‰  B   ‚  Ê     ^  ≥    á   .⁄›”¢‚ ¿Oy¯é –  n o r m a l   	 Ÿ    } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 2 1 8 8 ' ) )   ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ]  Á    W  u n d e r l i n e    h  h a n d   ) ‡o n c l i c k   G o N o r m a l ( )   e ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   G o N o r m a l )    ‰  B   ‚  Á     ^  µ    á   .⁄›”¢‚ ¿Oy¯é –  f a s t   	 Ÿ    } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 2 1 8 9 ' ) )   ! àY  g _ k L i n k C o l o r    \  u n d e r l i n e    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  b   ]  Ë    W  u n d e r l i n e    h  h a n d   % ‡o n c l i c k   G o F a s t ( )   a ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   G o F a s t )    ‰  B   ‚  Ë     ^  ¥    ºÇ  1h;Æ©%”ΩA ¿On•Æ –  s t e p g r o u p   	 Ÿ    + π  r e s : / / w m p l o c / # 4 9 0   + ¥  r e s : / / w m p l o c / # 4 9 1   + ∂  r e s : / / w m p l o c / # 4 9 2   + µ  r e s : / / w m p l o c / # 4 9 3   + ∏  r e s : / / w m p l o c / # 4 9 4    à“  n o r m a l . l e f t    ”     = H√  m e d i a c e n t e r . b u t t o n H u e S h i f t     Hƒ  m e d i a c e n t e r . b u t t o n S a t u r a t i o n   —    b u t t o n e l e m e n t    ‘  # 0 0 F F F F   E ‡o n c l i c k   p l a y e r . c o n t r o l s . s t e p ( - 1 )   G (’  w m p e n a b l e d : p l a y e r . c o n t r o l s . s t e p     “  ”        b u t t o n e l e m e n t    ‘  # 0 0 0 0 F F   C ‡o n c l i c k   p l a y e r . c o n t r o l s . s t e p ( 1 )   G (’  w m p e n a b l e d : p l a y e r . c o n t r o l s . s t e p     “  ÿ          // Windows Media Player - Copyright 2002 Microsoft Corporation.
+//<script>
+
+var g_StartTime = 0.0;
+var g_EndTime = 0.0;
+
+//
+// Initialization
+//
+
+function InitMediaLink()
+{
+    var bEnabled = false;
+
+    if (osMediaOpen == player.openState)
+    {
+        g_StartTime = 0.0;
+        g_EndTime = player.currentMedia.duration;
+
+        if (helper.canSendLink)
+        {
+            markInTime.value = helper.getTimeString(g_StartTime);
+            markOutTime.value = helper.getTimeString(g_EndTime);
+            bEnabled = true;
+        }
+    }
+    
+    warnLocalFile.visible = !bEnabled;
+
+    markInTime.visible = bEnabled;
+    markOutTime.visible = bEnabled;
+    markIn.enabled = bEnabled;
+    markOut.enabled = bEnabled;
+    sendLink.enabled = bEnabled;
+
+    // only show play speed controls on XP
+    if (helper.isXPOrBetter)
+    {
+        slow.visible = true;
+        normal.visible = true;
+        fast.visible = true;
+        stepgroup.visible = true;
+    }
+    
+}
+
+//
+// Updating
+//
+
+function MarkIn()
+{
+    g_StartTime = player.controls.currentPosition;
+    markInTime.value = helper.getTimeString(g_StartTime);
+
+    if (g_StartTime > g_EndTime)
+    {
+        g_EndTime = player.currentMedia.duration;
+        markOutTime.value = helper.getTimeString(g_EndTime);
+    }
+}
+
+function MarkOut()
+{
+    g_EndTime = player.controls.currentPosition;
+    markOutTime.value = helper.getTimeString(g_EndTime);
+
+    if (g_EndTime < g_StartTime)
+    {
+        g_StartTime = 0.0;
+        markInTime.value = helper.getTimeString(g_StartTime);
+    }
+}
+
+function SendLink()
+{
+    helper.sendLink(g_StartTime, g_EndTime);
+}
+
+function GoSlow()
+{
+    player.settings.rate=mediacenter.slowRate;
+}
+
+function GoNormal()
+{
+    player.settings.rate=1;
+}
+
+function GoFast()
+{
+    player.settings.rate=mediacenter.fastRate;
+}
+       	      ¡  + –  A d v a n c e d A u d i o V i e w   Á  s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / A d v a n c e d A u d i o . j s ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  @   ’  <    ˝  b l a c k     ‡o n l o a d   U p d a t e D R C B u t t o n S t a t e ( m e d i a c e n t e r . d y n a m i c R a n g e C o n t r o l )   ∞     m e d i a c e n t e r     ‡d y n a m i c R a n g e C o n t r o l _ o n c h a n g e   U p d a t e D R C B u t t o n S t a t e ( d y n a m i c R a n g e C o n t r o l )     =    ‘  T   ’  P    ˝  b l a c k     “  
+   k  á 
+  .⁄›”¢‚ ¿Oy¯é –  d r c O n O f f   1 ‡o n c l i c k   T o g g l e O n O f f ( ) ;   m ‡o n k e y p r e s s   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   T o g g l e O n O f f )    ‰  B   ‚  L  ! àY  g _ k L i n k C o l o r    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e     h  h a n d   á   á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    ”      ]  P    €    s   
+   ’  2    ‘     ”  (    ˝  # 0 0 0 0 0 0   	 Ÿ    ! –  D i s a b l e d G r a y    ‡      è ‡v i s i b l e _ o n c h a n g e   i f ( v i s i b l e ) a l p h a B l e n d T o ( 0 x 6 0 , 2 0 0 ) ; e l s e   a l p h a B l e n d = 0 ;   c ‡o n e n d a l p h a b l e n d   i f ( 0 = = a l p h a B l e n d ) v i s i b l e = f a l s e ;     ÷     ù  Å   Q)áé”ª* †…<ß: ”  (   A –  D y n a m i c R a n g e M e d i u m D i f f e r e n c e    ‚  Q  	 ˆ  ˇˇ- Ó  r e s : / / w m p l o c / # 2 1 2 0   -   r e s : / / w m p l o c / # 2 1 2 1   - Ô  r e s : / / w m p l o c / # 2 1 2 2     ‡o n c l i c k   d o w n = t r u e ;   m e d i a c e n t e r . d y n a m i c R a n g e C o n t r o l = g _ k D R C _ M E D I U M _ D I F F E R E N C E ;   í   á   .⁄›”¢‚ ¿Oy¯é V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    Y  # F F F F F F    ”  (    “      ]  Q    €    ù  Å   Q)áé”ª* †…<ß: ”  <   A –  D y n a m i c R a n g e L i t t l e D i f f e r e n c e    ‚  R  	 ˆ  ˇˇ- Ó  r e s : / / w m p l o c / # 2 1 2 0   -   r e s : / / w m p l o c / # 2 1 2 1   - Ô  r e s : / / w m p l o c / # 2 1 2 2     ‡o n c l i c k   d o w n = t r u e ;   m e d i a c e n t e r . d y n a m i c R a n g e C o n t r o l = g _ k D R C _ L I T T L E _ D I F F E R E N C E ;       á   .⁄›”¢‚ ¿Oy¯é Y  # F F F F F F    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    ”  <    “      ]  R    €          // Windows Media Player - Copyright 2000 Microsoft Corporation.
+//<script>
+
+var g_kLastUserSetting = 1;
+
+var g_kDRC_LITTLE_DIFFERENCE=2;
+var g_kDRC_MEDIUM_DIFFERENCE=1;
+
+function ToggleOnOff()
+{
+    var temp = mediacenter.dynamicRangeControl;
+    mediacenter.dynamicRangeControl = temp ? 0 : g_kLastUserSetting;
+    if (0!=temp)
+    {
+        g_kLastUserSetting=temp;
+    }
+}
+
+function UpdateDRCButtonState(DRC)
+{    
+    if (0==DRC)
+    {
+        drcOnOff.value="res://wmploc/RT_STRING/#1832";
+        SetDisabledUI(true);
+    }
+    else
+    {
+        drcOnOff.value="res://wmploc/RT_STRING/#1833";
+        SetDisabledUI(false);
+    }
+    DynamicRangeLittleDifference.down   = (DRC==g_kDRC_LITTLE_DIFFERENCE);
+    DynamicRangeMediumDifference.down   = (DRC==g_kDRC_MEDIUM_DIFFERENCE);
+}
+
+   	      £	   –  V S e t t i n g s    s c r i p t F i l e   r e s : / / w m p l o c / R T _ T E X T / # 1 3 2 ; r e s : / / w m p l o c / R T _ T E X T / S e t t i n g s C o m m o n . j s ; r e s : / / w m p l o c / R T _ T E X T / V S e t t i n g s . j s ; r e s : / / w m p l o c / R T _ T E X T / # 1 3 4    ‘  |   ’  P    ˝  b l a c k     ‡o n l o a d   I n i t V i d e o S e t t i n g s V i e w ( ) ;   ®     p l a y e r      o p e n s t a t e c h a n g e   O n O p e n S t a t e C h a n g e E v e n t ( N e w S t a t e , I n i t V i d e o S e t t i n g s V i e w ) ;   ´     V i d e o S e t t i n g s    –  v s   	 ⁄  ˇˇ	 €       c l a s s i d   c l s i d : A E 7 B F A F E - D C C 8 - 4 a 7 3 - 9 2 C 8 - C C 3 0 0 C A 8 8 8 5 9   û  á   .⁄›”¢‚ ¿Oy¯é –  r e s e t    “  
+    ]  7  = ‡o n c l i c k   R e s e t V i d e o S e t t i n g s ( )    ‰  B   ‚  7  ! àY  g _ k L i n k C o l o r    V  `  - àX  g _ k S M A L L _ F O N T S I Z E ;    W  u n d e r l i n e    h  h a n d   y ‡o n k e y d o w n   D o A C C K e y P r e s s ( e v e n t . k e y C o d e ,   R e s e t V i d e o S e t t i n g s )     ^  U  3  á   .⁄›”¢‚ ¿Oy¯é? –  Z o o m L e v e l T e x t _ d r o p D o w n A r r o w   } à“  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / / w m p l o c / R T _ S T R I N G / # 1 9 0 7 ' ) )    ”      ^  ≤   ]  V  	 €    + ‡o n c l i c k   Z o o m M e n u ( ) ;   3 HŸ  Z o o m L e v e l T e x t . e n a b l e d    V  Z  } àX  p a r s e I n t ( t h e m e . l o a d S t r i n g ( ' r e s : / /

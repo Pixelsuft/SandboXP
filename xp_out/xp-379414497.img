@@ -1,0 +1,1390 @@
+e.visibility = "visible";
+    if (gTooBusyHaveError3)
+        g.tberrspan3.style.visibility = "visible";
+
+
+    if (((g_AltnumberHolder == null) || (g_AltnumberHolder == "")) && (!gTooBusyHaveError1))
+    {
+        g_AltnumberHolder = "";
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.style.disabled = true;
+        g.cb_altnumber.checked = false;
+    }
+    else
+    {
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.cb_altnumber.checked = true;
+    }
+
+    if (!gTooBusyHaveError2)
+        g_OutsidelineHolder = TapiObj.get_DialOut;
+
+    if (((g_OutsidelineHolder == null) || (g_OutsidelineHolder == "")) && (!gTooBusyHaveError2))
+    {
+        g_OutsidelineHolder = "";
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.cb_outsideline.checked = false;
+    }
+    else
+    {
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.cb_outsideline.checked = true;
+    }
+
+
+    if (!gTooBusyHaveError3)
+        g_CallwaitingHolder = TapiObj.get_CallWaiting;
+
+    if (((g_CallwaitingHolder == null) || (g_CallwaitingHolder == "")) && (!gTooBusyHaveError3))
+    {
+        g_CallwaitingHolder = "";
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.cb_callwaiting.checked = false;
+    }
+    else
+    {
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.cb_callwaiting.checked = true;
+    }
+
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NewToobusyNextBtnHandler;
+}
+
+
+function Check_cb_altnumber()
+{
+    if (g.cb_altnumber.checked == true)
+    {
+        g.edt_altnumber.style.backgroundColor = "#ffffff";
+        g.edt_altnumber.disabled = false;
+        g.edt_altnumber.value = g_AltnumberHolder;
+        g.edt_altnumber.focus();
+    }
+    else
+    {
+        g_AltnumberHolder = g.edt_altnumber.value;
+        g.edt_altnumber.value = "";
+        g.edt_altnumber.style.backgroundColor = "#dddddd";
+        g.edt_altnumber.disabled = true;
+        g.lbl_altnumber.innerHTML = L_altnumber_Text;
+        g.lbl_altnumber.className = "text-primary";
+    }
+}
+
+
+function Check_cb_outsideline()
+{
+    if (g.cb_outsideline.checked == true)
+    {
+        g.edt_outsideline.style.backgroundColor = "#ffffff";
+        g.edt_outsideline.disabled = false;
+        g.edt_outsideline.value = g_OutsidelineHolder;
+        g.edt_outsideline.focus();
+    }
+    else
+    {
+        g_OutsidelineHolder = g.edt_outsideline.value;
+        g.edt_outsideline.value = "";
+        g.edt_outsideline.style.backgroundColor = "#dddddd";
+        g.edt_outsideline.disabled = true;
+        g.lbl_outsideline.innerHTML = L_outsideline_Text;
+        g.lbl_outsideline.className = "text-primary";
+    }
+}
+
+
+function Check_cb_callwaiting()
+{
+    if (g.cb_callwaiting.checked == true)
+    {
+        g.edt_callwaiting.style.backgroundColor = "#ffffff";
+        g.edt_callwaiting.disabled = false;
+        g.edt_callwaiting.value = g_CallwaitingHolder;
+        g.edt_callwaiting.focus();
+    }
+    else
+    {
+        g_CallwaitingHolder = g.edt_callwaiting.value;
+        g.edt_callwaiting.value = "";
+        g.edt_callwaiting.style.backgroundColor = "#dddddd";
+        g.edt_callwaiting.disabled = true;
+        g.lbl_callwaiting.innerHTML = L_callwaiting_Text;
+        g.lbl_callwaiting.className = "text-primary";
+    }
+}
+
+function SelectDialRule()
+{    
+    if (g.DialRuleYes.checked)
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=false;
+        g.edtOutsideLine.disabled=true;
+        g.edtCallWaiting.disabled=true;
+    }
+    else
+    {
+        if (g.edtPhoneNumber)
+            g.edtPhoneNumber.disabled=true;
+        g.edtOutsideLine.disabled=false;
+        g.edtCallWaiting.disabled=false;
+    }
+}
+
+function RestoreDialRule()
+{
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    if (g.edtPhoneNumber)
+        g.edtPhoneNumber.value = window.external.get_PhBkNumber;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+}
+
+
+function ISPInsError_NextBtnHandler() 
+{
+    PopCKPT();
+    GoNavigate(CKPT_OEMCUST);
+}
+function ISPInsError_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.ins_ISPName1.innerText = window.external.get_ISPName;
+    g.ins_ISPName2.innerText = window.external.get_ISPName;
+    g.btnNext.onclick = ISPInsError_NextBtnHandler;
+}
+
+
+
+function NoAnswNextBtnHandler() 
+{
+    if (g.DialTone.checked)
+    {
+        TapiObj.set_PhoneSystem(1);
+    }
+    else
+    {
+        TapiObj.set_PhoneSystem(0);
+    }
+    
+    if (g.DialRuleYes.checked) {
+        if (CheckPhoneNumer(g.edtPhoneNumber.value))
+        {
+            window.external.set_DialNumber(g.edtPhoneNumber.value);
+            DialErrorNextBtnHandler();
+        }
+        else
+        {
+            g.edtPhoneNumber.value = window.external.get_DialNumber;
+            g.error_mesg.innerHTML = L_EnterValidPhoneNumber_Text;
+            g.error_mesg.style.display="inline";
+        }
+    }
+    else
+    {
+        TapiObj.set_DialOut(g.edtOutsideLine.value);
+        TapiObj.set_CallWaiting(g.edtCallWaiting.value);
+        window.external.set_DialAlternative(false);
+        DialErrorNextBtnHandler();
+    }
+    
+
+    
+}
+
+function NoAnsw_LoadMe()
+{
+    DefaultErr_LoadMe();
+        
+    g.spanDisplayNumber.innerText = window.external.get_DialNumber;
+    g.edtPhoneNumber.value = g.spanDisplayNumber.innerText;
+    g.edtOutsideLine.value = TapiObj.get_DialOut;
+    g.edtCallWaiting.value = TapiObj.get_CallWaiting;
+    if (1 == TapiObj.get_PhoneSystem)
+    {
+        g.DialTone.checked = true;
+    }
+    else
+    {
+        g.DialPulse.checked = true;
+    }
+
+    g.btnNext.onclick = NoAnswNextBtnHandler;
+    
+    SelectDialRule();
+
+}
+
+
+
+function NoModemBtnHandler() 
+{
+    window.external.Finish();
+}
+function NoModem_LoadMe()
+{
+    DefaultErr_LoadMe();
+    g.btnNext.onclick = NoModemBtnHandler;
+}
+
+function Pulse_LoadMe()
+{
+    DefaultErr_LoadMe();
+    if (1 == TapiObj.set_PhoneSystem)
+        g.tone.checked = true;
+    else
+        g.pulse.checked = true;
+}
+
+function DesktopPbErr_LoadMe()
+{
+    InitFrameRef();
+    if (InActivation_AppMode())
+    {
+        GetPageTitle();
+    }
+
+    InitButtons();
+
+    var L_DeskpbErrOEMName_Text = g_OEMNameStr;
+    if (L_DeskpbErrOEMName_Text == "")
+    {
+        L_DeskpbErrOEMName_Text = L_MissingOEMName_Text;
+    }
+
+    var L_DeskMainPBerrMsg_Text = "";
+    var L_Title_Text = "";
+
+    if (g_DoActivation)
+    {
+        if  ((g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "Die Onlineregistrierung und -aktivierung sind für Ihr Land bzw. Ihre Region zurzeit nicht verfügbar. Wenden Sie sich an %1, um den Computer ohne eine Internetverbindung zu registrieren. Sie können Ihre Windows-Version über eine Internetverbindung oder telefonisch bei Microsoft aktivieren.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else if ((g_PostToMS) && (!g_PostToOEM))
+        {
+            L_Title_Text = "Onlineaktivierung und -registrierung sind nicht möglich."; 
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "Die Onlineregistrierung und -aktivierung sind für Ihr Land bzw. Ihre Region zurzeit nicht verfügbar. Sie können Ihre Windows-Version über eine Internetverbindung oder telefonisch bei Microsoft aktivieren. Eine Internetverbindung ist zum Registrieren der Windows-Version mit Microsoft erforderlich.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+        else if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_DeskMainPBerrMsg_Text        = "Die Onlineaktivierung ist für Ihr Land bzw. Ihre Region zurzeit nicht verfügbar. Sie können Ihre Windows-Version über eine Internetverbindung oder telefonisch bei Microsoft aktivieren. Wenden Sie sich an %1, um den Computer ohne eine Internetverbindung zu registrieren.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+        else
+        {
+            L_Title_Text = "Onlineaktivierung ist nicht möglich.";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            
+            L_DeskMainPBerrMsg_Text        = "Die Onlineaktivierung ist für Ihr Land bzw. Ihre Region zurzeit nicht verfügbar. Sie können Ihre Windows-Version über eine Internetverbindung oder telefonisch bei Microsoft aktivieren.";
+            g.Desktoppberr_par1.innerText  = L_DeskMainPBerrMsg_Text;
+        }
+    }
+    else
+    {
+        if ((!g_PostToMS) && (g_PostToOEM))
+        {
+            L_Title_Text = "Onlineregistrierung ist nicht möglich.";
+            g.Title_Text.innerText = L_Title_Text;
+            GetPageTitle();
+            L_DeskMainPBerrMsg_Text        = "Die Onlineregistrierung ist in Ihrem Land oder Ihrer Region nicht verfügbar. Wenden Sie sich an %1, um den Computer ohne eine Internetverbindung zu registrieren.";
+            g.Desktoppberr_par1.innerText  = ApiObj.FormatMessage(L_DeskMainPBerrMsg_Text, L_DeskpbErrOEMName_Text);
+        }
+    }
+
+    g.btnBack.focus();
+    g.btnBack.onclick = window.parent.SimpleNavBack;
+}
+PAfunction ObjectLoad()
+{
+    if ( objectDestination )
+    {
+        var bodyElement = objectDestination.parentElement;
+        
+        if ( bodyElement.objectSource )
+        {
+            bodyElement.innerHTML = "<embed width=100% height=100% fullscreen=yes>";
+            bodyElement.firstChild.src = bodyElement.objectSource;
+        }
+    }
+}
+
+
+
+
+
+
+var ERR_ACT_UNINITIALIZED         = -1;
+var ERR_ACT_SUCCESS               = 0;
+var ERR_ACT_INACCESSIBLE          = 1;
+var ERR_ACT_INVALID_PID           = 2;
+var ERR_ACT_USED_PID              = 3;
+var ERR_ACT_INTERNAL_WINDOWS_ERR  = 4;
+var ERR_ACT_BLOCKED_PID           = 5;
+var ERR_ACT_CORRUPTED_PID         = 6;
+var ERR_ACT_NETWORK_FAILURE       = 7;
+var ERR_ACT_DEDICATED_PID_ENTRY   = 8;
+
+
+var COMPAREMODE_BINARY  = 0;
+var COMPAREMODE_TEXT    = 1;
+
+
+var g_ProductName = "Windows XP";
+var g_ActivationRequired = window.external.NeedActivation();
+var g_DoActivation = false;
+var g_ActivationStatus = ERR_ACT_UNINITIALIZED;
+var g_act_specific_error = 0;
+var g_OOBEMUIDir = window.external.GetOOBEMUIPath();
+
+
+var L_MissingOEMName_Text = "Fehler: Fehlender OEM-Name im [Branding]-Abschnitt in oobeinfo.ini.";
+
+
+var DebugObj = null;
+
+var APP_UPDATE_MODE = 6;
+
+
+var KeyEsc = 0x1B;
+var KeyEnter = 0xD;
+var KeyBackSpc = 0x8;
+var KeyDelete = 0x2E;
+var KeyTab = 0x9;
+var KeyDwnArrow = 0x28;
+var KeyUpArrow = 0x26;
+var KeyLeftArrow = 0x25;
+var KeyRightArrow = 0x27;
+
+
+if (null == DebugObj){
+    DebugObj = new Object;
+    DebugObj = window.external.Debug;
+}
+
+
+
+
+
+
+
+
+
+function trace(sMsg)
+{
+    DebugObj.Trace(sMsg);
+}
+
+
+function Navigate(strURL)
+{
+    
+    try
+    {
+       g.document.body.style.cursor = "default";
+    }
+    catch(e){}
+
+    strURL = g_OOBEMUIDir + "\\" + strURL;
+
+    trace("Navigate: " + strURL);
+    g.navigate(strURL);
+}   
+
+
+var g_CheckFinishAgain = true;
+function CheckFinishStatus()
+{
+    if (g_CheckFinishAgain)
+    {
+        if (g_DoActivation)
+            g_IsActivationSuccessful = true;
+        else
+            g_IsActivationSuccessful = false;
+        if (g_PostToMS)
+            g_IsMSRegistrationSuccessful = true;
+        else
+            g_IsMSRegistrationSuccessful = false;
+
+        if (g_PostToOEM)
+            g_IsOEMRegistrationSuccessful = true;
+        else
+            g_IsOEMRegistrationSuccessful = false;
+    }
+}
+
+<!--REQUIRED FUNCTION NAME-->
+function ActivationComplete(status, status_errcode)
+{
+g_CheckFinishAgain = true;
+    if ( status != null) {
+
+        g_ActivationStatus = status;
+
+        if ( g_ActivationStatus != ERR_ACT_SUCCESS ) {
+
+            trace("Activation failed.  Error = " + g_ActivationStatus);
+
+            
+            g_IsActivationSuccessful      = false;
+            g_IsMSRegistrationSuccessful  = false;
+            g_IsOEMRegistrationSuccessful = false;
+
+            g_act_specific_error = status_errcode;
+            GoNavigate(CKPT_ACT_MSG);
+            return;
+        }
+        else
+        {
+            CheckFinishStatus();
+            
+            g_CheckFinishAgain = false;
+        }
+
+        g_ActivationRequired = false;
+        g_DoActivation = false;
+        StatusObj.set_Status(MS_REGISTRATION, true);
+    }
+
+    if (g_PostToOEM)
+    {
+        if (0 == RegisterObj.get_OEMAddRegPage)
+        {
+            window.external.PostRegData(POST_TO_OEM);
+            StatusObj.set_Status(OEM_REGISTRATION, true);
+            g_IgnoreDialErr = true;
+            PopCKPT(CKPT_REGDIAL);
+            PopCKPT(CKPT_REGISTER3);
+            PopCKPT();    
+            CheckFinishStatus();
+            if (InReminderMode())
+                GoNavigate(CKPT_ACT_MSG);      
+            else
+                GoNavigate(CKPT_ICONN);        
+        }
+        else
+        {
+            
+            
+            
+            
+            g_IgnoreDialErr = true;
+
+            if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+            {
+                Navigate("html\\oemreg\\roemadd.htm");
+            }
+            else
+            {
+                Navigate("html\\oemreg\\oemadd.htm");
+            }
+        }
+    }
+    else
+    {
+        g_IgnoreDialErr = true;
+
+        PopCKPT(CKPT_REGDIAL);
+        PopCKPT(CKPT_REGISTER3);
+        PopCKPT();    
+        CheckFinishStatus();
+        if (InReminderMode())
+            GoNavigate(CKPT_ACT_MSG);    
+        else
+            GoNavigate(CKPT_ICONN);      
+    }
+
+    if ((g_PostToMS && g_PostToOEM && (1 == RegisterObj.get_PostToOEM)) ||
+        ((0 == RegisterObj.get_PostToOEM) && g_PostToMS))
+    {
+        if ( APP_REG_MODE == window.external.Directions.get_AppMode() )
+        {
+            
+            
+            
+            window.external.StopRemind(REMIND_REG);
+        }
+        else
+        {
+            
+            
+            
+            window.external.DeleteRemind(REMIND_REG);
+        }
+    }
+}
+
+
+
+
+
+
+var SORT_DEFAULT                = 0x0;     
+
+var LANG_JAPANESE               = 0x11;
+var LANG_KOREAN                 = 0x12;
+var LANG_CHINESE                = 0x04;
+
+var SUBLANG_KOREAN              = 0x01;    
+var SUBLANG_CHINESE_TRADITIONAL = 0x01;    
+var SUBLANG_CHINESE_SIMPLIFIED  = 0x02;    
+var SUBLANG_DEFAULT             = 0x01;    
+
+
+
+
+
+
+
+
+
+function MAKELANGID(p, s)
+{
+    return (( s << 10) | p);
+}
+
+function MAKELCID(lgid, srtid)
+{
+    return ((srtid << 16) | lgid);
+}
+
+function IsKoreanLocale() {
+   var language = ApiObj.get_UserDefaultUILanguage();
+   if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT)) {
+      return true;
+   }
+
+   return false;
+}
+
+function IsFarEastLocale()
+{
+    
+    
+    var language = ApiObj.get_UserDefaultUILanguage();
+
+    if (language == MAKELCID(MAKELANGID(LANG_KOREAN, SUBLANG_KOREAN), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_TRADITIONAL), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_CHINESE, SUBLANG_CHINESE_SIMPLIFIED), SORT_DEFAULT) ||
+        language == MAKELCID(MAKELANGID(LANG_JAPANESE, SUBLANG_DEFAULT), SORT_DEFAULT))
+        return true
+    else
+        return false;
+}
+
+function StorePid()
+{
+    var strPid = "";
+
+    for (var i = 0; i < 4; i++)
+    {
+        strPid += g.edtProductKey[i].value;
+        strPid += '-';
+    }
+
+    strPid += g.edtProductKey[i].value;
+
+    PidObj.set_PID(strPid);
+}
+
+
+
+
+
+var g_AU_radiosticky = null;  
+var L_IntroSlipstream_Text = "Durch automatische Updates werden wichtige Updates, die den Computer betreffen, gefunden, gedownloadet und automatisch installiert. Diese Updates enthalten Sicherheitsupdates, kritische Updates und Service Packs.";
+var L_IntroUpdate_Text = "Vielen Dank für die Installation von Windows XP Service Pack 3. Bevor der Setup-Prozess abgeschlossen wird, können Sie automatische Updates aktivieren. Durch automatische Updates werden wichtige Updates, die den Computer betreffen, gefunden, gedownloadet und automatisch installiert. Diese Updates enthalten Sicherheitsupdates, kritische Updates und Service Packs.";
+
+function AutoUpdateLoadMe()
+{
+    InitFrameRef();
+
+    
+    if (window.external.GetNoWelcomeFinish())
+    {
+        g.btnNext = g.btnFinish;
+        g.FiniBtnLocalText.style.display = "inline";
+        g.btnFinish.style.display = "inline";
+    }
+    else
+    {
+        g.NextBtnLocalText.style.display = "inline";
+        g.btnNext.style.display = "inline";
+    }
+
+    
+    
+    g.tabl3.style.width="105%"    
+
+    
+    
+    
+    if (g_AU_radiosticky == null)
+        g.btnNext.disabled = true;
+    else if (g_AU_radiosticky == 1)
+        g.radioAgree.checked = true;
+    else
+        g.radioDisAgree.checked = true;
+
+    InitNewButtons();
+    g.btnNext.onclick = AUNextBtnHandler;
+
+    if (APP_UPDATE_MODE == window.external.Directions.get_AppMode())
+    {
+        g.BackBtnLocalText.style.display = "none";
+        g.btnBack.style.display = "none";
+        g_FirstFocusElement = g.au_privacy_policy_link;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroUpdate_Text;
+    }
+    else
+    {
+        g_FirstFocusElement = g.btnBack;
+        g_FirstFocusElement.focus();
+        g.AutoUpdateIntro.innerText = L_IntroSlipstream_Text;
+    }
+
+    try
+    {
+        g.document.body.onkeydown = AUOnKeyDown;
+    }
+    catch(e)
+    {
+    }
+}
+
+function AUNextBtnHandler()
+{
+    StoreAU();
+    GoNext();
+}
+
+function AUOnKeyDown()
+{
+
+    if (KeyEsc == g.event.keyCode)
+    {
+        g.event.returnValue = false;
+        g.event.keyCode = 0;
+    }
+
+    OnKeyDown();
+}
+
+function AURadioClicked()
+{
+    
+    if(g.btnNext.disabled && (g.radioAgree.checked || g.radioDisAgree.checked))
+    {
+        g.btnNext.onmouseover = HandleNextButtonMouseOver;
+        g.btnNext.onmouseout  = HandleNextButtonMouseOut;
+        g.btnNext.onmousedown = HandleNextButtonMouseDown;
+        g.btnNext.className="newbuttonsNext";
+        g.btnNext.disabled = false;
+        g.btnNext.onclick = AUNextBtnHandler;
+        g.btnNext.focus();
+    }
+
+    if (g.radioAgree.checked)
+    {
+        g_AU_radiosticky=1;
+    }
+    else
+    {
+        g_AU_radiosticky=2;
+    }
+}
+
+function StoreAU()
+{
+    AutoUpdateObj.set_Acceptance = g.radioAgree.checked;
+}
+
+
+
+function navigatetoPrivacy(PrivPage)
+{
+    if(g_CurrentCKPT == CKPT_REGISTER1) {
+        Reg1SaveRadioState();
+    }
+
+    if(g_CurrentCKPT == CKPT_REGISTER3) {
+        Reg3SaveSettings();
+    }
+
+    if (PrivPage == "MS")
+        Navigate("setup\\prvcyMS.htm");
+    else if (PrivPage == "Activation_Policy")
+        Navigate("setup\\act_plcy.htm");
+    else if (PrivPage == "AutoUpdate_Policy")
+        Navigate("setup\\au_plcy.htm");
+    else
+        Navigate("setup\\OEMpriv.htm");
+}
+P
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1"/>
+    <title>Out-of-Box-Experience</title>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregstyl.css" id=deskstyle1>
+    <LINK REL="stylesheet" TYPE="text/css" HREF="aregsty2.css" id=deskstyle2 disabled>
+    <META HTTP-EQUIV="MSThemeCompatible" CONTENT="Yes">
+
+<script>
+var g_PID_Link_URL       = "";
+
+function PID_Link_OnClick(stage)
+{
+    
+    
+    
+    
+    
+    
+    
+    if (stage == null)
+    {
+        window.parent.ShowIFrame('False', window.parent.L_CheckConnectivity_Text);
+        window.parent.ResetConnectedToInternetEx();
+        window.parent.ConnectedToInternetEx(true, "g.PID_Link_OnClick(1);");
+    }
+    else if (stage == 1)
+    {
+        var connected = window.parent.ConnectedToInternetEx(false);
+        
+        if (!connected)
+        {
+            connected = window.external.InternetAutodial();
+            window.parent.g_InitAutodial = connected;
+            
+            if (!connected)
+            {
+                if (window.external.GnsAutodial(true, "User1"))
+                {
+                    window.parent.ResetConnectedToInternetEx();
+                    connected = window.parent.ConnectedToInternetEx(true);
+                }
+            }
+        }
+
+        if (connected)
+        {
+            window.open(g_PID_Link_URL);
+        }
+
+        window.parent.ShowIFrame();
+    }
+    
+    return false;
+}
+
+function Local_LoadMe() {
+
+    if (acterror_after_pid_entry_text1.style.display == "inline" ||
+        acterror_after_pid_entry_text2.style.display == "inline") {
+        
+        var strPid = window.parent.PidObj.get_CurrentPID2();
+        var strStrippedPid = "";
+
+        var re = new RegExp("(.*)-(.*)-(.*)-(.*)","");
+        if(re.exec(strPid) == null) {
+            strStrippedPid = "";
+        }
+        else
+        {
+            strStrippedPid = RegExp.$1 + RegExp.$2 + RegExp.$3 + RegExp.$4;
+        }
+
+
+        g_PID_Link_URL = "https://pa.one.microsoft.com/portal.asp?req=" +
+            strStrippedPid + "&err=" + window.parent.g_act_specific_error;
+
+        acterror_link1.title = g_PID_Link_URL;
+        acterror_link1.onclick = PID_Link_OnClick;
+        acterror_link2.title = g_PID_Link_URL;
+        acterror_link2.onclick = PID_Link_OnClick;
+
+    }
+}
+
+</script>
+</head>
+
+<body style="background-Color: transparent; background-repeat: no-repeat;" topMargin=0 rightmargin=0 leftmargin=0 tabindex=-1
+      onload="window.parent.act_desktop_error_LoadMe(); Local_LoadMe();" >
+
+<table valign=middle border=0 cellpadding=0 cellspacing=0 width="100%" height="100%">
+<tr>
+    <td ID=leftmargincell width=5% height=99%></td>
+    <td ID=maincell valign=top class="text-primary">
+
+    <span ID=Title_Text class="title" style="display:none;">
+        <ID id=acterror_s1>Windows aktivieren</ID>
+    </span>
+
+    <br>
+
+        <!-- Retail mode -->
+        <span ID=acterror_description_dedicated_pid_RETAIL class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1">Bei der Windows-Installation haben Sie keinen gültigen Product Key eingegeben. Geben Sie den Product Key in den Feldern unten ein, und klicken Sie auf <b>Aktualisieren</b>, wenn Sie die Windows-Aktivierung fortsetzen möchten.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2">Der 25-stellige Product Key befindet sich auf einem Aufkleber auf der Rückseite der Windows-CD-Hülle. Der Aufkleber mit der Product Key sieht in etwa so aus:</ID>
+            <br><br>
+            <center><img src="../images/prodkey.gif"></center>
+        </span>
+        
+        <!-- OEM mode -->
+        <span ID=acterror_description_dedicated_pid_OEM class="text-primary" style="display:none;">
+            <ID id="txtActivDeskErrDedicatedPid1x">Bei der Windows-Installation haben Sie keinen gültigen Product Key eingegeben. Geben Sie den Product Key in den Feldern unten ein, und klicken Sie auf <b>Aktualisieren</b>, wenn Sie die Windows-Aktivierung fortsetzen möchten.</ID>
+            <br><br>
+            <ID id="txtActivDeskErrDedicatedPid2x">Der 25-stellige Product Key befindet sich auf dem Echtheitszertifikat, das am Computer oder an der Windows-Dokumentation befestigt ist. Das Echtheitszertifikat sieht so aus wie das folgende Beispiel.</ID>
+            <br><br>
+            <center><img src="../images/oemcoa.jpg"></center>
+        </span>
+
+
+        <!-- PID ENTRY -->
+        <span ID=acterror_pid_entry class="text-primary" style="display:none;">
+            <br>
+            <table ID=PidBox border=0 DIR=ltr style="font-family:Courier New; FONT-SIZE: 16pt;">
+            <tr>
+                <td nowrap width=10>&nbsp;</td>
+                <td nowrap class="text-primary" >
+                <span ID=acterror_description_verify_key class="text-primary"><ID id="txtverifykey">Product Key verifizieren:</id></span>&nbsp;
+                </td>
+                <td>
+                <input style="ime-mode:disabled" id=pid1 type="text" size=6 maxlength=5 class=pid-box TABINDEX=1 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid2 type="text" size=6 maxlength=5 class=pid-box TABINDEX=2 name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid3 type="text" size=6 maxlength=5 class=pid-box TABINDEX=3  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid4 type="text" size=6 maxlength=5 class=pid-box TABINDEX=4  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td><td class="text-primary">-</td><td>
+                <input style="ime-mode:disabled" id=pid5 type="text" size=6 maxlength=5 class=pid-box TABINDEX=5  name="edtProductKey"
+                onkeydown="window.parent.ProductIDKeyDown();" onpropertychange="window.parent.ProductIDPropertyChange();"
+                onkeypress="window.parent.ProductIDKeyPress();" onkeyup="window.parent.ProductIDKeyUp();" onfocus="window.parent.OnFocus();">
+                </td>
+            </tr>
+            </table>
+        </span>
+
+        <!-- AFTER PID ENTRY TEXT -->
+        <span ID=acterror_after_pid_entry_OEMText class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErrOEMText">Wenden Sie sich an der Computerhersteller, falls Sie das Echtheitszertifikat nicht finden können.</ID><br>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text1 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr14">Wenden Sie sich an den Kundendienst oder besuchen Sie die <a href="#" id="acterror_link1"><U>Microsoft-Aktivierungsunterstützung-Website</u></a>, um Informationen bezüglich des Erwerbs weiterer Product Keys zu erhalten, falls Sie glauben, dass Sie den richtigen Product Key eingegeben haben, und diese Meldung fälschlicherweise angezeigt wird. Klicken Sie auf <B>Telefon</B>, um eine Kontaktnummer für Ihre Region zu erhalten.</ID>
+        </span>
+
+
+        <span ID=acterror_after_pid_entry_text2 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr15">Wenden Sie sich an den Kundendienst oder besuchen Sie die <a href="#" id="acterror_link2"><U>Microsoft-Aktivierungsunterstützung-Website</u></a>, um Informationen bezüglich des Erwerbs weiterer Product Keys zu erhalten, falls Sie glauben, dass diese Meldung fälschlicherweise angezeigt wird. Klicken Sie auf <B>Telefon</B>, um eine Kontaktnummer für Ihre Region zu erhalten.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text3 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr16">Eine Windows-Kopie kann nicht gleichzeitig auf mehreren Computern installiert werden. Wenden Sie sich an den Kundendienst, indem Sie auf <b>Telefon</b> klicken, falls Sie der Meinung sind, dass diese Meldung fälschlicherweise angezeigt wird.</ID>
+        </span>
+
+        <span ID=acterror_after_pid_entry_text4 class="text-primary" style="display:none;">
+            <br>
+            <ID id="txtActivDeskErr17">Klicken Sie auf <B>Telefon</B>, falls Sie keinen Product Key eingeben müssen, um zur vorherigen Aktivierungsseite zu wechseln.</ID>
+        </span>
+        
+    <!-- End -->
+    </td>
+
+    <td ID=rightmargincell width=7%>
+    </td>
+</tr>
+<tr>
+    <td colspan=3>
+    <br>
+    <table border=0 class="buttonpositionnew">
+    <tr>
+        <td width=99%>
+            &nbsp;&nbsp;
+            <span ID=acterror_specific_error_code class="text-primary" style="display:none; z-index:10;">
+            </span>
+        </td>
+        <td>
+        <BUTTON ID="btnTelephone" class="buttons" TABINDEX=6 ACCESSKEY="T"><label for=btnTelephone><id id="LocalBtnTel_Text"><u>T</u>elefon</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnQuit" class="buttons" TABINDEX=7 ACCESSKEY="S"><label for=btnQuit><id id="LocalBtnQuit_Text"><u>S</u>päter erinnern</id></label></BUTTON>
+        </td>
+        <td>
+        <BUTTON ID="btnNext" class="buttons" TABINDEX=8 ACCESSKEY="H"><label for=btnNext><id id="LocalBtnRetry_Text">Wieder<u>h</u>olen</id></label></BUTTON>
+        </td>
+    </tr>
+    </table>
+    </td>
+</tr>
+</table>
+
+</body>
+</html>
+PGIF89a0 0 ÷   1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ !ù  ÿ ,    0 0 Ç 1œ 9¥ B¥ Jµ Rµ Z„ Zœ c  c c) c1 cJ cs cÆ k„ k¥ kÎ s  s s s1 {Œ {½ {Ş „  „ „) „9 „{ „¥ „ï Œ” ” ”k ”œ ”µ ”Î ”÷J„c!9{9¥B¥Zcc!”„œsœ÷B¥ZJc9kÖ{Îœs¥Z¥Œ!9k!J„!J¥!J¥!Jµ!Zc!cJ!cs!k­!¥Ö)Z„)cZ)kÖ){Æ)­÷)­ÿ1Jk1R½1cc1ck1­¥1µ1µ„9BR9BZ9cÎ9{c9„c9„s9œŞ9­ÿ9µÿ9µÿBZsBc„BcŒBcœBcÆBŒŞB¥JBµJJ­JJµJc­Jc½JcÎJkÎJ¥çJµ÷JµÿJ½JJ½ÆJ½ÿJÆ)JÆ÷RRRRRZRRsRZ¥Rk½R”ŞR­BRÆ)RÆRRÆkZZZZZµZZÆZsÖZsÖZ„ŞZ”½Z¥ŞZµïZÆJZÆÿccccc{c„œcŒÖcœ¥cÎ1cÎccÎ„cÎÖkkŒkk”kkÆk„ÎkœÖk¥çkµçkµïk½ÿkÆ÷kÎ9kÎ9kÎ¥kÖÿsssss„ss¥ssµssÆssÆs¥ss½ZsÎJsÖcsÖssÖŒ{„½{”Æ{”Ö{¥Ş{­Ş{µŞ{ÖZ{Ö„{Öï{Öÿ„„„„„­„„µ„„Æ„¥½„½{„ŞZ„Şc„Ş¥„Ş½ŒŒŒŒŒ”ŒŒ¥ŒŒ­ŒŒµŒŒÆŒ”½Œ”ÖŒ¥½Œ­ŞŒµÎŒ½ŒŒ½ÖŒÆçŒÖ÷ŒŞsŒŞŒŒŞ”””œ””œ””½””Î”œ½”œÎ”ÆŞ”Îç”çµ”ç½”çÿœ  œµ­œç„œçÿœïœ¥¥¥¥ÆŞ¥Öï¥Ö÷¥çŒ¥ç¥¥ïÎ¥ï÷­­½­­Î­ÆÖ­Æç­ï­­ïç­ï÷µŞçµ÷µ½½Ö½÷µÆÆÆÆ÷ÎÆ÷÷ÆÿÎÆÿçÎ  Î1 ÎÎÖŞŞŞŞŞçç÷÷ïïï÷÷÷ÿ1 ÿÿÿ ÿ ş ı	H° Áƒ*L(ïN›D£p)÷.Ş¼pñÆº„Ç‰.\ÈaD9~ŞËw5jçĞ¡“G“¹k«¼¼xQ¢§‡0`ˆa‚C„tCyO_0M°’]»¶íšÍ›U“ÁZuh7hØĞùá ‚¨À€Š-rÆ È¥Jsg°\¹Â¦¯ß½i$¥úÚ,hd’£1%y
+õ›LÙ^?{İáÛ‡’¿|øğ™sg®04`¥e•SH¹2Á~õ`×Ã–ò ?yÕJ¹b¶L›+e£0%Óä…#ÓìÖ>("_êˆ²e¬z6Q£LÁÒ4èÈN „ş-û`—İ|ğº9ëÕÌW¯açØÑ”·nİ¶d§’é‡Å_’¡T Á€8À@'Èàƒ‹!±”@÷¸É ƒX¢	TüAe!…ƒ<²‡rì K¡‚
+;ğÀC]tAF; ğÆ.û ä0F¤:Ğ<âá˜S4¾tÇ±àce	É&P9ÑÜZh÷Téiå 6K„œ´Pl`ælÊ-w>ò\óJ.™ÁÆŒX’L>f.§9A("7¯ŒóÎ8ã0\`ÜğÓxPu$OM€QÇ%£Ü’9â(£=ë$£‰FğdABQA†Ô˜R•Í4ãL3ş½ÄêK4´Js*ˆâFÑS	 HTY+OA ­d%<ÑôŒ,²Ìr
+*õaµ!|pèl0lY,(¸DİÔÏ=¬D5U}ëĞÇîTÉ BÉ…–P(	ãa°@¤¥Â &(!\9äÁ¨?î”c‰%üE•ToG	$”-{ğàƒ1 ÀV  „¼‹dì€!ÇdN4l|ÅáË¢±kŸ€â	(f˜1Ç9çÌ]¨€Â„”«4¡´L£Œ9ãN>W–ó‹4…l¢¤gûpÖZA—Á6>îìC-æä“Ï=¥Ñò‰Û@ãL9ğlVæ@­µ†şŞõÌf>ùt8•æcÎáCšÓIª"¶e{û&l´	´Ï=»âˆ,ÏtşL'ÄG±ÀÓxJ}§Ş76ØÜİè™hÊÃ>ú¼şº>ëè’‰2¦´2Š"‚ÚXXr°íñC2¤(“‹8ÕD¯.£$ÒF-„tÁ€œn;?ê’ˆ"­,C=ñ¤³5ê“H|ğ‡’¶ëcJ¤‰`ÒŠ2Ì`šN<h"Å"Ğ„ˆÀ4JQh²:é#hÚ`Jâ7¸Ø9`14øŠ è€20P ¦K	hÔF5+!îÑğ…,B!¾ê	„2¬0 şÇCˆ”†qŒcPãíšO}®A:(Í;<)‚…	,`
+`Á”âº|¤9œ9!‹h¸kSYFE)v`‡ã—~@.¦ nè)G{dèzƒä †'ÈQ•kDESÀÀF ‘8 ‡Pó |”ÃÃ(Æ4À‘D%Ú¤* @FÃ4a	ÿˆÇ„â°(a	[P]˜r–À‚*Va9Ğx­¤bBrÃ!†ğ-¬R-lÉ,±(4CUû`†ÔUÈ^²?àËHøà X Öò1í`s€’”wLÂB‹',Ö!Œé!d şğÁğ2±¨eàÁ\D}¸n P½êEÊ—>ÒCÈ„-Œ!	$s‘øààÍ ŸAÆ˜†¾È,¡_‘Y_®€?ĞBh+Â¢3Ô4	<  ‡¼!Äpt0p8T¢V £9~aY ,=İˆ*<à‘·Ê\f¤§Ø‰Ò*s|bbC'°ÎubFwûÚ’,S/–†î …ihÑùHty€!6Q‘âM­“‰[ëaĞ®Yn¡9LÏvŠ1­IUœ?`C¹h3ü>ØFh<ãp³Ø„÷^c™Àöol¥>¢¸).mS5>‡/ Ñ*r”Ü˜*·rp‚nU²R—ÚˆÑ=öK”åÛlr¹nÄbyÈÃAˆXtÃt]üëXw·€  ;PPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGXXPADDINGPADDINGX™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ‹?ï‹?0                                                    ÿÿÿğÿ  ÿÿÿàÿ  ÿÿÿÀ ÿ  ÿÿÿ€ ÿ  ÿÿş  ÿ  ÿÿü  ÿ  ÿÿø ÿ  ÿÿğ ÿ  ÿÿà ÿ  ÿÿ€ ÿ  ÿÿ  ÿ  ÿş  ?ÿ  ÿü  ÿ  ÿø  ÿÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €    ÿ  €    ?  €                                                                  €    ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  €   ÿ  (       @                                                                                                  €  MJ)E'>D%ƒ< ÌC$µD%NF'U++                                                                                   U  F.	B$E$>\2#¢MDüs>1ô9ÑE&ŒF#)@+
+                                                                              @@@I$F& @#Fj9,Ã–SHÿ¸`^ÿÂurÿj8+ë= ŸD$-;'
+                                                                          333K-C!%B$Sw@3Ù—UKÿ½igÿÔ™”ÿéÈ¿ÿ i`ûD&cF& 9                                                                      I$$F.B&+M*cyA4ã›ZTÿÀomÿÚ¦ ÿã»´ÿ¡jaúb5(€C&*G+UU                                                                 €  UF,F'5O)x†H;ó®KKÿÇ~{ÿİ¬¦ÿâ¸°ÿ”\Sï[2$iD*'G+333                                                               €  M3D&C%=]2$ŸMDü²RRÿÊ†‚ÿà´¬ÿĞ»³ÿ‡OEáS, RD%!U""@@@                                                       @@ ;'
+E)C!Ck:-¿MDü·^]ÿÍŒˆÿæÀ¸ÿË°ªÿ{C6ÌD$?E"N'
+@@                                    I$D"D"D"D"D"D"<-J C!%@!Js>1Ó—UKÿºdbÿÔ™”ÿéÈ¿ÿµ‡ÿo<.®A%BF)#G)KN'
+@  U                             F#	.B%2@$3?#4?#4?#4?#4@"6@#@?#`yA4â›ZTÿÀqnÿ×¡›ÿã»´ÿ¥sjıY0!§A$aC#FC#:B#5A$2B&	+G#D" U                          D$	A"
+›?!?! ?! ?! ?! >"¢G%¯…H;õŸb\ÿÆ|xÿİ¬¦ÿâ¹²ÿ’bYıH'à>"Á@"­?!¤?! ?!Ÿ?"
+œ@#ŒD%	[G#@                     m6 `X,ëT+ïT*ñS*ñS*ñS*ñS*ñ[/òŠJ@ü±RQÿÇ|ÿâ¸°ÿØ¤ÿR<ÿW+
+ıR)úS*öS*óS*òT*ñS*ñT*ïH%×B#ŒB&	+@+
+                   O"ï³cÿ¸wÿ¸wÿ¸wÿ¸wÿšoUÿ’bIÿ©C<ÿµZXÿÎˆÿå¾¶ÿÆ|yÿ»‹ƒÿ¸wÿ¸wÿ¸wÿ¸wÿ¸wÿ¸wÿ¸wÿ¸wÿ¨`;ÿT*ï?"œA$2I$                   O"ïÍËÇÿØêïÿØêïÿÖèìÿ©¸¹ÿÿ«HHÿ»fdÿÒ–‘ÿéÇ¾ÿ·hbÿ½ÑÄÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿ¸wÿS*ñ?! ?#4D"                   O"ïÍËÇÿØêïÿÎàäÿœª«ÿ—zzÿ¬KKÿÀpnÿÕ—ÿåÀ¸ÿ¦o\ÿDÉWÿ;ÕYÿFÔbÿÁæÙÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿ¸wÿS*ò?! >#5D"                   O"ïÍËÇÿÇØÜÿ“ ¡ÿ–vvÿ°NNÿÁrpÿİ¬¦ÿâ¹²ÿ»|}ÿÖåêÿØêïÿ¼åÔÿGÎ`ÿ4ÊLÿÀåÖÿÓèêÿÉæàÿØêïÿØêïÿØêïÿØêïÿ¸wÿS*ò>"£<"6@                    O"ïÍËÇÿ–£¤ÿšcdÿk”ÿ‹Š‘ÿá·¯ÿØ¤ÿ»ƒÿØêïÿØêïÿØêïÿØêïÿÓéêÿCÆWÿºãĞÿ<ÂNÿ(½9ÿ¾ãÔÿØêïÿØêïÿØêïÿ¸wÿR*ô9#®9#:<                   O"ïÍËÇÿ¤Š‹ÿ&hÿ ©ÅÿİçÿÆ|yÿÃ­¬ÿØêïÿØêïÿØêïÿØêïÿØêïÿØêïÿÒèéÿ6¼Eÿµ.ÿµ-ÿ³*ÿØêïÿØêïÿØêïÿ¸wÿJD?øeTKÆ6"<6                   O"ï‹²¼ÿ4„¨ÿinxÿÚäÿb^ÿ9¡1ÿÈåßÿØêïÿØêïÿˆÒ›ÿwÌˆÿvÌ‡ÿvË†ÿ$²/ÿ®#ÿ½áÒÿ¼áÒÿÓ¢ÿ¡äóÿAÙûÿÌÿÿ ˜Ëÿ ”Çÿ ¿òÿ*Æğÿ„×î³ëğò,                •T3ïÀÿ ¨Ûÿ4”¸ÿ¸stÿ§Æªÿ¯!ÿ¼áÒÿØêïÿØêïÿ2µ=ÿ¨ÿ§ÿ¥ÿ¦ÿ»àĞÿØêïÿËéğÿUàûÿ"×ÿÿ
+Ğÿÿ°âÿ¥Ìÿ]”ÿVig¿~ÊŞ¼FÆëÿ#¸äï÷üş0            Wmnï šÍÿÿÿÿÿÄòÿØêïÿ¼àÑÿ¦ÿqÇ€ÿØêïÿØêïÿ*­2ÿoÅ|ÿØêïÿØêïÿØêïÿØêïÿØêïÿTâüÿ,ÛÿÿŸÑÿÎıÿºåñÿ¸wÿS*ò>"£=&6ÄÔØC¬İÿ1¶ß¿            Fu€ï ŸÒÿ½ìÿ Ä÷ÿÒéïÿØêïÿJ·Tÿ£ÿ®ÚÀÿØêïÿ$§(ÿlÁwÿØêïÿØêïÿØêïÿØêïÿ€æøÿ*ÍòÿÒúÿ	ÏÿÿxÜöÿØêïÿ¸wÿS*ó_K<²«¸º~ÜŞÛDÄèó[ ¢Õÿéöû"        $ƒ¥ï­Ûÿ ¿òÿ;İüÿnÛ÷ÿØêïÿÆãÛÿ¢!ÿ ” ÿ*¤.ÿ™ÿZ¶cÿ´ÚÇÿºÜÍÿØêïÿÌéğÿ>áÿÿµßÿÔÿÿ ÌÿÿºåñÿØêïÿ¸wÿT3ô8½âúL¿áÙvÌå¤ÑëôAÿÿÿÿÔîö@        9‚—ïÿÿÿÿ Åøÿ=àÿÿÛıÿÒéïÿØêïÿÒçèÿ0¡5ÿÿ ˆ ÿ ‡ ÿ … ÿ$•'ÿØêïÿråúÿ4İÿÿªÚÿÎÿÿÌşÿØêïÿØêïÿ¸wÿTF6÷%®Õôš­®u·«¥ –Òæ;#©Õÿéöú.        di`ï ±äÿjßıÿÏÿÿNğÿÿFŞüÿØêïÿØêïÿØêïÿÒæèÿ–É¥ÿÆŸÿ´ØÇÿºÚÍÿ™Óãÿ%¿åÿ·çÿÿÿÿÿ ¥Øÿ$²İÿØêïÿØêïÿ¸wÿS*òÿÿÿÿ#²Şò+®×¤#¬ØÿÌå¨            —T2ï¹åÿ×ÿÿmêÿÿÿÿÿÿTêÿÿ]æüÿÔêïÿØêïÿ¨Ğ¹ÿ v ÿ u ÿ°ÖÇÿëøÿJåÿÿ4İÿÿÖşÿ µèÿ ËşÿßóÿØêïÿØêïÿ¸wÿS*ñs]M²²¹*¯ØÂ°ßîtÿÿÿ            O"ïy¿ÍÿÑÿÿ@ßÿÿ¿úÿÿMçÿÿNíÿÿtïıÿ’ôûÿ åàÿ jLÿo…ÿcçùÿUèÿÿ­Úÿ)ÚÿÿÓÿÿ ²åÿ ÈûÿÆçïÿØêïÿØêïÿ¸wÿS*ñ?! ?#4D"                   O"ïÍËÇÿ:Øûÿ&ÙÿÿgñÿÿLæÿÿXïÿÿsôÿÿŠúÿÿ˜şÿÿuâîÿ`ßğÿWíÿÿGäÿÿ+ÕùÿÖÿÿÎÿÿ ÅøÿHÒöÿØêïÿØêïÿØêïÿ¸wÿS*ğ?"A$2D"                   O"ïã} ÿìÿ+†œÿ…¯ÿŠ²ÿÿÿÿÿ^¿Ôÿ~ªÿ kÿ kÿ‹³ÿ„®ÿj¨Æÿ kÿp—ÿp—ÿ"”´ÿïš ÿíŒÿÔ‰*ÿíŒÿÅ_ ÿS*î@!
+”?$.;'
+                   m6 ¿¹ZÿÑk ÿÍnÿp€bÿ ²ÿMªÌÿ‘½ÿƒ´ÿ.¥Èÿ­ÎÿÿÿÿÿzËàÿ­Îÿ ²ÿÔ°cÿÖ—Eÿè›LÿÿÌ™ÿ·l*ÿ4oÿÿ·l*ÿµO ÿT*ç?!
+rA$"9                    m6 €¤KÿÎw&ÿİˆ2ÿİˆ2ÿÌŠBÿW«°ÿÅÿ–Èÿ.¶Ùÿ “Æÿ¤Ïÿ;°Ëÿo£ ÿÀŒLÿä–Hÿá?ÿá?ÿå™LÿØˆ9ÿÃ‰]ÿÃiÿ7 ÿL'Æ> FB	3                      m6 m6 ¿§O#ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿ™3 ÿƒMÿm6                                     ÿÿ€ÿÿ ÿü ÿø ÿğ ÿà ÿÀ ?€  €  €  €                                                                ÿ(                                                             €  @+
+;!@#Fq1.ÆR4)²U7*sQ8%!UU9                          @
+9  ;"I~8:Ş¿nlÿ}UOÏQ2%mQ6(U9                @  '
+8!:J¿nlÿÇ{ÿÜ±¬ÿ|C@£I0#/U1$f33        3333
+2%6L¿nlÿĞ“ÿà»·ÿ_,%„A$9D&F.	€          3@3@3@1F3[¿nlÿÙ¦ ÿÔ«©ıG$•:!b8!E@"*=$33        3¿3¿3À3Ã¿nlÿİ®§ÿË§¥ş<î6Ú5Ç5¯@"z>"$M   ½W ÿ½W ÿ½W ÿ™h`ÿ¿nlÿÖ›’ÿ½•…ÿ½W ÿ½W ÿ½W ÿ½W ÿ½W ÿ>!˜?!1I$   ½W ÿ»ËÎÿŸffÿ¿nlÿØ¬¨ÿ*±3ÿ*±3ÿØçèÿØêïÿØêïÿØêïÿ½W ÿ<!£<"6@    ½W ÿ†kqÿĞüÿÔšÿÖåêÿØêïÿØçèÿlÂxÿ!ÿØÚÍÿØêïÿ½W ÿ7µ9 9<   Pptÿ3’Ÿÿœ–‡ÿ*±3ÿØêïÿ!ÿ!ÿ!ÿÔàÛÿnİòÿ%Éóÿ"•¼ÿqÜÿÿN½Û¨<   †±ÿ.Àåÿ×ßÛÿ!ÿ×æèÿ!ÿØêïÿØêïÿqŞôÿ	¾îÿÆçğÿ½W ÿ<^`Å<ªÃŠ<×ıß   1®ÿDàüÿ¯æòÿ®ÚÀÿ!ÿ!ÿ!ÿ­èóÿ¿èÿĞüÿØêïÿ½W ÿ>¸ÓêW·Ô›•Ôñ|   3’Ÿÿ6ÚÿÿXæıÿÔéïÿ´×Çÿ6£;ÿ»ÔĞÿ.ÀåÿÇùÿHÂåÿØêïÿ½W ÿ\‹•ËnÒöæ8ÀßI   ¦Œxÿ)×ÿÿdëÿÿ_òıÿb§¯ÿ¨`;ÿ?‚ÿ$Òùÿ Ãöÿ´äñÿØêïÿ½W ÿE'›G*1I$   ¼]ÿ½sÿšºÿ”Íßÿ*¨Çÿ?‚ÿ*¨Çÿ?‚ÿšpÿÕ€"ÿ·y?ÿ½W ÿC%
+‰D)	-U+ 
+   ´mCöÃn3ÿ»yHÿˆ}cÿ]mhÿSieÿ§sLÿÇw?ÿÉyDÿÀq>ÿ¤^?ÿ½“y‡                ü   ø €€€ €           %  J  1Ó  Kÿ  bÿ ”ÿ         è      (   00    ¨         ¨       h   00     ¨%          ¨        h     (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                      ÿ              ÿ              ÿğ    ÿğÿ      ÿğ     ğ      ÿ      ğ      ÿ      ğ      ÿğ      ğ     ÿğ      ğ  ğ ÿ       ğ  ÿ ÿ       ğ  ÿğÿğ       ğ  ÿÿÿğ       ğ  ÿÿÿÿÿÿÿ    ğ  ÿÿÿÿÿÿğ    ğ  ÿÿÿÿÿÿ     ğ  ÿÿÿÿÿğ     ğ  ÿÿÿÿÿ      ğ  ÿÿÿÿğ      ğ  ÿÿÿÿ       ğ  »»»°ÌÌÌÌÌÌÌ°ÌÌ»»»ÌÌÌÌÌÌÌ°ÌÌ»»°ÌÌÌÌÌÌÌÌ°ÌÌ»»ÌÌÌÌÌÌÌÌ°ÌÌ»°ÌÌÌÌÌÌÌÌÌ°ÌÌ»ÌÌÌÌÌÌÌÀ ° °ÌÌÌÌÌÌÌÌÀ»°»ÌÌÌÌÌÌÌÌÀ À  ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÿÿÿÿÿãÿÿÿİÿÿÿİøaÿ»ûÿ»øaÿwÿowÿo>ïÿo^ïÿomßÿoußÿo{¿ÿo€?oÿoşÿoıÿoûÿo÷ÿoïÿoßÿo                                                     è  	     (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                                                                                                           ÿğÿğ                                                                                ğ             ğ             ÿ              ÿ             ğ            ğ           ğÿ            ÿÿ            ÿÿÿğ          ÿÿÿ      ÿğÿğ  ÿÿğ            ÿÿ             ÿğ             ÿ              ğ                                                             ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿü?ÿÿü?ÿÿøÿÿxÿÿ0ÿÿÿÿÿÿÿÿÿ ÿÿ ?ÿÿ ÿÿ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ?ÿÿÿÿÿÿ         è  
+     (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                                     ÿ              ÿ              ÿğ    ÿğÿ      ÿğ     ğ      ÿ      ğ      ÿ      ğ     ÿğ      ğ   ğ ÿğ      ğ   ÿÿ       ğ   ÿÿÿ       ğ   ÿÿÿÿÿğ    ğ   ÿÿÿÿÿ     ğ   ÿÿÿÿğ     ğ   ÿÿÿÿ      ğ   ÿÿÿğ      ğ   ÿÿÿ       ğ   ÿÿğ       ğ   ÿÿ        ğ   ÿğ        ğ   ÿ         ğ   ğ         ğ            ÿğÿ                                                                                                  ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿşÿÿşÿÿ|ÿÿ<ÿÿ?ÿÿ?ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ ?ÿÿ ÿÿ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ?ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                      ÿ              ÿ              ÿğ    ÿğÿ      ÿğ     ğ      ÿ      ğ      ÿ      ğ      ÿğ      ğ     ÿğ      ğ  ğ ÿ       ğ  ÿ ÿ       ğ  ÿğÿğ       ğ  ÿÿÿğ       ğ  ÿÿÿÿÿÿÿ    ğ  ÿÿÿÿÿÿğ    ğ  ÿÿÿÿÿÿ     ğ  ÿÿÿÿÿğ     ğ  ÿÿÿÿÿ      ğ  ÿÿÿÿğ      ğ  ÿÿÿÿ       ğ  ÿÿÿğ       ğ  ÿÿÿ        ğ  ÿÿğ        ğ  ÿÿ         ğ  ÿğ         ğ  ÿ          ğ  ğ         ÿğÿ                                                                ÿÿÿÿÿãÿÿÿÁÿÿÿÁÿÿÿƒÿÿÿƒÿÿÿÿÿÿÿ>ÿÿÿÿÿÿÿÿ ?ÿÿ  ?ÿ  ÿ  ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ ÿÿ ?ÿÿ ÿÿ ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ?ÿÿÿÿÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                      ÿ              ğ ğ             ğ ğ  ÿğÿğ         ğ ğ        ÿğÿğ    ğ ğ     ğ  ğ   ğ ğ     ğ  ÿ         ğ  ğğ        ğ  ğ ğ ğ      ğ  ğ ğğ ğ      ğ  ğ         ğ  ğ   ÿÿÿÿ   ğ  ğ       ğ   ğ  ğ          ğ  ğ      ğ    ğ  ğ          ğ  ğ     ğ     ğ  ğ          ğ  ğ    ğ      ğ  ğ          ğ  ğ   ğ       ğ  ğ          ğ  ğ  ğ        ğ  ğ          ğ  ğ ğ       ÿğÿğğ         ğ ğğğ        ÿğÿğÿ               ğ                               ÿÿÿÿÿãÿÿÿÁÿÿÿÁøaÿƒøÿƒøÿÿÿ>ÿÿÿÿ ?ÿ  ?    ÿ ÿ ÿ ÿ ÿ ÿ ?ÿ ÿ ÿÿÿÿÿÿÿøÿøÿøa?ÿÿÿÿÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                                                                                          ÿğÿÿ                        ÿğÿÿ             ğğ              ğğ              ğğ      ğ      ğğ      ğ      ğğ      ğ      ğğ      ğ      ğğ   ğ  ğ      ğğ   ÿ ğ       ğğ   ğğğ       ğğ   ğ ğ       ğğ   ğ  ÿÿğ     ğğ   ğ       ÿğÿÿ  ğ   ğ        ğ       ÿğÿÿ  ğ  ğ            ğ              ğ ğ             ğ              ğğ              ÿ               ğ               ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿáÿÿàÿÿàÿÿüÿÿüÿÿüşüü?üü?üøüxü0ÿüÿüÿü ü ?à à ÿáÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ?ÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                                                                                                           ÿğÿğ                                                                                ğ             ğ             ÿ              ÿ             ğ            ğ           ğÿ            »»  ÌÌÌÌÌÌÌÌ»»»°ÌÌÌÌÀ   ÌÌ»»»ÌÌÌÌÀ»°»°ÌÌ»»°ÌÌÌÌÌÀ   ÌÌ»»ÌÌÌÌÌÌÌÌÌÌÌÌ»°ÌÌÌÌÌÌÌÌÌÌÌÌÌ»ÌÌÌÌÌÌÌÌÌÌÌÌÌ°ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌ ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿáÿÿîïÿÿáÿÿıÿÿıÿÿışıı¿ıı¿ıûı{ı6ÿıVÿımÿı                                                     è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                     ÿ              ğ ğ             ğ ğ  ÿğÿğ         ğ ğ        ÿğÿğ ğ  ğ ğ     ğ   ÿ  ğ ğ     ğ   ğğ       ğ   ğ       ğ   ğ ğ ğ      ğ   ğ   ÿÿÿğ   ğ   ğ         ğ   ğ     ğ    ğ   ğ         ğ   ğ    ğ     ğ   ğ         ğ   ğ   ğ      ğ   ğ         ğ   ğ  ğ       ğ   ğ         ğ   ğ ğ        ğ   ğ       ÿğÿğ ğğ        ğ ğ ÿ        ÿğÿğ ğ                                                                               ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿá‡şàşà|ü?<ü??ü??ü? ü? ü? ü? ü? ü? ü? ?ü? ü? ÿü?ÿü?ÿü?ÿü?ÿàÿà?ÿá‡ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿ         è       (       @         €                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ                                                                     ÿ              ÿ              ÿğ    ÿğÿ      ÿğ     ğ      ÿ      ğ      ÿ      ğ     ÿğ      ğ   ğ ÿğ      ğ   ÿÿ       ğ   ÿÿÿ       ğ   ÿÿÿÿÿğ    ğ   ÿÿÿÿÿ     ğ   ÿÿÿÿğ     ğ   ÿÿÿÿ      ğ   ÿÿÿğ      ğ   ÿÿÿ       ğ   ÿÿğ       ğ   »»ÌÌÌÌÌÌÌ°ÌÌÌ»°ÌÌÌÌÌÌÌÌ°ÌÌÌ»ÌÌÌÌÌÌÌÌ°ÌÌÌ°ÌÌÌÌÌÌÌÀ ° ÌÌÌÌÌÌÌÌÀ»°»Ì ÌÌÌÌÌÌÌÌÀ À ÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÌÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿwÿÿÿwá‡şïîwşïá‡}ßı¿=ßı¿[¿ı¿k¿ı¿wı¿ı¿ûı¿÷ı¿ïı¿ßı¿¿ı¿ı¿~ÿı¿                                                     è       (   S   P                                €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  €   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ 2w w  ,w ˆ w  (w ˆwˆ w  %w ˆwˆ w  #w ˆ
+wˆ
+wˆ 
+w  "wˆwˆ÷ˆw ˆ w  !w‡wˆˆwˆ€w   w‡wˆ÷ˆw€w  w‡wˆ"÷ˆw€w  w‡w‡& ˆw€ww  w‡w‡) ‡x€w  w‡w‡ˆ÷‡w  w‡w‡ˆ÷ˆ‡w  w‡w‡	ˆˆ
+÷ ˆw  w‡w‡ˆÿˆ÷€w  w‡w‡ÿˆˆ  w‡w‡ÿˆ÷€p  w‡w‡ÿ÷€p  w‡w‡ÿ÷ˆ  w‡w‡ ÿ÷€  w‡w‡	!ÿ x   w‡w‡
+"ÿ  w‡w‡
+$ÿ
+‡  w‡w‡%ÿ
+ˆ  w‡w‡'ÿ	ˆ  w‡w‡(ÿˆ  w‡w‡(ÿ	ˆ  w‡w‡)ÿˆ  w‡w‡+ÿ€p  
+w‡w‡,ÿ€p  	w‡w‡,ÿ€p  w‡w‡.ÿ€p  w‡w‡0ÿ€w  w‡w‡/ÿ€w  w‡w‡1ÿ€w  w‡w‡1ÿ€w  w‡w‡3ÿ€w  wxwx÷3ÿ€w  wxx÷5ÿ €w  xx÷5ÿ €w  xˆ5ÿ€w  x÷8ÿx€w  ‡÷8ÿ €w  ‡ˆˆ:ÿ€w  ÿxˆ  xÿ;ÿ€w   ø€î p‡;ÿ€	w  ‡ wˆ;ÿx€	w  ˆw€<ÿ€
+w   ˆ÷xˆ D:ÿ€w   x„ D8ÿ€w  ‡
+D6ÿ€w  ‡D4ÿ€w  „Dˆ1ÿ€w  „D /ÿ€w  „D-ÿ€w  „Dˆ)ÿˆ€w  xD  ˆ&ÿ€ w  xD  ˆ#ÿ€w  xD  ˆÿˆ€w  wxD  ˆÿ ˆ w  wxD ˆÿ€ w  w„D ˆÿˆ€w  w„D ˆ w  w„DUP w  w„DU ÿ 3  w  wˆDU ÿ 3 "w  wÿˆ	DU ÿ 3 $w  wÿˆDU ÿ3 &w  wÿp ˆÿˆ)w  wÿp wˆÿˆ-w  wÿ€wˆ3w  wÿKw  w øˆKw  wÿ€Jw  w øˆJw  wÿ€Iw  wÿ€Hw  wÿ€Gw  wÿˆFw  wÿHw       (   S   P                                €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  €   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ 2w w  ,w ˆ w  (w ˆwˆ w  %w ˆwˆ w  #w ˆ
+wˆ
+wˆ 
+w  "wˆwˆ÷ˆw ˆ w  !w‡wˆˆwˆ€w   w‡wˆ÷ˆw€w  w‡wˆ"÷ˆw€w  w‡w‡& ˆw€ww  w‡w‡) ‡x™w  w‡w‡ˆ÷‡w  w‡w‡ˆ÷ˆ‡w  w‡w‡	ˆˆ
+÷ ˆw™  w‡w‡ˆÿˆ÷€w  w‡w‡ÿˆˆ  w‡w‡ÿˆ÷€p  w‡w‡ÿ÷€p  w‡w‡ÿ÷ˆ  w‡w‡ ÿ÷€  w‡w‡	!ÿ x 	  w‡w‡
+"ÿ  w‡w‡
+$ÿ
+‡  w‡w‡%ÿ
+ˆ  w‡w‡'ÿ	ˆ  w‡w‡(ÿˆ  w‡w‡(ÿ	ˆ  w‡w‡)ÿˆ  w‡w‡+ÿ€p  
+w‡w‡,ÿ€p  	w‡w‡,ÿ€p  w‡w‡.ÿ€p  w‡w‡0ÿ€w  w‡w‡/ÿ€w  w‡w‡1ÿ€w  w‡w‡1ÿ€w  w‡w‡3ÿ€w  wxwx÷3ÿ€w  wxx÷5ÿ €w  xx÷5ÿ €w  xˆ5ÿ€w  x÷8ÿx€w  ‡÷8ÿ €w  ‡ˆˆ:ÿ€w  ÿxˆ  xÿ;ÿ€w   ø€0 p‡;ÿ€	w  ‡ wˆ;ÿx€	w  ˆw€<ÿ€
+w   ˆ÷x™ˆ ÿ:ÿ€w   x÷ÿ8ÿ€w  ‡
+ÿ6ÿ€w  ‡ÿ4ÿ€w  ÿˆ1ÿ€w  ÿ /ÿ€w  ÿ-ÿ€w  ÿˆ)ÿˆ€w  xÿ  ˆ&ÿ€ w  xÿ  ˆ#ÿ€w  xÿ  ˆÿˆ€w  wxÿ  ˆÿ ˆ w  wxÿ ˆÿ€ w  wÿ ˆÿˆ€w  wÿ ˆ w  wÿUP w  wÿU D 3  w  wˆÿU D 3 "w  wÿˆ	ÿU D 3 $w  wÿˆÿU D3 &w  wÿp ˆDˆ)w  wÿp wˆDˆ-w  wÿ€wˆ3w  wÿKw  w ø Kw  wÿ€Jw  w ø Jw  wÿ€Iw  wÿ€Hw  wÿ€Gw  wÿˆFw  wÿHw       (   $   $        J                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ $w  $w  w 	w  wxw€w  wxÿx€w  w€€€€€€ˆw  w €ø€ø€øˆ w  wˆ €ø€ø€øˆ€w  wwˆw  w w"ww‡wˆw  w wªww
+ wˆw  w
+w
+ˆwˆw  wwˆw  wÿˆw  wˆ x€w  w ˆ‡w  wˆˆpw  wwˆ€‡w  w÷ÿ x€w  w÷ˆ ÷ˆ w  w pf  fx€w  w pfÿ 	h÷ˆ™w  w 	pf ™ÿ 	h÷ˆ™w  w pfÿ 	h÷ˆ™w  w 	pfL™Ì 	h÷ˆ™w  w pnÿf x€ww  w pn  f x€ww  w pf x€ww  w÷  x€ww  w÷ˆ ÷ˆ™w  wwˆ€w  	wÿˆ€w  
+w‡wø€w  wˆw  $w  $w         (   4   4                                 €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ 4w  4w  w$ w  w' w   wˆ"wˆ€w   wˆ"ÿ w€
+w  w"ÿwx w  w ÿ€ˆˆ ˆˆ ˆˆ ˆw  wˆ €ÿ€ˆø ø€ÿ€ˆøˆ w  w €ÿ€ˆø ø€ÿ€ˆøˆ w  wˆ  ø€ÿ€ˆø ø€ÿ€ˆw  w ÿ!wˆw  w ÿ!wˆw  w ÿw"w‡wˆw  w ÿwª	w wˆw  w ÿwª	w wˆw  w ÿwˆwˆw  w ÿ!wˆw  w ÿ!wˆw  w#ÿˆw  w#ˆxˆw  w ˆxˆw  w ˆ w€w  wˆ ˆpw  wˆ ˆw  wˆwˆˆw  w ˆ÷pÿwˆw  w ˆ÷ÿwˆw  w ˆ÷xˆ÷wˆw  w ˆ÷pff	 f ˆ÷x÷ˆw  w ˆ÷pff	 f ˆ÷x ˆw  w ˆ÷pffˆÿf ˆ÷xˆw  w ˆ÷pff ˆÿf ˆ÷x ˆw  w ˆ÷pff ˆÿf ˆ÷xˆw  w ˆ÷pffˆÿf ˆ÷x‡ˆw  w ˆ÷pff ˆôLwÌf ˆ÷x€ˆw  w ˆ÷pff ˆôLpÌf ˆ÷xˆw  w ˆ÷pfèÿf ˆ÷x€ˆw  w 	ˆ÷pfàÿ	 f ˆ÷xwˆw  w 	ˆ÷pfàw	 f ˆ÷x‡ˆw  w ˆ÷pff ˆ÷xˆw  w ˆ÷p‡  ˆ÷xˆw  w ˆ÷pw  ˆ÷xÿˆw  w ˆ÷x÷ˆ÷wˆw  wˆwˆw  wwˆw  wÿˆw  wˆw ø€w  w‡wø
+w  wˆ
+w  4w  4w   (   D   D        ²                        €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ Dw  Dw  w0 w  w0 w   wˆ.w ˆ w   wˆ.w ˆ w   wˆ.ÿ wˆ  w   wˆ.ÿ wˆ  w  w ˆÿˆ ˆ ˆ ˆ ˆ ˆ ˆ ˆ 
+w  w ˆÿˆ ˆ ˆ ˆ ˆ ˆ ˆ ˆ 
+w  w .ˆÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿ ˆ w  w .ˆÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿ ˆ w  wˆ * ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿ  ˆ w  wˆ * ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿˆ ÿ  ˆ w  w ˆÿ,wˆ w  w ˆÿ,wˆ w  w ˆÿw"wˆ
+wˆ w  w ˆÿw"wˆ
+wˆ w  w ˆÿwªw wˆ w  w ˆÿwªw wˆ w  w ˆÿwˆwˆ w  w ˆÿwˆwˆ w  w ˆÿ,wˆ w  w ˆÿ,wˆ w  wˆ.ÿˆ w  wˆ.ÿˆ w  
+w.ˆwˆ w  
+w.ˆwˆ w  w( ˆ wˆ  w  w( ˆ wˆ  w  w(ˆ ˆ w w  w(ˆ ˆ w w  w ˆÿ"wˆ ˆw  w ˆÿ"wˆ ˆw  w ˆÿw ÿwˆ 
+w  w ˆÿw ÿwˆ 
+w  w ˆÿw ˆ ÿwˆ 
+w  w ˆÿw ˆ ÿwˆ 
+w  w ˆÿw f f ˆÿw ˆ 
+w  w ˆÿw f f ˆÿw ˆ 
+w  w ˆÿw fˆÿ f ˆÿw ˆ 
+w  w ˆÿw fˆÿ f ˆÿw ˆ 
+w  w ˆÿw f ˆÿ f ˆÿw ˆ 
+w  w ˆÿw f ˆÿ f ˆÿw ˆ 
+w  w ˆÿw f ˆÿˆ ÿ f ˆÿw ˆ 
+w  w ˆÿw f ˆÿˆ ÿ f ˆÿw ˆ 
+w  w ˆÿw f ˆÿD Ì f ˆÿw ˆ 
+w  w ˆÿw f ˆÿD Ì f ˆÿw ˆ 
+w  w ˆÿw fîˆ ÿ f ˆÿw ˆ 
+w  w ˆÿw fîˆ ÿ f ˆÿw ˆ 
+w  w ˆÿw fî f ˆÿw ˆ 
+w  w ˆÿw fî f ˆÿw ˆ 
+w  w ˆÿw f ˆÿw ˆ 
+w  w ˆÿw f ˆÿw ˆ 
+w  w ˆÿw   ˆÿw ˆ 
+w  w ˆÿw   ˆÿw ˆ 
+w  w ˆÿw ˆ ÿwˆ 
+w  w ˆÿw ˆ ÿwˆ 
+w  w ˆÿ"wˆ 
+w  w ˆÿ"wˆ 
+w  wˆ"ÿˆ 
+w  wˆ"ÿˆ 
+w  wˆ w ÿˆ  
+w  wˆ w ÿˆ  
+w  w$ˆw  w$ˆw  Dw  Dw         (   ¤   t                              €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@  @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDD@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDD@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDD@@@@@@@@DDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDD@@@@@@@@DDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@DDDDDDDDDDD@DDDDD@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDD@@@DDDDD@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDD@@@@@DDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDD@@@@@@@DDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDD@@@@@@@DDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDD@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDD@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDD@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDD@@@@@@@@@@@DDDD@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDD@@@@@@@@@@@DDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@DDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@DDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@D@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@D@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@D@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@DDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@D@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@D@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDD@DDDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDD@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@DDDDDDDDD@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@DDDDDDDDDD@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@DDDDDDDD@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@DDDDDDDDD@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@DDDDDDDDDD@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿğ@@@@@@@@DDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿôDDDDDDDD@@@@@@@@DDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿğ@@@@@@@@DDDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿôDDDDDDDDD@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@@@@@@@@@@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDDDDDDDÿÿ                          ÿôDDDDDDDDDD@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@@@@@‡@@@@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDDDDDDDÿÿ             ‡ÿğ         ÿôDD@DDDDDDDD@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@@@‡ÿÿÿ@@@@@@@H÷@Oÿğ@@@@@@@@DDDDDDDDDDDDDDÿÿ           ‡ÿpÿğ     ÿ÷ ÿô@D@@DDDDDDDD@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@‡ÿp@Oÿÿ@@@@Hÿø÷@Oÿğ@@@@@@@@DDDDDDDDDDDDDÿÿ         ‡ÿp  ÿÿp  ÿx ÷ ÿô@@@@@DDDDDDDD@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@‡ÿp@H@Oÿÿp@Hÿø@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDDDÿÿ       ‡ÿp  ÿÿpÿx   ÷ ÿô@@@@@@DDDDDDDD@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@‡ÿp@Hÿÿ@Oÿÿ÷ÿø@@@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDDDÿÿ     ‡ÿp ÿÿ ÿÿÿx     ÷ ÿô@@@@@@@DDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@@@‡ÿp@Hÿÿÿÿ@Oÿÿø@@@@@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDDDÿÿ   ‡ÿp ÿÿÿÿ ÿx      ÷ ÿô@@@@@@@@DDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@@‡ÿp@HÿÿÿÿÿÿGÿø@@@@Hÿ@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDDÿÿ ÿ€ ÿÿÿÿÿÿÿx    ÿÿ  ÷ ÿô@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hø@Hÿÿÿÿÿÿÿÿ÷@@@@Hÿÿÿ@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDÿÿ ğ ÿÿÿÿÿÿÿÿ÷   ÿÿÿx  ÷ ÿô@@@@@@@@@@DDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿÿÿÿÿÿÿÿÿ÷@@Hÿÿÿø@@@÷@Oÿğ@@@@@@@@DDDDDDDDDDDÿÿ ğ ÿÿÿÿÿÿÿÿÿ÷  ÿÿÿx    ÷ ÿô@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿÿÿÿÿÿÿÿÿ÷@@ÿÿø@@@@@÷@Oÿğ@@@@@@@@DDDDDDDDDDÿÿ ğ ÿÿÿÿÿÿÿÿ÷÷  ÿx      ÷ ÿô@@@@@@@@@@@@DDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿÿÿÿÿÿÿ÷@÷@@ø@@@@@@÷@Oÿğ@@@@@@@@DDDDDDDDDÿÿ ğ ÿÿÿÿÿÿ÷ ÷      ÿ  ÷ ÿô@@@@@@@@@@@@@DDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿÿÿÿÿ÷@@÷@@@@@ÿÿ@@÷@Oÿğ@@@@@@@@DDDDDDDDÿÿ ğ ÿÿÿÿ÷  ÿ÷    ÿÿ÷  ÷ ÿô@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿÿÿ÷@@÷€÷@@@ÿÿ÷@@@÷@Oÿğ@@@@@@@@DDDDDDDDÿÿ ğ ÿÿ÷  ÷€ ÷  ÿÿ÷    ÷ ÿô@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@ÿ÷€@÷€@@÷@@ÿÿ÷@@@@@÷@Oÿğ@@@@@@@@DDDDDDDÿÿ ğ ÷€ ÷€   ÷  ÿ÷     ÷ ÿô@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@€@÷€@@@@÷@@÷@@@@@ÿp@Oÿğ@@@@@@@@DDDDDDDÿÿ ğ  ÷€     ÷       ÿ€  ÿô@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hğ@÷€@@@@@@÷@@@@@@ÿğ@@@Oÿğ@@@@@@@@DDDDDDÿÿ ø÷€       ÷     ÿÿp   ÿô@@@@@@@@@@@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@ÿÿ@Hÿ÷€@@@@@@@@÷@@@@ÿÿÿp@@@Oÿğ@@@@@@@@DDDDDDDÿÿ ÿ€         ÷   ÿÿÿÿp   ÿô@@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@@ÿÿ@@p@@@@@@@@@÷@@ÿxÿÿÿp@@@Oÿğ@@@@@@@@DDDDDDDÿÿ  ÷        ÷ ÿ€ ÿÿp   ÿô@@@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@ÿÿ@@@p@@@@@Hÿ÷ÿp@@Hÿÿp@@@Oÿğ@@@@@@@@DDDDDDÿÿ   ÿˆ  ‡ÿ÷ˆÿÿ€    ÿp   ÿô@@@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@@ÿÿ@@@@ÿÿÿÿÿx€@ÿp@@@@@Hÿp@@@Oÿğ@@@@@@@@DDDDDDDÿÿ     ˆˆ‡ø   €      ÿp   ÿô@@@@@@@@@@@@@@@@@@@@DDDDDDD@@@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@p@@@@@@@@Hÿ÷@@@@Oÿğ@@@@@@@@DDDDDDDDÿÿ         ø       ÷     ÿô@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@p@@@@@Hÿ÷@@@@@@Oÿğ@@@@@@@@DDDDDDDDÿÿ          ø    ÷       ÿô@@@@@@@@@@@@@@@@@@@@@@DDDDDDDD@@@@@@@@@@@@@@@ÿÿ@@@@@@@@@@@p@@Hÿ÷@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDÿÿ           ø ÷         ÿô@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@@@ÿÿ@@@@@@@@@@@@xÿ÷@@@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDDDÿÿ            ÿ÷           ÿô@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDD@@@@@@@@@@@ÿÿ@@@@@@@@@@@@@w@@@@@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDDDÿÿ                          ÿô@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@ÿÿ@@@@@@@@@@@@@@@@@@@@@@@@@@Oÿğ@@@@@@@@DDDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿô@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿğ@@@@@@@@DDDDDDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿô@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿÿğ@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDDDDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@DDDDDD@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@        (   1   1                               €  €   €€ €   € € €€  ÀÀÀ €€€   ÿ  ÿ   ÿÿ ÿ   ÿ ÿ ÿÿ  ÿÿÿ ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ    ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ                         ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ             x           ÀÀÀÀÀÀÀÀÀÀÀÀÀÈÿÿ€ÀÀÀÀÀÈğÀÀÀ           xÿø    ğ   ÀÀÀÀÀÀÀÀÀÀÀÈÿøÀÿÿ€ÀÀÈÿ÷ğÀÀÀ         x  ÿÿğ xğ   ÀÀÀÀÀÀÀÀÀÈÿøÀÇÀÿÿğÈÿpÀÈğÀÀÀ       x ÿ ÿÿøp  ğ   ÀÀÀÀÀÀÀÈÿøÀÇÿÿÀÿÿÿpÀÀÀÈğÀÀÀ     x ÿÿÿ ÿÿp    ğ   ÀÀÀÀÀÈÿøÀÇÿÿÿÿÈÿpÀÀÀÇÀÈğÀÀÀ    x ÿÿÿÿÿÿp   ÿ ğ   ÀÀÀÀÀøÀÇÿÿÿÿÿÿøÀÀÀÇÿÿÀÈğÀÀÀ    øÿÿÿÿÿÿÿğ  ÿÿø ğ   ÀÀÀÀÀøÈÿÿÿÿÿÿÿğÀÇÿÿøÀÀÈğÀÀÀ    øÿÿÿÿÿÿÿğ ÿø   ğ   ÀÀÀÀÀøÈÿÿÿÿÿÿ÷ğÀøÀÀÀÀÈğÀÀÀ    øÿÿÿÿÿ÷ ğ ˆ    ğ   ÀÀÀÀÀøÈÿÿÿÿ÷ÀÇğÀÀÀÀÿÀÈğÀÀÀ    øÿÿÿ÷ ÿğ   ÿÿ ğ   ÀÀÀÀÀøÈÿÿ÷ÀÇÿˆğÀÀÿÿ€ÀÈğÀÀÀ    øÿ÷ ÿ€ ğ ÿÿ€  ğ   ÀÀÀÀÀøÈ÷ÀÇÿ€ÀÀğÀÿpÀÀÀÇğÀÀÀ    ø ÿ€   ğ €   ÿ€   ÀÀÀÀÀøÀÇÿ€ÀÀÀÀğÀÀÀÀÀÇÿ€ÀÀÀÀ    øÿ€     ğ    ÿğ     ÀÀÀÀÀÿÿ€ÀÀÀÀÀÀğÀÀÀÇÿÿğÀÀÀÀÀ    ÿ€       ğ  ÿÿÿğ     ÀÀÀÀÀpÀÀÀÀÀÀÈğÀÇÿ‡ÿÿpÀÀÀÀÀ    ÷     ğÿ€ ÿp     ÀÀÀÀÀÀxÀÀÀˆÿ÷÷ÿ€ÀÀÇÿpÀÀÀÀÀ     ÿÿÿÿÿx ÿ€    p     ÀÀÀÀÀÀÀÀˆˆğÀÀ€ÀÀÀÀÀpÀÀÀÀÀ          ÷       ø      ÀÀÀÀÀÀÀÀÀÀÀÏpÀÀÀÀÀøÀÀÀÀÀÀÀ           ÷    ø        ÀÀÀÀÀÀÀÀÀÀÀÀÏpÀÀøÀÀÀÀÀÀÀÀÀ            ÷ ø          ÀÀÀÀÀÀÀÀÀÀÀÀÀÏÿøÀÀÀÀÀÀÀÀÀÀÀ             x            ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ                          ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ    ÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀÀ           
+ N o r m a l   €  D i s a b l e d       4   V S _ V E R S I O N _ I N F O     ½ïş     ˆ(
+  ˆ(
+?                        ğ   S t r i n g F i l e I n f o   Ì   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   f   F i l e D e s c r i p t i o n     M i c r o s o f t   A c c e s s i b i l i t y   W i z a r d     b !  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 5 5 1 2   ( x p s p . 0 8 0 4 1 3 - 2 1 0 5 )     .   I n t e r n a l N a m e   A C C W I Z     € .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   >   O r i g i n a l F i l e n a m e   A C C W I Z . E X E     j %  P r o d u c t N a m e     M i c r o s o f t ®   W i n d o w s ®   O p e r a t i n g   S y s t e m     @   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 5 5 1 2   D    V a r F i l e I n f o     $    T r a n s l a t i o n     	°         N o   O p t i o n s   S e l e c t e d  Y o u   d i d   n o t   s e l e c t   a n y   o p t i o n s .  G e n e r i c   T i t l e  G e n e r i c   S u b - T i t l e . 
+ B o u n c e K e y s 2 Y o u   c a n   s e t   W i n d o w s   t o   i g n o r e   r e p e a t e d   k e y s t r o k e s . 
+ S t i c k y K e y s . Y o u   d o   n o t   h a v e   t o   h o l d   d o w n   t w o   k e y s   a t   o n c e . 
+ T o g g l e K e y s W Y o u   c a n   s e t   W i n d o w s   t o   p l a y   a   s o u n d   w h e n   y o u   p r e s s   C A P S   L O C K ,   N U M   L O C K ,   o r   S C R O L L   L O C K .  E x t r a   K e y b o a r d   H e l p d S o m e   p r o g r a m s   o f f e r   T o o l T i p   a n d   o t h e r   i n s t r u c t i o n s   t h a t   h e l p   y o u   u s e   t h e   k e y b o a r d   t o   c o m p l e t e   t a s k s .        A c c e s s i b i l i t y   W i z a r d   s e t t i n g s  A c c e s s i b i l i t y   W i z a r d  S h o r t c u t   k e y s t S h o r t c u t s   a l l o w   y o u   t o   q u i c k l y   t u r n   o n   o r   o f f   a c c e s s i b i l i t y   f e a t u r e s   a t   a n y   t i m e   b y   t y p i n g   c e r t a i n   k e y   c o m b i n a t i o n s .  D e f a u l t   A c c e s s i b i l i t y   S e t t i n g s C Y o u   c a n   m a k e   y o u r   a c c e s s i b i l i t y   s e t t i n g s   t h e   d e f a u l t   f o r   n e w   u s e r s .  S e t   A u t o m a t i c   T i m e o u t s n Y o u   c a n   s e t   c e r t a i n   a c c e s s i b i l i t y   f e a t u r e s   t o   t u r n   o f f   i f   t h e   c o m p u t e r   i s   i d l e   f o r   a   s p e c i f i e d   a m o u n t   o f   t i m e .  S a v e   S e t t i n g s   t o   F i l e ? Y o u   c a n   a p p l y   t h e s e   a c c e s s i b i l i t y   s e t t i n g s   t o   a n o t h e r   c o m p u t e r .  S e t   W i z a r d   O p t i o n s G Y o u   c a n   c o n f i g u r e   W i n d o w s   f o r   y o u r   v i s i o n ,   h e a r i n g ,   a n d   m o b i l i t y   n e e d s .          M o u s e   S p e e d / Y o u   c a n   c h a n g e   t h e   s p e e d   o f   y o u r   m o u s e   p o i n t e r .  M o u s e   T r a i l s % Y o u r   m o u s e   p o i n t e r   c a n   l e a v e   a   t r a i l .                      S o u n d   S e n t r y   a n d   S h o w   S o u n d s , C h a n g e   S o u n d   S e n t r y   a n d   S h o w   S o u n d s   o p t i o n s .                       	 M o u s e K e y s H Y o u   c a n   u s e   y o u r   k e y b o a r d   i n s t e a d   o f   a   m o u s e ,   t o   m o v e   t h e   m o u s e   p o i n t e r .  M o u s e   C u r s o r 7 Y o u   c a n   c h o o s e   t h e   s i z e   a n d   c o l o r   o f   y o u r   m o u s e   c u r s o r .  M o u s e   B u t t o n   S e t t i n g s . Y o u   c a n   c h a n g e   h o w   t h e   m o u s e   b u t t o n s   f u n c t i o n .                        A c t i v e   W i n d o w  I n a c t i v e   W i n d o w  M i n i m i z e d   W i n d o w  V e r y   L o n g   I c o n   T i t l e  N o r m a l  D i s a b l e d      S e l e c t e d  M e s s a g e   B o x  O K  M i n i a t u r e   T i t l e   B a r  W i n d o w   T e x t  M e s s a g e   T e x t                        H i g h   C o n t r a s t   B l a c k  H i g h   C o n t r a s t   W h i t e  H i g h   C o n t r a s t   # 1  H i g h   C o n t r a s t   # 2  D e f a u l t   W i n d o w s   C o l o r s  C u r r e n t   C o l o r   S c h e m e i ! ! !   T H E   S C H E M E S   A B O V E   M U S T   M A T C H   W H A T   I S   I N S T A L L E D   B Y   D E F A U L T   I N   H K C U \ C o n t r o l   P a n e l  p p e a r a n c e \ S c h e m e s   ! ! ! g         T h e   + 1 0 0   r e s o u r c e s   a r e   i n d i c e s   i n t o   ' N e w   S c h e m e s '   a n d   a r e   u s e d   t o   s y n c   d i s p l a y   C P L   w i t h   o u r   c o l o r s .                          5  6  3  4  2 1  2 0                              1 6   2 0   2 5   3 0  8   1 0   1 2   1 4   1 6   1 8   2 0   2 2   2 4  1   2   3   4   5   6  8   1 0   1 4                                      D i s p l a y   S i z e S Y o u   c a n   s e l e c t   t h e   s i z e   o f   t e x t ,   g r a p h i c s ,   a n d   b u t t o n s   t h a t   d i s p l a y   o n   y o u r   s c r e e n .  D i s p l a y   C o l o r   S e t t i n g s J Y o u   c a n   c h o o s e   h i g h   c o n t r a s t   d i s p l a y   c o l o r s   t h a t   m a k e   t e x t   e a s i e r   t o   r e a d .   ! S c r o l l   B a r   a n d   W i n d o w   B o r d e r   S i z e : Y o u   c a n   s e l e c t   t h e   s i z e   o f   s c r o l l   b a r s   a n d   w i n d o w   b o r d e r s .  B o r d e r   S i z e " S c r o l l   B a r   a n d   W i n d o w   B o r d e r   S i z e . 	 I c o n   S i z e 5 Y o u   c a n   c h o o s e   t h e   s i z e   o f   t h e   i c o n s   o n   y o u r   d e s k t o p .  D i s p l a y   S e t t i n g s P T h e   f o l l o w i n g   o p t i o n s   d e t e r m i n e   t h e   s i z e   o f   t e x t   a n d   o t h e r   i t e m s   o n   y o u r   s c r e e n .  3 ½   F l o p p y   ( A : )  J e f f _ C D r i v e   ( C : )  A t l a s   9 7   ( D : )  C o n t r o l   P a n e l  P r i n t e r s  D i a l - U p   N e t w o r k i n g                              [ N o n e ]  F l a s h   a c t i v e   c a p t i o n   b a r  F l a s h   a c t i v e   w i n d o w  F l a s h   d e s k t o p      [ N o n e ]  F l a s h   c h a r s  F l a s h   b o r d e r  F l a s h   d i s p l a y                              1 6  M S   S h e l l   D l g  1 6  M S   S h e l l   D l g  1 2  V e r d a n a   B o l d  M S   S h e l l   D l g                       # W e l c o m e   t o   t h e   A c c e s s i b i l i t y   W i z a r d                                  S o u n d S e n t r y 6 W i n d o w s   c a n   d i s p l a y   v i s u a l   w a r n i n g s   f o r   s y s t e m   s o u n d s . 
+ S h o w S o u n d s J I n   s o m e   s o f t w a r e   p r o g r a m s ,   y o u   c a n   d i s p l a y   c a p t i o n s   f o r   s p e e c h   a n d   s o u n d s .                                                    W i n d o w s   S t a n d a r d   ( l a r g e )  W i n d o w s   S t a n d a r d   ( e x t r a   l a r g e )  W i n d o w s   B l a c k    W i n d o w s   B l a c k   ( l a r g e )  W i n d o w s   B l a c k   ( e x t r a   l a r g e )  W i n d o w s   I n v e r t e d  W i n d o w s   I n v e r t e d   ( l a r g e )  W i n d o w s   I n v e r t e d   ( e x t r a   l a r g e )                                     U s e   u s u a l   t e x t   s i z e   f o r   W i n d o w s . " U s e   l a r g e   w i n d o w   t i t l e s   a n d   m e n u s . 4 U s e   M i c r o s o f t   M a g n i f i e r ,   a n d   l a r g e   t i t l e s   a n d   m e n u s . < L a r g e   w i n d o w   t i t l e s   a n d   m e n u s ,   a n d   r e d u c e   s c r e e n   r e s o l u t i o n .                                           
+ B o u n c e K e y s 	 M o u s e K e y s 
+ S e r i a l K e y s 
+ S t i c k y K e y s 
+ T o g g l e K e y s  S o u n d S e n t r y  A c c e s s i b i l i t y   T i m e   O u t   o p t i o n  H i g h   C o n t r a s t     
+ S h o w S o u n d s  S h o w   E x t r a   K e y b o a r d   H e l p  S w a p   M o u s e   B u t t o n s  C o l o r   S c h e m e s  S i z e s   o f   W i n d o w   E l e m e n t s  M o u s e   S p e e d  M o u s e   T r a i l s 	 I c o n   S i z e  M o u s e   C u r s o r   S c h e m e  S c r o l l   B a r   S i z e  W i n d o w   B o r d e r   W i d t h 	 C h a n g e s   4  C u r s o r   W i d t h  C u r s o r   B l i n k   R a t e 	 C h a n g e s   4  N o   c h a n g e s   h a v e   b e e n   m a d e .                              S a v e   C h a n g e s x D o   y o u   w a n t   t o   k e e p   t h e   c h a n g e s   y o u   h a v e   m a d e   s o   f a r ?  
+  
+ C l i c k   Y e s   t o   k e e p   t h e   c h a n g e s .  
+ C l i c k   N o   t o   u n d o   a n y   c h a n g e s .  
+  A c c e s s i b i l i t y   W i z a r d U T h e r e   w a s   a   p r o b l e m   l o a d i n g   t h e   f i l e   s p e c i f i e d   w h e n   r u n n i n g   t h e   A c c e s s i b i l i t y   W i z a r d .  A c c e s s i b i l i t y   W i z a r d ˜ Y o u   m u s t   h a v e   a d m i n i s t r a t i v e   p r i v e l e g e s   o n   t h i s   m a c h i n e   t o   m a k e   c h a n g e s   t o   t h e   l o g o n   s c r e e n   s e t t i n g s .     C o n t a c t   y o u r   s y s t e m   a d m i n i s t r a t o r   f o r   a s s i s t a n c e .  A c c e s s i b i l i t y   W i z a r d . T h e r e   w a s   a   p r o b l e m   s a v i n g   t h e   s p e c i f i e d   f i l e .  A c c e s s i b i l i t y   W i z a r d ß T h e s e   c h a n g e s   a r e   g o i n g   t o   t a k e   e f f e c t   i m m e d i a t e l y .  
+ I f   y o u   d o n ' t   l i k e   t h e   n e w   s e t t i n g s ,   y o u   w i l l   b e   g i v e n   a n   o p p o r t u n i t y   t o   u n d o   t h e   c h a n g e s .  
+  
+ I f   f o r   s o m e   r e a s o n   y o u r   d i s p l a y   b e c o m e s   i l l e g i b l e ,   p r e s s   t h e   E S C A P E   k e y   o n c e .  A c c e s s i b i l i t y   W i z a r d N C l i c k   O K   t o   a c c e p t   t h e s e   s e t t i n g s ,   o r   C a n c e l   t o   r e s t o r e   t h e   o r i g i n a l   s e t t i n g s .                N o r m a l  L a r g e  E x t r a   L a r g e                                        M y S e t t i n g s . a c w % A c c e s s i b i l i t y   W i z a r d   S e t t i n g s   ( * . a c w )  * . a c w             a Y o u   a r e   c u r r e n t l y   a t   % i   x   % i .     B y   s w i t c h i n g   t o   % i   x   % i ,   t h e   t e x t   o n   s c r e e n   w i l l   b e   m o r e   r e a d a b l e .             	 M a g n i f i e r  B o u n c e K e y s   S e t t i n g s  M o u s e K e y s   S e t t i n g s 7 W i n d o w s   c a n   a l t e r   t h e   s i z e   o f   t h e   i t e m s   o n   y o u r   s c r e e n . 	 T e x t   S i z e   h t t p : / / w w w . m i c r o s o f t . c o m / e n a b l e /  C u r s o r   S e t t i n g s 7 Y o u   c a n   c h a n g e   t h e   b l i n k   r a t e   a n d   w i d t h   o f   t h e   c u r s o r .                                F i l e       E d i t       H e l p                              0                                             H 1   1 6   1 6   1 8   1 8   - 1 1   7 0 0   1 5   1 5   - 8   7 0 0   1 8   1 8   - 1 1   4 0 0   - 1 1   4 0 0   - 1 1   4 0 0   - 1 1   4 0 0                                                                                                                                                                                                                                                                                                                                                                                                                                               [Version]
+Signature="$CHICAGO$"
+[Reg]
+AddReg=Msxml.Reg,Msxmldom.Reg,MsxmlIsland.Reg,MsxmlView.Reg,XMLPSR.Reg,Msxql.Reg,DSOControl.Reg,XmlHttp.Reg,MsxmlSchemaCache.Reg,MsxmlTemplate.Reg,XSLPatternfactory.Reg,VersionList.Reg
+DelReg=MsxmlCleanup.Reg
+[Unreg]
+DelReg=Msxml.Reg,Msxmldom.Reg,MsxmlIsland.Reg,MsxmlView.Reg,XMLPSR.Reg,Msxql.Reg,DSOControl.Reg,XmlHttp.Reg,MsxmlSchemaCache.Reg,MsxmlTemplate.Reg,XSLPatternfactory.Reg,UnRegAll.Reg,VersionList.Reg
+[Regmsxml]
+AddReg=msxmlvi.Reg
+[Unregmsxml]
+DelReg=msxmlvi.Reg, msxmlviunreg.Reg
+[Regdomdoc]
+AddReg=domdocvi.Reg
+[Unregdomdoc]
+DelReg=domdocvi.Reg, domdocviunreg.Reg
+[Regfreedom]
+AddReg=freedomvi.Reg
+[Unregfreedom]
+DelReg=freedomvi.Reg, freedomviunreg.Reg
+[Regxmlparser]
+AddReg=xmlparservi.Reg
+[Unregxmlparser]
+DelReg=xmlparservi.Reg, xmlparserviunreg.Reg
+[Regxmldso]
+AddReg=xmldsovi.Reg
+[Unregxmldso]
+DelReg=xmldsovi.Reg, xmldsoviunreg.Reg
+[Regxmlhttp]
+AddReg=xmlhttpvi.Reg
+[Unregxmlhttp]
+DelReg=xmlhttpvi.Reg, xmlhttpviunreg.Reg
+[Regscache]
+AddReg=scachevi.Reg
+[Unregscache]
+DelReg=scachevi.Reg, scacheviunreg.Reg
+[Regxsltemplate]
+AddReg=xsltemplatevi.Reg
+[Unregxsltemplate]
+DelReg=xsltemplatevi.Reg, xsltemplateviunreg.Reg
+[Regpfactory]
+AddReg=pfactoryvi.Reg
+[Unregpfactory]
+DelReg=pfactoryvi.Reg, pfactoryviunreg.Reg
+[FixSideBySide]
+DelReg=VersionList.Reg,XMLPSR.Reg,msxmlviunreg.Reg,Msxmldom.Reg,UnRegAll.Reg
+[UnRegAll.Reg]
+HKCR,CLSID\%CLSID_XMLDocument26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLDocument26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLDocument26%\ProgID
+HKCR,CLSID\%CLSID_XMLDocument26%\TypeLib
+HKCR,CLSID\%CLSID_XMLDocument26%
+HKCR,Msxml2.2.6\CLSID
+HKCR,Msxml2.2.6
+HKCR,CLSID\%CLSID_DOMDocument26%\TypeLib
+HKCR,CLSID\%CLSID_DOMDocument26%\Version
+HKCR,CLSID\%CLSID_DOMDocument26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_DOMDocument26%\ProgID
+HKCR,CLSID\%CLSID_DOMDocument26%\InProcServer32
+HKCR,CLSID\%CLSID_DOMDocument26%\InProcServer32
+HKCR,CLSID\%CLSID_DOMDocument26%
+HKCR,Msxml2.DOMDocument.2.6\CLSID
+HKCR,Msxml2.DOMDocument.2.6
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\InProcServer32
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\ProgID
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\Version
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\TypeLib
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%
+HKCR,Msxml2.FreeThreadedDOMDocument.2.6\CLSID
+HKCR,Msxml2.FreeThreadedDOMDocument.2.6
+HKCR,CLSID\%CLSID_XMLParser26%\InProcServer32"
+HKCR,CLSID\%CLSID_XMLParser26%\ProgID
+HKCR,CLSID\%CLSID_XMLParser26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLParser26%\Version
+HKCR,CLSID\%CLSID_XMLParser26%
+HKCR,Msxml2.XMLParser.2.6\CLSID
+HKCR,Msxml2.XMLParser.2.6
+HKCR,CLSID\%CLSID_DSOControl26%\InProcServer32
+HKCR,CLSID\%CLSID_DSOControl26%\ProgID
+HKCR,CLSID\%CLSID_DSOControl26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_DSOControl26%\Version
+HKCR,CLSID\%CLSID_DSOControl26%\TypeLib
+HKCR,CLSID\%CLSID_DSOControl26%
+HKCR,Msxml2.DSOControl.2.6\CLSID
+HKCR,Msxml2.DSOControl.2.6
+HKCR,CLSID\%CLSID_XMLHTTP26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLHTTP26%\ProgID
+HKCR,CLSID\%CLSID_XMLHTTP26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLHTTP26%\TypeLib
+HKCR,CLSID\%CLSID_XMLHTTP26%
+HKCR,Msxml2.XMLHTTP.2.6\CLSID
+HKCR,Msxml2.XMLHTTP.2.6
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\InProcServer32
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\ProgID
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\Version
+HKCR,CLSID\%CLSID_XSLPatternFactory26%
+HKCR,Msxml2.XSLPatternFactory.2.6\CLSID
+HKCR,Msxml2.XSLPatternFactory.2.6
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\ProgID
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\Version
+HKCR,CLSID\%CLSID_XMLSchemaCache26%
+HKCR,Msxml2.XMLSchemaCache.2.6\CLSID
+HKCR,Msxml2.XMLSchemaCache.2.6
+HKCR,CLSID\%CLSID_XSLTemplate26%\InProcServer32
+HKCR,CLSID\%CLSID_XSLTemplate26%\ProgID
+HKCR,CLSID\%CLSID_XSLTemplate26%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XSLTemplate26%\Version
+HKCR,CLSID\%CLSID_XSLTemplate26%
+HKCR,Msxml2.XSLTemplate.2.6\CLSID
+HKCR,Msxml2.XSLTemplate.2.6
+HKCR,CLSID\%CLSID_XMLView26%\BrowseInPlace
+HKCR,CLSID\%CLSID_XMLView26%\DefaultIcon
+HKCR,CLSID\%CLSID_XMLView26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLView26%\MiscStatus
+HKCR,CLSID\%CLSID_XMLView26%\ProgID
+HKCR,CLSID\%CLSID_XMLView26%\Version
+HKCR,CLSID\%CLSID_XMLView26%
+HKCR,CLSID\%CLSID_XMLMoniker26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLMoniker26%
+HKCR,CLSID\%CLSID_XMLIsland26%\InProcServer32
+HKCR,CLSID\%CLSID_XMLIsland26%\TypeLib
+HKCR,CLSID\%CLSID_XMLIsland26%
+[msxmlviunreg.Reg]
+HKCR,Msxml2\CLSID
+HKCR,Msxml2
+HKCR,CLSID\%CLSID_XMLDocument%\InProcServer32
+HKCR,CLSID\%CLSID_XMLDocument%\ProgID
+HKCR,CLSID\%CLSID_XMLDocument%\TypeLib
+HKCR,CLSID\%CLSID_XMLDocument%
+[domdocviunreg.Reg]
+HKCR,Msxml2.DOMDocument\CLSID
+HKCR,Msxml2.DOMDocument\CurVer
+HKCR,Msxml2.DOMDocument
+HKCR,CLSID\%CLSID_DOMDocument%\InProcServer32
+HKCR,CLSID\%CLSID_DOMDocument%\ProgID
+HKCR,CLSID\%CLSID_DOMDocument%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_DOMDocument%\Version
+HKCR,CLSID\%CLSID_DOMDocument%\TypeLib
+HKCR,CLSID\%CLSID_DOMDocument%
+[freedomviunreg.Reg]
+HKCR,Msxml2.FreeThreadedDOMDocument\CLSID
+HKCR,Msxml2.FreeThreadedDOMDocument\CurVer
+HKCR,Msxml2.FreeThreadedDOMDocument
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%\InProcServer32
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%\ProgID
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%\Version
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%\TypeLib
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument%
+[xmlparserviunreg.Reg]
+HKCR,Msxml2.XMLParser\CLSID
+HKCR,Msxml2.XMLParser\CurVer
+HKCR,Msxml2.XMLParser
+HKCR,CLSID\%CLSID_XMLParser%\InProcServer32
+HKCR,CLSID\%CLSID_XMLParser%\ProgID
+HKCR,CLSID\%CLSID_XMLParser%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLParser%\Version
+HKCR,CLSID\%CLSID_XMLParser%
+[xmldsoviunreg.Reg]
+HKCR,Msxml2.DSOControl\CLSID
+HKCR,Msxml2.DSOControl\CurVer
+HKCR,Msxml2.DSOControl
+HKCR,CLSID\%CLSID_DSOControl%\InProcServer32
+HKCR,CLSID\%CLSID_DSOControl%\ProgID
+HKCR,CLSID\%CLSID_DSOControl%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_DSOControl%\Version
+HKCR,CLSID\%CLSID_DSOControl%\TypeLib
+HKCR,CLSID\%CLSID_DSOControl%
+[xmlhttpviunreg.Reg]
+HKCR,Msxml2.XMLHTTP\CLSID
+HKCR,Msxml2.XMLHTTP\CurVer
+HKCR,Msxml2.XMLHTTP
+HKCR,CLSID\%CLSID_XMLHTTP%\InProcServer32
+HKCR,CLSID\%CLSID_XMLHTTP%\ProgID
+HKCR,CLSID\%CLSID_XMLHTTP%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLHTTP%\TypeLib
+HKCR,CLSID\%CLSID_XMLHTTP%
+[pfactoryviunreg.Reg]
+HKCR,Msxml2.XSLPatternFactory\CLSID
+HKCR,Msxml2.XSLPatternFactory\CurVer
+HKCR,Msxml2.XSLPatternFactory
+HKCR,CLSID\%CLSID_XSLPatternFactory%\InProcServer32
+HKCR,CLSID\%CLSID_XSLPatternFactory%\ProgID
+HKCR,CLSID\%CLSID_XSLPatternFactory%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XSLPatternFactory%\Version
+HKCR,CLSID\%CLSID_XSLPatternFactory%
+[scacheviunreg.Reg]
+HKCR,Msxml2.XMLSchemaCache\CLSID
+HKCR,Msxml2.XMLSchemaCache\CurVer
+HKCR,Msxml2.XMLSchemaCache
+HKCR,CLSID\%CLSID_XMLSchemaCache%\InProcServer32
+HKCR,CLSID\%CLSID_XMLSchemaCache%\ProgID
+HKCR,CLSID\%CLSID_XMLSchemaCache%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XMLSchemaCache%\Version
+HKCR,CLSID\%CLSID_XMLSchemaCache%
+[xsltemplateviunreg.Reg]
+HKCR,Msxml2.XSLTemplate
+HKCR,Msxml2.XSLTemplate\CLSID
+HKCR,Msxml2.XSLTemplate\CurVer
+HKCR,CLSID\%CLSID_XSLTemplate%
+HKCR,CLSID\%CLSID_XSLTemplate%\InProcServer32
+HKCR,CLSID\%CLSID_XSLTemplate%\ProgID
+HKCR,CLSID\%CLSID_XSLTemplate%\VersionIndependentProgID
+HKCR,CLSID\%CLSID_XSLTemplate%\Version
+[Msxml.Reg]
+HKCR,CLSID\%CLSID_XMLDocument26%,,,"%NAME_XMLDOCUMENT26%"
+HKCR,CLSID\%CLSID_XMLDocument26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLDocument26%\InProcServer32,"ThreadingModel",,"%FREE_MODEL%"
+HKCR,CLSID\%CLSID_XMLDocument26%\ProgID,,,"Msxml.2.6"
+HKCR,CLSID\%CLSID_XMLDocument26%\TypeLib,,,%TypeLibID%
+HKCR,Msxml2.2.6,,,"Msxml.2.6"
+HKCR,Msxml2.2.6\CLSID,,,%CLSID_XMLDocument26%
+[Msxmldom.Reg]
+HKCR,CLSID\%CLSID_DOMDocument26%,,,"%NAME_DOMDocument26%"
+HKCR,CLSID\%CLSID_DOMDocument26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_DOMDocument26%\InProcServer32,"ThreadingModel",,"%RENTAL_MODEL%"
+HKCR,CLSID\%CLSID_DOMDocument26%\ProgID,,,"Msxml2.DOMDocument.2.6"
+HKCR,CLSID\%CLSID_DOMDocument26%\VersionIndependentProgID,,,"Msxml2.DOMDocument"
+HKCR,CLSID\%CLSID_DOMDocument26%\Version,,, "2.6"
+HKCR,CLSID\%CLSID_DOMDocument26%\TypeLib,,,%TypeLibID%
+HKCR,Msxml2.DOMDocument.2.6,,,"%NAME_DOMDocument26%"
+HKCR,Msxml2.DOMDocument.2.6\CLSID,,,%CLSID_DOMDocument26%
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%,,,"%NAME_FreeThreadedDOMDocument26%"
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\InProcServer32,"ThreadingModel",,"%FREE_MODEL%"
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\ProgID,,,"Msxml2.FreeThreadedDOMDocument.2.6"
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\VersionIndependentProgID,,,"Msxml2.FreeThreadedDOMDocument"
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\Version,,, "2.6"
+HKCR,CLSID\%CLSID_FreeThreadedDOMDocument26%\TypeLib,,,%TypeLibID%
+HKCR,Msxml2.FreeThreadedDOMDocument.2.6,,,"%NAME_FreeThreadedDOMDocument%26"
+HKCR,Msxml2.FreeThreadedDOMDocument.2.6\CLSID,,,%CLSID_FreeThreadedDOMDocument26%
+[XMLPSR.Reg]
+HKCR,CLSID\%CLSID_XMLParser26%,,,"%NAME_XMLParser26%"
+HKCR,CLSID\%CLSID_XMLParser26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLParser26%\InProcServer32,"ThreadingModel",,"Both"
+HKCR,CLSID\%CLSID_XMLParser26%\ProgID,,,"Msxml2.XMLParser.2.6"
+HKCR,CLSID\%CLSID_XMLParser26%\VersionIndependentProgID,,,"Msxml2.XMLParser"
+HKCR,CLSID\%CLSID_XMLParser26%\Version,,,"2.6"
+HKCR,Msxml2.XMLParser.2.6,,,"%NAME_XMLParser26%"
+HKCR,Msxml2.XMLParser.2.6\CLSID,,,%CLSID_XMLParser26%
+[DSOControl.Reg]
+HKCR,CLSID\%CLSID_DSOControl26%,,,"%NAME_DSOControl26%"
+HKCR,CLSID\%CLSID_DSOControl26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_DSOControl26%\InProcServer32,"ThreadingModel",,"Apartment"
+HKCR,CLSID\%CLSID_DSOControl26%\ProgID,,,"Msxml2.DSOControl.2.6"
+HKCR,CLSID\%CLSID_DSOControl26%\VersionIndependentProgID,,,"Msxml2.DSOControl"
+HKCR,CLSID\%CLSID_DSOControl26%\Version,,, "2.6"
+HKCR,CLSID\%CLSID_DSOControl26%\TypeLib,,,%TypeLibID%
+HKCR,Msxml2.DSOControl.2.6,,,"%NAME_DSOControl26%"
+HKCR,Msxml2.DSOControl.2.6\CLSID,,,%CLSID_DSOControl26%
+[XmlHttp.Reg]
+HKCR,CLSID\%CLSID_XMLHTTP26%,,,"%NAME_XMLHTTP26%"
+HKCR,CLSID\%CLSID_XMLHTTP26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLHTTP26%\InProcServer32,"ThreadingModel",,"Apartment"
+HKCR,CLSID\%CLSID_XMLHTTP26%\ProgID,,,"Msxml2.XMLHTTP.2.6"
+HKCR,CLSID\%CLSID_XMLHTTP26%\VersionIndependentProgID,,,"Msxml2.XMLHTTP"
+HKCR,CLSID\%CLSID_XMLHTTP26%\TypeLib,,,%TypeLibID%
+HKCR,Msxml2.XMLHTTP.2.6,,,"%NAME_XMLHTTP26%"
+HKCR,Msxml2.XMLHTTP.2.6\CLSID,,,%CLSID_XMLHTTP26%
+[XSLPatternfactory.Reg]
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\InProcServer32,"ThreadingModel",,"Apartment"
+HKCR,CLSID\%CLSID_XSLPatternFactory26%\Version,,,"2.6"
+[MsxmlSchemaCache.Reg]
+HKCR,CLSID\%CLSID_XMLSchemaCache26%,,,"%NAME_XMLSchemaCache26%"
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\InProcServer32,"ThreadingModel",,"%FREE_MODEL%"
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\ProgID,,,"Msxml2.XMLSchemaCache.2.6"
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\VersionIndependentProgID,,,"Msxml2.XMLSchemaCache"
+HKCR,CLSID\%CLSID_XMLSchemaCache26%\Version,,,"2.6"
+HKCR,Msxml2.XMLSchemaCache.2.6,,,"%NAME_XMLSchemaCache26%"
+HKCR,Msxml2.XMLSchemaCache.2.6\CLSID,,,%CLSID_XMLSchemaCache26%
+[MsxmlTemplate.Reg]
+HKCR,CLSID\%CLSID_XSLTemplate26%,,,"%NAME_XSLTemplate26%"
+HKCR,CLSID\%CLSID_XSLTemplate26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XSLTemplate26%\InProcServer32,"ThreadingModel",,"%FREE_MODEL%"
+HKCR,CLSID\%CLSID_XSLTemplate26%\ProgID,,,"Msxml2.XSLTemplate.2.6"
+HKCR,CLSID\%CLSID_XSLTemplate26%\VersionIndependentProgID,,,"Msxml2.XSLTemplate"
+HKCR,CLSID\%CLSID_XSLTemplate26%\Version,,,"2.6"
+HKCR,Msxml2.XSLTemplate.2.6,,,"%NAME_XSLTemplate26%"
+HKCR,Msxml2.XSLTemplate.2.6\CLSID,,,%CLSID_XSLTemplate26%
+[MsxmlView.Reg]
+HKCR,CLSID\%CLSID_XMLView26%,,,"%NAME_XMLDOCUMENT26%"
+HKCR,CLSID\%CLSID_XMLView26%\BrowseInPlace,,,""
+HKCR,CLSID\%CLSID_XMLView26%\DefaultIcon,,131072,"%_SYS_MOD_PATH%,0"
+HKCR,CLSID\%CLSID_XMLView26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLView26%\InProcServer32,"ThreadingModel",,"Apartment"
+HKCR,CLSID\%CLSID_XMLView26%\MiscStatus,,,"2228625"
+HKCR,CLSID\%CLSID_XMLView26%\ProgID,,,"xmlfile"
+HKCR,CLSID\%CLSID_XMLView26%\Version,,,"2.6"
+HKCR,CLSID\%CLSID_XMLMoniker26%,,,"%NAME_XMLMoniker26%"
+HKCR,CLSID\%CLSID_XMLMoniker26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLMoniker26%\InProcServer32,"ThreadingModel",,"Apartment"
+[MsxmlIsland.Reg]
+HKCR,CLSID\%CLSID_XMLIsland26%,,,"%NAME_XMLIsland26%"
+HKCR,CLSID\%CLSID_XMLIsland26%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLIsland26%\InProcServer32,"ThreadingModel",,"Apartment"
+HKCR,CLSID\%CLSID_XMLIsland26%\TypeLib,,,%TypeLibID%
+[msxmlvi.Reg]
+HKCR,Msxml2,,,"Msxml2"
+HKCR,Msxml2\CLSID,,,%CLSID_XMLDocument%
+HKCR,CLSID\%CLSID_XMLDocument%,,,"%NAME_XMLDOCUMENT%"
+HKCR,CLSID\%CLSID_XMLDocument%\InProcServer32,,131072,%_SYS_MOD_PATH%
+HKCR,CLSID\%CLSID_XMLDocument%\InProcServer32,"ThreadingModel",,"%FREE_MODEL%"
+HKCR,CLSID\%CLSID_XMLDocument%\ProgID,,,"Msxml"
+HKCR,CLS

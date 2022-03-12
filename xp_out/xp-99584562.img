@@ -1,0 +1,1934 @@
+                  If CLng(intIntSize) >= CLng(INITIAL_SIZE_LB) Then
+                                    ' check for overflows
+                                    If Err.Number Then
+                                        Err.Clear
+                                        ' get the upper bound allowed for maximum size
+                                        intMaxSizeUB = getMaxSizeUB(objService)
+                                        component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                        Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+                                    ' get the drive name first
+                                    strDriveName = Mid(objInstance.Name,1,2)
+                                    ' get the free space available on the specified disk
+                                    intFreeDiskSpace = getFreeSpaceOnDisk(strDriveName,objService)
+                                    ' get the current pagefile size
+                                    intCurrentSize = getCurrentPageFileSize(objService,objInstance)
+                                    ' get the total free space
+                                    If Len(intCurrentSize) > 0 Then
+                                        intFreeSpace = intFreeDiskSpace + intCurrentSize
+                                    Else
+                                        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+                                        WScript.Quit(EXIT_QUERY_FAIL)
+                                    End If
+                                    ' Check if it is greater than free disk space
+                                    If CLng(intIntSize) > CLng(intFreeSpace) Then
+                                        ' check for overflows
+                                        If Err.Number Then
+                                            Err.Clear
+                                            ' get the upper bound allowed for maximum size
+                                            intMaxSizeUB = getMaxSizeUB(objService)
+                                            component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                            Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        End If
+                                        WScript.Echo(NotEnoughSpaceErrorMessage)
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    Else
+                                        If CLng(intIntSize) > CLng(intFreeSpace) - 5 Then
+                                            ' check for overflows
+                                            If Err.Number Then
+                                                Err.Clear
+                                                WScript.Echo(L_InvalidInput_ErrorMessage)
+                                                WScript.Quit(EXIT_INVALID_INPUT)
+                                            End If
+                                            WScript.Echo(AtLeastFiveMBErrorMessage)
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        Else
+                                            ' only one of initsize, maxsize is specified
+                                            ' check if the specified initsize is less than existing maxsize
+                                            If (CInt(intIntSize) <= objInstance.MaximumSize) Then
+                                                ' get the crash dump setting value
+                                                intCrashDump = GetCrashDumpSetting(strUserName,strPassword,strMachine)
+                                                ' get the Physical Memory Size
+                                                intMemSize = GetPhysicalMemorySize(strHostName,objService)
+                                                ' If the user has selected "yes" for the warning message
+                                                If isCrashDumpValueSet(intCrashDump,intIntSize,intMemSize,arrVolume(i)) Then
+                                                    ' Check if initsize is same as the present value
+                                                    If (CInt(intIntSize) <> objInstance.InitialSize) Then
+                                                        ' store the old initsize value
+                                                        intOldInitialSize = objInstance.InitialSize
+                                                        ' set the new initsize
+                                                        objInstance.InitialSize = intIntSize
+                                                        objInstance.Put_(CONST_WBEM_FLAG)
+                                                        If Err.Number Then
+                                                            Err.Clear
+                                                            WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                                        End If
+                                                        component.VBPrintf ChangeIntSuccessMessage, _
+                                                        Array(UCase(arrVolume(i)),CInt(intOldInitialSize),CInt(intIntSize))
+                                                        blnSuccessMsg = TRUE
+                                                    Else
+                                                        component.VBPrintf ChangeIntSkippingMessage, Array(UCase(arrVolume(i)))
+                                                    End If
+                                                End If
+                                            Else
+                                                ' get the upper bound allowed for maximum size
+                                                intMaxSizeUB = getMaxSizeUB(objService)
+                                                component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                                Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                            End If
+                                        End If
+                                    End If
+                                Else
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InitialSizeRangeErrorMessage, _
+                                    Array(intMaxSizeUB)
+                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                End If
+                            Else
+                                ' Check if initsize specified as 0
+                                If Len(intIntSize) > 0 Then
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InitialSizeRangeErrorMessage, _
+                                    Array(intMaxSizeUB)
+                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                End If
+                            End If ' initsize checked
+
+                            ' check if maxsize is given
+                            If (intMaxSize > 0) Then
+                                ' get the free space available on the specified disk
+                                intFreeDiskSpace = getFreeSpaceOnDisk(strDriveName,objService)
+                                ' get the current pagefile size
+                                intCurrentSize = getCurrentPageFileSize(objService,objInstance)
+                                ' get the total free space
+                                If Len(intCurrentSize) > 0 Then
+                                    intFreeSpace = intFreeDiskSpace + intCurrentSize
+                                Else
+                                    WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+                                    WScript.Quit(EXIT_QUERY_FAIL)
+                                End If
+
+                                ' Get the Disk Size for the specified drive
+                                intDiskSize = GetDiskSize(arrVolume(i),objService)
+                                ' check if maxsize is more than initsize
+                                If (CLng(intMaxSize) > CLng(intDiskSize)) Then
+                                    ' check for overflows
+                                    If Err.Number Then
+                                        Err.Clear
+                                        ' get the upper bound allowed for maximum size
+                                        intMaxSizeUB = getMaxSizeUB(objService)
+                                        component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                        Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+                                    component.VBPrintf DiskTooSmallErrorMessage, Array(UCase(arrVolume(i)))
+                                Else
+                                    If (CLng(intMaxSize) > CLng(intFreeSpace)) Then
+                                        ' check for overflows
+                                        If Err.Number Then
+                                            Err.Clear
+                                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        End If
+                                        component.VBPrintf GrowsToFreeSpaceWarningMessage, _
+                                        Array(UCase(arrVolume(i)),intFreeSpace)
+                                        strReply = getReply()
+                                        If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                                            ' set the maxsize to be the free space on disk
+                                            intMaxSize = intFreeSpace
+                                            ' check if the given maxsize is greater than the existing initial size.
+                                            If (CInt(intMaxSize) >= objInstance.InitialSize) Then
+                                                If (CInt(intMaxSize) <> objInstance.MaximumSize) Then
+                                                    intOldMaximumSize = objInstance.MaximumSize
+                                                    objInstance.MaximumSize = intMaxSize
+                                                    objInstance.Put_(CONST_WBEM_FLAG)
+                                                    If Err.Number Then
+                                                        Err.Clear
+                                                        WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                                    End If
+                                                    component.VBPrintf ChangeMaxSuccessMessage, _
+                                                    Array(UCase(arrVolume(i)),CInt(intOldMaximumSize),CInt(intMaxSize))
+                                                    blnSuccessMsg = TRUE
+                                                Else
+                                                    component.VBPrintf ChangeMaxSkippingMessage, Array(UCase(arrVolume(i)))
+                                                End If
+                                            Else
+                                                ' get the upper bound allowed for maximum size
+                                                intMaxSizeUB = getMaxSizeUB(objService)
+                                                component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                                Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                            End If
+                                        ElseIf LCase(strReply) = L_UserReplyNo_Text Then
+                                            WScript.Quit(EXIT_SUCCESS)
+                                        Else
+                                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                                            WScript.Quit (EXIT_INVALID_INPUT)
+                                        End If
+                                    Else
+                                        If (CInt(intMaxSize) >= objInstance.InitialSize) Then
+                                            If (CInt(intMaxSize) <> objInstance.MaximumSize) Then
+                                                intOldMaximumSize = objInstance.MaximumSize
+                                                objInstance.MaximumSize = intMaxSize
+                                                objInstance.Put_(CONST_WBEM_FLAG)
+                                                If Err.Number Then
+                                                    Err.Clear
+                                                    WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                                End If
+                                                component.VBPrintf ChangeMaxSuccessMessage, _
+                                                Array(UCase(arrVolume(i)),CInt(intOldMaximumSize),CInt(intMaxSize))
+                                                blnSuccessMsg = TRUE
+                                            Else
+                                                component.VBPrintf ChangeMaxSkippingMessage, Array(UCase(arrVolume(i)))
+                                            End If
+                                        Else
+                                            ' get the upper bound allowed for maximum size
+                                            intMaxSizeUB = getMaxSizeUB(objService)
+                                            component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                            Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                        End If
+                                    End If
+                                End If
+                            Else
+                                ' Check if maxsize specified as 0
+                                If Len(intMaxSize) > 0 Then
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                    Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                End If
+                            End If ' maxsize checked
+
+                        Else
+
+                            ' Case when both initsize and maxsize are selected
+
+                            ' check if maxsize is greater than initsize
+                            ' this will detect any overflow problems, if any
+                            If CLng(intIntSize) > CLng(intMaxSize) Then
+                                ' check for overflows and clear the error
+                                If Err.Number Then Err.Clear
+                                ' get the upper bound allowed for maximum size
+                                intMaxSizeUB = getMaxSizeUB(objService)
+                                component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                WScript.Quit(EXIT_INVALID_INPUT)
+                            End If
+
+                            If (intIntSize > 0) Then
+                                ' Check if initsize is greater than 2 MB
+                                If CLng(intIntSize) >= CLng(INITIAL_SIZE_LB) Then
+                                    ' check for overflows
+                                    If Err.Number Then
+                                        Err.Clear
+                                        ' get the upper bound allowed for maximum size
+                                        intMaxSizeUB = getMaxSizeUB(objService)
+                                        component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                        Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+
+                                    ' get the free space available on the specified disk
+                                    intFreeDiskSpace = getFreeSpaceOnDisk(strDriveName,objService)
+                                    ' get the current pagefile size
+                                    intCurrentSize = getCurrentPageFileSize(objService,objInstance)
+                                    ' get the total free space
+                                    If Len(intCurrentSize) > 0 Then
+                                        intFreeSpace = intFreeDiskSpace + intCurrentSize
+                                    Else
+                                        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+                                        WScript.Quit(EXIT_QUERY_FAIL)
+                                    End If
+
+                                    ' check if it is greater than free disk space
+                                    If CLng(intIntSize) > CLng(intFreeSpace) Then
+                                        ' check for overflows
+                                        If Err.Number Then
+                                            Err.Clear
+                                            ' get the upper bound allowed for maximum size
+                                            intMaxSizeUB = getMaxSizeUB(objService)
+                                            component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                            Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        End If
+                                        WScript.Echo(NotEnoughSpaceErrorMessage)
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+
+                                    If CLng(intIntSize) > CLng(intFreeSpace) - 5 Then
+                                        ' check for overflows
+                                        If Err.Number Then
+                                            Err.Clear
+                                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        End If
+                                        WScript.Echo(AtLeastFiveMBErrorMessage)
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    Else
+                                        ' get the crash dump setting value
+                                        intCrashDump = GetCrashDumpSetting(strUserName,strPassword,strMachine)
+                                        ' get the Physical Memory Size
+                                        intMemSize = GetPhysicalMemorySize(strHostName,objService)
+                                        ' If the user has selected "yes" for the warning message
+                                        If isCrashDumpValueSet(intCrashDump,intIntSize,intMemSize,arrVolume(i)) Then
+                                            ' store the old initsize value
+                                            intOldInitialSize = objInstance.InitialSize
+                                            ' set the new initsize
+                                            objInstance.InitialSize = intIntSize
+                                            ' check if maxsize is given
+                                            If (intMaxSize > 0) Then
+                                                ' Get the Disk Size for the specified drive
+                                                intDiskSize = GetDiskSize(arrVolume(i),objService)
+                                                ' check if maxsize is more than initsize
+                                                If (CLng(intMaxSize) > CLng(intDiskSize)) Then
+                                                    ' check for overflows
+                                                    If Err.Number Then
+                                                        Err.Clear
+                                                        ' get the upper bound allowed for maximum size
+                                                        intMaxSizeUB = getMaxSizeUB(objService)
+                                                        component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                                        Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                                    End If
+                                                    component.VBPrintf DiskTooSmallErrorMessage, _
+                                                    Array(UCase(arrVolume(i)))
+                                                Else
+                                                    If (CLng(intMaxSize) > CLng(intFreeSpace)) Then
+                                                        ' check for overflows
+                                                        If Err.Number Then
+                                                            Err.Clear
+                                                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                                        End If
+                                                        component.VBPrintf GrowsToFreeSpaceWarningMessage, _
+                                                        Array(UCase(arrVolume(i)),intFreeSpace)
+                                                        strReply = getReply()
+                                                        If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                                                            ' set the maxsize to be the free space on disk
+                                                            intMaxSize = intFreeSpace
+                                                            intOldMaximumSize = objInstance.MaximumSize
+                                                            objInstance.MaximumSize = intMaxSize
+                                                            If ( CInt(intIntSize) <> intOldInitialSize ) Then
+                                                                objInstance.Put_(CONST_WBEM_FLAG)
+                                                                If Err.Number Then
+                                                                    Err.Clear
+                                                                    WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                                                End If
+                                                                component.VBPrintf ChangeIntSuccessMessage, _
+                                                                Array(UCase(arrVolume(i)),CInt(intOldInitialSize),CInt(intIntSize))
+                                                                blnSuccessMsg = TRUE
+                                                            Else
+                                                                component.VBPrintf ChangeIntSkippingMessage, _
+                                                                Array(UCase(arrVolume(i)))
+                                                            End If
+                                                            If (CInt(intMaxSize) <> intOldMaximumSize) Then
+                                                                objInstance.Put_(CONST_WBEM_FLAG)
+                                                                If Err.Number Then
+                                                                    Err.Clear
+                                                                    WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                                                End If
+                                                                component.VBPrintf ChangeMaxSuccessMessage, _
+                                                                Array(UCase(arrVolume(i)),CInt(intOldMaximumSize),CInt(intMaxSize))
+                                                                blnSuccessMsg = TRUE
+                                                            Else
+                                                                component.VBPrintf ChangeMaxSkippingMessage, _
+                                                                Array(UCase(arrVolume(i)))
+                                                            End If
+                                                        ElseIf LCase(strReply) = L_UserReplyNo_Text Then
+                                                            WScript.Quit(EXIT_SUCCESS)
+                                                        Else
+                                                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                                                            WScript.Quit (EXIT_INVALID_INPUT)
+                                                        End If
+                                                    Else
+                                                        intOldMaximumSize = objInstance.MaximumSize
+                                                        objInstance.MaximumSize = intMaxSize
+                                                        objInstance.Put_(CONST_WBEM_FLAG)
+                                                        If Err.Number Then
+                                                            Err.Clear
+                                                            WScript.Echo(L_UpdateFailed_ErrorMessage)
+                                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                                        End If
+
+                                                        If (CInt(intIntSize) <> intOldInitialSize ) Then
+                                                            component.VBPrintf ChangeIntSuccessMessage, _
+                                                            Array(UCase(arrVolume(i)),CInt(intOldInitialSize),CInt(intIntSize))
+                                                            blnSuccessMsg = TRUE
+                                                        Else
+                                                            component.VBPrintf ChangeIntSkippingMessage, Array(UCase(arrVolume(i)))
+                                                        End If
+
+                                                        If (CInt(intMaxSize) <> intOldMaximumSize) Then
+                                                            component.VBPrintf ChangeMaxSuccessMessage, _
+                                                            Array(UCase(arrVolume(i)),CInt(intOldMaximumSize),CInt(intMaxSize))
+                                                            blnSuccessMsg = TRUE
+                                                        Else
+                                                            component.VBPrintf ChangeMaxSkippingMessage, Array(UCase(arrVolume(i)))
+                                                        End If
+                                                    End If
+                                                End If
+                                            Else
+                                                ' Check if maxsize specified as 0
+                                                If Len(intMaxSize) > 0 Then
+                                                    ' get the upper bound allowed for maximum size
+                                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                                    component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                                    Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                                End If
+                                            End If ' maxsize checked
+                                        End If
+                                    End If
+                                Else
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InitialSizeRangeErrorMessage, _
+                                    Array(intMaxSizeUB)
+                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                End If
+                            Else
+                                ' Check if initsize specified as 0
+                                If Len(intIntSize) > 0 Then
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InitialSizeRangeErrorMessage, _
+                                    Array(intMaxSizeUB)
+                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                End If
+                            End If ' initsize checked
+                        End If
+                    End If
+                Next
+            Else
+                component.VBPrintf L_PageFileDoesNotExist_ErrorMessage, _
+                Array(UCase(arrVolume(i)))
+            End If
+        Else
+            ' the drive does not exist
+            component.VBPrintf L_InvalidVolumeName_ErrorMessage, _
+            Array(UCase(arrVolume(i)))
+            ' remove the drive name from the valid drives list
+            objVols.Remove arrVolume(i)
+            ' decrement the loop count
+            i = i - 1
+            ' check for the no.of valid drive names from the specified list.
+            If Cint(objVols.Count) = 0 Then
+                WScript.Quit(EXIT_INVALID_INPUT)
+            Else
+                intVolumes = objVols.Count
+                arrVolume  = objVols.keys
+            End If
+        End If
+        i = i + 1
+    Loop
+
+    If blnSuccessMsg = TRUE then
+        WScript.Echo L_RestartComputer_Message
+    End If
+
+End Sub
+
+'******************************************************************************
+'* Sub:     ProcessCreate
+'*
+'* Purpose: Creates new page files with the given specifications
+'*
+'* Input:
+'*  [in]    strMachine         machine to configure page files on
+'*  [in]    strUserName        user name to connect to the machine
+'*  [in]    strPassword        password for the user
+'*  [in]    intIntSize         the initial size for the page file
+'*  [in]    intMaxSize         the maximum size for the page file
+'*  [in]    objVols            the object containing volume names
+'*
+'* Output:  Displays error message and quits if connection fails
+'*
+'******************************************************************************
+Private Sub ProcessCreate( ByVal strMachine,  _
+                           ByVal strUserName, _
+                           ByVal strPassword, _
+                           ByVal intIntSize,  _
+                           ByVal intMaxSize,  _
+                           ByVal objVols      )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim arrVolume             ' to store all the volumes specified
+    Dim intVolumes            ' to store the no.of volumes specified
+    Dim strQuery              ' to store the query for pagefiles
+    Dim strQueryDisk          ' to store the query for disk
+    Dim strQueryComp          ' to store the query for getting host name
+    Dim objService            ' service object
+    Dim objInst               ' instance object
+    Dim objInstance           ' instance object
+    Dim objNewInstance        ' instance object
+    Dim objEnum               ' collection object for query results
+    Dim objEnumforDisk        ' collection object for query results
+    Dim blnSuccessMsg         ' flag to check if a SUCCESS message is generated
+    Dim intFreeSpace          ' to store total free space
+    Dim intFreeDiskSpace      ' to store free disk space
+    Dim intCurrentSize        ' to store the current pagefile size
+    Dim intDiskSize           ' to store the disk size for the specified disk
+    Dim intMemSize            ' to store physical memory size
+    Dim intCrashDump          ' to store the current crash dump setting value
+    Dim strReply              ' to store the user reply
+    Dim strHostName           ' to store the host name
+    Dim intMaxSizeUB          ' to store the upper bound for maximum size
+    Dim i                     ' Loop variable
+
+    ' variables used only if * is specified
+    Dim objEnumerator         ' collection object for query results
+
+    i = 0
+    intFreeSpace      = 0
+    intFreeDiskSpace  = 0
+    intCurrentSize    = 0
+    intMaxSizeUB      = 0
+'    intIntSize        = CLng(intIntSize)
+'    intMaxSize        = CLng(intMaxSize)
+    blnSuccessMsg     = FALSE
+
+    If NOT component.wmiConnect(CONST_NAMESPACE_CIMV2 , _
+                      strUserName , _
+                      strPassword , _
+                      strMachine  , _
+                      blnLocalConnection , _
+                      objService  ) Then
+        WScript.Echo(L_HintCheckConnection_Message)
+        WScript.Quit(EXIT_METHOD_FAIL)
+    End If
+
+    If (objVols.Exists("*")) Then
+        ' build the query
+        intVolumes = 0
+        ' get all the drive names with drive type = 3 (other than floppy drive & CDROM Drive)
+        strQuery = "Select DeviceID From " & CLASS_LOGICAL_DISK & _
+        " where DriveType = " & DRIVE_TYPE
+        ' execute the query
+        Set objEnumerator = objService.ExecQuery(strQuery, "WQL", 48, null)
+        ' check for any errors
+        If Err.Number Then
+            Err.Clear
+            WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+            WScript.Quit(EXIT_QUERY_FAIL)
+        End If
+
+        For each objInstance in objEnumerator
+            ' check if the volumename is not an alias name and neither a mapped drive.
+            If IsValidPhysicalDrive(objService, objInstance.DeviceID) Then
+                ' check if the volume name is specified more than once.
+                If NOT objVols.Exists(LCase(objInstance.DeviceID)) Then
+                    objVols.Add LCase(objInstance.DeviceID),-1
+                End If
+            End If
+        Next
+        ' Remove * from objVols after adding the drives to the object.
+        objVols.Remove "*"
+    End If
+
+    intVolumes = objVols.Count
+    arrVolume  = objVols.Keys
+
+    ' Get the host Name - used to get Crash Dump Settings
+    strQueryComp = "Select * From " & CLASS_COMPUTER_SYSTEM
+    Set objEnum = objService.ExecQuery(strQueryComp, "WQL", 0, null)
+    ' check for any errors
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+        WScript.Quit(EXIT_QUERY_FAIL)
+    End If
+
+    For each objInst in objEnum
+        If NOT ISEmpty(objInst.Name) Then
+            strHostName = objInst.Name
+        Else
+            WSCript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+            WScript.Quit(EXIT_QUERY_FAIL)
+        End If
+    Next
+
+    ' No wild Cards Specified
+    Do While( i < intVolumes )
+
+        strQueryDisk = "Select * From " & CLASS_LOGICAL_DISK & _
+        " where DriveType = " & DRIVE_TYPE & " and DeviceID = '" & arrVolume(i) & "'"
+        Set objEnumforDisk = objService.ExecQuery(strQueryDisk, "WQL", 0, null)
+
+        strQuery = "Select * From " & CLASS_PAGE_FILE_SETTING & _
+        " where Name = '" & arrVolume(i) & "\" & PAGEFILE_DOT_SYS & "'"
+        Set objEnum = objService.ExecQuery(strQuery, "WQL", 0, null)
+
+        ' If valid drive and pagefile exists on that drive
+        If (objEnumforDisk.Count = 0 AND objEnum.Count = 0 ) Then
+            ' the drive does not exist
+            component.VBPrintf L_InvalidVolumeName_ErrorMessage, _
+            Array(UCase(arrVolume(i)))
+            ' remove the drive name from the valid drives list
+            objVols.Remove arrVolume(i)
+            ' decrement the loop count
+            i = i - 1
+            ' check for the no.of valid drive names from the specified list.
+            If Cint(objVols.Count) = 0 Then
+                WScript.Quit(EXIT_INVALID_INPUT)
+            Else
+                intVolumes = objVols.Count
+                arrVolume  = objVols.keys
+            End If
+        Else
+            ' SKIP - if at least one instance is found then dont create a new instance
+            If (objEnumforDisk.Count = 1 AND objEnum.Count = 1) Then
+                component.VBPrintf L_CreateSkipping_Message, _
+                Array(UCase(arrVolume(i)))
+            Else
+                ' check if the volumename is an alias name or a mapped drive
+                If NOT IsValidPhysicalDrive(objService, arrVolume(i)) Then
+                    component.VBPrintf L_InvalidPhysicalDrive_ErrorMessage, _
+                    Array(UCase(arrVolume(i)))
+                Else
+                    ' set the security privilege to allow pagefile creation
+                    objService.Security_.Privileges.AddAsString("SeCreatePagefilePrivilege")
+                    If Err.Number then
+                        Err.Clear
+                        WScript.Echo("ERROR: Failed to set the security privilege.")
+                        WScript.Quit(EXIT_METHOD_FAIL)
+                    End If
+
+                    Set objInstance = objService.Get(CLASS_PAGE_FILE_SETTING)
+                    ' check for any errors
+                    If Err.Number Then
+                        Err.Clear
+                        WScript.Echo(L_CannotCreate_ErrorMessage)
+                        WScript.Quit(EXIT_METHOD_FAIL)
+                    End If
+
+                    Set objNewInstance = objInstance.SpawnInstance_
+                    ' check for any errors
+                    If Err.Number Then
+                        Err.Clear
+                        WScript.Echo(L_CannotCreate_ErrorMessage)
+                        WScript.Quit(EXIT_INVALID_INPUT)
+                    End If
+
+                    ' append the filename to the volume name
+                    objNewInstance.Name = UCase(arrVolume(i)) & PAGEFILE_DOT_SYS
+
+                    ' check if maxsize is greater than initsize
+                    ' this will detect any overflow problems, if any
+                    If ( CLng(intIntSize) > CLng(intMaxSize) ) Then
+                        ' check for overflows and clear the error
+                        If Err.Number Then Err.Clear
+                        ' get the upper bound allowed for maximum size
+                        intMaxSizeUB = getMaxSizeUB(objService)
+                        component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                        Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                        WScript.Quit(EXIT_INVALID_INPUT)
+                    End If
+
+                    ' Check the initial size with the free space on the disk
+                    If CLng(intIntSize) >= CLng(INITIAL_SIZE_LB) Then
+                        ' check for overflows
+                        If Err.Number Then
+                            Err.Clear
+                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                            WScript.Quit(EXIT_INVALID_INPUT)
+                        End If
+                        ' get the free space on the specified disk
+                        intFreeDiskSpace = getFreeSpaceOnDisk(arrVolume(i),objService)
+                        ' get the current pagefile size
+                        intCurrentSize = getCurrentPageFileSize(objService,objInstance)
+                        ' get the total free space
+                        '     Since its a new instance the current size will
+                        '     NOT be available. So the initial size is taken 
+                        '     into considerarion for calculating the total 
+                        '     free space.
+                        intFreeSpace = intFreeDiskSpace + intIntSize
+
+                        ' Check if it greater than free disk space
+                        If CLng(intIntSize) > CLng(intFreeSpace) Then
+                            ' check for overflows
+                            If Err.Number Then
+                                Err.Clear
+                                WScript.Echo(L_InvalidInput_ErrorMessage)
+                                WScript.Quit(EXIT_INVALID_INPUT)
+                            End If
+                            WScript.Echo(NotEnoughSpaceErrorMessage)
+                            WScript.Quit(EXIT_INVALID_INPUT)
+                        End If
+
+                        If CLng(intIntSize) > CLng(intFreeSpace) - 5 Then
+                            ' check for overflows
+                            If Err.Number Then
+                                Err.Clear
+                                WScript.Echo(L_InvalidInput_ErrorMessage)
+                                WScript.Quit(EXIT_INVALID_INPUT)
+                            End If
+                            WScript.Echo(AtLeastFiveMBErrorMessage)
+                            WScript.Quit(EXIT_INVALID_INPUT)
+                        End If
+
+                        ' get the crash dump setting value
+                        intCrashDump = GetCrashDumpSetting(strUserName,strPassword,strMachine)
+                        ' get the Physical Memory Size
+                        intMemSize = GetPhysicalMemorySize(strHostName,objService)
+                        ' check if the user has selected "yes" for the warning message
+                        If isCrashDumpValueSet(intCrashDump,intIntSize,intMemSize,arrVolume(i)) Then
+                            objNewInstance.InitialSize = CInt(intIntSize)
+                            ' Get the Disk Size for the specified drive
+                            intDiskSize = GetDiskSize(arrVolume(i),objService)
+                            If (CLng(intMaxSize) > CLng(intDiskSize)) Then
+                                ' check for overflows
+                                If Err.Number Then
+                                    Err.Clear
+                                    ' get the upper bound allowed for maximum size
+                                    intMaxSizeUB = getMaxSizeUB(objService)
+                                    component.VBPrintf InsufficientMaxSizeErrorMessage, _
+                                    Array( UCase(arrVolume(i)) , intMaxSizeUB )
+                                    WScript.Quit(EXIT_INVALID_INPUT)
+                                End If
+                                component.VBPrintf DiskTooSmallErrorMessage, _
+                                Array(UCase(arrVolume(i)))
+                            Else
+                                If (CLng(intMaxSize) > CLng(intFreeSpace)) Then
+                                    ' check for overflows
+                                    If Err.Number Then
+                                        Err.Clear
+                                        WScript.Echo(L_InvalidInput_ErrorMessage)
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+                                    component.VBPrintf GrowsToFreeSpaceWarningMessage, _
+                                    Array(UCase(arrVolume(i)),intFreeSpace)
+                                    strReply = getReply()
+                                    If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                                        ' maxsize can grow only to the free disk space available.
+                                        ' set the maxsize to the free space on disk.
+                                        intMaxSize = intFreeSpace
+                                        objNewInstance.MaximumSize = intMaxSize
+                                        objNewInstance.Put_(CONST_WBEM_FLAG)
+                                        If Err.Number Then
+                                            Err.Clear
+                                            WScript.Echo(L_CannotCreate_ErrorMessage)
+                                            WScript.Quit(EXIT_INVALID_INPUT)
+                                        End If
+                                        component.VBPrintf CreateSuccessMessage, _
+                                        Array(CInt(intIntSize),CInt(intMaxSize),UCase(arrVolume(i)))
+                                        blnSuccessMsg = TRUE
+                                    ElseIf LCase(strReply) = L_UserReplyNo_Text Then
+                                        WScript.Quit(EXIT_SUCCESS)
+                                    Else
+                                        WScript.Echo(L_InvalidInput_ErrorMessage)
+                                        WScript.Quit (EXIT_INVALID_INPUT)
+                                    End If
+                                Else
+                                    objNewInstance.MaximumSize = CInt(intMaxSize)
+                                    objNewInstance.Put_(CONST_WBEM_FLAG)
+                                    If Err.Number Then
+                                        Err.Clear
+                                        WScript.Echo(L_CannotCreate_ErrorMessage)
+                                        WScript.Quit(EXIT_INVALID_INPUT)
+                                    End If
+                                    component.VBPrintf CreateSuccessMessage, _
+                                    Array(CInt(intIntSize),CInt(intMaxSize),UCase(arrVolume(i)))
+                                    blnSuccessMsg = TRUE
+                                End If
+                            End If
+                        End If
+                    Else
+                        ' get the upper bound allowed for maximum size
+                        intMaxSizeUB = getMaxSizeUB(objService)
+                        component.VBPrintf InitialSizeRangeErrorMessage, Array(intMaxSizeUB)
+                    End If
+                End If
+            End If
+        End If
+        i = i + 1
+    Loop
+
+    If blnSuccessMsg = TRUE then
+        WScript.Echo L_RestartComputer_Message
+    End If
+
+End Sub
+
+'******************************************************************************
+'* Sub:     ProcessDelete
+'*
+'* Purpose: Deletes existing page files on the specified volumes
+'*
+'* Input:
+'*  [in]    strMachine         machine to configure page files on
+'*  [in]    strUserName        user name to connect to the machine
+'*  [in]    strPassword        password for the user
+'*  [in]    objVols            the object containing volume names
+'*
+'* Output:  Displays error message and quits if connection fails
+'*
+'******************************************************************************
+Private Sub ProcessDelete ( ByVal strMachine,  _
+                            ByVal strUserName, _
+                            ByVal strPassword, _
+                            ByVal objVols      )
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim arrVolume             ' to store all the volumes specified
+    Dim intVolumes            ' to store the no.of volumes specified
+    Dim objService            ' service object
+    Dim objInstance           ' instance object
+    Dim blnSuccessMsg         ' flag to check if a SUCCESS message is generated
+    Dim strQueryDisk          ' to store the query for disk
+    Dim objEnumforDisk        ' collection object for query results
+    Dim intMemSize            ' to store physical memory size
+    Dim intCrashDump          ' to store the current crash dump setting value
+    Dim strQueryComp          ' to store the query for computersystem
+    Dim objEnum               ' collection object for query results
+    Dim objInst               ' instance object
+    Dim strHostName           ' to store the host name
+    Dim i                     ' Loop variable
+
+    If NOT component.wmiConnect(CONST_NAMESPACE_CIMV2 , _
+                          strUserName , _
+                          strPassword , _
+                          strMachine  , _
+                          blnLocalConnection , _
+                          objService  ) Then
+            WScript.Echo(L_HintCheckConnection_Message)
+            WScript.Quit(EXIT_METHOD_FAIL)
+    End If
+
+    i = 0
+    blnSuccessMsg = FALSE
+    intVolumes    = objVols.Count
+    arrVolume     = objVols.Keys
+
+    ' Get the host Name - used to get Crash Dump Settings
+    strQueryComp = "Select * From " & CLASS_COMPUTER_SYSTEM
+    Set objEnum = objService.ExecQuery(strQueryComp, "WQL", 0, null)
+    ' check for any errors
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+        WScript.Quit(EXIT_QUERY_FAIL)
+    End If
+
+    For each objInst in objEnum
+        If NOT ISEmpty(objInst.Name) Then
+            strHostName = objInst.Name
+        Else
+            WSCript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+            WScript.Quit(EXIT_QUERY_FAIL)
+        End If
+    Next
+
+    Do While( i < intVolumes )
+        strQueryDisk = "Select * From " & CLASS_LOGICAL_DISK & _
+        " where DriveType = " & DRIVE_TYPE & " and DeviceID = '" & arrVolume(i) & "'"
+        Set objEnumforDisk = objService.ExecQuery(strQueryDisk, "WQL", 0, null)
+        If objEnumforDisk.Count > 0 Then
+            Set objInstance = objService.Get(CLASS_PAGE_FILE_SETTING & "='" & _
+            arrVolume(i) & PAGEFILE_DOT_SYS & "'")
+            If Err.Number Then
+                Err.Clear
+                component.VBPrintf L_PageFileDoesNotExist_ErrorMessage, _
+                Array(UCase(arrVolume(i)))
+            Else
+                ' check for system managed pagefiles
+                If (objInstance.InitialSize = 0 AND objInstance.MaximumSize = 0) Then
+                    component.VBPrintf L_SystemManagedSize_ErrorMessage, _
+                    Array(UCase(arrVolume(i)))
+                Else
+                    ' get the crash dump setting value
+                    intCrashDump = GetCrashDumpSetting(strUserName,strPassword,strMachine)
+                    ' get the Physical Memory Size
+                    intMemSize = GetPhysicalMemorySize(strHostName,objService)
+                    ' If the user has selected "yes" for the warning message
+                    ' pass initsize as 0 because initsize = maxsize = 0 (assumed) after deletion
+                    If isCrashDumpValueSet(intCrashDump,0,intMemSize,arrVolume(i)) Then
+                        ' Delete the instance
+                        objInstance.Delete_
+                        ' check for any errors
+                        If Err.Number Then
+                            Err.Clear
+                            WScript.Echo(L_InvalidInput_ErrorMessage)
+                            WScript.Quit(EXIT_INVALID_INPUT)
+                        End If
+
+                        component.VBPrintf L_DeleteSuccess_Message, _
+                        Array(UCase(arrVolume(i)))
+                        blnSuccessMsg = TRUE
+                    End If
+                End If
+            End If
+        Else
+            ' the drive does not exist
+            component.VBPrintf L_InvalidVolumeName_ErrorMessage, _
+            Array(UCase(arrVolume(i)))
+            ' remove the drive name from the valid drives list
+            objVols.Remove arrVolume(i)
+            ' decrement the loop count
+            i = i - 1
+            ' check for the no.of valid drive names from the specified list.
+            If Cint(objVols.Count) = 0 Then
+                WScript.Quit(EXIT_INVALID_INPUT)
+            Else
+                intVolumes = objVols.Count
+                arrVolume  = objVols.keys
+            End If
+        End If
+        i = i + 1
+    Loop
+
+' The instances of the following classes are also deleted along with the Win32_PageFile instances
+' Win32_PageFileUsage - instances are deleted only after reboot
+' Win32_PageFileSetting - instances are deleted automatically along with Win32_PageFile instances
+
+    If blnSuccessMsg = TRUE then
+        WScript.Echo L_RestartComputer_Message
+    End If
+
+End sub
+
+'******************************************************************************
+'* Sub:     ProcessQuery
+'*
+'* Purpose: Displays the Page File Details in the specified format
+'*
+'* Input:
+'*  [in]    strMachine         machine to configure page files on
+'*  [in]    strUserName        user name to connect to the machine
+'*  [in]    strPassword        password for the user
+'*  [in]    strFormat          the query display format
+'*
+'* Output:  Displays error message and quits if connection fails
+'*          Calls component.showResults() to display the page file
+'*          details
+'*
+'******************************************************************************
+Private Sub ProcessQuery(   ByVal strMachine,  _
+                            ByVal strUserName, _
+                            ByVal strPassword, _
+                            ByVal strFormat    )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objEnumerator            ' to store the results of the query is executed
+    Dim objInstance              ' to refer to the instances of the objEnumerator
+    Dim strQuery                 ' to store the query obtained for given conditions
+    Dim intTotSize               ' to store the total size on all drives
+    Dim intRecommendedSize       ' to store the recommended size for all drives
+    Dim arrResultsDrives         ' to store the columns of page file info.
+    Dim arrHeaderDrives          ' to store the array header values
+    Dim arrMaxLengthDrives       ' to store the maximum length for each column
+    Dim arrFinalResultsDrives    ' used to send the arrResults to ShowResults()
+    Dim intColumnCountDrives     ' number of columns to be displayed in the output
+    Dim blnPrintHeaderDrives     ' variable which decides whether header is to be displayed or not
+    Dim arrResultsSummary        ' to store the columns of page file info.
+    Dim arrHeaderSummary         ' to store the array header values
+    Dim arrMaxLengthSummary      ' to store the maximum length for each column
+    Dim arrFinalResultsSummary   ' used to send the arrResults to ShowResults()
+    Dim intColumnCountSummary    ' number of columns to be displayed in the output
+    Dim blnPrintHeaderSummary    ' variable which decides whether header is to be displayed or not
+    Dim objDiskDriveInstance     ' Instance for drive name
+    Dim objMemSizeInstance       ' Instance for memory size
+    Dim arrblnNoDisplayDrives    ' boolean variable for -noheader option
+    Dim arrblnNoDisplaySummary   ' boolean variable for -noheader option
+    Dim objService               ' service object
+    Dim strDriveName             ' to store the drive name
+    Dim objUsageInstance         ' Instance for PageFileUsage
+
+    ' Initializing the blnPrintHeaders to true. Header should be printed by default
+    blnPrintHeaderDrives = TRUE
+    blnPrintHeaderSummary = TRUE
+    intTotSize = 0
+
+    If NOT component.wmiConnect(CONST_NAMESPACE_CIMV2 , _
+                          strUserName , _
+                          strPassword , _
+                          strMachine  , _
+                          blnLocalConnection , _
+                          objService  ) Then
+            WScript.Echo(L_HintCheckConnection_Message)
+            WScript.Quit(EXIT_METHOD_FAIL)
+    End If
+
+    arrHeaderDrives = Array(L_ColHeaderHostname_Text   , L_ColHeaderDrive_Text, _
+                            L_ColHeaderVolumeLabel_Text, L_ColHeaderFileName_Text, _
+                            L_ColHeaderInitialSize_Text, L_ColHeaderMaximumSize_Text, _
+                            L_ColHeaderCurrentSize_Text, L_ColHeaderFreeSpace_Text)
+
+    arrHeaderSummary = Array(L_ColHeaderHostname_Text, L_ColHeaderTotalMinimumSize_Text, _
+                             L_ColHeaderTotalRecommendedSize_Text, L_ColHeaderTotalSize_Text)
+
+    ' Data Lengths  = (15,13,13,19,20,20,20,22)
+    arrMaxLengthDrives  = Array(CONST_HOSTNAME_LENGTH, CONST_DRIVENAME_LENGTH, CONST_VOLLABEL_LENGTH, _
+                                CONST_PAGEFILENAME_LENGTH, CONST_INTSIZE_LENGTH, CONST_MAXSIZE_LENGTH, _
+                                CONST_CURRENTSIZE_LENGTH, CONST_FREESPACE_LENGTH)
+
+    ' Data Lengths  = (15,33,37,40)
+    arrMaxLengthSummary = Array(CONST_HOSTNAME_LENGTH,CONST_TOTALMINSIZE_LENGTH,_
+                                CONST_TOTALRECSIZE_LENGTH,CONST_TOTALSIZE_LENGTH)
+
+    arrblnNoDisplayDrives  = Array(0,0,0,0,0,0,0,0)
+    arrblnNoDisplaySummary = Array(0,0,0,0)
+
+    ' first initialize the array with N/A
+    arrResultsDrives  = Array(L_Na_Text,L_Na_Text,L_Na_Text,L_Na_Text,L_Na_Text,L_Na_Text,_
+                              L_Na_Text,L_Na_Text)
+    arrResultsSummary = Array(L_Na_Text,L_Na_Text,L_Na_Text,L_Na_Text)
+
+    ' build the query
+    strQuery = "SELECT * FROM " & CLASS_PAGE_FILE_SETTING
+
+    ' execute the query
+    Set objEnumerator = objService.ExecQuery(strQuery, "WQL", 0, null)
+    ' check for any errors
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+        WScript.Quit(EXIT_QUERY_FAIL)
+    End If
+
+    ' If no.of pagefile instances are 0 (zero)
+    If (objEnumerator.Count = 0) Then
+        WScript.Echo(L_NoPageFiles_Message)
+        WScript.Quit(EXIT_UNEXPECTED)
+    End If
+
+    ReDim arrFinalResultsDrives(0)
+    ReDim arrFinalResultsSummary(0)
+
+    WScript.Echo("") ' Blank Line
+
+    ' Loop through all the instances for the first report
+    For each objInstance in objEnumerator
+
+        If NOT IsEmpty(objInstance.Name) Then
+            strDriveName = Mid(objInstance.Name,1,2)
+        End If
+
+        ' check if it is a valid physical drive
+        If IsValidPhysicalDrive(objService,strDriveName) Then
+
+            If IsEmpty(objInstance.Name) Then
+                arrResultsDrives(1) = L_Na_Text
+            Else
+                strDriveName = Mid(objInstance.Name,1,2)
+                arrResultsDrives(1) = UCase(strDriveName)
+            End If
+
+            ' to get the data from Win32_PageFileUsage
+            Set objUsageInstance = objService.Get(CLASS_PAGE_FILE_USAGE & "='" & objInstance.Name & "'")
+
+            ' to get the current size
+            If Len(objUsageInstance.AllocatedBaseSize) = 0 Then
+                arrResultsDrives(6) = L_Na_Text
+            Else
+                arrResultsDrives(6) = objUsageInstance.AllocatedBaseSize & MEGA_BYTES
+                intTotSize = intTotSize + objUsageInstance.AllocatedBaseSize
+            End If
+
+            ' to get the data from Win32_LogicalDisk
+            Set objDiskDriveInstance = objService.Get(CLASS_LOGICAL_DISK & "='" & strDriveName & "'")
+
+            If Len(objDiskDriveInstance.VolumeName) = 0 Then
+                arrResultsDrives(2) = L_Na_Text
+            Else
+                arrResultsDrives(2) = objDiskDriveInstance.VolumeName
+            End If
+
+            If Len(objDiskDriveInstance.SystemName) = 0 Then
+                arrResultsDrives(0) = L_Na_Text
+            Else
+                arrResultsDrives(0) = objDiskDriveInstance.SystemName
+                arrResultsSummary(0) = objDiskDriveInstance.SystemName
+            End If
+
+            If (objDiskDriveInstance.FreeSpace) Then
+                arrResultsDrives(7) = Int(objDiskDriveInstance.FreeSpace/CONVERSION_FACTOR) + Int(objUsageInstance.AllocatedBaseSize) &_
+                MEGA_BYTES
+            Else
+                arrResultsDrives(7) = L_Na_Text
+            End If
+
+            If IsEmpty(objInstance.Name) Then
+                arrResultsDrives(3) = L_Na_Text
+            Else
+                arrResultsDrives(3) = objInstance.Name
+            End If
+
+            If objInstance.InitialSize Then
+                arrResultsDrives(4) = objInstance.InitialSize & MEGA_BYTES
+            Else
+                arrResultsDrives(4) = L_Na_Text
+            End If
+
+            If objInstance.MaximumSize Then
+                arrResultsDrives(5) = objInstance.MaximumSize & MEGA_BYTES
+            Else
+                arrResultsDrives(5) = L_Na_Text
+            End If
+
+            arrFinalResultsDrives(0) = arrResultsDrives
+
+            Call component.showResults(arrHeaderDrives, arrFinalResultsDrives, arrMaxLengthDrives, _
+                                       strFormat, blnPrintHeaderDrives, arrblnNoDisplayDrives)
+            blnPrintHeaderDrives = FALSE
+
+        End If
+
+    Next
+    WScript.Echo("")
+
+    ' Display the summary report
+    arrResultsSummary(1) = INITIAL_SIZE_LB & MEGA_BYTES
+    Set objMemSizeInstance = objService.Get(CLASS_COMPUTER_SYSTEM & "='" & arrResultsDrives(0) & "'")
+    If objMemSizeInstance.TotalPhysicalMemory Then
+        intRecommendedSize = Int(Int(objMemSizeInstance.TotalPhysicalMemory/CONVERSION_FACTOR)* SIZE_FACTOR)
+        arrResultsSummary(2) = intRecommendedSize & MEGA_BYTES
+    Else
+        arrResultsSummary(2) = L_Na_Text
+    End If
+
+    arrResultsSummary(3) = intTotSize & MEGA_BYTES
+    arrFinalResultsSummary(0) = arrResultsSummary
+
+    Call component.showResults(arrHeaderSummary, arrFinalResultsSummary, arrMaxLengthSummary, strFormat, _
+                               blnPrintHeaderSummary,arrblnNoDisplaySummary)
+    blnPrintHeaderSummary = FALSE
+
+End Sub
+
+
+'******************************************************************************
+'* Function: IsValidPhysicalDrive
+'*
+'* Purpose:  To check if the specified drive is a valid physical drive.
+'*           This check is done only for Win2K builds and NOT for Whistler Builds.
+'*
+'* Input:
+'*  [in]     objServiceParam      service object to maintain wmi connection.
+'*  [in]     strDriveName         drive name whose validity has to be checked.
+'*
+'* Output:   Returns TRUE or FALSE
+'*             TRUE  - when the drive is a valid physical drive.
+'*             FALSE - when the drive is not a valid physical drive.
+'*
+'******************************************************************************
+
+Private Function IsValidPhysicalDrive ( ByVal objServiceParam, _
+                                        ByVal strDriveName )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    CONST WIN2K_MAJOR_VERSION = 5000
+    CONST WINXP_MAJOR_VERSION = 5001
+
+    Dim strQuery            ' to store the query to be executed
+    Dim objEnum             ' collection object
+    Dim objInstance         ' instance object
+    Dim strValidDrives      ' to store all valid physical drives
+    Dim strVersion          ' to store the OS version
+    Dim arrVersionElements  ' to store the OS version elements
+    Dim CurrentMajorVersion ' the major version number
+
+    strValidDrives = ""
+    ' by default set it to true
+    IsValidPhysicalDrive = TRUE
+
+    strquery = "Select * From " & CLASS_OPERATING_SYSTEM
+    set objEnum = objServiceParam.ExecQuery(strQuery,"WQL",48,null)
+
+    For each objInstance in objEnum
+        strVersion= objInstance.Version
+    Next
+
+    ' OS Version : 5.1.xxxx(Whistler), 5.0.xxxx(Win2K)
+    arrVersionElements  = split(strVersion,".")
+    ' converting to major version
+    CurrentMajorVersion = arrVersionElements(0) * 1000 + arrVersionElements(1)
+
+    ' Determine the OS Type
+    ' If the OS is Whistler, then NO NEED to validate.
+    ' If the OS is Win2K, then validate the drive name.
+    If CInt(CurrentMajorVersion) < CInt(WINXP_MAJOR_VERSION) Then
+
+        strQuery = "Select * From " & CLASS_PERFDISK_PHYSICAL_DISK
+        Set objEnum = objServiceParam.ExecQuery(strQuery, "WQL", 0, null)
+
+        For each objInstance in objEnum
+            ' get all the instance except the last one
+            If (objInstance.Name <> "_Total") Then
+                strValidDrives = strValidDrives & " " & objInstance.Name
+            End If
+        Next
+
+        ' check if the specified drive is present in the list of valid physical drives
+        If Instr(strValidDrives, UCase(strDriveName)) = 0 Then
+            IsValidPhysicalDrive = FALSE
+        End If
+
+    End If
+
+End Function
+
+
+'******************************************************************************
+'* Function: getFreeSpaceOnDisk
+'*
+'* Purpose:  To get the Free Space for the Specified Disk
+'*
+'* Input:
+'*  [in]     strDriveName         drive name whose free space is needed 
+'*  [in]     objServiceParam      service object to maintain wmi connection
+'*
+'* Output:   Returns the free space (in MB) on the specified disk.
+'*
+'******************************************************************************
+
+Private Function getFreeSpaceOnDisk(ByVal strDriveName, ByVal objServiceParam)
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objValidDiskInst
+
+    Set objValidDiskInst = objServiceParam.Get(CLASS_LOGICAL_DISK & "='" & strDriveName & "'")
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+        WScript.Quit(EXIT_QUERY_FAIL)
+    End If
+
+    getFreeSpaceOnDisk = Int(objValidDiskInst.FreeSpace/CONVERSION_FACTOR)
+
+End Function
+
+
+'******************************************************************************
+'* Function: getCurrentPageFileSize
+'*
+'* Purpose:  To get the current pagefile size on the specified drive
+'*
+'* Input:
+'*  [in]     objService       wbem service object
+'*  [in]     objInstance      instance of win32_pagefilesetting
+'*
+'* Output:   current pagefile size
+'*
+'******************************************************************************
+
+Private Function getCurrentPageFileSize(ByVal objService, ByVal objInstance)
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objUsageInstance
+
+    ' get the data from Win32_PageFileUsage
+    Set objUsageInstance = objService.Get(CLASS_PAGE_FILE_USAGE & "='" & objInstance.Name & "'")
+
+    ' return the current size ( allocated base size )
+    getCurrentPageFileSize = objUsageInstance.AllocatedBaseSize
+
+End Function
+
+
+'******************************************************************************
+'* Function: GetDiskSize
+'*
+'* Purpose:  To get the disk size for the specified drive
+'*
+'* Input:
+'*  [in]     strDriveName         drive name whose free space is needed
+'*  [in]     objServiceParam      service object to maintain wmi connection
+'*
+'* Output:   Returns the total disk size in MB.
+'*
+'******************************************************************************
+
+Private Function GetDiskSize(ByVal strDriveName, ByVal objServiceParam)
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objValidDiskInst      ' object to store valid disk name 
+
+    Set objValidDiskInst = objServiceParam.Get(CLASS_LOGICAL_DISK & "='" & strDriveName & "'")
+
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_UnableToRetrieveInfo_ErrorMessage)
+        WScript.Quit(EXIT_QUERY_FAIL)
+    End If
+
+    GetDiskSize = Int(objValidDiskInst.Size / CONVERSION_FACTOR)
+
+End Function
+
+
+'******************************************************************************
+'* Function: GetPhysicalMemorySize
+'*
+'* Purpose:  To get the physical memory size.
+'*
+'* Input:
+'*  [in]     strHostName              host name to connect to
+'*  [in]     objServiceParam          service object to maintain wmi connection
+'*
+'* Output:   Returns the physical memory size in MB.
+'*
+'******************************************************************************
+
+Private Function GetPhysicalMemorySize( ByVal strHostName, ByVal objServiceParam )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objMemSizeInstance          ' to store memory size
+    Dim intReturnValue              ' to store return value
+
+    Set objMemSizeInstance = objServiceParam.Get(CLASS_COMPUTER_SYSTEM & "='" & strHostName & "'")
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo L_UnableToRetrieveInfo_ErrorMessage
+        WScript.Quit EXIT_QUERY_FAIL
+    End If
+
+    If objMemSizeInstance.TotalPhysicalMemory Then
+        intReturnValue = Int(objMemSizeInstance.TotalPhysicalMemory/CONVERSION_FACTOR)
+        GetPhysicalMemorySize = intReturnValue
+    End If
+
+End Function
+
+
+'******************************************************************************
+'* Function: getMaxSizeUB
+'*
+'* Purpose:  To get the allowed upper bound for maximum size
+'*
+'* Input:
+'*  [in]     objServiceParam          service object to maintain wmi connection
+'*
+'* Output:   Returns the upper bound for maximum size
+'*
+'******************************************************************************
+
+Private Function getMaxSizeUB(objServiceParam)
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    CONST PROCESSOR_X86_BASED  = "X86"
+    CONST PROCESSOR_IA64_BASED = "IA64"
+
+    Dim objInstance         ' object instance
+    Dim intReturnValue      ' to store return value
+    Dim strProcessorType    ' to store the processor type
+    Dim strQuery            ' to store the query
+    Dim objEnum             ' collection of objects
+
+    getMaxSizeUB     = 0
+
+    strQuery = "Select * From " & CLASS_COMPUTER_SYSTEM
+
+    Set objEnum = objServiceParam.ExecQuery(strQuery,"WQL",48,null)
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo L_UnableToRetrieveInfo_ErrorMessage
+        WScript.Quit EXIT_QUERY_FAIL
+    End If
+
+    ' The following code will handle only single processor environment
+
+    For each objInstance in objEnum
+        strProcessorType = objInstance.SystemType
+    Next
+
+    ' check if its a 32-bit processor
+    If InStr( UCase(strProcessorType),PROCESSOR_X86_BASED ) > 0 Then
+        getMaxSizeUB = 4096
+    End If
+
+    ' check if its a 64-bit processor
+    If Instr( UCase(strProcessorType),PROCESSOR_IA64_BASED ) > 0 Then
+        getMaxSizeUB = 33554432
+    End If
+
+End Function
+
+'******************************************************************************
+'* Function: GetCrashDumpSetting
+'*
+'* Purpose:  To get the Crash Dump Settings for the machine specified
+'*
+'* Input:
+'*  [in]    strUserNameParam        user name to connect to the machine
+'*  [in]    strPasswordParam        password for the user
+'*  [in]    strMachineParam         machine to get crash dump settings for
+'*
+'* Output:  Returns the current crash dump setting value [ 0,1,2,3 ]
+'*            0 - None
+'*            1 - Complete Memory Dump
+'*            2 - Kernel Memory Dump
+'*            3 - Small Memory Dump
+'*
+'******************************************************************************
+
+Private Function GetCrashDumpSetting( ByVal strUserNameParam, _
+                                      ByVal strPasswordParam, _
+                                      ByVal strMachineParam   )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    CONST CONST_NAMESPACE_DEFAULT     = "root\default"      ' name space to connect to
+    CONST CONST_HKEY_LOCAL_MACHINE    = 2147483650          ' registry value for HKEY_LOCAL_MACHINE
+    CONST CONST_KEY_VALUE_NAME        = "CrashDumpEnabled"  ' value name to be retrieved
+    CONST CONST_STD_REGISTRY_PROVIDER = "StdRegProv"        ' standard registry provider
+    ' the Sub Key Name
+    CONST CONST_CRASH_DUMP_REGKEY     = "SYSTEM\CurrentControlSet\Control\CrashControl"
+
+    Dim objInstance          ' to store the object instance
+    Dim objService           ' service object
+    Dim intCrashDumpValue    ' to store the crash dump setting value
+    Dim intReturnVal         ' to store return value
+
+    ' connect to the name space
+    If NOT component.wmiConnect(CONST_NAMESPACE_DEFAULT , _
+                      strUserNameParam   , _
+                      strPasswordParam   , _
+                      strMachineParam    , _
+                      blnLocalConnection , _
+                      objService  ) Then
+        WScript.Echo(L_HintCheckConnection_Message)
+        WScript.Quit(EXIT_METHOD_FAIL)
+    End If
+
+    ' get the instance of the Standard Registry Provider
+    Set objInstance = objService.Get(CONST_STD_REGISTRY_PROVIDER)
+
+    ' get the key value for from the registry
+    intReturnVal = objInstance.GetDWORDValue( CONST_HKEY_LOCAL_MACHINE, _
+                                              CONST_CRASH_DUMP_REGKEY, _
+                                              CONST_KEY_VALUE_NAME, _
+                                              intCrashDumpValue )
+    ' check if any error has occured
+    If Err.Number <> 0 Then
+        Err.Clear
+        WScript.Echo(L_FailCreateObject_ErrorMessage)
+        WScript.Quit(EXIT_INVALID_PARAM)
+    End If
+
+    ' check for the return value after registry is accessed.
+    If intReturnVal = 0 Then
+        GetCrashDumpSetting = CInt(intCrashDumpValue)
+    Else
+        WScript.Echo(L_FailCreateObject_ErrorMessage)
+        WScript.Quit(EXIT_INVALID_PARAM)
+    End If
+
+End Function
+
+
+' Function used to get the reply in y/n from the user
+'******************************************************************************
+'* Function: getReply
+'*
+'* Purpose:  To get reply from the user
+'*
+'* Input:    None
+'*
+'* Output:   Prompts for a warning message and accepts the user's choice [y/n]
+'*           
+'******************************************************************************
+Private Function getReply()
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Dim objStdIn     ' to store value from standard input
+    Dim strReply     ' to store the user reply
+
+    WScript.Echo(L_PromptForContinueAnyWay_Message)
+
+    Set objStdIn = WScript.StdIn
+    
+    If Err.Number Then
+        Err.Clear
+        WScript.Echo(L_FailCreateObject_ErrorMessage)
+        WScript.Quit(EXIT_INVALID_PARAM)
+    End If
+
+    strReply = objStdIn.ReadLine()
+    getReply = Trim(strReply)
+
+End Function
+
+
+'******************************************************************************
+'* Function: isCrashDumpValueSet
+'*
+'* Purpose:  To check if the crash dump value is set
+'*
+'* Input:
+'*  [in]     intCrashDumpParam       crash dump setting value
+'*  [in]     intIntSizeParam         initial size of the pagefile
+'*  [in]     intMemSizeParam         physical memory size
+'*  [in]     strVolume               drive/volume name
+'*
+'* Output:   Returns TRUE or FALSE
+'*
+'******************************************************************************
+
+Private Function isCrashDumpValueSet( ByVal intCrashDumpParam,_
+                                      ByVal intIntSizeParam,  _
+                                      ByVal intMemSizeParam,  _
+                                      ByVal strVolume )
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    ' Constants for Crash Dump Settings
+    CONST NO_MEMORY_DUMP       = 0
+    CONST COMPLETE_MEMORY_DUMP = 1
+    CONST KERNEL_MEMORY_DUMP   = 2
+    CONST SMALL_MEMORY_DUMP    = 3
+
+    Dim strReply        ' to store user reply
+    Dim intSizeValue    ' to store the size value used for comparison
+
+    ' default value is NO [n]
+    strReply = L_UserReplyNo_Text
+
+    Select Case CInt(intCrashDumpParam)
+
+        Case COMPLETE_MEMORY_DUMP
+            If CInt(intIntSizeParam) < CInt(intMemSizeParam) Then
+                component.VBPrintf CrashDumpSettingWarningMessage, Array(UCase(strVolume),CInt(intMemSizeParam) & MEGA_BYTES)
+                ' Ask for choice until a yes[y] or no[n] is given
+                Do
+                    strReply = getReply()
+                    If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                        isCrashDumpValueSet = TRUE
+                    ElseIf Trim(LCase(strReply)) = L_UserReplyNo_Text Then
+                        isCrashDumpValueSet = FALSE
+                    Else
+                        WScript.Echo(L_InvalidUserReply_ErrorMessage)
+                    End If
+                Loop Until (Trim(LCase(strReply)) = L_UserReplyYes_Text OR Trim(LCase(strReply)) = L_UserReplyNo_Text)
+            Else
+                isCrashDumpValueSet = TRUE
+            End If
+
+        Case KERNEL_MEMORY_DUMP
+
+            ' check if RAM size is less than or equal to 128 MB
+            If CInt(intMemSizeParam) <= 128 Then
+                ' assign size value to be checked to 50 MB
+                intSizeValue = 50
+            Else
+                ' check if RAM size is less than or equal to 4 GB
+                If CInt(intMemSizeParam) <= 4096 Then
+                    ' assign size value to be checked to 200 MB
+                    intSizeValue = 200
+                Else
+                    ' check if RAM size is less than or equal to 8 GB
+                    If CInt(intMemSizeParam) <= 8192 Then
+                        ' assign size value to be checked to 400 MB
+                        intSizeValue = 400
+                    Else
+                        ' assign size value to be checked to 800 MB
+                        intSizeValue = 800
+                    End If
+                End If
+            End If
+
+            If CInt(intIntSizeParam) < CInt(intSizeValue) Then
+                component.VBPrintf CrashDumpSettingWarningMessage, Array(UCase(strVolume),intSizeValue & MEGA_BYTES)
+                ' Ask for choice until a yes[y] or no[n] is given
+                Do
+                    strReply = getReply()
+                    If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                        isCrashDumpValueSet = TRUE
+                    ElseIf Trim(LCase(strReply)) = L_UserReplyNo_Text Then
+                        isCrashDumpValueSet = FALSE
+                    Else
+                        WScript.Echo(L_InvalidUserReply_ErrorMessage)
+                    End If
+                Loop Until (Trim(LCase(strReply)) = L_UserReplyYes_Text OR Trim(LCase(strReply)) = L_UserReplyNo_Text)
+            Else
+                isCrashDumpValueSet = TRUE
+            End If
+
+        Case SMALL_MEMORY_DUMP
+
+            ' initial size should not be less than 64 KB ( less than or equal to 0 MB )
+            If CInt(intIntSizeParam) <= 0 Then
+                component.VBPrintf CrashDumpSettingWarningMessage, Array(UCase(strVolume),"64 KB")
+                ' Ask for choice until a yes[y] or no[n] is given
+                Do
+                    strReply = getReply()
+                    If Trim(LCase(strReply)) = L_UserReplyYes_Text Then
+                        isCrashDumpValueSet = TRUE
+                    ElseIf Trim(LCase(strReply)) = L_UserReplyNo_Text Then
+                        isCrashDumpValueSet = FALSE
+                    Else
+                        WScript.Echo(L_InvalidUserReply_ErrorMessage)
+                    End If
+                Loop Until (Trim(LCase(strReply)) = L_UserReplyYes_Text OR Trim(LCase(strReply)) = L_UserReplyNo_Text)
+            Else
+                isCrashDumpValueSet = TRUE
+            End If
+
+        Case NO_MEMORY_DUMP
+
+            ' Crash Dump values 0 has no problem
+            isCrashDumpValueSet = TRUE
+
+    End Select
+
+End Function
+
+
+'******************************************************************************
+'* Sub:     typeMessage
+'*
+'* Purpose: To print the type usage messages relevent to the main option 
+'*          selected.
+'*
+'* Input:   The main option selected.
+'*
+'* Output:  Prints "type..usage" messages for the main option selected.
+'*
+'******************************************************************************
+
+Sub typeMessage(ByVal intMainOption)
+
+    ON ERROR RESUME NEXT
+    Err.Clear
+
+    Select Case CInt(intMainOption)
+
+        Case CONST_CHANGE_OPTION
+            component.VBPrintf L_TypeChangeUsage_Message,Array(UCase(WScript.ScriptName))
+        Case CONST_CREATE_OPTION
+            component.VBPrintf L_TypeCreateUsage_Message,Array(UCase(WScript.ScriptName))
+        Case CONST_DELETE_OPTION
+            component.VBPrintf L_TypeDeleteUsage_Message,Array(UCase(WScript.ScriptName))
+        Case CONST_QUERY_OPTION
+            component.VBPrintf L_TypeQueryUsage_Message,Array(UCase(WScript.ScriptName))
+        Case Else
+            component.VBPrintf L_TypeUsage_Message,Array(UCase(WScript.ScriptName))
+
+    End Select
+
+End Sub
+
+
+'******************************************************************************
+'* Sub:     ShowUsage
+'*
+'* Purpose: Shows the correct usage to the user.
+'*
+'* Input:   None
+'*
+'* Output:  Help messages are displayed on screen.
+'*
+'******************************************************************************
+Sub ShowUsage()
+
+    WScript.Echo vbCr                                   ' Line 1
+    WScript.Echo( L_ShowUsageLine02_Text )              ' Line 2
+    WScript.Echo vbCr                                   ' Line 3
+    WScript.Echo( L_UsageDescription_Text )             ' Line 4
+    WScript.Echo( L_ShowUsageLine05_Text )              ' Line 5
+    WScript.Echo( L_ShowUsageLine06_Text )              ' Line 6
+    WScript.Echo vbCr                                   ' Line 7
+    WScript.Echo( L_ShowUsageLine08_Text )              ' Line 8
+    WScript.Echo( L_ShowUsageLine09_Text )              ' Line 9
+    WScript.Echo( L_ShowUsageLine10_Text )              ' Line 10
+    WScript.Echo vbCr                                   ' Line 11
+    WScript.Echo( L_ShowUsageLine12_Text )              ' Line 12
+    WScript.Echo vbCr                                   ' Line 13
+    WScript.Echo( L_ShowUsageLine14_Text )              ' Line 14
+    WScript.Echo vbCr                                   ' Line 15
+    WScript.Echo( L_ShowUsageLine16_Text )              ' Line 16
+    WScript.Echo( L_ShowUsageLine17_Text )              ' Line 17
+    WScript.Echo vbCr                                   ' Line 18
+    WScript.Echo( L_ShowUsageLine19_Text )              ' Line 19
+    WScript.Echo( L_ShowUsageLine20_Text )              ' Line 20
+    WScript.Echo( L_ShowUsageLine21_Text )              ' Line 21
+    WScript.Echo( L_ShowUsageLine22_Text )              ' Line 22
+    WScript.Echo( L_ShowUsageLine23_Text )              ' Line 23
+    WScript.Echo( L_ShowUsageLine24_Text )              ' Line 24
+    WScript.Echo( L_ShowUsageLine25_Text )              ' Line 25
+
+End Sub
+
+
+'******************************************************************************
+'* Sub:     ShowChangeUsage
+'*
+'* Purpose: Shows the correct usage to the user.
+'*
+'* Input:   None
+'*
+'* Output:  Help messages for the /Change o ption are displayed on screen.
+'*
+'******************************************************************************
+Sub ShowChangeUsage()
+
+    WScript.Echo vbCr                                   ' Line 1
+    WScript.Echo( L_ShowChangeUsageLine02_Text )        ' Line 2
+    WScript.Echo( L_ShowChangeUsageLine03_Text )        ' Line 3
+    WScript.Echo( L_ShowChangeUsageLine04_Text )        ' Line 4
+    WScript.Echo vbCr                                   ' Line 5
+    WScript.Echo( L_UsageDescription_Text )             ' Line 6
+    WScript.Echo( L_ShowChangeUsageLine07_Text )        ' Line 7
+    WScript.Echo vbCr                                   ' Line 8
+    WScript.Echo( L_UsageParamList_Text )               ' Line 9
+    WScript.Echo( L_UsageMachineName_Text )             ' Line 10
+    WScript.Echo vbCr                                   ' Line 11
+    WScript.Echo( L_UsageUserNameLine1_Text )           ' Line 12
+    WScript.Echo( L_UsageUserNameLine2_Text )           ' Line 13
+    WScript.Echo vbCr                                   ' Line 14
+    WScript.Echo( L_UsagePasswordLine1_Text )           ' Line 15
+    WScript.Echo( L_UsagePasswordLine2_Text )           ' Line 16
+    WScript.Echo vbCr                                   ' Line 17
+    WScript.Echo( L_ShowChangeUsageLine18_Text )        ' Line 18
+    WScript.Echo( L_ShowChangeUsageLine19_Text )        ' Line 19
+    WScript.Echo vbCr                                   ' Line 20
+    WScript.Echo( L_ShowChangeUsageLine21_Text )        ' Line 21
+    WScript.Echo( L_ShowChangeUsageLine22_Text )        ' Line 22
+    WScript.Echo vbCr                                   ' Line 23
+    WScript.Echo( L_ShowChangeUsageLine24_Text )        ' Line 24
+    WScript.Echo( L_ShowChangeUsageLine25_Text )        ' Line 25
+    WScript.Echo( L_ShowChangeUsageLine26_Text )        ' Line 26
+    WScript.Echo( L_ShowChangeUsageLine27_Text )        ' Line 27
+    WScript.Echo vbCr                                   ' Line 28
+    WScript.Echo( L_UsageExamples_Text )                ' Line 29
+    WScript.Echo( L_ShowChangeUsageLine30_Text )        ' Line 30
+    WScript.Echo( L_ShowChangeUsageLine31_Text )        ' Line 31
+    WScript.Echo( L_ShowChangeUsageLine32_Text )        ' Line 32
+    WScript.Echo( L_ShowChangeUsageLine33_Text )        ' Line 33
+    WScript.Echo( L_ShowChangeUsageLine34_Text )        ' Line 34
+    WScript.Echo( L_ShowChangeUsageLine35_Text )        ' Line 35
+
+End Sub
+
+
+'******************************************************************************
+'* Sub:     ShowCreateUsage
+'*
+'* Purpose: Shows the correct usage to the user.
+'*
+'* Input:   None
+'*
+'* Output:  Help messages for the /Create option are displayed on screen.
+'*
+'******************************************************************************
+Sub ShowCreateUsage()
+
+    WScript.Echo vbCr                                   ' Line 1
+    WScript.Echo( L_ShowCreateUsageLine02_Text )        ' Line 2
+    WScript.Echo( L_ShowCreateUsageLine03_Text )        ' Line 3
+    WScript.Echo( L_ShowCreateUsageLine04_Text )        ' Line 4
+    WScript.Echo vbCr                                   ' Line 5
+    WScript.Echo( L_UsageDescription_Text )             ' Line 6
+    WScript.Echo( L_ShowCreateUsageLine07_Text )        ' Line 7
+    WScript.Echo vbCr                                   ' Line 8
+    WScript.Echo( L_UsageParamList_Text )               ' Line 9
+    WScript.Echo( L_UsageMachineName_Text )             ' Line 10
+    WScript.Echo vbCr                                   ' Line 11
+    WScript.Echo( L_UsageUserNameLine1_Text )           ' Line 12
+    WScript.Echo( L_UsageUserNameLine2_Text )           ' Line 13
+    WScript.Echo vbCr                                   ' Line 14
+    WScript.Echo( L_UsagePasswordLine1_Text )           ' Line 15
+    WScript.Echo( L_UsagePasswordLine2_Text )           ' Line 16
+    WScript.Echo vbCr                                   ' Line 17
+    WScript.Echo( L_ShowCreateUsageLine18_Text )        ' Line 18
+    WScript.Echo( L_ShowCreateUsageLine19_Text )        ' Line 19
+    WScript.Echo vbCr                                   ' Line 20
+    WScript.Echo( L_ShowCreateUsageLine21_Text )        ' Line 21
+    WScript.Echo( L_ShowCreateUsageLine22_Text )        ' Line 22
+    WScript.Echo vbCr                                   ' Line 23
+    WScript.Echo( L_ShowCreateUsageLine24_Text )        ' Line 24
+    WScript.Echo( L_ShowCreateUsageLine25_Text )        ' Line 25
+    WScript.Echo( L_ShowCreateUsageLine26_Text )        ' Line 26
+    WScript.Echo( L_ShowCreateUsageLine27_Text )        ' Line 27
+    WScript.Echo vbCr                                   ' Line 28
+    WScript.Echo( L_UsageExamples_Text )                ' Line 29
+    WScript.Echo( L_ShowCreateUsageLine30_Text )        ' Line 30
+    WScript.Echo( L_ShowCreateUsageLine31_Text )        ' Line 31
+    WScript.Echo( L_ShowCreateUsageLine32_Text )        ' Line 32
+    WScript.Echo( L_ShowCreateUsageLine33_Text )        ' Line 33
+    WScript.Echo( L_ShowCreateUsageLine34_Text )        ' Line 34
+    WScript.Echo( L_ShowCreateUsageLine35_Text )        ' Line 35
+
+End Sub
+
+
+'******************************************************************************
+'* Sub:     ShowDeleteUsage
+'*
+'* Purpose: Shows the correct usage to the user.
+'*
+'* Input:   None
+'*
+'* Output:  Help messages for the /Delete option are displayed on screen.
+'*
+'******************************************************************************
+Sub ShowDeleteUsage()
+
+    WScript.Echo vbCr                                   ' Line 1
+    WScript.Echo( L_ShowDeleteUsageLine02_Text )        ' Line 2
+    WScript.Echo( L_ShowDeleteUsageLine03_Text )        ' Line 3
+    WScript.Echo vbCr                                   ' Line 4
+    WScript.Echo( L_UsageDescription_Text )             ' Line 5
+    WScript.Echo( L_ShowDeleteUsageLine06_Text )        ' Line 6
+    WScript.Echo vbCr                                   ' Line 7
+    WScript.Echo( L_UsageParamList_Text )               ' Line 8
+    WScript.Echo( L_UsageMachineName_Text )             ' Line 9
+    WScript.Echo vbCr                                   ' Line 10
+    WScript.Echo( L_UsageUserNameLine1_Text )           ' Line 11
+    WScript.Echo( L_UsageUserNameLine2_Text )           ' Line 12
+    WScript.Echo vbCr                                   ' Line 13
+    WScript.Echo( L_UsagePasswordLine1_Text )           ' Line 14
+    WScript.Echo( L_UsagePasswordLine2_Text )           ' Line 15
+    WScript.Echo vbCr                                   ' Line 16
+    WScript.Echo( L_ShowDeleteUsageLine17_Text )        ' Line 17
+    WScript.Echo( L_ShowDeleteUsageLine18_Text )        ' Line 18
+    WScript.Echo( L_ShowDeleteUsageLine19_Text )        ' Line 19
+    WScript.Echo vbCr                                   ' Line 20
+    WScript.Echo( L_UsageExamples_Text )                ' Line 21
+    WScript.Echo( L_ShowDeleteUsageLine22_Text )        ' Line 22
+    WScript.Echo( L_ShowDeleteUsageLine23_Text )        ' Line 23
+    WScript.Echo( L_ShowDeleteUsageLine24_Text )        ' Line 24
+    WScript.Echo( L_ShowDeleteUsageLine25_Text )        ' Line 25
+
+End Sub
+
+
+'******************************************************************************
+'* Sub:     ShowQueryUsage
+'*
+'* Purpose: Shows the correct usage to the user.
+'*
+'* Input:   None
+'*
+'* Output:  Help messages for the /Query option are displayed on screen.
+'*
+'******************************************************************************
+Sub ShowQueryUsage()
+
+    WScript.Echo vbCr                                   ' Line 1
+    WScript.Echo( L_ShowQueryUsageLine02_Text )         ' Line 2
+    WScript.Echo( L_ShowQueryUsageLine03_Text )         ' Line 3
+    WScript.Echo vbCr                                   ' Line 4
+    WScript.Echo( L_UsageDescription_Text )             ' Line 5
+    WScript.Echo( L_ShowQueryUsageLine06_Text )         ' Line 6
+    WScript.Echo vbCr                                   ' Line 7
+    WScript.Echo( L_UsageParamList_Text )               ' Line 8
+    WScript.Echo( L_UsageMachineName_Text )             ' Line 9
+    WScript.Echo vbCr                                   ' Line 10
+    WScript.Echo( L_UsageUserNameLine1_Text )           ' Line 11
+    WScript.Echo( L_UsageUserNameLine2_Text )           ' Line 12
+    WScript.Echo vbCr                                   ' Line 13
+    WScript.Echo( L_UsagePasswordLine1_Text )           ' Line 14
+    WScript.Echo( L_UsagePasswordLine2_Text )           ' Line 15
+    WScript.Echo vbCr                                   ' Line 16
+    WScript.Echo( L_ShowQueryUsageLine17_Text )         ' Line 17
+    WScript.Echo( L_ShowQueryUsageLine18_Text )         ' Line 18
+    WScript.Echo( L_ShowQueryUsageLine19_Text )         ' Line 19
+    WScript.Echo vbCr                                   ' Line 20
+    WScript.Echo( L_UsageExamples_Text )                ' Line 21
+    WScript.Echo( L_ShowQueryUsageLine22_Text )         ' Line 22
+    WScript.Echo( L_ShowQueryUsageLine23_Text )         ' Line 23
+    WScript.Echo( L_ShowQueryUsageLine24_Text )         ' Line 24
+    WScript.Echo( L_ShowQueryUsageLine25_Text )         ' Line 25
+    WScript.Echo( L_ShowQueryUsageLine26_Text )         ' Line 26
+    WScript.Echo( L_ShowQueryUsageLine27_Text )         ' Line 27
+
+End Sub
+
+
+'+----------------------------------------------------------------------------+
+'|                            End of the Script                               |
+'+----------------------------------------------------------------------------+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_êêêêê∏Ω_Ëë  QVãÒ3…∏|ö±_âuââNâNâNâM¸âFâNâNâNhÙ  çN ∆E¸ËlÎˇˇãMÙ«F8   ã∆^dâ    …√êêåˇª_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_êêêêêãˇUãÏV3ˆ9uÑn  É}°–±_ã £¸ÖΩ_uDhÄ   ˇ\±_;∆Y£ÜΩ_ÑV  â0°ÜΩ_hLÑΩ_h ÄΩ_£ ÜΩ_Ë    ˇ‰ÖΩ_YY3¿@^]¬ 9uÑ)  ÎÌêêêêêˇ%ÿ±_êêêêêêãˇUãÏˇuË   ˜ÿ¿˜ÿYH]√êêêêêêêêêãˇUãÏÉ=ÜΩ_ˇÑé  h ÜΩ_hÜΩ_ˇuË
+   Éƒ]√êêêêêˇ%Ã±_Ë#   ˜ÿ¿É‡˛É¿âFãMÙ_ã∆^[dâ    …√êêêêêãˇUãÏQQÉe¸ ÉM¯ˇVçE¸P3ˆË
+ÛˇˇÖ¿|jˇçE¯Ph¸õ±_ˇu¸ËA   É}¯Ñ  É}¸ t	ˇu¸ˇ¥±_ã∆^…√D i s a b l e T r a c i n g   êêêêêãˇUãÏQVWã}çE¸PW3ˆVVˇu«E¸   ˇuˇê±_Ö¿Öø
+  _ã∆^…¬ êêêêêãˇVhÙ  ãÒËfÈˇˇ3¿âFâF âF$«Fàú±_âF,ã∆^¬ êêê˝åº_±h∫_çº_[^π_ˇª_wåº_è∫_*hµ_ò∑_íº_Yéº_4–∫_Hî∏_jˇPd°    PãD$dâ%    âl$çl$P√ãD$ãL$»ãL$u	ãD$˜·¬ S˜·ãÿãD$˜d$ÿãD$˜·”[¬ =   s˜ÿƒÉ¿Ö îã P√QçL$ÅÈ   -   Ö=   sÏ+»ãƒÖã·ãã@P√PPˇuçEˇuPjˇujjË
+: ÈÔzˇˇj h‘ù±_£å°Ω_Ë›ÂˇˇÈNÌˇˇãuã}VSWË>ÂˇˇVSWËàÁˇˇVSWËVÎˇˇVSWË‰ˇˇVSWË0ÈˇˇVSWË2ÌˇˇVSWË„ËˇˇVSWËÑÍˇˇVSWË%  ÈÌˇˇDisableTipPassThruCheck êêêêê∏±≠º_Ë¡˛ˇˇSã]Ö€u
+∏W ÄÈ™ÚˇˇÉ# VãuWjYø©±_3¿ÛßÖjÚˇˇj Ë"ÌˇˇYâEÉe¸ Ö¿tã»Ë<ã ãÎ3ˆÉM¸ˇÖˆu∏ ÄÎãSˇuVˇã¯Öˇ}VËÚˇˇYã«ÎeSVWËâ„	 Ö¿çFÚˇˇSVWË≥	 Ö¿ç6ÚˇˇSVWËü Ö¿ç&ÚˇˇSVWËóZ	 Ö¿çÚˇˇSVWËMR	 Ö¿çÚˇˇSVWËh
+ Ö¿çˆÒˇˇ∏Ä_^È€ÒˇˇQQSVãÒWçNhê  âuË›ÊˇˇÈ9ÏˇˇYâEÏ;√∆E¸øı  Ö
+Ëˇˇ3¿ÈËˇˇãfâ@É¡,f;«ÉBËˇˇÎÎQSVãÒWâu3ˇâ}¸«F f≤_ªÙ  çNS∆E¸«f≤_«F f≤_ËsÊˇˇ«F,ƒe≤_â~0â~4â~8Sçé<@  ∆E¸ËSÊˇˇçFP∆E¸â~â~âæT@  âæX@  â~ˇP±_ÈœÎˇˇVçE¯Pˇå±_ãu¸3u¯ˇX±_3ˇê±_3ˇà±_3çEPˇî±_ãEÙ3E3∆%ˇˇ  ^u∏@ª  £XÑΩ_Èf∆ˇˇÉe Èﬂ¯ˇˇã√£¨ÑΩ_â8°¨ÑΩ_3€âxÈﬂÎˇˇYWˇ5¨ÑΩ_ãŒËÜ¯ˇˇÈÌÎˇˇQVãÒhÙ  çNâuËêÂˇˇÈbÎˇˇ3¿È˘‰ˇˇSã]Ö€u
+∏W ÄÈ≤ÁˇˇÉ# VãuWjYød©±_3¿ÛßÖëÁˇˇj Ë—ÍˇˇYã»âMÉe¸ Ö…t	ËŒ§ ãÎ3ˆÉM¸ˇÖˆu
+∏ ÄÈdÁˇˇãSˇuVˇã¯Öˇ}VË¬ÔˇˇYã«ÈGÁˇˇãE¸ãVˇuˇuj PˇQããE¸ãPˇQã∆^È>¯ˇˇHubã}Öˇâ=p-æ_ÖfÁˇˇÈxÁˇˇÖ¿ÖpÁˇˇãU¯∏Ù  ;–ã ÜeÁˇˇÈbÁˇˇÖ¿Ñ¿˜ˇˇÈLÁˇˇãÖˆç‰ÊˇˇÈ=Áˇˇj ht°±_Ë‚ˇˇ£ê-æ_3¿Öˆù¿_^…¬ ∑`ÑΩ_Pˇ¯±_ÈÃÊˇˇêêêTCPNoDelay êêêêêãˇUãÏãEÖ¿u
+∏W ÄÈôÍˇˇÉ  ãEVWjYø¥™±_ã3“ÛßuGjËóÈˇˇÖ¿YtÉ` « <ë±_ã¯Î3ˇÖˇÑ¶   ˇuãˇuWˇãÖˆçAÍˇˇjãœËª¶ È3ÍˇˇjYø0ô±_ã3“ÛßuCjË@ÈˇˇÖ¿YtÉ` « ê±_ã¯Î3ˇÖˇtSˇuãˇuWˇãÖˆçÓÈˇˇjãœËÓˇˇÈ‡ÈˇˇjYø¿¢±_ã3“ÛßuJjËÌËˇˇÖ¿YtÉ` « (±_ã¯Î3ˇÖˇu∏ ÄÎ6ˇuãˇuWˇãÖˆçîÈˇˇjãœË5¶ ÈÜÈˇˇˇuˇuPË}Œ ãÈsÈˇˇ_^ÈsÈˇˇê*ÈÃÒ—èØ `ïÁ’ã}jYæl±_3¿ÛßÑåÓˇˇãEÉ  ∏@ ÄÈåÓˇˇã¯ÖˇÑ?ÌˇˇÈIÌˇˇêêêêê∏µÔº_Ë©˘ˇˇSã]Ö€u
+∏W ÄÈ$ÈˇˇÉ# É} VWÑvÂˇˇã}jYæàë±_3¿ÛßÑaÂˇˇ∏ÄÎ&3ˆÈãÂˇˇ∏ ÄÎã¯ÖˇçœËˇˇjãŒËô© ÈÃËˇˇ_^ÈÃËˇˇãEçHÈÈˇˇã}jYæ|±_3¿ÛßuãMÈ˝ËˇˇãEÉ  ∏@ ÄÈ¸ËˇˇâHÈÀ·ˇˇâPÈ√·ˇˇãEHuÖˆâ5∏Uæ_Ñ˝›ˇˇ3¿@È˜›ˇˇãEHÑ$Áˇˇ3¿@ÈÁˇˇêêêêêãˇUãÏãEV3ˆ+∆Öˇ›ˇˇÎ-ˇD±_VVj.hT§±_âEçEPjhr ¿jjËz 3¿ÈÀ›ˇˇ°|ÑΩ_É¯ˇtPˇ¸±_ˇ4±_È¨›ˇˇêêd:\xpsp\com\com1x\dtc\dtc\asc\ascmain.cpp ãÖˆÖj‡ˇˇˇD±_Pˇd±_Pˇ`±_ÈQ‡ˇˇQSWãŸhÙ  â]Ë·ˇˇÈËˇˇPh •±_Ëñﬁˇˇh   h§±_ã¯ËÖﬁˇˇ=   v∏   £®†Ω_â=ÄÑΩ_ÈÏÁˇˇMemBufferSize êêDTCMemAlloc hπ   h(•±_VË;Ç
+ ÈÊ‡ˇˇêêêêêêêd : \ x p s p \ c o m \ c o m 1 x \ d t c \ s h a r e d \ u t i l \ u t s e m . c p p   ãEãU+–äà@Ñ…Ñ"‰ˇˇÎVãuã»+äàAÑ“uˆ^ÈÔ„ˇˇäà@Ñ…uˆÈ„ˇˇâ‹ÖΩ_^Îâ‹ÖΩ_â=‡ÖΩ_ÈµﬁˇˇçÖDˇˇˇPˇ4±_ÅΩ\ˇˇˇJ  â=‡ÖΩ_¿@£‹ÖΩ_È°ﬁˇˇÖ¿Ñﬂˇˇ« (¶±_√jË≈ﬁˇˇÖ¿Ñˆﬁˇˇã»È—á
+ Ç±_95‰ÖΩ_~ˇ‰ÖΩ_ÈÙˇˇ3¿È…Ùˇˇ°ÜΩ_;∆uÈ∏Ùˇˇã ÜΩ_ã	;Œtˇ—°ÜΩ_É- ÜΩ_9 ÜΩ_sﬁPˇh±_â5ÜΩ_ÈÉÙˇˇÉ=‰ÖΩ_ Èb„ˇˇWVSˇ–Ö¿ÖK„ˇˇ3¿Ès„ˇˇWPSË˝ÛˇˇÖˆt	É˛Ö[„ˇˇWVSËËÛˇˇÖ¿u!EÉ} ÑB„ˇˇ°ÜΩ_Ö¿Ñ5„ˇˇWVSˇ–âEÈ(„ˇˇ]ˇ%ƒ±_ˇuˇu‰ˇuˇuËwê
+ È2€ˇˇ~
+%ˇˇ    ÄãÖˆç+ıˇˇãEâÈ!ıˇˇã√£ÖΩ_â8°ÖΩ_3€âxÈ‚ÂˇˇYWˇ5ÖΩ_ãŒË,€ˇˇÈÂˇˇã√£ÏÖΩ_â8°ÏÖΩ_3€âxÈ5ÊˇˇYWˇ5ÏÖΩ_ãŒË €ˇˇÈCÊˇˇ;∆Ñ€ˇˇ~
+%ˇˇ    ÄãVhºß±_jh  hé¥_ËÆ†
+ ÉƒÈ‰⁄ˇˇêêFailed to open the TRACE_REG_MISC_KEY key, hr=0x%1!x!
+ h®±_jh-  hé¥_FËV†
+ ÉƒÈ÷ÛˇˇêêThe Tracing Feature has bee determined to have been disabled
+ QSVãÒWhÙ  çNâuËh›ˇˇÈÇÂˇˇ;√âÖÛˇˇ«F   ˇD±_Shí¥_jhx  hé¥_Ë≈ü
+ ÉƒÈÛÚˇˇQSVãÒWhÙ  çNâuË›ˇˇÈ÷Êˇˇ;«âÖ›Ÿˇˇ«F   ˇD±_Whí¥_jj'h,ì¥_Ëwü
+ ÉƒÈ∆ŸˇˇêêêsÒdC©ÅŒú2 ™ QÂpÒdC©ÅŒú2 ™ QÂ∞ÒYŸBûŒãó Ä«†¡ qnè¨Œ≠ ™ Q‰°ä}πWñY“å Ä_˜Zê]⁄¯9≤Œ≠ ™ Q‰°¬ qnè¨Œ≠ ™ Q‰°¿ qnè¨Œ≠ ™ Q‰°¨ßkÇó–—±… ¿O¬ÛÔ◊q(:Á†ŒÆ¿ ™ Q‚ƒ—q(:Á†ŒÆ¿ ™ Q‚ƒ·Âˇ}<Øœ•◊ †…An—t◊¯tlœ• ™ há√–¶œ0[GŒéÃ ™ Q‚ƒ†_±*[GŒéÃ ™ Q‚ƒ‡‹@[GŒéÃ ™ Q‚ƒag7C<Øœ•◊ †…An/;˘ﬂ◊“Çã Ä_˜ZpAù¯ EŒéÃ ™ Q‚ƒ                ◊ú†V±ù—èL ¿O∂«èj’Jó—èH ¿O∂«>ÉéêFó—èH ¿O∂«zSHó—èH ¿O∂«n˘ Ä°—èN ¿O∂«êj’Jó—èH ¿O∂«ëj’Jó—èH ¿O∂«÷ÎápŒπ—èb ¿O∂«áƒ‹gH™—èO ¿O∂«A∞?0Âﬁ—è´ `ïÁ’0AûKáÔ—èØ `ïÁ’Å1G`vˆ—è± `ïÁ’ÒåE¢°—èÖ `ïÁ’ıåE¢°—èÖ `ïÁ’˚åE¢°—èÖ `ïÁ’åE¢°—èÖ `ïÁ’Û˝d•∑—èì `ïÁ’Ì˙π_Aõ¥_Õ†¥_d:\xpsp\com\com1x\dtc\dtc\tm\src\cohelper.cpp êêi7º_i7º_i7º_∏ü¥_‘ü¥_Óü¥_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmassociate.cpp êêêÀ§¥_}§¥_∫9∫_§§¥_d:\xpsp\com\com1x\dtc\dtc\tm\inc\TMJoiTem.H ”-∏_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêê-¶¥_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_/™¥_¶¥_êêêê”-∏_p˝∑_†¶¥_–®¥_V™¥_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_W¶¥_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêê”-∏_p˝∑_/™¥_–®¥_A£¥_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_∞¶¥_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_i7º_i7º_i7º_i7º_i7º_i7º_i7º_i7º_i7º_i7º_i7º_Û•¥_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_l≠¥_“9µ_¢¥_™¥_/™¥_¶¥_êêêê”-∏_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_mØ¥_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêê”-∏_p˝∑_Ú§¥_–®¥_A£¥_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_É ∂_”-∏_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_%£¥_”-∏_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_8§¥_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêê”-∏_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_•¥_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_‰ß¥_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêêÂ—∑_p˝∑_ò˝∑_–®¥_ﬁ•∑_®∂_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_t1∂_vÆ∑_êêêê”-∏_Õ ∂_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_¢¥_é°¥_∂°¥_ﬁ°¥_êêêêÂ—∑_p˝∑_ò˝∑_–®¥_ﬁ•∑_¿˝∑_Ë˝∑_ÉØ¥_X•¥_#©¥_¨•¥_û©¥_Ô©¥_≈©¥_”•¥_$¢¥_D¢¥_“9µ_“9µ_hÆ¥_é°¥_∂°¥_ﬁ°¥_êêêê˝π_ªs∑_Ãs∑_›s∑_˘s∑_
+t∑_t∑_,t∑_=t∑_Nt∑__t∑_éﬂµ_ˇ8∏_£9∏_ä9∏_£9∏_º9∏_œ!∏_È!∏_G:∏_`:∏_£9∏_£9∏_£9∏_y:∏_;∏_£9∏_"∏_ì;∏_"∏_<∏_'<∏_i7º_êêêê˝π_ªs∑_Ãs∑_›s∑_˘s∑_
+t∑_t∑_,t∑_=t∑_Nt∑__t∑_éﬂµ_ˇ8∏_£9∏_ä9∏_£9∏_º9∏_œ!∏_È!∏_G:∏_`:∏_£9∏_£9∏_£9∏_y:∏_;∏_£9∏_"∏_ì;∏_"∏_<∏_'<∏_∑p∏_π{õ≠·WFçêso£∑îíì¿¥_˝ª¥_Â¥¥_≤¥_[π¥_\≤¥_ìπ¥_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_“9µ_“9µ_ì¿¥_˝ª¥_Ó±¥_≤¥_>≤¥_ æ¥_z≤¥_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_“9µ_“9µ_ì¿¥_˝ª¥_çµ¥_≤¥_“9µ_\≤¥_T¯∑_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_“9µ_“9µ_∆±¥_˝ª¥_Ó±¥_æµ¥_>≤¥_\≤¥_z≤¥_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_“9µ_“9µ_ì¿¥_˝ª¥_µ¥_≤¥_^æ¥_\≤¥_T¯∑_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmbegin.cpp êêêè∑¥_’∂¥_c}∏_∑¥_}}∏_3∑¥_a∑¥_™Ø¥_øñ∏_ƒ∂¥_ï∂¥_¥∂¥_∏ü¥_‘ü¥_Óü¥_∆±¥_˝ª¥_Ó±¥_≤¥_>≤¥_\≤¥_z≤¥_ò≤¥_¿≤¥_Ë≤¥_≥¥_8≥¥_¬∏¥_“9µ_∆±¥_˝ª¥_Ó±¥_≤¥_>≤¥_\≤¥_z≤¥_®º¥_¿≤¥_Ë≤¥_≥¥_8≥¥_†≥¥_“9µ_“∏¥_˝ª¥_Ó±¥_≤¥_‚∏¥_\≤¥_π¥_’º¥_¿≤¥_Ë≤¥_≥¥_(π¥_“9µ_“9µ_i¿¥_˝ª¥_Ó±¥_≤¥_>≤¥_\≤¥_z≤¥_˝º¥_*Ω¥_vΩ¥_vΩ¥_8≥¥_¬∏¥_“9µ_∆±¥_˝ª¥_Ó±¥_≤¥_>≤¥_\≤¥_z≤¥_ì¿¥_¿≤¥_Ë≤¥_≥¥_8≥¥_≥¥¥_“9µ_∆±¥_˝ª¥_¬Ω¥_≤¥_>≤¥_\≤¥_z≤¥_¥¥_#¥¥_K¥¥_s¥¥_õ¥¥_Ó≥¥_“9µ_Not Found êêDescription Not Specified êê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_•‡¥_´Å∑_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_
+œ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_œ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_Ùı¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_}˛¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê˘‚¥_‘‡¥_Û‡¥_¶—¥_ﬂ„¥_∫µ_÷µ_hœ¥_Å»¥_“9µ_!Û¥_≠Û¥_hœ¥_f„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_\·¥_ ¥_< ¥_’“¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_Ñœ¥_Ï µ_T¯∑_Oœ¥_‰¯¥_ûµ_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_ï˛¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_hœ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_…·¥_≤œ¥_‚¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_€œ¥_–¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_•˛¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_æ˛¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_H–¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_hœ¥_f„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_’“¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_Ï µ_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_hœ¥_X‚¥_´Å∑_z˜¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_÷˛¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_m–¥_“9µ_êêêê˘‚¥_‘‡¥_â–¥_¶—¥_ﬂ„¥_∫µ_÷µ_hœ¥_ –¥_“9µ_!Û¥_≠Û¥_hœ¥_≠‚¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_,—¥_Ä—¥_ ¥_< ¥_—¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_Ñœ¥_Ê˛¥_T¯∑_Oœ¥_‰¯¥_ûµ_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_hœ¥_MŒ¥_MÀπ_ı˜¥_“9µ_êêêê˘‚¥_‘‡¥_„¥_¶—¥_ﬂ„¥_∫µ_÷µ_hœ¥_Å»¥_“9µ_!Û¥_≠Û¥_hœ¥_f„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_´„¥_ ¥_< ¥_’“¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_Ñœ¥_Ï µ_T¯∑_Oœ¥_‰¯¥_ûµ_9Ù¥_¬—¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_öˇ¥_kÃ¥_÷˛¥_˝Õ¥_™ˇ¥_hœ¥_MŒ¥_MÀπ_ˇ¥_“9µ_êêêê˘‚¥_‘‡¥_P“¥_¶—¥_ﬂ„¥_∫µ_÷µ_hœ¥_Å»¥_“9µ_!Û¥_≠Û¥_hœ¥_f„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_ë“¥_ ¥_< ¥_’“¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_Ñœ¥_Ï µ_T¯∑_Oœ¥_‰¯¥_ûµ_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_ ˘¥_—˘¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_hœ¥_MŒ¥_MÀπ_4“¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_Ï µ_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_µ_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_∫ˇ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_hœ¥_f„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_Î“¥_¡…¥_È…¥_“ˇ¥_ˇˇ¥_H”¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_Ï µ_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_I µ_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_hœ¥_ µ_´Å∑_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_ú”¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_Ä”¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_d”¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_
+¸¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_∏”¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_‘”¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_hœ¥_˚„¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_$‰¥_”¥_g‰¥_™‰¥_À¥_)À¥_Ì‰¥_yÀ¥_Ï µ_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_“9µ_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_µ_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_‘¥_“9µ_êêêê»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_KÂ¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_(‘¥_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmbrod.cpp 8÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫__÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_Ü÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_≠÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_‘÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_˚÷¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_"◊¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_I◊¥_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_:cπ_ßµ_0çº_‘‘¥_“9µ_ ’¥_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_'’¥_9ˇª_]í∏_ ›∂_π⁄¥_‰⁄¥_€¥_.€¥_%ÿ¥_?ÿ¥_Yÿ¥_≠◊¥_Œ◊¥_ÿ¥_Î◊¥_‹¥_:cπ_ßµ_0çº_‘‘¥_“9µ_N’¥_9ˇª_]í∏_ ›∂_n€¥_¶€¥_È¬¥_Œ€¥_Û€¥_˝¥_:cπ_ßµ_0çº_‘‘¥_“9µ_u’¥_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_ú’¥_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_√’¥_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_Í’¥_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_÷¥_9ˇª_]í∏_ ›∂_»¥_"»¥_-»¥_8»¥_∂Å∑_C»¥_N»¥_Y»¥_Å»¥_©»¥_!Û¥_≠Û¥_—»¥_˘»¥_MÀπ_!…¥_I…¥_q…¥_‹ ¥_ô…¥_¡…¥_È…¥_ ¥_< ¥_d ¥_å ¥_¥ ¥_À¥_)À¥_QÀ¥_yÀ¥_°À¥_…À¥_ÒÀ¥_Ã¥_CÃ¥_9Ù¥_ïÃ¥_ΩÃ¥_ÂÃ¥_Õ¥_5Õ¥_]Õ¥_ÖÕ¥_kÃ¥_≠Õ¥_˝Õ¥_’Õ¥_%Œ¥_MŒ¥_MÀπ_ÂŒ¥_“9µ_êêêêsÿ¥_,⁄¥_®ÿ¥_¬ÿ¥_Áÿ¥_Ÿ¥_&Ÿ¥_KŸ¥_eŸ¥_Ÿ¥_ôŸ¥_ﬁŸ¥_¯Ÿ¥_⁄¥_F⁄¥_`⁄¥_≥Ÿ¥_z⁄¥_ü⁄¥_áÿ¥_™¬¥_“¬¥_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmchabor.cpp êêA∂_∞µ_]∂_n∂_¿µ_Ëµ_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_
+µ_¿µ_Ëµ_µ_µ_8µ_Éµ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_	µ_“9µ_
+µ_¿µ_Ëµ_µ_µ_8µ_`µ_µ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_uµ_“9µ_
+µ_¿µ_Ëµ_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_
+µ_%µ_êêêê¿µ_Ëµ_Ú§¥_µ_A£¥_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_
+µ_Í®∑_êêêê¿µ_Ëµ_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_∫é∑_“9µ_
+µ_¿µ_Ëµ_µ_µ_8µ_`µ_•¥_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_uµ_“9µ_
+µ_Â—∑_Ëµ_µ_µ_8µ_®∂_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_
+µ_t1∂_vÆ∑_¿µ_Õ ∂_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_
+µ_Â—∑_Ëµ_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_“9µ_“9µ_hµ_√µ_∂_ß∂_∏ü¥_‘ü¥_Óü¥_¿µ_Ëµ_µ_µ_8µ_`µ_àµ_îµ_Tµ_üµ_ºµ_Ãµ_µ_Ûµ_Èµ_(µ_Hµ_~µ_“9µ_
+µ_=√…ùÂ≠üFè⁄¬ÿ6e}^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_≈µ_“9µ_^µ_nµ_ãµ_∂µ_·µ_µ_$µ_7µ_bµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_~µ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_$µ_“9µ_Kµ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_”%µ_„µ_7µ_bµ_çµ_µ_“9µ_\µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_‘"µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_∑µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_«µ_µ_µ_“9µ_Çµ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_µµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_Q%µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_´$µ_“9µ_^µ_7$µ_ãµ_∂µ_·µ_µ_w%µ_7µ_bµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_w%µ_“9µ_Kµ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7&µ_bµ_çµ_µ_“9µ_“9µ_“9µ_¢µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_“9µ_“9µ_^µ_∏µ_ãµ_µ_Ë$µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_Áµ_“9µ_^µ_∏µ_ãµ_Gµ_±µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_(µ_“9µ_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_ºµ_çµ_µ_G$µ_◊µ_µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmcheckp.cpp êê˚µ_ﬁµ_Vµ_ªµ_~µ_õµ_9µ_Æµ_Êh∂_Ci∂_„‹¥_›i∂_∏µ_’µ_Úµ_áµ_∫9∫_^µ_∏µ_ãµ_∂µ_·µ_µ_„µ_7µ_bµ_çµ_µ_“9µ_ø#µ_“9µ_µ_Mµ_Ç!µ_Êh∂_Ci∂_—'µ_£@∂_Z(µ_≠(µ_£@∂_¢)µ_,)µ_Oì∫_ÉÒR¿—±¿ ¿O¬ÛÔÉÒR¿—±¿ ¿O¬ÛÔg-µ_±*µ_Ÿ*µ_+µ_Z-µ_î-µ_“9µ_“9µ_Â+µ_å/µ_Ÿ*µ_+µ_,µ_,µ_œ+µ_“9µ_Â+µ_±*µ_./µ_+µ_)+µ_Q+µ_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmcpreslog.cpp |,µ_Êh∂_Ci∂_„‹¥_›i∂_¨,µ_Ω,µ_**µ_∫+µ_±*µ_Ÿ*µ_+µ_)+µ_Q+µ_ô+µ_“9µ_.µ_Êh∂_Ci∂_„‹¥_›i∂_¨,µ_Ω,µ_**µ_i7º_i7º_i7º_i7º_˘u’…G∞o? È⁄s‘“ó¿PL∂qnlÁÛd:\xpsp\com\com1x\dtc\dtc\tm\src\tmenlist.cpp êê:Aµ_Aµ_ö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_rLµ_•4µ_ı4µ_5µ_15µ_O5µ_äHµ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_<>µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_Mµ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêê“9µ_¬5µ_Í5µ_T¯∑_:6µ_b6µ_T¯∑_MÀπ_≤6µ_T¯∑_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∏_SK∑_
+9µ_29µ_Z9µ_L"π_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_X>µ_“9µ_iı∑_v3µ_∂>µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_|Mµ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_¬Mµ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_<Nµ_v3µ_?µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_ÔMµ_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_¸Hµ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_T?µ_@µ_7@µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_i7º_i7º_i7º_i7º_i7º_“9µ_}}∏_}}∏_i7º_i7º_i7º_a∑_a∑_a∑_ßAµ_ˇ/µ_œAµ_…K∑_.L∑_ÊK∑_L∑_∏ü¥_‘ü¥_Óü¥_æ0µ_ä;∑_»;∑_Ÿ;∑_õ;∑_“9µ_}}∏_}}∏_¨;∑_Í;∑_Ô<∑_´0µ_a∑_a∑_êêêêC R e s o u r c e I n s t a n c e _ S t a t e _ W i t h d r a w   -   m _ u l L o g R e c B y t e C o u n t   = =   0 x F F F F F F F F   êêêêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_”Q∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_Ü∂_z7µ_¢7µ_àDµ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_â:µ_“9µ_iı∑_v3µ_·:µ_4µ_-4µ_U4µ_}4µ_•4µ_;µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_Í5µ_6µ_:6µ_b6µ_+Ü∂_MÀπ_≤6µ_9"π_7µ_%`∂_R7µ_z7µ_¢7µ_c;µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_ﬁªµ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_R∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_∞;µ_“9µ_/Nµ_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_aAµ_⁄6µ_7µ_*7µ_R7µ_z7µ_5R∑_ 7µ_Ú7µ_¯Ö∂_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_Á;µ_5µ_™9µ_Æ@µ_ö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_\R∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_“Ö∂_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_KJµ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_øÖ∂_¢7µ_’Dµ_˘ªµ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_L<µ_“9µ_iı∑_v3µ_§<µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_Ÿ<µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêê“9µ_¬5µ_Í5µ_T¯∑_:6µ_b6µ_T¯∑_MÀπ_≤6µ_T¯∑_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∏_SK∑_
+9µ_29µ_Z9µ_L"π_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_ë∂_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_åAµ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_'˝∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_qAµ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_˘ªµ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_T¯∑_“9µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_oÖ∂_R7µ_z7µ_¢7µ_oÖ∂_Ú7µ_8µ_B8µ_∏_*∏_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_Ä=µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_"Eµ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_çR∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_=∏_Í5µ_6µ_:6µ_b6µ_+Ü∂_MÀπ_≤6µ_9"π_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_Õ@µ_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_’R∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_S∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_oÖ∂_R7µ_z7µ_¢7µ_M∏_Ú7µ_8µ_B8µ_j8µ_*∏_∫8µ_‚8µ_&"π_M∏_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_“9µ_“9µ_iı∑_v3µ_ÿ=µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_TFµ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_ë∂_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_åAµ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_`∏_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêö5µ_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_ 7µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_7S∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_êêêêÜ∂_¬5µ_Í5µ_6µ_:6µ_b6µ_ä6µ_MÀπ_≤6µ_⁄6µ_7µ_*7µ_R7µ_z7µ_¢7µ_“9µ_Ú7µ_8µ_B8µ_j8µ_í8µ_∫8µ_‚8µ_
+9µ_29µ_Z9µ_Ç9µ_Bµ_ıJµ_1Bµ_⁄9µ_˝9µ_Kµ_[Bµ_ÖBµ_IKµ_sKµ_≤Bµ_ :µ_ùKµ_VCµ_‹Bµ_C:µ_Cµ_)Cµ_«Kµ_ÒKµ_ÇCµ_Lµ_Ò¸∑_“9µ_iı∑_v3µ_›3µ_4µ_-4µ_U4µ_}4µ_•4µ_ı4µ_5µ_15µ_O5µ_Õ4µ_m5µ_5µ_™9µ_Û‚m<SøF±ô.-$≈Ì‘“ó¿PL∂qnlÁÛd:\xpsp\com\com1x\dtc\dtc\tm\src\tmexport.cpp êê˝Pµ_%Qµ_´Pµ_”Pµ_MQµ_uQµ_ùQµ_+`µ_“9µ_˝Pµ_%Qµ_´Pµ_”Pµ_àWµ_uQµ_ùQµ_Rµ_“9µ_˝Pµ_%Qµ_´Pµ_”Pµ_MQµ_uQµ_ùQµ_Rµ_“9µ_˝Pµ_%Qµ_M`µ_”Pµ_MQµ_uQµ_ùQµ_“9µ_“9µ_˝Pµ_%Qµ_´Pµ_”Pµ_MQµ_uQµ_ïWµ_“9µ_“9µ_˝Pµ_ﬂWµ_Û`µ_”Pµ_MQµ_uQµ_ùQµ_ó ∏_“9µ_Sµ_eNµ_wNµ_êVµ_`Vµ_Vµ_<Vµ_é ∏_OVµ_N o t   F o u n d   H o s t   N a m e   N o t   F o u n d   Û`µ_%Qµ_Û`µ_”Pµ_MQµ_{Wµ_ùQµ_ÂQµ_“9µ_fbµ_èfµ_±bµ_Îbµ_Ggµ_“9µ_“9µ_fbµ_èfµ_±bµ_Wgµ_cµ_5cµ_“9µ_fbµ_èfµ_±bµ_Îbµ_cµ_“9µ_“9µ_Ubµ_û ∏_K∂_∏ü¥_‘ü¥_Óü¥_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmextendedwhereabouts.cpp êgµ_èfµ_±bµ_Îbµ_cµ_“9µ_“9µ_:cπ_ßµ_0çº_‘‘¥_“9µ_ægµ_9ˇª_]í∏_ ›∂_Lrµ_srµ_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_örµ_¡rµ_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_Ërµ_:cπ_ßµ_0çº_‘‘¥_“9µ_◊qµ_9ˇª_]í∏_ ›∂_:cπ_ßµ_0çº_‘‘¥_“9µ_˛qµ_9ˇª_]í∏_ ›∂_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewayfind.cpp ê¸Çµ_$Éµ_'éµ_LÉµ_Ãíµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_Üµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_Yéµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_Jìµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_ïéµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_¢îµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_0Üµ_“9µ_êêêê¸Çµ_›éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_Lèµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_lÜµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_\èµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_∏îµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_∂èµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_Üµ_Íèµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_˝Üµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_áµ_»îµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_˝Üµ_“9µ_êêêê¸Çµ_˙èµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_<áµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_õáµ_dáµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_=êµ_$Öµ_LÖµ_Õáµ_“9µ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_àµ_ÿîµ_–ïµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_êêêê¢îµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_«ñµ_dêµ_‘Ñµ_¸Ñµ_$Öµ_LÖµ_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewayinstance.cpp êÂÄµ_Yñµ_‘Äµ_∏ü¥_‘ü¥_Óü¥_¯~µ_µ_.µ_@µ_Rµ_†âµ_oµ_åµ_ûµ_pâµ_Êh∂_Ci∂_„‹¥_›i∂_¨,µ_Ω,µ_**µ_Äµ_Îµ_¡µ_÷µ_&Äµ_êêêê¸Çµ_$Éµ_Oì∫_LÉµ_tÉµ_~Éµ_¶Éµ_–Éµ_¯Éµ_ Ñµ_tÉµ_HÑµ_pÑµ_òÑµ_∂Ñµ_‘Ñµ_ éµ_$Öµ_LÖµ_‘Öµ_“9µ_ôµ_ßùµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_‰ùµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_!ûµ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_‘üµ_£üµ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_¯öµ_$õµ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_˚üµ_$õµ_“9µ_>°µ_Fõµ_Uôµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_'†µ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_-ôµ_wõµ_}ôµ_•ôµ_√ôµ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_f†µ_-ôµ_Uôµ_}ôµ_•ôµ_√ôµ_°õµ_ˇôµ_'öµ_“9µ_“9µ_ôµ_-ôµ_Uôµ_}ôµ_•ôµ_|†µ_·ôµ_ˇôµ_'öµ_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewayinstancescan.cpp êÂÄµ_'úµ_‘Äµ_∏ü¥_‘ü¥_Óü¥_óµ_%óµ_>óµ_Póµ_ôµ_-ôµ_Uôµ_x°µ_•ôµ_√ôµ_·ôµ_˚üµ_'öµ_“9µ_“9µ_¢µ_í¶µ_ö§µ_G¢µ_Ä•µ_“9µ_“9µ_¢µ_í¶µ_ö§µ_[¶µ_o¢µ_“9µ_“9µ_¢µ_í¶µ_ö§µ_G¢µ_o¢µ_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewayprotocol.cpp êÎ¢µ_A•µ_í¶µ_ö§µ_G¢µ_o¢µ_“9µ_“9µ_¢µ_ﬁ°µ_˝°µ_∏ü¥_‘ü¥_Óü¥_ßµ_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_:cπ_ßµ_0çº_‘‘¥_“9µ_@ßµ_9ˇª_]í∏_ ›∂_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewaysubordinate.cpp êê∑ªµ_bºµ_ºµ_Bºµ_∏ü¥_‘ü¥_Óü¥_Çºµ_ß©µ_≠ºµ_Õºµ_Ù∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_Ü∂_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_4πµ_“9µ_iı∑_Àµ_\πµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêê“9µ_±µ_J±µ_T¯∑_“9µ_“9µ_T¯∑_MÀπ_À±µ_T¯∑_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_∏_SK∑_¶¥µ_—¥µ_¸¥µ_L"π_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_üπµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_‚πµ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_ùŒµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_∆»µ_¨Ãµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_±µ_J±µ_u±µ_¿¡µ_–¡µ_+Ü∂_MÀπ_À±µ_9"π_!≤µ_%`∂_Õ≤µ_¯≤µ_#≥µ_oÖ∂_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_∫µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêê“9µ_±µ_J±µ_T¯∑_“9µ_“9µ_T¯∑_MÀπ_À±µ_T¯∑_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_∏_SK∑_¶¥µ_—¥µ_¸¥µ_L"π_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_O∫µ_“9µ_iı∑_Àµ_|∫µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêê“9µ_±µ_J±µ_T¯∑_“9µ_“9µ_T¯∑_MÀπ_À±µ_T¯∑_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_∏_SK∑_¶¥µ_—¥µ_¸¥µ_L"π_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_ø∫µ_“9µ_iı∑_Àµ_Á∫µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_“9µ_J±µ_T¯∑_“9µ_“9µ_+Ü∂_MÀπ_À±µ_9"π_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_Õ@µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_oÖ∂_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_#¬µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_±µ_J±µ_T¯∑_“9µ_“9µ_+Ü∂_MÀπ_À±µ_9"π_!≤µ_%`∂_Õ≤µ_¯≤µ_#≥µ_oÖ∂_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_Rªµ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_oÖ∂_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_3¬µ_w≤µ_Rµµ_êêêê“9µ_±µ_J±µ_T¯∑_“9µ_“9µ_T¯∑_MÀπ_À±µ_T¯∑_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_∏_SK∑_¶¥µ_—¥µ_¸¥µ_L"π_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_*ªµ_“9µ_iı∑_Àµ_‡¡µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_¨µ_2¨µ_y¨µ_ç¨µ_F¨µ_¿¨µ_ﬂ¨µ_Û¨µ_Z¨µ_°¨µ_≠µ_a∑_a∑_´0µ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_—¿µ_“9µ_“Ö∂_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_“9µ_∞µ_"∞µ_“9µ_“9µ_|∞µ_ö∞µ_“9µ_“9µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Ü∂_¯≤µ_#≥µ_Ü∂_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_;∂µ_“9µ_iı∑_Àµ_c∂µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_“9µ_w≤µ_Rµµ_êêêêÜ∂_±µ_J±µ_Û¿µ_“9µ_“9µ_¶∂µ_MÀπ_À±µ_ ∂µ_!≤µ_%`∂_Õ≤µ_¯≤µ_#≥µ_oÖ∂_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_oÖ∂_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_3¬µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_ﬁªµ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_™¬µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_∑µ_“9µ_E¡µ_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_z π_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_€¬µ_N≥µ_y≥µ_¯Ö∂_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_“9µ_Àµ_F∑µ_&»µ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_¯Ö∂_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_Æ@µ_Ù∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_√µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_“Ö∂_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_U¡µ_“9µ_iı∑_Àµ_{∑µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_øÖ∂_#≥µ_˘ªµ_˘ªµ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_¡∑µ_“9µ_iı∑_Àµ_È∑µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_˘ªµ_øÖ∂_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêê“9µ_±µ_J±µ_T¯∑_“9µ_“9µ_T¯∑_MÀπ_À±µ_T¯∑_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_∏_SK∑_¶¥µ_—¥µ_¸¥µ_L"π_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_±µ_ë∂_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_åAµ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_Ü¡µ_“9µ_iı∑_Àµ_∏µ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_qAµ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_±µ_˘ªµ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_[Øµ_SÃµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_T¯∑_{∏µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_oÖ∂_Õ≤µ_¯≤µ_#≥µ_oÖ∂_y≥µ_§≥µ_œ≥µ_∏_*∏_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_¢∏µ_±Øµ_ªØµ_ÜØµ_L≤µ_oÖ∂_∞µ_"∞µ_ñ¡µ_*∏_|∞µ_ö∞µ_÷∞µ_“9µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_3√µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÜ∂_=∏_J±µ_u±µ_“9µ_“9µ_+Ü∂_MÀπ_À±µ_9"π_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_Õ@µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_{√µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_¨√µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_oÖ∂_Õ≤µ_¯≤µ_#≥µ_M∏_y≥µ_§≥µ_œ≥µ_˙≥µ_*∏_P¥µ_{¥µ_&"π_M∏_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_“9µ_“9µ_iı∑_Àµ_ˇ∏µ_±Øµ_ªØµ_ÜØµ_L≤µ_oÖ∂_∞µ_"∞µ_@∞µ_*∏_&"π_M∏_÷∞µ_“9µ_w≤µ_Rµµ_êêêêÜ∂_±µ_ë∂_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_åAµ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_`∏_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêÙ∞µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_N≥µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_›√µ_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_êêêêã¿µ_±µ_J±µ_u±µ_“9µ_“9µ_†±µ_MÀπ_À±µ_ˆ±µ_!≤µ_¢≤µ_Õ≤µ_¯≤µ_#≥µ_“9µ_y≥µ_§≥µ_œ≥µ_˙≥µ_%¥µ_P¥µ_{¥µ_¶¥µ_—¥µ_¸¥µ_'µµ_ZΩµ_ë∆µ_áΩµ_}µµ_£µµ_æ∆µ_¥Ωµ_·Ωµ_Î∆µ_«µ_æµ_…µµ_r«µ_îæµ_E«µ_Ôµµ_>æµ_dæµ_ü«µ_Ã«µ_√æµ_˘«µ_%`∂_“9µ_iı∑_Àµ_[Øµ_±Øµ_ªØµ_ÜØµ_L≤µ_ÊØµ_∞µ_"∞µ_@∞µ_^∞µ_|∞µ_ö∞µ_÷∞µ_∏∞µ_w≤µ_Rµµ_d:\xpsp\com\com1x\dtc\dtc\tm\src\tmgatewaysuperior.cpp êª“µ_S”µ_”µ_“9µ_“9µ_¯∂_Ñ”µ_”µ_“9µ_“9µ_ª“µ_„“µ_œ∂_“9µ_“9µ_d:\xpsp\com\com1x\dtc\dtc\tm\inc\TMSupTem.H ∫ﬁµ_±h∫_µ¶µ_Âgµ_ˇª_o®ª_æe∂_*hµ_ò∑_Yéº_4–∫_K∂_“µ_é ∏_∏ü¥_‘ü¥_Óü¥_¯˜∏_t.∏_9⁄µ_V⁄µ_s⁄µ_ì⁄µ_∞⁄µ_Õ⁄µ_Í⁄µ_€µ_$€µ_O€µ_l€µ_â€µ_d:\xpsp\com\com1x\dtc\dtc\tm\inc\TMSupIf.H ê:cπ_ßµ_0çº_‘‘¥_“9µ_·ﬁµ_9ˇª_]í∏_ ›∂_”-∏_p˝∑_ò˝∑_d—µ_ﬁ•∑_¿˝∑_Ë˝∑_®∂_AÂµ_˙Óµ_uÂµ_'Ôµ_xÔµ_NÔµ_¢Âµ_¬Âµ_‚Âµ_®Ôµ_“9µ_"⁄∑_∂—µ_ﬁ—µ_”-∏_p˝∑_ò˝∑_d—µ_ﬁ•∑_¿˝∑_Ë˝∑_®∂_AÂµ_˙Óµ_uÂµ_'Ôµ_xÔµ_NÔµ_¢Âµ_¬Âµ_‚Âµ_“9µ_“9µ_é—µ_∂—µ_˚µ_”-∏_p˝∑_ò˝∑_d—µ_ﬁ•∑_˚µ_Ë˝∑_®∂_AÂµ_˙Óµ_uÂµ_'Ôµ_xÔµ_NÔµ_¢Âµ_¬Âµ_‚Âµ_æÔµ_“9µ_é—µ_∂—µ_ﬁ—µ_ª“µ_ªµ_”µ_“9µ_“9µ_¿Ÿµ_ﬁŸµ_˝Ÿµ_⁄µ_%⁄µ_Ä∂_†˘µ_0ÿµ_Xÿµ_Äÿµ_®ÿµ_Ö∂_¯ÿµ_ Ÿµ_HŸµ_pŸµ_òŸµ_`,∏_à,∏_“9µ_∏_èÄ∂_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_Õ‡µ_˜‡µ_Ìµ_-Ìµ_!·µ_K·µ_Ë–µ_u·µ_ü·µ_…·µ_Û·µ_WÌµ_#‚µ_M‚µ_w‚µ_°‚µ_À‚µ_ı‚µ_„µ_I„µ_s„µ_ù„µ_«„µ_Ò„µ_‰µ_E‰µ_o‰µ_ô‰µ_√‰µ_ÅÌµ_Ì‰µ_Âµ_´Ìµ_—µ_ÿ*∏_“9µ_Ä∂_†˘µ_0ÿµ_Xÿµ_Äÿµ_®ÿµ_–ÿµ_¯ÿµ_ Ÿµ_HŸµ_pŸµ_òŸµ_`,∏_à,∏_“9µ_“9µ_èÄ∂_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_Õ‡µ_˜‡µ_Ìµ_-Ìµ_!·µ_K·µ_Ë–µ_u·µ_ü·µ_…·µ_Û·µ_WÌµ_#‚µ_M‚µ_w‚µ_°‚µ_À‚µ_ı‚µ_„µ_I„µ_s„µ_ù„µ_«„µ_Ò„µ_‰µ_E‰µ_o‰µ_ô‰µ_√‰µ_ÅÌµ_Ì‰µ_Âµ_´Ìµ_—µ_àé∂_“9µ_Ö∂_†˘µ_0ÿµ_Xÿµ_“9µ_“9µ_–ÿµ_¯ÿµ_ Ÿµ_HŸµ_pŸµ_òŸµ_`,∏_à,∏_“9µ_“9µ_èÄ∂_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_Õ‡µ_˜‡µ_Ìµ_-Ìµ_!·µ_K·µ_Ë–µ_u·µ_ü·µ_…·µ_Û·µ_WÌµ_#‚µ_M‚µ_w‚µ_°‚µ_À‚µ_ı‚µ_„µ_I„µ_s„µ_ù„µ_«„µ_Ò„µ_‰µ_E‰µ_o‰µ_ô‰µ_√‰µ_ÅÌµ_Ì‰µ_Âµ_´Ìµ_—µ_Îé∂_“9µ_Ä∂_†˘µ_0ÿµ_Xÿµ_Äÿµ_®ÿµ_–ÿµ_¯ÿµ_ Ÿµ_HŸµ_pŸµ_òŸµ_`,∏_à,∏_“9µ_“9µ_èÄ∂_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_“9µ_Õ‡µ_˜‡µ_Ìµ_-Ìµ_!·µ_K·µ_Ë–µ_u·µ_ü·µ_…·µ_Û·µ_WÌµ_#‚µ_M‚µ_w‚µ_°‚µ_À‚µ_ı‚µ_„µ_I„µ_s„µ_ù„µ_«„µ_Ò„µ_‰µ_E‰µ_o‰µ_ô‰µ_√‰µ_ÅÌµ_Ì‰µ_

@@ -1,0 +1,1917 @@
+_PRT0
+
+[BRMFC9100C.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; BRMFC760.MFC
+;
+[BRMFC760.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg,BrmfcInitializeCommand.BY.Addreg
+
+[BRMFC760.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC760.MFC.HW]
+AddReg=BRMFC760.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC760.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\BrotherMFC-760#0
+HKR,Child0001,HardwareID,,MF\BrotherMFC-760#1
+HKR,Child0002,HardwareID,,MF\BRMFC760LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC760LPT_PRT0
+
+[BRMFC760.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; YL2
+;-------------------------------------------------------------------------------
+; BRMFC7750.MFC
+;
+[BRMFC7750.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg,BrmfcInitializeCommand.Addreg
+
+[BRMFC7750.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC7750.MFC.HW]
+AddReg=BRMFC7750.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC7750.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_7750#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_7750#1
+HKR,Child0002,HardwareID,,MF\BRMFC7750LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC7750LPT_PRT0
+
+[BRMFC7750.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+; BRMFC6650MC.MFC
+;
+[BRMFC6650MC.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg,BrmfcInitializeCommand.Addreg
+
+[BRMFC6650MC.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC6650MC.MFC.HW]
+AddReg=BRMFC6650MC.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC6650MC.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_6650MC#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_6650MC#1
+HKR,Child0002,HardwareID,,MF\BRMFC6650MCLPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC6650MCLPT_PRT0
+
+[BRMFC6650MC.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+; BRMFC4650.MFC
+;
+[BRMFC4650.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg,BrmfcInitializeCommand.Addreg
+
+[BRMFC4650.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC4650.MFC.HW]
+AddReg=BRMFC4650.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC4650.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_4650#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_4650#1
+HKR,Child0002,HardwareID,,MF\BRMFC4650LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC4650LPT_PRT0
+
+[BRMFC4650.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+; BRMFC9550.MFC
+;
+[BRMFC9550.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC9550.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC9550.MFC.HW]
+AddReg=BRMFC9550.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC9550.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_9550#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_9550#1
+HKR,Child0002,HardwareID,,MF\BRMFC9550LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC9550LPT_PRT0
+
+[BRMFC9550.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+; BRMFC7650MC.MFC
+;
+[BRMFC7650MC.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg,BrmfcInitializeCommand.Addreg
+
+[BRMFC7650MC.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC7650MC.MFC.HW]
+AddReg=BRMFC7650MC.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC7650MC.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\BRMFC7650MCLPT_SCN0
+HKR,Child0001,HardwareID,,MF\BRMFC7650MCLPT_PRT0
+
+[BRMFC7650MC.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+; BY1
+;
+;-------------------------------------------------------------------------------
+; BRMFC7000FC.MFC
+;
+[BRMFC7000FC.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC7000FC.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC7000FC.MFC.HW]
+AddReg=BRMFC7000FC.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC7000FC.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_7000FC#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_7000FC#1
+HKR,Child0002,HardwareID,,MF\BRMFC7000FCLPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC7000FCLPT_PRT0
+
+[BRMFC7000FC.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; BRMFC7200FC.MFC
+;
+[BRMFC7200FC.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC7200FC.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC7200FC.MFC.HW]
+AddReg=BRMFC7200FC.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC7200FC.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_7200FC#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_7200FC#1
+HKR,Child0002,HardwareID,,MF\BRMFC7200FCLPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC7200FCLPT_PRT0
+
+[BRMFC7200FC.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; BRMFCP700.MFC
+;
+[BRMFCP700.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFCP700.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFCP700.MFC.HW]
+AddReg=BRMFCP700.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFCP700.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\_Brother_MFC_Pro-700#0
+HKR,Child0001,HardwareID,,MF\_Brother_MFC_Pro-700#1
+HKR,Child0002,HardwareID,,MF\BRMFCP700LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFCP700LPT_PRT0
+
+[BRMFCP700.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; YL3
+;-------------------------------------------------------------------------------
+
+
+;-------------------------------------------------------------------------------
+; BRMFC9060.MFC
+;
+[BRMFC9060.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC9060.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC9060.MFC.HW]
+AddReg=BRMFC9060.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC9060.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\BRMFC9060LPT_SCN0
+HKR,Child0001,HardwareID,,MF\BRMFC9060LPT_PRT0
+
+[BRMFC9060.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+;-------------------------------------------------------------------------------
+; BRMFC4600.MFC
+;
+[BRMFC4600.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC4600.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC4600.MFC.HW]
+AddReg=BRMFC4600.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC4600.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\BrotherMFC-4600#0
+HKR,Child0001,HardwareID,,MF\BrotherMFC-4600#1
+HKR,Child0002,HardwareID,,MF\BRMFC4600LPT_SCN0
+HKR,Child0003,HardwareID,,MF\BRMFC4600LPT_PRT0
+
+[BRMFC4600.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;-------------------------------------------------------------------------------
+; YL2 Japan
+;-------------------------------------------------------------------------------
+;-------------------------------------------------------------------------------
+; BRMFC6650J.MFC
+;
+[BRMFC6650J.MFC]
+CopyFiles=BrMfcDrv.CopyFiles, MfcRM.CopyFiles, Brbidi.CopyFiles
+AddReg=BrmfrsmgLPTPort.Addreg,BrmfrsmgGeneral.Addreg
+
+[BRMFC6650J.MFC.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BRMFC6650J.MFC.HW]
+AddReg=BRMFC6650J.MFC.RegHW,LowerFilterAddReg.HW
+
+[BRMFC6650J.MFC.RegHW]	
+HKR,Child0000,HardwareID,,MF\BRMFC6650JLPT_SCN0
+HKR,Child0001,HardwareID,,MF\BRMFC6650JLPT_PRT0
+
+[BRMFC6650J.MFC.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+;-------------------------------------------------------------------------------
+; USB 
+;-------------------------------------------------------------------------------
+
+;--MFC 8600/9650 series-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm8600]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm8600.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm8600.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm8600.HW]
+AddReg=BrUsbMdm8600.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm8600.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm8600.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0100&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0100&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0100_USBMDMP
+
+[BrUsbMdm8600.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-8300J-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm8300J]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm8300J.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm8300J.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm8300J.HW]
+AddReg=BrUsbMdm8300J.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm8300J.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm8300J.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0104&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0104&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0104_USBMDMP
+
+[BrUsbMdm8300J.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC 9600/9870 series-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm9600]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm9600.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm9600.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm9600.HW]
+AddReg=BrUsbMdm9600.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm9600.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm9600.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0101&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0101&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0101_USBMDMP
+
+[BrUsbMdm9600.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-9600J-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm9600J]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm9600J.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm9600J.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm9600J.HW]
+AddReg=BrUsbMdm9600J.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm9600J.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm9600J.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0105&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0105&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0105_USBMDMP
+
+[BrUsbMdm9600J.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;BY4
+;--MFC-7400C-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm7300C]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm7300C.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm7300C.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm7300C.HW]
+AddReg=BrUsbMdm7300C.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm7300C.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm7300C.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0106&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0106&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0106_USBMDMP
+
+[BrUsbMdm7300C.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-7400C-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm7400C]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm7400C.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm7400C.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm7400C.HW]
+AddReg=BrUsbMdm7400C.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm7400C.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm7400C.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0107&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0107&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0107_USBMDMP
+
+[BrUsbMdm7400C.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-9200C-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm9200C]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm9200C.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm9200C.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm9200C.HW]
+AddReg=BrUsbMdm9200C.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm9200C.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm9200C.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0108&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0108&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0108_USBMDMP
+
+[BrUsbMdm9200C.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+;--MFC-830-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm830]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm830.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm830.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm830.HW]
+AddReg=BrUsbMdm830.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm830.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm830.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_0109&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_0109&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_0109_USBMDMP
+
+[BrUsbMdm830.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-840-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm840]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm840.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm840.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm840.HW]
+AddReg=BrUsbMdm840.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm840.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm840.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_010A&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_010A&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_010A_USBMDMP
+
+[BrUsbMdm840.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-860-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm860]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm860.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm860.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm860.HW]
+AddReg=BrUsbMdm860.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm860.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm860.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_010B&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_010B&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_010B_USBMDMP
+
+[BrUsbMdm860.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-7400J-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm7400J]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm7400J.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm7400J.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm7400J.HW]
+AddReg=BrUsbMdm7400J.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm7400J.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm7400J.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_010C&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_010C&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_010C_USBMDMP
+
+[BrUsbMdm7400J.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;--MFC-9200J-----------------------------------------------------------------------------
+;
+;
+[BrUsbMdm9200J]
+CopyFiles=BrSerWdm.CopyFiles,BrUsbMdm.CopyFiles
+AddReg=BrUsbMdm9200J.AddReg,BrmfrsmgGeneral.Addreg
+
+[BrUsbMdm9200J.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,,NTMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm9200J.HW]
+AddReg=BrUsbMdm9200J.AddReg.HW,LowerFilterAddReg.HW
+
+[BrUsbMdm9200J.Services]
+Include = mf.inf
+AddService = mf, 2, mf_Service_Inst
+AddService = brfilt,  , BrFilt.AddService
+
+[BrUsbMdm9200J.AddReg.HW]
+HKR,Child0000,HardwareID,,MF\Vid_04f9&Pid_010D&MI_02#0
+HKR,Child0001,HardwareID,,MF\Vid_04f9&Pid_010D&MI_02#1
+HKR,Child0002,HardwareID,,MF\BROTHER_VID_04F9&PID_010D_USBMDMP
+
+[BrUsbMdm9200J.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+
+;-------------------------------------------------------------------------------
+; Resource Manager Access symbolic link
+;
+[BrmfrsmgLPTPort.Addreg]
+HKLM,"SOFTWARE\Brother\BrMfBidi\Lptparam", BrPar1, , "\\.\BRLPTW1"
+HKLM,"SOFTWARE\Brother\BrMfBidi\Lptparam", BrPar2, , "\\.\BRLPTW2"
+HKLM,"SOFTWARE\Brother\BrMfBidi\Lptparam", BrPar3, , "\\.\BRLPTW3"
+
+[BrmfrsmgGeneral.Addreg]
+HKLM,"SOFTWARE\Brother\BrMfBidi\Rsmparam", ResumeSuspendWait, 0x00010001, 0x00001388
+HKLM,"SOFTWARE\Brother\BrMfBidi\Rsmparam", EnumLptEnable,     0x00010001, 0x00000001
+HKLM,"SOFTWARE\Brother\BrMfBidi\Rsmparam", RegisterModemDeviceInterface,     0x00010001, 0x00000000
+HKLM,"SOFTWARE\Brother\BrMfBidi\Rsmparam", CoInstMsgSerEnableOrgMainRestart, 0x00010001, 0x00000001
+
+[BrmfcInitializeCommand.Addreg]
+HKLM,"SOFTWARE\Brother\BrCoinst", InitializeATCommand, , "AT+BRPSW76=00"
+
+[BrmfcInitializeCommand.BY.Addreg]
+HKLM,"SOFTWARE\Brother\BrCoinst", InitializeATCommand, , "AT+BRPSW76=18"
+
+;-------------------------------------------------------------------------------
+; Lower Filter Driver 
+;
+[LowerFilterAddReg.HW]
+
+HKR,,LowerFilters, 0x00010000, "brfilt"
+
+;----------------------------------------
+; CoInstaller
+;
+[BrCoInstaller.CopyFiles]
+brcoinst.dll
+
+[BrCoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000,"brcoinst.dll,BrmfcMFCoInstaller"
+
+;-------------------------------------------------------------------------------
+; Brother specific Service 
+;
+[BrFilt.AddService]
+DisplayName    = %BrUsbFil.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\Brfilt.sys
+
+;-------------------------------------------------------------------------------
+; Copy files
+;
+
+[BrMfcDrv.CopyFiles]
+BrParwdm.sys
+BrSerWdm.sys
+BrFilt.sys
+
+[MfcRM.CopyFiles]
+BrBidiIf.dll
+BrmfBidi.dll
+BrmfLpt.dll
+BrmfRsmg.exe
+BrmfUSB.dll
+BrSerIf.dll
+BrEvIF.dll
+BrScnRsm.dll
+RSMGRSTR.dll
+
+
+[Brbidi.CopyFiles]
+BrmfBidi.ini
+
+[BrSerWdm.CopyFiles]
+BrSerWdm.sys
+
+[BrUsbMdm.CopyFiles]
+BrUsbMdm.sys
+BrFilt.sys
+
+[BrCoInstaller.CopyFiles]
+brcoinst.dll
+
+;-------------------------------------------------------------------------------
+; DestinationDirs
+;
+[DestinationDirs]
+BrMfcDrv.CopyFiles   = 10,System32\Drivers
+Brbidi.CopyFiles    = 10
+BrSerWdm.CopyFiles = 10,System32\Drivers
+BrUsbMdm.CopyFiles = 10,System32\Drivers
+DefaultDestDir=11
+
+
+;-------------------------------------------------------------------------------
+; Localizable Strings
+;
+[Strings]
+BROTHER          = "Brother"
+series           = "Series"
+MFClassName      = "Brother Multifunction Device"
+
+BrUsbMdm.SvcDesc = "Brother MFC USB Modem driver"
+BrSerWdm.SvcDesc="Brother Serial driver"
+BrParWdm.SvcDesc="Brother WDM Parallel Driver"
+BrUsbFil.SvcDesc = "Brother MFC Filter Driver"
+
+
+;; Model Name
+Brother_FAX5750 = "Brother FAX5750"
+Brother_FAX-8750P= "Brother FAX-8750P"
+Brother_MFC-9650= "Brother MFC-9650"
+Brother_MFC-8300= "Brother MFC-8300"
+Brother_MFC-8600= "Brother MFC-8600"
+Brother_MFC-8700= "Brother MFC-8700"
+Brother_MFC-8300J= "Brother MFC-8300J"
+Brother_MFC-9600= "Brother MFC-9600"
+Brother_MFC-9870= "Brother MFC-9870"
+Brother_MFC-9850= "Brother MFC-9850"
+Brother_MFC-9750= "Brother MFC-9750"
+Brother_DCP-1200= "Brother DCP-1200"
+Brother_MFC-9600J= "Brother MFC-9600J"
+Brother_MFC-7300C= "Brother MFC-7300C"
+Brother_MFC-7400C= "Brother MFC-7400C"
+Brother_MFC-9200C= "Brother MFC-9200C"
+Brother_MFC-830  = "Brother MFC-830"
+Brother_MFC-840  = "Brother MFC-840"
+Brother_MFC-860  = "Brother MFC-860"
+Brother_MFC-7400J= "Brother MFC-7400J"
+Brother_MFC-9200J= "Brother MFC-9200J"
+Brother_MFC-7150C = "Brother MFC-7150C"
+Brother_MFC-7160C = "Brother MFC-7160C"
+Brother_MFC-740   = "Brother MFC-740"
+Brother_MFC-9100C = "Brother MFC-9100C"
+Brother_MFC-760   = "Brother MFC-760"
+Brother_MFC-7000FC = "Brother MFC-7000FC"
+Brother_MFC-7200FC = "Brother MFC-7200FC"
+Brother_MFC_Pro-700 = "Brother MFC Pro-700"
+Brother_MFC-9060     = "Brother MFC-9060"
+Brother_MFC-4600     = "Brother MFC-4600"
+Brother_MFC-4650     = "Brother MFC-4650"
+Brother_MFC-6650MC   = "Brother MFC-6650MC"
+Brother_MFC-7750     = "Brother MFC-7750"
+Brother_MFC-9550     = "Brother MFC-9550"
+Brother_MFC-6650J    = "Brother MFC-6650J"
+Brother_HL-P2500   = "Brother HL-P2500"
+Brother_MFC-P2500  = "Brother MFC-P2500"
+Brother_MFC8600/9650_Series= "Brother MFC8600/9650 Series"
+Brother_MFC9600/9870_Series= "Brother MFC9600/9870 Series"
+Brother_MFC-7650MC   = "Brother MFC-7650MC"
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         b	ÔÕ´â              hT + ’                                     - ’                                                                                                                                               (
+     	                                                                                                           	   %!
+
+z                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             b	ÔÕ´â              hT + ’                                     - ’                                                                                                                                               (
+     	                                                                                                           	   %!
+
+z                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      ƒ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   ∂    #                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               
+     ;
+;   USB Mass-Storage Bulk-Only FilterDrivers for Brother RemovableDisk
+;   Copyright (C) Brother Industries, Ltd. 2000
+;
+;   BRMFCSTO.inf
+;
+
+[Version]
+Signature  = "$CHICAGO$"
+Class      = USB
+ClassGUID  = {36FC9E60-C465-11CF-8056-444553540000}
+Provider   = %BROTHER%
+LayoutFile = LAYOUT.INF
+DriverVer  =07/01/2001,5.1.2535.0
+
+[ControlFlags]
+ExcludeFromSelect = *
+
+[DestinationDirs]
+USBSTOR.CopyList  = 10, system32\drivers
+DefaultDestDir    = 10, system32\drivers
+
+[USBSTOR.CopyList]
+UsbStor.sys
+BrFiltLo.sys
+BrFiltUp.sys
+
+[Manufacturer]
+%BROTHER% = Brother
+
+[Brother]
+%Brother_MFC-7400C% = USBSTOR_BULK, USB\VID_04F9&PID_0107&MI_03
+%Brother_MFC-9200C% = USBSTOR_BULK, USB\VID_04F9&PID_0108&MI_03
+%Brother_MFC-840%   = USBSTOR_BULK, USB\VID_04F9&PID_010A&MI_03
+%Brother_MFC-860%   = USBSTOR_BULK, USB\VID_04F9&PID_010B&MI_03
+%Brother_MFC-7400J% = USBSTOR_BULK, USB\VID_04F9&PID_010C&MI_03
+%Brother_MFC-9200J% = USBSTOR_BULK, USB\VID_04F9&PID_010D&MI_03
+
+[USBSTOR_BULK.NT]
+CopyFiles = USBSTOR.CopyList
+AddReg    = USBSTOR_BULK.AddReg
+
+[USBSTOR_BULK.AddReg]
+HKR,, DriverFlags, 0x00010001, 0x00000001
+HKLM, "System\CurrentControlSet\Services\BrFiltLo\Parameters", "AdapterSettings", 0, "/GR=OFF /TO=10 /OW=30"
+HKLM, "System\CurrentControlSet\Services\Disk", "AutoRunAlwaysDisable", 0x00010008, "Brother RemovableDisk(U)"
+
+;;;;;;;;;;;;;;;;;;;;;;;;;;; Windows 2000 HW Install Sections ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[USBSTOR_BULK.NT.HW]
+AddReg = USBSTOR.NT.HW.AddReg
+
+[USBSTOR.NT.HW.AddReg]
+HKR,, LowerFilters, 0x00010000, "BrFiltLo"
+HKR,, UpperFilters, 0x00010000, "BrFiltUp"
+
+;;;;;;;;;;;;;;;;;;;;;;;; Windows 2000 Service Install Sections ;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+[USBSTOR_BULK.NT.Services]
+Addservice = USBSTOR,  0x00000002, USBSTOR.AddService
+Addservice = BrFiltLo,           , BrFiltLo.AddService
+Addservice = BrFiltUp,           , BrFiltUp.AddService
+
+[USBSTOR.AddService]
+DisplayName    = %USBSTOR.SvcDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\UsbStor.sys
+
+[BrFiltLo.AddService]
+DisplayName    = %BrFiltLo.SvcDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\BrFiltLo.sys
+LoadOrderGroup = extended base
+
+[BrFiltUp.AddService]
+DisplayName    = %BrFiltUp.SvcDesc%
+ServiceType    = 1
+StartType      = 3
+ErrorControl   = 1
+ServiceBinary  = %12%\BrFiltUp.sys
+LoadOrderGroup = extended base
+
+[Strings]
+BROTHER                                = "Brother"
+USBSTOR.SvcDesc                        = "USB Mass-Storage Driver"
+BrFiltLo.SvcDesc                       = "Brother USB Mass-Storage Lower Filter Driver"
+BrFiltUp.SvcDesc                       = "Brother USB Mass-Storage Upper Filter Driver"
+
+;; Model Name
+Brother_MFC-7400C = "Brother MFC-7400C"
+Brother_MFC-9200C = "Brother MFC-9200C"
+Brother_MFC-840   = "Brother MFC-840"
+Brother_MFC-860   = "Brother MFC-860"
+Brother_MFC-7400J = "Brother MFC-7400J"
+Brother_MFC-9200J = "Brother MFC-9200J"
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           ;
+; BRMFCUMD.INF -- brother MFC USB driver (FaxModem port) setup file
+; Copyright (c) 1999,2000,2001 brother industries,LTD.
+;
+[Version]
+signature="$CHICAGO$"
+Class=USB
+ClassGUID={36FC9E60-C465-11CF-8056-444553540000}
+Provider="Brother"
+DriverVer=07/01/2001,5.1.2535.0
+LayoutFile=Layout.inf
+
+
+; Table of Contents
+[Manufacturer]
+%Brother%=Brother
+
+[DestinationDirs]
+BrUsbMdm.CopyList = 10,System32\Drivers
+DefaultDestDir = 11
+
+[Brother]
+;ZL
+%Brother_MFC8600/9650_Series% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0100_USBMDMP
+%Brother_MFC9600/9870_Series% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0101_USBMDMP
+%Brother_MFC-8300J% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0104_USBMDMP
+%Brother_MFC-9600J% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0105_USBMDMP
+;BY4
+%Brother_MFC-7300C% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0106_USBMDMP
+%Brother_MFC-7400C% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0107_USBMDMP
+%Brother_MFC-9200C% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0108_USBMDMP
+%Brother_MFC-830%   = BrUsbMdm, MF\BROTHER_VID_04F9&PID_0109_USBMDMP
+%Brother_MFC-840%   = BrUsbMdm, MF\BROTHER_VID_04F9&PID_010A_USBMDMP
+%Brother_MFC-860%   = BrUsbMdm, MF\BROTHER_VID_04F9&PID_010B_USBMDMP
+%Brother_MFC-7400J% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_010C_USBMDMP
+%Brother_MFC-9200J% = BrUsbMdm, MF\BROTHER_VID_04F9&PID_010D_USBMDMP
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[BrUsbMdm.NT]
+CopyFiles=BrUsbMdm.CopyList
+AddReg=BrUsbMdm.AddReg
+
+[BrUsbMdm.NT.Services]
+Addservice = BrUsbMdm, 0x00000002, BrUsbMdm.AddService
+
+
+[BrUsbMdm.AddService]
+DisplayName    = %BrUsbMdm.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\BrUsbMdm.sys
+
+[BrUsbMdm.AddReg]
+HKR,,DevLoader,,*ntkern
+HKR,N,TMPDriver,,BrUsbMdm.sys
+
+[BrUsbMdm.CopyList]
+BrUsbMdm.sys
+
+
+[Strings]
+Brother="Brother"
+BrUsbMdm.SvcDesc="Brother MFC USB Fax Only Modem"
+
+;; Model Name
+Brother_MFC8600/9650_Series = "Brother MFC8600/9650 Series"
+Brother_MFC9600/9870_Series = "Brother MFC9600/9870 Series"
+Brother_MFC-8300J = "Brother MFC-8300J"
+Brother_MFC-9600J = "Brother MFC-9600J"
+Brother_MFC-7300C = "Brother MFC-7300C"
+Brother_MFC-7400C = "Brother MFC-7400C"
+Brother_MFC-9200C = "Brother MFC-9200C"
+Brother_MFC-830 = "Brother MFC-830"
+Brother_MFC-840 = "Brother MFC-840"
+Brother_MFC-860 = "Brother MFC-860"
+Brother_MFC-7400J = "Brother MFC-7400J"
+Brother_MFC-9200J = "Brother MFC-9200J"
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    ; 
+; BRMFCWIA.INF  -- Brother MFC WIA scanner Setup File
+; Copyright (c) 2000-2001 Brother industries,LTD.
+; 
+
+[Version]
+Signature="$CHICAGO$"
+Class=Image
+ClassGUID={6bdd1fc6-810f-11d0-bec7-08002be2092f}
+Provider="Brother"
+LayoutFile=Layout.inf
+DriverVer=07/01/2001,5.1.2535.0
+
+
+[Manufacturer]
+%Brother%=MFC_SCN
+
+[MFC_SCN]
+; LPT
+;; ZL
+%Brother_FAX5750% = BrMFCZLLptScn, MF\BRFAX5750ALPT_SCN0
+%Brother_FAX-8750P% = BrMFCZLLptScn, MF\BRFAX8750PLPT_SCN0
+%Brother_MFC-8300%  = BrMFCZLLptScn, MF\BRMFC8300LPT_SCN0
+%Brother_MFC-8300J% = BrMFCZLLptScn, MF\BRMFC8300JLPT_SCN0
+%Brother_MFC-8600% = BrMFCZLLptScn, MF\BRMFC8600LPT_SCN0
+%Brother_MFC-8700% = BrMFCZLLptScn, MF\BRMFC8700LPT_SCN0
+%Brother_MFC-9650% = BrMFCZLLptScn, MF\BRMFC9650LPT_SCN0
+
+%Brother_MFC-9600% = BrMFCZLFBLptScn, MF\BRMFC9600LPT_SCN0
+%Brother_MFC-9870% = BrMFCZLFBLptScn, MF\BRMFC9870LPT_SCN0
+%Brother_MFC-9850% = BrMFCZLFBLptScn, MF\BRMFC9850LPT_SCN0
+
+%Brother_MFC-9750% = BrMFCZLFBLptScn, MF\BRMFC9750LPT_SCN0
+%Brother_DCP-1200% = BrMFCZLFBLptScn, MF\BRDCP1200LPT_SCN0
+
+%Brother_MFC-9600J% = BrMFCZLFBLptScn, MF\BRMFC9600JLPT_SCN0
+
+%Brother_MFC-P2500% = BrMFCP2500LptScn, MF\BRMP2500LPT_SCN0
+%Brother_HL-P2500%  = BrMFCP2500LptScn, MF\BRHP2500LPT_SCN0
+
+;; BY4
+%Brother_MFC-7300C% = BrMFCBY4LptScn,   MF\BRMFC7300CLPT_SCN0
+%Brother_MFC-7400C% = BrMFCBY4LptScn,   MF\BRMFC7400CLPT_SCN0
+%Brother_MFC-9200C% = BrMFCBY4FBLptScn, MF\BRMFC9200CLPT_SCN0
+%Brother_MFC-830%   = BrMFCBY4LptScn,   MF\BRMFC830LPT_SCN0
+%Brother_MFC-840%   = BrMFCBY4LptScn,   MF\BRMFC840LPT_SCN0
+%Brother_MFC-860%   = BrMFCBY4FBLptScn, MF\BRMFC860LPT_SCN0
+%Brother_MFC-7400J% = BrMFCBY4LptScn,   MF\BRMFC7400JLPT_SCN0
+%Brother_MFC-9200J% = BrMFCBY4FBLptScn, MF\BRMFC9200JLPT_SCN0
+
+;; BY2
+%Brother_MFC-7150C% = BRMFCBY2LPTSCN,  MF\BRMFC7150CLPT_SCN0
+%Brother_MFC-7160C% = BRMFCBY2LPTSCN,  MF\BRMFC7160CLPT_SCN0
+%Brother_MFC-740%   = BRMFCBY2EURLPTSCN,  MF\BRMFC740LPT_SCN0
+%Brother_MFC-9100C% = BRMFCBY2FBLPTSCN,MF\BRMFC9100CLPT_SCN0
+%Brother_MFC-760%   = BRMFCBY2FBLPTSCN,MF\BRMFC760LPT_SCN0
+
+;; BY1
+%Brother_MFC-7000FC% = BRMFCBY1LPTSCN,  MF\BRMFC7000FCLPT_SCN0
+%Brother_MFC-7200FC% = BRMFCBY1LPTSCN,  MF\BRMFC7200FCLPT_SCN0
+%Brother_MFC_Pro-700%= BRMFCBY1LPTSCN,  MF\BRMFCP700LPT_SCN0
+
+;;YL3
+%Brother_MFC-9060%   = BRMFCYL3LPTSCN,MF\BRMFC9060LPT_SCN0
+%Brother_MFC-4600%   = BRMFCYL3LPTSCN,MF\BRMFC4600LPT_SCN0
+
+;;YL2
+%Brother_MFC-9550%   = BRMFCYL2LPTSCN,MF\BRMFC9550LPT_SCN0
+%Brother_MFC-7750%   = BRMFCYL2300LPTSCN,MF\BRMFC7750LPT_SCN0
+%Brother_MFC-6650MC% = BRMFCYL2LPTSCN,MF\BRMFC6650MCLPT_SCN0
+%Brother_MFC-4650%   = BRMFCYL2LPTSCN,MF\BRMFC4650LPT_SCN0
+
+%Brother_MFC-6650J%  = BRMFCYL2300LPTSCN,MF\BRMFC6650JLPT_SCN0
+
+;; YL1e/YL1
+%Brother_MFC-7650MC% = BRMFCYL1300LPTSCN,MF\BRMFC7650MCLPT_SCN0
+
+; USB
+; ZL
+%Brother_MFC8600/9650_Series% = BrMF86UsbScn, USB\VID_04F9&PID_0100&MI_01
+%Brother_MFC9600/9870_Series% = BrMF96UsbScn, USB\VID_04F9&PID_0101&MI_01
+%Brother_MFC9750/1200_Series% = BrMF96UsbScn, USB\VID_04F9&PID_0102&MI_01
+%Brother_MFC-8300J% =BrMF86UsbScn, USB\VID_04F9&PID_0104&MI_01
+%Brother_MFC-9600J% =BrMF96UsbScn, USB\VID_04F9&PID_0105&MI_01
+
+%Brother_MFC-9600J% =BrMF96UsbScn, USB\VID_04F9&PID_0105&MI_01
+
+; BY4
+%Brother_MFC-7300C% = BrMFCBY4UsbScn,   USB\VID_04F9&PID_0106&MI_01
+%Brother_MFC-7400C% = BrMFCBY4UsbScn,   USB\VID_04F9&PID_0107&MI_01
+%Brother_MFC-9200C% = BrMFCBY4FBUsbScn, USB\VID_04F9&PID_0108&MI_01
+%Brother_MFC-830%   = BrMFCBY4UsbScn,   USB\VID_04F9&PID_0109&MI_01
+%Brother_MFC-840%   = BrMFCBY4UsbScn,   USB\VID_04F9&PID_010A&MI_01
+%Brother_MFC-860%   = BrMFCBY4FBUsbScn, USB\VID_04F9&PID_010B&MI_01
+%Brother_MFC-7400J% = BrMFCBY4UsbScn,   USB\VID_04F9&PID_010C&MI_01
+%Brother_MFC-9200J% = BrMFCBY4FBUsbScn, USB\VID_04F9&PID_010D&MI_01
+
+%Brother_P2500_Series% = BrMFP2500UsbScn, USB\VID_04F9&PID_000A&MI_01
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+;----------------------------------------
+; LPT
+;----------------------------------------
+
+; ZL
+[BrMFCZLLptScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMF86Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BrMF86gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCZLLptScn.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+[BrMFCZLFBLptScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMF96Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsl01f.icm
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrMF96gray.CopyFiles,BrMF96icm.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCZLFBLptScn.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+; P2500 series
+[BrMFCP2500LptScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrP2500.Events
+DeviceData=BrP2500Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BrMF86gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCP2500LptScn.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+
+; BY4
+[BrMFCBY4LptScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY4Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY4.gray.CopyFiles ,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCBY4LptScn.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+[BrMFCBY4FBLptScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMFCBY4FBWia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY4FB.gray.CopyFiles, BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCBY4FBLptScn.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+; BY2
+[BRMFCBY2LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY2Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsi02.icm
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY2.gray.CopyFiles, BRMFCBY2.icm.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BrMFCBY2LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+[BRMFCBY2EURLPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY2EurWia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsi02.icm
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY2.gray.CopyFiles, BRMFCBY2.icm.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCBY2EURLPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+[BRMFCBY2FBLPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY2FBWia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsl01f.icm
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY2FB.gray.CopyFiles, BrParImg.CopyFiles, BrMF96icm.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCBY2FBLPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;--------------------------------------------------
+; BY1
+;
+[BRMFCBY1LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY1Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsi01.icm
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCBY1.gray.CopyFiles, BRMFCBY1.icm.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCBY1LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;--------------------------------------------------
+; YL3
+;
+[BRMFCYL3LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMFCYL3Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCYL3.gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCYL3LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;--------------------------------------------------
+; YL2
+;
+[BRMFCYL2LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCYL2Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCYL2.gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCYL2LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;--------------------------------------------------
+; YL2 with 300 dpi scanner
+;
+[BRMFCYL2300LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCYL2300Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCYL2.gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCYL2300LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+
+
+;--------------------------------------------------
+; YL1e/YL1
+;
+[BRMFCYL1LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCYL1Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCYL1.gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCYL1LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;--------------------------------------------------
+; YL1e/YL1 with 300 dpi
+;
+[BRMFCYL1300LPTSCN]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCYL1300Wia.DeviceData
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+CopyFiles=BrWiaMiniDrv.CopyFiles, BRMFCYL1.gray.CopyFiles,BrParImg.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+AddReg=BrWiaLPT.AddReg
+
+[BRMFCYL1300LPTSCN.Services]
+AddService = brparimg, 0x00000002, BrParImg.AddService
+
+;----------------------------------------
+; USB
+;----------------------------------------
+
+[BrMF86UsbScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMF86Wia.DeviceData
+AddReg=BrWiaUSB.AddReg,BrWiaUSB.AddReg
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrUsbScn.CopyFiles,MfcRM.CopyFiles,BrMF86gray.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+UpdateInis=BrUsbScn.UpdateInis
+
+
+[BrMF86UsbScn.Services]
+AddService = BrUsbScn, 0x00000002, BrUsbScn.AddService
+
+
+[BrMF96UsbScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMF96Wia.DeviceData
+AddReg=BrWiaUSB.AddReg,BrWiaUSB.AddReg
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrUsbScn.CopyFiles,MfcRM.CopyFiles,BrMF96gray.CopyFiles, BrMF96icm.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+UninstallSection=Uninstall.BrWia
+ICMProfiles=brmsl01f.icm
+UpdateInis=BrUsbScn.UpdateInis
+
+[BrMF96UsbScn.Services]
+AddService = BrUsbScn, 0x00000002, BrUsbScn.AddService
+
+;; P2500
+[BrMFP2500UsbScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrP2500.Events
+DeviceData=BrP2500Wia.DeviceData
+AddReg=BrWiaUSB.AddReg,BrWiaUSB.AddReg
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrUsbScn.CopyFiles,MfcRM.CopyFiles,BrMF86gray.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+UpdateInis=BrUsbScn.UpdateInis
+
+
+[BrMFP2500UsbScn.Services]
+AddService = BrUsbScn, 0x00000002, BrUsbScn.AddService
+
+
+;; BY4
+[BrMFCBY4UsbScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+DeviceData=BrMFCBY4Wia.DeviceData
+AddReg=BrWiaUSB.AddReg,BrWiaUSB.AddReg
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrUsbScn.CopyFiles,MfcRM.CopyFiles, BRMFCBY4.gray.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+UpdateInis=BrUsbScn.UpdateInis
+
+[BrMFCBY4UsbScn.Services]
+AddService = BrUsbScn, 0x00000002, BrUsbScn.AddService
+
+[BrMFCBY4FBUsbScn]
+SubClass=StillImage
+DeviceType=1
+DeviceSubType=0x1
+Capabilities=0x31
+Events=BrUSD.Events
+DeviceData=BrMFCBY4FBWia.DeviceData
+AddReg=BrWiaUSB.AddReg,BrWiaUSB.AddReg
+CopyFiles=BrWiaMiniDrv.CopyFiles,BrUsbScn.CopyFiles,MfcRM.CopyFiles, BRMFCBY4FB.gray.CopyFiles
+DelFiles=BRTWAIN32DS.RemoveFiles ,BRTWAIN16DS.RemoveFiles, BRP20TWAIN16DS.RemoveFiles, BRP20TWAIN32DS.RemoveFiles, BRP25TWAIN32DS.RemoveFiles
+UninstallSection=Uninstall.BrWia
+ICMProfiles="sRGB Color Space Profile.icm"
+UpdateInis=BrUsbScn.UpdateInis
+
+[BrMFCBY4FBUsbScn.Services]
+AddService = BrUsbScn, 0x00000002, BrUsbScn.AddService
+
+
+;----------------------------------------
+; Add reg
+;
+[BrWiaLPT.AddReg]
+HKR,,HardwareConfig,1,0x10
+HKR,,USDClass,,"{3D00E00A-A011-40e8-9F5D-04495538A4D2}"
+HKR,,CreateFileName,,BRMFC
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2},,,%BrWiaUsd%
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2}\InProcServer32,,,%11%\Brmfcwia.dll
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2}\InProcServer32,ThreadingModel,,"Both"
+
+[BrWiaUSB.AddReg]
+HKR,,HardwareConfig,1,1
+HKR,,USDClass,,"{3D00E00A-A011-40e8-9F5D-04495538A4D2}"
+HKR,,CreateFileName,,BRUSB
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2},,,%BrWiaUsd%
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2}\InProcServer32,,,%11%\brmfcwia.dll
+HKCR,CLSID\{3D00E00A-A011-40e8-9F5D-04495538A4D2}\InProcServer32,ThreadingModel,,Both
+
+[BrUsbScn.UpdateInis]
+BRMFBIDI.INI, USB, , "CheckDevice=0x0010", 0
+
+;----------------------------------------
+; Device Data
+;
+[BrMF86Wia.DeviceData]
+Model=1-ZLMFC
+GrayCorrect=brmsl01.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMF96Wia.DeviceData]
+Model=2-ZLFB
+GrayCorrect=brmsl01f.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrP2500Wia.DeviceData]
+Model=15-P2500
+GrayCorrect=brmsl01.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY4Wia.DeviceData]
+Model=10-BY4
+GrayCorrect=brmsi03.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY4FBWia.DeviceData]
+Model=11-BY4FB
+GrayCorrect=brmsi03f.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY2Wia.DeviceData]
+Model=7-BY2USA
+GrayCorrect=brmsi02.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY2EurWia.DeviceData]
+Model=8-BY2EUR
+GrayCorrect=brmsi02.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY2FBWia.DeviceData]
+Model=9-BY2FB
+GrayCorrect=brmsi02f.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCBY1Wia.DeviceData]
+Model=6-BY1MFC
+GrayCorrect=brmsi01.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCYL3Wia.DeviceData]
+Model=5-YL3MFC
+GrayCorrect=brmsl04.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCYL2Wia.DeviceData]
+Model=4-YL2MFC
+GrayCorrect=brmsl03.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCYL2300Wia.DeviceData]
+Model=13-YL2MFC300
+GrayCorrect=brmsl03.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCYL1Wia.DeviceData]
+Model=3-YL1MFC
+GrayCorrect=brmsl02.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+[BrMFCYL1300Wia.DeviceData]
+Model=12-YL1MFC300
+GrayCorrect=brmsl02.bin
+Server=local
+UI DLL=sti.dll
+UI Class ID={4DB1AD10-3391-11D2-9A33-00C04FA36145}
+
+;----------------------------------------
+; Services
+;
+[BrUsbScn.AddService]
+DisplayName    = %BrUsbScn.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\BrUsbScn.sys
+LoadOrderGroup = Base
+
+[BrUSD.Events]
+ScanToOcr="%ScanToOcr%",{86CB1540-0F77-4a7e-BBE4-88230537CD81},*
+ScanToSpApp="%ScanToSpApp%",{a6c5a715-8c6e-11d2-977a-0000f87a926f},*
+ScanToEmail="%ScanToEmail%",{FC7418EF-15EC-4c28-8B8C-846649B5CF77},*
+
+[BrP2500.Events]
+ScanToSpApp="%ScanToFile%",{a6c5a715-8c6e-11d2-977a-0000f87a926f},*
+ScanToEmail="%ScanToEmail%",{FC7418EF-15EC-4c28-8B8C-846649B5CF77},*
+
+
+;----------------------------------------
+; Copy Files
+;
+[MfcRM.CopyFiles]
+BrBidiIf.dll
+BrmfBidi.dll
+BrmfLpt.dll
+BrmfRsmg.exe
+BrmfUSB.dll
+BrSerIf.dll
+BrEvIF.dll
+BrScnRsm.dll
+RSMGRSTR.dll
+
+[BrUsbScn.CopyFiles]
+BrUsbScn.sys
+
+[BrParImg.CopyFiles]
+BrParImg.sys
+
+[BrWiaMiniDrv.CopyFiles]
+BrmfcWia.dll
+
+[BrMF86gray.CopyFiles]
+brmsl01.bin
+
+[BrMF96gray.CopyFiles]
+brmsl01f.bin
+
+[BrMF96icm.CopyFiles]
+brmsl01f.icm
+
+;; BY4
+[BRMFCBY4.gray.CopyFiles]
+brmsi03.bin
+
+[BRMFCBY4FB.gray.CopyFiles]
+brmsi03f.bin
+
+;; BY2
+[BRMFCBY2.gray.CopyFiles]
+brmsi02.bin
+[BRMFCBY2.icm.CopyFiles]
+brmsi02.icm
+
+[BRMFCBY2FB.gray.CopyFiles]
+brmsi02f.bin
+
+;; BY1
+[BRMFCBY1.gray.CopyFiles]
+brmsi01.bin
+[BRMFCBY1.icm.CopyFiles]
+brmsi01.icm
+
+;;YL3
+[BRMFCYL3.gray.CopyFiles]
+brmsl04.bin
+
+;;YL2
+[BRMFCYL2.gray.CopyFiles]
+brmsl03.bin
+
+;;YL1
+[BRMFCYL1.gray.CopyFiles]
+brmsl02.bin
+
+;;TWAIN32
+[BRTWAIN32DS.RemoveFiles]
+BRMFC32.DS
+;;TWAIN16
+[BRTWAIN16DS.RemoveFiles]
+BRMFC16.DS
+BRMFC96.DS
+;;P2000-16
+[BRP20TWAIN16DS.RemoveFiles]
+BRML16.DS
+;;P2000-32
+[BRP20TWAIN32DS.RemoveFiles]
+BRML32.DS
+;;P2500
+[BRP25TWAIN32DS.RemoveFiles]
+BRPQ32.DS
+
+;-------------------------------------------------------------------------------
+; Brother specific Service 
+;
+[BrParImg.AddService]
+DisplayName    = %BrParImg.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %12%\BrParImg.sys
+
+[DestinationDirs]
+BrUsbScn.CopyFiles       = 10,System32\Drivers
+BrParImg.CopyFiles       = 10,System32\Drivers
+BrMF96icm.CopyFiles      = 23
+BRMFCBY2.icm.CopyFiles   = 23
+BRMFCBY1.icm.CopyFiles   = 23
+BRTWAIN32DS.RemoveFiles  = 10,TWAIN_32\BRMFLPRO
+BRTWAIN16DS.RemoveFiles  = 10,TWAIN\BRMFLPRO
+BRP20TWAIN16DS.RemoveFiles = 10,TWAIN\P2000TW
+BRP20TWAIN32DS.RemoveFiles = 10,TWAIN_32\P2000TW
+BRP25TWAIN32DS.RemoveFiles = 10,TWAIN_32\BRP2500
+DefaultDestDir           = 11
+
+[Strings]
+Brother="Brother"
+series="Series"
+BrDrvDisk1="Brother MFC driver Disk"
+
+BrUsbScn.SvcDesc="Brother MFC USB Scanner driver"
+BrParImg.SvcDesc="Brother Multi Function Parallel Image driver"
+
+BrWiaUsd="Brother Wia Scanner minidriver"
+
+ScanToOcr="Scan To OCR - Button Press"
+ScanToSpApp="Scan To Image - Button Press"
+ScanToEmail="Scan To E-mail - Button Press"
+ScanToFile="Scan To File - Button Press"
+
+
+;; Model Name
+Brother_FAX5750 = "Brother FAX5750"
+Brother_FAX-8750P = "Brother FAX-8750P"
+Brother_MFC-8300 = "Brother MFC-8300"
+Brother_MFC-8300J = "Brother MFC-8300J"
+Brother_MFC-8600 = "Brother MFC-8600"
+Brother_MFC-8700 = "Brother MFC-8700"
+Brother_MFC-9650 = "Brother MFC-9650"
+Brother_MFC-9600 = "Brother MFC-9600"
+Brother_MFC-9870 = "Brother MFC-9870"
+Brother_MFC-9850 = "Brother MFC-9850"
+Brother_MFC-9750 = "Brother MFC-9750"
+Brother_DCP-1200 = "Brother DCP-1200"
+Brother_MFC-9600J = "Brother MFC-9600J"
+Brother_MFC-P2500 = "Brother MFC-P2500"
+Brother_HL-P2500 = "Brother HL-P2500"
+Brother_MFC-7300C = "Brother MFC-7300C"
+Brother_MFC-7400C = "Brother MFC-7400C"
+Brother_MFC-9200C = "Brother MFC-9200C"
+Brother_MFC-830 = "Brother MFC-830"
+Brother_MFC-840 = "Brother MFC-840"
+Brother_MFC-860 = "Brother MFC-860"
+Brother_MFC-7400J = "Brother MFC-7400J"
+Brother_MFC-9200J = "Brother MFC-9200J"
+Brother_MFC-7150C = "Brother MFC-7150C"
+Brother_MFC-7160C = "Brother MFC-7160C"
+Brother_MFC-740 = "Brother MFC-740"
+Brother_MFC-9100C = "Brother MFC-9100C"
+Brother_MFC-760 = "Brother MFC-760"
+Brother_MFC-7000FC = "Brother MFC-7000FC"
+Brother_MFC-7200FC = "Brother MFC-7200FC"
+Brother_MFC_Pro-700 = "Brother MFC Pro-700"
+Brother_MFC-9060 = "Brother MFC-9060"
+Brother_MFC-4600 = "Brother MFC-4600"
+Brother_MFC-9550 = "Brother MFC-9550"
+Brother_MFC-7750 = "Brother MFC-7750"
+Brother_MFC-6650MC = "Brother MFC-6650MC"
+Brother_MFC-7650MC = "Brother MFC-7650MC"
+Brother_MFC-4650 = "Brother MFC-4650"
+Brother_MFC-6650J = "Brother MFC-6650J"
+Brother_MFC8600/9650_Series = "Brother MFC8600/9650 Series"
+Brother_MFC9600/9870_Series = "Brother MFC9600/9870 Series"
+Brother_MFC9750/1200_Series = "Brother MFC9750/1200 Series"
+Brother_P2500_Series = "Brother P2500 Series"
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            ; 
+; Brother MFC Modem port inf 
+; Copyright (c) 2001 Brother Industries Ltd. 2000-2001
+; 
+
+[Version]
+LayoutFile=layout.inf
+Signature="$CHICAGO$"
+Class=Ports
+ClassGUID={4d36e978-e325-11ce-bfc1-08002be10318}
+Provider=%Brother%
+DriverVer=07/01/2001,5.1.2535.0
+
+[ControlFlags]
+ExcludeFromSelect=*
+
+[Manufacturer]
+%Brother%     = Brother
+
+[Brother]
+;
+; LPT
+;
+;;ZL
+%Brother_FAX-5750% = BRCOM, MF\BrotherFAX5750#1
+%Brother_FAX-8750P% = BRCOM, MF\BrotherFAX-8750P#1
+%Brother_MFC-8300% = BRCOM, MF\BrotherMFC-8300#1
+%Brother_MFC-8300J% = BRCOM, MF\BrotherMFC-8300J#1
+%Brother_MFC-8600% = BRCOM, MF\BrotherMFC-8600#1
+%Brother_MFC-8700% = BRCOM, MF\BrotherMFC-8700#1
+%Brother_MFC-9600% = BRCOM, MF\BrotherMFC-9600#1
+%Brother_MFC-9600J% = BRCOM, MF\BrotherMFC-9600J#1
+%Brother_MFC-9650% = BRCOM, MF\BrotherMFC-9650#1
+%Brother_MFC-9870% = BRCOM, MF\BrotherMFC-9870#1
+%Brother_MFC-9850% = BRCOM, MF\BrotherMFC-9850#1
+
+;; BY4
+%Brother_MFC-7300C% = BRCOM, MF\BrotherMFC-7300C#1
+%Brother_MFC-7400C% = BRCOM, MF\BrotherMFC-7400C#1
+%Brother_MFC-9200C% = BRCOM, MF\BrotherMFC-9200C#1
+%Brother_MFC-830%   = BRCOM, MF\BrotherMFC-830#1
+%Brother_MFC-840%   = BRCOM, MF\BrotherMFC-840#1
+%Brother_MFC-860%   = BRCOM, MF\BrotherMFC-860#1
+%Brother_MFC-7400J% = BRCOM, MF\BrotherMFC-7400J#1
+%Brother_MFC-9200J% = BRCOM, MF\BrotherMFC-9200J#1
+
+;BY2
+%Brother_MFC-7150C% = BRCOM,MF\_Brother_MFC_7150C#1
+%Brother_MFC-7160C% = BRCOM,MF\_Brother_MFC_7160C#1
+%Brother_MFC-740%   = BRCOM,MF\_Brother_MFC-740#1
+%Brother_MFC-9100C% = BRCOM,MF\BrotherMFC-9100C#1
+%Brother_MFC-760%   = BRCOM,MF\BrotherMFC-760#1
+
+;BY1
+%Brother_MFC-7000FC%  = BRCOM,MF\_Brother_MFC_7000FC#1
+%Brother_MFC-7200FC%  = BRCOM,MF\_Brother_MFC_7200FC#1
+%Brother_MFC_Pro-700% = BRCOM,MF\_Brother_MFC_Pro-700#1
+
+;YL3
+%Brother_MFC-4600%   = BRCOM,MF\BrotherMFC-4600#1
+
+;YL2
+%Brother_MFC-9550%   = BRCOM,MF\_Brother_MFC_9550#1
+%Brother_MFC-7750%   = BRCOM,MF\_Brother_MFC_7750#1
+%Brother_MFC-6650MC% = BRCOM,MF\_Brother_MFC_6650MC#1
+%Brother_MFC-4650%   = BRCOM,MF\_Brother_MFC_4650#1
+
+
+;
+; USB
+;
+;ZL
+%Brother_MFC8600/9650_Series% = BRCOM, MF\Vid_04f9&Pid_0100&MI_02#1
+%Brother_MFC9600/9870_Series% = BRCOM, MF\Vid_04f9&Pid_0101&MI_02#1
+%Brother_MFC-8300J% = BRCOM, MF\Vid_04f9&Pid_0104&MI_02#1
+%Brother_MFC-9600J% = BRCOM, MF\Vid_04f9&Pid_0105&MI_02#1
+;BY4
+%Brother_MFC-7300C% = BRCOM, MF\Vid_04f9&Pid_0106&MI_02#1
+%Brother_MFC-7400C% = BRCOM, MF\Vid_04f9&Pid_0107&MI_02#1
+%Brother_MFC-9200C% = BRCOM, MF\Vid_04f9&Pid_0108&MI_02#1
+%Brother_MFC-830%   = BRCOM, MF\Vid_04f9&Pid_0109&MI_02#1
+%Brother_MFC-840%   = BRCOM, MF\Vid_04f9&Pid_010A&MI_02#1
+%Brother_MFC-860%   = BRCOM, MF\Vid_04f9&Pid_010B&MI_02#1
+%Brother_MFC-7400J% = BRCOM, MF\Vid_04f9&Pid_010C&MI_02#1
+%Brother_MFC-9200J% = BRCOM, MF\Vid_04f9&Pid_010D&MI_02#1
+
+[BRCOM]
+CopyFiles=BRCOM.CopyFiles
+AddReg=BRCOM_Reg
+
+[BRCOM_Reg]
+HKR,,PortSubClassOther,1,01
+
+[BRCOM.CoInstallers]
+CopyFiles=BrCoInstaller.CopyFiles
+AddReg=BrCoInstaller_AddReg
+
+;----------------------------------------
+; CoInstaller
+;
+[BrCoInstaller.CopyFiles]
+brcoinst.dll
+
+[BrCoInstaller_AddReg]
+HKR,,CoInstallers32,0x00010000,"brcoinst.dll,BrmfPortCoInstaller"
+
+
+[BRCOM.Services]
+Addservice = BrSerWdm, 0x00000002, BrSerWdm.AddService
+
+[BrSerWdm.AddService]
+DisplayName    = %BrSerWdm.SvcDesc%
+ServiceType    = 1                  ; SERVICE_KERNEL_DRIVER
+StartType      = 3                  ; SERVICE_DEMAND_START
+ErrorControl   = 1                  ; SERVICE_ERROR_NORMAL
+ServiceBinary  = %10%\System32\Drivers\BrSerWdm.sys
+
+[DestinationDirs]
+BRCOM.CopyFiles = 10,System32\Drivers
+BrCoInstaller.CopyFiles = 11 ; System Dir( system32 on NT )
+DefaultDestDir = 11
+
+[BRCOM.CopyFiles]
+BrSerWdm.sys
+
+
+[Strings]
+Brother = "Brother"
+8series  = "Series"
+BrSerWdm.SvcDesc="Brother Serial driver"
+
+;; Model Name
+Brother_FAX-5750 = "Brother FAX5750"
+Brother_FAX-8750P = "Brother FAX-8750P"
+Brother_MFC-8300 = "Brother MFC-8300"
+Brother_MFC-8300J = "Brother MFC-8300J"
+Brother_MFC-8600 = "Brother MFC-8600"
+Brother_MFC-8700 = "Brother MFC-8700"
+Brother_MFC-9600 = "Brother MFC-9600"
+Brother_MFC-9600J = "Brother MFC-9600J"
+Brother_MFC-9650 = "Brother MFC-9650"
+Brother_MFC-9870 = "Brother MFC-9870"
+Brother_MFC-9850 = "Brother MFC-9850"
+Brother_MFC-7300C = "Brother MFC-7300C"
+Brother_MFC-7400C = "Brother MFC-7400C"
+Brother_MFC-9200C = "Brother MFC-9200C"
+Brother_MFC-830 = "Brother MFC-830"
+Brother_MFC-840 = "Brother MFC-840"
+Brother_MFC-860 = "Brother MFC-860"
+Brother_MFC-7400J = "Brother MFC-7400J"
+Brother_MFC-9200J = "Brother MFC-9200J"
+Brother_MFC-7150C = "Brother MFC-7150C"
+Brother_MFC-7160C = "Brother MFC-7160C"
+Brother_MFC-740 = "Brother MFC-740"
+Brother_MFC-9100C = "Brother MFC-9100C"
+Brother_MFC-760 = "Brother MFC-760"
+Brother_MFC-7000FC = "Brother MFC-7000FC"
+Brother_MFC-7200FC = "Brother MFC-7200FC"
+Brother_MFC_Pro-700 = "Brother MFC Pro-700"
+Brother_MFC-4600 = "Brother MFC-4600"
+Brother_MFC-9550 = "Brother MFC-9550"
+Brother_MFC-7750 = "Brother MFC-7750"
+Brother_MFC-6650MC = "Brother MFC-6650MC"
+Brother_MFC-4650 = "Brother MFC-4650"
+Brother_MFC8600/9650_Series = "Brother MFC8600/9650 Series"
+Brother_MFC9600/9870_Series = "Brother MFC9600/9870 Series"
+
+
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  %  o ? ? o                  ú 	 Ü  ó ç é          ù Ö  á   í è     Ä Å Ç É Ñ 
+   à â ä ã å    ê ë  ì î ï ñ  ò ô ö õ   û    † ‚ ‰ ‡ · „ Â Á Ò ¢ . < ( + | & È Í Î Ë Ì Ó Ô Ï ﬂ ! $ * ) ; ¨ - / ¬ ƒ ¿ ¡ √ ≈ « — ¶ , % _ > ? ¯ …   À » Õ Œ œ Ã ` : # @ ' = " ÿ a b c d e f g h i ´ ª  ˝ ˛ ± ∞ j k l m n o p q r ™ ∫ Ê ∏ ∆ § µ ~ s t u v w x y z ° ø – › ﬁ Æ ^ £ • ∑ © ß ∂ º Ω æ [ ] Ø ® ¥ ◊ { A B C D E F G H I ≠ Ù ˆ Ú Û ı } J K L M N O P Q R π ˚ ¸ ˘ ˙ ˇ \ ˜ S T U V W X Y Z ≤ ‘ ÷ “ ” ’ 0 1 2 3 4 5 6 7 8 9 ≥ € ‹ Ÿ ⁄ ü        7-./%<=2&?'@Z{[lP}M]\Nk`KaÒÚÛÙıˆ˜¯˘z^L~no|¡¬√ƒ≈∆«»…—“”‘’÷◊ÿŸ‚„‰ÂÊÁËÈ∫‡ª∞myÅÇÉÑÖÜáàâëíìîïñóòô¢£§•¶ß®©¿O–° !"#$()*+,	
+01345689:;>ˇA™J±ü≤jµΩ¥öä_ ØºêèÍ˙æ†∂≥ù⁄õã∑∏π´debfcgûhtqrsxuvw¨iÌÓÎÔÏøÄ˝˛˚¸≠ÆYDEBFCGúHTQRSXUVWåIÕŒÀœÃ·p›ﬁ€‹çéﬂooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooËoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooºoooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo

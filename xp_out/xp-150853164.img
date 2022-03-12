@@ -1,0 +1,3647 @@
+ll sorts of great benefits available to you.";
+    Agent_Speak(L_ProductKeyAboutThisStep5_Text);
+}
+
+function Agent_ProductKeyWhatIsProdKey()
+{
+    var L_ProductKeyWhatIsProdKey1_Text = "Every copy of Windows produced by Microsoft is coded with a unique product key.";
+    Agent_Speak(L_ProductKeyWhatIsProdKey1_Text);
+
+    var L_ProductKeyWhatIsProdKey2_Text = "The product key helps assure you that you have purchased a genuine Microsoft product.";
+    Agent_Speak(L_ProductKeyWhatIsProdKey2_Text);
+
+    var L_ProductKeyWhatIsProdKey3_Text = "And it helps protect you from a pirated copy of Windows.";
+    Agent_Speak(L_ProductKeyWhatIsProdKey3_Text);
+        
+    var L_ProductKeyWhatIsProdKey4_Text = "The product key also qualifies you for certain customer benefits, such as support, marketing services, upgrades and Web offers.";
+    Agent_Speak(L_ProductKeyWhatIsProdKey4_Text);
+}
+
+function Agent_ProductKeyWhyNextNotAvailable()
+{
+    var L_ProductKeyWhyNextNotAvailable1_Text = "The Next button is not available because you have not typed a valid product key.";
+    Agent_Speak(L_ProductKeyWhyNextNotAvailable1_Text);
+
+    var L_ProductKeyWhyNextNotAvailable2_Text = "You must type a valid product key.";
+    Agent_Speak(L_ProductKeyWhyNextNotAvailable2_Text);
+
+    var L_ProductKeyWhyNextNotAvailable3_Text = "Then you will be able to click the Next button to go on.";
+    Agent_Speak(L_ProductKeyWhyNextNotAvailable3_Text);
+}
+
+function Agent_ProductKeyWhatToDoNext()
+{        
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+    
+    var L_ProductKeyWhatToDoNext1_Text = "After you type a valid product key, click the Next button.";
+    Agent_Speak(L_ProductKeyWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+
+function Agent_Reg1AddCommands() 
+{
+    var L_Reg1Command1_Text = "&Tell me about this step";
+    var L_Reg1Command2_Text = "T&ell me about registration";
+    var L_Reg1Command3_Text = "H&ow do I register now?";
+    var L_Reg1Command4_Text = "Can I &register later?";
+    var L_Reg1Command5_Text = "Wh&at's the value of registering?";
+    var L_Reg1Command6_Text = "Tell &me about sharing information";
+
+    g_AgentCharacter.Commands.Add("Agent_Reg1AboutThisStep", L_Reg1Command1_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg1AboutRegistration", L_Reg1Command2_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg1HowToRegister", L_Reg1Command3_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg1RegisterLater", L_Reg1Command4_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg1WhyRegister", L_Reg1Command5_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg1AboutSharingInfo", L_Reg1Command6_Text);
+
+    Agent_AddWhatToDoNextCommand();        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_Reg1AboutThisStep()
+{
+    var L_Reg1AboutThisStep1_Text = "This is the beginning of the registration section.";
+    Agent_Speak(L_Reg1AboutThisStep1_Text);
+
+    var L_Reg1AboutThisStep2_Text = "Here you will be able to register your copy of Windows.";
+    Agent_Speak(L_Reg1AboutThisStep2_Text);
+
+    var L_Reg1AboutThisStep3_Text = "When you do, you become eligible for a number of Microsoft customer benefits.";
+    Agent_Speak(L_Reg1AboutThisStep3_Text);
+        
+    var L_Reg1AboutThisStep4_Text = "These include being notified of product updates, and having access to Microsoft's award-winning product support services.";
+    Agent_Speak(L_Reg1AboutThisStep4_Text);
+        
+    var L_Reg1AboutThisStep5_Text = "On this screen, you can decide how you would like to register.";
+    Agent_Speak(L_Reg1AboutThisStep5_Text);
+    
+    Agent_GestureAtElement(g.txtMSReglink,"Left");
+        
+    var L_Reg1AboutThisStep6_Text = "And if you want to find out more about Microsoft's privacy policy, click this link.";
+    Agent_Speak(L_Reg1AboutThisStep6_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_Reg1AboutRegistration()
+{    
+    Agent_GestureAtElement(g.rb_reg_ms_yes,"Left");
+    
+    var L_Reg1AboutRegistration1_Text = "Click here to begin the registration process, then click the Next button.";
+    Agent_Speak(L_Reg1AboutRegistration1_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.rb_reg_ms_no,"Left");
+
+    var L_Reg1AboutRegistration2_Text = "But if you prefer not to register, click this second option instead, then click \"Next\".";
+    Agent_Speak(L_Reg1AboutRegistration2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_Reg1HowToRegister()
+{      
+    Agent_GestureAtElement(g.rb_reg_ms_yes,"Left");
+    
+    var L_Reg1HowToRegister1_Text = "To register your copy of Windows, make sure the Yes option is selected.";
+    Agent_Speak(L_Reg1HowToRegister1_Text); 
+    
+    Agent_Play("RestPose");
+
+    var L_Reg1HowToRegister2_Text = "Then click the Next button to continue.";
+    Agent_Speak(L_Reg1HowToRegister2_Text);
+}
+
+function Agent_Reg1RegisterLater()
+{
+    var L_Reg1RegisterLater1_Text = "If you skip registration now, you can register your copy of Windows after you finish setting up Windows.";
+    Agent_Speak(L_Reg1RegisterLater1_Text);
+
+    var L_Reg1RegisterLater2_Text = "Just click Run on the Start menu and type regwiz /r.";
+    Agent_Speak(L_Reg1RegisterLater2_Text);
+
+    var L_Reg1RegisterLater3_Text = "If you forget these steps, click Help and Support on the Start menu to find the answer to your questions and other valuable information.";
+    Agent_Speak(L_Reg1RegisterLater3_Text);
+}
+
+function Agent_Reg1WhyRegister()
+{
+    var L_Reg1WhyRegister1_Text = "When you register your copy of Windows, you become eligible for a number of Microsoft customer benefits.";
+    Agent_Speak(L_Reg1WhyRegister1_Text);
+
+    var L_Reg1WhyRegister2_Text = "These include being notified of product updates and having access to Microsoft's award-winning product support services.";
+    Agent_Speak(L_Reg1WhyRegister2_Text);
+}
+
+function Agent_Reg1AboutSharingInfo()
+{
+    
+    if (!window.external.get_RetailOOBE()) 
+    {         
+        Agent_GestureAtElement(g.reg1_spn3,"Left");
+        
+        var L_Reg1AboutSharingInfo1_Text = "When you check these options, you choose to share your registration information with Microsoft and with your computer's manufacturer.";
+        Agent_Speak(L_Reg1AboutSharingInfo1_Text); 
+    
+        Agent_Play("RestPose");
+    }
+    else
+    {         
+        Agent_GestureAtElement(g.reg1_spn3,"Left");
+        
+        var L_Reg1AboutSharingInfo1_Text = "When you check these options, you choose to share your registration information with Microsoft.";
+        Agent_Speak(L_Reg1AboutSharingInfo1_Text);
+    
+        Agent_Play("RestPose");     
+    }
+    
+    Agent_GestureAtElement(g.txtMSReglink,"Left");
+
+    var L_Reg1AboutSharingInfo2_Text = "To learn more about Microsoft's privacy policy, click this link.";
+    Agent_Speak(L_Reg1AboutSharingInfo2_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (!window.external.get_RetailOOBE()) 
+    {           
+        Agent_GestureAtElement(g.reg1_spn3,"Left");
+                
+        var L_Reg1AboutSharingInfo3_Text = "To learn more about the %1 privacy policy, click this link.";
+        Agent_Speak(ApiObj.FormatMessage(L_Reg1AboutSharingInfo3_Text, g_OEMNameStr));
+    
+        Agent_Play("RestPose");
+    }
+}
+
+
+
+
+function Agent_Reg3AddCommands() 
+{
+    var L_Reg3Command1_Text = "&Tell me about this step";
+    var L_Reg3Command2_Text = "H&ow do I change information?";
+    var L_Reg3Command3_Text = "Tell &me about sharing information";
+
+    g_AgentCharacter.Commands.Add("Agent_Reg3AboutThisStep", L_Reg3Command1_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg3HowToChangeInfo", L_Reg3Command2_Text);
+    g_AgentCharacter.Commands.Add("Agent_Reg3AboutSharingInfo", L_Reg3Command3_Text);
+
+    Agent_AddWhatToDoNextCommand();        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_Reg3AboutThisStep()
+{
+    var L_Reg3AboutThisStep1_Text = "To register your copy of Microsoft Windows, you'll need to fill in the required information on this screen.";
+    Agent_Speak(L_Reg3AboutThisStep1_Text);
+    
+    Agent_GestureAtElement(g.UserCity,"Left");
+
+    var L_Reg3AboutThisStep2_Text = "We will need information for all the boxes except the ones marked 'Optional.'";
+    Agent_Speak(L_Reg3AboutThisStep2_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_Reg3AboutThisStep3_Text = "But it would be great if you could fill in the optional information, too.";
+    Agent_Speak(L_Reg3AboutThisStep3_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+        
+    var L_Reg3AboutThisStep4_Text = "When you're done, just click the Next button.";
+    Agent_Speak(L_Reg3AboutThisStep4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_Reg3HowToChangeInfo()
+{
+    var L_Reg3HowToChangeInfo1_Text = "We've added some hints inside the boxes to show you what to do.";
+    Agent_Speak(L_Reg3HowToChangeInfo1_Text);
+    
+    Agent_GestureAtElement(g.UserLastName,"Left");
+
+    var L_Reg3HowToChangeInfo2_Text = "For example, just click in this Last name box in order to begin typing.";
+    Agent_Speak(L_Reg3HowToChangeInfo2_Text);
+
+    var L_Reg3HowToChangeInfo3_Text = "A blinking vertical line, known as the insertion point, should appear in the box.";
+    Agent_Speak(L_Reg3HowToChangeInfo3_Text);
+
+    var L_Reg3HowToChangeInfo4_Text = "Whatever you type will be entered at the insertion point.";
+    Agent_Speak(L_Reg3HowToChangeInfo4_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_Reg3HowToChangeInfo5_Text = "You can move the insertion point in the text box by pressing the left or right arrow keys on your keyboard.";
+    Agent_Speak(L_Reg3HowToChangeInfo5_Text);
+
+    var L_Reg3HowToChangeInfo6_Text = "And you can use the Delete key to remove characters after the insertion point, or use the Backspace key to remove characters before the insertion point.";
+    Agent_Speak(L_Reg3HowToChangeInfo6_Text);
+
+    var L_Reg3HowToChangeInfo7_Text = "If you want to insert a character, position the pointer inside the box at the place where you want to add the character, and click.";
+    Agent_Speak(L_Reg3HowToChangeInfo7_Text);
+
+    var L_Reg3HowToChangeInfo8_Text = "Then type the character you want to insert.";
+    Agent_Speak(L_Reg3HowToChangeInfo8_Text);
+
+    var L_Reg3HowToChangeInfo9_Text = "Don't worry if you don't type in a box and the hint still appears there.";
+    Agent_Speak(L_Reg3HowToChangeInfo9_Text);
+
+    var L_Reg3HowToChangeInfo10_Text = "The hint is just to help you. It's not part of your registration information.";
+    Agent_Speak(L_Reg3HowToChangeInfo10_Text);
+}
+
+function Agent_Reg3AboutSharingInfo()
+{    
+    if (!window.external.get_RetailOOBE()) 
+    {    
+        Agent_GestureAtElement(g.sharemsonly,"Left");
+        
+        var L_Reg3AboutSharingInfo1_Text = "When you check these options, you choose to share your registration information with Microsoft and with your computer's manufacturer.";
+        Agent_Speak(L_Reg3AboutSharingInfo1_Text);
+    
+        Agent_Play("RestPose");
+    }
+    else
+    {    
+        Agent_GestureAtElement(g.sharemsonly,"Left");
+         
+        var L_Reg3AboutSharingInfo1_Text = "When you check these options, you choose to share your registration information with Microsoft.";
+        Agent_Speak(L_Reg3AboutSharingInfo1_Text); 
+    
+        Agent_Play("RestPose"); 
+    }
+}
+
+function Agent_OnRegister3KeyDown(elem, keyCode) {
+
+    switch (elem.id) {
+        case "UserFirstName":
+        case "UserMiddleName":
+        case "UserLastName":
+        case "UserAddress":
+        case "UserAddress2":
+        case "UserCity":
+        case "UserStateTextBox":
+        case "UserZipCode":
+        case "UserEmailAddress":
+        case "selUSState":
+        case "selCAProvince":
+        case "selCountry":
+        case "sharems":
+        case "shareoem":
+        
+            
+    
+            if (keyCode == 9) {
+
+                
+                
+                
+                
+
+                return;
+            }
+
+            
+            
+            
+
+            if (!Agent_IsLooking()) {
+
+                Agent_StopAll();
+
+                var dir;
+
+                if (elem.type == "checkbox")
+                
+                    if (g.document.dir == "rtl") {
+                        
+                        if (elem.id == "sharems")
+                            dir = "TopCenterWidth";
+                        
+                        else 
+                            dir = "BottomCenterWidth";
+                    }
+                    
+                    else
+                        dir = "Left";
+
+                else {
+                        if ((elem.id == "UserZipCode") && !IsFarEastLocale()) {
+                                
+                                if (g.document.dir == "rtl")
+                                    dir = "Left";
+                                    
+                                else 
+                                    dir = "TopRight";
+                        }
+                        else {  
+                                if (g.document.dir == "rtl")
+                                    dir = "Left";
+                                else
+                                    dir = "Right";
+                        }
+                        
+                }
+
+                Agent_MoveToElement(elem, dir, 0);
+
+                if ((dir == "TopRight") || (dir == "TopCenterWidth"))
+                    Agent_StartLookingAtElement(elem, "LookDown");
+                        
+                else if (dir == "BottomCenterWidth")
+                    Agent_StartLookingAtElement(elem, "LookUp");
+                    
+                else
+                    Agent_StartLookingAtElement(elem, "Look" + dir);
+            }
+        
+            else {
+
+                
+
+                Agent_KeepLooking();
+            }
+            
+            break;
+    
+        default:
+            return;
+                    
+    }
+                
+}
+
+function Agent_OnRegister3GotFocus(elem) {
+
+        var dir;
+
+        if (elem.type == "checkbox"){
+            
+            if (g.document.dir == "rtl") {
+            
+                if (elem.id == "sharems")
+                    dir = "TopCenterWidth"
+            
+                else
+                    dir = "BottomCenterWidth"
+            
+            }   
+            
+            else
+                dir = "Left";
+
+        }
+        
+        else {
+
+                
+
+                if ((elem.id == "UserZipCode")&& !IsFarEastLocale()) {
+            
+                    if (g.document.dir == "rtl")
+                        dir = "Left"
+                        
+                    else 
+                        dir = "TopRight";
+                }
+                        
+                else {
+                    
+                    if (g.document.dir == "rtl")
+                        dir = "Left"
+                    
+                    else
+                        dir = "Right";
+                }
+                
+        }
+
+        Agent_StopAll();
+
+        Agent_MoveToElement(elem, dir, 0);
+
+        if ((dir == "TopRight") || (dir == "TopCenterWidth"))
+            Agent_StartLookingAtElement(elem, "LookDown");
+        
+        else if (dir == "BottomCenterWidth")
+            Agent_StartLookingAtElement(elem, "LookUp");    
+        
+        else
+            Agent_StartLookingAtElement(elem, "Look" + dir);
+
+        
+        
+
+        switch (elem.id) {
+                case "selUSState":
+                        g_bAgentRegister3VisitState = true;
+                        break;
+
+                case "selCAProvince":
+                        g_bAgentRegister3VisitProvince = true;
+                        break;
+
+                case "selCountry":
+                        g_bAgentRegister3VisitCountry = true;
+                        break;
+        }
+}
+
+function Agent_Register3PlayCheckBoxScript(id) {
+
+        var elemMs;
+        var elemOem;
+
+        
+        
+        
+
+        elemMs = g.document.all("sharems");
+        elemOem = g.document.all("shareoem");
+
+        if (id == "sharems")
+                elem = elemMs;
+        else if (id == "shareoem")
+                elem = elemOem;
+        else
+                return;
+
+        
+
+        if (g.document.dir == "rtl") 
+            Agent_MoveToElement(elem, "TopCenterWidth", kdwAgentMoveSpeed);
+        else
+            Agent_MoveToElement(elem, "Left", kdwAgentMoveSpeed);
+
+        
+
+        L_Register3PlayCheckBoxScript1_Text = "Currently, the registration information on this screen is set to be sent both to Microsoft and the computer manufacturer.";
+        L_Register3PlayCheckBoxScript2_Text = "Currently, the registration information on this screen is set to be sent to Microsoft, but not the computer manufacturer.";
+        L_Register3PlayCheckBoxScript3_Text = "Currently, the registration information on this screen is set to be sent to the computer manufacturer but not Microsoft.";
+        L_Register3PlayCheckBoxScript4_Text = "Currently, the registration information on this screen will not be sent to either Microsoft or the computer manufacturer.";
+
+        var str;
+
+        if (elemMs.checked && elemOem.checked)
+                str = L_Register3PlayCheckBoxScript1_Text;
+        else if (elemMs.checked && !elemOem.checked)
+                str = L_Register3PlayCheckBoxScript2_Text;
+        else if (!elemMs.checked && elemOem.checked)
+                str = L_Register3PlayCheckBoxScript3_Text;
+        else if (!elemMs.checked && !elemOem.checked)
+                str = L_Register3PlayCheckBoxScript4_Text;
+
+        
+        
+        Agent_Speak(str);
+
+        var L_Register3PlayCheckBoxScript5_Text = "This information helps them to keep you apprised of product updates and other benefits to registered customers.";
+        Agent_Speak(L_Register3PlayCheckBoxScript5_Text);
+
+        var L_Register3PlayCheckBoxScript6_Text = "If you want to change whether this information is sent,";
+        Agent_Speak(L_Register3PlayCheckBoxScript6_Text);
+
+        if (g.document.dir == "rtl")
+            Agent_GestureAtElement(elem, "TopCenterWidth");
+        else
+            Agent_GestureAtElement(elem, "Left");
+
+        var L_Register3PlayCheckBoxScript7_Text = "Just click the boxes here.";
+        Agent_Speak(L_Register3PlayCheckBoxScript7_Text);
+
+        Agent_Play("RestPose");
+}
+
+function Agent_Register3IsComplete() {
+
+        
+        
+
+        
+
+        var strCurrent = g_strAgentLastFocusID;
+
+        if (strCurrent == "") {
+           
+           if (IsFarEastLocale() && !IsKoreanLocale()) 
+                strCurrent = "UserLastName";
+           
+           else 
+                strCurrent = "UserFirstName";
+           
+        }
+
+        var elem = g.document.all(strCurrent);
+
+        if (null == elem)
+                return null;
+
+        switch (strCurrent) {
+
+                case "UserFirstName":
+
+                        if ((elem.value == "") && (g.document.all("UserMiddleName").value == ""))
+                                return elem;
+
+                        break;
+
+                case "UserMiddleName":
+
+                        if ((elem.value == "") && (g.document.all("UserFirstName").value == ""))
+                                return elem;
+
+                        break;
+
+                case "UserLastName":
+                case "UserAddress":
+                case "UserCity":
+
+                        if (elem.value == "")
+                            return elem;
+
+                        break;
+
+                case "UserStateTextBox":
+                    
+                        if ((elem.value == "") && (g.document.all("StateLabel").innerText.indexOf("*") >=0))
+                            return elem;
+
+                        break;
+                    
+                case "UserZipCode":
+                
+                        if ((elem.value == "") && (g.document.all("LabelZip").innerText.indexOf("*") >=0))
+                            return elem;
+                            
+                        break;
+                        
+                case "UserEmailAddress":
+                        
+                        if ((elem.value == "") && !g_bAgentRegister3ShortEmail ) {
+                            return elem;
+                        
+                        }
+                                                
+                        break;
+        }
+
+        
+        
+
+        if (!IsFarEastLocale()) {
+
+                
+
+                
+
+                elem = g.document.all("UserFirstName");
+
+                if (elem.value == "") {
+                        if (g.document.all("UserMiddleName").value == "")
+                                return elem;
+                }
+
+                
+                
+                
+                
+
+                elem = g.document.all("UserMiddleName");
+
+                if (elem.value == "") {
+                        if (g.document.all("UserFirstName").value == "")
+                                return elem;
+                }
+
+                
+
+                elem = g.document.all("UserLastName");
+
+                if (elem.value == "")
+                        return elem;
+
+                
+
+                elem = g.document.all("UserAddress");
+
+                if (elem.value == "")
+                        return elem;
+
+                
+
+                elem = g.document.all("UserCity");
+
+                if (elem.value == "")
+                        return elem;
+
+                
+
+                elem = g.document.all("UserStateTextBox");
+
+                if (elem.style.display != "none") {
+
+                        if ((elem.value == "") && (g.document.all("StateLabel").innerText.indexOf("*") >=0))
+                                return elem;
+                
+                }
+
+                else {
+
+                        elem = g.document.all("selUSState");
+
+                        
+
+                        if (elem.style.display != "none") {
+                                if ((!g_bAgentRegister3VisitState) || (elem.options(elem.selectedIndex).text == "") )
+                                        return elem;
+                        }
+
+                        else {
+
+                                elem = g.document.all("selCAProvince");
+
+                                if ((!g_bAgentRegister3VisitProvince)|| (elem.options(elem.selectedIndex).text == "") )
+                                        return elem;
+                        }
+                }
+
+                
+
+                elem = g.document.all("UserZipCode");
+
+                if ((elem.value == "") && (g.document.all("LabelZip").innerText.indexOf("*") >=0))
+                        return elem;
+
+                
+
+                elem = g.document.all("selCountry");
+
+                if (!g_bAgentRegister3VisitCountry)
+                        return elem;
+
+
+                
+
+                elem = g.document.all("UserEmailAddress");
+
+                if  (elem.value != "") {
+                    if ((elem.value.indexOf("@") < 0) || (elem.value.indexOf(".") < 0)) 
+                        return elem;
+                }
+
+                
+
+                if (!g_bAgentRegister3Privacy) {
+
+                        
+
+                        if (g.document.all("RegChkBxGrp").style.display != "none") {
+                                g_bAgentRegister3Privacy = true;
+                                return g.document.all("sharems");
+                        }
+
+                }
+
+                
+
+                return null;
+
+        }
+
+        
+        
+
+        else
+                return Agent_Reg3FarEastLocaleOrder();
+
+}
+
+function Agent_Reg3FarEastLocaleOrder() {
+
+        
+
+        
+
+        if(!IsKoreanLocale()) {
+           elem = g.document.all("UserLastName");
+
+           if (elem.value == "")
+                return elem;
+        }
+
+        
+
+        elem = g.document.all("UserFirstName");
+
+        if (elem.value == "")
+           return elem;
+
+
+        
+
+        elem = g.document.all("selCountry");
+
+        if (!g_bAgentRegister3VisitCountry)
+                return elem;
+
+        
+
+        elem = g.document.all("UserStateTextBox");
+
+        if ((elem.style.visibility != "hidden") && (elem.style.display != "none")) {
+
+                if ((elem.value == "") && (g.document.all("StateLabel").innerText.indexOf("*") >=0))
+                        return elem;
+        }
+
+        else {
+
+                elem = g.document.all("selUSState");
+
+                
+
+                if (elem.style.display != "none") {
+                        if ((!g_bAgentRegister3VisitState) || (elem.options(elem.selectedIndex).text == "") )
+                                return elem;
+                }
+
+                else {
+
+                    elem = g.document.all("selCAProvince");
+
+                    if ((!g_bAgentRegister3VisitProvince) || (elem.options(elem.selectedIndex).text == "") )
+                                return elem;
+                }
+                
+        }
+
+        
+
+        elem = g.document.all("UserCity");
+
+        if (elem.value == "")
+                return elem;
+
+        
+
+        elem = g.document.all("UserAddress");
+
+        if (elem.value == "")
+                return elem;
+
+        
+
+        elem = g.document.all("UserZipCode");
+
+        if ((elem.value == "") && (g.document.all("LabelZip").innerText.indexOf("*") >=0))
+                return elem;
+
+        
+
+        elem = g.document.all("UserEmailAddress");
+
+            if (elem.value != "") {
+                if ((elem.value.indexOf("@") < 0) || (elem.value.indexOf(".") < 0)) 
+                    return elem;
+            }
+
+        
+
+        if (!g_bAgentRegister3Privacy) {
+
+                
+
+                if (g.document.all("RegChkBxGrp").style.display != "none") {
+                        g_bAgentRegister3Privacy = true;
+                        return g.document.all("sharems");
+                }
+
+        }
+
+        
+
+        return null;
+
+}
+
+function Agent_Register3EncourageInteraction(elem) {
+
+        var bExplainDropDownArrow = false;
+
+        
+        
+
+        if (g_strAgentLastFocusID == "") {
+
+                elem.focus();
+
+                g_AgentCharacter.Activate(2);
+
+                Agent_StopAll();
+        }
+        
+        else if (g_strAgentLastFocusID != elem.id) {
+
+                
+                
+                
+
+                switch (elem.id) {
+                        case "UserMiddleName":
+                        case "UserLastName":
+                        case "UserAddress":
+                        case "UserAddress2":
+                        case "UserCity":
+                        case "UserStateTextBox":
+                        case "UserEmailAddress":
+                                
+                                if (g.document.dir == "rtl")
+                                    Agent_GestureAtElement(elem, "Left");
+                                
+                                else
+                                    Agent_GestureAtElement(elem, "Right");
+
+                                if (Agent_IsNextTabItem(g.document.all(g_strAgentLastFocusID), elem))
+                                        Agent_Register3EncourageTabKey();
+        
+                                else
+                                        Agent_Register3EncourageMouseClick();
+
+                                if (elem.id == "UserEmailAddress")
+                                        break;
+
+                                return;
+
+
+                        case "UserZipCode":
+                        
+                                if (g.document.dir == "rtl") 
+                                    Agent_GestureAtElement(elem, "Left");
+                                
+                                else
+                                    Agent_GestureAtElement(elem, (IsFarEastLocale() ? "Right" : "TopRight"));
+
+                                if (Agent_IsNextTabItem(g.document.all(g_strAgentLastFocusID), elem))
+                                        Agent_Register3EncourageTabKey();
+        
+                                else
+                                        Agent_Register3EncourageMouseClick();
+
+                                if (elem.id == "UserEmailAddress")
+                                        break;
+
+                                return;
+
+                        case "selUSState":
+                        case "selCAProvince":
+                        case "selCountry":
+
+                                if (Agent_IsNextTabItem(g.document.all(g_strAgentLastFocusID), elem))
+                                        bExplainDropDownArrow = true;
+
+                                break;
+                }
+        }
+
+        switch (elem.id) {
+                case "UserFirstName":
+                case "UserMiddleName":
+                case "UserLastName":
+                case "UserAddress":
+                case "UserAddress2":
+                case "UserCity":
+                case "UserStateTextBox":
+                case "selUSState":
+                case "selCAProvince":
+                case "selCountry":
+                case "UserZipCode":
+                case "UserEmailAddress":
+                case "sharems":
+                case "shareoem":
+
+                        Agent_Register3PlayElementScript(elem);
+
+                        if (bExplainDropDownArrow)
+                                Agent_Register3DropDownArrowExplain();
+
+                        break;
+        
+        }
+        
+}
+
+function Agent_Register3EncourageTabKey() {
+
+        var L_Register3EncourageTabKey1_Text = "Press the Tab key to move here.";
+        Agent_Speak(L_Register3EncourageTabKey1_Text);
+}
+
+function Agent_Register3EncourageMouseClick() {
+
+        var L_Register3EncourageMouseClick1_Text = "Move the mouse pointer here and click the left button.";
+        Agent_Speak(L_Register3EncourageMouseClick1_Text);
+}
+
+function Agent_Register3DropDownArrowExplain() {
+
+
+
+
+
+
+
+
+}
+
+function Agent_Register3PlayElementScript(elem) {
+
+        var str;
+        var dir;
+
+        switch (elem.id) {
+
+                case "UserFirstName":
+                        if (g.document.dir == "rtl") 
+                            Agent_GestureAtElement(elem, "Left");
+                        else
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript1_Text = "In this box, type your first name.";
+                        Agent_Speak(L_Register3PlayElementScript1_Text);
+
+                        if (g.document.dir == "rtl") {
+                            Agent_Play("LookLeft");
+                            Agent_Play("LookLeftBlink");
+                            Agent_Play("LookLefttReturn");
+                        
+                        }
+                        
+                        else {
+                            Agent_Play("LookRight");
+                            Agent_Play("LookRightBlink");
+                            Agent_Play("LookRightReturn");
+
+                        }
+    
+                        break;
+
+                case "UserMiddleName":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript3_Text = "This is where you type your middle name.";
+                        Agent_Speak(L_Register3PlayElementScript3_Text);
+
+                        break;
+
+                case "UserLastName":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript4_Text = "In this box, type your last name.";
+                        Agent_Speak(L_Register3PlayElementScript4_Text);
+
+                        break;
+
+                case "UserAddress":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript5_Text = "Type in your street address here.";
+                        Agent_Speak(L_Register3PlayElementScript5_Text);
+
+                        break;
+
+                case "UserAddress2":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        Agent_Play("Think");
+
+                        var L_Register3PlayElementScript6_Text = "If you need additional space for your address, enter it here. Otherwise, press the Tab key to move on.";
+                        Agent_Speak(L_Register3PlayElementScript6_Text);
+
+                        Agent_Play("RestPose");
+
+                        break;
+
+                case "UserCity":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript7_Text = "Type the name of the city or town where you live here.";
+                        Agent_Speak(L_Register3PlayElementScript7_Text);
+
+                        break;
+
+                case "UserStateTextBox":
+
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else 
+                            Agent_GestureAtElement(elem, "Right");
+
+                        var L_Register3PlayElementScript8_Text = "Type in your state or province here.";
+                        Agent_Speak(L_Register3PlayElementScript8_Text);
+
+                        break;
+
+                case "selUSState":
+                case "selCAProvince":
+                case "selCountry":
+                        
+                        if (g.document.dir == "rtl")
+                            dir = "Left"
+                        else
+                            dir = "Right";
+
+                        Agent_MoveToElement(elem, dir);
+                        
+                        Agent_Play("Explain");
+
+                        if (elem.id == "selUSState") {
+                                var L_Register3PlayElementScript91_Text = "You need to select your state.";
+                                Agent_Speak(L_Register3PlayElementScript91_Text);
+
+                                Agent_GestureAtElement(elem, dir);
+
+                                var L_Register3PlayElementScript92_Text = "To display the list of states, click the downward pointing arrow button with your mouse.";
+                                Agent_Speak(L_Register3PlayElementScript92_Text);
+
+                        }
+
+                        else if (elem.id == "selCAProvince") {
+                                var L_Register3PlayElementScript93_Text = "You need to select your province.";
+                                Agent_Speak(L_Register3PlayElementScript93_Text);
+
+                                Agent_GestureAtElement(elem, dir);
+
+                                var L_Register3PlayElementScript94_Text = "To display the list of provinces, click the downward pointing arrow button with your mouse.";
+                                Agent_Speak(L_Register3PlayElementScript94_Text);
+
+                        }
+
+                        else {
+                                var L_Register3PlayElementScript95_Text = "You need to select your country or region, click the downward pointing arrow button with your mouse.";
+                                Agent_Speak(L_Register3PlayElementScript95_Text);
+
+                                Agent_GestureAtElement(elem, dir);
+
+                                var L_Register3PlayElementScript96_Text = "To display the list of countries and regions, click the downward pointing arrow button with your mouse.";
+                                Agent_Speak(L_Register3PlayElementScript96_Text);
+
+                        }
+
+                        Agent_Play("Explain");
+
+                        var L_Register3PlayElementScript11_Text = "Then, make a selection by clicking your state.";
+                        var L_Register3PlayElementScript12_Text = "Then, make a selection by clicking your province.";
+                        var L_Register3PlayElementScript13_Text = "Then, make a selection by clicking your country or region.";
+
+                        if (elem.id == "selUSState")
+                                str = L_Register3PlayElementScript11_Text;
+                        else if (elem.id == "selCAProvince")
+                                str = L_Register3PlayElementScript12_Text;
+                        else
+                                str = L_Register3PlayElementScript13_Text;
+
+                        Agent_Speak(str);
+
+                        break;
+
+                case "UserZipCode":
+                        
+                        if (g.document.dir == "rtl")
+                            Agent_GestureAtElement(elem, "Left");
+                        else
+                            Agent_GestureAtElement(elem, (IsFarEastLocale() ? "Right" : "TopRight"));
+
+                        var L_Register3PlayElementScript14_Text = "Enter your zip or postal code here.";
+                        Agent_Speak(L_Register3PlayElementScript14_Text);
+
+                        break;
+
+                case "UserEmailAddress":
+
+                        if (elem.value == "") {
+
+                            if (g.document.dir == "rtl") 
+                                Agent_GestureAtElement(elem, "Left");
+        
+                            else
+                                Agent_GestureAtElement(elem, "Right");
+
+                            var L_Register3PlayElementScript15_Text = "Your e-mail address is optional, but is our preferred method of contacting you.";
+                            Agent_Speak(L_Register3PlayElementScript15_Text);
+                            
+                            g_bAgentRegister3ShortEmail = true;
+                            
+                            Agent_Play("Explain");
+                            
+                            var L_Register3PlayElementScript16_Text = "If you don't have an e-mail address, leave this box blank.";
+                            Agent_Speak(L_Register3PlayElementScript16_Text);
+                            
+                            Agent_Play("Blink");
+                                                         
+                        }
+                        
+                        else if ((elem.value.indexOf("@") < 0) || (elem.value.indexOf(".") < 0)) {
+
+                           if (g_strAgentLastFocusID == "UserEmailAddress") {
+
+                                Agent_Play("Decline");
+                                
+                                var L_Register3PlayElementScript17_Text = "I'm sorry, this doesn't look like a valid e-mail address.";
+                                Agent_Speak(L_Register3PlayElementScript17_Text);
+
+                                Agent_ExplainEmailAddress();
+                                
+                                if (g.document.dir == "rtl")
+                                    Agent_GestureAtElement(elem, "Left");
+                                
+                                else
+                                    Agent_GestureAtElement(elem, "Right");
+                                        
+                                Agent_Play("Alert");
+                                        
+                                var L_Register3PlayElementScript18_Text = "If you don't have an e-mail address, leave this field blank.";
+                                Agent_Speak(L_Register3PlayElementScript18_Text);
+                                        
+                                Agent_Play("Blink");
+                                
+                            }
+                                
+                        }
+
+                        break;
+
+                case "sharems":
+                case "shareoem":
+                        if (g.document.all("RegChkBxGrp").style.display != "none") {
+                                Agent_Register3PlayCheckBoxScript(elem.id);
+                                return;
+                        }
+
+                        else {
+                                Agent_EncourageNextButton();
+                        }        
+    }
+}
+function Agent_ExplainEmailAddress() 
+{
+        var L_ExplainEmailAddress1_Text = "An e-mail address typically has two parts.";
+        Agent_Speak(L_ExplainEmailAddress1_Text);
+
+        var L_ExplainEmailAddress2_Text = "The first part is the account name, which is followed by the @ symbol. The second part is the domain name.";
+        Agent_Speak(L_ExplainEmailAddress2_Text);
+
+        var L_ExplainEmailAddress3_Text = "For example, an email address might look like this: %s";
+        var re = /%s/i;
+        var strEmail = "\\map=\"\"=\"greatcustomer@msn.com\"\\";
+
+        Agent_Speak(L_ExplainEmailAddress3_Text.replace(re, strEmail) + "\\pau=2000\\");
+
+        Agent_Play("RestPose");
+}
+
+
+
+
+
+
+
+function Agent_PrivacyMSAddCommands() 
+{
+    var L_PrivacyMSCommand1_Text = "&Tell me about this step";
+    var L_PrivacyMSCommand2_Text = "Wh&at is a secure server?";
+    var L_PrivacyMSCommand3_Text = "What is a coo&kie?";
+    var L_PrivacyMSCommand4_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_PrivacyMSAboutThisStep", L_PrivacyMSCommand1_Text);
+    g_AgentCharacter.Commands.Add("Agent_PrivacyMSWhatIsSecureServer", L_PrivacyMSCommand2_Text);
+    g_AgentCharacter.Commands.Add("Agent_PrivacyMSWhatIsCookie", L_PrivacyMSCommand3_Text);
+    g_AgentCharacter.Commands.Add("Agent_PrivacyMSWhatToDoNext", L_PrivacyMSCommand4_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_PrivacyMSAboutThisStep()
+{
+    var L_PrivacyMSAboutThisStep1_Text = "This screen displays Microsoft's privacy statement.";
+    Agent_Speak(L_PrivacyMSAboutThisStep1_Text);
+    
+    Agent_GestureAtElement(g.privtext,"Left");
+
+    var L_PrivacyMSAboutThisStep2_Text = "You can read through the text here.";
+    Agent_Speak(L_PrivacyMSAboutThisStep2_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnBack, "TopLeft");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnBack, "TopCenterWidth");
+    } 
+
+    var L_PrivacyMSAboutThisStep3_Text = "Then click the Back button to return to the previous screen.";
+    Agent_Speak(L_PrivacyMSAboutThisStep3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_PrivacyMSWhatIsSecureServer()
+{
+    var L_PrivacyMSWhatIsSecureServer1_Text = "A server is a computer that provides shared resources, such as information, to other computers on a network.";
+    Agent_Speak(L_PrivacyMSWhatIsSecureServer1_Text);
+
+    var L_PrivacyMSWhatIsSecureServer2_Text = "A secure server is one such computer with the capability of providing secure transactions, ensuring that information stored on it will not be accessible to unauthorized parties.";
+    Agent_Speak(L_PrivacyMSWhatIsSecureServer2_Text);
+
+    var L_PrivacyMSWhatIsSecureServer3_Text = "For example, when you register with Microsoft, your name and address information are stored on Microsoft's secure registration server.";
+    Agent_Speak(L_PrivacyMSWhatIsSecureServer3_Text);
+        
+    var L_PrivacyMSWhatIsSecureServer4_Text = "That way, your information remains private and safe, and you won't be contacted by other parties outside Microsoft as a result of registering.";
+    Agent_Speak(L_PrivacyMSWhatIsSecureServer4_Text);
+}
+
+function Agent_PrivacyMSWhatIsCookie()
+{
+    var L_PrivacyMSWhatIsCookie1_Text = "A cookie is a small data file that is stored on your computer when you visit certain Web sites.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie1_Text);
+
+    var L_PrivacyMSWhatIsCookie2_Text = "The cookie contains basic information about you, such as your e-mail address, so that you won't have to re-enter it every time you visit the site.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie2_Text);
+
+    var L_PrivacyMSWhatIsCookie3_Text = "For example, if you make a purchase on a Web site, that site might send a cookie to your computer that contains your shipping information.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie3_Text);
+        
+    var L_PrivacyMSWhatIsCookie4_Text = "So the next time you visit that Web site, you won't have to enter that information again.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie4_Text);
+        
+    var L_PrivacyMSWhatIsCookie5_Text = "When you register with Microsoft, your product ID, your name, and your address are saved in a cookie on your computer.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie5_Text);
+        
+    var L_PrivacyMSWhatIsCookie6_Text = "So the next time you visit www.microsoft.com, the Web site will recognize you as a registered Windows user.";
+    Agent_Speak(L_PrivacyMSWhatIsCookie6_Text);
+}
+
+function Agent_PrivacyMSWhatToDoNext()
+{    
+    Agent_GestureAtElement(g.privtext,"Left");
+    
+    var L_PrivacyMSWhatToDoNext1_Text = "To see more of the privacy statement, click in this box.";
+    Agent_Speak(L_PrivacyMSWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.privtext,"Right");
+
+    var L_PrivacyMSWhatToDoNext2_Text = "Then use the up and down arrow buttons here to scroll through the privacy statement.";
+    Agent_Speak(L_PrivacyMSWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_PrivacyMSWhatToDoNext3_Text = "You can also use the Page Down and Page Up keys on your keyboard to move through the text.";
+    Agent_Speak(L_PrivacyMSWhatToDoNext3_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnBack, "TopLeft");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnBack, "TopCenterWidth");
+    } 
+        
+    var L_PrivacyMSWhatToDoNext4_Text = "When you are done reading the privacy statement, click the Back button to return to the previous registration screen.";
+    Agent_Speak(L_PrivacyMSWhatToDoNext4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+
+function Agent_RefDialAddCommands() 
+{
+    var L_RefDialAddCommands1_Text = "&Tell me about this step";
+    var L_RefDialAddCommands2_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_RefDialAboutThisStep", L_RefDialAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_RefDialWhatToDoNext", L_RefDialAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_RefDialAboutThisStep()
+{
+    var L_RefDialAboutThisStep1_Text = "At this point, Windows needs to make a toll-free phone call.";
+    Agent_Speak(L_RefDialAboutThisStep1_Text);
+
+    var L_RefDialAboutThisStep2_Text = "This will enable you to use your existing Internet account on this computer.";
+    Agent_Speak(L_RefDialAboutThisStep2_Text);
+}
+
+function Agent_RefDialWhatToDoNext()
+{    
+    Agent_GestureAtElement(g.btnManual,"Left");
+    
+    var L_RefDialWhatToDoNext1_Text = "If you already have an Internet service provider, or 'ISP' for short, or know which ISP you want to use, click this Have Settings button.";
+    Agent_Speak(L_RefDialWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_RefDialWhatToDoNext2_Text = "If you want to select from a list of available ISPs in your area, click Next to continue.";
+    Agent_Speak(L_RefDialWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_RefDialWhatToDoNext3_Text = "Or click Skip to continue without setting up this computer for Internet access.";
+    Agent_Speak(L_RefDialWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+function Agent_RefDialingAddCommands() 
+{
+    var L_RefDialingAddCommands1_Text = "&Tell me about this step";
+    var L_RefDialingAddCommands2_Text = "Wh&at's the bar in the middle of my screen?";
+    var L_RefDialingAddCommands3_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_RefDialingAboutThisStep", L_RefDialingAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_RefDialingWhatsThisBar", L_RefDialingAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_RefDialingWhatToDoNext", L_RefDialingAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_RefDialingAboutThisStep()
+{
+    var L_RefDialingAboutThisStep1_Text = "Windows is connecting you to the Microsoft Referral Service to retrieve a list of Internet service providers available in your area.";
+    Agent_Speak(L_RefDialingAboutThisStep1_Text);
+
+    var L_RefDialingAboutThisStep2_Text = "Please wait...";
+    Agent_Speak(L_RefDialingAboutThisStep2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_RefDialingAboutThisStep3_Text = "Or if you prefer, you can skip this step or go back to the previous screen.";
+    Agent_Speak(L_RefDialingAboutThisStep3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_RefDialingWhatsThisBar()
+{    
+    Agent_GestureAtElement(g.tblProg,"Left");
+    
+    var L_RefDialingWhatsThisBar1_Text = "That is a progress bar, which shows you where you are in this process.";
+    Agent_Speak(L_RefDialingWhatsThisBar1_Text);
+
+    var L_RefDialingWhatsThisBar2_Text = "As information is downloaded from the referral service to your computer, the bar fills up.";
+    Agent_Speak(L_RefDialingWhatsThisBar2_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_RefDialingWhatsThisBar3_Text = "When all the information has been downloaded, the bar will be completely filled and you'll move to the next screen automatically.";
+    Agent_Speak(L_RefDialingWhatsThisBar2_Text);
+}
+
+function Agent_RefDialingWhatToDoNext()
+{
+    var L_RefDialingWhatToDoNext1_Text = "Please wait while Windows downloads information about ISPs from the Microsoft Referral Service to your computer.";
+    Agent_Speak(L_RefDialingWhatToDoNext1_Text);
+
+    var L_RefDialingWhatToDoNext2_Text = "Once the download is complete, the next screen will appear automatically.";
+    Agent_Speak(L_RefDialingWhatToDoNext2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_RefDialingWhatToDoNext3_Text = "If you want to skip this step, click the Skip button.";
+    Agent_Speak(L_RefDialingWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+function Agent_RegDialAddCommands()
+{
+    var L_RegDialAddCommands1_Text = "&Tell me about this step";
+    var L_RegDialAddCommands2_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_RegDialAboutThisStep", L_RegDialAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_RegDialWhatToDoNext", L_RegDialAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_RegDialAboutThisStep()
+{
+    var L_RegDialAboutThisStep1_Text = "Windows is using your computer to make a toll-free phone call to connect to the registration center.";
+    Agent_Speak(L_RegDialAboutThisStep1_Text);
+
+    var L_RegDialAboutThisStep2_Text = "Please wait...";
+    Agent_Speak(L_RegDialAboutThisStep2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_RegDialAboutThisStep3_Text = "Or if you prefer, you can skip this step, or go back to the previous screen.";
+    Agent_Speak(L_RegDialAboutThisStep3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_RegDialWhatToDoNext()
+{
+    var L_RegDialWhatToDoNext1_Text = "Please wait while Windows connects to the registration center.";
+    Agent_Speak(L_RegDialWhatToDoNext1_Text);
+
+    var L_RegDialWhatToDoNext2_Text = "Once Windows has connected, it will automatically move to the next screen.";
+    Agent_Speak(L_RegDialWhatToDoNext2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_RegDialWhatToDoNext3_Text = "If you want to skip this step, click the Skip button.";
+    Agent_Speak(L_RegDialWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_MigDialAddCommands()
+{
+    var L_MigDialAddCommands1_Text = "&Tell me about this step";
+    var L_MigDialAddCommands2_Text = "&What should I do next";
+
+    g_AgentCharacter.Commands.Add("Agent_MigDialAboutThisStep", L_MigDialAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_MigDialWhatToDoNext", L_MigDialAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_MigDialAboutThisStep()
+{
+    var L_MigDialAboutThisStep1_Text = "At this point, Windows needs to make a toll-free phone call.";
+    Agent_Speak(L_MigDialAboutThisStep1_Text);
+
+    var L_MigDialAboutThisStep2_Text = "This will enable you to use your existing Internet account on this computer.";
+    Agent_Speak(L_MigDialAboutThisStep2_Text);
+}
+
+function Agent_MigDialWhatToDoNext()
+    {    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+    
+    var L_MigDialWhatToDoNext1_Text = "Click the Next button to begin dialing.";
+    Agent_Speak(L_MigDialWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_MigDialWhatToDoNext2_Text = "Or, if you want to skip this step, click the Skip button.";
+    Agent_Speak(L_MigDialWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+
+function Agent_MigListAddCommands() 
+{
+    
+    
+    
+    var L_MigListAddCommands1_Text = "&Tell me about this step";
+    var L_MigListAddCommands2_Text = "&What should I do next";
+    
+    g_AgentCharacter.Commands.Add("Agent_MigListAboutThisStep", L_MigListAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_MigListWhatToDoNext", L_MigListAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_OnMigListPreDisplayMenu()
+{
+    var MigListCommands = g_AgentCharacter.Commands;
+
+    if (g.MigListNoOffer.style.display == "inline")
+    {
+        if (MigListCommands.count >= 3)
+        {
+            MigListCommands.Remove("Agent_MigListAboutThisStep");
+            MigListCommands.Remove("Agent_MigListWhatToDoNext");
+        }
+    }
+    else
+    {
+        if (MigListCommands.count < 3)
+        {
+            Agent_MigListAddCommands();
+        }
+    }
+}
+
+function Agent_MigListAboutThisStep()
+{
+    var L_MigListAboutThisStep1_Text = "On this screen you choose the Internet service provider, or 'ISP' for short, you want to use.";
+    Agent_Speak(L_MigListAboutThisStep1_Text);
+
+    var L_MigListAboutThisStep2_Text = "This will enable you to use your existing Internet account on this computer.";
+    Agent_Speak(L_MigListAboutThisStep2_Text);
+}
+
+function Agent_MigListWhatToDoNext()
+{
+    Agent_GestureAtElement(g.selISPDropList,"Left");
+    
+    var L_MigListWhatToDoNext1_Text = "Select your Internet service provider by clicking it in this list.";
+    Agent_Speak(L_MigListWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_MigListWhatToDoNext2_Text = "If you don't see your ISP listed, click \"My ISP is not on the list\" on the bottom of the list.";
+    Agent_Speak(L_MigListWhatToDoNext2_Text);
+
+    var L_MigListWhatToDoNext3_Text = "And contact your ISP for assistance in re-establishing your Internet account on this computer.";
+    Agent_Speak(L_MigListWhatToDoNext3_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_MigListWhatToDoNext4_Text = "Then click the Next button to continue.";
+    Agent_Speak(L_MigListWhatToDoNext4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_MigPageAddCommands() 
+{
+    var L_MigPageAddCommands1_Text = "Tell me what to do &next";
+    var L_MigPageAddCommands2_Text = "Tell me about this &screen";
+    var L_MigPageAddCommands3_Text = "Tell me how to &move to the next screen";
+    
+    g_AgentCharacter.Commands.Add("Agent_MigPageCommand_WhatToDoNext", L_MigPageAddCommands1_Text); 
+    g_AgentCharacter.Commands.Add("Agent_MigPageCommand_AboutThisStep", L_MigPageAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_MigPageCommand_HowToMoveOn", L_MigPageAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+    
+function Agent_MigPageCommand_WhatToDoNext() {
+        
+    var L_MigPageWhatToDoNext1_Text = "When you are done with this page.";
+    Agent_Speak(L_MigPageWhatToDoNext1_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+            
+    var L_MigPageWhatToDoNext2_Text = "Click the Next button.";
+    Agent_Speak(L_MigPageWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_MigPageCommand_AboutThisStep() 
+{
+    var L_MigPageAboutThisStep1_Text = "On this screen, we will try to enable your Internet account with your existing service provider.";
+    Agent_Speak(L_MigPageAboutThisStep1_Text);
+    
+    Agent_Play("Pleased");
+    
+    var L_MigPageAboutThisStep2_Text = "Just follow the instructions on this screen provided by your Internet service provider.";
+    Agent_Speak(L_MigPageAboutThisStep2_Text);
+}
+
+function Agent_MigPageCommand_HowToMoveOn() 
+{
+    var L_MigPageHowToMoveOn1_Text = "When you have completed this screen,";
+    Agent_Speak(L_MigPageHowToMoveOn1_Text);        
+            
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_MigPageHowToMoveOn2_Text = "Click the Next button to continue.";
+    Agent_Speak(L_MigPageHowToMoveOn2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_ISPDialAddCommands() 
+{
+    var L_ISPDial1_Text = "&Tell me about this step";
+    var L_ISPDial2_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_ISPDialAboutThisStep", L_ISPDial1_Text);
+    g_AgentCharacter.Commands.Add("Agent_ISPDialWhatToDoNext", L_ISPDial2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_ISPDialAboutThisStep()
+{
+    var L_ISPDialAboutThisStep1_Text = "At this point, Windows needs to make a toll-free phone call.";
+    Agent_Speak(L_ISPDialAboutThisStep1_Text);
+
+    var L_ISPDialAboutThisStep2_Text = "This is to sign you up for your new Internet account.";
+    Agent_Speak(L_ISPDialAboutThisStep2_Text);
+
+    var L_ISPDialAboutThisStep3_Text = "Just click the Next button to continue.";
+    Agent_Speak(L_ISPDialAboutThisStep3_Text);
+}
+
+function Agent_ISPDialWhatToDoNext()
+{
+    var L_ISPDialWhatToDoNext1_Text = "Click the Next button to continue.";
+    Agent_Speak(L_ISPDialWhatToDoNext1_Text);
+
+    var L_ISPDialWhatToDoNext2_Text = "Or click Skip to continue without setting up this computer for Internet access. You can always do it later...";
+    Agent_Speak(L_ISPDialWhatToDoNext2_Text);
+}
+
+
+
+
+function Agent_DialToneAddCommands()
+{
+    var L_DialToneAddCommands1_Text = "&Tell me about this step";
+    var L_DialToneAddCommands2_Text = "Wh&at if I need to move my computer?";
+    var L_DialToneAddCommands3_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_DialToneAboutThisStep", L_DialToneAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_DialToneHowToMove", L_DialToneAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_DialToneWhatToDoNext", L_DialToneAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_DialToneAboutThisStep()
+{
+    var L_DialToneAboutThisStep1_Text = "Windows could not detect a dial tone.";
+    Agent_Speak(L_DialToneAboutThisStep1_Text);
+
+    var L_DialToneAboutThisStep2_Text = "There could be several reasons for this.";
+    Agent_Speak(L_DialToneAboutThisStep2_Text);
+
+    var L_DialToneAboutThisStep3_Text = "First, check to make sure that the phone cable for your computer is correctly plugged in at each end.";
+    Agent_Speak(L_DialToneAboutThisStep3_Text);
+
+    var L_DialToneAboutThisStep4_Text = "Second, make sure that no one is trying to use your phone line right now.";
+    Agent_Speak(L_DialToneAboutThisStep4_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_DialToneAboutThisStep5_Text = "Then click the Redial button to try dialing again.";
+    Agent_Speak(L_DialToneAboutThisStep5_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_DialToneHowToMove()
+{
+    var L_DialToneHowToMove1_Text = "If you need to move your computer to connect it to your phone line, make sure the power is off.";
+    Agent_Speak(L_DialToneHowToMove1_Text);
+
+    var L_DialToneHowToMove2_Text = "When you restart your computer, Windows will resume this process where you left off.";
+    Agent_Speak(L_DialToneHowToMove2_Text);
+}
+
+function Agent_DialToneWhatToDoNext()
+{
+    var L_DialToneWhatToDoNext1_Text = "First check your computer's connection to your phone line.";
+    Agent_Speak(L_DialToneWhatToDoNext1_Text);
+
+    var L_DialToneWhatToDoNext2_Text = "Next, check to make sure that your phone line is not already in use.";
+    Agent_Speak(L_DialToneWhatToDoNext2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_DialToneWhatToDoNext3_Text = "Then click the Redial button to try dialing again.";
+    Agent_Speak(L_DialToneWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_DialToneWhatToDoNext4_Text = "Or click the Skip button to continue without registering or activating your copy of Windows XP.";
+    Agent_Speak(L_DialToneWhatToDoNext4_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_DialToneWhatToDoNext5_Text = "You can always register later.";
+    Agent_Speak(L_DialToneWhatToDoNext5_Text);
+}
+
+
+
+function Agent_CnnctErrAddCommands() 
+{
+    var L_CnnctErrAddCommands1_Text = "&Tell me about this step";
+    var L_CnnctErrAddCommands2_Text = "H&ow do I turn off call waiting?";
+    var L_CnnctErrAddCommands3_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_CnnctErrAboutThisStep", L_CnnctErrAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_CnnctErrTurnOffCallWaiting", L_CnnctErrAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_CnnctErrWhatToDoNext", L_CnnctErrAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_CnnctErrAboutThisStep()
+{
+    var L_CnnctErrAboutThisStep1_Text = "Your phone call to the registration center was interrupted.";
+    Agent_Speak(L_CnnctErrAboutThisStep1_Text);
+
+    var L_CnnctErrAboutThisStep2_Text = "There could be several reasons for this.";
+    Agent_Speak(L_CnnctErrAboutThisStep2_Text);
+
+    var L_CnnctErrAboutThisStep3_Text = "First, you may not have been actively using your connection for an extended period of time and you were automatically disconnected.";
+    Agent_Speak(L_CnnctErrAboutThisStep3_Text);
+
+    var L_CnnctErrAboutThisStep4_Text = "Second, someone may have tried to use your phone line while you were connected.";
+    Agent_Speak(L_CnnctErrAboutThisStep4_Text);
+
+    var L_CnnctErrAboutThisStep5_Text = "Third, if you have call waiting, you may have been interrupted by an incoming call.";
+    Agent_Speak(L_CnnctErrAboutThisStep5_Text);
+    
+    Agent_GestureAtElement(g.Callwait,"Left");
+
+    var L_CnnctErrAboutThisStep6_Text = "If your phone service includes call waiting, and you know the number to turn it off, type it here.";
+    Agent_Speak(L_CnnctErrAboutThisStep6_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_CnnctErrAboutThisStep7_Text = "Then click the Next button to try to reconnect.";
+    Agent_Speak(L_CnnctErrAboutThisStep7_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_CnnctErrTurnOffCallWaiting()
+{
+    var L_CnnctErrTurnOffCallWaiting1_Text = "Your telephone service provider can tell you the code to turn off call waiting.";
+    Agent_Speak(L_CnnctErrTurnOffCallWaiting1_Text);
+    
+    Agent_GestureAtElement(g.Callwait,"Left");
+
+    var L_CnnctErrTurnOffCallWaiting2_Text = "If you want to turn off your phone's call waiting service while you are making this connection, type that number here.";
+    Agent_Speak(L_CnnctErrTurnOffCallWaiting2_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_CnnctErrTurnOffCallWaiting3_Text = "Then click the Next button.";
+    Agent_Speak(L_CnnctErrTurnOffCallWaiting3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_CnnctErrWhatToDoNext()
+{
+    var L_CnnctErrWhatToDoNext1_Text = "First, make sure that no one else is using the phone line that you're trying to use to contact Microsoft.";
+    Agent_Speak(L_CnnctErrWhatToDoNext1_Text);
+
+    var L_CnnctErrWhatToDoNext2_Text = "Second, if you have call waiting, turn it off temporarily.";
+    Agent_Speak(L_CnnctErrWhatToDoNext2_Text);
+    
+    Agent_GestureAtElement(g.Callwait,"Left");
+
+    var L_CnnctErrWhatToDoNext3_Text = "To turn it off, type the code in this box.";
+    Agent_Speak(L_CnnctErrWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_CnnctErrWhatToDoNext4_Text = "After your call is complete, we'll automatically turn on call waiting again.";
+    Agent_Speak(L_CnnctErrWhatToDoNext4_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_CnnctErrWhatToDoNext5_Text = "When you're ready to try again, click the Next button.";
+    Agent_Speak(L_CnnctErrWhatToDoNext5_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_CnnctErrWhatToDoNext6_Text = "Or click the Skip button to continue without registering.";
+    Agent_Speak(L_CnnctErrWhatToDoNext6_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_HandShakeAddCommands() 
+{
+    var L_HandShakeAddCommands1_Text = "&Tell me about this step";
+    var L_HandShakeAddCommands2_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_HandShakeAboutThisStep", L_HandShakeAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_HandShakeWhatToDoNext", L_HandShakeAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_HandShakeAboutThisStep()
+{
+    var L_HandShakeAboutThisStep1_Text = "Windows was unable to connect to Microsoft at this time.";
+    Agent_Speak(L_HandShakeAboutThisStep1_Text);
+
+    var L_HandShakeAboutThisStep2_Text = "This could be because the phone lines are busy, or because your computer was unable to make a phone call.";
+    Agent_Speak(L_HandShakeAboutThisStep2_Text);
+
+    var L_HandShakeAboutThisStep3_Text = "Try waiting a few minutes.";
+    Agent_Speak(L_HandShakeAboutThisStep3_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_HandShakeAboutThisStep4_Text = "Then click the Redial button to try again.";
+    Agent_Speak(L_HandShakeAboutThisStep4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_HandShakeWhatToDoNext()
+{    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+    
+    var L_HandShakeWhatToDoNext1_Text = "Wait a few minutes, and then click the Redial button.";
+    Agent_Speak(L_HandShakeWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_HandShakeWhatToDoNext2_Text = "If you have already tried this a couple times, contact your computer manufacturer.";
+    Agent_Speak(L_HandShakeWhatToDoNext2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_HandShakeWhatToDoNext3_Text = "Or click the Skip button to continue without registering your computer.";
+    Agent_Speak(L_HandShakeWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+function Agent_NoAnswerAddCommands() 
+{
+    var L_NoAnswerAddCommands1_Text = "&Tell me about this step";
+    var L_NoAnswerAddCommands2_Text = "Wh&at if the phone number is incorrect?";
+    var L_NoAnswerAddCommands3_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_NoAnswerAboutThisStep", L_NoAnswerAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_NoAnswerWhatIfWrongNumber", L_NoAnswerAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_NoAnswerWhatToDoNext", L_NoAnswerAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_NoAnswerAboutThisStep()
+{
+    var L_NoAnswerAboutThisStep1_Text = "The phone number we tried to dial did not answer.";
+    Agent_Speak(L_NoAnswerAboutThisStep1_Text);
+
+    var L_NoAnswerAboutThisStep2_Text = "Check to see if the number looks correct.";
+    Agent_Speak(L_NoAnswerAboutThisStep2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_NoAnswerAboutThisStep3_Text = "If it looks OK, wait a few minutes, then click the Redial button to try again.";
+    Agent_Speak(L_NoAnswerAboutThisStep3_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.edtPhoneNumber,"Left");
+
+    var L_NoAnswerAboutThisStep4_Text = "However, if the number is incorrect, click here and edit it.";
+    Agent_Speak(L_NoAnswerAboutThisStep4_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_NoAnswerAboutThisStep5_Text = "And then click the Redial button.";
+    Agent_Speak(L_NoAnswerAboutThisStep5_Text);
+    
+    Agent_GestureAtElement(g.btnRestore,"Right");
+
+    var L_NoAnswerAboutThisStep6_Text = "You can always restore the original number that Windows tried to dial by clicking the Restore button.";
+    Agent_Speak(L_NoAnswerAboutThisStep6_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_NoAnswerWhatIfWrongNumber()
+{
+    var L_NoAnswerWhatIfWrongNumber1_Text = "If the phone number here is not correct, click the text box.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber1_Text);
+
+    var L_NoAnswerWhatIfWrongNumber2_Text = "A blinking vertical line, known as the insertion point, should appear in the box.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber2_Text);
+
+    var L_NoAnswerWhatIfWrongNumber3_Text = "Whatever you type will be entered at the insertion point.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber3_Text);
+
+    var L_NoAnswerWhatIfWrongNumber4_Text = "You can move the insertion point in the text box by pressing the left or right arrow keys on your keyboard.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber4_Text);
+
+    var L_NoAnswerWhatIfWrongNumber5_Text = "And you can use the Delete key to remove characters after the insertion point.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber5_Text);
+
+    var L_NoAnswerWhatIfWrongNumber6_Text = "Or use the Backspace key to remove characters before the insertion point.";
+    Agent_Speak(L_NoAnswerWhatIfWrongNumber6_Text);
+}
+
+function Agent_NoAnswerWhatToDoNext()
+{    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+    
+    var L_NoAnswerWhatToDoNext1_Text = "If you've checked the phone number here and it looks correct, click the Redial button to try reconnecting.";
+    Agent_Speak(L_NoAnswerWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_NoAnswerWhatToDoNext2_Text = "In order to proceed, you need to choose either to reconnect or to skip registering your computer at this time.";
+    Agent_Speak(L_NoAnswerWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_PulseAddCommands() 
+{
+
+    var L_PulseAddCommands1_Text = "&Tell me about this step";
+    var L_PulseAddCommands2_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_PulseAboutThisStep", L_PulseAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_PulseWhatToDoNext", L_PulseAddCommands2_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_PulseAboutThisStep()
+{
+    var L_PulseAboutThisStep1_Text = "Windows could not determine whether your phone uses tone or pulse dialing.";
+    Agent_Speak(L_PulseAboutThisStep1_Text);
+
+    var L_PulseAboutThisStep2_Text = "Windows needs to know this before we proceed.";
+    Agent_Speak(L_PulseAboutThisStep2_Text);
+    
+    Agent_GestureAtElement(g.pulse,"Left");
+
+    var L_PulseAboutThisStep3_Text = "On this screen, you specify your phone line's dialing method.";
+    Agent_Speak(L_PulseAboutThisStep3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_PulseWhatToDoNext()
+{
+    var L_PulseWhatToDoNext1_Text = "Click inside the white circle to the left of the dialing method that your phone line uses.";
+    Agent_Speak(L_PulseWhatToDoNext1_Text);
+    
+    Agent_GestureAtElement(g.tone,"Left");
+
+    var L_PulseWhatToDoNext2_Text = "Click here if your phone uses tone dialing.";
+    Agent_Speak(L_PulseWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.pulse,"Left");
+
+    var L_PulseWhatToDoNext3_Text = "Or here for pulse dialing.";
+    Agent_Speak(L_PulseWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_PulseWhatToDoNext4_Text = "Then click the Next button to try dialing again.";
+    Agent_Speak(L_PulseWhatToDoNext4_Text);
+    
+    Agent_Play("RestPose");
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_PulseWhatToDoNext5_Text = "Or click the Skip button to continue without registering your computer.";
+    Agent_Speak(L_PulseWhatToDoNext5_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+
+function Agent_TooBusyAddCommands() 
+{
+        var L_TooBusyAddCommands1_Text = "&Tell me about this step";
+        var L_TooBusyAddCommands2_Text = "Wh&at if the phone number is incorrect?";
+        var L_TooBusyAddCommands3_Text = "&What should I do next?";
+
+        g_AgentCharacter.Commands.Add("Agent_TooBusyCommand_AboutThisStep", L_TooBusyAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_TooBusyCommand_WhatIfIncorrect", L_TooBusyAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_TooBusyCommand_WhatToDoNext", L_TooBusyAddCommands3_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_TooBusyCommand_AboutThisStep() 
+{
+    var L_TooBusyAboutThisStep1_Text = "The phone number we tried to dial is either incorrect or busy.";
+    Agent_Speak(L_TooBusyAboutThisStep1_Text);
+
+    Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+
+    var L_TooBusyAboutThisStep2_Text = "Check to see whether this number looks correct.";
+    Agent_Speak(L_TooBusyAboutThisStep2_Text);
+        
+    Agent_Play("RestPose");
+
+    var L_TooBusyAboutThisStep3_Text = "If it looks OK, wait a few minutes,";
+    Agent_Speak(L_TooBusyAboutThisStep3_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_TooBusyAboutThisStep4_Text = "Then click the Redial button to try dialing again.";
+    Agent_Speak(L_TooBusyAboutThisStep4_Text);
+        
+    Agent_Play("RestPose");
+}
+
+function Agent_TooBusyCommand_WhatIfIncorrect() 
+{        
+    Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+    
+    var L_TooBusyPhoneNumberIncorrect1_Text = "If the phone number shown here is not correct,";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect1_Text);
+    
+    Agent_Play("RestPose");
+        
+    Agent_GestureAtElement(g.document.all("cb_altnumber"),"Left");
+    
+    var L_TooBusyPhoneNumberIncorrect2_Text = " click this checkbox,";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect2_Text);
+    
+    Agent_Play("RestPose");
+        
+    Agent_GestureAtElement(g.document.all("edt_altnumber"),"Right");
+    
+    var L_TooBusyPhoneNumberIncorrect3_Text = "and enter an alternative number here.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect3_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.document.all("cb_outsideline"),"Left");
+
+    var L_TooBusyPhoneNumberIncorrect4_Text = "If you need to dial a number in order to get an outside line, click this checkbox,";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect4_Text);
+
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.document.all("edt_outsideline"),"Right");
+
+    var L_TooBusyPhoneNumberIncorrect5_Text = "and type the number here.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect5_Text);
+
+    Agent_Play("RestPose");
+
+    var L_TooBusyPhoneNumberIncorrect6_Text = "If you have call waiting, your outgoing call could be interrupted by an incoming call.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect6_Text);
+
+    var L_TooBusyPhoneNumberIncorrect7_Text = "It's easy to turn off your phone's call waiting service while you're making this connection.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect7_Text);
+        
+    Agent_GestureAtElement(g.document.all("cb_callwaiting"),"Left");
+
+    var L_TooBusyPhoneNumberIncorrect8_Text = "Just click this checkbox,";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect8_Text);
+
+    Agent_Play("RestPose");
+        
+    Agent_GestureAtElement(g.document.all("edt_callwaiting"),"Right");
+
+    var L_TooBusyPhoneNumberIncorrect9_Text = "and type the code here.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect9_Text);
+
+    Agent_Play("RestPose");
+
+    var L_TooBusyPhoneNumberIncorrect10_Text = "Call waiting will be turned back on after the call is complete.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect10_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_TooBusyPhoneNumberIncorrect11_Text = "Remember to click the Redial button when you're ready to try again.";
+    Agent_Speak(L_TooBusyPhoneNumberIncorrect11_Text);
+        
+    Agent_Play("RestPose");
+}
+
+function Agent_TooBusyCommand_WhatToDoNext() 
+{
+    Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+
+    var L_TooBusyWhatToDoNext1_Text = "If you've checked the phone number here and it looks correct,";
+    Agent_Speak(L_TooBusyWhatToDoNext1_Text);
+        
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+    
+     var L_TooBusyWhatToDoNext2_Text = "click the Redial button to try reconnecting.";
+    Agent_Speak(L_TooBusyWhatToDoNext2_Text);
+        
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+    var L_TooBusyWhatToDoNext3_Text = "Or click the Skip button to skip this step.  You can always register after you finish setting up Windows.";
+    Agent_Speak(L_TooBusyWhatToDoNext3_Text);
+        
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_ISPDToneAddCommands() 
+{
+    var L_ISPDToneAddCommands1_Text = "&Tell me about this step";
+    var L_ISPDToneAddCommands2_Text = "Wh&at if I need to move my computer";
+    var L_ISPDToneAddCommands3_Text = "&What should I do next";
+
+    g_AgentCharacter.Commands.Add("Agent_ISPDToneAboutThisStep", L_ISPDToneAddCommands1_Text);
+    g_AgentCharacter.Commands.Add("Agent_ISPDToneHowToMove", L_ISPDToneAddCommands2_Text);
+    g_AgentCharacter.Commands.Add("Agent_ISPDToneWhatToDoNext", L_ISPDToneAddCommands3_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_ISPDToneAboutThisStep()
+{
+    var L_ISPDToneAboutThisStep1_Text = "Windows could not detect a dial tone.";
+    Agent_Speak(L_ISPDToneAboutThisStep1_Text);
+
+    var L_ISPDToneAboutThisStep2_Text = "There could be several reasons for this.";
+    Agent_Speak(L_ISPDToneAboutThisStep2_Text);
+
+    var L_ISPDToneAboutThisStep3_Text = "First, check to make sure that the phone cable for your computer is correctly plugged in at each end.";
+    Agent_Speak(L_ISPDToneAboutThisStep3_Text);
+
+    var L_ISPDToneAboutThisStep4_Text = "Second, make sure that no one is trying to use your phone line right now.";
+    Agent_Speak(L_ISPDToneAboutThisStep4_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_ISPDToneAboutThisStep5_Text = "Then click the Redial button to try dialing again.";
+    Agent_Speak(L_ISPDToneAboutThisStep5_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPDToneHowToMove()
+{
+    var L_ISPDToneHowToMove1_Text = "If you need to move your computer to connect it to your phone line, make sure the power is off.";
+    Agent_Speak(L_ISPDToneHowToMove1_Text);
+
+    var L_ISPDToneHowToMove2_Text = "When you restart your computer, Windows will resume this process where you left off.";
+    Agent_Speak(L_ISPDToneHowToMove2_Text);
+}
+
+function Agent_ISPDToneWhatToDoNext()
+{
+    var L_ISPDToneWhatToDoNext1_Text = "First check your computer's connection to your phone line.";
+    Agent_Speak(L_ISPDToneWhatToDoNext1_Text);
+
+    var L_ISPDToneWhatToDoNext2_Text = "Next, check to make sure that your phone line is not already in use.";
+    Agent_Speak(L_ISPDToneWhatToDoNext2_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_ISPDToneWhatToDoNext3_Text = "Then click the Redial button to try dialing again.";
+    Agent_Speak(L_ISPDToneWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+
+function Agent_ISPCnErrAddCommands() {
+
+        var L_ISPCnErrAddCommands1_Text = "Tell me what to do &next";
+        var L_ISPCnErrAddCommands2_Text = "Tell me how to &turn off call waiting";
+        var L_ISPCnErrAddCommands3_Text = "Tell me about this &screen";
+        var L_ISPCnErrAddCommands4_Text = "Tell me how to &move to the next screen";
+
+        g_AgentCharacter.Commands.Add("Agent_ISPCnErrCommand_WhatToDoNext", L_ISPCnErrAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPCnErrCommand_HowToTurnOffCallWaiting", L_ISPCnErrAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPCnErrCommand_AboutThisScreen", L_ISPCnErrAddCommands3_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPCnErrCommand_HowToMoveOn", L_ISPCnErrAddCommands4_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_ISPCnErrIntro() {
+
+}
+
+function Agent_ISPCnErrCommand_AboutThisScreen() 
+{
+        var L_ISPCnErrIntro1_Text = "Your phone connection to setup your Internet service was interrupted.";
+        Agent_Speak(L_ISPCnErrIntro1_Text);
+
+        Agent_MoveToElement(g.document.all("txtBullet1"),"Left");
+        
+        var L_ISPCnErrIntro2_Text = "There could be several reasons for this.";
+        Agent_Speak(L_ISPCnErrIntro2_Text);
+
+        var L_ISPCnErrIntro3_Text = "First, you may not have been actively using your connection for an extended period of time and you were automatically disconnected.";
+        Agent_Speak(L_ISPCnErrIntro3_Text);
+
+        var L_ISPCnErrIntro4_Text = "Second, someone may have tried to use your phone line while you were connected.";
+        Agent_Speak(L_ISPCnErrIntro4_Text);
+
+        var L_ISPCnErrIntro5_Text = "Third, if you have call waiting, you may have been interrupted by an incoming call.";
+        Agent_Speak(L_ISPCnErrIntro5_Text);
+
+        Agent_GestureAtElement(g.document.all("Callwait"),"Left");
+
+        var L_ISPCnErrIntro6_Text = "If your phone service includes call waiting, and you know the number to turn it off, enter it here.";
+        Agent_Speak(L_ISPCnErrIntro6_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPCnErrIntro7_Text = "Then click the Redial button to try to reconnect.";
+        Agent_Speak(L_ISPCnErrIntro7_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPCnErrCommand_WhatToDoNext() 
+{
+        Agent_GestureAtElement(g.document.all("txtBullet1"),"Left");
+
+        var L_ISPCnErrWhatToDoNext1_Text = "If you have resolved all these potential causes,";
+        Agent_Speak(L_ISPCnErrWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPCnErrWhatToDoNext2_Text = "And you want to try reconnecting,";
+        Agent_Speak(L_ISPCnErrWhatToDoNext2_Text);
+
+        var L_ISPCnErrWhatToDoNext3_Text = "Click the Redial button to try again.";
+        Agent_Speak(L_ISPCnErrWhatToDoNext3_Text);
+}
+
+function Agent_ISPCnErrCommand_HowToTurnOffCallWaiting() 
+{
+        Agent_GestureAtElement(g.document.all("Callwait"),"Left");
+        
+        var L_ISPCnErrHowToTurnOffCallWaiting1_Text = "If you want to turn off your phone's call waiting service, while you are making this connection,";
+        Agent_Speak(L_ISPCnErrHowToTurnOffCallWaiting1_Text);
+
+        var L_ISPCnErrHowToTurnOffCallWaiting2_Text = "Enter that number here.";
+        Agent_Speak(L_ISPCnErrHowToTurnOffCallWaiting2_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPCnErrHowToTurnOffCallWaiting3_Text = "Then, click the Redial button.";
+        Agent_Speak(L_ISPCnErrHowToTurnOffCallWaiting3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPCnErrCommand_HowToMoveOn() 
+{
+        var L_ISPCnErrHowToMoveOn1_Text = "In order to proceed, you need to choose to reconnect or skip this step.";
+        Agent_Speak(L_ISPCnErrHowToMoveOn1_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPCnErrHowToMoveOn2_Text = "Click the Redial button to try reconnecting,";
+        Agent_Speak(L_ISPCnErrHowToMoveOn2_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+        var L_ISPCnErrHowToMoveOn3_Text = "Or, click the Skip button to continue without retrying.";
+        Agent_Speak(L_ISPCnErrHowToMoveOn3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_OnISPCnErrGotFocus(elem) {
+
+        Agent_StopAll();
+
+        var dir = "Left";
+
+        Agent_MoveToElement(elem, dir, 0);
+
+        Agent_StartLookingAtElement(elem, "Look" + dir);
+
+}
+
+function Agent_OnISPCnErrKeyDown(elem, keyCode) {
+
+    switch (elem.id) {
+        case "Callwait":
+
+            
+
+            if (keyCode == 9) {
+
+                
+                
+                
+                
+
+                return;
+            }
+
+            if (!Agent_IsLooking()) {
+
+                Agent_StopAll();
+
+                Agent_MoveToElement(elem, "Left", 0);
+                Agent_StartLookingAtElement(elem, "LookLeft");
+            }
+            
+            else {
+
+                
+
+                Agent_KeepLooking();
+            }
+            
+            break;
+        
+        default:
+            return;
+            
+    }
+
+}
+
+
+
+function Agent_ISPHandShakeAddCommands() {
+
+        var L_ISPHandShakeAddCommands1_Text = "Tell me what to do &next";
+        var L_ISPHandShakeAddCommands2_Text = "Tell me about this &screen";
+        var L_ISPHandShakeAddCommands3_Text = "Tell me how to &move to the next screen";
+
+        g_AgentCharacter.Commands.Add("Agent_ISPHandShakeCommand_WhatToDoNext", L_ISPHandShakeAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPHandShakeCommand_AboutThisScreen", L_ISPHandShakeAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPHandShakeCommand_HowToMoveOn", L_ISPHandShakeAddCommands3_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_ISPHandShakeIntro() {
+
+}
+
+function Agent_ISPHandShakeCommand_AboutThisScreen() 
+{
+        var L_ISPHandShakeIntro1_Text = "New account services for the Internet service provider you selected are currently unavailable.";
+        Agent_Speak(L_ISPHandShakeIntro1_Text);
+
+        var L_ISPHandShakeIntro2_Text = "I am not sure why.";
+        Agent_Speak(L_ISPHandShakeIntro2_Text);
+
+        var L_ISPHandShakeIntro3_Text = "However, you can try waiting a few minutes, then redialing.";
+        Agent_Speak(L_ISPHandShakeIntro3_Text);
+
+        Agent_Play("RestPose");
+        
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+        
+        var L_ISPHandShakeIntro4_Text = "Or you can skip setting up your Internet service at this time.";
+        Agent_Speak(L_ISPHandShakeIntro4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPHandShakeCommand_WhatToDoNext() 
+{
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPHandShakeWhatToDoNext1_Text = "Wait a few minutes, then click the Redial button.";
+        Agent_Speak(L_ISPHandShakeWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPHandShakeWhatToDoNext2_Text = "If you have already tried this a couple times,";
+        Agent_Speak(L_ISPHandShakeWhatToDoNext2_Text);
+        
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+        var L_ISPHandShakeWhatToDoNext3_Text = "you can click the Skip button to continue without setting up your Internet service at this time.";
+        Agent_Speak(L_ISPHandShakeWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPHandShakeCommand_HowToMoveOn() 
+{
+        var L_ISPHandShakeHowToMoveOn1_Text = "Wait a few minutes,";
+        Agent_Speak(L_ISPHandShakeHowToMoveOn1_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPHandShakeHowToMoveOn2_Text = "then click the Redial button to try connecting again.";
+        Agent_Speak(L_ISPHandShakeHowToMoveOn2_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPHandShakeHowToMoveOn3_Text = "Or if you have already tried this,";
+        Agent_Speak(L_ISPHandShakeHowToMoveOn3_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+        var L_ISPHandShakeHowToMoveOn4_Text = "You can continue without setting up your Internet service by clicking the Skip button.";
+        Agent_Speak(L_ISPHandShakeHowToMoveOn4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_ISPInsAddCommands() {
+
+        var L_ISPInsAddCommands1_Text = "Tell me what to do &next";
+        var L_ISPInsAddCommands2_Text = "Tell me about this &screen";
+        var L_ISPInsAddCommands3_Text = "Tell me how to &move to the next screen";
+
+        g_AgentCharacter.Commands.Add("Agent_ISPInsCommand_WhatToDoNext", L_ISPInsAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPInsCommand_AboutThisScreen", L_ISPInsAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPInsCommand_HowToMoveOn", L_ISPInsAddCommands3_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_ISPInsIntro() {
+
+}
+
+function Agent_ISPInsCommand_AboutThisScreen() 
+{
+        var L_ISPInsIntro1_Text = "I'm sorry. Windows was unable to connect to the Internet through the service provider you selected.";
+        Agent_Speak(L_ISPInsIntro1_Text);
+
+        var L_ISPInsIntro2_Text = "If you experience problems connecting to the Internet with your Web browser or sending and receiving electronic mail,";
+        Agent_Speak(L_ISPInsIntro2_Text);
+
+        var L_ISPInsIntro3_Text = "Call your service provider's technical support for assistance.";
+        Agent_Speak(L_ISPInsIntro3_Text);
+}
+
+function Agent_ISPInsCommand_WhatToDoNext() 
+{
+        var L_ISPInsWhatToDoNext1_Text = "Click the Next button to continue.";
+        Agent_Speak(L_ISPInsWhatToDoNext1_Text);
+}
+
+function Agent_ISPInsCommand_HowToMoveOn() 
+{
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPInsHowToMoveOn1_Text = "Just click the Next button.";
+        Agent_Speak(L_ISPInsHowToMoveOn1_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_ISPNoAnwAddCommands() {
+
+        var L_ISPNoAnwAddCommands1_Text = "Tell me what to do &next";
+        var L_ISPNoAnwAddCommands2_Text = "Tell me what to do if the &phone number is incorrect";
+        var L_ISPNoAnwAddCommands3_Text = "Tell me about this &screen";
+        var L_ISPNoAnwAddCommands4_Text = "Tell me how to &move to the next screen";
+
+        g_AgentCharacter.Commands.Add("Agent_ISPNoAnwCommand_WhatToDoNext", L_ISPNoAnwAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPNoAnwCommand_WhatToDoPhoneNumberIncorrect", L_ISPNoAnwAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPNoAnwCommand_AboutThisScreen", L_ISPNoAnwAddCommands3_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPNoAnwCommand_HowToMoveOn", L_ISPNoAnwAddCommands4_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_ISPNoAnwCommand_AboutThisScreen() 
+{
+        var L_ISPNoAnwIntro1_Text = "The phone number we tried to dial did not answer.";
+        Agent_Speak(L_ISPNoAnwIntro1_Text);
+
+        Agent_GestureAtElement(g.document.all("edtPhoneNumber"),"Left");
+
+        var L_ISPNoAnwIntro2_Text = "Check to see if the number looks correct.";
+        Agent_Speak(L_ISPNoAnwIntro2_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPNoAnwIntro3_Text = "If it looks OK, wait a few minutes,";
+        Agent_Speak(L_ISPNoAnwIntro3_Text);
+
+        var L_ISPNoAnwIntro4_Text = "Then click the Redial button to try again.";
+        Agent_Speak(L_ISPNoAnwIntro4_Text);
+
+        var L_ISPNoAnwIntro5_Text = "However, if the number is incorrect,";
+        Agent_Speak(L_ISPNoAnwIntro5_Text);
+
+        Agent_GestureAtElement(g.document.all("edtPhoneNumber"),"Left");
+
+        var L_ISPNoAnwIntro6_Text = "Click here and edit it.";
+        Agent_Speak(L_ISPNoAnwIntro6_Text);
+
+        Agent_Play("RestPose");
+
+        var L_ISPNoAnwIntro7_Text = "And then click the Redial button.";
+        Agent_Speak(L_ISPNoAnwIntro7_Text);
+}
+
+function Agent_ISPNoAnwCommand_WhatToDoNext() 
+{
+        Agent_GestureAtElement(g.document.all("edtPhoneNumber"),"Left");
+
+        var L_ISPNoAnwWhatToDoNext1_Text = "If you've checked the phone number here and it looks correct,";
+        Agent_Speak(L_ISPNoAnwWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPNoAnwWhatToDoNext2_Text = "And you are ready to try reconnecting,";
+        Agent_Speak(L_ISPNoAnwWhatToDoNext2_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPNoAnwWhatToDoNext3_Text = "Click the Redial button.";
+        Agent_Speak(L_ISPNoAnwWhatToDoNext3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPNoAnwCommand_WhatToDoPhoneNumberIncorrect() 
+{
+        Agent_GestureAtElement(g.document.all("edtPhoneNumber"),"Left");
+
+        var L_ISPNoAnwPhoneNumberIncorrect1_Text = "If the phone number here is not correct,";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect1_Text);
+
+        var L_ISPNoAnwPhoneNumberIncorrect2_Text = "Click the text box.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect2_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPNoAnwPhoneNumberIncorrect3_Text = "A blinking vertical line, known as the insertion point, should appear in the box.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect3_Text);
+
+        var L_ISPNoAnwPhoneNumberIncorrect4_Text = "Whatever you type will be entered at the insertion point.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect4_Text);
+
+        var L_ISPNoAnwPhoneNumberIncorrect5_Text = "You can move the insertion point in the text box by pressing the Left Arrow or Right Arrow keys on your keyboard.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect5_Text);
+
+        var L_ISPNoAnwPhoneNumberIncorrect6_Text = "And you can use the Delete key to remove characters after the insertion point.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect6_Text);
+
+        var L_ISPNoAnwPhoneNumberIncorrect7_Text = "Or use the Backspace key to remove characters before the insertion point.";
+        Agent_Speak(L_ISPNoAnwPhoneNumberIncorrect7_Text);
+}
+
+function Agent_ISPNoAnwCommand_HowToMoveOn() 
+{
+        var L_ISPNoAnwHowToMoveOn1_Text = "In order to proceed, you need to choose either to reconnect or to skip setting your Internet service.";
+        Agent_Speak(L_ISPNoAnwHowToMoveOn1_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPNoAnwHowToMoveOn2_Text = "Click the Redial button to try reconnecting.";
+        Agent_Speak(L_ISPNoAnwHowToMoveOn2_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+        var L_ISPNoAnwHowToMoveOn3_Text = "Or, click the Skip button to continue without setting up Internet service.";
+        Agent_Speak(L_ISPNoAnwHowToMoveOn3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_OnISPNoAnwGotFocus(elem) {
+
+        Agent_StopAll();
+
+        var dir = "Left";
+
+        Agent_MoveToElement(elem, dir, 0);
+
+        Agent_StartLookingAtElement(elem, "Look" + dir);
+
+}
+
+function Agent_OnISPNoAnwKeyDown(elem, keyCode) {
+
+    switch (elem.id) {
+        case "edtPhoneNumber":
+
+            
+
+            if (keyCode == 9) {
+
+                
+                
+                
+                
+
+                return;
+            }
+
+            if (!Agent_IsLooking()) {
+
+                Agent_StopAll();
+
+                Agent_MoveToElement(elem, "Left", 0);
+                Agent_StartLookingAtElement(elem, "LookLeft");
+            }
+            
+            else {
+
+                
+
+                Agent_KeepLooking();
+            }
+
+            break;
+            
+        default:
+            return;
+            
+    }
+}
+
+
+
+function Agent_ISPPhBsyAddCommands() {
+
+        var L_ISPPhBsyAddCommands1_Text = "Tell me what to do &next";
+        var L_ISPPhBsyAddCommands2_Text = "Tell me what to do if the &phone number is incorrect";
+        var L_ISPPhBsyAddCommands3_Text = "&Tell me about this step";
+
+        g_AgentCharacter.Commands.Add("Agent_ISPPhBsyCommand_WhatToDoNext", L_ISPPhBsyAddCommands1_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPPhBsyCommand_WhatToDoPhoneNumberIncorrect", L_ISPPhBsyAddCommands2_Text);
+        g_AgentCharacter.Commands.Add("Agent_ISPPhBsyCommand_AboutThisScreen", L_ISPPhBsyAddCommands3_Text);
+
+        Agent_AddAssistantanceCommand();
+}
+
+function Agent_ISPPhBsyIntro() {
+
+}
+
+function Agent_ISPPhBsyCommand_AboutThisScreen() 
+{
+        var L_ISPPhBsyIntro1_Text = "Windows was unable to connect with the Internet service provider you selected.";
+        Agent_Speak(L_ISPPhBsyIntro1_Text);
+
+        var L_ISPPhBsyIntro2_Text ="The phone line might be busy, or the Internet service provider may be experiencing technical problems.";
+        Agent_Speak(L_ISPPhBsyIntro2_Text);
+
+        Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+
+        var L_ISPPhBsyIntro3_Text = "Check to see if the number looks correct.";
+        Agent_Speak(L_ISPPhBsyIntro3_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPPhBsyIntro4_Text = "If it looks OK, wait a few minutes,";
+        Agent_Speak(L_ISPPhBsyIntro4_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPPhBsyIntro5_Text = "Then click the Redial button to try dialing again.";
+        Agent_Speak(L_ISPPhBsyIntro5_Text);
+    
+    Agent_Play("RestPose");
+
+        var L_ISPPhBsyIntro6_Text = "However, if the number is incorrect,";
+        Agent_Speak(L_ISPPhBsyIntro6_Text);
+
+        Agent_GestureAtElement(g.document.all("DialRuleYes"),"Left");
+
+        var L_ISPPhBsyIntro7_Text = "Click here to try an alternative number in the phone book.";
+        Agent_Speak(L_ISPPhBsyIntro7_Text);
+
+        Agent_Play("RestPose");
+
+        var L_ISPPhBsyIntro8_Text = "And then click the Redial button.";
+        Agent_Speak(L_ISPPhBsyIntro8_Text);
+}
+
+function Agent_ISPPhBsyCommand_WhatToDoNext() 
+{
+        Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+
+        var L_ISPPhBsyWhatToDoNext1_Text = "If you've checked the phone number and it looks OK,";
+        Agent_Speak(L_ISPPhBsyWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");    
+    
+        Agent_GestureAtElement(g.document.all("DialRuleYes"),"Left");
+
+        var L_ISPPhBsyWhatToDoNext2_Text = "or you've chosen to dial an alternative number,";
+        Agent_Speak(L_ISPPhBsyWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_ISPPhBsyWhatToDoNext4_Text = "Click the Redial button to try reconnecting.";
+        Agent_Speak(L_ISPPhBsyWhatToDoNext4_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_ISPPhBsyCommand_WhatToDoPhoneNumberIncorrect() 
+{
+    Agent_GestureAtElement(g.document.all("spanDisplayNumber"),"Right");
+
+    var L_ISPPhBsyPhoneNumberIncorrect1_Text = "If the phone number here is not correct,";
+    Agent_Speak(L_ISPPhBsyPhoneNumberIncorrect1_Text);
+    
+    Agent_Play("RestPose");
+    
+    Agent_GestureAtElement(g.document.all("DialRuleYes"),"Left");
+
+    var L_ISPPhBsyPhoneNumberIncorrect2_Text = "Click this radio button to try an alternative number in the phone book.";
+    Agent_Speak(L_ISPPhBsyPhoneNumberIncorrect2_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+    var L_ISPPhBsyPhoneNumberIncorrect3_Text = "Click the Redial button when you are ready to try reconnecting.";
+    Agent_Speak(L_ISPPhBsyPhoneNumberIncorrect3_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_OnISPPhBsyGotFocus(elem) {
+
+        Agent_StopAll();
+
+        var dir = "Left";
+
+        Agent_MoveToElement(elem, dir, 0);
+
+        Agent_StartLookingAtElement(elem, "Look" + dir);
+
+}
+
+function Agent_OnISPPhBsyKeyDown(elem, keyCode) {
+
+    switch (elem.id) {
+        case "edtPhoneNumber":
+
+        
+
+            if (keyCode == 9) {
+
+                
+                
+                
+                
+
+                return;
+            }
+
+            if (!Agent_IsLooking()) {
+
+                Agent_StopAll();
+
+                Agent_MoveToElement(elem, "Left", 0);
+                Agent_StartLookingAtElement(elem, "LookLeft");
+            }
+
+            else {
+
+                
+
+                Agent_KeepLooking();
+            }
+            
+            break;
+            
+        default:
+            return;
+    
+    }
+    
+}
+
+
+
+function Agent_FinishAddCommands() {
+
+    var L_FinishAddCommands1_Text = "&Tell me about this step";  
+    var L_FinishAddCommands2_Text = "H&ow do I register from the desktop?";    
+    var L_FinishAddCommands3_Text = "How &do I activate Windows from the desktop?";    
+    var L_FinishAddCommands4_Text = "How do I &access the Internet?";    
+    var L_FinishAddCommands5_Text = "&What should I do next?";
+
+    g_AgentCharacter.Commands.Add("Agent_FinishAboutThisStep", L_FinishAddCommands1_Text);
+    
+    if (!g_IsMSRegistrationSuccessful)
+    {
+        g_AgentCharacter.Commands.Add("Agent_FinishHowToRegister", L_FinishAddCommands2_Text);
+    }
+    
+    if (!g_IsActivationSuccessful)
+    {
+        g_AgentCharacter.Commands.Add("Agent_FinishHowToActivate", L_FinishAddCommands3_Text);
+    }
+        
+    if (!(bHasSignup || ConnectedToInternetEx(false)))
+    {
+        g_AgentCharacter.Commands.Add("Agent_FinishHowToAccessInternet", L_FinishAddCommands4_Text);
+    }
+    
+    g_AgentCharacter.Commands.Add("Agent_FinishWhatToDoNext", L_FinishAddCommands5_Text);
+        
+    if (!window.external.get_RetailOOBE()) 
+    {
+        Agent_AddAssistantanceCommand();
+    }
+}
+
+function Agent_FinishAboutThisStep() 
+{
+    var L_FinishAboutThisStep1_Text = "Congratulations! You've completed this process!";
+    Agent_Speak(L_FinishAboutThisStep1_Text);
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+        
+    var L_FinishAboutThisStep2_Text = "To start using Windows now, just click the Finish button.";
+    Agent_Speak(L_FinishAboutThisStep2_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_FinishAboutThisStep3_Text = "To take a tour of the exciting, new features in Windows XP, click Help and Support on the Start menu, and then type \"tour\" in the Search box.";
+    Agent_Speak(L_FinishAboutThisStep3_Text);
+}
+
+function Agent_FinishHowToRegister() 
+{
+    var L_FinishHowToRegister1_Text = "If you skipped registration earlier in this process, you can register your copy of Windows at any time by clicking Run on the Start menu and typing regwiz /r.";
+    Agent_Speak(L_FinishHowToRegister1_Text);
+        
+    var L_FinishHowToRegister2_Text = "If you forget these steps, click Help and Support on the Start menu to find the answer to your questions and other valuable information.";
+    Agent_Speak(L_FinishHowToRegister2_Text);
+}
+
+function Agent_FinishHowToActivate() 
+{
+    var L_FinishHowToActivate1_Text = "If you skipped activation earlier in this process, a small reminder will appear on the Windows desktop every few days.";
+    Agent_Speak(L_FinishHowToActivate1_Text);
+        
+    var L_FinishHowToActivate2_Text = "You must activate Windows within the specified activation period in order to continue using it.";
+    Agent_Speak(L_FinishHowToActivate2_Text);
+
+    var L_FinishHowToActivate3_Text = "If you don't want to wait for the reminder, you can run the Product Activation Wizard by clicking Activate Windows on the Start menu.";
+    Agent_Speak(L_FinishHowToActivate3_Text);
+
+    var L_FinishHowToActivate4_Text = "If you forget these steps, click Help and Support on the Start menu to find the answer to your questions and other valuable information.";
+    Agent_Speak(L_FinishHowToActivate4_Text);
+}
+
+function Agent_FinishHowToAccessInternet() 
+{
+    var L_FinishHowToAccessInternet1_Text = "If you already set up this computer to access the Internet, simply click Internet at the top of the Start menu on the Windows desktop.";
+    Agent_Speak(L_FinishHowToAccessInternet1_Text);
+        
+    var L_FinishHowToAccessInternet2_Text = "If this computer isn't set up for Internet access, the Internet Connection Wizard will appear.";
+    Agent_Speak(L_FinishHowToAccessInternet2_Text);
+
+    var L_FinishHowToAccessInternet3_Text = "Follow the steps in this wizard to connect to the Internet.";
+    Agent_Speak(L_FinishHowToAccessInternet3_Text);
+}
+
+function Agent_FinishWhatToDoNext() 
+{
+    var L_FinishWhatToDoNext1_Text = "You've finished setting up your computer with Microsoft Windows XP!";
+    Agent_Speak(L_FinishWhatToDoNext1_Text);
+    
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+        
+    var L_FinishWhatToDoNext2_Text = "Just click the Finish button.";
+    Agent_Speak(L_FinishWhatToDoNext2_Text);
+    
+    Agent_Play("RestPose");
+
+    var L_FinishWhatToDoNext3_Text = "To take a tour of the exciting, new features in Windows XP, click Help and Support on the Start menu, and then type \"tour\" in the Search box.";
+    Agent_Speak(L_FinishWhatToDoNext3_Text);
+
+    var L_FinishWhatToDoNext4_Text = "And enjoy using Windows Windows XP!";
+    Agent_Speak(L_FinishWhatToDoNext4_Text);
+}
+
+
+
+
+
+
+function Agent_MouseTutAddCommands() {
+
+        var L_MouseTutMenuCommand1_Text = "Tell me what to do &next";
+        var L_MouseTutMenuCommand2_Text = "Tell me about this &screen";
+        var L_MouseTutMenuCommand3_Text = "Tell me how to &move to the next screen";
+
+        
+        
+        
+
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutTellMeWhatToDoNext", L_MouseTutMenuCommand1_Text);
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutTellMeAboutThisScreen", L_MouseTutMenuCommand2_Text);
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutTellMeHowToMoveToNextScreen", L_MouseTutMenuCommand3_Text);
+
+        Agent_AddAssistantanceCommand();
+
+}
+
+function Agent_OnMouseTutTellMeWhatToDoNext() {
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_MouseTutIntroTellMeWhatToDoNext1_Text = "To begin, click the Tutorial button.";
+        Agent_Speak(L_MouseTutIntroTellMeWhatToDoNext1_Text);
+    
+    Agent_Play("RestPose");
+}
+
+function Agent_OnMouseTutTellMeAboutThisScreen() 
+{
+        var L_MouseTutTellMeAboutThisScreen1_Text = "This is the beginning of a set of screens to help you learn how to use your computer's mouse.";
+        Agent_Speak(L_MouseTutTellMeAboutThisScreen1_Text);
+
+        var L_MouseTutTellMeAboutThisScreen2_Text = "You can choose to go through this tutorial,";
+        Agent_Speak(L_MouseTutTellMeAboutThisScreen2_Text);
+
+        var L_MouseTutTellMeAboutThisScreen3_Text = "Or you can skip it if you are already comfortable with using the mouse.";
+        Agent_Speak(L_MouseTutTellMeAboutThisScreen3_Text);
+}
+
+function Agent_OnMouseTutTellMeHowToMoveToNextScreen() 
+{
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnNext, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnNext, "TopLeft");
+    }  
+
+        var L_MouseTutIntroTellMeHowToMoveToNextScreen1_Text = "To begin, click the Tutorial button.";
+        Agent_Speak(L_MouseTutIntroTellMeHowToMoveToNextScreen1_Text);
+    
+    Agent_Play("RestPose");
+
+    if (window.parent.document.dir == "rtl")
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopCenterWidth");
+    }
+    else
+    {
+        Agent_GestureAtElement(g.btnSkip, "TopLeft");
+    }
+
+        var L_MouseTutIntroTellMeHowToMoveToNextScreen2_Text = "Or click Next to skip this tutorial.";
+        Agent_Speak(L_MouseTutIntroTellMeHowToMoveToNextScreen2_Text);
+    
+    Agent_Play("RestPose");
+}
+
+
+
+function Agent_MouseTutAAddCommands() {
+
+        var L_MouseTutAMenuCommand1_Text = "Tell me what to do &next";
+        var L_MouseTutAMenuCommand2_Text = "Tell me about this &screen";
+        var L_MouseTutAMenuCommand3_Text = "Tell me how to &move to the next screen";
+
+        
+        
+        
+
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutATellMeWhatToDoNext", L_MouseTutAMenuCommand1_Text);
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutATellMeAboutThisScreen", L_MouseTutAMenuCommand2_Text);
+        g_AgentCharacter.Commands.Add("Agent_OnMouseTutATellMeHowToMoveToNextScreen", L_MouseTutAMenuCommand3_Text);
+
+        Agent_AddAssistantanceCommand();
+
+}
+
+function Agent_OnMouseTutATellMeWhatToDoNext() 
+{
+        var L_MouseTutAWhatToDoNext1_Text = "Try moving the mouse around and see how it moves the pointer on your screen.";
+        Agent_Speak(L_MouseTutAWhatToDoNext1_Text);
+
+        var L_M        DSIGÈ8ˆã µD  ìLTSH]kŞ  ,  ¡OS/2s<vı  Ğ   Vcmap.ûÖ;  (  4cvt FLQ  
+\  rfpgmïUàE  Ğ  
+gasp  	  Ü   glyfwÅæ  ì ´hdmx¨¾­, "   ?headÎ6> a¨   6hheaÄ_ aà   $hmtxı@èY b  
+tkernfúoÓ lx  ²locaŸåŸ x,  <maxp£¼ }h    nameÉã }ˆ  tpostÛ%ÓX —ü  uprep·t¢  ²t  Î  !ÿ
+    k„  š3   ‚š3  · f
+  ‡            MONO @  ûº²#Îz   Ÿß×                                                	
+ !"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\]^_`a bcdefghijklmnopqrstuvwxyz{|}~€‚ƒ„…†‡ˆ‰Š‹Œ‘’“”•–—˜™š›œŸ ¡¢£¤¥¦§¨©ª«¬­®¯°±²³´µ¶·¸¹º»¼½¾¿ÀÁÂÃÄÅÆÇÈÉÊËÌÍÎÏĞÑ ÓÔÕÖ×ØÙÚÛÜİŞßàá    ¾ €  > ~’ÿÇÉİ~ŠŒ¡ÎO\_‘…ó   " & 0 3 : < > D u x  ¤ § ¬!!!!"!&!.!^!•!¨"""""""")"+"H"a"e###!% %%%%%%%$%,%4%<%l%€%„%ˆ%Œ%“%¡%¬%²%º%¼%Ä%Ë%Ï%Ù%æ&<&@&B&`&c&f&kûÿÿ      ’úÆÉØ~„Œ£Q^€ò     & 0 2 9 < > D t w  £ § ¬!!!!"!&!.![!!¨"""""""")"+"H"`"d### % %%%%%%%$%,%4%<%P%€%„%ˆ%Œ%% %ª%²%º%¼%Ä%Ê%Ï%Ø%æ&:&@&B&`&c&e&jûÿÿÿã  ÿÿ˜  ş  ü şşşşıßıŞıİıÜı¬ã¾ãR      à…à–á	à…áâ
+àx  â#à¿  à˜àà;à.á4ßjßyáàñß²ß Ş–Ş¢Ş‹  Ş§    ß!ŞqŞ_  Ş0ßNßAß2İTİSİJİGİDİAİ>İ7İ0İ)İ"İÜüÜùÜöÜóÜğ    ÜÔÜÍÜÌÜÅ  Û€Ü³ÛjÜSÜPÜOÜ2Ü0Ü/Ü,¿    ¼    v  v                        hlz              p    n                            T  TV      R                                          *,        (                         ¬ £ „ …œ – è †  ‹  © ¤  Š ƒ “ ò ó  — ˆ Ş ñ  ª õ ô ö ¢ ­ É Ç ® b c  d Ë e È Ê Ï Ì Í Î é f Ó Ğ Ñ ¯ g ğ ‘ Ö Ô Õ h ë í ‰ j i k m l n   o q p r s u t v w ê x z y { } | ¸ ¡  ~ €  ì î ºRS ı şTUVW ÿ 	
+XYZ[\]^_ ø ù`abcdefghijklmno ú ×pqrstuv â ãwxyz{|}~ ° ± €!"#$‚ û ü ä å%&'(ƒ„…†‡ˆ‰Š)*+,‹Œ »-./0 æ ç‘ Ø á Û Ü İ à Ù ß ² ³F: ¶ · ÄG ´ µ Å ‚ Â ‡™ ÷I ™ ï Ã ¥ ’I K„LMN… ¹Šº  @º  @º               &  j  ÿç    ÿè    ÿç  şlÿå  º şiÿèÓ  ùÿïÓ  åÿì                                                                                    —Æ—    T    —  À   Š I ÿwÿ·ÿû « ] ÿTÿ¢ÿûª             y |    Å  ÆsÀr˜  —^5”  œ    ç¥T ßh z Í?* ÓL » % Xp P ¬ Ã ‹ ˜2lT³˜.HCC ø « ¸İş¹ ¶  @76543210/.-,+*)('&%$#"! 
+	 ,°CX±+!!!Y-,°CX±+!!!Y-,°CX°%ò!° !#3Y-,°CX±+!!!Y-,°CX±+!!!Y-,°CX±+!!!Y-,°CX±+!!!Y-,N° °F#CD°%± Fæ° °° ò!°M° -,°CXEdj#Ei°Cd``°F#D# °Fğ/° !!!!Y-,±
+C#Ce
+-, ±
+C#C-, °F#p±F>°F#p±FE:± -,°+°%E°%Ej°@‹`°%#D!!!-,°+°%E°%Ej¸ÿÀŒ`°%#D!!!-,° °+!!!-,° °+!!!-,°C°Ce
+-, i°@a° ‹ ±,ÀŠŒ¸ b`+d#da\X°aY-,± %EhTX°%E°%E`h °%#D°%#D°% Eh Š#D°%Eh`°%#DY-,°% Eh Š#D°%Eh`°%#D-,°	CX‡!À°CX‡E°+°G#D°GzäŠEi °G#DŠŠ‡ ° QX°+°G#D°Gzä!°GzäYYY-, ŠE#Eh`D-,EjB-,/-,!!-,°%E°%Ed`j°%Eja °%Ej Š‹e°%#DŒ°%#D!!-,Eh#Ei°@‹a°%Eja °%Ej Š‹e°%#DŒ°%#D!!-,ŠŠEd#EdadB-,°%C°@T°%C° TZX°% E°@aDY°%C° T°%C°@TZX°% E°@`DY!!!!-,KRXC°%E#aD!!Y-,KRXC°%E#`D!!Y-,KRXED!!Y-, °%#I°@`° c ° RX#°%8#°%e8 Šc8!!!!!Y-,KPXED!!Y-,°%# Šõ °`#íì-,°%# Šõ °a#íì-,°%õ íì-,F#F`ŠŠF# FŠ`Ša¸ÿ€b# #Š±KKŠpE` ° PX°a¸ÿº‹°FŒY°`h:-, E°%FRX?!Y-, E°%FPX?!Y-, °C°C-,KRX°%°%I°%°%Ia ° TX! C° UXY°@TX C° TXY C° TX°%¸ÿÀ8YYYY!!!!-,KRXCe8!!Y-,KRXC8!!Y-,!!d#d‹¸@ b-,!°€QXd#d‹¸  b² @/+Y°`-,!°ÀQXd#d‹¸Ub² €/+Y°`-,d#d‹¸@ b`#!-,´    °&°&°&°&Eh:°-,´    °&°&°&°&Ehe:°-,°CXY-,°CXY-,°
++# <°+-,°(+Š# Ğ#°+°CXÀ<Y ° -,KS#KQZX8!!Y-         ÿÿ            1!%!! ü Àü@ û  À   |  /º  	 4@ ­		 … 		…h
+	e++/3ı2//99 ?ı2/]?10!!!!|³TşóR–şjºş²ıaŸüûş™ÿÿ 0ŸÏº 6 
+Û  
+ä   3@ğ@6?_°@	
+6  ¸ÿÀ@	6@ €  /]+5/+]+]5   <ÿèÓ  9@“¶–¦¸
+
+		 
+
+			§
+
+§§°Ï
+	§@¸ÿÀ³6¸ÿÀ@,	6À	
+
+O
+
+
+?
+¯
+Ï
+
+¸ÿÀ@6  €/]r3/3/+</]]qr3/3/< ?<<<3/]++q<ı<?<<<3/]<ı<‡.+}Ä‡.+}Ä10]]]7#!!3!3#3!!#!#!37#ı4õ,GIÛHF‰Á3ôşÕGşãFÚHşåIŒİÛ4Ú\ıfşšfşšşìışìş `ş `ı   6ÿ+* ' . 5w¹ ÿè@66-44Ÿ--€Ğ¸ÿğ³6¸ÿğ@&6dt”¶4-/#@	
+6#0(‘%#"¸ÿÀ@!	6/‘+P++€+Ğ+2@6+¸ÿÀ@	62@6+¸ÿÀ@	62@6+¸ÿÀ@	66¸ÿÀ@6@64-	5$¸ÿÀ@6$./##¸ÿÀ@ 	6##+@	6ƒ @6 2ƒ €	Ÿ	°	Ï		¸ÿÀ³6	¸ÿÀ´
+6	¸ÿÀ@	6ƒŸ+ƒ	/]33í/]í+/++]3í/+í+9/+q<<<İ+<<<9+++++++++qr ?3<ı22}/]+/?3<ı22|/]/+9]++qr‡.+‡}Ä10 ++.'#5.'%.546753>54&'âşŒ-40f‡a—ª{’“·…H”=FÊ©|ùö’àíı¡@23?’UOCaa;G7şßQZyºm¶z7½½Ezd/cX"a8Rµ‚²ïcc¸<>*,Aı(W6/O"  cÿµÓ   ! / ? Š@V ´  ³³ <³&&4³, 08 @P0²?""""8²)@6)A)o²0€²@l+/í3/]í+/+í3/]í9/]39/3 ?<?í3/í?<<í3/í‡.+‡}Ä103#4>32#".%327654'&#"4>32#".%327654'&#"@Óü±ÑşpY·}¸ÔÔ¸}·Y(22((22(X¸|¹ÔÔ¹|¸X(22((22(Óùâf¸cÒ¯°Òc¸e|8%%8|{9$$8ümg·dÓ¯¯Ód·e|8$$8||9$%8  ™ÿèÉÓ % 0 : –@% f"&,9$1 7  ,•7•9¸ÿğ@46"9$ &)1/)€@_Ÿ €</€4ƒ;l+/í3/í3/í339/]qí99999+] ?<í?í9/9999]10q.'# $5467.546326>54&#"327&>.*™,Û<3jj“»şÛşâ¨¿P<îò÷èGdktşBOVH?>N#T7~emˆ‚ÉGXjHiü TF ,ô®}ßMaJœÊÀ†KŠVUk\>F+e-/AH1>ş&;T/IrUd   UŸëº  %@ …P 0`p/]]í99 ?3/10!!U–@şìBºòş×)   pşQÍÓ  0@˜¦&fw	‡	!  ²€P/]ı2/<ı< ??10]]3#
+54Ïşƒ:1îşÂ¥ÓşŞöÑíş7ş½ôıÈÿÿ PşQ­Ó W   À @   ±ö¹Ó $ }@"	 
+  ¸ÿÀ@16¦	6	
+" 
+ 
+
+
+p €  /]33//3/]9/9/99999+]+ ?3/<3/<99103676?'&''767&/7&'Åİ&*‹Eš*S8!h´J$'K¹p/-.K›H‹WÓ—7F
+BÓ ,$q‡‡T\‡‡q/!Ó?
+4T)    »Âÿ  3@ğ		 ±	ğ°ß		/]3<ı<2//] /<3ı<2//]10!!!!!!Cşş½ş~şş¼ş  |şd/” 
+ 0@
+ ­
+	
+		…
+
+…h
+e++/í9/3/9 ?í?910!'>7#|³šº_tWĞ”ş±¹ÖR²6kI  -y}´  @
+ ± @/q/ /ı10!!-Pı°´şÅ   |  /˜  @ ­……he++/í ?í10!!|³şM˜şh  ÿè?Ó  -@ ´    p/3/]3 ?<?<‡.+‡}Ä103#oĞşÎÓú   TÿçÓ   N@9††ÖÖö6F¸È78™™‰
+?
+
+
+!
+o‰   l+/í+/]í ?í?í]10]]q !2 !"&'&%32>5&#"T-4”¾xE)şòş¶¹äI5;”c^>[+cceZã¢NIuV¤²şqşvrQ©şèÍW¼Ç$ÉÍ  §  ïÓ 
+ <¹ ÿğ@!6›6
+
+‹?ß/]í3/9 ??9/+í9]+10!>7ïşdd»ĞæAÓú-ÑL^+NC¼Š   6  üÓ  k¹ ÿø@6
+™›¸ÿğ@*6gy  ‰?o‰l+/3/í+/]í3/9]]+ ?í?í3/99+10)6%>54&#"%>32!üû:Õ%³dcKNcşh€éÎ×ï‰Ï{S8|µ?Ù…Š>C_b|!¬ÁgbË~†ô’UD7   HÿçÓ . Ù¹ ÿğ@66$,
+&#&¸ÿÀ³6&¸ÿÀ@)	6&™@!P!€!!°!À!à!!!  w,™™¸ÿø³6¸ÿğ³6¸ÿğ@
+6É
+
+$#¸ÿÀ@06 #€####)‰@6‰?0o ‰‰/l+/í3/í+/]í3/+í9/]+39]+++ ?í3/9?í]3/99/]í++999+10 +%6$3 #".'%32654&#"32654&#"ßş0ú hiU-IQ†üÍÈç•(—eNRmiZ0T"PkPFHZE¸ÄÖ¢_š:-“f€ë^µ‰6{_xdfp#fFCPW  *  +Ó 
+  x@+›
+d
+	‹p
+Ğ
+
+¸ÿÀ@6€
+
+À
+ğ
+ 
+p
+
+
+@//]q33/]]+q<ı<23/] ??3]9/</ı<‡.+}Ä10!!3#!ıæc¸¸şşxOrü{şÄşîNÍş3  Cÿçº " ‰@/& &fv"!`@	
+6™pß™› ¸ÿğ@'6@6‰
+?
+
+
+$
+o ! ""‰#l+/í3/3/3+/]í3/++ ?í?ı9/]í+9/]9999]10]!!>32 #".'%32654&#"%ùÇıq#D…AÜşıÊ‘Ï‘ZœnLUop];7)1ş¥ºş»Ü  şöÊşúŠ7mŠg-cg€ƒz72  VÿçÓ  ( m@G&©w—& @	6&@	
+6&™ ™ ™#Ï‰  #‰?*o‰)l+/í+/]í3/í]9 ?í?í9/í+9/+99]]10.#">32 #"$ !232654&#"ïşkK7c7(IšeÄ‰ó·ÜşöŸN(¯Ë†ı5xWPlpSUsp2UFdHìJGşè×‘ğ{–IqQœüıw‡zy|‚~   [   º  9@$› 	{Û‰		?ol+/+/]9/ı9] ??ı910!!![¥›h~I:şj0Îßı,ºşíŒ£Æó½şşgæ  TÿçÓ  ) 5 ®@ v ‰ !¸ÿÀ³	
+6!¸ÿÀ@+6!™@3°3À3à3 3@3P3€3333'-™'™06*¸ÿğ@66xç0(  *$‰ßï0‰?7o‰à*‰6l+/í3/]í+/]í3/]í9]9]++ ?í?ı9/]]qí++9910]q&'&54763 #".54632654&#"32654&#"I`,<­‡Ş&8*Zwue“Û|éö€x4_OFZ^IJ]vLItuMLq3?Vp¸uZàªcV@<9¼rn¿h1nÖ„³QL]\IL_]ı?a{}`a|x  GÿçÿÓ  ( z@€&x˜6& ¸ÿÀ¶	6&¸ÿÀ@1	
+6&™ ™ ™g#‰?*oÀ‰  #‰)l+/í3/í]+/]í9] ?í?í9/í+9/+99+]]10%32767#" 54>32 !".4&#"326f•L7b7(IšeÅşñŠò·Ü
+Ÿş²şØ¯Ê†ÊxVQkoSVrI3UFcIìKFÖ’ğ{—ş·şòşsşQœw‡zz{‚~   |  /&   )@­?  ­…	…he++/<ı< ?í?]í10!!!!|³şM³şM&şhöşh   |şd/&   >@$­?  
+	­	
+…
+…he++/3<í9/</9 ?í?9?]í10!!!'>7#|³şM³šº_tWĞ&şhúş±¹ÖR²6kI   k pÜI  `@6¯¯   ± ± P `  P/]</]<<<9] /33/í/í99‡.+‡}Ä‡.+‡}Ä10%	ÜûqıM³pÙ(Øşşöşõ  ~EÂu   !@ ±± `p/</]< /í3/í10!!!!~Dû¼Dû¼uş»§ş¼ ÿÿ l pİI W H  À @   I  šÓ   m@Y_—¸ÿÀ³6¸ÿÀ·	6­¸ÿÀ³6¸ÿÀ@6 ƒƒ…` /]3ı2/í/í99++ ?ı++2/]?í3/]9]10!54>7654&#"%6 !2!!ş„,W˜QABG]ş|Ú†¶^‘e5şw—şiÌ&ayd~B77=^u0Ö[{ÍUrPa³ş™ ÿúÿïÔ > N º¹ 9ÿè³6¸ÿÖ³6¸ÿÖ@h6 	6V<¤$$6<F<9J=>J1C4>>J¦: :°:::¦&¦¦..C¦4=G>1¦ ² >>>>²@111¦)?²77777¦"/í3/]í/í33/]í3/]í/í99 /í33/í/í/]?ı2/]í3/99]10]]+++ +327>5 #" !2$73#"$54$3  #"&'#"&5432732654&#"„}.:VoşÑÿ¼şË§kŒwÍRJmşà¦çşÏ×dô;‹š•se<LCn@…Àö¶Gm7ş)3&;@hNT:B2CE|üé)<ã¡2´şªÏş¾ş‡^]a7QfÖŒîú™ÚşpşÃ¼şÈ[F8=A5ŞÏõŒBRqıqwB1mF‚bd2Cşİ     >º  
+ «@0IÖ
+IVV
+†
+ 	
+				¸ÿÀ@96	
+“†‰
+Oà 	@@	p	À		/]33/]9/]]9] ?<?<<<9/ı9+‡.+‡}Ä‡.+‡}Ä‡Ä<‡<Ä10]]q%!!!!ıüGş1'î'ş&§¢¡òòºúF/ıñ   —  âº   % h@Hkrv ‘%P%%%@%Ğ%o%Ğ%%%‘ ‘pw}!}'o&k+/ı<+/í3/ı9] ?í?í9/]qrí]910]!2#!32654&+32654&+—PÔãQ6h•j\9s™2üòÉÅjSSgÈçu`_wæºÒ›‚]>$&¹Œr¶5!{IE@HüªSFAO   aÿæóÓ  H@-ˆ‡ ‘0 `   ‘} } o}		l+/í+/í3/í ?í3/]9?í3/]9]10#"$ ! &'.#"326f(¬ÿÅïşÑÜƒb=Mşp&nDšR>”†‚…Wx§àr‹^l‡àèYC48|\Åôµ’   œ  áº   )@‘ ‘'}ok+/í+/í] ?í?í10!2#!32>54&#œ¡Çõ Hk¾m•yı_ÅoxD˜°ºlÊşô–ëşı¯(nüß?°é¬   •  iº  S@8 ‘P 0@ĞoĞ‘ ‘
+
+ok+/ı<+/33// ?í?í9/]qrí]10!!!!!!•¾ıÁı?û,ºşÇéşÕşßş´   ˜  øº 	 J@2 ‘P 0@ĞĞ	‘ 	o	
+	k+/ı<+/3/ ??í9/]qrí]10!!!!!˜`ıg8ıÈş9ºşÅÿ şØı©   ^ÿç3Ó ! S@0   @	6 ‘‘‘ } #o}
+"
+l+/í+/í3/í9/ ?í?í3/99/í+9910!# $547632.#"32675w¼ÉşËÔşûş·µÆ¿•üóñŸ(şKd•±³ LŠY1ı‰c²`äğc\GX¹NSXÏàîÌ,5Š  ˜  º  4@“o			 n
+k+/ı<+/ı< ?<?<9/]í10!!!!!!˜ÅïÇş9şş;ºıÿúFQı¯   ¨  nº  &@Ï nk++/]í ??10]!!¨Æş:ºúF   #ÿæ¾º  #@
+‘ n}
+/í+/í ??í3/910!#".'%3265øÆYşóÒŞô…± &0LGºüãûşú¶xçª;a^q†  ˜  ªº   @a›Ï”ÄÏ	;t					€	 
+€`	
+k+/ı<<<3/]í3/]í99 ?<<?<<9]‡.+‡}Ä‡.+‡}Ä‡ÄÄ10 ]]]!!	!!˜ÅÛZıê.ıÒşËêş;ºıÖ*ı×üo[õşš   –  º  @ “ok+/í+/ ?í?10!!!–ÅÃûxºû¯ş—  ‘  º  ¤@		 
+26¸ÿà@
+26 / 	6¸ÿà³	6¸ÿÀ@=6¨
+		¨
+ 		
+€n
+€k+/í+/í99999 ?<<<?<9‡.+‡}Ä‡.+‡}Ä10 +++]++]q!!!!!‘TæåRşşáş±şâşºü„|úF^û¢^û¢  ™  º 	 [@:O@°¿ ‚			€n€	
+	k+/í+/í99 ?<?<99‡.+‡}Ä10 ]]!!!!™§(«şUıÛşVºüÕ+úF%üÛ  ]ÿçLÓ   F@1‰	É†–™¹VYi‘‘
+}o}  l+/í+/í ?í?í10 ]]]q] !  #"$%32654&#"]enŒ­ş¹ôøş»ÊÅ¥’ §‰¦Ügşwşşÿş··VÿŞÂ¾öÏ¿Â   ”  pº 
+  -@‘
+‘ 
+}o	
+
+k+/ı<+/í ??í9/í10!2!#!32654&+”ñöõşõşîøş9Çoƒj\ºêØŞúıàI[GE`   ]ÿ[„Ó  * w@Li%y%FY%d ™%%‰&#%& !
+‘!‘
+‡ #%&&},o}+l+/í+/í3/9/9999] ?í3/?í99]10]]q%.'# '& !  %654&#"327&'7¬U'B~_º%–âş²Áäfmş6¥‘‡¨¤.)9{G<CaÖ;ş. A®Îuj‘şxş“ş»%aÁŞ¾ÂÎğÂ	71£ D   œ  >º  $ p@B ‘ €à $‘ † }&o$ % k+/ı<+/í3/í999] ?<<?í9/]í999‡.+‡}Ä9103!2!&'&+327>54&+œóÒŞˆh[:eQ%_Ûş ò.$1>(¿Y-9Z|ÇºHÃŒz±7#v şWÀW"ı­h	J0GL   GÿçyÓ , µ@6„"´###4#T#„#ÆÇ#!#OÏ‘  @PÀ¸ÿÀ³6¸ÿÀ@
+
+6‘*&¸ÿğ@6!#&@6}}&.&o¸ÿÀ@6} @6  }-l+/í3/+í++/í3/í+9+

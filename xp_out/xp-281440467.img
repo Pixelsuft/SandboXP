@@ -1,0 +1,1503 @@
+t]
+CopyFiles = @aha154x.sys
+LogConfig = *ADP1540.LogConfig
+
+[aha154x_Inst.Services]
+AddService = aha154x, %SPSVCINST_ASSOCSERVICE%, aha154x_Service_Inst, Miniport_EventLog_Inst
+
+[aha154x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aha154x.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_isa_addreg
+AddReg         = pnpsafe_mca_addreg
+
+[*ADP1540.LogConfig]
+ConfigPriority = HARDRECONFIG
+IOConfig       = 130-133(3FF::),230-233(3FF::),330-333(3FF::),134-137(3FF::),234-237(3FF::),334-337(3FF::)
+IRQConfig      = 9,10,11,12,14,15
+DMAConfig      = W:5,6,7
+
+;
+; AIC6x60 (sparrow)
+;
+
+[sparrow_Inst]
+CopyFiles = @sparrow.sys
+LogConfig = *ADP6360.LogConfig,6x60.lc2
+
+[sparrow_Inst.Services]
+AddService = sparrow, %SPSVCINST_ASSOCSERVICE%, sparrow_Service_Inst, Miniport_EventLog_Inst
+
+[sparrow_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\sparrow.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_isa_addreg
+
+[*ADP6360.LogConfig]
+ConfigPriority=HARDRECONFIG
+IOConfig=140-15f,340-35f
+IRQConfig=9,10,11,12
+
+[6x60.lc2]
+ConfigPriority=HARDRECONFIG
+IOConfig=140-15f,340-35f
+IRQConfig=9,10,11,12,15
+
+
+
+;
+; Aic 78xx
+;
+
+[aic78xx_Inst]
+CopyFiles = @aic78xx.sys
+
+[aic78xx_Inst.Services]
+AddService = aic78xx, %SPSVCINST_ASSOCSERVICE%, aic78xx_Service_Inst, Miniport_EventLog_Inst
+
+[aic78xx_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aic78xx.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+;
+; aic78u2
+;
+
+[aic78u2_Inst]
+CopyFiles = @aic78u2.sys
+
+[aic78u2_Inst.Services]
+AddService = aic78u2, %SPSVCINST_ASSOCSERVICE%, aic78u2_Service_Inst, Miniport_EventLog_Inst
+
+[aic78u2_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\aic78u2.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+;
+; adpu160m
+;
+
+[adpu160m_Inst]
+CopyFiles = @adpu160m.sys
+
+[adpu160m_Inst.Services]
+AddService = adpu160m, %SPSVCINST_ASSOCSERVICE%, adpu160m_Service_Inst, Miniport_EventLog_Inst
+
+[adpu160m_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\adpu160m.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+;
+; dpti2o
+;
+
+[dpti2o_Inst]
+CopyFiles = @dpti2o.sys
+
+[dpti2o_Inst.Services]
+AddService = dpti2o, %SPSVCINST_ASSOCSERVICE%, dpti2o_Service_Inst, Miniport_EventLog_Inst
+
+[dpti2o_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dpti2o.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = dpti2o_param_numrequests
+
+[dpti2o_param_numrequests]
+HKR,"Parameters\Device","NumberOfRequests",0x00010001,0x40
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;****************************
+;AMD Manufacturer device list
+[AMD]
+%amsint.DeviceDesc% = amsint_Inst, PCI\VEN_1022&DEV_2020
+
+[amsint_Inst]
+CopyFiles = @amsint.sys
+
+[amsint_Inst.Services]
+AddService = amsint, %SPSVCINST_ASSOCSERVICE%, amsint_Service_Inst, Miniport_EventLog_Inst
+
+[amsint_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\amsint.sys
+LoadOrderGroup = SCSI Miniport
+
+
+;****************************
+;AMI Manufacturer device list
+[AMI]
+
+%megaraid.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_03A2113C
+%mraid428.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_9010
+%mraid434.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_9060
+%mraid438.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0438101E
+%mraid466.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0466101E
+%mraid467.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0467101E
+%mraid490.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0490101E
+
+
+;MegaRAID Enterprise 1600
+%mraid471.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0471101E
+%mraid471.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_0471101E
+
+;MegaRAID Elite 1600
+%mraid493.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0493101E
+%mraid493.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_0493101E
+
+;MegaRAID Express
+%mraid475.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_0475101E
+%mraid475.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_0475101E
+
+[Mraid35x_Inst]
+CopyFiles = @mraid35x.sys
+
+[Mraid35x_Inst.Services]
+AddService = mraid35x, %SPSVCINST_ASSOCSERVICE%, mraid35x_Service_Inst, Miniport_EventLog_Inst
+
+[Mraid35x_Inst.HW]
+AddReg = Mraid35x_device_settings
+
+[Mraid35x_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\mraid35x.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_raid
+
+[Mraid35x_device_settings]
+HKR, "Parameters\Device", "NumberOfRequests", 0x00010001, 0x00000080
+
+;****************************
+;DELL Manufacturer device list
+[DELL]
+
+
+
+
+%Dell471.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_04711028
+%Dell471.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04711028
+%Dell493.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_04931028
+%Dell493.DeviceDesc% = Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_04931028
+
+
+%Dell.DeviceDesc%    = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11111028
+%Dell.DeviceDesc%    = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11121111
+%Dell.DeviceDesc%    = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_11111111
+%Dell467.DeviceDesc% = Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_04671028
+
+%DellPerc2.DeviceDesc% =    perc2_Inst, PCI\VEN_1011&DEV_0046&SUBSYS_13649005
+
+%DellPerc2si.DeviceDesc% =  perc2_Inst, PCI\VEN_1028&DEV_0001&SUBSYS_00011028
+
+%DellPerc3di.DeviceDesc% =  perc2gat_Inst, PCI\VEN_1028&DEV_0002&SUBSYS_00D11028
+%DellPerc3di.DeviceDesc% =  perc2gat_Inst, PCI\VEN_1028&DEV_0002&SUBSYS_00D91028
+%DellPerc3di.DeviceDesc% =  perc2gat_Inst, PCI\VEN_1028&DEV_0002&SUBSYS_00021028
+%DellPerc3si.DeviceDesc% =  perc2gat_Inst, PCI\VEN_1028&DEV_0003&SUBSYS_00031028
+%DellPerc3gat.DeviceDesc% = perc2gat_Inst, PCI\VEN_9005&DEV_00C5&SUBSYS_00C51028
+
+[perc2Files]
+perc2.sys
+
+[perc2hibFiles]
+perc2hib.sys
+
+[perc2_Inst]
+CopyFiles = perc2Files
+
+[perc2_Inst.Services]
+AddService = perc2, %SPSVCINST_ASSOCSERVICE%, perc2_Service_Inst, Miniport_EventLog_Inst
+
+[perc2gat_Inst]
+CopyFiles = perc2Files, perc2hibFiles
+
+[perc2gat_Inst.HW]
+AddReg = perc2gat_filter_addreg
+
+[perc2gat_Inst.Services]
+AddService = perc2, %SPSVCINST_ASSOCSERVICE%, perc2_Service_Inst, Miniport_EventLog_Inst
+AddService = perc2hib,, perc2hib_Service_Inst
+
+[perc2_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\perc2.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_raid
+AddReg         = perc2_param_numrequests
+AddReg         = perc2_param_DriverParameters
+AddReg         = perc2_param_UncachedExtAlignment
+
+[perc2hib_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\perc2hib.sys
+LoadOrderGroup = SCSI Miniport
+
+[perc2gat_filter_addreg]
+HKR,,"LowerFilters",0x00010000,"perc2hib"
+
+[perc2_param_numrequests]
+HKR,"Parameters\Device","NumberOfRequests",0x00010001,254
+
+[perc2_param_DriverParameters]
+HKR,"Parameters\Device","DriverParameters",0x00000000,"HibFiltPresent=1"
+
+[perc2_param_UncachedExtAlignment]
+HKR,"Parameters\Device","UncachedExtAlignment",0x00010001,14
+
+
+
+;****************************
+;HP Manufacturer device list
+[HP]
+%hpn.DeviceDesc% = hpn_Inst, PCI\VEN_1011&DEV_0046&SUBSYS_10C2103C
+
+
+%netraid3si.DeviceDesc% =   Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_10C6103C
+%NetRaid.DeviceDesc% =      Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_10C7103C
+%NetRaid.DeviceDesc% =      Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_10CC103C
+%netraid1si.DeviceDesc% =   Mraid35x_Inst, PCI\VEN_8086&DEV_1960&SUBSYS_10CD103C
+
+%netraid1M.DeviceDesc% =    Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_60E7103C
+%netraid2M.DeviceDesc% =    Mraid35x_Inst, PCI\VEN_101E&DEV_1960&SUBSYS_60E8103C
+
+[hpn_Inst]
+CopyFiles = @hpn.sys
+
+[hpn_Inst.Services]
+AddService = hpn, %SPSVCINST_ASSOCSERVICE%, hpn_Service_Inst, Miniport_EventLog_Inst
+
+[hpn_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\hpn.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_raid
+AddReg         = hpn_param_numrequests
+AddReg         = hpn_param_UncachedExtAlignment
+
+[hpn_param_numrequests]
+HKR,"Parameters\Device","NumberOfRequests",0x00010001,254
+
+[hpn_param_UncachedExtAlignment]
+HKR,"Parameters\Device","UncachedExtAlignment",0x00010001,14
+
+
+;*******************************
+;Compaq Manufacturer device list
+[COMPAQ]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%cpqarray.DeviceDesc% = cpqarray_Inst, PCI\VEN_0E11&DEV_AE10
+
+;
+; this is a compaq device - yes it should be here.
+;
+
+%PCI\VEN_1000&DEV_0012&SUBSYS_001b0e11.DeviceDesc% = sym_hi_Inst, PCI\VEN_1000&DEV_0012&SUBSYS_001b0e11
+%PCI\VEN_1000&DEV_000b&SUBSYS_60040e11.DeviceDesc% = sym_hi_Inst, PCI\VEN_1000&DEV_000b&SUBSYS_60040e11
+
+%*CPQFD17.DeviceDesc%=NO_DEV,,*CPQFD17
+
+[cpqarray_Inst]
+CopyFiles = @cpqarray.sys
+
+[cpqarray_Inst.Services]
+AddService = cpqarray, %SPSVCINST_ASSOCSERVICE%, cpqarray_Service_Inst, Miniport_EventLog_Inst
+
+[cpqarray_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\cpqarray.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_eisa_addreg
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_raid
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;******************************
+;Mylex Manufacturer device list
+[MYLEX]
+%dac2w2kAcceleRAID160% = dac2w2k_Inst, PCI\VEN_1069&DEV_0050&SUBSYS_00541069
+%dac2w2kAcceleRAID170% = dac2w2k_Inst, PCI\VEN_1069&DEV_0050&SUBSYS_00521069
+%dac2w2kAcceleRAID352% = dac2w2k_Inst, PCI\VEN_1069&DEV_0050&SUBSYS_00501069
+%dac2w2keXtremeRAID2000% = dac2w2k_Inst, PCI\VEN_1069&DEV_BA56&SUBSYS_00401069
+%dac2w2keXtremeRAID3000% = dac2w2k_Inst, PCI\VEN_1069&DEV_BA56&SUBSYS_00301069
+
+
+%dac960P.DeviceDesc% =  dac960nt_Inst, PCI\VEN_1069&DEV_0001
+%dac960PD.DeviceDesc% = dac960nt_Inst, PCI\VEN_1069&DEV_0002
+%dac960PX.DeviceDesc% = dac960nt_Inst, PCI\VEN_1069&DEV_0010
+%dac1164P.DeviceDesc% = dac960nt_Inst, PCI\VEN_1011&DEV_1065&SUBSYS_00201069
+%dac960BA55.DeviceDesc% = NO_DEV, PCI\VEN_1069&DEV_BA55
+
+[dac960nt_Inst]
+CopyFiles = @dac960nt.sys
+
+[dac960nt_Inst.Services]
+AddService = dac960nt, %SPSVCINST_ASSOCSERVICE%, dac960nt_Service_Inst, Miniport_EventLog_Inst
+
+[dac960nt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dac960nt.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = pnpsafe_eisa_addreg
+AddReg         = bus_type_raid
+
+
+[dac2w2k_Inst]
+CopyFiles = @dac2w2k.sys
+
+[dac2w2k_Inst.Services]
+AddService = dac2w2k, %SPSVCINST_ASSOCSERVICE%, dac2w2k_Service_Inst, Miniport_EventLog_Inst
+
+[dac2w2k_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\dac2w2k.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+AddReg         = pnpsafe_eisa_addreg
+
+AddReg         = bus_type_raid
+
+
+;******************************
+;Advansys Manufacturer device list
+[ADVANSYS]
+%asc3550.DeviceDesc% =  asc3550_Inst,   PCI\VEN_10CD&DEV_2300
+%asc.DeviceDesc% =      asc_Inst,       PCI\VEN_10CD&DEV_1100
+%asc.DeviceDesc% =      asc_Inst,       PCI\VEN_10CD&DEV_1200
+%asc.DeviceDesc% =      asc_Inst,       PCI\VEN_10CD&DEV_1300
+%abp460.DeviceDesc% =   abp460_Inst,    PCMCIA\AdvanSys_-PCMCIA_Ultra_SCSI_ABP460-25c7
+%abp480.DeviceDesc% =   abp480_Inst,    PCI\VEN_10CD&DEV_1300&SUBSYS_133010CD
+
+[asc3550_Inst]
+CopyFiles = @asc3550.sys
+
+[asc3550_Inst.Services]
+AddService = asc3550, %SPSVCINST_ASSOCSERVICE%, asc3550_Service_Inst, Miniport_EventLog_Inst
+
+[asc3550_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\asc3550.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[asc_Inst]
+CopyFiles = @asc.sys
+
+[asc_Inst.Services]
+AddService = asc, %SPSVCINST_ASSOCSERVICE%, asc_Service_Inst, Miniport_EventLog_Inst
+
+[asc_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\asc.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[abp460_Inst]
+CopyFiles=@asc3350p.sys
+AddReg     = pcmcia_interface_type
+
+[abp460_Inst.Services]
+AddService = asc3350P, %SPSVCINST_ASSOCSERVICE%, abp460_Service_Inst, Miniport_EventLog_Inst
+
+[abp460_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\asc3350p.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pcmcia_addreg
+
+[abp480_Inst]
+CopyFiles=@ABP480N5.SYS
+AddReg    = cardbus_interface_type
+
+[abp480_Inst.Services]
+AddService = ABP480N5, %SPSVCINST_ASSOCSERVICE%, abp480_Service_Inst, Miniport_EventLog_Inst
+
+[abp480_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ABP480N5.SYS
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+
+
+;******************************
+;Initio Manufacturer device list
+[INITIO]
+%initio.DeviceDesc% = initio_Inst, PCI\VEN_1101&DEV_9500
+%initio.DeviceDesc% = initio_Inst, PCI\VEN_1101&DEV_9400
+%initio.DeviceDesc% = initio_Inst, PCI\VEN_1101&DEV_9401
+%initio.DeviceDesc% = initio_Inst, PCI\VEN_1101&DEV_134A
+%initio.DeviceDesc% = initio_Inst, PCI\VEN_1101&DEV_0002
+
+[initio_Inst]
+CopyFiles = @ini910u.sys
+
+[initio_Inst.Services]
+AddService = ini910u, %SPSVCINST_ASSOCSERVICE%, initio_Service_Inst, Miniport_EventLog_Inst
+
+[initio_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ini910u.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+
+
+;*******************************
+;QLogic Manufacturer device list
+[QLOGIC]
+
+
+%ql10wnt.DeviceDesc% = ql10wnt_Inst, PCI\VEN_1077&DEV_1020
+
+
+%ql1080.DeviceDesc% =  ql1080_Inst,  PCI\VEN_1077&DEV_1080
+
+%ql1240.DeviceDesc% =  ql1240_Inst,  PCI\VEN_1077&DEV_1240
+
+%ql1280.DeviceDesc% =  ql1280_Inst,  PCI\VEN_1077&DEV_1280&SUBSYS_01068086
+%ql1280.DeviceDesc% =  ql1280_Inst,  PCI\VEN_1077&DEV_1280&SUBSYS_00061077
+
+%ql12160.DeviceDesc% = ql12160_Inst, PCI\VEN_1077&DEV_1216&SUBSYS_00071077
+%ql12160.DeviceDesc% = ql12160_Inst, PCI\VEN_1077&DEV_1016&SUBSYS_00081077
+%ql12160.DeviceDesc% = ql12160_Inst, PCI\VEN_1077&DEV_1216&SUBSYS_01078086
+
+
+
+
+
+
+
+
+[ql10wnt_Inst]
+CopyFiles = @ql10wnt.sys
+
+[ql10wnt_Inst.Services]
+AddService = ql10wnt, %SPSVCINST_ASSOCSERVICE%, ql10wnt_Service_Inst, Miniport_EventLog_Inst
+
+[ql10wnt_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql10wnt.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[ql1240_Inst]
+CopyFiles = @ql1240.sys
+
+[ql1240_Inst.Services]
+AddService = ql1240, %SPSVCINST_ASSOCSERVICE%, ql1240_Service_Inst, Miniport_EventLog_Inst
+
+[ql1240_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql1240.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[ql1080_Inst]
+AddReg = ql1080_Registry_Update
+CopyFiles = @ql1080.sys
+
+[ql1080_Registry_Update]
+HKLM,SYSTEM\CurrentControlSet\Services\ql1080\Parameters\Device,MaximumSGList,0x00010001,0x41
+
+[ql1080_Inst.Services]
+AddService = ql1080, %SPSVCINST_ASSOCSERVICE%, ql1080_Service_Inst, Miniport_EventLog_Inst
+
+[ql1080_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql1080.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[ql1280_Inst]
+CopyFiles = @ql1280.sys
+
+[ql1280_Inst.Services]
+AddService = ql1280, %SPSVCINST_ASSOCSERVICE%, ql1280_Service_Inst, Miniport_EventLog_Inst
+
+[ql1280_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql1280.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[ql12160_Inst]
+CopyFiles = @ql12160.sys
+
+[ql12160_Inst.Services]
+AddService = ql12160, %SPSVCINST_ASSOCSERVICE%, ql12160_Service_Inst, Miniport_EventLog_Inst
+
+[ql12160_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ql12160.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+;****************************
+;IBM Manufacturer device list
+[IBM]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%CD20X.DeviceDesc%                 = CD20X_Inst, PCMCIA\IBM-PCMCIA_Portable_CD-ROM_Drive-84E3
+%CD20X.DeviceDesc%                 = CD20X_Inst, PCMCIA\IBM-PCMCIA_CD-ROM_DRIVE_CD-400-5AFA
+%CD20X.DeviceDesc%                 = CD20X_Inst, PCMCIA\IBM-PCMCIA_Portable_CD-ROM_Drive-84E2
+
+
+%PCMCIA\PCMCIA-IDE_CARD-3220.DeviceDesc% = cbidfbay_Inst, PCMCIA\PCMCIA-IDE_CARD-3220
+%PCI\VEN_13E6&DEV_3603&SUBSYS_00461014.DeviceDesc% = cbidfbay_Inst, PCI\VEN_13E6&DEV_3603&SUBSYS_00461014
+%PCMCIA\PCMCIA-PnPIDE-4522.DeviceDesc% = cbidf_Inst, PCMCIA\PCMCIA-PnPIDE-4522
+%PCMCIA\PCMCIA-PnPIDE-7B72.DeviceDesc% = cbidf_Inst, PCMCIA\PCMCIA-PnPIDE-7B72
+%PCMCIA\PCMCIA-PnPIDE-7762.DeviceDesc% = cbidf16_Inst, PCMCIA\PCMCIA-PnPIDE-7762
+%PCMCIA\PCMCIA-IDE_DOCK-EEEA.DeviceDesc% = cbidfbay_Inst, PCMCIA\PCMCIA-IDE_DOCK-EEEA
+%PCI\VEN_13E6&DEV_3603&SUBSYS_004613E6.DeviceDesc% = cbidf_Inst, PCI\VEN_13E6&DEV_3603&SUBSYS_004613E6
+%PCI\VEN_13E6&DEV_3603&SUBSYS_004913E6.DeviceDesc% = cbidf_Inst, PCI\VEN_13E6&DEV_3603&SUBSYS_004913E6
+%PCI\VEN_13E6&DEV_3603&SUBSYS_00460900.DeviceDesc% = cbidfbay_Inst, PCI\VEN_13E6&DEV_3603&SUBSYS_00460900
+%PCI\VEN_13E6&DEV_3603.DeviceDesc% = cbidf_Inst, PCI\VEN_13E6&DEV_3603
+
+[cbidf_Inst]
+CopyFiles = @cbidf2k.sys
+
+[cbidfbay_Inst]
+CopyFiles = @cbidf2k.sys
+
+[cbidf16_Inst]
+CopyFiles = @cbidf2k.sys
+
+[cbidf_Inst.Services]
+AddService = cbidf, %SPSVCINST_ASSOCSERVICE%, cbidf_Service_Inst, Miniport_EventLog_Inst
+AddReg = cbidf_addreg
+
+[cbidfbay_Inst.Services]
+AddService = cbidf, %SPSVCINST_ASSOCSERVICE%, cbidf_Service_Inst, Miniport_EventLog_Inst
+AddReg = cbidfbay_addreg
+
+[cbidf16_Inst.Services]
+AddService = cbidf, %SPSVCINST_ASSOCSERVICE%, cbidf_Service_Inst, Miniport_EventLog_Inst
+AddReg = cbidf16_addreg
+
+[cbidf_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\cbidf2k.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_isa_addreg
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_ide
+
+[cbidfbay_addreg]
+HKR, "Parameters\Device", "DriverParameter",,"charge=1"
+
+[cbidf_addreg]
+HKR, "Parameters\Device", "DriverParameter",,""
+
+[cbidf16_addreg]
+HKR, "Parameters\Device", "DriverParameter",,"pio=16"
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[CD20X_Inst]
+CopyFiles = @cd20xrnt.sys
+AddReg    = pcmcia_interface_type
+
+[CD20X_Inst.HW]
+AddReg    = CD20X_AddReg.HW
+
+[CD20X_AddReg.HW]
+HKR, "ScsiPort", "NeedsSystemShutdownNotification", 0x00010001, 1
+
+[CD20X_Inst.Services]
+AddService = cd20xrnt, %SPSVCINST_ASSOCSERVICE%, CD20X_Service_Inst, Miniport_EventLog_Inst
+
+[CD20X_Service_Inst]
+ServiceType     = %SERVICE_KERNEL_DRIVER%
+StartType       = %SERVICE_BOOT_START%
+ErrorControl    = %SERVICE_ERROR_NORMAL%
+ServiceBinary   = %12%\cd20xrnt.sys
+LoadOrderGroup  = SCSI Miniport
+AddReg          = pnpsafe_pcmcia_addreg
+
+
+
+;****************************
+;PROMISE Manufacturer device list
+[PROMISE]
+;;
+;; Ultra
+;;
+%PCI\VEN_105A&DEV_4D68&CC_0180.DeviceDesc%=ultra_Inst, PCI\VEN_105A&DEV_4D68&CC_0180
+%PCI\VEN_105A&DEV_4D30&CC_0180.DeviceDesc%=ultra_Inst, PCI\VEN_105A&DEV_4D30&CC_0180
+%PCI\VEN_105A&DEV_0D30&CC_0180.DeviceDesc%=ultra_Inst, PCI\VEN_105A&DEV_0D30&CC_0180
+%PCI\VEN_105A&DEV_4D38&CC_0180.DeviceDesc%=ultra_Inst, PCI\VEN_105A&DEV_4D38&CC_0180
+%PCI\VEN_105A&DEV_4D33.DeviceDesc%=ultra_Inst, PCI\VEN_105A&DEV_4D33
+
+[ultra_Inst]
+CopyFiles = @ultra.sys
+
+[ultra_Inst.Services]
+AddService = ultra, %SPSVCINST_ASSOCSERVICE%, ultra_Service_Inst, Miniport_EventLog_Inst
+
+[ultra_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\ultra.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+AddReg         = bus_type_ide
+
+
+
+;**************************************
+;TEKRAM Manufacture device list
+[TEKRAM]
+
+%PCI\VEN_1000&DEV_0020&SUBSYS_10201DE1.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0020&SUBSYS_10201DE1
+%PCI\VEN_1000&DEV_0021&SUBSYS_10201DE1.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0021&SUBSYS_10201DE1
+%PCI\VEN_1000&DEV_0020&SUBSYS_10101DE1.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0020&SUBSYS_10101DE1
+%PCI\VEN_1000&DEV_0021&SUBSYS_10101DE1.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0021&SUBSYS_10101DE1
+
+;**************************************
+;LSI Manufacturer device list
+[LSI]
+
+%PCI\VEN_1000&DEV_000C.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_000C
+%PCI\VEN_1000&DEV_000F.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_000F
+
+%PCI\VEN_1000&DEV_000A.DeviceDesc% = sym_hi_Inst, PCI\VEN_1000&DEV_000A
+%PCI\VEN_1000&DEV_000B.DeviceDesc% = sym_hi_Inst, PCI\VEN_1000&DEV_000B
+%PCI\VEN_1000&DEV_0012.DeviceDesc% = sym_hi_Inst, PCI\VEN_1000&DEV_0012
+
+%PCI\VEN_1000&DEV_0020.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0020
+%PCI\VEN_1000&DEV_0021.DeviceDesc% = sym_u3_Inst, PCI\VEN_1000&DEV_0021
+
+
+%PCI\VEN_1000&DEV_0001.DeviceDesc% = symc810_Inst, PCI\VEN_1000&DEV_0001
+%PCI\VEN_1000&DEV_0002.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_0002
+%PCI\VEN_1000&DEV_0003.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_0003
+%PCI\VEN_1000&DEV_0004.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_0004
+%PCI\VEN_1000&DEV_0005.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_0005
+%PCI\VEN_1000&DEV_0006.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_0006
+%PCI\VEN_1000&DEV_000D.DeviceDesc% = symc8xx_Inst, PCI\VEN_1000&DEV_000D
+
+
+
+
+
+
+
+[symc810_Inst]
+CopyFiles = @symc810.sys
+
+[symc810_Inst.Services]
+AddService = symc810, %SPSVCINST_ASSOCSERVICE%, symc810_Service_Inst, Miniport_EventLog_Inst
+
+[symc810_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\symc810.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[symc8xx_Inst]
+CopyFiles = @symc8xx.sys
+
+[symc8xx_Inst.Services]
+AddService = symc8xx, %SPSVCINST_ASSOCSERVICE%, symc8xx_Service_Inst, Miniport_EventLog_Inst
+
+[symc8xx_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\symc8xx.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[sym_hi_Inst]
+CopyFiles = @sym_hi.sys
+
+[sym_hi_Inst.Services]
+AddService = sym_hi, %SPSVCINST_ASSOCSERVICE%, sym_hi_Service_Inst, Miniport_EventLog_Inst
+
+[sym_hi_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\sym_hi.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+[sym_u3_Inst]
+CopyFiles = @sym_u3.sys
+
+[sym_u3_Inst.Services]
+AddService = sym_u3, %SPSVCINST_ASSOCSERVICE%, sym_u3_Service_Inst, Miniport_EventLog_Inst
+
+[sym_u3_Service_Inst]
+ServiceType    = %SERVICE_KERNEL_DRIVER%
+StartType      = %SERVICE_BOOT_START%
+ErrorControl   = %SERVICE_ERROR_NORMAL%
+ServiceBinary  = %12%\sym_u3.sys
+LoadOrderGroup = SCSI Miniport
+AddReg         = pnpsafe_pci_addreg
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+;*************************************************************
+;The installation section for scsi like devices which shouldn't
+;actually get installed with anything.  These have no service
+;associated with them - usually they're some sort of support
+;chip which was unfortunately exposed on a bridged or MF
+;adapter
+
+[NO_DEV]
+AddReg = NO_DEV_REG
+
+[NO_DEV_REG]
+HKR,,InfInstallSection,0,"NO_DEV"
+
+[NO_DEV.Services]
+AddService = , %SPSVCINST_ASSOCSERVICE%     ; null service install
+
+
+;*********************************
+;Generic scsi adpater - compatible ID match on GEN_SCSIADAPTER
+;as a method of making all non-pnp miniports have their adapters
+;show up as scsi adapters in devmgr.  Scsiport adds this id to
+;legacy detected adapters.
+
+[GENERIC]
+%genericHBA.DeviceDesc%  = NO_DRV,,GEN_SCSIADAPTER
+
+[NO_DRV]
+AddReg = NO_DRV_REG
+
+[NO_DRV_REG]
+HKR,,InfInstallSection,0,"NO_DRV"
+
+;
+; The empty service entry is to fool the class installer - without a service
+; entry this install section would be rejected as being part of a win9x inf.
+; With a service entry we might disable the device which we were trying to 
+; expose.
+;
+
+[NO_DRV.Services]
+NoDriver=1
+
+
+;*************************************************************
+;These addreg sections should be used when installing services to indicate
+;which interface types are safe for PNP and which aren't.  INTERFACE_TYPE
+;is defined in NTDDK.H
+
+[pnpsafe_pci_addreg]
+HKR, "Parameters\PnpInterface", "5", 0x00010001, 0x00000001
+
+
+[pnpsafe_isa_addreg]
+HKR, "Parameters\PnpInterface", "1", 0x00010001, 0x00000001
+
+[pnpsafe_eisa_addreg]
+HKR, "Parameters\PnpInterface", "2", 0x00010001, 0x00000001
+
+[pnpsafe_mca_addreg]
+HKR, "Parameters\PnpInterface", "3", 0x00010001, 0x00000001
+
+[pnpsafe_pcmcia_addreg]
+; isa with no legacy detection
+HKR, "Parameters\PnpInterface", "1", 0x00010001, 0x00000011
+
+[pcmcia_interface_type]
+HKR, "ScsiPort", "LegacyInterfaceType", 0x00010001, 0x00000008
+
+
+[cardbus_interface_type]
+HKR, "ScsiPort", "LegacyInterfaceType", 0x00010001, 0x00000005
+
+;*************************************************************
+;These addreg sections should be used for non-SCSI miniports
+;to indicate what STORAGE_BUS_TYPE they actually do support.
+
+[bus_type_ide]
+HKR, "Parameters", "BusType", 0x00010001, 0x00000003
+
+[bus_type_fibre]
+HKR, "Parameters", "BusType", 0x00010001, 0x00000006
+
+[bus_type_raid]
+HKR, "Parameters", "BusType", 0x00010001, 0x00000008
+
+;*************************************************************
+;The EventLog entries are the same for all SCSI miniports.
+[Miniport_EventLog_Inst]
+AddReg = Miniport_EventLog_AddReg
+
+[Miniport_EventLog_AddReg]
+HKR,,EventMessageFile,%REG_EXPAND_SZ%,"%%SystemRoot%%\System32\IoLogMsg.dll"
+HKR,,TypesSupported,%REG_DWORD%,7
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+[Strings]
+
+
+
+
+
+
+
+
+
+
+
+
+Msft = "Microsoft"
+SCSIClassName="SCSI and RAID controllers"
+
+GENERIC = "Unknown Manufacturer"
+genericHBA.DeviceDesc = "SCSI/RAID Host Controller"
+
+I2O = "Intelligent I/O Controller"
+PCI\VEN_8086&DEV_9621&SUBSYS_00018086.DeviceDesc = "Intel I2O Controller"
+PCI\VEN_8086&DEV_9622&SUBSYS_00018086.DeviceDesc = "Tekram I2O Controller"
+PCI\VEN_8086&DEV_9641&SUBSYS_00018086.DeviceDesc = "Intel I2O Controller"
+PCI\VEN_8086&DEV_96A1&SUBSYS_00018086.DeviceDesc = "Intel I2O Controller"
+PCI\VEN_8086&DEV_3092&SUBSYS_00018086.DeviceDesc = "Intel I2O Controller"
+
+ADP = "Adaptec"
+
+aha154x.DeviceDesc  = "Adaptec AHA-154X/AHA-164X SCSI Host Adapter"
+*ADP1542.DeviceDesc = "Adaptec AHA-154X Plug and Play SCSI Host Adapter"
+
+*ADP1502.DeviceDesc = "Adaptec AHA-1502 SCSI Host Adapter"
+*ADP1505.DeviceDesc = "Adaptec AHA-1505 SCSI Host Adapter"
+*ADP1510.DeviceDesc = "Adaptec AHA-1510 SCSI Host Adapter"
+*ADP1512.DeviceDesc = "Adaptec AHA-1512 SCSI Host Adapter"
+*ADP1515.DeviceDesc = "Adaptec AVA-1515 SCSI Host Adapter"
+*ADP1520.DeviceDesc = "Adaptec AHA-152X SCSI Host Adapter"
+*ADP1522.DeviceDesc = "Adaptec AHA-152X SCSI Host Adapter"
+*ADP3015.DeviceDesc = "Adaptec AHA-1530 SCSI Host Adapter"
+*ADP1532.DeviceDesc = "Adaptec AHA-1532 SCSI Host Adapter"
+*ADP6360.DeviceDesc = "Adaptec AIC-6X60 ISA Single-Chip SCSI Controller"
+*ADP6370.DeviceDesc = "Adaptec AIC-6X70 SCSI Controller"
+ADP460.DeviceDesc   = "Adaptec SlimSCSI 16-Bit PCMCIA SCSI Host Adapter"
+
+
+PCI\VEN_9005&DEV_00CF.DeviceDesc =                 "Adaptec AIC-7899 Ultra160 PCI SCSI Card"
+PCI\VEN_9005&DEV_008F.DeviceDesc =                 "Adaptec AIC-7892 Ultra160 PCI SCSI Card"
+PCI\VEN_9005&DEV_00C0.DeviceDesc =                 "Adaptec SCSI Card 39160 - Ultra160 SCSI (Generic)"
+PCI\VEN_9005&DEV_0080.DeviceDesc =                 "Adaptec SCSI Card 29160 - Ultra160 SCSI (Generic)"
+PCI\VEN_9005&DEV_0081.DeviceDesc =                 "Adaptec SCSI Card 19160 - Ultra160 SCSI (Generic)"
+PCI\VEN_9005&DEV_00C0&SUBSYS_F6209005.DeviceDesc = "Adaptec SCSI Card 39160 - Ultra160 SCSI"
+PCI\VEN_9005&DEV_00C0&SUBSYS_F6200E11.DeviceDesc = "Compaq 64-bit/66MHz Dual Channel Wide Ultra3 SCSI Adapter"
+PCI\VEN_9005&DEV_0080&SUBSYS_E2A09005.DeviceDesc = "Adaptec SCSI Card 29160 - Ultra160 SCSI"
+PCI\VEN_9005&DEV_0080&SUBSYS_E2A00E11.DeviceDesc = "Compaq 64-bit/66MHz Wide Ultra3 SCSI Adapter"
+PCI\VEN_9005&DEV_0080&SUBSYS_62A09005.DeviceDesc = "Adaptec SCSI Card 29160N - Ultra160 SCSI"
+PCI\VEN_9005&DEV_0080&SUBSYS_E2209005.DeviceDesc = "Adaptec SCSI Card 29160LP - Ultra160 SCSI"
+PCI\VEN_9005&DEV_0081&SUBSYS_62A19005.DeviceDesc = "Adaptec SCSI Card 19160 - Ultra160 SCSI"
+PCI\VEN_9005&DEV_005F.DeviceDesc =                 "Adaptec AIC-7896/AIC-7897 - Ultra2 SCSI"
+PCI\VEN_9005&DEV_001F.DeviceDesc =                 "Adaptec AIC-7890/AIC-7891 - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0010.DeviceDesc =                 "Adaptec AHA-2940U2/U2W - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0050.DeviceDesc =                 "Adaptec AHA-3950 - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0051.DeviceDesc =                 "Adaptec AHA-3950 - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0050&SUBSYS_F5009005.DeviceDesc = "Adaptec AHA-3950U2B - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0051&SUBSYS_B5009005.DeviceDesc = "Adaptec AHA-3950U2D - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0010&SUBSYS_A1009005.DeviceDesc = "Adaptec AHA-2940U2B - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0010&SUBSYS_21809005.DeviceDesc = "Adaptec AHA-2940U2 - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0010&SUBSYS_A1809005.DeviceDesc = "Adaptec AHA-2940U2W - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0010&SUBSYS_E1009005.DeviceDesc = "Adaptec AHA-2950U2B - Ultra2 SCSI"
+PCI\VEN_9005&DEV_0011&SUBSYS_01819005.DeviceDesc = "Adaptec AHA-2930U2 - Ultra2 SCSI"
+PCI\VEN_9004&DEV_7895&SUBSYS_78959004.DeviceDesc = "Adaptec AIC-7895 Dual Ultra SCSI "
+PCI\VEN_9004&DEV_7895&SUBSYS_78919004.DeviceDesc = "Adaptec AHA-2940U/UW Dual Ultra SCSI Controller"
+PCI\VEN_9004&DEV_7895&SUBSYS_78929004.DeviceDesc = "Adaptec AHA-3940AU/AUW/AUWD/UWD Dual SCSI Controller"
+PCI\VEN_9004&DEV_7895&SUBSYS_78949004.DeviceDesc = "Adaptec AHA-3944AUWD Dual HVD UltraSCSI Controller"
+PCI\VEN_9004&DEV_8078&SUBSYS_78809004.DeviceDesc = "Adaptec AIC-7880 PCI Ultra SCSI"
+PCI\VEN_9004&DEV_8178&SUBSYS_78819004.DeviceDesc = "Adaptec AHA-2940UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_8778&SUBSYS_78879004.DeviceDesc = "Adaptec AHA-2940UW Pro PCI SCSI Controller"
+PCI\VEN_9004&DEV_3860&SUBSYS_38699004.DeviceDesc = "Adaptec AHA-2930CU PCI SCSI Controller"
+PCI\VEN_9005&DEV_0082&SUBSYS_02109005.DeviceDesc = "Adaptec 2915/2930LP PCI SCSI Controller"
+PCI\VEN_9004&DEV_8078.DeviceDesc = "Adaptec AIC-7880 PCI Ultra SCSI"
+PCI\VEN_9004&DEV_8178.DeviceDesc = "Adaptec AHA-2940U/2940UW/2940D PCI SCSI Controller"
+PCI\VEN_9004&DEV_8278.DeviceDesc = "Adaptec AHA-3940U/3940UW/3940UWD PCI SCSI Controller"
+PCI\VEN_9004&DEV_8478.DeviceDesc = "Adaptec AHA-2944UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_8578.DeviceDesc = "Adaptec AHA-3944UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_8678.DeviceDesc = "Adaptec AHA-4944UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_3B78.DeviceDesc = "Adaptec AHA-4944UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_EC78.DeviceDesc = "Adaptec AHA-4944UW PCI SCSI Controller"
+PCI\VEN_9004&DEV_7078.DeviceDesc = "Adaptec AIC-7870 PCI SCSI Controller"
+PCI\VEN_9004&DEV_7178.DeviceDesc = "Adaptec AHA-2940/2940W PCI SCSI Controller"
+PCI\VEN_9004&DEV_7278.DeviceDesc = "Adaptec AHA-3940/3940W PCI SCSI Controller"
+PCI\VEN_9004&DEV_7478.DeviceDesc = "Adaptec AHA-2944/2944W PCI SCSI Controller"
+PCI\VEN_9004&DEV_7578.DeviceDesc = "Adaptec AHA-3944W PCI SCSI Controller"
+PCI\VEN_9004&DEV_7678.DeviceDesc = "Adaptec AIC-7870 PCI SCSI Controller"
+PCI\VEN_9004&DEV_7778.DeviceDesc = "Adaptec AIC-7870 PCI SCSI Controller"
+PCI\VEN_9004&DEV_6075.DeviceDesc = "Adaptec APA-1480 CardBus SCSI Controller"
+PCI\VEN_9004&DEV_6778.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_6678.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_6578.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_6478.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_6278.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_6178.DeviceDesc = "Adaptec AHA-2940AU PCI SCSI Controller"
+PCI\VEN_9004&DEV_6078.DeviceDesc = "Adaptec AIC-786X PCI SCSI Controller"
+PCI\VEN_9004&DEV_7860.DeviceDesc = "Adaptec AIC-7860 PCI SCSI Controller"
+PCI\VEN_9004&DEV_5078.DeviceDesc = "Adaptec AIC-7850 PCI SCSI Controller"
+PCI\VEN_9004&DEV_5075.DeviceDesc = "Adaptec AIC-7550 PCI SCSI Controller"
+PCI\VEN_1044&DEV_A501&SUBSYS_C0471044.DeviceDesc = "Adaptec 3000S Ultra160 SCSI RAID Controller"
+PCI\VEN_1044&DEV_A501&SUBSYS_C03C1044.DeviceDesc = "Adaptec 2000S Ultra160 SCSI RAID Controller"
+PCI\VEN_1044&DEV_A501&SUBSYS_C05A1044.DeviceDesc = "Adaptec 2400A UDMA Four Channel RAID Controller"
+PCI\VEN_103C&DEV_1029&SUBSYS_92109004.DeviceDesc = "Adaptec AFC-9210G PCI 64-bit/66MHz Fibre Channel 2Gbit Controller (Optical)"
+PCI\VEN_103C&DEV_1029&SUBSYS_92119004.DeviceDesc = "Adaptec AFC-9210G PCI 64-bit/66MHz Fibre Channel 2Gbit Controller (Copper)"
+
+
+AMD = "Advanced Micro Devices (AMD)"
+amsint.DeviceDesc = "AMD PCI SCSI Controller/Ethernet Adapter"
+
+
+AGILENT = "Agilent"
+PCI\VEN_103C&DEV_1028&SUBSYS_000715BC.DeviceDesc = "Agilent HHBA-510x PCI Fibre Channel Controller"
+
+AMI = "American Megatrends Inc."
+megaraid.DeviceDesc = "AMI MegaRAID RAID Controller RAID Controller"
+mraid428.DeviceDesc = "AMI MegaRAID Enterprise 1200 RAID Controller"
+mraid434.DeviceDesc = "AMI MegaRAID Enterprise 1300 RAID Controller"
+mraid438.DeviceDesc = "AMI MegaRAID Enterprise 1400 RAID Controller"
+mraid466.DeviceDesc = "AMI MegaRAID Express 200 RAID Controller"
+mraid467.DeviceDesc = "AMI MegaRAID Enterprise 1500 RAID Controller"
+mraid490.DeviceDesc = "AMI MegaRAID Express 300 RAID Controller"
+mraid471.DeviceDesc = "AMI MegaRAID Enterprise 1600 RAID Controller"
+mraid475.DeviceDesc = "AMI MegaRAID Express 500 RAID Controller"
+mraid493.DeviceDesc = "AMI MegaRAID Elite 1600 RAID Controller"
+
+DELL = "Dell"
+Dell467.DeviceDesc  = "Dell PERC 2/DC RAID Controller"
+Dell.DeviceDesc     = "Dell PERC 2/SC RAID Controller"
+DellPerc2.DeviceDesc    = "Dell PERC 2 RAID Controller"
+DellPerc2si.DeviceDesc  = "Dell PERC 2/Si RAID Controller"
+DellPerc3di.DeviceDesc  = "Dell PERC 3/Di RAID Controller"
+DellPerc3si.DeviceDesc  = "Dell PERC 3/Si RAID Controller"
+DellPerc3gat.DeviceDesc = "Dell PERC 3 RAID (SCSI chip)"
+Dell471.DeviceDesc  = "Dell PERC 3/QC RAID Controller" 
+Dell493.DeviceDesc  = "Dell PERC 3/DC RAID Controller" 
+
+HP = "HP"
+netraid3si.DeviceDesc = "HP NetRAID-3Si"
+NetRaid.DeviceDesc    = "Integrated HP NetRAID"
+netraid1si.DeviceDesc = "HP NetRAID-1Si"
+hpn.DeviceDesc        = "Hewlett Packard NetRAID-4M RAID Controller"
+netraid1M.DeviceDesc  = "HP NetRAID-1M RAID Controller"
+netraid2M.DeviceDesc  = "HP NetRAID-2M RAID Controller"
+
+COMPAQ = "Compaq"
+cpqarray.DeviceDesc = "Compaq Drive Array"
+cpqarry2.DeviceDesc = "Compaq Smart Array Controller"
+cpqfcalm.DeviceDesc = "Compaq Fibre-Channel Host Controller"
+*CPQFD17.DeviceDesc = "Compaq SCSI Tape Adapter"
+PCI\VEN_1000&DEV_0012&SUBSYS_001b0e11.DeviceDesc = "Compaq Integrated Wide Ultra2 SCSI Adapter"
+PCI\VEN_1000&DEV_000b&SUBSYS_60040e11.DeviceDesc = "Compaq 64-Bit Ultra2 SCSI Controller"
+smart_5300.DeviceDesc = "Compaq Smart Array 5300 Controller"
+smart_532.DeviceDesc = "Compaq Smart Array 532 Controller"
+PCI\VEN_0E11&DEV_A0FC&SUBSYS_A0FC0E11.DeviceDesc = "Compaq StorageWorks 64-Bit/66-MHz Fibre Channel Host Bus Adapter"
+
+TEKRAM = "Tekram"
+PCI\VEN_1000&DEV_0020&SUBSYS_10201DE1.DeviceDesc = "DC-390U3W: PCI Ultra 160 SCSI Host Adapter"
+PCI\VEN_1000&DEV_0021&SUBSYS_10201DE1.DeviceDesc = "DC-390U3W: PCI Ultra 160 SCSI Host Adapter"
+PCI\VEN_1000&DEV_0020&SUBSYS_10101DE1.DeviceDesc = "DC-390U3D : PCI Dual Ultra 160 SCSI Host Adapter"
+PCI\VEN_1000&DEV_0021&SUBSYS_10101DE1.DeviceDesc = "DC-390U3D : PCI Dual Ultra 160 SCSI Host Adapter"
+
+DIAMOND = "Diamond"
+fireport.DeviceDesc = "Diamond Multimedia Systems SCSI Host Adapter"
+
+EMULEX = "Emulex"
+lp6000.DeviceDesc = "Emulex LP6000 Fibre Channel Host Adapter"
+lp7000.DeviceDesc = "Emulex LP7000 Fibre Channel Host Adapter"
+lp8000.DeviceDesc = "Emulex LP8000 Fibre Channel Host Adapter"
+lp9000.DeviceDesc = "Emulex LP9000 Fibre Channel Host Adapter"
+lp850.DeviceDesc  = "Emulex LP850 Fibre Channel Host Adapter"
+lp950.DeviceDesc  = "Emulex LP950 Fibre Channel Host Adapter"
+
+
+
+
+
+
+
+MYLEX = "Mylex"
+
+dac960P.DeviceDesc =  "Mylex DAC960P Disk Array Controller"
+dac960PD.DeviceDesc = "Mylex DAC960PD Disk Array Controller"
+dac960PX.DeviceDesc = "Mylex DAC960 Series Disk Array Controller"
+dac1164P.DeviceDesc = "Mylex DAC1164P Disk Array Controller"
+dac960BA55.DeviceDesc = "Mylex eXtremeRAID Support Device"
+
+dac2w2kAcceleRAID160 = "Mylex AcceleRAID 160 Controller"
+dac2w2kAcceleRAID170 = "Mylex AcceleRAID 170 Controller"
+dac2w2kAcceleRAID352 = "Mylex AcceleRAID 352 Controller"
+dac2w2keXtremeRAID2000 = "Mylex eXtremeRAID 2000 Controller"
+dac2w2keXtremeRAID3000 = "Mylex eXtremeRAID 3000 Controller"
+
+
+ADVANSYS = "Advansys"
+asc3550.DeviceDesc = "Advansys 3550 Ultra Wide SCSI Host Adapter"
+asc.DeviceDesc = "Advansys SCSI Host Adapter"
+abp460.DeviceDesc = "Advansys ABP460 PCMCIA SCSI Host Adapter"
+abp480.DeviceDesc ="Advansys ABP480 CardBus SCSI Host Adapter"
+
+
+
+INITIO = "Initio"
+initio.DeviceDesc = "Initio Ultra SCSI Host Adapter"
+
+
+QLOGIC = "QLogic"
+ql10wnt.DeviceDesc = "QLogic PCI SCSI Host Adapter"
+ql1240.DeviceDesc =  "QLogic PCI SCSI Host Adapter."
+ql2100.DeviceDesc =  "QLogic QLA2000/QLA2100 PCI Fibre Channel Adapter"
+ql2200.DeviceDesc =  "QLogic QLA2200 PCI Fibre Channel Adapter"
+ql1080.DeviceDesc =  "QLogic PCI-QLA1080 64 bit PCI LVD SCSI HBA"
+ql1280.DeviceDesc =  "QLogic PCI-QLA1280 64 bit PCI LVD SCSI HBA"
+ql12160.DeviceDesc = "QLogic QLA12160 64 bit PCI DUAL 160M SCSI HBA"
+
+IBM="IBM Corporation"
+PCI\VEN_1014&DEV_002E&SUBSYS_022E1014&REV_10.DeviceDesc = "IBM ServeRAID 4H Controller"
+PCI\VEN_1014&DEV_002E&SUBSYS_002E1014&REV_0D.DeviceDesc = "IBM ServeRAID 3H/3L Controller"
+PCI\VEN_1014&DEV_002E&SUBSYS_00000000&REV_04.DeviceDesc = "IBM ServeRAID II Controller"
+PCI\VEN_1014&DEV_002E&SUBSYS_00000000&REV_03.DeviceDesc = "IBM ServeRAID integrated on PC 330 Server"
+PCI\VEN_1014&DEV_002E&SUBSYS_00000000&REV_02.DeviceDesc = "IBM PC ServeRAID Controller"
+PCI\VEN_1014&DEV_01BD&SUBSYS_01BE1014&REV_00.DeviceDesc = "IBM ServeRAID 4M Controller"
+PCI\VEN_1014&DEV_01BD&SUBSYS_01BF1014&REV_00.DeviceDesc = "IBM ServeRAID 4L Controller"
+PCI\VEN_1014&DEV_01BD&SUBSYS_02081014&REV_00.DeviceDesc = "IBM ServeRAID 4Mx Controller"
+PCI\VEN_1014&DEV_01BD&SUBSYS_020E1014&REV_00.DeviceDesc = "IBM ServeRAID 4Lx Controller"
+CD20X.DeviceDesc="IBM Portable PCMCIA CD-ROM Drive"
+PCMCIA\PCMCIA-IDE_CARD-3220.DeviceDesc="IBM Portable Drive Bay 2000 (PCMCIA)"
+PCI\VEN_13E6&DEV_3603&SUBSYS_00461014.DeviceDesc="IBM Portable Drive Bay 2000 (CardBus)"
+PCMCIA\PCMCIA-PnPIDE-4522.DeviceDesc="PCMCIA CD-ROM/DVD-ROM (Model F)"
+PCMCIA\PCMCIA-PnPIDE-7B72.DeviceDesc="CardBus/F CD-ROM/DVD-ROM (PCMCIA)"
+PCMCIA\PCMCIA-PnPIDE-7762.DeviceDesc="PCMCIA HARDDISK"
+PCMCIA\PCMCIA-IDE_DOCK-EEEA.DeviceDesc="PCMCIA IDE DOCK"
+PCI\VEN_13E6&DEV_3603&SUBSYS_004613E6.DeviceDesc="CardBus/F CD-ROM/DVD-ROM (CardBus)"
+PCI\VEN_13E6&DEV_3603&SUBSYS_004913E6.DeviceDesc="CardBus/I CD-ROM/CD-RW (CardBus)"
+PCI\VEN_13E6&DEV_3603&SUBSYS_00460900.DeviceDesc="CardBus IDE DOCK"
+PCI\VEN_13E6&DEV_3603.DeviceDesc="CardBus IDE Card"
+
+
+PROMISE="PROMISE"
+PCI\VEN_105A&DEV_4D68&CC_0180.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+PCI\VEN_105A&DEV_4D30&CC_0180.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+PCI\VEN_105A&DEV_0D30&CC_0180.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+PCI\VEN_105A&DEV_4D38&CC_0180.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+PCI\VEN_105A&DEV_4D33.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+PCI\VEN_105A&DEV_4D69.DeviceDesc="Promise Technology Inc. Ultra IDE Controller"
+
+
+LSI = "LSI Logic Inc."
+PCI\VEN_1000&DEV_0001.DeviceDesc = "LSI Logic 53C810 Device"
+PCI\VEN_1000&DEV_0002.DeviceDesc = "LSI Logic 820 PCI SCSI Host Adapter"
+PCI\VEN_1000&DEV_0003.DeviceDesc = "LSI Logic 53C825/53C825A Device"
+PCI\VEN_1000&DEV_0004.DeviceDesc = "LSI Logic 53C815 Device"
+PCI\VEN_1000&DEV_0005.DeviceDesc = "LSI Logic 53C810A Device"
+PCI\VEN_1000&DEV_0006.DeviceDesc = "LSI Logic 8600SP Adapter; 53C860 Device"
+PCI\VEN_1000&DEV_000C.DeviceDesc = "LSI Logic 8951U/8952U Adapter; 53C895"
+PCI\VEN_1000&DEV_000D.DeviceDesc = "LSI Logic 53C885 Device"
+PCI\VEN_1000&DEV_000F.DeviceDesc = "LSI Logic 53C875/53C876 Device"
+
+PCI\VEN_1000&DEV_000A.DeviceDesc = "LSI Logic 53C1510 Device"
+PCI\VEN_1000&DEV_000B.DeviceDesc = "LSI Logic 53C896 Device"
+PCI\VEN_1000&DEV_0012.DeviceDesc = "LSI Logic 8953U PCI SCSI Adapter; 53C895A Device"
+
+PCI\VEN_1000&DEV_0020.DeviceDesc = "LSI Logic 53C1010-33 Device"
+
+PCI\VEN_1000&DEV_0021.DeviceDesc = "LSI Logic 53C1010-66 Device"
+
+SYM-40409G.DeviceDesc = "LSI Logic 40909 PCI FC Adapter; SYMFC909 Device"
+SYM-44929LH.DeviceDesc = "LSI Logic 44929 PCI FC Adapter; SYMFC929 Device"
+
+SPSVCINST_ASSOCSERVICE = 0x00000002
+SERVICE_KERNEL_DRIVER  = 1
+SERVICE_BOOT_START     = 0
+SERVICE_ERROR_NORMAL   = 1
+REG_EXPAND_SZ          = 0x00020000
+REG_DWORD              = 0x00010001
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     MZ       ÿÿ  ¸       @                                   è   º ´	Í!¸LÍ!This program cannot be run in DOS mode.
+$       :ƒõØ~â›‹~â›‹~â›‹½í”‹â›‹~âš‹â›‹½íÆ‹oâ›‹½íÇ‹â›‹½íÅ‹â›‹½íÄ‹Iâ›‹½íÁ‹â›‹Rich~â›‹                        PE  L ¡H        à !
+ v  "      e          8r           
+      Ð    ?                       ¨v ¦  P~ Œ                          À L  œ„ 8                           0  @   €  ”      `                          .text   ýt     v                   `.data   ô         z             @  À.rsrc             |             @  @.reloc  L   À                  @  B² H@   ,¡HM  ,¡HZ   ” Hd   ú Ho   ¡H|   .¡H‡           ADVAPI32.dll KERNEL32.dll NTDLL.DLL msvcrt.dll NETAPI32.dll RPCRT4.dll WLDAP32.dll                                                                                                                                                                                                                                              {UÞw\^ãwÖ\ãw×sÝwÂMßw6yÝwïoÝw\wÝwæ.Þw¼rÝw{yÝwÂßwÉ{ÝwlÝwŸjÝwÅlÞwÝIßw8ûÞw0mÞw6Lßw5oÞwW×ÝwáíÝwüïÝwJßw    š€|×›€|{™€|¤ ‘|Q¬€|ÿ|þ|&|§Kƒ|Íä€|¿™€|€|…Þ€|j>†|ýI„|    ÌÃMwÎÀMa~ÃM’ÃÀM€ÃMÏ®ÃMã~ÃM½gÃM¸~ÃMÁMk€ÃMëÃMƒûÂM¸®ÃM”\ÂM”~ÃM    ‰Ñ†[ z†[    TbçwÆyéw^ççw    !èövNÆ÷v‰Ä÷vMÅ÷v‰Ä÷v®Æ÷v9’övŽþ÷v|Ì÷vtË÷v=€÷vO÷vY€÷vÇ÷v •öv5<övÇ÷v8qöv8qövà\÷v<A÷v    ‹ÿU‹ì‹EHuV‹uVÿ„8r‰5 9r^3À@]Â h v9rd¡    P‹D$‰l$l$+àSVW‹Eø‰eèP‹EüÇEüÿÿÿÿ‰EøEðd£    Ã‹Mðd‰    Y_^[ÉQÃ\   i p s e c N F A R e f e r e n c e   i p s e c D a t a   i p s e c I S A K M P R e f e r e n c e   w h e n C h a n g e d   i p s e c D a t a T y p e   i p s e c I D   d e s c r i p t i o n   i p s e c N a m e   d i s t i n g u i s h e d N a m e   ,   C N = i p s e c I S A K M P P o l i c y   }   {   i p s e c P o l i c y   o b j e c t C l a s s   ) )   (   C N = i p s e c P o l i c y   C N = i p s e c F i l t e r   i p s e c F i l t e r   C N = i p s e c N e g o t i a t i o n P o l i c y   i p s e c N e g o t i a t i o n P o l i c y T y p e   i p s e c N e g o t i a t i o n P o l i c y A c t i o n   i p s e c N e g o t i a t i o n P o l i c y   i p s e c N F A   ( & ( o b j e c t c l a s s = i p s e c N F A )   i p s e c O w n e r s R e f e r e n c e   i p s e c N e g o t i a t i o n P o l i c y R e f e r e n c e   i p s e c F i l t e r R e f e r e n c e   i p s e c I S A K M P P o l i c y   A c t i v e P o l i c y   S O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c \ G P T I P S E C P o l i c y   S O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c \ P o l i c y \ S a v e   S O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c \ P o l i c y \ P e r s i s t e n t   O p e r a t i o n M o d e   S Y S T E M \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ I P S e c   ¨‘?GvÑ†MÔj    žôb7lÑ†L£    S O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c \ P o l i c y \ C a c h e   n a m e   C l a s s N a m e   Already Freed!! H                                                           (9rx8r    v ‹ÿU‹ìVW¾È8rVÿ¨8rYD Pè¨
+ ‹ø…ÿu
+‹E!8jXëVWÿä8r‹EY‰8Y3À_^]Â ( o b j e c t c l a s s = i p s e c P o l i c y )   ‹ÿU‹ìƒìSVW3ÿjP‰}ø‰}ü‰}ôè)
+ ‹Ø;ßuj^é«  EøPEüP‰}ü‹}h°8rWÿuèn ‹ð…ö…}  ‹Eüÿ0è 
+ …À‰„f  ÿuüèÞ !uüEøPEüPhœ8rWÿuè/ ‹ð…ö…>  ‹Eüÿ0èá	 …À‰C„&  ÿuüèž EøPEüPh„8rWÿu‰uüèï ‹Eü;Æt!‹ ;ÆtPè¢	 ;Æ‰CH„ç  ÿuüè_ ë‰sHEøPEüPht8rWÿu‰uüè« ‹ð…ö…º  ‹Eüÿ0è]	 …À‰C„¢  ÿuüè !uüEøPEüPhX8rWÿuèk ‹ð…ö…z  ‹Eüÿ0‹=¬8rÿ×Y‰CÿuüèÞ !uüEøPEüPh@8rÿuÿuè- ‹ð…ö…<  ‹Eüÿ0ÿ×Y‰CDÿuüè¦ !uüEøPEüPh8rÿuÿuèõ ‹ð…ö…  ‹Eüÿ0è§ …À‰C„ì   ÿuüèd EøPEôPh 8rÿuÿuè ‹ð…ö…Å   ‹Eô‹ ‹0V‰uðè- …À„ª   ‹Uô‹‹Î‹r‹ÑÁé‹øó¥‹Êƒáó¤‰C‹Â‰Cÿuôè ƒeü EøPEüPhÜ8rÿuÿuèN ‹ð…öua‹EøÁàPèÍ ‹ð3ÿ;÷‰utG9}øv‹Eü¸ÿ0èå …Àt(‰¾G;}øræ‰s$‹Eø‰Cÿuüè— ‹E‰3À_^[ÉÂ ‹E‰C$‰{j^Sè‰ 3ÿ‹E‰8‹ÆëÜ‹ÿU‹ìÿujÿuè‘' ]Â ‹ÿU‹ìì0  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥‰Eü‹E¥‰…Ðûÿÿ…Øûÿÿ¥P…ÜûÿÿP¥ÿü8r…À‰…Ôûÿÿ…¦   f!…ìûÿÿ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ …ôýÿÿhØ8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÐûÿÿ…ôýÿÿPèõ …ôýÿÿPèŒ …ÀuÇ…Ôûÿÿ   ƒ# ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…Ôûÿÿèì ÉÂ ‹ÿU‹ìì”   ¡(9rS‹]‰Eü‹EVW‰…lÿÿÿ‹C…Àj‰pÿÿÿ^tfƒ8 uj^‹CH…Àtfƒ8 uNµ   Pè¼ …À‰…tÿÿÿuÇ…xÿÿÿ   é  vÁàPè— ‹ø…ÿuÇ…xÿÿÿ   éï  ‹…tÿÿÿ‰8GPh$8rè" …À‰…xÿÿÿ…Ë  GPh8rè¨º  …À‰…xÿÿÿ…¯  ƒ‹C3öF…ÀtNfƒ8 tH‹…tÿÿÿw‰pFPhœ8rèË …À‰…xÿÿÿ…t  FPÿsèSº  …À‰…xÿÿÿ…Z  ƒj^v‡‹…tÿÿÿ‰°CPht8rè€ …À‰…xÿÿÿ…)  CP‹…pÿÿÿÿpèº  …À‰…xÿÿÿ…	  ƒFv‡‹…tÿÿÿ‰°CPhX8rè1 …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄCP…|ÿÿÿPèš¹  …À‰…xÿÿÿ…¡   ƒFv‡‹…tÿÿÿ‰°CPh 8rèÉ …À‰…xÿÿÿuvCP‹…pÿÿÿÿpÿpè§¹  …À‰…xÿÿÿuWÇ‚   ‹pÿÿÿ‹CHF…Àtbfƒ8 t\v<‡‹…tÿÿÿ‰<°GPh„8rèi …À‰…xÿÿÿuGPÿsHèõ¸  …À‰…xÿÿÿtÿµtÿÿÿèE¸  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[è* ÉÂ ‹ÿU‹ìì”   ¡(9rSV‰Eü‹EW‹}‰…lÿÿÿ‹G3ö;Æj‰½pÿÿÿ[tf90uj[‹GH;Ætf90uK   Pèú …À‰…tÿÿÿuÇ…xÿÿÿ   éÑ  [ÁàPèÕ ‹Ø…ÛuÇ…xÿÿÿ   é¥  ‹G…ÀtJfƒ8 tD‹…tÿÿÿ‰CPhœ8rèS …À‰…xÿÿÿ…t  CPÿwèÛ·  …À‰…xÿÿÿ…Z  ƒ3öFv<ƒ‹…tÿÿÿ‰<°GPht8rè …À‰…xÿÿÿ…)  GP‹…pÿÿÿÿpèŠ·  …À‰…xÿÿÿ…	  ƒFv<ƒ‹…tÿÿÿ‰<°GPhX8rè¹ …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄGP…|ÿÿÿPè"·  …À‰…xÿÿÿ…¡   ƒFv<ƒ‹…tÿÿÿ‰<°GPh 8rèQ …À‰…xÿÿÿuvGP‹…pÿÿÿÿpÿpè/·  …À‰…xÿÿÿuWÇ‚   ‹½pÿÿÿ‹GHF…Àtbfƒ8 t\vƒ‹…tÿÿÿ‰°CPh„8rèñ …À‰…xÿÿÿuCPÿwHè}¶  …À‰…xÿÿÿtÿµtÿÿÿèÍµ  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[è²ÿ  ÉÂ ‹ÿU‹ìì4  ¡(9rSVWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ìûÿÿ…ÔûÿÿP¥3ö…ÜûÿÿP‰µÔûÿÿf‰µìûÿÿf‰µôýÿÿÿü8r;Æ‰…Ðûÿÿ…°   ‹ä8r…ìûÿÿh8rPÿÓÿµÔûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿh $8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ‹=¨8rhè#8rÿ×hD8r‰…Øûÿÿÿ×…Øûÿÿ…ôýÿÿPÿ×…Øûÿÿh<8rÿ×‹ØûÿÿÈƒÄ8D	PèÔÿ  ‹ø…ÿuÇ…Ðûÿÿ   ‹…Ìûÿÿƒ  ë-hè#8rWÿÓhD8rWÿÖ…ôýÿÿPWÿÖh<8rWÿÖ‹…ÌûÿÿƒÄ ‰8ƒ½Ôûÿÿ _^[t…ÔûÿÿPÿ 8r‹Mü‹…Ðûÿÿè6þ  ÉÂ ( & ( o b j e c t c l a s s = i p s e c P o l i c y )   c n = i p s e c P o l i c y   ‹ÿU‹ìì0  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥‰Eü‹E¥‰…Ðûÿÿ…Øûÿÿ¥P…ÜûÿÿP¥ÿü8r…À‰…Ôûÿÿ…¦   f!…ìûÿÿ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ …ôýÿÿhH8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÐûÿÿ…ôýÿÿPè²ü  …ôýÿÿPèIþ  …ÀuÇ…Ôûÿÿ   ƒ# ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…Ôûÿÿè©ü  ÉÂ ‹ÿU‹ìƒì,¡(9rSVWu}ì¥¥‰Eü‹E‹]3É‰EÔ‹E ¥‰EØ‰Eä¥Pƒì‹üuì¥¥¥‰Mä‰Mè‰MÜ‰Mà¥è¦üÿÿ‹ð3ÿ;÷ufEèPWWh,9rÿuäjÿuÔSèG ‹ð;÷uGÿuèSè7 …Àu¾
+   ë3EÜPÿuèSè- ‹ð;÷u EàPÿuÜSèÝòÿÿ‹ð;÷uÿuØÿuàè°õÿÿ‹ð9}ätÿuäèzý  9}ètÿuèèÇ 9}àtÿuàè  ‹Mü‹Æè°û  _^[ÉÂ ‹ÿU‹ìƒìSVW3ÿEðP‰}ø‰}ô‰}ð‰}ì‰}üèèñÿÿ‹ð;÷u]EøPWWh,9rÿuðjÿuÿuèw ‹ð;÷u<ÿuøÿuèe ‹ð;÷‰uèu¾
+   ë!‹ÆÁàPèaü  ‹Ø;ßuj^;ßt	ÿuüSè% ‹E‰8‹E‰8ëg;÷‰}vQ9}EôPuÿuøÿuè ëÿuôÿuèJ ‹ð;÷u¹EìPÿuôÿuè¼ñÿÿ…Àu‹Mü‹EìÿEü‰‹ÿE‹E;Eèr¯‹E‹Mü‰‹E‰3ö9}ðtÿuðèäû  9}øtÿuøè _‹Æ^[ÉÂ ‹ÿU‹ìì0  ¡(9rS‰Eü‹EV‹uW3ÿ‰…Øûÿÿ‹EjP‰µÐûÿÿ‰…àûÿÿ‰½Üûÿÿ‰½Ôûÿÿ‰½èûÿÿ‰½äûÿÿf‰½ìûÿÿf‰½ôýÿÿèPû  ‹Ø;ßuj^éX  …èûÿÿPVÿü8r‹ð;÷…8  ‹=ä8r…ìûÿÿh8rPÿ×ÿµèûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhH8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµØûÿÿ…ôýÿÿPè?ù  …ôýÿÿPèÖú  …À‰tM‹½Ðûÿÿ‹G$…Àtfƒ8 tPè·ú  …À‰Ct-‹G(…Àtfƒ8 tPèú  …À‰CHt…ìûÿÿPèŠú  …À‰Cuj^ëW…ÔûÿÿP…ÜûÿÿPWÇC   è²R  ‹ð…öu6‹…Üûÿÿ‰C‹…Ôûÿÿ‰C…äûÿÿPÿµØûÿÿw,ƒì‹ü¥¥¥¥è±òÿÿ‹ð…ötSèþ  3ÿ‹…àûÿÿ‰8ë‹…äûÿÿƒcD ‰C‹…àûÿÿ‰ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü‹Æè|ø  _^[ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuènóÿÿ‹ø…ÿuÿuüÿ6ÿuèÅ ‹øƒ}ü tÿuüè®  ‹Ç_^ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèáõÿÿ‹ø…ÿuÿuüÿ6ÿuèŸ ‹øƒ}ü tÿuüèË­  ‹Ç_^ÉÂ ‹ÿU‹ìƒìSV‹uWEøPƒì‹ü¥¥¥3Û‰]ø‰]ü‰]ð‰]ô¥èû÷ÿÿ‹ð;óun‹}EüPSSh,9rÿuøjÿuWè› ‹ð;óuLÿuüWè‹þ  …Àu¾
+   ë8EðPÿuüWè ‹ð;óu%EôPÿuðWè1îÿÿ‹ð;óu‹Eôÿpè›ø  ;Ãu
+j^‹E‰ë‹M‰3ö9]øtÿuøè]ø  9]ütÿuüèþ  9]ôtÿuôèAü  _‹Æ^[ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuÿuèQüÿÿ‹uü‹ø…ÿuÿ6ÿvÿuèº>  ÿ6ÿuè‹ ‹ø…ötVèìû  ‹Ç_^ÉÂ ‹ÿU‹ìƒìSVWEôPEøPÿu3Ûÿu‰]ø‰]ð3ö‰]ô‰]üèÇúÿÿ‹ø;ûu‹}ô;ût ‹ÇÁàPè‚÷  ‹ð;óuj_‹E‰‹E‰ëQ;û‰]v/‹MEðP‹Eøÿ4ˆèòïÿÿ…Àu‹Mü‹EðÿEü‰ŽÿE9}rÖ9]üu;ótVèF÷  3ö‹E‹Mü‰0‹E‰3ÿ9]øtÿuôÿuøèæû  ‹Ç_^[ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuÿuè3ûÿÿ‹uü‹ø…ÿu4Vÿuÿuè/ýÿÿ‹ø…ÿu"ÿ6ÿvÿuè›<  ‹ø…ÿuÿvÿ6ÿuèþ<  ‹ø…ötVè³ú  ‹Ç_^ÉÂ ‹ÿU‹ìQQƒeø ƒeü VWEøPÿuÿuè¿úÿÿ‹uø‹ø…ÿu[S‹]EüPÿuÿuSèQýÿÿVÿuSèøüÿÿ‹ø…ÿu6‹Eü…Àtf98t	ÿ6PSèü<  ÿ6ÿvSè<  ‹ø…ÿuÿvÿuüÿ6Sè`=  ‹ø[…ötVèú  ƒ}ü tÿuüèjö  ‹Ç_^ÉÂ ‹ÿU‹ìì,  ¡(9rS‹]VWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ôûÿÿ…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ìûÿÿf‰½ôýÿÿÿü8r‹ð;÷…Œ   ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhh8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÔûÿÿ…ôýÿÿPè˜ó  …ôýÿÿPSè£þ  ‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[è¥ó  ÉÂ ‹ÿU‹ìì”   ¡(9rS‹]‰Eü‹EVW‰…lÿÿÿ‹C…Àj‰pÿÿÿ^tfƒ8 uj^‹C$…Àtfƒ8 uNµ   Pèuô  …À‰…tÿÿÿuÇ…xÿÿÿ   é  vÁàPèPô  ‹ø…ÿuÇ…xÿÿÿ   éï  ‹…tÿÿÿ‰8GPh$8rèÛô  …À‰…xÿÿÿ…Ë  GPhˆ8rèa©  …À‰…xÿÿÿ…¯  ƒ‹C3öF…ÀtNfƒ8 tH‹…tÿÿÿw‰pFPhœ8rè„ô  …À‰…xÿÿÿ…t  FPÿsè©  …À‰…xÿÿÿ…Z  ƒj^v‡‹…tÿÿÿ‰°CPht8rè9ô  …À‰…xÿÿÿ…)  CP‹…pÿÿÿÿpè»¨  …À‰…xÿÿÿ…	  ƒFv‡‹…tÿÿÿ‰°CPhX8rèêó  …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄCP…|ÿÿÿPèS¨  …À‰…xÿÿÿ…¡   ƒFv‡‹…tÿÿÿ‰°CPh 8rè‚ó  …À‰…xÿÿÿuvCP‹…pÿÿÿÿpÿpè`¨  …À‰…xÿÿÿuWÇ‚   ‹pÿÿÿ‹C$F…Àtbfƒ8 t\v<‡‹…tÿÿÿ‰<°GPh„8rè"ó  …À‰…xÿÿÿuGPÿs$è®§  …À‰…xÿÿÿtÿµtÿÿÿèþ¦  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[èãð  ÉÂ ‹ÿU‹ìì”   ¡(9rSV‰Eü‹EW‹}‰…lÿÿÿ‹G3ö;Æj‰½pÿÿÿ[tf90uj[‹G$;Ætf90uK   Pè³ñ  …À‰…tÿÿÿuÇ…xÿÿÿ   éÑ  [ÁàPèŽñ  ‹Ø…ÛuÇ…xÿÿÿ   é¥  ‹G…ÀtJfƒ8 tD‹…tÿÿÿ‰CPhœ8rèò  …À‰…xÿÿÿ…t  CPÿwè”¦  …À‰…xÿÿÿ…Z  ƒ3öFv<ƒ‹…tÿÿÿ‰<°GPht8rèÁñ  …À‰…xÿÿÿ…)  GP‹…pÿÿÿÿpèC¦  …À‰…xÿÿÿ…	  ƒFv<ƒ‹…tÿÿÿ‰<°GPhX8rèrñ  …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄGP…|ÿÿÿPèÛ¥  …À‰…xÿÿÿ…¡   ƒFv<ƒ‹…tÿÿÿ‰<°GPh 8rè
+ñ  …À‰…xÿÿÿuvGP‹…pÿÿÿÿpÿpèè¥  …À‰…xÿÿÿuWÇ‚   ‹½pÿÿÿ‹G$F…Àtbfƒ8 t\vƒ‹…tÿÿÿ‰°CPh„8rèªð  …À‰…xÿÿÿuCPÿw$è6¥  …À‰…xÿÿÿtÿµtÿÿÿè†¤  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[èkî  ÉÂ ‹ÿU‹ìVW¾ü38rVÿ¨8rYD Pèsï  ‹ø…ÿu
+‹E!8jXëVWÿä8r‹EY‰8Y3À_^]Â ( o b j e c t c l a s s = i p s e c F i l t e r )   ‹ÿU‹ìì,  ¡(9rS‰Eü‹EV‹u3ÛW‰…Ôûÿÿ‹Ej(‰µØûÿÿ‰…äûÿÿ‰àûÿÿ‰Üûÿÿ‰èûÿÿf‰ìûÿÿf‰ôýÿÿè¸î  ‹ø;ûuj^é"  …èûÿÿPVÿü8r‹ð;ó…  ‹ä8r…ìûÿÿh8rPÿÓÿµèûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhh8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÔûÿÿ…ôýÿÿPè§ì  …ôýÿÿPè>î  …À‰tM‹µØûÿÿ‹F…Àtfƒ8 tPèî  …À‰Gt-‹F …Àtfƒ8 tPèî  …À‰G$t…ìûÿÿPèòí  …À‰Guj^ë!…ÜûÿÿP…àûÿÿPVÇG   èq[  ‹ð…ötWèºï  3Û‹…äûÿÿ‰ë‹…àûÿÿ‰G‹…Üûÿÿƒg  ‰G‹…äûÿÿ‰8ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü_‹Æ^[èì  ÉÂ ‹ÿU‹ìì4  ¡(9rSVWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ìûÿÿ…ÔûÿÿP¥3ö…ÜûÿÿP‰µÔûÿÿf‰µìûÿÿf‰µôýÿÿÿü8r;Æ‰…Ðûÿÿ…°   ‹ä8r…ìûÿÿh8rPÿÓÿµÔûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhÄ78rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ‹=¨8rhŒ78rÿ×hD8r‰…Øûÿÿÿ×…Øûÿÿ…ôýÿÿPÿ×…Øûÿÿh<8rÿ×‹ØûÿÿÈƒÄ8D	Pè0ì  ‹ø…ÿuÇ…Ðûÿÿ   ‹…Ìûÿÿƒ  ë-hŒ78rWÿÓhD8rWÿÖ…ôýÿÿPWÿÖh<8rWÿÖ‹…ÌûÿÿƒÄ ‰8ƒ½Ôûÿÿ _^[t…ÔûÿÿPÿ 8r‹Mü‹…Ðûÿÿè’ê  ÉÂ ( & ( o b j e c t c l a s s = i p s e c F i l t e r )   c n = i p s e c F i l t e r   ‹ÿU‹ìƒìSVW3ÿEðP‰}ø‰}ô‰}ð‰}ì‰}üèªûÿÿ‹ð;÷u]EøPWWh€9rÿuðjÿuÿuèö  ‹ð;÷u<ÿuøÿuèòð  ‹ð;÷‰uèu¾
+   ë!‹ÆÁàPèîê  ‹Ø;ßuj^;ßt	ÿuüSèPî  ‹E‰8‹E‰8ëg;÷‰}vQ9}EôPuÿuøÿuè¨õ  ëÿuôÿuè×õ  ‹ð;÷u¹EìPÿuôÿuè …Àu‹Mü‹EìÿEü‰‹ÿE‹E;Eèr¯‹E‹Mü‰‹E‰3ö9}ðtÿuðèqê  9}øtÿuøèð  _‹Æ^[ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèøÿÿ‹ø…ÿuÿuüÿ6ÿuèŒó  ‹øƒ}ü tÿuüè¸ž  ‹Ç_^ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèõÿÿ‹ø…ÿuÿuüÿ6ÿuèó  ‹øƒ}ü tÿuüèiž  ‹Ç_^ÉÂ ‹ÿU‹ìƒì0¡(9rSVW‰Eü‹Eu}ì¥¥‰EÔ‹E‰EÐ‹E ¥‰EØEà¥Pƒì‹üuì¥¥3Û¥‰]à‰]è‰]Ü‰]ä¥èüÿÿ‹ð;óu\‹}ÔEèPSSh€9rÿuàjÿuÐWèô  ‹ð;óu:ÿuèWèï  …Àu¾
+   ë&EÜPÿuèWèûó  ‹ð;óuEäPÿuÜWèm ‹ð;ót9]ätÿuäèë  ‹EØ‰ë
+‹Eä‹MØ‰3ö9]àtÿuàèÙè  9]ètÿuèè„î  ‹Mü‹Æèzç  _^[ÉÂ ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üèýÿÿ‹ø;ûu‹Eø;ÃtÁàPèYè  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPèC …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVè!è  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôè_ë  ‹Ç_^[ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuÿuè¬øÿÿ‹ð…öu-ÿuüÿuÿuèmýÿÿ‹ð…öu‹uƒì‹üÿu¥ÿu¥¥¥è/¿  ‹ðƒ}ü tÿuüè­é  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuÿuèDøÿÿ‹ð…öuÿuüÿuÿuèTýÿÿ‹ðƒ}ü tÿuüèbé  ‹Æ^ÉÂ ‹ÿU‹ìƒìSVW¡(9r‹Mu}ì¥¥‹] ƒeè ƒeä ¥UèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥èBýÿÿ‹ð…öuEäPÿuèèå  ‹ð…ötƒ# ë‹Eä‰ƒ}è tÿuèèáè  ‹Mü‹Æèxå  _^[ÉÂ ‹ÿU‹ìì,  ¡(9rS‹]VWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ôûÿÿ…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ìûÿÿf‰½ôýÿÿÿü8r‹ð;÷…Œ   ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿh 8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÔûÿÿ…ôýÿÿPèMä  …ôýÿÿPSèXï  ‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[èZä  ÉÂ ‹ÿU‹ìì”   ¡(9r‹MSV‰Eü‹EW‰lÿÿÿ‹H…Éj‰…pÿÿÿ^tfƒ9 uj^‹@,…Àtfƒ8 uNµ   Pè*å  ‹Ø…Û‰tÿÿÿuj[éÖ  vÁàPè
+å  ‹ø…ÿuj[é±  GPh$8r‰;è¢å  ‹Ø…Û…—  GPhH8rè,š  ‹Ø…Û…  ƒ‹…pÿÿÿ‹@3öF…ÀtKf9tF‹…tÿÿÿw‰pFPhœ8rèNå  ‹Ø…Û…C  FP‹…pÿÿÿÿpèÔ™  ‹Ø…Û…'  ƒj^‹tÿÿÿv‡‰…xÿÿÿ‰±ƒÀPht8rèÿä  ‹Ø…Û…ô  ‹…xÿÿÿƒÀP‹…pÿÿÿÿpè™  ‹Ø…Û…Ò  ‹…xÿÿÿƒ‹tÿÿÿFv‡‰…xÿÿÿ‰±ƒÀPhX8rè¦ä  ‹Ø…Û…›  j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8r‹…xÿÿÿƒÄƒÀP…|ÿÿÿPè™  ‹Ø…Û…`  ‹…xÿÿÿƒ‹tÿÿÿFv‡‰…xÿÿÿ‰±ƒÀPh 8rè4ä  ‹Ø…Û…)  ‹…xÿÿÿƒÀP‹…pÿÿÿÿpÿpè™  ‹Ø…Û…  ‹…xÿÿÿÇ ‚   ‹…pÿÿÿ‹@,F…Àt^f9tY‹tÿÿÿv‡‰…xÿÿÿ‰±ƒÀPh„8rèÃã  ‹Ø…Û…¸   ‹…xÿÿÿƒÀP‹…pÿÿÿÿp,èC˜  ‹Ø…Û…–   ‹…xÿÿÿƒF‹tÿÿÿv‡‰…xÿÿÿ‰±ƒÀPh8rèjã  ‹Ø…Ûuc‹…xÿÿÿƒÀP‹…pÿÿÿÿpèî—  ‹Ø…ÛuE‹…xÿÿÿƒFv<‡‹…tÿÿÿ‰<°GPhÔ8rèã  ‹Ø…ÛuGP‹…pÿÿÿÿpè©—  ‹Ø…Ûtÿµtÿÿÿèý–  ‹…lÿÿÿƒ  ‹Ãë‹…tÿÿÿƒ‹lÿÿÿ‰3À‹Mü_^[èæà  ÉÂ ‹ÿU‹ìì”   ¡(9rSV‰Eü‹EW‹}‰…lÿÿÿ‹G3ö;Æj‰½pÿÿÿ[tf90uj[‹G,;Ætf90uK   Pè¶á  …À‰…tÿÿÿuj_é•  [ÁàPè˜á  ‹Ø…Ûuj_ép  ‹…ÿtHfƒ? tB‹…tÿÿÿ‰CPhœ8rèâ  ‹ø…ÿ…C  CP‹…pÿÿÿÿpè£–  ‹ø…ÿ…'  ƒ3öF‹tÿÿÿvƒ‰…xÿÿÿ‰±ƒÀPht8rèÎá  ‹ø…ÿ…ô  ‹…xÿÿÿƒÀP‹…pÿÿÿÿpèN–  ‹ø…ÿ…Ò  ‹…xÿÿÿƒ‹tÿÿÿFvƒ‰…xÿÿÿ‰±ƒÀPhX8rèuá  ‹ø…ÿ…›  j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8r‹…xÿÿÿƒÄƒÀP…|ÿÿÿPèÜ•  ‹ø…ÿ…`  ‹…xÿÿÿƒ‹tÿÿÿFvƒ‰…xÿÿÿ‰±ƒÀPh 8rèá  ‹ø…ÿ…)  ‹…xÿÿÿƒÀP‹…pÿÿÿÿpÿpèÛ•  ‹ø…ÿ…  ‹…xÿÿÿÇ ‚   ‹…pÿÿÿ‹@,F…Àt^f98tY‹tÿÿÿvƒ‰…xÿÿÿ‰±ƒÀPh„8rè’à  ‹ø…ÿ…¸   ‹…xÿÿÿƒÀP‹…pÿÿÿÿp,è•  ‹ø…ÿ…–   ‹…xÿÿÿƒF‹tÿÿÿvƒ‰…xÿÿÿ‰±ƒÀPh8rè9à  ‹ø…ÿuc‹…xÿÿÿƒÀP‹…pÿÿÿÿpè½”  ‹ø…ÿuE‹…xÿÿÿƒFvƒ‹…tÿÿÿ‰°CPhÔ8rèîß  ‹ø…ÿuCP‹…pÿÿÿÿpèx”  ‹ø…ÿtÿµtÿÿÿèÌ“  ‹…lÿÿÿƒ  ‹Çë‹…lÿÿÿƒ‹tÿÿÿ‰3À‹Mü_^[èµÝ  ÉÂ ‹ÿU‹ìVW¾¸D8rVÿ¨8rYD Pè½Þ  ‹ø…ÿu
+‹E!8jXëVWÿä8r‹EY‰8Y3À_^]Â ( o b j e c t c l a s s = i p s e c N e g o t i a t i o n P o l i c y )   ‹ÿU‹ììH  ¡(9rS3Û‰Eü‹EV‹uW‰…¸÷ÿÿ‹Ej0‰µÔ÷ÿÿ‰…¼÷ÿÿ‰À÷ÿÿ‰Ä÷ÿÿ‰È÷ÿÿ‰Ì÷ÿÿ‰Ð÷ÿÿf‰Ü÷ÿÿf‰äùÿÿf‰ôýÿÿf‰ìûÿÿèÌÝ  ‹ø;ûuÇ…Ø÷ÿÿ   é  …È÷ÿÿPVÿü8r;Ã‰…Ø÷ÿÿ…ð  ‹ä8r…ôýÿÿh8rPÿÓÿµÈ÷ÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿh 8rPÿÓ…ôýÿÿP…ìûÿÿPÿÖ…ìûÿÿhÔ8rPÿÖƒÄ0h  ÿµ¸÷ÿÿ…ìûÿÿPè°Û  …ìûÿÿPèGÝ  …À‰„'  ‹…Ô÷ÿÿ‹@<…Àtfƒ8 tPè$Ý  …À‰G„  ‹…Ô÷ÿÿ‹@@…Àtfƒ8 tPè Ý  …À‰G,„ß   …ôýÿÿPèéÜ  …À‰G„È   …Ì÷ÿÿP‹…Ô÷ÿÿƒÀPÿü8r…À‰…Ø÷ÿÿ…Ù   …Ü÷ÿÿh8rPÿÓÿµÌ÷ÿÿ…Ü÷ÿÿPÿÖ…Ü÷ÿÿh8rPÿÖƒÄ…Ü÷ÿÿPèÜ  …À‰Gtb…Ð÷ÿÿP‹…Ô÷ÿÿƒÀ Pÿü8r…À‰…Ø÷ÿÿuw…äùÿÿh8rPÿÓÿµÐ÷ÿÿ…äùÿÿPÿÖ…äùÿÿh8rPÿÖƒÄ…äùÿÿPèÜ  …À‰GuÇ…Ø÷ÿÿ   ë*…Ä÷ÿÿP…À÷ÿÿPÿµÔ÷ÿÿÇG   èÂO  …À‰…Ø÷ÿÿtWè>Þ  3Û‹…¼÷ÿÿ‰ë‹…À÷ÿÿ‰G‹…Ä÷ÿÿƒg( ‰G‹…¼÷ÿÿ‰8‹5 8r3ÿ9½È÷ÿÿt	…È÷ÿÿPÿÖ9½Ì÷ÿÿt	…Ì÷ÿÿPÿÖ9½Ð÷ÿÿt	…Ð÷ÿÿPÿÖ‹Mü‹…Ø÷ÿÿ_^[è Ú  ÉÂ ‹ÿU‹ìì4  ¡(9rSVWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ìûÿÿ…ÔûÿÿP¥3ö…ÜûÿÿP‰µÔûÿÿf‰µìûÿÿf‰µôýÿÿÿü8r;Æ‰…Ðûÿÿ…°   ‹ä8r…ìûÿÿh8rPÿÓÿµÔûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhèI8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ‹=¨8rh˜I8rÿ×hD8r‰…Øûÿÿÿ×…Øûÿÿ…ôýÿÿPÿ×…Øûÿÿh<8rÿ×‹ØûÿÿÈƒÄ8D	Pè"Ú  ‹ø…ÿuÇ…Ðûÿÿ   ‹…Ìûÿÿƒ  ë-h˜I8rWÿÓhD8rWÿÖ…ôýÿÿPWÿÖh<8rWÿÖ‹…ÌûÿÿƒÄ ‰8ƒ½Ôûÿÿ _^[t…ÔûÿÿPÿ 8r‹Mü‹…Ðûÿÿè„Ø  ÉÂ ( & ( o b j e c t c l a s s = i p s e c N e g o t i a t i o n P o l i c y )   c n = i p s e c N e g o t i a t i o n P o l i c y   ‹ÿU‹ìƒìSVW3ÿEðP‰}ø‰}ô‰}ð‰}ì‰}üè&úÿÿ‹ð;÷u]EøPWWh¤9rÿuðjÿuÿuèÊã  ‹ð;÷u<ÿuøÿuè¸Þ  ‹ð;÷‰uèu¾
+   ë!‹ÆÁàPè´Ø  ‹Ø;ßuj^;ßt	ÿuüSèKÜ  ‹E‰8‹E‰8ëg;÷‰}vQ9}EôPuÿuøÿuènã  ëÿuôÿuèã  ‹ð;÷u¹EìPÿuôÿuèˆ …Àu‹Mü‹EìÿEü‰‹ÿE‹E;Eèr¯‹E‹Mü‰‹E‰3ö9}ðtÿuðè7Ø  9}øtÿuøèâÝ  _‹Æ^[ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèØõÿÿ‹ø…ÿuÿuüÿ6ÿuèRá  ‹øƒ}ü tÿuüè~Œ  ‹Ç_^ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèòÿÿ‹ø…ÿuÿuüÿ6ÿuèÚà  ‹øƒ}ü tÿuüè/Œ  ‹Ç_^ÉÂ ‹ÿU‹ìƒì0¡(9rSVW‰Eü‹Eu}ì¥¥‰EÔ‹E‰EÐ‹E ¥‰EØEà¥Pƒì‹üuì¥¥3Û¥‰]à‰]è‰]Ü‰]ä¥èíûÿÿ‹ð;óu\‹}ÔEèPSSh¤9rÿuàjÿuÐWèÛá  ‹ð;óu:ÿuèWèËÜ  …Àu¾
+   ë&EÜPÿuèWèÁá  ‹ð;óuEäPÿuÜWèê ‹ð;ót9]ätÿuäè=Ù  ‹EØ‰ë
+‹Eä‹MØ‰3ö9]àtÿuàèŸÖ  9]ètÿuèèJÜ  ‹Mü‹Æè@Õ  _^[ÉÂ ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üèýÿÿ‹ø;ûu‹Eø;ÃtÁàPèÖ  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPèñ  …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVèçÕ  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôèZÙ  ‹Ç_^[ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuÿuèD÷ÿÿ‹ð…öu-ÿuüÿuÿuèmýÿÿ‹ð…öu‹uƒì‹üÿu¥ÿu¥¥¥è¨­  ‹ðƒ}ü tÿuüèÜ×  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuÿuèÜöÿÿ‹ð…öuÿuüÿuÿuèTýÿÿ‹ðƒ}ü tÿuüè‘×  ‹Æ^ÉÂ ‹ÿU‹ìƒìSVW¡(9r‹Mu}ì¥¥‹] ƒeè ƒeä ¥UèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥èBýÿÿ‹ð…öuEäPÿuèè?ð  ‹ð…ötƒ# ë‹Eä‰ƒ}è tÿuèè×  ‹Mü‹Æè>Ó  _^[ÉÂ ‹ÿU‹ìƒìSV‹uW3ÿEøPWWh,9rÿu‰}øjÿu‰}ðV‰}ô‰}üèß  ;Ç‰E…ä   ÿuøVèÚ  …ÀuÇE
+   éË   EðPÿuøVèòÞ  ;Ç‰E…³   EôPÿuðVèÉÿÿ;Ç‰E…›   ‹Eô‹x…ÿ‹X$uÇE   é‚   ‹ÇÁàPè´Ó  …À‰EtXƒeü …ÿv‹ð+Øÿ43èÎÓ  …Àt@ÿEü‰ƒÆ9}ürç‹E‹M‰‹E‰8ƒ}ø _^[tÿuøè;Ù  ƒ}ô tÿuôès×  ‹EÉÂ ƒ} ÇE   tÿuüÿuèÕ  ‹Eƒ  ‹Eƒ  ë´‹ÿU‹ìÿujÿuè
+é  ]Â ‹ÿU‹ìì0  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥‰Eü‹E¥‰…Ðûÿÿ…Øûÿÿ¥P…ÜûÿÿP¥ÿü8r…À‰…Ôûÿÿ…¦   f!…ìûÿÿ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ …ôýÿÿhh8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÐûÿÿ…ôýÿÿPè½Ð  …ôýÿÿPèTÒ  …ÀuÇ…Ôûÿÿ   ƒ# ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…Ôûÿÿè´Ð  ÉÂ ‹ÿU‹ìì0  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥‰Eü‹E¥‰…Ðûÿÿ…Øûÿÿ¥P…ÜûÿÿP¥ÿü8r…À‰…Ôûÿÿ…¦   f!…ìûÿÿ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ …ôýÿÿh 8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÐûÿÿ…ôýÿÿPèˆÏ  …ôýÿÿPèÑ  …ÀuÇ…Ôûÿÿ   ƒ# ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…ÔûÿÿèÏ  ÉÂ ‹ÿU‹ìì”   ¡(9rS‹]‰Eü‹EVW‰…lÿÿÿ‹C…Àj‰pÿÿÿ^tfƒ8 uj^‹C(…Àtfƒ8 uNµ   PèOÐ  …À‰…tÿÿÿuÇ…xÿÿÿ   é  vÁàPè*Ð  ‹ø…ÿuÇ…xÿÿÿ   éï  ‹…tÿÿÿ‰8GPh$8rèµÐ  …À‰…xÿÿÿ…Ë  GPhx8rè;…  …À‰…xÿÿÿ…¯  ƒ‹C3öF…ÀtNfƒ8 tH‹…tÿÿÿw‰pFPhœ8rè^Ð  …À‰…xÿÿÿ…t  FPÿsèæ„  …À‰…xÿÿÿ…Z  ƒj^v‡‹…tÿÿÿ‰°CPht8rèÐ  …À‰…xÿÿÿ…)  CP‹…pÿÿÿÿpè•„  …À‰…xÿÿÿ…	  ƒFv‡‹…tÿÿÿ‰°CPhX8rèÄÏ  …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄCP…|ÿÿÿPè-„  …À‰…xÿÿÿ…¡   ƒFv‡‹…tÿÿÿ‰°CPh 8rè\Ï  …À‰…xÿÿÿuvCP‹…pÿÿÿÿpÿpè:„  …À‰…xÿÿÿuWÇ‚   ‹pÿÿÿ‹C(F…Àtbfƒ8 t\v<‡‹…tÿÿÿ‰<°GPh„8rèüÎ  …À‰…xÿÿÿuGPÿs(èˆƒ  …À‰…xÿÿÿtÿµtÿÿÿèØ‚  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[è½Ì  ÉÂ ‹ÿU‹ìì”   ¡(9rSV‰Eü‹EW‹}‰…lÿÿÿ‹G3ö;Æj‰½pÿÿÿ[tf90uj[‹G(;Ætf90uK   PèÍ  …À‰…tÿÿÿuÇ…xÿÿÿ   éÑ  [ÁàPèhÍ  ‹Ø…ÛuÇ…xÿÿÿ   é¥  ‹G…ÀtJfƒ8 tD‹…tÿÿÿ‰CPhœ8rèæÍ  …À‰…xÿÿÿ…t  CPÿwèn‚  …À‰…xÿÿÿ…Z  ƒ3öFv<ƒ‹…tÿÿÿ‰<°GPht8rè›Í  …À‰…xÿÿÿ…)  GP‹…pÿÿÿÿpè‚  …À‰…xÿÿÿ…	  ƒFv<ƒ‹…tÿÿÿ‰<°GPhX8rèLÍ  …À‰…xÿÿÿ…Ú   j
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄGP…|ÿÿÿPèµ  …À‰…xÿÿÿ…¡   ƒFv<ƒ‹…tÿÿÿ‰<°GPh 8rèäÌ  …À‰…xÿÿÿuvGP‹…pÿÿÿÿpÿpèÂ  …À‰…xÿÿÿuWÇ‚   ‹½pÿÿÿ‹G(F…Àtbfƒ8 t\vƒ‹…tÿÿÿ‰°CPh„8rè„Ì  …À‰…xÿÿÿuCPÿw(è  …À‰…xÿÿÿtÿµtÿÿÿè`€  ‹…lÿÿÿƒ  ‹…xÿÿÿëƒ‹…tÿÿÿ‹lÿÿÿ‰3À‹Mü_^[èEÊ  ÉÂ ‹ÿU‹ìì4  ¡(9rSVWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ìûÿÿ…ÔûÿÿP¥3ö…ÜûÿÿP‰µÔûÿÿf‰µìûÿÿf‰µôýÿÿÿü8r;Æ‰…Ðûÿÿ…°   ‹ä8r…ìûÿÿh8rPÿÓÿµÔûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhTY8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ‹=¨8rhŒ8rÿ×hD8r‰…Øûÿÿÿ×…Øûÿÿ…ôýÿÿPÿ×…Øûÿÿh<8rÿ×‹ØûÿÿÈƒÄ8D	PègÊ  ‹ø…ÿuÇ…Ðûÿÿ   ‹…Ìûÿÿƒ  ë-hŒ8rWÿÓhD8rWÿÖ…ôýÿÿPWÿÖh<8rWÿÖ‹…ÌûÿÿƒÄ ‰8ƒ½Ôûÿÿ _^[t…ÔûÿÿPÿ 8r‹Mü‹…ÐûÿÿèÉÈ  ÉÂ c n = i p s e c N F A   ‹ÿU‹ìƒìSV‹uWEøPƒÆƒì‹ü¥¥3Û¥‰]ø‰]ü‰]è‰]ô‰]ð‰]ì¥è4þÿÿ‹ð;ó…   ‹}EüPSShT9rÿuøjÿuWècÔ  ‹ð;óunÿuüWèSÏ  …Àu¾
+   ëZEèPÿuüWèIÔ  ‹ð;óuGEìPEðPEôPÿuèWècî  ‹ð;óu,9]ðtÿuðè›É  9]ìtÿuìèŽÉ  ‹Eôÿp èAÉ  ;Ãu
+j^‹E‰ë‹M‰3ö9]øtÿuøèÉ  9]ütÿuüè®Î  9]ôtÿuôèÊ  _‹Æ^[ÉÂ ‹ÿU‹ìƒì8¡(9rSVW‰Eü‹Eu}ì¥¥‰EÈ‹E‰EÌ‹E ¥‰EÔEà¥Pƒì‹üuì¥¥3Û¥‰]à‰]è‰]Ð‰]ä‰]Ø‰]Ü¥èÿüÿÿ‹ð;óud‹}ÈEèPSShT9rÿuàjÿuÌWè2Ó  ‹ð;óuBÿuèWè"Î  …Àu¾
+   ë.EÐPÿuèWèÓ  ‹ð;óuEÜPEØPEäPÿuÐWè2í  ‹ð;ót9]ätÿuäè9É  ‹EÔ‰ë$9]ØtÿuØèVÈ  9]ÜtÿuÜèIÈ  ‹Eä‹MÔ‰3ö9]àtÿuàèÔÇ  9]ètÿuèèÍ  ‹Mü‹ÆèuÆ  _^[ÉÂ ‹ÿU‹ìƒì$SVWEàPEäPÿu3öÿu‰uäÿu‰uà‰uè‰uø‰uô‰uÜ‰uü‰uð‰uìèùòÿÿ‹ø;þurEèPÿuàÿuäè"ù  ‹ø;þu]EøPVVhT9rÿuèjÿuÿuèÒ  ‹ø;þu<ÿuøÿuèüÌ  ‹ø;þ‰}u¿
+   ë!‹ÇÁàPèøÆ  ‹Ø;Þuj_;Þt	ÿuüSèÝÈ  ‹E‰0‹E‰0é   ;þ‰uvy9uEôPuÿuøÿuè¯Ñ  ëÿuôÿuèÞÑ  ‹ø;þu¶EìPEðPEÜPÿuôÿuèºë  …Àu,‹Mü‹EÜÿEü‰‹9uðtÿuðèèÆ  ‰uð9uìtÿuìèØÆ  ‰uìÿE‹E;Er‡‹E‹Mü‰‹E‰3ÿ9uøtÿuøèÌ  9uètÿuèè¡Æ  9uätÿuàÿuäèàÇ  ‹Ç_^[ÉÂ ‹ÿU‹ììD  ¡(9r‰Eü‹E‰…Ôûÿÿ‹E‰…Ðûÿÿ‹ESVW‰…Àûÿÿ3À½Üûÿÿ««3ö«j,‰µÄûÿÿ‰µÈûÿÿ‰µØûÿÿ‰µÌûÿÿ‰µ¼ûÿÿ«f‰µôýÿÿf‰µìûÿÿèšÅ  ‹Ø;Þuj^é±  …ØûÿÿP‹…ÔûÿÿƒÀPÿü8r‹ð…ö…Š  ‹5ä8r…ôýÿÿh8rPÿÖÿµØûÿÿ‹=°8r…ôýÿÿPÿ×…ôýÿÿh8rPÿ×…ìûÿÿh´_8rPÿÖ…ôýÿÿP…ìûÿÿPÿ×…ìûÿÿhÔ8rPÿ×ƒÄ0h  ÿµÐûÿÿ…ìûÿÿPè€Ã  …ìûÿÿPèÅ  …À‰tL‹½Ôûÿÿ‹…Àtfƒ8 tPèùÄ  …À‰Ct-‹G`…Àtfƒ8 tPèßÄ  …À‰C(t…ôýÿÿPèÌÄ  …À‰Cuj^é§   …ÈûÿÿP…ÄûÿÿPWÇC   è*H  ‹ð…ö…‚   ‹…Äûÿÿ‰C‹…Èûÿÿ‰CGPjY½Üûÿÿ‹ð3Òó§t.ÌûÿÿQÿµÐûÿÿ‹ðƒì‹ü¥¥¥¥èñÿÿ‹ð…öu9‹…Ìûÿÿ‰Cëƒc ‹µÔûÿÿ…¼ûÿÿPÿµÐûÿÿƒÆ@ƒì‹ü¥¥¥¥èòÿÿ‹ð…ötSè!Å  ‹…Àûÿÿƒ  ë‹…¼ûÿÿƒc$ ‰C ‹…Àûÿÿ‰ƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü‹ÆèlÂ  _^[ÉÂ C N = i p s e c N F A   ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuè²òÿÿ‹ø…ÿuÿuüÿ6ÿuèœÌ  ‹øƒ}ü tÿuüèñw  ‹Ç_^ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuè%õÿÿ‹ø…ÿuÿuüÿ6ÿuèvÌ  ‹øƒ}ü tÿuüè¢w  ‹Ç_^ÉÂ ‹ÿU‹ìƒì$¡(9r‹Mƒeä ƒeè SVWu}ì¥¥‰Eü‹EUäR‰EÜ‹E ¥QP‰Mà¥èüÿÿ‹]ä‹ð…öuWEèPÿuàuìƒì‹ü¥¥¥¥ètÃÿÿ‹ð…öu9ÿ3‹}ÜÿuèWèn  ‹ð…öu%ÿ3ÿs Wèº  ‹C…Àt	ÿ3PWèª  ÿ3WèåË  ‹ð…ÛtSèuÃ  ƒ}è tÿuèè˜Â  ‹Mü‹ÆèèÀ  _^[ÉÂ ‹ÿU‹ìƒìSV‹uWEøPƒÆƒì‹ü¥¥3Û¥‰]ø‰]ü‰]è‰]ô‰]ä‰]ð‰]ì¥èföÿÿ‹ð;ó…•   ‹}EüPSShT9rÿuøjÿuWè•Ì  ‹ð;óusÿuüWè…Ç  …Àu¾
+   ë_EèPÿuüWè{Ì  ‹ð;óuLEìPEðPEôPÿuèWè•æ  ‹ð;óu19]ðtÿuðèÍÁ  9]ìtÿuìèÀÁ  ‹Eô‹@;ÃtPènÁ  ;Ãuj^‹E‰ë
+‹Eä‹M‰3ö9]øtÿuøè-Á  9]ütÿuüèØÆ  9]ôtÿuôè@Â  _‹Æ^[ÉÂ ‹ÿU‹ìƒì8¡(9rSVW‰Eü‹E‰EÈ‹E u}ì¥¥‰EÌ‹E$‹]¥‰EÔ3À‰EÜ‰Eà‰Eè‰EØ‰EÐ‰EäEÜ¥Pƒì‹üuì¥¥¥¥è¹¿ÿÿ‹ð3ÿ;÷u3EèPEàPÿuÜÿuÈSèÝøÿÿ‹ð;÷u‹Eè;ÇtÁàPè_À  ‹ð;÷uj^‹EÌ‰8‹EÔ‰8ëS‹uØ3Û9}èv+‹Eà‹˜MÐQPèíÿÿ…Àu‹Mä‹EÐÿEä‰ŽC;]èrÚ9}äu;÷tVè$À  ‰}Ø‹÷‹EÌ‹Mä‰0‹EÔ‰3ö9}àtÿuèÿuàèâÁ  9}ÜtÿuÜèQÀ  ‹Mü‹Æè¡¾  _^[ÉÂ  ‹ÿU‹ìƒì$¡(9r‹Mƒeà ƒeè SVWu}ì¥¥‰Eü‹EUàR‰EÜ‹E ¥QP‰Mä¥èyùÿÿ‹]à‹ð…ö…   EèPÿuäuìƒì‹ü¥¥¥¥è\Àÿÿ‹ð…öu‹}ÜSÿuäWè×ûÿÿ‹ð…öulÿ3ÿuèWèÐ  ‹ð…öu[ÿuèÿ3Wè  ‹ð…öuJ‹C…Àtÿ3PWèõ  ‹ð…öu4‹C…ÀtPÿ3Wèt  ‹ð…öuÿ3ÿs WèÎ  ‹ð…öuÿs ÿ3Wè`  ‹ð…ÛtSèÀ  ƒ}è tÿuèè:¿  ‹Mü‹ÆèŠ½  _^[ÉÂ ‹ÿU‹ìƒì¡(9r‹M SVW‹}Uì‰Eü‹ER3öPQ‰Eð‰Mè‰uì‰uø‰uôèiøÿÿ‹Ø;Þ‹uì…À   EøPÿuèÿuðWèMüÿÿEôPÿuèÿuðWèrôÿÿVÿuðWèûÿÿ‹Ø…Û…Œ   9Eøtÿ6ÿuøWè‹  ‹F…Àtÿ6PWèô  ‹Ø…Ûuf‹F…ÀtPÿuøÿ6Wèé  ‹Ø…Ût
+ëKÿ6Wè¶  ƒ}ô tÿ6ÿuôWèA  ÿ6ÿv Wè¯  ‹Ø…Ûu!ÿv ÿuôÿ6Wè·  ‹Ø…Ûuÿ6ÿuðWèÄ”  ‹Ø…ötVèä¾  ƒ}ø tÿuøè¾  ƒ}ô tÿuôèù½  ‹Mü_^‹Ã[èF¼  ÉÂ ‹ÿU‹ìSWjè^½  ‹Ø…Ûuj_ëPVjèK½  ‹ð…öuj_ë6FPhÜ8r‰3èæ½  ‹ø…ÿu ƒÆVÿuèvr  ‹ø…ÿuSÿuÿuèÆ  ‹øSèÁq  ^‹Ç_[]Â ‹ÿU‹ìSWjèè¼  ‹Ø…Ûuj_ëSVjèÕ¼  ‹ð…öuj_ë9FPhÜ8r‰3èp½  ‹ø…ÿu#FPÿuè r  ‹ø…ÿuƒSÿuÿuèÆ  ‹øSèHq  ^‹Ç_[]Â ‹ÿU‹ìSWjèo¼  ‹Ø…Ûuj_ëSVjè\¼  ‹ð…öuj_ë9FPhð8r‰3è÷¼  ‹ø…ÿu#FPÿuè‡q  ‹ø…ÿuƒSÿuÿuè›Å  ‹øSèÏp  ^‹Ç_[]Â ‹ÿU‹ìSWjèö»  ‹Ø…Ûuj_ëSVjèã»  ‹ð…öuj_ë9FPhð8r‰3è~¼  ‹ø…ÿu#FPÿuèq  ‹ø…ÿuƒSÿuÿuè"Å  ‹øSèVp  ^‹Ç_[]Â ‹ÿU‹ìSWjè}»  ‹Ø…Ûuj_ëSVjèj»  ‹ð…öuj_ë9FPh08r‰3è¼  ‹ø…ÿu#FPÿuè•p  ‹ø…ÿuƒSÿuÿuè©Ä  ‹øSèÝo  ^‹Ç_[]Â ‹ÿU‹ìSWjè»  ‹Ø…Ûuj_ëSVjèñº  ‹ð…öuj_ë9FPh08r‰3èŒ»  ‹ø…ÿu#FPÿuèp  ‹ø…ÿuƒSÿuÿuè0Ä  ‹øSèdo  ^‹Ç_[]Â ‹ÿU‹ìSWjè‹º  ‹Ø…Ûuj_ëSVjèxº  ‹ð…öuj_ë9FPhÀ8r‰3è»  ‹ø…ÿu#FPÿuè£o  ‹ø…ÿuƒSÿuÿuè·Ã  ‹øSèën  ^‹Ç_[]Â ‹ÿU‹ìSWjèº  ‹Ø…Ûuj_ëPVjèÿ¹  ‹ð…öuj_ë6FPhÀ8r‰3èšº  ‹ø…ÿu ƒÆVÿuè*o  ‹ø…ÿuSÿuÿuèAÃ  ‹øSèun  ^‹Ç_[]Â ‹ÿU‹ìSWjèœ¹  ‹Ø…Ûuj_ëSVjè‰¹  ‹ð…öuj_ë9FPh8r‰3è$º  ‹ø…ÿu#FPÿuè´n  ‹ø…ÿuƒSÿuÿuèÈÂ  ‹øSèüm  ^‹Ç_[]Â ‹ÿU‹ìSWjè#¹  ‹Ø…Ûuj_ë]Vjè¹  ‹ð…öuj_ëCFPhÀ8r‰3è«¹  ‹ø…ÿu-FPÿuè;n  ‹ø…ÿuƒSÿuÿuèOÂ  ‹øÿ
+   u3ÿSèym  ^‹Ç_[]Â ‹ÿU‹ìSWjè ¸  ‹Ø…Ûuj_ëSVjè¸  ‹ð…öuj_ë9FPh8r‰3è(¹  ‹ø…ÿu#FPÿuè¸m  ‹ø…ÿuƒSÿuÿuèÌÁ  ‹øSè m  ^‹Ç_[]Â ‹ÿU‹ìSWjè'¸  ‹Ø…Ûuj_ëNVjè¸  ‹ð…öuj_ë4FPh08r‰3è¯¸  ‹ø…ÿu!FƒSÿuÿuèbÁ  ‹øÿ
+   u3ÿSèŒl  ^‹Ç_[]Â ‹ÿU‹ìì,  ¡(9rS‹]VWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ôûÿÿ…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ìûÿÿf‰½ôýÿÿÿü8r‹ð;÷…Œ   ‹=ä8r…ìûÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhØ8rPÿ×…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÔûÿÿ…ôýÿÿPèsµ  …ôýÿÿPSè~À  ‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[è€µ  ÉÂ ‹ÿU‹ìì”   ¡(9rS‹]‰Eü‹EVW‰…lÿÿÿ‹C…Àj‰pÿÿÿ^tfƒ8 uj^µ   Pè^¶  …À‰…tÿÿÿuÇ…xÿÿÿ   é¼  vÁàPè9¶  ‹ø…ÿuÇ…xÿÿÿ   é  ‹…tÿÿÿ‰8GPh$8rèÄ¶  …À‰…xÿÿÿ…l  GPh\8rèJk  …À‰…xÿÿÿ…P  ƒ‹C3öF…ÀtNfƒ8 tH‹…tÿÿÿw‰pFPhœ8rèm¶  …À‰…xÿÿÿ…  FPÿsèõj  …À‰…xÿÿÿ…û   ƒj^v‡‹…tÿÿÿ‰°CPht8rè"¶  …À‰…xÿÿÿ…Ê   CP‹…pÿÿÿÿpè¤j  …À‰…xÿÿÿ…ª   ƒFv‡‹…tÿÿÿ‰°CPhX8rèÓµ  …À‰…xÿÿÿuj
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄCP…|ÿÿÿPè@j  …À‰…xÿÿÿuJƒFv<‡‹…tÿÿÿ‰<°GPh 8rèsµ  …À‰…xÿÿÿuGP‹…pÿÿÿÿpÿpèQj  …À‰…xÿÿÿtÿµtÿÿÿèFi  ‹…lÿÿÿƒ  ‹…xÿÿÿë‹…tÿÿÿ‹lÿÿÿÇ‚   ‰3À‹Mü_^[è(³  ÉÂ ‹ÿU‹ìì”   ¡(9rSV‰Eü‹EW‹}‰…lÿÿÿ‹G3ö;Æj‰½pÿÿÿ[tf90uj[   Pè´  …À‰…tÿÿÿuÇ…xÿÿÿ   ér  [ÁàPèà³  ‹Ø…ÛuÇ…xÿÿÿ   éF  ‹G…ÀtJfƒ8 tD‹…tÿÿÿ‰CPhœ8rè^´  …À‰…xÿÿÿ…  CPÿwèæh  …À‰…xÿÿÿ…û   ƒ3öFv<ƒ‹…tÿÿÿ‰<°GPht8rè´  …À‰…xÿÿÿ…Ê   GP‹…pÿÿÿÿpè•h  …À‰…xÿÿÿ…ª   ƒFv<ƒ‹…tÿÿÿ‰<°GPhX8rèÄ³  …À‰…xÿÿÿuj
+…|ÿÿÿP‹…pÿÿÿÿpÿ´8rƒÄGP…|ÿÿÿPè1h  …À‰…xÿÿÿuJƒFvƒ‹…tÿÿÿ‰°CPh 8rèd³  …À‰…xÿÿÿuCP‹…pÿÿÿÿpÿpèBh  …À‰…xÿÿÿtÿµtÿÿÿè7g  ‹…lÿÿÿƒ  ‹…xÿÿÿë‹…tÿÿÿ‹lÿÿÿÇ‚   ‰3À‹Mü_^[è±  ÉÂ ‹ÿU‹ìVW¾Pq8rVÿ¨8rYD Pè!²  ‹ø…ÿu
+‹E!8jXëVWÿä8r‹EY‰8Y3À_^]Â ( o b j e c t c l a s s = i p s e c I S A K M P P o l i c y )   ‹ÿU‹ìì,  ¡(9rS‰Eü‹EV‹u3ÛW‰…Ôûÿÿ‹Ej$‰µØûÿÿ‰…äûÿÿ‰àûÿÿ‰Üûÿÿ‰èûÿÿf‰ìûÿÿf‰ôýÿÿèX±  ‹ø;ûuj^éñ   …èûÿÿPVÿü8r‹ð;ó…Ñ   ‹ä8r…ìûÿÿh8rPÿÓÿµèûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhØ8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿhÔ8rPÿÖƒÄ0h  ÿµÔûÿÿ…ôýÿÿPèG¯  …ôýÿÿPèÞ°  …À‰tƒg …ìûÿÿPèÈ°  …À‰Guj^ë&…ÜûÿÿP…àûÿÿPÿµØûÿÿÇG   èYL  ‹ð…ötWèw³  3Û‹…äûÿÿ‰ë‹…àûÿÿ‰G‹…Üûÿÿƒg  ‰G‹…äûÿÿ‰8ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü_‹Æ^[èß®  ÉÂ ‹ÿU‹ìì4  ¡(9rSVWu½Üûÿÿ¥¥‰Eü‹E¥‰…Ìûÿÿ…ÔûÿÿP¥3ö…ÜûÿÿP‰µÔûÿÿf‰µìûÿÿf‰µôýÿÿÿü8r;Æ‰…Ðûÿÿ…°   ‹ä8r…ìûÿÿh8rPÿÓÿµÔûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖ…ôýÿÿhu8rPÿÓ…ìûÿÿP…ôýÿÿPÿÖ‹=¨8rhÀt8rÿ×hD8r‰…Øûÿÿÿ×…Øûÿÿ…ôýÿÿPÿ×…Øûÿÿh<8rÿ×‹ØûÿÿÈƒÄ8D	Pè¯  ‹ø…ÿuÇ…Ðûÿÿ   ‹…Ìûÿÿƒ  ë-hÀt8rWÿÓhD8rWÿÖ…ôýÿÿPWÿÖh<8rWÿÖ‹…ÌûÿÿƒÄ ‰8ƒ½Ôûÿÿ _^[t…ÔûÿÿPÿ 8r‹Mü‹…Ðûÿÿèc­  ÉÂ ( & ( o b j e c t c l a s s = i p s e c I S A K M P P o l i c y )   c n = i p s e c I S A K M P P o l i c y   ‹ÿU‹ìƒìSVW3ÿEðP‰}ø‰}ô‰}ð‰}ì‰}üè°ûÿÿ‹ð;÷u]EøPWWhÐ9rÿuðjÿuÿuè¸¸  ‹ð;÷u<ÿuøÿuè¦³  ‹ð;÷‰uèu¾
+   ë!‹ÆÁàPè¢­  ‹Ø;ßuj^;ßt	ÿuüSèn±  ‹E‰8‹E‰8ëg;÷‰}vQ9}EôPuÿuøÿuè\¸  ëÿuôÿuè‹¸  ‹ð;÷u¹EìPÿuôÿuè¹Û  …Àu‹Mü‹EìÿEü‰‹ÿE‹E;Eèr¯‹E‹Mü‰‹E‰3ö9}ðtÿuðè%­  9}øtÿuøèÐ²  _‹Æ^[ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuè„øÿÿ‹ø…ÿuÿuüÿ6ÿuè@¶  ‹øƒ}ü tÿuüèla  ‹Ç_^ÉÂ ‹ÿU‹ìQƒeü V‹uWEüPVÿuÿuèÝõÿÿ‹ø…ÿuÿuüÿ6ÿuèÈµ  ‹øƒ}ü tÿuüèa  ‹Ç_^ÉÂ ‹ÿU‹ìƒì0¡(9rSVW‰Eü‹Eu}ì¥¥‰EÔ‹E‰EÐ‹E ¥‰EØEà¥Pƒì‹üuì¥¥3Û¥‰]à‰]è‰]Ü‰]ä¥èüûÿÿ‹ð;óu\‹}ÔEèPSShÐ9rÿuàjÿuÐWèÉ¶  ‹ð;óu:ÿuèWè¹±  …Àu¾
+   ë&EÜPÿuèWè¯¶  ‹ð;óuEäPÿuÜWèÚ  ‹ð;ót9]ätÿuäè®®  ‹EØ‰ë
+‹Eä‹MØ‰3ö9]àtÿuàè«  9]ètÿuèè8±  ‹Mü‹Æè.ª  _^[ÉÂ ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üèýÿÿ‹ø;ûu‹Eø;ÃtÁàPè«  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPè©Ç  …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVèÕª  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôè}®  ‹Ç_^[ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuÿuèÀøÿÿ‹ð…öu-ÿuüÿuÿuèmýÿÿ‹ð…öu‹uƒì‹üÿu¥ÿu¥¥¥è§€  ‹ðƒ}ü tÿuüèM­  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuÿuèXøÿÿ‹ð…öuÿuüÿuÿuèTýÿÿ‹ðƒ}ü tÿuüè­  ‹Æ^ÉÂ ‹ÿU‹ìƒìSVW¡(9r‹Mu}ì¥¥‹] ƒeè ƒeä ¥UèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥èBýÿÿ‹ð…öuEäPÿuèèKÆ  ‹ð…ötƒ# ë‹Eä‰ƒ}è tÿuèè¬  ‹Mü‹Æè,¨  _^[ÉÂ ‹ÿU‹ìì,  ‹M¡(9rS‹]V3öW‹}VVVV‰ÔýÿÿÜýÿÿQôýÿÿQ‰Eü‹EV‰7‰…Øýÿÿ‰µèýÿÿ‰µìýÿÿ‰µðýÿÿ‰µäýÿÿ‰3Pé´   9µàýÿÿ…ä   …ôýÿÿh8rPÿ¸8r…ÀYYtl…èýÿÿPV…ôýÿÿPÿµÔýÿÿ‰µèýÿÿÿµØýÿÿèAÝ  …ÀuB‹…ðýÿÿÁàHQP…ìýÿÿPèi©  ;Æ‰…àýÿÿu~‹…ðýÿÿ‹èýÿÿ‹•ìýÿÿÁàÿ…ðýÿÿ‰ÿ…äýÿÿVVVV…ÜýÿÿP…ôýÿÿPÿµäýÿÿÿµØýÿÿf‰µôýÿÿÇ…Üýÿÿ  ÿ08r=  ‰…àýÿÿ…$ÿÿÿ‹…ìýÿÿ‰‹…ðýÿÿ‰3Àë69µìýÿÿtÿµðýÿÿÿµìýÿÿè»¬  9µèýÿÿtÿµèýÿÿèå«  ‹…àýÿÿ‰7‰3‹Mü_^[èŠ¦  ÉÂ ‹ÿU‹ìÿuÿuè±ë  ]Â ‹ÿU‹ìÿuj ÿuèÆÇ  ]Â ‹ÿU‹ìjèp§  …Àu‹Eƒ  ‹Eƒ  jXë/‹MVW‹ø¾ |8r¥¥¥¥Ç@   ‹I‰H‹M‰‹E_Ç    3À^]Â c! "LOÑ†;  $0!‹ÿU‹ìì,  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥¥‰Eü¥…ØûÿÿP…Üûÿÿ¥‹}Pÿü8r…À‰…Ôûÿÿ…¢   f!…ìûÿÿ…ìûÿÿh8rPÿä8rÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ ƒÄh  S…ôýÿÿPèù¤  …ôýÿÿhØ8rPÿÖ…ôýÿÿh\8rPÿÖ…ìûÿÿP…ôýÿÿPÿÖƒÄ…ôýÿÿPèa¦  …ÀuÇ…Ôûÿÿ   ƒ' ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…ÔûÿÿèÁ¤  ÉÂ ‹ÿU‹ìì  ‹M¡(9rS‹]VW‰äýÿÿìýÿÿ‰Eü‹E3ÿQP‰½ìýÿÿ‰½ðýÿÿ‰½èýÿÿf‰½ôýÿÿÿü8r‹ð;÷…ˆ   …ôýÿÿh8rPÿä8r‹5°8r…ôýÿÿh8rPÿÖÿµìýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ …ðýÿÿPh?  W…ôýÿÿPSÿ88r‹ð;÷u!…èýÿÿPÿµäýÿÿjh8rÿµðýÿÿèQØ  ‹ð9½ìýÿÿt…ìýÿÿPÿ 8r9½ðýÿÿtÿµðýÿÿÿ48r‹Mü_‹Æ^[è¢£  ÉÂ ‹ÿU‹ìƒìSVWjYh?  3ÛSÿu3À}äó«ÿP8r;Ã‹5€8r‰EuÿÖ‹Ø…Û…   hÿ hH8rÿuÿL8r‹ø…ÿuÿÖ‹Ø…ÛuHEäPWÿH8r…ÀuÿÖ‹Ø…Ûu1ƒ}èuj j WÿD8rëƒ}èuEäPh   Wÿ@8r…ÀuÿÖ‹Øƒ} ‹5<8rtÿuÿÖ…ÿtWÿÖ_^‹Ã[ÉÂ PolicyAgent ‹ÿU‹ìƒì¡(9r‹MS‹] VWu}ì¥¥¥UèR‰Eü‹EQ¥3öP‰uè‰3è°[  9uèt‹}èjYuì3Àó§uÇ   ÿuèèÊÁ  ‹Mü_^3À[èX¢  ÉÂ ‹ÿU‹ìì0  ¡(9rS‹]VWu½äýÿÿ¥¥‰Eü‹E¥‰…Ôýÿÿ‹E ‰…Ðýÿÿ¥3ÿ…ôýÿÿh8rP‰½Üýÿÿ‰½Øýÿÿ‰½àýÿÿf‰½ôýÿÿÿä8rYY…àýÿÿP…äýÿÿPÿü8r‹ð;÷ui‹5°8r…ôýÿÿh8rPÿÖÿµàýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ…ÜýÿÿPW…ôýÿÿPÿµÔýÿÿSèO×  ‹ð;÷u…ØýÿÿPÿµÜýÿÿèÿúÿÿ‹ð9½ÜýÿÿtÿµÜýÿÿè˜¦  9½àýÿÿt…àýÿÿPÿ 8r‹…Øýÿÿ‹Ðýÿÿ‰‹Mü_‹Æ^[è"¡  ÉÂ ‹ÿU‹ìì$  ‹M¡(9rS‹]VW‰ÜûÿÿèûÿÿQ‰Eü‹ES3ÿP‰…àûÿÿ‰½èûÿÿ‰½äûÿÿèûY  ‹ð;÷…Ó   9½èûÿÿu3Àéð   …ôýÿÿf‰½ôýÿÿ‹=ä8rh8rPÿ×YY…äûÿÿPÿµèûÿÿÿü8r‹ð…ö…Š   ‹5°8r…ôýÿÿh8rPÿÖÿµäûÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖfƒ¥ìûÿÿ …ìûÿÿSPÿ×…ìûÿÿhØ8rPÿÖ…ôýÿÿP…ìûÿÿPÿÖƒÄ0…ìûÿÿPSÿµàûÿÿè…{  ‹ð…öuÿµÜûÿÿè^üÿÿ‹ðƒ½èûÿÿ tÿµèûÿÿèF¿  ƒ½äûÿÿ t…äûÿÿPÿ 8r‹Æ‹Mü_^[è¾Ÿ  ÉÂ ‹ÿU‹ìƒìSVWEôPEøPÿu3Ûÿu‰]ø‰]ð3ö‰]ô‰]üèg÷ÿÿ‹ø;ûu‹}ô;ût ‹ÇÁàPèž   ‹ð;óuj_‹E‰‹E‰ëQ;û‰]v/‹MEðP‹Eøÿ4ˆèÙøÿÿ…Àu‹Mü‹EðÿEü‰ŽÿE9}rÖ9]üu;ótVèb   3ö‹E‹Mü‰0‹E‰3ÿ9]øtÿuôÿuøè¥  ‹Ç_^[ÉÂ ‹ÿU‹ìì4  ¡(9rS‰Eü‹EV‹uW3ÿ‰…Ôûÿÿ‹EjP‰µÐûÿÿ‰…äûÿÿ‰½àûÿÿ‰½Øûÿÿ‰½èûÿÿ‰½Üûÿÿf‰½ôýÿÿf‰½ìûÿÿèºŸ  ‹Ø;ßuj^é3  …èûÿÿPVÿü8r‹ð;÷…  ‹=ä8r…ôýÿÿh8rPÿ×ÿµèûÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿh8rPÿ×…ôýÿÿP…ìûÿÿPÿÖƒÄ(…ìûÿÿPèeŸ  …À‰tM‹½Ðûÿÿ‹G$…Àtfƒ8 tPèFŸ  …À‰Ct-‹G(…Àtfƒ8 tPè,Ÿ  …À‰CHt…ôýÿÿPèŸ  …À‰Cuj^ëW…ØûÿÿP…àûÿÿPWÇC   èA÷ÿÿ‹ð…öu6‹…àûÿÿ‰C‹…Øûÿÿ‰C…ÜûÿÿPÿµÔûÿÿw,ƒì‹ü¥¥¥¥èu÷ÿÿ‹ð…ötSè’¢  3ÿ‹…äûÿÿ‰8ë(‹…Üûÿÿ‰C…ÌûÿÿPÿ¼8r‹…Ìûÿÿ‰CD‹…äûÿÿY‰ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü‹Æèøœ  _^[ÉÂ ‹ÿU‹ìì0  ¡(9rS‹]VWu½Üûÿÿ¥‰Eü‹E¥‰…Ðûÿÿ‹E$¥‰…Ôûÿÿ…ØûÿÿP¥…Üûÿÿ3ÿP‰½Øûÿÿf‰½ìûÿÿÿü8r‹ð;÷…Ï   …ìûÿÿh8rPÿä8r‹5°8r…ìûÿÿh8rPÿÖÿµØûÿÿ…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖƒÄ h  S…ôýÿÿPf‰½ôýÿÿèé›  …ôýÿÿhØ8rPÿÖ…ìûÿÿP…ôýÿÿPÿÖ…ôýÿÿPÿ¨8rƒÄD P…ôýÿÿPjWh€8rÿµÐûÿÿÿT8r‹ð;÷uÿ59rSÿÀ8rYYÿµÔûÿÿè!øÿÿ‹ð9½Øûÿÿt…ØûÿÿPÿ 8r‹Mü_‹Æ^[è–›  ÉÂ  ‹ÿU‹ìQ¡(9rV‹uW‹}$‰Eü‹Eh€8rPÿX8r…Àuÿ59rVÿÀ8rYYWè¶÷ÿÿ‹Mü_^èE›  ÉÂ  ‹ÿU‹ìì0  ¡(9rS‹]‰Eü‹EV‹uW‹}‰…Ôýÿÿ3ÀV‰ìýÿÿ‰µØýÿÿ‰½Ðýÿÿ‰…àýÿÿ‰…ðýÿÿ‰…èýÿÿ‰…Üýÿÿÿ¨8rY‰…äýÿÿ…ðýÿÿPWSèöÿÿ‹…ðýÿÿ…Àtfƒ8 t‹äýÿÿDH‰…èýÿÿ…àýÿÿPVWè³ûÿÿ‹àýÿÿ‹ø…ÿ…ó   SVÿµìýÿÿè ôÿÿ‹ø…ÿ…Ü   f!…ôýÿÿ…ôýÿÿVPÿä8r‹=°8r…ôýÿÿhØ8rPÿ×ÿ3…ôýÿÿPÿ×‹C‹äýÿÿƒÄƒ½èýÿÿ tHt…ôýÿÿPÿµèýÿÿÿµìýÿÿèT2  …ôýÿÿPVÿµìýÿÿèŠ1  ‹ø…ÿu^ÿsÿµðýÿÿÿ3ÿµìýÿÿè}/  ‹ø…ÿuB‹µÐýÿÿ…ÜýÿÿPƒì‹üÿµØýÿÿ¥ÿµìýÿÿ¥¥¥è÷öÿÿ‹ø…ÿu9…ÜýÿÿtÿµÔýÿÿèöÿÿ‹ø…ÛtSè×ž  ƒ½ðýÿÿ tÿµðýÿÿè#›  ‹Mü‹Çès™  _^[ÉÂ ‹ÿU‹ìì  ¡(9rƒ¥ìýÿÿ SV‹uW‹}‰Eü‹EW‰…ðýÿÿÿ¨8rY‰…èýÿÿ…ìýÿÿPWVè4úÿÿ‹µìýÿÿ‹Ø…Û…‚   VWÿµðýÿÿèòÿÿ‹Ø…Ûuof!…ôýÿÿ…ôýÿÿWPÿä8r‹=°8r…ôýÿÿhØ8rPÿ×ÿ6…ôýÿÿPÿ×‹F‹èýÿÿƒÄDHôýÿÿQPÿµðýÿÿè00  ‹Ø…Ûuÿvÿ6ÿµðýÿÿèÁ-  ‹Ø…ötVèÉ  ‹Mü_^‹Ã[èv˜  ÉÂ ‹ÿU‹ìì  ¡(9rS‹]V‹uWƒ¥èýÿÿ ƒ¥ðýÿÿ ðýÿÿQƒì‹ü‰µäýÿÿ¥¥¥‰Eü‹ESP‰…ìýÿÿ¥è^õÿÿ‹ø…ÿ…¯   9…ðýÿÿtjW_éŸ   Sÿ¨8rY‰…ðýÿÿ…èýÿÿPSÿµäýÿÿè÷øÿÿ‹µèýÿÿ‹ø…ÿuhfƒ¥ôýÿÿ …ôýÿÿSPÿä8r‹=°8r…ôýÿÿhØ8rPÿ×ÿ6…ôýÿÿPÿ×‹ðýÿÿƒÄ…ôýÿÿP‹FDHPÿµìýÿÿèÀ/  ÿ6ÿµìýÿÿÿ 8r‹ø…ötVèªœ  ‹Mü‹ÇèZ—  _^[ÉÂ ‹ÿU‹ìì,  ‹M¡(9rS‹]V3öW‹}VVVV‰ÔýÿÿÜýÿÿQôýÿÿQ‰Eü‹EV‰7‰…Øýÿÿ‰µèýÿÿ‰µìýÿÿ‰µðýÿÿ‰µäýÿÿ‰3Pé´   9µàýÿÿ…ä   …ôýÿÿhˆ8rPÿ¸8r…ÀYYtl…èýÿÿPV…ôýÿÿPÿµÔýÿÿ‰µèýÿÿÿµØýÿÿèVÑ  …ÀuB‹…ðýÿÿÁàHQP…ìýÿÿPè—˜  ;Æ‰…àýÿÿu~‹…ðýÿÿ‹èýÿÿ‹•ìýÿÿÁàÿ…ðýÿÿ‰ÿ…äýÿÿVVVV…ÜýÿÿP…ôýÿÿPÿµäýÿÿÿµØýÿÿf‰µôýÿÿÇ…Üýÿÿ  ÿ08r=  ‰…àýÿÿ…$ÿÿÿ‹…ìýÿÿ‰‹…ðýÿÿ‰3Àë69µìýÿÿtÿµðýÿÿÿµìýÿÿè‡š  9µèýÿÿtÿµèýÿÿè,™  ‹…àýÿÿ‰7‰3‹Mü_^[è¸•  ÉÂ ‹ÿU‹ìÿuÿuèÄÜ  ]Â ‹ÿU‹ìì(  ¡(9rS‹]VWu½Üûÿÿ¥¥¥‰Eü…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ôýÿÿf‰½ìûÿÿÿü8r‹ð;÷uh‹=ä8r…ôýÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿhˆ8rPÿ×…ôýÿÿP…ìûÿÿPÿÖƒÄ(…ìûÿÿPSÿ 8r‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[èµ”  ÉÂ ‹ÿU‹ìƒìS‹]‹…ÀV‹5¨8rWÇEü   tfƒ8 tPÿÖ| Y‰}ôë
+ÇEô   ‹}ô…ÿtG‰Eü‹CƒEü…Àtfƒ8 tPÿÖD Y‰EëÇE   ‹E…ÀtEü‹CƒEü…Àtfƒ8 tPÿÖD Y‰EøëÇEø   ‹Eø…ÀtEüƒEü4ÿuüè)•  …À‰Eðu‹Eƒ  ‹Eƒ  jXé¦   ‰8‹3…öPtfƒ> t‹Ï‹ÁÁé‹úó¥‹Èƒáó¤‹}ô‹M×‰
+‹sƒÂ…ötfƒ> t‹ÁÁé‹úó¥‹Èƒáó¤U‹Mø‰
+‹sƒÂ…ötfƒ> t‹ÁÁé‹úó¥‹Èƒáó¤Uøs‹ú¥¥¥¥‹CƒÂ‰‹Ejs zYó¥‹Mð‰‹E‹Mü‰3À_^[ÉÂ ‹ÿU‹ìì0  ¡(9rS‹]VWu½äýÿÿ¥¥‰Eü‹E¥‰…Ôýÿÿ‹E ‰…Ðýÿÿ¥3ÿ…ôýÿÿhˆ8rP‰½Üýÿÿ‰½Øýÿÿ‰½àýÿÿf‰½ôýÿÿÿä8rYY…àýÿÿP…äýÿÿPÿü8r‹ð;÷ui‹5°8r…ôýÿÿh8rPÿÖÿµàýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ…ÜýÿÿPW…ôýÿÿPÿµÔýÿÿSèÍ  ‹ð;÷u…ØýÿÿPÿµÜýÿÿèŠ­  ‹ð9½ÜýÿÿtÿµÜýÿÿè•  9½àýÿÿt…àýÿÿPÿ 8r‹…Øýÿÿ‹Ðýÿÿ‰‹Mü_‹Æ^[è ’  ÉÂ ‹ÿU‹ìW‹}…ÿt&S‹]…ÛvVw‹…ÀtPè“  ƒÆKuî^Wè“  [_]Â ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üè>úÿÿ‹ø;ûu‹Eø;ÃtÁàPè¥’  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPè¬  …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVèm’  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôè«•  ‹Ç_^[ÉÂ ‹ÿU‹ìƒì‹ESVW‹x‹Ç3öÁàP‰uì‰uô‰uøÇEü   ‰}ðèô‘  ‹Ø;ÞtH…ÿv2EøPEìP‹E‹@ÿ4°èùûÿÿ…À‰Eôu.‹EøEü‰ó‹Eì‰DóF;÷rÎÿEüÿuüè­‘  …À‰EìuÇEô   ‹Eƒ  ‹Eƒ  ëj‹Mü¾8’8r‹ø¥¥¥ƒÁë¥‹uðP‰
+ƒÂ‰23ÉƒÂ…ö‰Mv0‹ÁÁà‹t‹‹ÈÁé‹úó¥‹Èƒáó¤‹MÐA;Mð‰Eø‰MrÓ‹Eì‹M‹}ð‰‹E‹Mü‰…ÛtWSèöýÿÿ‹Eô_^[ÉÂ µ Ü€È.Ñ¨ž  $0!‹ÿU‹ìì,  ¡(9rSV3ÛW‹}‰Eü‹Ej(‰½Ôûÿÿ‰…äûÿÿ‰àûÿÿ‰Üûÿÿ‰èûÿÿf‰ôýÿÿf‰ìûÿÿè©  ‹ð;óuj_éý   …èûÿÿPWÿü8r‹ø;û…Ý   ‹ä8r…ôýÿÿh8rPÿÓÿµèûÿÿ‹=°8r…ôýÿÿPÿ×…ôýÿÿh8rPÿ×…ìûÿÿhˆ8rPÿÓ…ôýÿÿP…ìûÿÿPÿ×ƒÄ(…ìûÿÿPèT  …À‰tM‹½Ôûÿÿ‹G…Àtfƒ8 tPè5  …À‰Ft-‹G …Àtfƒ8 tPè  …À‰F$t…ôýÿÿPè  …À‰Fuj_ë!…ÜûÿÿP…àûÿÿPWÇF   è‡ýÿÿ‹ø…ÿtVèÐ‘  3Û‹…äûÿÿ‰ë1‹…àûÿÿ‰F‹…Üûÿÿ‰F…ØûÿÿPÿ¼8r‹…Øûÿÿ‰F ‹…äûÿÿY‰0ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü‹Ç_^[èŽ  ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuè%þÿÿ‹}ü‹ð…öu#Wÿuÿuè,øÿÿ‹ð…öuWÿuÿuÿuè¤k  ‹ð…ÿtWè‘  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuèËýÿÿ‹ð…öuÿuüÿuÿuèÓ÷ÿÿ‹ðƒ}ü tÿuüèÑ  ‹Æ^ÉÂ ‹ÿU‹ìì,  ‹M¡(9rS‹]V3öW‹}VVVV‰ÔýÿÿÜýÿÿQôýÿÿQ‰Eü‹EV‰7‰…Øýÿÿ‰µèýÿÿ‰µìýÿÿ‰µðýÿÿ‰µäýÿÿ‰3Pé´   9µàýÿÿ…ä   …ôýÿÿhH8rPÿ¸8r…ÀYYtl…èýÿÿPV…ôýÿÿPÿµÔýÿÿ‰µèýÿÿÿµØýÿÿèºÉ  …ÀuB‹…ðýÿÿÁàHQP…ìýÿÿPè¯Ž  ;Æ‰…àýÿÿu~‹…ðýÿÿ‹èýÿÿ‹•ìýÿÿÁàÿ…ðýÿÿ‰ÿ…äýÿÿVVVV…ÜýÿÿP…ôýÿÿPÿµäýÿÿÿµØýÿÿf‰µôýÿÿÇ…Üýÿÿ  ÿ08r=  ‰…àýÿÿ…$ÿÿÿ‹…ìýÿÿ‰‹…ðýÿÿ‰3Àë69µìýÿÿtÿµðýÿÿÿµìýÿÿèÔ  9µèýÿÿtÿµèýÿÿè­  ‹…àýÿÿ‰7‰3‹Mü_^[èÐ‹  ÉÂ ‹ÿU‹ìÿuÿuè”Ô  ]Â ‹ÿU‹ìì(  ¡(9rS‹]VWu½Üûÿÿ¥¥¥‰Eü…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ôýÿÿf‰½ìûÿÿÿü8r‹ð;÷uh‹=ä8r…ôýÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿhH8rPÿ×…ôýÿÿP…ìûÿÿPÿÖƒÄ(…ìûÿÿPSÿ 8r‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[èÍŠ  ÉÂ ‹ÿU‹ìQ‹ES‹X0…Û‹@4jY‰Eü‰Mv›ÁàÁ‰EÿEÿuèÀ‹  …Àu‹Eƒ  ‹Eƒ  jXëO‹MVW¾ð—8r‹ø¥¥¥PƒÁë¥‰
+ƒÂ‰ƒÂ…Ûv‹Mü‰Mü‹uüƒEüPj‹úYƒÂPKó¥uì‹M‰‹E‹M_‰3À^[ÉÂ ¹ Ü€È.Ñ¨ž  $0!‹ÿU‹ìì0  ¡(9rS‹]VWu½äýÿÿ¥¥‰Eü‹E¥‰…Ôýÿÿ‹E ‰…Ðýÿÿ¥3ÿ…ôýÿÿhH8rP‰½Üýÿÿ‰½Øýÿÿ‰½àýÿÿf‰½ôýÿÿÿä8rYY…àýÿÿP…äýÿÿPÿü8r‹ð;÷ui‹5°8r…ôýÿÿh8rPÿÖÿµàýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ…ÜýÿÿPW…ôýÿÿPÿµÔýÿÿSèFÆ  ‹ð;÷u…ØýÿÿPÿµÜýÿÿè¦  ‹ð9½ÜýÿÿtÿµÜýÿÿèÞŒ  9½àýÿÿt…àýÿÿPÿ 8r‹…Øýÿÿ‹Ðýÿÿ‰‹Mü_‹Æ^[èæˆ  ÉÂ ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üèIûÿÿ‹ø;ûu‹Eø;ÃtÁàPèÈ‰  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPèF¥  …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVè‰  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôè  ‹Ç_^[ÉÂ ‹ÿU‹ììH  ¡(9rS3ÛV‹u‰Eü‹EWj0‰µÔ÷ÿÿ‰…¼÷ÿÿ‰À÷ÿÿ‰Ä÷ÿÿ‰È÷ÿÿ‰Ì÷ÿÿ‰Ð÷ÿÿf‰äùÿÿf‰ìûÿÿf‰ôýÿÿf‰Ü÷ÿÿèÝˆ  ‹ø;ûuÇ…Ø÷ÿÿ   éï  …È÷ÿÿPVÿü8r;Ã‰…Ø÷ÿÿ…Ë  ‹ä8r…ôýÿÿh8rPÿÓÿµÈ÷ÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…Ü÷ÿÿhH8rPÿÓ…ôýÿÿP…Ü÷ÿÿPÿÖƒÄ(…Ü÷ÿÿPè}ˆ  …À‰„'  ‹…Ô÷ÿÿ‹@<…Àtfƒ8 tPèZˆ  …À‰G„  ‹…Ô÷ÿÿ‹@@…Àtfƒ8 tPè6ˆ  …À‰G,„ß   …ôýÿÿPèˆ  …À‰G„È   …Ì÷ÿÿP‹…Ô÷ÿÿƒÀPÿü8r…À‰…Ø÷ÿÿ…Ù   …äùÿÿh8rPÿÓÿµÌ÷ÿÿ…äùÿÿPÿÖ…äùÿÿh8rPÿÖƒÄ…äùÿÿPèµ‡  …À‰Gtb…Ð÷ÿÿP‹…Ô÷ÿÿƒÀ Pÿü8r…À‰…Ø÷ÿÿuw…ìûÿÿh8rPÿÓÿµÐ÷ÿÿ…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖƒÄ…ìûÿÿPèS‡  …À‰GuÇ…Ø÷ÿÿ   ë*…Ä÷ÿÿP…À÷ÿÿPÿµÔ÷ÿÿÇG   èøúÿÿ…À‰…Ø÷ÿÿtWèt‰  3Û‹…¼÷ÿÿ‰ë1‹…À÷ÿÿ‰G‹…Ä÷ÿÿ‰G…¸÷ÿÿPÿ¼8r‹…¸÷ÿÿ‰G(‹…¼÷ÿÿY‰8‹5 8r3ÿ9½È÷ÿÿt	…È÷ÿÿPÿÖ9½Ì÷ÿÿt	…Ì÷ÿÿPÿÖ9½Ð÷ÿÿt	…Ð÷ÿÿPÿÖ‹Mü‹…Ø÷ÿÿ_^[è#…  ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuèéüÿÿ‹}ü‹ð…öu#Wÿuÿuè&ùÿÿ‹ð…öuWÿuÿuÿuè¶b  ‹ð…ÿtWè”ˆ  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuèüÿÿ‹ð…öuÿuüÿuÿuèÍøÿÿ‹ðƒ}ü tÿuüèLˆ  ‹Æ^ÉÂ ‹ÿU‹ìƒì$‹ESVW3ÿ‰8‹E‰8EìPh?  Wÿu‰}àÿu‰}ð‰}Ü‰}ì‰}ü‰}ô‰}ø‰}è‰}äÿ88r‹ð;÷…™   EÜPEøPjhÜ8rÿuìè†¸  ‹ð;÷u|‹uøf9>tVÿ¨8rÿEütFf9>Yuì9}üu¾è   ëT‹EüÁàPè…  ;Ç‰Eôt>‹uø3Û9}üv"Vè"…  ;Çt*‹MôV‰™ÿ¨8rC;]üYtFrÞ‹EüÁàPèÅ„  ‹ð;÷uj^‹E‰8‹E‰8ëc3Û9}üvMEäPEèPEàP‹Eôÿ4˜ÿuÿuèÊ»  …Àu&‹Mð‹EàÿEð‰Ž9}ètÿuèèæ„  9}ätÿuäèÙ„  C;]ür³‹E‹M‰0‹Eð‰3ö9}ìt	ÿuìÿ48r9}øtÿuøè©„  9}ôtÿuüÿuôèè…  _‹Æ^[ÉÂ ‹ÿU‹ìÿuÿuè—Ä  ]Â ‹ÿU‹ìÿuj ÿuèÛ™  ]Â ‹ÿU‹ìQ‹ESV3Ûƒ}W‹8‰]üu‹p‹@t6‰Eüë‹p‹XFP‰Eè¦ƒ  3É;Áu‹E‰‹Ej‰XëA‰8x‰7ƒÇƒ}u9Müt‹Î‹uüë;Ùt‹Î‹ó‹ÑÁéó¥‹Êƒáó¤‹M‰‹E‹M‰3À_^[ÉÂ ‹ÿU‹ìì,  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥¥‰Eü¥…ØûÿÿP…Üûÿÿ¥‹}Pÿü8r…À‰…Ôûÿÿ…¢   f!…ìûÿÿ…ìûÿÿh8rPÿä8rÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ ƒÄh  S…ôýÿÿPè  …ôýÿÿhØ8rPÿÖ…ôýÿÿhH8rPÿÖ…ìûÿÿP…ôýÿÿPÿÖƒÄ…ôýÿÿPè“‚  …ÀuÇ…Ôûÿÿ   ƒ' ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…Ôûÿÿèó€  ÉÂ ‹ÿU‹ìì,  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥¥‰Eü¥…ØûÿÿP…Üûÿÿ¥‹}Pÿü8r…À‰…Ôûÿÿ…¢   f!…ìûÿÿ…ìûÿÿh8rPÿä8rÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ ƒÄh  S…ôýÿÿPè×  …ôýÿÿhØ8rPÿÖ…ôýÿÿhˆ8rPÿÖ…ìûÿÿP…ôýÿÿPÿÖƒÄ…ôýÿÿPèh  …ÀuÇ…Ôûÿÿ   ƒ' ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…ÔûÿÿèÈ  ÉÂ ‹ÿU‹ìì  ¡(9r‹MS‹]V‰Eü‹EW‰äýÿÿìýÿÿ3ÿQƒÀP‰½ìýÿÿ‰½ðýÿÿ‰½èýÿÿf‰½ôýÿÿÿü8r‹ð;÷…ˆ   …ôýÿÿhx8rPÿä8r‹5°8r…ôýÿÿh8rPÿÖÿµìýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ …ðýÿÿPh?  W…ôýÿÿPSÿ88r‹ð;÷u!…èýÿÿPÿµäýÿÿjh08rÿµðýÿÿèU³  3ö9½ìýÿÿt…ìýÿÿPÿ 8r9½ðýÿÿtÿµðýÿÿÿ48r‹Mü_‹Æ^[è¦~  ÉÂ ‹ÿU‹ìì  ¡(9r‹MS‹]V‰Eü‹EW‰äýÿÿìýÿÿ3ÿQƒÀP‰½ìýÿÿ‰½ðýÿÿ‰½èýÿÿf‰½ôýÿÿÿü8r‹ð;÷…ˆ   …ôýÿÿhx8rPÿä8r‹5°8r…ôýÿÿh8rPÿÖÿµìýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ …ðýÿÿPh?  W…ôýÿÿPSÿ88r‹ð;÷u!…èýÿÿPÿµäýÿÿjhð8rÿµðýÿÿè3²  ‹ð9½ìýÿÿt…ìýÿÿPÿ 8r9½ðýÿÿtÿµðýÿÿÿ48r‹Mü_‹Æ^[è„}  ÉÂ ‹ÿU‹ìì,  ¡(9rƒ¥Øûÿÿ S‹]VWu½Üûÿÿ¥¥‰Eü¥…ØûÿÿP…Üûÿÿ¥‹}Pÿü8r…À‰…Ôûÿÿ…¢   f!…ìûÿÿ…ìûÿÿh8rPÿä8rÿµØûÿÿ‹5°8r…ìûÿÿPÿÖ…ìûÿÿh8rPÿÖfƒ¥ôýÿÿ ƒÄh  S…ôýÿÿPèh|  …ôýÿÿhØ8rPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿP…ôýÿÿPÿÖƒÄ…ôýÿÿPèù}  …ÀuÇ…Ôûÿÿ   ƒ' ë‰ƒ½Øûÿÿ _^[t…ØûÿÿPÿ 8r‹Mü‹…ÔûÿÿèY|  ÉÂ ‹ÿU‹ìƒì<¡(9rS‹]VWu}ì¥‰Eü‹E‰EÄ‹E ¥‰EÐ‹E$¥‰EÌ3ÀS¥‰Eà‰Eè‰EØ‰EÔ‰EÜ‰Eäÿ¨8rY‰EÈEÜPSƒì‹üuì¥¥¥¥ènþÿÿ‹ð3ÿ;÷u;‹MÜEèPEàP‹EÈDAPSÿuÄèM÷ÿÿ‹ð;÷u‹Eè;ÇtÁàPèÞ|  ‹ð;÷uj^‹EÐ‰8‹EÌ‰8ëS‹uØ3Û9}èv+‹Eà‹˜MÔQPè´øÿÿ…Àu‹Mä‹EÔÿEä‰ŽC;]èrÚ9}äu;÷tVè£|  ‰}Ø‹÷‹EÐ‹Mä‰0‹EÌ‰3ö9}àtÿuèÿuàèa~  9}ÜtÿuÜèÐ|  ‹Mü‹Æè {  _^[ÉÂ  ‹ÿU‹ìƒì@S3ÀV‹u‹^;ØW‰Eð‰Eø‰Eô‰Eì‰EèÇEü   uÇEðW   é<  ‹ûÁçWèÿ{  …À‰Eì„  Wèî{  …À‰Eè„  3ÿ…Ûv9‹F‹¸jMôQMøQPèç÷ÿÿ…À‰Eð…î   ‹Mô‹EìMü‰ø‹Mø‰LøG;ûrÇ‹F‹}ü‰EØ‹F ƒÇ…À‰EÔtPÿ¨8rD Y‰EäëÇEä   ‹F$‰EÐ‹F(‰EÌ‹F,‰EÈ‹Eä|‹F0…À‰EÄtPÿ¨8rD Y‰EàëÇEà   ‹EàD3ÿ…Û‰EüÇEÜ   v8‹F‹¸jMôQMøQPè.÷ÿÿ…À‰Eðu9‹Mô‹EèMüMÜ‰ø‹Mø‰LøG;ûrÈ‹EüD˜P‰EüèÜz  …À‰EÀuÇEð   ‹Eƒ  ‹Eƒ  éL  ‹Müƒeø ‹ø¾ ª8r¥¥P   +È+MÜ¥ƒé¥‰
+ƒÂ‰ƒÂ…Ûv-‹Eø‹MìÁà‹t‹‰Mô‹ÁÁé‹úó¥‹ÈƒáÐÿEø9]øó¤rÓ‹EØ‹Mä‹uÔ‰ƒÂ‰
+ƒÂ…öt‹ÁÁé‹úó¥‹Èƒáó¤Uä‹EÐ‹MÌ‹uÄ‰jXÐ‰
+‹MÈÐ‰
+‹MàÐ‰
+Ð…öt‹ÁÁé‹úó¥‹Èƒáó¤Uàƒeø ‹ú¸«««ƒÂ«‰ƒÂ…Ûv-‹Eø‹MèÁà‹t‹‰Mô‹ÁÁé‹úó¥‹ÈƒáÐÿEø9]øó¤rÓ‹ú¸««««þBƒÂ‰ƒÂ3À…Ûv‹M‹I‹‹I‰
+ƒÂ@;Ãrê‹E‹MÀ‰‹E‹Mü‰ƒ}ì t	Sÿuìè<æÿÿƒ}è t	Sÿuèè-æÿÿ‹Eð_^[ÉÂ  ¬»IÑ†9  $0!‹ÿU‹ììH  ¡(9r‰Eü‹E‰…Ôûÿÿ‹E‰…Ðûÿÿ‹ESVW‰…Àûÿÿ3À½Üûÿÿ««3ö«j,‰µÈûÿÿ‰µÄûÿÿ‰µØûÿÿ‰µ¼ûÿÿ‰µÌûÿÿ«f‰µôýÿÿf‰µìûÿÿèÀx  ‹Ø;Þuj^éŒ  …ØûÿÿP‹…ÔûÿÿƒÀPÿü8r‹ð…ö…e  ‹5ä8r…ôýÿÿh8rPÿÖÿµØûÿÿ‹=°8r…ôýÿÿPÿ×…ôýÿÿh8rPÿ×…ìûÿÿhx8rPÿÖ…ôýÿÿP…ìûÿÿPÿ×ƒÄ(…ìûÿÿPèbx  …À‰tL‹½Ôûÿÿ‹…Àtfƒ8 tPèDx  …À‰Ct-‹G`…Àtfƒ8 tPè*x  …À‰C(t…ôýÿÿPèx  …À‰Cuj^é§   …ÄûÿÿP…ÈûÿÿPWÇC   èuûÿÿ‹ð…ö…‚   ‹…Èûÿÿ‰C‹…Äûÿÿ‰CGPjY½Üûÿÿ‹ð3Òó§t.¼ûÿÿQÿµÐûÿÿ‹ðƒì‹ü¥¥¥¥èRõÿÿ‹ð…öu9‹…¼ûÿÿ‰Cëƒc ‹µÔûÿÿ…ÌûÿÿPÿµÐûÿÿƒÆ@ƒì‹ü¥¥¥¥èîóÿÿ‹ð…ötSèlx  ‹…Àûÿÿƒ  ë(‹…Ìûÿÿ‰C …¸ûÿÿPÿ¼8r‹…¸ûÿÿ‰C$‹…ÀûÿÿY‰ƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü‹Æè¤u  _^[ÉÂ ‹ÿU‹ìì8  ¡(9rS‹]VWu½äýÿÿ¥¥¥‰Eü‹E‰…àýÿÿ‹E ¥‹u$3ÿS‰Øýÿÿ‰…Ìýÿÿ‰½Ðýÿÿ‰½Üýÿÿ‰½Ôýÿÿÿ¨8rY‰…Èýÿÿ…ÐýÿÿPSVè$ýÿÿ‹Ðýÿÿ‹ð;÷…Š  SÿµØýÿÿÿµàýÿÿè òÿÿ‹ð;÷…n  …ÜýÿÿPÿµØýÿÿµäýÿÿƒì‹ü¥¥¥¥è_÷ÿÿ‹ð…ö…C  f!…ôýÿÿÿµØýÿÿ…ôýÿÿPÿä8r‹5°8r…ôýÿÿhØ8rPÿÖÿ3…ôýÿÿPÿÖ‹½ÈýÿÿƒÄ…ôýÿÿP‹…ÜýÿÿÿDPÿµàýÿÿèq
+  ‹ð…ö…Ø   ÿµÜýÿÿÿ3ÿµàýÿÿèÝ  ‹ð…ö…»   ‹C…Àt!ôýÿÿQDPÿµàýÿÿèµ  ‹ð…ö…“   ‹C…ÀtPÿ3ÿµàýÿÿè®  ‹ð…öux‹C |…ôýÿÿPWÿµàýÿÿèv  ‹ð…öuXÿs ÿ3ÿµàýÿÿè¨  ‹ð…öuB…ÔýÿÿPƒì‹üÿµØýÿÿµäýÿÿÿµàýÿÿ¥¥¥¥èéÐÿÿ‹ð…öu9…ÔýÿÿtÿµÌýÿÿèöÏÿÿ‹ð…ÛtSèøu  ƒ½Üýÿÿ tÿµÜýÿÿèu  ‹Mü‹Æèes  _^[ÉÂ  ‹ÿU‹ìì,  ¡(9r‹M S‹]V3ö‰Eü‹EW‹}$P‰…äýÿÿ‰Ôýÿÿ‰µàýÿÿ‰µìýÿÿ‰µðýÿÿ‰µÜýÿÿ‰µØýÿÿÿ¨8rY‰…èýÿÿ…ìýÿÿPWSè0óÿÿ‹…ìýÿÿ;Ætf90t‹èýÿÿDH‰…Üýÿÿ…ðýÿÿPWSè%ôÿÿ‹…ðýÿÿ;Ætf90t‹èýÿÿDH‰…Øýÿÿ…àýÿÿPÿµäýÿÿWèúÿÿ‹ø;þ‹µàýÿÿ…,  VÿµäýÿÿSèŽïÿÿ‹ø…ÿ…  f!…ôýÿÿÿµäýÿÿ…ôýÿÿPÿä8r‹=°8r…ôýÿÿhØ8rPÿ×ÿ6…ôýÿÿPÿ×‹…ÜýÿÿƒÄ…Àtfƒ8 tôýÿÿQPSèQ
+  ‹F…Àt"‹èýÿÿDHôýÿÿQPSè{	  ‹ø…ÿ…’   ‹F…ÀtPÿµìýÿÿÿ6Sè  ‹ø…ÿt
+ëtÿ6SèŸ  ‹F ‹èýÿÿ|H‹…Øýÿÿ…Àtfƒ8 tôýÿÿQPSè×	  …ôýÿÿPWSè	  ‹ø…ÿu-ÿv ÿµðýÿÿÿ6Sè«  ‹ø…ÿuÿ6ÿµÔýÿÿÿµäýÿÿSè]N  ‹ø…ötVè¿s  ƒ½ìýÿÿ tÿµìýÿÿèÜr  ƒ½ðýÿÿ tÿµðýÿÿèÈr  ‹Mü‹Ç_^[èq  ÉÂ  ‹ÿU‹ìì8  ¡(9r‹M S‹]$VWu½äýÿÿ¥¥‰Eü‹E‰…àýÿÿ‹E¥‰Ìýÿÿ3ÉP‰…Øýÿÿ¥‰Üýÿÿ‰Ðýÿÿ‰Ôýÿÿÿ¨8rY‰…Èýÿÿ…ÜýÿÿPÿµØýÿÿµäýÿÿƒì‹ü¥¥¥¥èóÿÿ‹ø…ÿ…'  …ÐýÿÿPÿµØýÿÿSèhøÿÿ‹Ðýÿÿ‹ø…ÿ…ú   ÿµØýÿÿfƒ¥ôýÿÿ …ôýÿÿPÿä8r‹5°8r…ôýÿÿhØ8rPÿÖÿ3…ôýÿÿPÿÖ‹µÈýÿÿƒÄ…ôýÿÿP‹…ÜýÿÿöDPÿµàýÿÿè²  ‹ø…ÿ…Ž   …ôýÿÿP‹C DPÿµàýÿÿè  ‹C…ÀtôýÿÿQDPÿµàýÿÿèù  ÿ3ÿµàýÿÿÿ 8r‹ø…ÿuB…ÔýÿÿPƒì‹üÿµØýÿÿµäýÿÿÿµàýÿÿ¥¥¥¥è½Ìÿÿ‹ø…ÿu9…ÔýÿÿtÿµÌýÿÿèÊËÿÿ‹ø…ÛtSèÌq  ƒ½Üýÿÿ tÿµÜýÿÿèép  ‹Mü‹Çè9o  _^[ÉÂ  ‹ÿU‹ìQƒeü WEüPh?  j ÿuÿuÿ88r‹ø…ÿu%ÿuÿ¨8rYD PÿujWhð8rÿuüÿT8r‹øƒ}ü t	ÿuüÿ48r‹Ç_ÉÂ ‹ÿU‹ìQƒeü WEüPh?  j ÿuÿuÿ88r‹ø…ÿu%ÿuÿ¨8rYD PÿujWhð8rÿuüÿT8r‹øƒ}ü t	ÿuüÿ48r‹Ç_ÉÂ ‹ÿU‹ìQQƒeü S‹¨8rV‹uWVÿÓYD Pègo  ‹ø…ÿ‰}øuj^ë\VÿÓYL ‹ÁÁéó¥‹ÈEüPh?  j ÿuƒáÿuó¤ÿ88r‹ð…öu!ÿuÿÓYD PÿuøjVh08rÿuüÿT8r‹ðÿuøèo  ƒ}ü t	ÿuüÿ48r_‹Æ^[ÉÂ ‹ÿU‹ìQQƒeü S‹¨8rV‹uWVÿÓYD Pè»n  ‹ø…ÿ‰}øuj^ë\VÿÓYL ‹ÁÁéó¥‹ÈEüPh?  j ÿuƒáÿuó¤ÿ88r‹ð…öu!ÿuÿÓYD PÿuøjVh08rÿuüÿT8r‹ðÿuøèjn  ƒ}ü t	ÿuüÿ48r_‹Æ^[ÉÂ ‹ÿU‹ìƒì‹ES3ÛVWÿu‹=¨8r‰‹E‰]ô‰]ø‰ÿ×t ‹E;ÃYt9fƒ8 ‹ØtÿuSÿÄ8r…ÀYYtSÿ×\Cfƒ; Yuâ‹EÆë‹EÇEø   ëFP‰Eüè»m  ‹Ø…Ûu	ÇEô   ë>ƒ}ø uÿuSÿä8rYY<ë‹û‹u…öt‹M‹ÁÁéó¥‹Èƒáó¤‹E‹Mü‰‹E‰‹Eô_^[ÉÂ ‹ÿU‹ìQQ‹MS3ÀVW‹};ø‰‹M‰Eü‰t0‹];Øt)f9‹÷t"ÿuVÿÄ8r…ÀYYtVÿ¨8rtFfƒ> YuÞjWX_^[ÉÂ ÿuÿ¨8rD ;ØYu3Àëã+ØS‰]øèäl  ‹ð…ö‰uu	ÇEü   ëufƒ? ‹ß‰ut]ÿuSÿÄ8r…ÀYYSu	ÿ¨8rYë9ÿ¨8r‹}L ‹ÁÁé‹óó¥‹Èƒáó¤‹5¨8rSÿÖ‹MDAS‰EÿÖ‹uƒÄ\Cfƒ; u£‹E‹Mø‰0‹E‰‹EüéIÿÿÿ‹ÿU‹ìQƒeü VEüPh?  j ÿuÿuÿ88r‹ð…öuh08rÿuüÿX8r‹ðƒ}ü t	ÿuüÿ48r‹Æ^ÉÂ ‹ÿU‹ìQƒeü WEüPh?  j ÿuÿuÿ88r‹ø…ÿu%ÿuÿ¨8rYD PÿujWh8rÿuüÿT8r‹øƒ}ü t	ÿuüÿ48r‹Ç_ÉÂ ‹ÿU‹ìQƒeü WEüPh?  j ÿuÿuÿ88r‹ø…ÿu%ÿuÿ¨8rYD PÿujWh8rÿuüÿT8r‹øƒ}ü t	ÿuüÿ48r‹Ç_ÉÂ ‹ÿU‹ìƒìSW3ÿEüPh?  Wÿu‰}üÿu‰}ø‰}ô‰}ð‰}ìÿ88r‹Ø;ßuKVEðPEøPj¾Ü8rVÿuüè%ž  EìPEôPÿuÿuðÿuøè“üÿÿ‹Ø;ßuÿuìÿuôjWVÿuüÿT8r‹Ø^9}üt	ÿuüÿ48r9}øtÿuøè©j  9}ôtÿuôèœj  _‹Ã[ÉÂ ‹ÿU‹ìƒìSW3ÛEüPh?  Sÿu‰]üÿu‰]ø‰]ô‰]ð‰]ìÿ88r‹ø;ûufVEðPEøPj¾Ü8rVÿuüèn  ‹ø;ûuFEìPEôPÿuÿuðÿuøè«üÿÿ‹ø;ûu*‹Eô;Ãt8tÿuìPjSVÿuüÿT8rë
+VÿuüÿX8r‹ø^9]üt	ÿuüÿ48r9]øtÿuøè×i  9]ôtÿuôèÊi  ‹Ç_[ÉÂ ‹ÿU‹ìƒìSW3ÿEüPh?  Wÿu‰}üÿu‰}ø‰}ô‰}ð‰}ìÿ88r‹Ø;ßuKVEðPEøPj¾À8rVÿuüèœœ  EìPEôPÿuÿuðÿuøè
+ûÿÿ‹Ø;ßuÿuìÿuôjWVÿuüÿT8r‹Ø^9}üt	ÿuüÿ48r9}øtÿuøè i  9}ôtÿuôèi  _‹Ã[ÉÂ ‹ÿU‹ìƒìSW3ÛEüPh?  Sÿu‰]üÿu‰]ø‰]ô‰]ð‰]ìÿ88r‹ø;ûufVEðPEøPj¾À8rVÿuüèå›  ‹ø;ûuFEìPEôPÿuÿuðÿuøè"ûÿÿ‹ø;ûu*‹Eô;Ãt8tÿuìPjSVÿuüÿT8rë
+VÿuüÿX8r‹ø^9]üt	ÿuüÿ48r9]øtÿuøèNh  9]ôtÿuôèAh  ‹Ç_[ÉÂ ‹ÿU‹ìì,  ‹M¡(9rS‹]V3öW‹}VVVV‰ÔýÿÿÜýÿÿQôýÿÿQ‰Eü‹EV‰7‰…Øýÿÿ‰µèýÿÿ‰µìýÿÿ‰µðýÿÿ‰µäýÿÿ‰3Pé´   9µàýÿÿ…ä   …ôýÿÿh\8rPÿ¸8r…ÀYYtl…èýÿÿPV…ôýÿÿPÿµÔýÿÿ‰µèýÿÿÿµØýÿÿèË¥  …ÀuB‹…ðýÿÿÁàHQP…ìýÿÿPè5h  ;Æ‰…àýÿÿu~‹…ðýÿÿ‹èýÿÿ‹•ìýÿÿÁàÿ…ðýÿÿ‰ÿ…äýÿÿVVVV…ÜýÿÿP…ôýÿÿPÿµäýÿÿÿµØýÿÿf‰µôýÿÿÇ…Üýÿÿ  ÿ08r=  ‰…àýÿÿ…$ÿÿÿ‹…ìýÿÿ‰‹…ðýÿÿ‰3Àë69µìýÿÿtÿµðýÿÿÿµìýÿÿèj  9µèýÿÿtÿµèýÿÿè¶i  ‹…àýÿÿ‰7‰3‹Mü_^[èVe  ÉÂ ‹ÿU‹ìÿuÿuè*°  ]Â ‹ÿU‹ìì(  ¡(9rS‹]VWu½Üûÿÿ¥¥¥‰Eü…ØûÿÿP¥3ÿ…ÜûÿÿP‰½Øûÿÿf‰½ôýÿÿf‰½ìûÿÿÿü8r‹ð;÷uh‹=ä8r…ôýÿÿh8rPÿ×ÿµØûÿÿ‹5°8r…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖ…ìûÿÿh\8rPÿ×…ôýÿÿP…ìûÿÿPÿÖƒÄ(…ìûÿÿPSÿ 8r‹ðƒ½Øûÿÿ t…ØûÿÿPÿ 8r‹Mü_‹Æ^[èSd  ÉÂ ‹ÿU‹ì‹E3ÒB9PV‹u¹  u9Pu9H,uˆ9Puƒxu9H,uÆƒxu!9Pu9H,uÆƒxuƒxu9H,uÆ3À^]Â ‹ÿU‹ìƒìSV3ÛW‹};û‰]ü‰]øv8‹u‰}~,  t	ÇEü   ëƒûsƒ}ü u‹EÃPVèLÿÿÿCƒÆ@ÿMuÎ‹÷+ó‹ÆÁàP‰uèªd  3É;Á‰Eðu‹E‰‹Ej‰Xëx;ù‰Müve‹]H$‰E‰M‰}ô‹S,¹  ;Ñu
+ƒ}ü t<;Ñt‹}jY‹óó¥ÇEü   ‰]øë‹uø‹}jYÿuó¥SèÃþÿÿ‹EðƒE@ƒE@‹uƒÃ@ÿMôuª‹M‰‹E‰03À_^[ÉÂ ‹ÿU‹ìƒìSVWUøR3ÀUüR}ø«‹E‹HLURX‹@PQ3öP‰uü‰M‰EðèÅþÿÿ‹ø;þu‹EÁàƒÀUP‰Eôè»c  ;Æuj_9uütÿuüèÀc  ‹E‰0‹E‰0‹Çë}‹Mô¾4À8r‹ø¥¥¥¥ƒÁëP‰
+‹Mø‰K‹Mð‹q0‰s ‹I8ƒÂ‰K$j‹úY‹óó¥‹MƒÂ<‰
+ƒÂ…Év‹]ü‰Mj‹ó‹úYƒÂ@ƒÃ@ÿMó¥uìƒ}ü ‹M‰‹E‹Mô‰tÿuüè7c  3À_^[ÉÂ ¸ Ü€È.Ñ¨ž  $0!‹ÿU‹ìì0  ¡(9rS‹]VWu½äýÿÿ¥¥‰Eü‹E¥‰…Ôýÿÿ‹E ‰…Ðýÿÿ¥3ÿ…ôýÿÿh\8rP‰½Üýÿÿ‰½Øýÿÿ‰½àýÿÿf‰½ôýÿÿÿä8rYY…àýÿÿP…äýÿÿPÿü8r‹ð;÷ui‹5°8r…ôýÿÿh8rPÿÖÿµàýÿÿ…ôýÿÿPÿÖ…ôýÿÿh8rPÿÖƒÄ…ÜýÿÿPW…ôýÿÿPÿµÔýÿÿSè   ‹ð;÷u…ØýÿÿPÿµÜýÿÿèÞ~  ‹ð9½ÜýÿÿtÿµÜýÿÿèe  9½àýÿÿt…àýÿÿPÿ 8r‹…Øýÿÿ‹Ðýÿÿ‰‹Mü_‹Æ^[è¢`  ÉÂ ‹ÿU‹ìƒìSVWEøPEôPÿu3Ûÿu‰]ô‰]ð3ö‰]ø‰]üèùÿÿ‹ø;ûu‹Eø;ÃtÁàPè„a  ‹ð;óuj_‹E‰‹E‰ëM3ÿ9]øv+‹Eô‹¸MðQPè ~  …Àu‹Mü‹EðÿEü‰ŽG;}ørÚ9]üu;ótVèLa  3ö‹E‹Mü‰0‹E‰3ÿ9]ôtÿuøÿuôèôd  ‹Ç_^[ÉÂ ‹ÿU‹ìì,  ¡(9rSV3ÛW‹}‰Eü‹Ej$‰½Ôûÿÿ‰…äûÿÿ‰àûÿÿ‰Üûÿÿ‰èûÿÿf‰ôýÿÿf‰ìûÿÿè³`  ‹ð;óuj_éÌ   …èûÿÿPWÿü8r‹ø;û…¬   ‹ä8r…ôýÿÿh8rPÿÓÿµèûÿÿ‹=°8r…ôýÿÿPÿ×…ôýÿÿh8rPÿ×…ìûÿÿh\8rPÿÓ…ôýÿÿP…ìûÿÿPÿ×ƒÄ(…ìûÿÿPè^`  …À‰tƒf …ôýÿÿPèH`  …À‰Fuj_ë&…ÜûÿÿP…àûÿÿPÿµÔûÿÿÇF   èÙûÿÿ‹ø…ÿtVè÷b  3Û‹…äûÿÿ‰ë1‹…àûÿÿ‰F‹…Üûÿÿ‰F…ØûÿÿPÿ¼8r‹…Øûÿÿ‰F ‹…äûÿÿY‰0ƒ½èûÿÿ t…èûÿÿPÿ 8r‹Mü‹Ç_^[èL^  ÉÂ ‹ÿU‹ìQƒeü VWEüPÿuèVþÿÿ‹}ü‹ð…öu#WÿuÿuèÉøÿÿ‹ð…öuWÿuÿuÿuè0:  ‹ð…ÿtWè@b  _‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuèüýÿÿ‹ð…öuÿuüÿuÿuèpøÿÿ‹ðƒ}ü tÿuüèøa  ‹Æ^ÉÂ ‹ÿU‹ì‹E‹ƒé t#ItIItjWXë(j2ëùÿuÿuÿpÿpèØfÿÿëÿuÿuÿpÿpè©½ÿÿ]Â ‹ÿU‹ìVÿu‹uVèÙU  …Àu8‹ƒè t HtHHtjWëj2Xë!ÿuÿvÿvèºgÿÿëÿuÿvÿvÿvèËÁÿÿ^]Â ‹ÿU‹ìVÿu‹uVèU  …Àu5‹ƒè t HtHHtjWëj2XëÿuÿvÿvèófÿÿëÿuÿvÿvèKÃÿÿ^]Â ‹ÿU‹ìVÿu‹uVè‹X  …Àu5‹ƒè t HtHHtjWëj2Xëÿuÿvÿvè€eÿÿëÿuÿvÿvèðÃÿÿ^]Â ‹ÿU‹ì‹E‹ƒé t#ItIItjWXë(j2ëùÿuÿuÿpÿpèµtÿÿëÿuÿuÿpÿpèVÊÿÿ]Â ‹ÿU‹ì‹E‹ƒé t ItIItjWXë%j2ëùÿuÿpÿpè0uÿÿëÿuÿpÿpÿpè¿Íÿÿ]Â ‹ÿU‹ì‹E‹ƒé t ItIItjWXë"j2ëùÿuÿpÿpèPuÿÿëÿuÿpÿpèÔÍÿÿ]Â ‹ÿU‹ìƒìSVW¡(9r‹]u}ì¥¥¥¥ƒì‹üuì¥¥¥S‰Eü¥èýR  …ÀuG‹ƒè t)HtHHtjWëj2Xë0ƒì‹üÿsuìÿs¥¥¥¥è]fÿÿëƒì‹üÿsuìÿs¥¥¥¥èeÅÿÿ‹MüèóZ  _^[ÉÂ ‹ÿU‹ì‹E‹ƒé t#ItIItjWXë(j2ëùÿuÿuÿpÿpèƒ…ÿÿëÿuÿuÿpÿpèÇÑÿÿ]Â ‹ÿU‹ìÿuè$V  …Àu;‹E‹ƒé t ItIItjWëj2Xë!ÿuÿpÿpèò…ÿÿëÿuÿpÿpÿpè5Õÿÿ]Â ‹ÿU‹ìÿuèÏU  …Àu8‹E‹ƒé t ItIItjWëj2Xëÿuÿpÿpè†ÿÿëÿuÿpÿpè>Õÿÿ]Â ‹ÿU‹ìƒìSVW¡(9r‹]u}ì¥¥¥¥ƒì‹üuì¥¥¥S‰Eü¥èšP  …ÀuG‹ƒè t)HtHHtjWëj2Xë0ƒì‹üÿsuìÿs¥¥¥¥è$tÿÿëƒì‹üÿsuìÿs¥¥¥¥èÉÍÿÿ‹MüèoY  _^[ÉÂ ‹ÿU‹ìƒì¡(9rSVW‹]u}ì¥¥¥‰Eü‹E¥Pƒì‹üuì¥¥¥S‰Eè¥ègV  …ÀuP‹ƒè t,HtHHtjWëj2Xë9ÿuèuìƒì‹üÿs¥ÿs¥¥¥è`šÿÿëÿuèuìÿsƒì‹üÿs¥ÿs¥¥¥è>ãÿÿ‹MüèÎX  _^[ÉÂ ‹ÿU‹ìƒì¡(9rSVW‹]u}ì¥¥¥‰Eü‹E¥Pƒì‹üuì¥¥¥S‰Eè¥èÆU  …ÀuP‹ƒè t,HtHHtjWëj2Xë9ÿuèuìƒì‹üÿs¥ÿs¥¥¥èÖšÿÿëÿuèuìÿsƒì‹üÿs¥ÿs¥¥¥èÜäÿÿ‹Müè-X  _^[ÉÂ ‹ÿU‹ìƒì¡(9r‹UVWu}ì¥¥‰Eü‹E‹ƒé ¥¥t*ItIItjWXë9j2ëùRƒì‹üÿpuìÿp¥¥¥¥è'–ÿÿëRÿpuìƒì‹üÿp¥ÿp¥¥¥è§æÿÿ‹Müè«W  _^ÉÂ ‹ÿU‹ìƒì¡(9r‹UVWu}ì¥¥¥‰Eü‹E‹ƒé ¥‹u t+ItIItjWXë8j2ëùVRƒì‹üÿpuìÿp¥¥¥¥èŽ—ÿÿëVRƒì‹üÿpuìÿp¥¥¥¥èàÚÿÿ‹Müè(W  _^ÉÂ ‹ÿU‹ìƒì¡(9r‹UVWu}ì¥¥‰Eü‹E‹ƒé ¥¥t*ItIItjWXë6j2ëùRƒì‹üÿpuìÿp¥¥¥¥èÕpÿÿëRƒì‹üÿpuìÿp¥¥¥¥è…Ãÿÿ‹MüèªV  _^ÉÂ ‹ÿU‹ìƒì¡(9r‹UVWu}ì¥¥‰Eü‹E‹ƒé ¥¥t*ItIItjWXë6j2ëùRƒì‹üÿpuìÿp¥¥¥¥è‘‚ÿÿëRƒì‹üÿpuìÿp¥¥¥¥è!Ìÿÿ‹Müè,V  _^ÉÂ ‹ÿU‹ì‹E‹ƒé t#ItIItjWXë(j2ëùÿuÿuÿpÿpèÏ«ÿÿëÿuÿuÿpÿpèEõÿÿ]Â ‹ÿU‹ìÿuèõJ  …Àu;‹E‹ƒé t ItIItjWëj2Xë!ÿuÿpÿpè>¬ÿÿëÿuÿpÿpÿpèF÷ÿÿ]Â ‹ÿU‹ìÿuè J  …Àu8‹E‹ƒé t ItIItjWëj2XëÿuÿpÿpèR¬ÿÿëÿuÿpÿpèO÷ÿÿ]Â ‹ÿU‹ìƒìSVW¡(9r‹]u}ì¥¥¥¥ƒì‹üuì¥¥¥S‰Eü¥èõJ  …ÀuG‹ƒè t)HtHHtjWëj2Xë0ƒì‹üÿsuìÿs¥¥¥¥è8žÿÿëƒì‹üÿsuìÿs¥¥¥¥è}ïÿÿ‹Müè©T  _^[ÉÂ ‹ÿU‹ìƒì¡(9r‹UVWu}ì¥¥‰Eü‹E‹ƒé ¥¥t*ItIItjWXë6j2ëùRƒì‹üÿpuìÿp¥¥¥¥è¡«ÿÿëRƒì‹üÿpuìÿp¥¥¥¥ècòÿÿ‹Müè*T  _^ÉÂ ‹ÿU‹ìì   ¡(9r‰Eü‹ES‰…àýÿÿ‹EV3öHW‹}‰µèýÿÿ‰µìýÿÿ‰µäýÿÿtHtjW[é4  ÿ59rëÿ59rè)U  ;Æ‰…ðýÿÿuj[éÖ   ;þf‰µôýÿÿ„„   f97t…ôýÿÿhÈÏ8rPÿä8r…ôýÿÿWPÿ°8rƒÄ…èýÿÿPh  €…ôýÿÿPÿ`8r‹Ø;Þuu…ìýÿÿPh?  Vÿµðýÿÿÿµèýÿÿÿ88r‹Ø;ÞuP…ôýÿÿPèT  ;Æ‰…äýÿÿt7ë*…ìýÿÿPh?  Vÿµðýÿÿh  €ÿ88r‹Ø;Þu‰µäýÿÿj èT  ;ÆuSj[ÿµðýÿÿèƒT  9µìýÿÿ‹=48rtÿµìýÿÿÿ×9µèýÿÿtÿµèýÿÿÿ×9µäýÿÿtÿµäýÿÿèJT  ‹…àýÿÿ‰0‹Ãë6‰0‹èýÿÿ‰H‹ìýÿÿ‰H‹äýÿÿ‰H‹ðýÿÿ‰H‹àýÿÿ‰p‰p‰3À‹Mü_^[èWR  ÉÂ \ \   ‹ÿU‹ìƒìSVWÿ59r3ö‰uü3Û‰uôè‰S  ;Æ‰Eøuj_ëf‹E;Ætf90u4EôPEüPVh?  VVVÿ59rh  €ÿ8r‹ø;þu*‹E;Ætf90ujëPè3S  ‹Ø;Þtj èñR  ;Æu,j_ÿuøèYS  9uüt	ÿuüÿ48r;ÞtSèAS  ‹E‰0‹Çë%Ç    ‰p‹Mü‰H‹Mø‰H‹M‰p‰p‰X‰3À_^[ÉÂ ‹ÿU‹ìSV‹u‹3Û+ÃWtGHt5HtHtjWëj2[ë{‹F;ÃtPÿ48r‹Ø…Ûug‹F…ÀtPèÁR  ‹FëE‹F;Ãt;PèDw  ë3‹F;Ã‹=48rt	Pÿ×‹Ø…Ûu0‹F…Àt	Pÿ×‹Ø…Ûu ‹F…ÀtPèzR  ‹F…ÀtPèmR  Vè	R  _^‹Ã[]Â ‹ÿU‹ìƒì¡(9rVWu}ì¥¥‰Eü‹E‹…É¥¥t3Àƒù”ÀHƒà%ƒÀ2ë'‹H…Éu¹  €ÿpuìƒì‹üÿp¥ÿp¥¥Q¥èj³ÿÿ‹MüèNP  _^ÉÂ ‹ÿU‹ìƒì¡(9rVWu}ì¥¥‰Eü‹E‹…É¥¥t3Àƒù”ÀHƒà%ƒÀ2ë'‹H…Éu¹  €ÿpuìƒì‹üÿp¥ÿp¥¥Q¥èY´ÿÿ‹MüèÞO  _^ÉÂ ‹ÿU‹ìì  ¡(9rƒ¥ðýÿÿ fƒ¥ôýÿÿ ‰Eü‹EV‹u‰…èýÿÿ…ôýÿÿhhÓ8rPÿä8rYYVèîP  …À‰…äýÿÿtS‹È8rWj.P‰…ìýÿÿÿÓ‹5°8rYYë*fƒ' ÿÖÿµìýÿÿ…ôýÿÿPÿÖfÇ. GGj.W‰½ìýÿÿÿÓƒÄ‹ø…ÿ…ôýÿÿh\Ó8rPuÄÿÖÿµìýÿÿ…ôýÿÿPÿÖƒÄ…ôýÿÿPèkP  …À_[u‹…èýÿÿƒ  Ç…ðýÿÿ   ë‹èýÿÿ‰ƒ½äýÿÿ ^tÿµäýÿÿèuP  ‹Mü‹…ðýÿÿèÁN  ÉÂ , D C =   C N = I P   S e c u r i t y , C N = S y s t e m   ‹ÿU‹ì‹Eƒ8 tjWXëÿuÿpÿpè‚  ]Â ‹ÿU‹ì‹U‹ƒøvƒøu	‹M‹HHtjWXëQRè1  ]Â ‹ÿU‹ì‹U‹HHu‹E‹ƒùv	ƒùuj2ëPRè0  ëjWX]Â ‹ÿU‹ì‹E‹ƒé tItIIuj2ëjWXëÿpÿpÿpPè'?  ]Â ‹ÿU‹ìQƒeü WEüPh?  j h 8rÿuÿ88r‹ø…ÿujEPjWh 8rÿuüÿT8r‹øƒ}ü t	ÿuüÿ48r‹Ç_ÉÂ ‹ÿU‹ìQQVWEüPh?  3ÿWÿu‰}üÿu‰}øÿ88r‹ðƒþu3ö3Àë%;÷u&WWEøPWÿuÿuüÿ8r‹ðƒþtÜ;÷u3À@‹M‰9}üt	ÿuüÿ48r_‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPh?  j ÿuÿuÿ88r‹ð…öuÿuÿuüÿX8r‹ðƒþu3öƒ}ü t	ÿuüÿ48r‹Æ^ÉÂ ‹ÿU‹ìƒìSV‹uW3ÿ;÷‰}ø‰}ü‰}ô‰}ð‰}ìtsf9>tnEðPEìPVèŠR  …Àu9}ìt‹uðEüPh…  Vèñ~  ‹Ø;ßuEøPVèNüÿÿ‹Ø;ßuj èCM  ;ÇuSj[9}ütÿuüè;r  9}øtÿuøè™M  ‹E‰8ëREôPèF~  ‹Ø;ßuÐEüPh…  ÿuôèŒ~  ‹Ø;ßu¹EøPÿuôë—Ç    ‰x‰x‰x‹Mü‰H‹Mø‰H‹M‰x‰9}ôtÿuôè3M  9}ðt	EðPèƒœ  _^‹Ã[ÉÂ ‹ÿU‹ìƒìVW‹}EôPÿ59r3öÿ59r‰uôW‰uü‰uø‰uðèíýÿÿ;Æ…½   EüPÿ59rÿ59rWèÏýÿÿ;Æ…Ÿ   EøPÿ59rÿ59rWè±ýÿÿ;Æ…   9uu
+9uüu%9uøu ƒ}u
+9uüu9uôuƒ}u9uøu9uôt3ÉAë3Éƒ}u+;ÎuAEðPh 8rh 8rWèUýÿÿ;Æu)9uðu$jWèæüÿÿëƒ}u;Îuh 8rh 8rWè¡ýÿÿ_^ÉÂ ‹ÿU‹ì‹Eƒè t9Ht)HtHtHtjWXë5ÿujë&j2ëòÿuÿuÿuèô÷ÿÿëÿuÿuèªýÿÿëÿujÿuèþõÿÿ]Â ‹ÿU‹ìS‹]…Û„€   ƒ; tnVW‹3‹FƒÃ…ÀtPèK  ö€‹Ft!…ÀtD‹ …Àt63ÿPƒÇèK  ‹F‹…Àt!ëë…Àt#‹ …Àt3ÿPè÷J  ‹FƒÇ‹…ÀuíÿvèâJ  ƒ; u™‹]_^ÿ3èÑJ  SèËJ  []Â ‹ÿU‹ìQƒeü VWjè•J  ‹ð…öuj_ëEüPÿuè4K  ‹ø…ÿt‹Eƒ  …ötVèJ  ‹Çë‹Eü‰‹E‰03À_^ÉÂ ‹ÿU‹ìSVjè?J  ‹Ø…Ût‹uFPè-J  …À‰u‹Eƒ  …ÛtSè0J  jXë+‰0‹H‰H‹W‹x‹Î‹u‹ÁÁéó¥‹È‹Eƒáó¤‰3À_^[]Â ‹ÿU‹ìƒìSVWEüP3öh?  Vÿ5 9r3ÿh  €‰uü‰uô‰uøÿ88r‹Ø;ÞuEøPVEôPVhðÙ8rÿuüÿ8r‹Ø;Þt‹E‰0ë9uøv3ÿG‹E‰89uüt	ÿuüÿ48r_^‹Ã[ÉÂ D S I P S E C P o l i c y P a t h   ‹ÿU‹ìƒìSVWEüP3öh?  Vÿ59r3ÿh  €‰uü‰uô‰uøÿ88r‹Ø;ÞuEøPVEôPVh€8rÿuüÿ8r‹Ø;Þt‹E‰0ë9uøv3ÿG‹E‰89uüt	ÿuüÿ48r_^‹Ã[ÉÂ ‹ÿU‹ìƒìVWEüP3öh?  Vÿ5 9r‰uøh  €‰uü‰uôÿ88r‹ø;þuEôPEøPjhÛ8rÿuüè¢{  ‹ø;þt‹E‰0ë‹E‹Mø‰9uüt	ÿuüÿ48r‹Ç_^ÉÂ D S I P S E C P o l i c y N a m e   ‹ÿU‹ìƒìVWEìPEüPj3ÿh€8rÿu‰}ü‰}ì‰}ø‰}ðè{  ‰Eô‹Eü;Çt_f98tZ‹5¨8rSÿuÿÖÿuü‹ØCÿÖYY;Ã[v?ÿuÿÖY‹MüDAMøQWPÿuÿuè0|  ;Ç‰EôuEðPÿuøèåŸÿÿ;Ç‰Eôt‹E‰8ë‹E‹Mð‰9}ütÿuüèÐG  9}ø_^tÿuøèaK  ‹EôÉÂ ‹ÿU‹ìƒì¡(9rSVWu}ì¥¥‰Eü‹E¥‰Eä‹Ej\¥‰EèèG  ‹Ø…Ûuj^é   uì‹û¥¥¥j¥Y3À{h   ó«èãF  …Àuj^ëdjZ‰Pj^‰p‰p,H@¿€p  ‰x8‰Q‰y8‰q,3ÒB‰Q‰yx‰QD‰qP‰QlƒÁ@ƒÁ@Sÿuä‰y8‰Q‰Q‰Q,ƒcT ÇCL   ‰CPèÍïÿÿ‹ð…ötSè~T  ‹Eèƒ  ‹Æë‹Eè‰3À‹Mü_^[è%E  ÉÂ ‹ÿU‹ìQSVWjHè;F  ‹ø3Û;û‰}üuj^é  Wÿø8r‹ð;ó…÷   ƒÇ¾LÞ8r¥¥¥¥‹}üƒÇ ¾\Þ8r¥¥¥hà  ¥èòE  ;Ãuj^éÆ   ‰‰X‰X‰Xj^‰p‰pHPj_‰x3ÒB‰P‰y‰‰Y‰Y‰Y‰Q‰q‰QjP_Ï‰‰Y‰Y‰Y‰Q‰q‰Q‰qÏ‰‰Y‰Y‰Y‰Q‰q‰Q‰QÏ‰‰Y‰Y‰Y‰Q‰Q‰q‰YÏ‰‰Y‰Y‰Y‰Q‰Q‰Q‰Y‹MüQÿuÇA0   ‰A4‰Y8‰Y<‰Y@è±éÿÿ‹ð;ótÿuüèLS  ‹E‰‹Æë
+‹E‹Mü‰3À_^[ÉÂ ÓŠãwÑ†Y O    žôb7lÑ†L£    ‹ÿU‹ìƒìLSVWu}ì¥¥¥¥u}¼¥¥¥¥¡(9ru,}Ì¥¥¥¥u<}Ü¥¥‰Eü‹E¥‰E´‹EP¥‹uLjh‰E¸è…D  ‹Ø…Ûuj^éÄ   …ötVè¢D  …À‰„Ž   {uì¥¥¥j¥èRD  ‹ø3ö;þtujÇC   ‰{è9D  ;Æt`ƒ}¸ ‰p‰p‰p‰pÇ    ‰‰s ‰s$‰s(‰s0‰s4‰s8‰s<{@uÜ¥¥¥¥{PuÌ¥¥¥ÇCýÿÿÿÇC,   ¥tÿu¸èD  …À‰C`uj^ëSƒì‹üÿu´u¼¥¥¥¥è)éÿÿ‹ðSè'R  ‹Mü‹ÆèzB  _^[ÉÂL ‹ÿU‹ìV‹uj j Vj ÿuhìß8rÿŒ8rPh   ÿˆ8r…Àu
+!ÿ€8rë3À^]Â p o l s t o r e . d l l   ‹ÿU‹ìQSVWj(è,C  ‹Ø…ÛuÇEü   éÏ   ¾á8r‹û¥¥¥h†­KC¥ƒc Pè`ÿÿÿ3ÿ;Ç‰Eü…Ÿ   h‡­KC PèEÿÿÿ;Ç‰Eü…†   jèÐB  ;Ç‰Eütj@ÇC   ‰Cè¸B  ‹ð;÷u	ÇEü   ëX‹Eü‰0FP‰>‰~‰~ÿø8r;Ç‰Eüu:ƒN$ÿSÿuÇF   ‰~ ‰~(‰~,‰~0‰~4f‰~8f‰~:ÆF< f‰~>èkåÿÿ;Ç‰EütSèÊO  ‹Eƒ  ‹Eüë‹E‰3À_^[ÉÂ :R8rúpÑ†L£    ‹ÿU‹ìQSVWj(è
+B  ‹Ø…ÛuÇEü   éà   ¾Hâ8r‹û¥¥¥hˆ­KC¥ƒc Pè>þÿÿ3ÿ;Ç‰Eü…°   h‰­KC Pè#þÿÿ;Ç‰Eü…—   jè®A  ;Ç‰Eütj@ÇC   ‰Cè–A  ‹ð;÷u	ÇEü   ëi‹Eü‰0hŠ­KFP‰>‰~èÒýÿÿ;Ç‰EüuJFPÿø8r;Ç‰Eüu9ƒN$ÿ3ÀSÿu@‰F‰~ ‰~(‰~,‰~0‰F4f‰~8f‰~:ÆF< f‰~>è8äÿÿ;Ç‰EütSè—N  ‹Eƒ  ‹Eüë‹E‰3À_^[ÉÂ 5R8rúpÑ†L£    ‹ÿU‹ìSVjHèÜ@  ‹Ø3À;Øuj^ëkW¾ã8r‹û¥¥¥¥{¾üâ8r¥¥¥¥{ ¾€8r¥¥¥¥‰C0‰C4‰C8h‹­KC<Pè÷üÿÿ‹ð…ö_u#hŒ­KC@Pèâüÿÿ‹ð…öuSÿuèûäÿÿ‹ð…ötSè˜N  ‹Eƒ  ‹Æë‹E‰3À^[]Â ÒŠãwÑ†Y O    ;R8rúpÑ†L£    ‹ÿU‹ìQSVWjHè@  3Û;Ã‰Eüuj_é  ‹ø¾xä8r¥¥¥¥x¾p8r¥¥¥¥x ¾€8r¥¥¥h  ¥èØ?  ;Ãu‹uüj_éÜ   Ç „  ‰X‰XÇ@   HPj^‰p‰p¿ † ‰x3ÒB‰P‰q‰qÇ„  ‰y‰Y‰Y‰Q‰Q‰qd‹uü‰yT‰YX‰Y\‰Q`‰Ql‰YhƒÁPÇ,  ƒÁPÇ,  ‰y‰Y‰Y‰Q‰Q‰Q‰YƒÁP‰‰Y‰Y‰Y‰Y‰F4h­KF<PÇF0   ‰^8èyûÿÿ‹ø;ûu#hŽ­KF@Pèeûÿÿ‹ø;ûuVÿuè~ãÿÿ‹ø;ûtVèM  ‹E‰‹Çë‹E‰03À_^[ÉÂ 3R8rúpÑ†L£    ‹ÿU‹ìSVWjHè«>  ‹Ø…Ûuj^é  ¾Øå8r‹û¥¥¥¥{¾p8r¥¥¥¥{ ¾€8r¥¥¥h@  ¥èp>  …Àuj^éÔ   ƒ` ƒ` Ç „  Ç@   HPj^‰p‰p¿ † ‰x3ÒB‰Pƒa ƒa ‰yÇ„  ‰Q‰qÇA   ‰QƒaX ƒa\ ‰yT‰Q`‰ql‰Qd‰qhƒÁPÇ„  ƒÁP‰y3ÿÇ„  ‰y‰y‰Q‰q‰Q‰Q‰C4h­KC<PÇC0   ‰{8èúÿÿ‹ð;÷u#h­KC@Pèúÿÿ‹ð;÷uSÿuè!âÿÿ‹ð;÷tSè¾K  ‹Eƒ  ‹Æë‹E‰3À_^[]Â ?R8rúpÑ†L£    ‹ÿU‹ìƒì0¡(9rSVƒeÔ ƒeØ WMÔQƒì‹ü¾Lç8r¥¥¥‰Eü‹EP‰EÐ¥èãõÿÿ‹ð…ö…ï   jDè=  ‹Ø3À;Øuj^éÎ   ¾\ç8r‹û¥¥¥¥‰C‰C‰C‰C h‘­KC$PÇC0*  è7ùÿÿ‹ð…ö…˜   h’­KC(Pèùÿÿ‹ð…ö…€   ‹uÔ{,¥¥¥SÿuÐ¥èsÞÿÿ‹ð…öugEØPÿuÐèBöÿÿ‹ð…öuUEÜPÿø8r‹ð…öuEVV‹uØ}ì««««ƒì‹ü¥¥¥¥ƒì‹üuì¥¥¥¥ƒì‹ü¾\ç8r¥¥¥¥ƒì‹üÿuÐuÜ¥¥¥¥è^÷ÿÿ‹ð…ÛtSè^Z  ƒ}Ô tÿuÔè(J  ƒ}Ø tÿuØè@J  ‹Mü‹ÆèÓ:  _^[ÉÂ 7R8rúpÑ†L£    6R8rúpÑ†L£    ‹ÿU‹ìƒìLSVWu}Ì¥¥¥¥u}¼¥¥¥¥¡(9rÿuLu,}Ü¥¥‹]ƒe¸ ƒe´ ¥¥u<}ì¥¥‰Eü¥E¸P¥èç÷ÿÿ‹ø…ÿuPÿuPE´PèÕ÷ÿÿ‹ø…ÿu>ÿu´uìÿu¸ƒì‹ü¥¥¥¥ƒì‹üuÜ¥¥¥¥ƒì‹üu¼¥¥¥¥ƒì‹üuÌ¥¥¥S¥èZöÿÿ‹øÿu´‹58rÿÖÿu¸ÿÖ‹Mü‹Çèå9  _^[ÉÂL ‹ÿU‹ìƒì@‹M¡(9r‰MÄ‹M‰MÌ‹MSVƒeÐ ƒeÔ W‰MÈ‹M‰MÀMÐQƒì‹ü¾€ê8r¥¥¥‰Eü‹EP‰EØ¥èyóÿÿ‹ð…ö…·  jDè¦:  ‹Ø3À;Øuj^é–  ¾ê8r‹û¥¥¥¥‰C‰C‰C‰C h“­KC$PÇC0*  èÍöÿÿ‹ð…ö…`  h”­KC(Pèµöÿÿ‹ð…ö…H  ‹uÐ{,¥¥¥SÿuØ¥è	Üÿÿ‹ð…ö…+  EÔPÿuØèÔóÿÿ‹ð…ö…  EìPÿø8r‹ð…ö…  VV‹uÔ}Ü««««ƒì‹ü¥¥¥¥ƒì‹üuÜ¥¥¥¥ƒì‹ü¾ê8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥èèôÿÿ‹ð…ö…´   EìPÿø8r‹ð…ö…    ‹uÈh˜­Kh—­Kƒì‹ü¥¥¥¥‹uÌƒì‹ü¥¥¥¥ƒì‹ü¾ê8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥è†ýÿÿ‹ð…öuVEìPÿø8r‹ð…öuF‹uÀh–­Kh•­Kƒì‹ü¥¥¥¥‹uÄƒì‹ü¥¥¥¥ƒì‹ü¾ê8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥è,ýÿÿ‹ð…ÛtSè,W  ƒ}Ð tÿuÐèöF  ƒ}Ô tÿuÔèG  ‹Mü‹Æè¡7  _^[ÉÂ 1R8rúpÑ†L£    0R8rúpÑ†L£    ‹ÿU‹ìƒì@‹M¡(9r‰MÄ‹M‰MÌ‹MSVƒeÐ ƒeÔ W‰MÈ‹M‰MÀMÐQƒì‹ü¾äì8r¥¥¥‰Eü‹EP‰EØ¥èñÿÿ‹ð…ö…·  jDè@8  ‹Ø3À;Øuj^é–  ¾ôì8r‹û¥¥¥¥‰C‰C‰C‰C h™­KC$PÇC0*  ègôÿÿ‹ð…ö…`  hš­KC(PèOôÿÿ‹ð…ö…H  ‹uÐ{,¥¥¥SÿuØ¥è£Ùÿÿ‹ð…ö…+  EÔPÿuØènñÿÿ‹ð…ö…  EìPÿø8r‹ð…ö…  VV‹uÔ}Ü««««ƒì‹ü¥¥¥¥ƒì‹üuÜ¥¥¥¥ƒì‹ü¾ôì8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥è‚òÿÿ‹ð…ö…´   EìPÿø8r‹ð…ö…    ‹uÈh˜­Kh—­Kƒì‹ü¥¥¥¥‹uÌƒì‹ü¥¥¥¥ƒì‹ü¾ôì8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥è ûÿÿ‹ð…öuVEìPÿø8r‹ð…öuF‹uÀhœ­Kh›­Kƒì‹ü¥¥¥¥‹uÄƒì‹ü¥¥¥¥ƒì‹ü¾ôì8r¥¥¥¥ƒì‹üÿuØuì¥¥¥¥èÆúÿÿ‹ð…ÛtSèÆT  ƒ}Ð tÿuÐèD  ƒ}Ô tÿuÔè¨D  ‹Mü‹Æè;5  _^[ÉÂ =R8rúpÑ†L£    <R8rúpÑ†L£    ‹ÿU‹ìƒìS‹]VW3ÿEüPS‰}ü‰}ø‰}ô‰}ð‰}ì‰}èèÖòÿÿ‹ð;÷…œ   EøPSèäóÿÿ‹ð;÷…ˆ   EôPSè õÿÿ‹ð;÷uxEðPSè´õÿÿ‹ð;÷uhEìPSè÷ÿÿ‹ð;÷uXSèdøÿÿ‹ð;÷uLÿuðÿuôÿuøÿuüSèžúÿÿ‹ð;÷u4ÿuìÿuôÿuøÿuüSèìüÿÿ‹ð;÷uEèPƒì‹ü¾4î8r¥¥¥S¥è2îÿÿ‹ð3ÿ9}ütÿuüèÞB  9}øtÿuøèÑB  9}ôtÿuôèyC  9}ðtÿuðèlC  9}ìtÿuìè_C  9}ètÿuèè,C  _‹Æ^[ÉÂ 4R8rúpÑ†L£    ‹ÿU‹ìƒìVWEüPÿu3ÿh  €‰}ü‰}ô‰}øÿ8r‹ð;÷u8EôPEøPWWÿuÇEô   ÿuüÿ8r‹ðƒþu‹E‰Eø3ö;÷u‹E‹Mø‰9}üt	ÿuüÿ48r_‹Æ^ÉÂ ‹ÿU‹ìQƒeü VEüPÿuh  €ÿ8r‹ð…öujEPjVÿuÿuüÿT8r‹ðƒ}ü t	ÿuüÿ48r‹Æ^ÉÂ ‹ÿU‹ìƒìV3À@Wÿu‰Eð‰Eì3öEøP‰uü‰uø‰uôè˜„  ‹ø;þu_VEüPVh?  VVVÿuh  €ÿ8r‹ø;þu=EðPEôPEìPÿuøÿ8r…ÀuHÿ€8r‹ø;þuVÿuôVVh  €jÿuüÿ8r‹ø9uüt	ÿuüÿ48r9uøt	EøPèóƒ  ‹Ç_^ÉÂ 9uôu¿j_ëÒ‹ÿU‹ìƒìSVWEøP3ÿ¾?  VWh@ñ8rh  €‰}ø‰}ü‰}ôÇEð   ÿ88r‹Ø;ßubEôPEüPWVWWWh,ñ8rÿuøÿ8r‹Ø;ßuA¾èð8rVÿ¨8rYD PV‹5T8rjWhÄð8rÿuüÿÖ‹Ø;ßujEðPjWh¤ð8rÿuüÿÖ‹Ø9}ü‹548rtÿuüÿÖ9}øtÿuøÿÖ_^‹Ã[ÉÃT y p e s S u p p o r t e d   E v e n t M e s s a g e F i l e   % S y s t e m R o o t % \ S y s t e m 3 2 \ o a k l e y . d l l   O a k l e y   S Y S T E M \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ E v e n t L o g \ A p p l i c a t i o n   ‹ÿU‹ìQQVW3öEøPEüPVh?  VVVÿ59r‰uøh  €‰uüÿ8r9uü‹øt	ÿuüÿ48r‹Ç_^ÉÃ3ÀÃ‹ÿU‹ìì  ¡(9r‹MV•ðýÿÿRh?  3öV‰Eü‹EQP‰µðýÿÿ‰µìýÿÿÿ88r…Àt3ÀëOWVVV3ÀV¹‚   ½ôýÿÿó«…ìýÿÿP…ôýÿÿPVÿµðýÿÿÇ…ìýÿÿ  ÿ08rÿµðýÿÿ‹ð÷ÞöFÿ48r‹Æ_‹Mü^èr/  ÉÂ hÈò8rh  €èKÿÿÿ÷ØÀ@ÃS O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c \ P o l i c y \ L o c a l   ‹ÿU‹ìƒìV3öW3ÿ‰uø‰uü‰uôèXÿÿÿ…ÀtDEôPEøPVh?  VVVÿ59rh  €ÿ8r‹ø;þuEüPVVVèäÿÿ‹ø;þu
+ÿuüèlùÿÿ‹ø9uütÿuüèÝÿÿ9uøt	ÿuøÿ48r‹Ç_^ÉÃ‹ÿU‹ìQQƒeü ƒeø VWEüPj¿Tõ8rW¾øô8rVè\úÿÿ…Àucƒ}üs]EøPj h 8rh 8rè=úÿÿƒ}øuj h  €èIàÿÿ…Àu2èŒýÿÿ…Àu)jh ô8rèçúÿÿ…Àujhhô8rè×úÿÿ…Àu	jWVèuúÿÿè‡ûÿÿ…À_^uè×þÿÿÉÃS O F T W A R E \ M i c r o s o f t \ I P S e c   S O F T W A R E \ P o l i c i e s \ M i c r o s o f t \ W i n d o w s \ I P S e c   S Y S T E M \ C u r r e n t C o n t r o l S e t \ S e r v i c e s \ P o l i c y A g e n t   P o l s t o r e D l l R e g i s t e r V e r s i o n   ‹ÿU‹ììŒ   ¡(9rfƒ¥|ÿÿÿ ‰Eü‹ESW‰…xÿÿÿ‹Ej‰…tÿÿÿè‚-  ‹Ø…Ûuj_ërVjèo-  ‹ð…öuj_ëXFPhX8r‰3è
+.  ‹ø…ÿuBj
+…|ÿÿÿPÿuÿ´8rƒÄFP…|ÿÿÿPèâÿÿ‹ø…ÿuƒSÿµtÿÿÿÿµxÿÿÿè6  ‹øSèÃáÿÿ^‹Mü‹Ç_[èÊ+  ÉÂ ‹ÿU‹ìS‹]…ÛVWt_‹}…ÿtX‹ÃÁàPèÏ,  …À‰EtAƒe …Ûv ‹ð+øÿ47èé,  …ÀtÿE‰ƒÆ9]rç‹E‹M‰‹E‰3ÀëÿuÿuèM.  jXë3À‹Mƒ! ‹Mƒ! _^[]Â ‹ÿU‹ìƒì$‹U$SVW¡(9r‹Mu}ì¥¥‹] ¥‰Uà3Ò‰Uè‰UÜ‰UäUèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥èÇÿÿ‹ð3ÿ;÷uEäPEÜP‹Eèÿpÿpèÿÿÿ‹ð;÷t	‹Eà‰;‰8ë‹EÜ‹Mà‰‹Eä‰9}ètÿuèèï.  ‹Mü‹Æèš*  _^[ÉÂ  ‹ÿU‹ìƒì,¡(9r‹M‰Eü‹ES‹]V‰EÔ‹EW‰EØ‹E3öj{P‰Mä‰uè‰uÜ‰uàÿÈ8r;ÆYYuj^ëGMìQPèHy  EèPƒì‹üÿuØuìÿuÔ¥¥¥¥èŒbÿÿ‹ð…öuEàPEÜP‹EèjƒÀPèBþÿÿ‹ð…öt‹Eäƒ# ƒ  ë‹EÜ‹Mä‰‹Eà‰ƒ}è tÿuèèL,  ‹Mü‹ÆèÍ)  _^[ÉÂ ‹ÿU‹ìƒì$‹U$SVW¡(9r‹Mu}ì¥¥‹] ¥‰Uà3Ò‰Uè‰UÜ‰UäUèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥èAÿÿ‹ð3ÿ;÷uEäPEÜP‹Eèÿpÿpè”ýÿÿ‹ð;÷t	‹Eà‰;‰8ë‹EÜ‹Mà‰‹Eä‰9}ètÿuèè‹,  ‹Mü‹Æè")  _^[ÉÂ  ‹ÿU‹ìƒì$‹U$SVW¡(9r‹Mu}ì¥¥‹] ¥‰Uà3Ò‰Uè‰UÜ‰UäUèR¥ƒì‹üuì¥¥‰Eü‹E¥QP¥è’Rÿÿ‹ð3ÿ;÷uEäPEÜP‹Eèÿp$ÿp èéüÿÿ‹ð;÷t	‹Eà‰;‰8ë‹EÜ‹Mà‰‹Eä‰9}ètÿuèèI,  ‹Mü‹Æèw(  _^[ÉÂ  ‹ÿU‹ìƒì$SVW¡(9r‹]u}ì¥¥ƒeè ƒeä ¥MäQMèQ¥ƒì‹üuì¥¥‰Eü‹E¥PS‰EÜ¥èéüÿÿ3ÿ9}äv8‹Eè‹4¸h   VÿuÜSè}ûÿÿ…À‰Eàu h   VÿuÜSègûÿÿ…À‰Eàu
+G;}ärÈƒeà ƒ}è tÿuäÿuèèÃ*  ‹Mü‹EàèÃ'  _^[ÉÂ ‹ÿU‹ìQQSVWEüPEøPÿu3ÿÿu‰}øÿu‰}üèýÿÿ9}üv:‹Eø‹4¸h   Vÿuÿuèêúÿÿ‹Ø…Ûuh   VÿuÿuèÓúÿÿ‹Ø…ÛuG;}ürÆ3Ûƒ}ø tÿuüÿuøè2*  _^‹Ã[ÉÂ ‹ÿU‹ìƒì SVW¡(9r‹]u}ì¥¥ƒeè ƒeä ¥MäQMèQ¥

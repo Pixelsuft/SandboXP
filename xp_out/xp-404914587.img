@@ -1,0 +1,1091 @@
+.hlp,   tscn1609.w16
+custom.dll,     tscn1610.w16
+eula.txt,       tscn1611.w16
+mscpydis.dll,   tscn1612.w16
+mssetup.dll,    tscn1613.w16
+mstsc.exe,      tscn1614.w16
+mstsc.inf,      tscn1615.w16
+mstsc.ini,      tscn1616.w16
+mstsc.sym,      tscn1617.w16
+mstsc1.id,      tscn1618.w16
+mstsc16.hlp,    tscn1619.w16
+mstscf.inf,     tscn1620.w16
+ole2.dll,       tscn1621.w16
+ole2disp.dll,   tscn1622.w16
+ole2nls.dll,    tscn1623.w16
+rdpdr.dll,      tscn1624.w16
+rdpdr.sym,      tscn1625.w16
+setup.exe,      tscn1626.w16
+setup.ini,      tscn1627.w16
+setup.stf,      tscn1628.w16
+setup.sym,      tscn1629.w16
+setup.tdf,      tscn1630.w16
+storage.dll,    tscn1631.w16
+tsctrc.dll,     tscn1632.w16
+tsctrc.sym,     tscn1633.w16
+win16x.dll,     tscn1634.w16
+_mssetup.exe,   tscn1635.w16
+
+[oldtscw3201]
+acmsetup.exe
+acmsetup.hlp
+conman.exe
+common98.dll
+eula.txt
+mssetup.dll
+mstsc.cnt
+mstsc.inf
+mstsc.stf
+setup.exe
+setup.ini
+setup.lst
+setup.tdf
+mstsc1.id
+
+[oldtscw3201old]
+cconman.cnt
+cconman.hlp
+mstsc.exe
+mstsc.hlp
+rdpdr.dll
+tsctrc.dll
+
+[oldtscw3202]
+cconman.cnt
+cconman.hlp
+mstsc.exe
+mstsc.hlp
+tsctrc.dll
+rdpdr.dll
+mstsc2.id
+
+[tscw32a01]
+acmsetup.exe
+acmsetup.hlp
+common98.dll
+eula.txt
+mssetup.dll
+mstsc.inf
+mstsc.stf
+setup.exe
+setup.ini
+setup.lst
+setup.tdf
+mstsc1.id
+
+[tscw32a01old]
+conman.exe
+mstsc.cnt
+
+[tscw32a02]
+conman.exe
+mstsc.cnt
+cconman.cnt
+cconman.hlp
+mstsc.exe
+mstsc.hlp
+tsctrc.dll
+mstsc2.id
+rdpdr.dll
+
+[oldtscnw16]
+acmsetup.exe
+acmsetup.hlp
+conman.exe
+Custom.dll
+eula.txt
+mscpydis.dll
+mssetup.dll
+mstsc.exe
+mstsc.inf
+mstsc.ini
+mstsc1.id
+mstsc16.hlp
+setup.exe
+setup.ini
+acmboot.lst
+setup.stf
+tsctrc.dll
+_mssetup.exe
+conman16.hlp
+comctl16.dll
+compobj.dll
+ole2.dll
+ole2disp.dll
+ole2nls.dll
+storage.dll
+win16x.dll
+acmboot.exe
+rdpdr.dll
+
+[oldtscnw32]
+acmsetup.exe
+acmsetup.hlp
+cconman.cnt
+cconman.hlp
+conman.exe
+common98.dll
+eula.txt
+mssetup.dll
+mstsc.cnt
+mstsc.exe
+mstsc.hlp
+mstsc.inf
+mstsc.stf
+mstsc1.id
+setup.exe
+setup.ini
+setup.lst
+tsctrc.dll
+rdpdr.dll
+
+[oldtscnw32a]
+acmsetup.exe
+acmsetup.hlp
+cconman.cnt
+cconman.hlp
+conman.exe
+Common98.dll
+eula.txt
+mssetup.dll
+mstsc.cnt
+mstsc.exe
+mstsc.hlp
+mstsc.inf
+mstsc.stf
+mstsc1.id
+setup.exe
+setup.ini
+setup.lst
+tsctrc.dll
+rdpdr.dll
+
+[oldtscmsi]
+tsclient.msi
+tscmsi02.cab
+
+[tsc351]
+acmsetup.exe,   tscn3201.351
+acmsetup.hlp,   tscn3202.351
+cconman.cnt,    tscn3203.351
+cconman.hlp,    tscn3204.351
+common98.dll,   tscn3205.351
+conman.exe,     tscn3206.351
+eula.txt,       tscn3207.351
+mssetup.dll,    tscn3208.351
+mstsc.cnt,      tscn3209.351
+mstsc.exe,      tscn3210.351
+mstsc.hlp,      tscn3211.351
+mstsc.inf,      tscn3212.351
+mstsc.stf,      tscn3213.351
+mstsc1.id,      tscn3214.351
+mstscf.inf,     tscn3215.351
+rdpdr.dll,      tscn3232.351
+setup.exe,      tscn3217.351
+setup.ini,      tscn3218.351
+setup.lst,      tscn3219.351
+setup.tdf,      tscn3220.351
+tsctrc.dll,     tscn3221.351
+
+[tscmsi]
+msrdpcli.msi,   tscmsi01.w32
+setup.exe,      tscmsi02.w32
+setup.ini,      tscmsi03.w32
+instmsiw.exe,   instmsiw.exe
+instmsia.exe,   instmsia.exe
+
+[RunOnce.Setup]
+rdshost.exe -regserver
+sessmgr.exe -service
+
+[RunOnce.UpgradeOnly]
+
+[TSCLangDir]
+LANG_VALUE=%LH_TSC_LANGDIR%
+
+[DefaultInstall]
+AddReg = Reg.TestSection.Add
+DelReg = Reg.TestSection.Del
+
+[Reg.TestSection.Add]
+
+[Reg.TestSection.Del]
+
+[Reg.delete]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility","InfFileOverrideMenuMove",0x00010000,"oemnxptc.inf"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Machine"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","TextShell",0x00000000,"tprogman.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","ProductBuild",0x00000000,"419"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","ProductName",0x00000000,"Microsoft (R) Windows Terminal Server"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","ProductVersion",0x00000000,"4.0"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","ProductVersionNum",0x00010001,0x400
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000502",0x00000000,"f3ahvoas.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000D05",0x00000000,"kbdn106.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00001801",0x00000000,"kbdlk41a.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00001802",0x00000000,"kbdlk41j.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","object",0x00010000,"0","1","OBJECT","qobject.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\cxerror","EventMessageFile",0x00020000,"%SystemRoot%\System32\cxerror.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\cxerror","TypesSupported",0x00010001,0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\cxstatus","EventMessageFile",0x00020000,"%SystemRoot%\System32\cxstatus.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\cxstatus","TypesSupported",0x00010001,0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\Session","EventMessageFile",0x00020000,"%SystemRoot%\System32\cxstatus.dll;%SystemRoot%\System32\cxerror.dll;%SystemRoot%\System32\ntdll.dll;%SystemRoot%\System32\kernel32.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\Session","TypesSupported",0x00010001,0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "Certificate"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "DefaultLicenseServer"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "X509 Certificate", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "X509 Certificate ID", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "UseLicenseServer", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\LsStore"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","AdvertiseOldAppServerBit",0x00010001,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","DisableCtrlAltDel",0x00000000,"0"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\VIDEO"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations","Anonymous", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations","AppServer", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations","RemoteAdmin", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations","Professional", 0x00000004
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDASYNC"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDIPX"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDSPX"
+HKLM ,"SYSTEM\CurrentControlSet\Services\NETB"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Classes"
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\Ext\Settings\{9059f30f-4eb1-4bd2-9fdc-36f43a218f4a}"
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\Ext\Settings\{7584c670-2274-4efb-b00b-d6aaba6d3850}"
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\Ext\Settings\{4EDCB26C-D24C-4e72-AF07-B576699AC0DE}"
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\Ext\Settings\{4eb89ff4-7f78-4a0f-8b8d-2bf02e94e4b2}"
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\Ext\Settings\{7390f3d8-0439-4c05-91e3-cf5cb290c3d0}"
+
+[Reg.UpgradedFrom40]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server","UpgradeFromTS4",0x00010001,0x1
+
+[Reg.UpgradedFrom50]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server","UpgradeFromTS50",0x00010001,0x1
+
+[Reg.UpgradedFrom51]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server","UpgradeFromTS51",0x00010001,0x1
+
+[Reg.AppServer]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server", "TSAdvertise", 0x00010001, 0x1
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\netcache","Enabled", 0x00010001, 0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","AppSetup", 0x00000000, "UsrLogon.Cmd"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{c6dc5466-785a-11d2-84d0-00c04fb169f7}","NoUserPolicy", 0x00010001, 0x00000001
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","IdleWinStationPoolCount", 0x00010001,0x2
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","TSAppCompat", 0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","SessionDirectoryActive", 0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","IAT", 0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","fSingleSessionPerUser", 0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","SessionDirectoryExposeServerIP", 0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","SessionDirectoryCLSID", 0x00000002, "{005a9c68-e216-4b27-8f59-b336829b3868}"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","SessionDirectoryExCLSID", 0x00000002, "{ec98d957-48ad-436d-90be-bc291f42709c}"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\ClusterSettings","SessionDirectoryAdditionalParams", 0x00000002, ""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\ClusterSettings","SessionDirectoryClusterName", 0x00000002, ""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\ClusterSettings","SessionDirectoryLocation", 0x00000002, ""
+HKU ,".Default\Control Panel\Desktop","CursorBlinkRate", 0x00000000, "1200"
+HKU ,".Default\Control Panel\Desktop","DragFullWindows", 0x00000000, "0"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\UserOverride\Control Panel\Desktop","Wallpaper",0x00000002,""
+
+[Reg.RemoteAdmin]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server", "TSAdvertise", 0x00010001, 0x0
+HKLM ,"SOFTWARE\Microsoft\Windows\CurrentVersion\netcache","Enabled", 0x00010001, 0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","AppSetup", 0x00000000,""
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\GPExtensions\{c6dc5466-785a-11d2-84d0-00c04fb169f7}","NoUserPolicy", 0x00010001, 0x00000000
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","IdleWinStationPoolCount", 0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","TSAppCompat", 0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","fSingleSessionPerUser", 0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp\UserOverride\Control Panel\Desktop","Wallpaper",0x00000004
+
+[Reg.PersonalTS]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server", "TSAdvertise", 0x00010003, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","IdleWinStationPoolCount", 0x00010001, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","TSAppCompat", 0x00010001, 0x0
+
+[Reg.ToggleOn]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","ShutdownWithoutLogon",0x00000000,"0"
+HKLM ,"SOFTWARE\Policies\Microsoft\Windows\Installer","EnableAdminTSRemote", 0x00010001, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","TSEnabled",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","Start",0x00010001,0x1
+
+[Reg.ToggleOff]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","TSEnabled",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","Start",0x00010001,0x4
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPCDD","Start",0x00010001,0x4
+
+[Reg.pro]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","AllowMultipleTSSessions", 0x00010003, 0x0
+HKLM ,"System\CurrentControlSet\Control\Terminal Server","fWritableTSCCPermTab", 0x00010001, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","DeleteTempDirsOnExit", 0x00010003, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","PerSessionTempDir", 0x00010003, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "ImagePath", 0x00020000, "%SystemRoot%\System32\svchost -k DComLaunch"
+
+[Reg.x86srv]
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDASYNC","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDASYNC","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDASYNC","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDIPX","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDIPX","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDIPX","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDSPX","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDSPX","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDSPX","Type",0x00010001,0x1
+
+[Reg.srv]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon","AllowMultipleTSSessions", 0x00010003, 0x1
+HKLM ,"System\CurrentControlSet\Control\Terminal Server","fWritableTSCCPermTab", 0x00010001, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","DeleteTempDirsOnExit", 0x00010003, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","PerSessionTempDir", 0x00010003, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "ImagePath", 0x00020000, "%SystemRoot%\System32\svchost.exe -k termsvcs"
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "ErrorControl", 0x00010001, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "Type", 0x00010001, 0x10
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "ObjectName", 0x00000000, "LocalSystem"
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "Start", 0x00010003, 0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "Description", 0x00000000, "%TSSDIR_DESCRIPTION%"
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "DisplayName", 0x00000000, "%TSSDIR_DISPLAYNAME%"
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "ImagePath", 0x00020000, "%SystemRoot%\System32\tssdis.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Services\Tssdis", "DependOnService", 0x00010000, "RPCSS"
+
+[Reg.Winstations.pro]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp", "ColorDepth", 0x00010003,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCam",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableCam",0x00010001,0x0
+
+[Reg.Winstations.srv]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp", "ColorDepth", 0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCam",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableCam",0x00010003,0x1
+
+[Reg.Winstations]
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CfgDll",0x00000002,"RDPCFGEX.DLL"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fEnableWinStation",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","MaxInstanceCount",0x00010003,0xffffffff
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","PdName",0x00000002,"tcp"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","PdClass",0x00010003,0x2
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","PdDLL",0x00000002,"tdtcp"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","PdFlag",0x00010003,0x4e
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","OutBufLength",0x00010003,0x212
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","OutBufCount",0x00010003,0x6
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","OutBufDelay",0x00010003,0x64
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","InteractiveDelay",0x00010003,0x32
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","PortNumber",0x00010003,0xd3d
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","KeepAliveTimeout",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","LanAdapter",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WdName",0x00000002,"Microsoft RDP 5.1"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WdDLL",0x00000002,"rdpwd"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WsxDLL",0x00000002,"rdpwsx"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WdFlag",0x00010003,0x36
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","InputBufferLength",0x00010003,0x800
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CdClass",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CdName",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CdDLL",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CdFlag",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Comment",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritAutoLogon",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritResetBroken",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritReconnectSame",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritInitialProgram",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritCallback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritCallbackNumber",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritShadow",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritMaxSessionTime",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritMaxDisconnectionTime",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritMaxIdleTime",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritAutoClient",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritSecurity",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fInheritColorDepth",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fPromptForPassword",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fResetBroken",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fReconnectSame",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fLogonDisabled",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fAutoClientDrives",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fAutoClientLpts",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fForceClientLptDef",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableEncryption",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fHomeDirectoryMapRoot",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fUseDefaultGina",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCpm",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCdm",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCcm",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableLPT",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableClip",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableExe",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","fDisableCam",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Username",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Domain",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Password",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WorkDirectory",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","InitialProgram",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","CallbackNumber",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Callback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","Shadow",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","MaxConnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","MaxDisconnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","MaxIdleTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","KeyboardLayout",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","MinEncryptionLevel",0x00010003,0x2
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","NWLogonServer",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WFProfilePath",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","WdPrefix",0x00000002,"RDP"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","TraceEnable",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","TraceDebugger",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp","TraceClass",0x00010003,0x0
+
+[Reg.tsclient.Gateway.Secured.Security]
+"O:S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464G:S-1-5-80-956008885-3418522649-1831038044-1853292631-2271478464D:P (A;CI;GA;;;SY)(A;CI;GA;;;BA)(A;CI;GA;;;NS)"
+
+[Reg.tsclient.Gateway.Secured]
+HKLM ,"SOFTWARE\Microsoft\Terminal Server Client\TrustedGateways"
+
+[Reg.common.RunX.Secured.Security]
+"D:P(A;CI;GR;;;BU)(A;CI;GR;;;PU)(A;CI;GA;;;BA)(A;CI;GA;;;SY)"
+
+[Reg.common.RunX.Secured]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Runonce"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run"
+
+[Reg.common.RunX.Secured.ia64.Security]
+"D:P(A;CI;GR;;;BU)(A;CI;GR;;;PU)(A;CI;GA;;;BA)(A;CI;GA;;;SY)"
+
+[Reg.common.RunX.Secured.ia64]
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Runonce"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion\Run"
+
+[Reg.common]
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Ports"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server","AllowRemoteSound",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility","SysDir",0x00000002,""
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\ACMSETUP","Flags",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CINMANIA","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","ClipboardFlags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","OpenClipboardDelayInMilliSecs",0x00010003,0x50
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","OpenClipboardRetries",0x00010003,0x20
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCHNG32","Flags",0x00010003,0x008
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\FIXACLS","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\HOTFIX","Flags",0x00010003,0x28
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MARS32","Flags",0x00010003,0x80c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MPRADMIN","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xff
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","Flags",0x00010003,0x80c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","MsgQBadAppSleepTimeInMillisec",0x00010003,0x1
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\OUTLOOK","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\PLT","Flags",0x00010003,0x11
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\POWERPNT","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REG2INI","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REGEDIT","Flags",0x00010003,0x108
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REGEDT32","Flags",0x00010003,0x108
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\RUNDLL32","Flags",0x00010003,"0x408"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SCHDPL32","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SNASRV","Flags",0x00010003,0x200
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SYSDIFF","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WINWORD","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32CLN","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32REG","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WSVERIFY","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\IniFiles","SYSTEM",0x00010003,0x44
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\IniFiles","WIN",0x00010003,0x44
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Classes",0x00010003,0x108
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Microsoft\Windows NT",0x00010003,0x108
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Change User Option"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Security","SecurityLevel",0x00000002,"Default"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","Modems With Bad DSR",0x00010002,"MultiTech MultiModem MT2834","MultiTech MultiModem MT2834ZDX","MultiTech MT2834","MultiTech MT2834ZDX","MultiTech 2834","MultiTech 2834ZDX"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","MsgQBadAppSleepTimeInMillisec",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AuthorizedApplications"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","Callback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","CallbackNumber",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","Domain",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","InitialProgram",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","KeyboardLayout",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","MaxConnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","MaxDisconnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","MaxIdleTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","NWLogonServer",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","Password",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","Shadow",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","UserName",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","WorkDirectory",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritAutoLogon",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritCallback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritCallbackNumber",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritInitialProgram",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritMaxDisconnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritMaxIdleTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritMaxSessionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritReconnectSame",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritResetBroken",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fInheritShadow",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fLogonDisabled",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fPromptForPassword",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fReconnectSame",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration","fResetBroken",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdleBusymsAllowed",0x00010003,0x3c
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdleDetectAbsolute",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdleDetectProbationCount",0x00010003,0x50
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdleInProbationCount",0x00010003,0x23
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdlemsAllowed",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdlemsGoodProbationEnd",0x00010003,0x9c4
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdlemsProbationTrial",0x00010003,0x9c4
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Dos","KbdIdlemsSleep",0x00010003,0x64
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000000",0x00000002,"kbd101.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000001",0x00000002,"kbdax2.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000002",0x00000002,"kbd106.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000003",0x00000002,"kbdibm02.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00010D01",0x00000002,"kbdnec95.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\KOR","00000003",0x00000002,"kbd101a.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\KOR","00000004",0x00000002,"kbd101b.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\KOR","00000005",0x00000002,"kbd101c.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\KOR","00000006",0x00000002,"kbd103.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\change","logon",0x00010002,"0","1","LOGON","chglogon.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\change","port",0x00010002,"0","1","PORT","chgport.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\change","user",0x00010002,"0","1","USER","chgusr.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\change","winsta",0x00010002,"1","1","WINSTA","chglogon.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","appserver",0x00010002,"0","2","TERMSERVER","qappsrv.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","process",0x00010002,"0","1","PROCESS","qprocess.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","session",0x00010002,"0","1","SESSION","qwinsta.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","user",0x00010002,"0","1","USER","quser.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\query","winsta",0x00010002,"1","1","WINSTA","qwinsta.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\reset","session",0x00010002,"0","1","SESSION","rwinsta.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Utilities\reset","winsta",0x00010002,"1","1","WINSTA","rwinsta.exe"
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","InstalledDisplayDrivers",0x00010002,"RDPDD"
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","VgaCompatible",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","ErrorControl",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","ImagePath",0x00020002,"\SystemRoot\System32\drivers\termdd.sys"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","Start",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","Type",0x00010003,0x1
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server","UpgradeFromTS4",0x00010003,0x0
+HKCR,"Interface\{A1230201-1439-4E62-A414-190D0AC3D40E}",,,"IWTSPlugin"
+HKCR,"Interface\{A1230201-1439-4E62-A414-190D0AC3D40E}\NumMethods",,,"7"
+HKCR,"Interface\{A1230201-1439-4E62-A414-190D0AC3D40E}\ProxyStubClsid32",,,"{A1230201-1439-4E62-A414-190D0AC3D40E}"
+HKCR,"Interface\{A1230203-D6A7-11D8-B9FD-000BDBD1F198}",,,"IWTSListenerCallback"
+HKCR,"Interface\{A1230203-D6A7-11D8-B9FD-000BDBD1F198}\NumMethods",,,"4"
+HKCR,"Interface\{A1230203-D6A7-11D8-B9FD-000BDBD1F198}\ProxyStubClsid32",,,"{A1230201-1439-4E62-A414-190D0AC3D40E}"
+HKCR,"Interface\{A1230204-D6A7-11D8-B9FD-000BDBD1F198}",,,"IWTSVirtualChannelCallback"
+HKCR,"Interface\{A1230204-D6A7-11D8-B9FD-000BDBD1F198}\NumMethods",,,"5"
+HKCR,"Interface\{A1230204-D6A7-11D8-B9FD-000BDBD1F198}\ProxyStubClsid32",,,"{A1230201-1439-4E62-A414-190D0AC3D40E}"
+HKCR,"Interface\{A1230205-D6A7-11D8-B9FD-000BDBD1F198}",,,"IWTSVirtualChannelManager"
+HKCR,"Interface\{A1230205-D6A7-11D8-B9FD-000BDBD1F198}\NumMethods",,,"4"
+HKCR,"Interface\{A1230205-D6A7-11D8-B9FD-000BDBD1F198}\ProxyStubClsid32",,,"{A1230201-1439-4E62-A414-190D0AC3D40E}"
+HKCR,"Interface\{A1230207-D6A7-11D8-B9FD-000BDBD1F198}",,,"IWTSVirtualChannel"
+HKCR,"Interface\{A1230207-D6A7-11D8-B9FD-000BDBD1F198}\NumMethods",,,"5"
+HKCR,"Interface\{A1230207-D6A7-11D8-B9FD-000BDBD1F198}\ProxyStubClsid32",,,"{A1230201-1439-4E62-A414-190D0AC3D40E}"
+HKCR,"CLSID\{A1230201-1439-4E62-A414-190D0AC3D40E}",,,"PSFactoryBuffer"
+HKCR,"CLSID\{A1230201-1439-4E62-A414-190D0AC3D40E}\Control",,,
+HKCR,"CLSID\{A1230201-1439-4E62-A414-190D0AC3D40E}\InprocServer32",,0x00020000,"%systemroot%\system32\mstscax.dll"
+HKCR,"CLSID\{A1230201-1439-4E62-A414-190D0AC3D40E}\InprocServer32","ThreadingModel",,"Both"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\MCI32\Terminal Server","MCICDA.DLL",0x00000000,""
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSOFFICE","Flags",0x00010001,0x408
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Asynchronous",0x00010001,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","DllName",0x00020000,"wlnotify.dll"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Impersonate",0x00010001,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Logoff",0x00000000,"TSEventLogoff"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Logon",0x00000000,"TSEventLogon"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","PostShell",0x00000000,"TSEventPostShell"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Shutdown",0x00000000,"TSEventShutdown"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","StartShell",0x00000000,"TSEventStartShell"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","Startup",0x00000000,"TSEventStartup"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv","MaxWait",0x00010001,0x258
+HKLM ,"SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg\AllowedPaths","Machine",0x00010008,"System\CurrentControlSet\Control\Terminal Server"
+HKLM ,"SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg\AllowedPaths","Machine",0x00010008,"System\CurrentControlSet\Control\Terminal Server\UserConfig"
+HKLM ,"SYSTEM\CurrentControlSet\Control\SecurePipeServers\winreg\AllowedPaths","Machine",0x00010008,"System\CurrentControlSet\Control\Terminal Server\DefaultUserConfiguration"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Clip Redirector","Name", 0x00000000,"RDPClip"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Clip Redirector","Type", 0x00010001, 0x3
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Terminal Server Redirector","Name", 0x00000000,"\Device\RdpDr"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Terminal Server Redirector","Type", 0x00010001, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","000000000017",0x00000000,"kbdlk41a.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","000000020015",0x00000000,"kbdnecAT.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","000000020017",0x00000000,"kbdlk41j.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000D01",0x00000000,"kbdnecNT.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00000D04",0x00000000,"kbdnecNT.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00010002",0x00000000,"kbd106n.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00010D04",0x00000000,"kbdnec95.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00020002",0x00000000,"f3ahvoas.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00020D01",0x00000000,"kbdnecAT.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\KeyboardType Mapping\JPN","00020D04",0x00000000,"kbdnecAT.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\Cdm"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermDD","EventMessageFile",0x00020000,"%SystemRoot%\System32\ntdll.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermDD","TypesSupported",0x00010001,0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermServDevices","EventMessageFile",0x00020000,"%SystemRoot%\System32\wlnotify.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermServDevices","TypesSupported",0x00010001,0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDCOMP","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDCOMP","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDCOMP","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDFRAME","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDFRAME","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDFRAME","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRELI","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRELI","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRELI","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRFRAME","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRFRAME","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\PDRFRAME","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","Attach.RelativeX",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","Attach.RelativeY",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","Attach.ToDesktop",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPWD","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPWD","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPWD","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDPIPE","ErrorControl", 0x00010001, 0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDPIPE","Start", 0x00010001, 0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDPIPE","Type", 0x00010001, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDTCP","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDTCP","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TDTCP","Type",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermDD","DisplayName",0x00000000,"%TERMDD_DISPLAY_NAME%"
+HKLM ,"SYSTEM\CurrentControlSet\Services\WDICA","ErrorControl",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Services\WDICA","Start",0x00010001,0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\WDICA","Type",0x00010001,0x1
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\vs60wiz","Flags",0x00010001,0x00008000
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Microsoft\Windows\CurrentVersion\Explorer\Shell Folders",0x00010001,0x108
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\VIDEO\rdpdd","VgaCompatible",0x00000000,"\Device\Video0"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\VIDEO\rdpdd","\Device\Video0",0x00000000,"\REGISTRY\Machine\System\CurrentControlSet\Services\RDPDD\Device0"
+HKLM ,"SYSTEM\CurrentControlSet\Services\LicenseService\FilePrint\TermService"
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","DefaultSettings.XResolution",0x00010001,0x320
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPDD\Device0","DefaultSettings.YResolution",0x00010001,0x258
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server", "RegistryExtensionFlags", 0x00010001, 0x3
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv", "Reconnect", 0x00000000,"TSEventReconnect"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Winlogon\Notify\termsrv", "Disconnect", 0x00000000,"TSEventDisconnect"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","MinEncryptionLevel",0x00010001,0x0
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32\Terminal Server\RDP","wave", 0x00000000,"rdpsnd.dll"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32\Terminal Server\RDP","mixer", 0x00000000,"rdpsnd.dll"
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Drivers32\Terminal Server\RDP","MaxBandwidth", 0x00010003,0x56B9
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Sound Redirector","Name", 0x00000000,"RDPSound"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\AddIns\Sound Redirector","Type", 0x00010001, 0x3
+HKLM ,"SOFTWARE\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\visio32","Flags",0x00010001,0x00010000
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPNP\NetworkProvider", "DeviceName", 0x00000000, "\Device\RdpDr"
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPNP\NetworkProvider", "Name", 0x00000000, %TS_Provider%
+HKLM ,"SYSTEM\CurrentControlSet\Services\RDPNP\NetworkProvider", "ProviderPath", 0x00020000, "%SystemRoot%\System32\drprov.dll"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "CdClass", 0x00010001, 0x0
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "CdDLL", 0x00000000, ""
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "CdFlag", 0x00010001, 0x0
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "CdName", 0x00000000, ""
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "CfgDll", 0x00000000, "RDPCFGEX.DLL"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "InteractiveDelay", 0x00010001, 0x32
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "OutBufDelay", 0x00010001, 0x64
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "PdClass", 0x00010001, 0x2
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "PdDLL", 0x00000000, "tdtcp"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "PdFlag", 0x00010001, 0x4e
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "PdName", 0x00000000, "tcp"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "WdDLL", 0x00000000, "rdpwd"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "WdFlag", 0x00010001, 0x34
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "WdName", 0x00000000, "Microsoft RDP 5.1"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "WdPrefix", 0x00000000, "RDP"
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console\RDP", "WsxDLL", 0x00000000, "rdpwsx"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD","ErrorControl",0x00010003,0
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD","Group",0x00000000,"Video Save"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD","ImagePath",0x00000000,"System32\DRIVERS\RDPCDD.sys"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD","Start",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD","Type",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Video","VideoID",0x00000000,"{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Video","Service",0x00000000,"RDPCDD"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Device0","Device Description",0x00000000,"RDPDD Chained DD"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Device0","InstalledDisplayDrivers",0x00010000,"RDPDD"
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Device0","MirrorDriver",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Services\RDPCDD\Device0","VgaCompatible",0x00010001,0
+HKLM,"SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\Video","Service",0x00000000,"RDPCDD"
+HKLM,"SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000","Device Description",0x00000000,"RDPDD Chained DD"
+HKLM,"SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000","InstalledDisplayDrivers",0x00010000,"RDPDD"
+HKLM,"SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000","MirrorDriver",0x00010001,1
+HKLM,"SYSTEM\CurrentControlSet\Control\Video\{DEB039CC-B704-4F53-B43E-9DD4432FA2E9}\0000","VgaCompatible",0x00010001,0
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\RunOnce","TSClientAXDisabler",,"cmd.exe /C ""%systemroot%\Installer\TSClientMsiTrans\tscdsbl.bat"""
+HKLM,"Software\Microsoft\Windows\CurrentVersion\RunOnce", "TSClientMSIUninstaller", 0x00000000, "cmd.exe /C ""pushd %systemroot%\Installer\TSClientMsiTrans && cscript %systemroot%\Installer\TSClientMsiTrans\tscinst.vbs && cscript %systemroot%\Installer\TSClientMsiTrans\tscuinst.vbs && popd"""
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "ErrorControl", 0x00010001, 0x1
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "ObjectName", 0x00000000, "LocalSystem"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "Start", 0x00010001, 0x3
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "Description", 0x00000000, "%TS_SERVICE_DESC%"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "DisplayName", 0x00000000, "%TS_DISPLAY_NAME%"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermService", "TypesSupported", 0x00010001, 0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "DependOnService", 0x00010000, "RPCSS"
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService", "Type", 0x00010001, 0x20
+HKLM ,"SYSTEM\CurrentControlSet\Services\TermService\Parameters", "ServiceDll", 0x00020000, "%SystemRoot%\System32\termsrv.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermService", "EventMessageFile", 0x00020000, "%SystemRoot%\System32\termsrv.dll;%SystemRoot%\System32\ntdll.dll"
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermServSessDir", "TypesSupported", 0x00010001, 0x7
+HKLM ,"SYSTEM\CurrentControlSet\Services\EventLog\System\TermServSessDir", "EventMessageFile", 0x00020000, "%SystemRoot%\System32\tssdis.exe"
+HKCR,".RDP",,,"RDP.File"
+HKCR,"RDP.File",,,"%RDPFILETYPE%"
+HKCR,"RDP.File","FriendlyTypeName",,"@%11%\%LH_TSC_LANGDIR%\mstsc.exe.mui,-4004"
+HKCR,"RDP.File\DefaultIcon",,,"%11%\mstsc.exe"
+HKCR,"RDP.File\shell\Connect\command",,,"mstsc.exe ""%%l"""
+HKCR,"RDP.File\shell\Connect",,,"%RDPCONNECTVERB%"
+HKCR,"RDP.File\shell\Connect","MUIVerb",,"@%11%\%LH_TSC_LANGDIR%\mstsc.exe.mui,-4002"
+HKCR,"RDP.File\shell\Edit\command",,,"mstsc.exe -edit ""%%l"""
+HKCR,"RDP.File\shell\Edit",,,"%RDPEDITVERB%"
+HKCR,"RDP.File\shell\Edit","MUIVerb",,"@%11%\%LH_TSC_LANGDIR%\mstsc.exe.mui,-4003"
+HKCR,"RDP.File\shell",,,Connect
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","msime95.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","msime97.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","imejp98.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","imejp.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","imjp8.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\JPN","imjp81.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","msime95.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","msime95k.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","msuni95k.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","imekr.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","imekr98u.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","imekr61.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","Imekr70.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","Imkr80.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\IME Mapping Table\KOR","Imkr12.ime",,"null"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\TransportExtensions","Gateway",,"aaclient.dll"
+HKLM,"SOFTWARE\Microsoft\Terminal Server Client\TrustedGateways","GatewayFQDN",0x00010002,""
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files",,,"{C0E13E61-0CC6-11d1-BBB6-0060978B2AE6}"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","FileList",,"*.BMC"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","Flags",0x00010001,0x120
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","Description",,%BMC_CLEANUP_DESC%
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","Display",,%BMC_CLEANUP_DISPLAY%
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","CSIDL",0x00010001,0x1C
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","Folder",,"Microsoft\Terminal Server Client\Cache"
+HKLM,"SOFTWARE\Microsoft\Windows\CurrentVersion\Explorer\VolumeCaches\Remote Desktop Cache Files","LastAccess",0x00010001,0x7
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "csrss.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "smss.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "screg.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "lsass.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "spoolss.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "EventLog.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "netdde.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "clipsrv.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "lmsvcs.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "MsgSvc.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "winlogon.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "NETSTRS.EXE", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "nddeagnt.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "os2srv.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "wfshell.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "win.com", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "rdpclip.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "conime.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "proquota.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "imepadsv.exe", 0x00010001
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\SysProcs", "ctfmon.exe", 0x00010001
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","BaudRate",0x00010003,0xe100
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","ByteSize",0x00010003,0x8
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","CfgDll",0x00000002,"RDPCFGEX.DLL"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","ConnectType",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","ColorDepth",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","DeviceName",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","FlowHardwareRx",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","FlowHardwareTx",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","FlowType",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","InputBufferLength",0x00010003,0x800
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","MinEncryptionLevel",0x00010003,0x2
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","Parity",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","StartupPrograms",0x00000000,"rdpclip"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","StopBits",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","WdDLL",0x00000002,"rdpwd"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","WdFlag",0x00010001,0x36
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","WdName",0x00000000,"Microsoft RDP 5.1"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","WdPrefix",0x00000002,"RDP"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","WsxDLL",0x00000002,"rdpwsx"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","XoffChar",0x00010003,0x13
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","XonChar",0x00010003,0x11
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fAutoClientDrives",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fAutoClientLpts",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableCcm",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableCdm",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableClip",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableCpm",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableEncryption",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fDisableLPT",0x00010001,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fEnableBreakDisconnect",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fEnableDTR",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fEnableDsrSensitivity",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fEnableRTS",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fFlowSoftwareRx",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fFlowSoftwareTx",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fForceClientLptDef",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd","fInheritAutoClient",0x00010001,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","InteractiveDelay",0x00010001,0xa
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","OutBufCount",0x00010003,0x6
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","OutBufDelay",0x00010003,0x64
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","OutBufLength",0x00010003,0x212
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","PdClass",0x00010003,0x2
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","PdDLL",0x00000002,"tdtcp"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","PdFlag",0x00010003,0x4e
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","PdName",0x00000002,"tcp"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","PortNumber",0x00010003,0xd3d
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\Wds\rdpwd\Tds\tcp","ServiceName",0x00000002,"tcpip"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","Callback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","CallbackNumber",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","Comment",0x00000002,"System Console"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","Domain",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","InitialProgram",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","InputBufferLength",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","KeyboardLayout",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","KeyboardName",0x00000002,"\REGISTRY\Machine\System\CurrentControlSet\Services\Kbdclass"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","MaxConnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","MaxDisconnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","MaxIdleTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","MouseName",0x00000002,"\REGISTRY\Machine\System\CurrentControlSet\Services\Mouclass"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","OutBufCount",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","OutBufDelay",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","OutBufLength",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","Password",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","PdClass",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","PdDll",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","PdFlag",0x00010003,0x1e
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","PdName",0x00000002,"console"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","UserName",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","WdDll",0x00000002,"wdcon"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","WdFlag",0x00010001,0x24
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","WdName",0x00000002,"Console"
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","WorkDirectory",0x00000002,""
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritAutoLogon",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritCallback",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritCallbackNumber",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritInitialProgram",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritMaxDisconnectionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritMaxIdleTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritMaxSessionTime",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritReconnectSame",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritResetBroken",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fInheritShadow",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fLogonDisabled",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fPromptForPassword",0x00010003,0x1
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fReconnectSame",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fResetBroken",0x00010003,0x0
+HKLM ,"SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console","fUseDefaultGina",0x00010003,0x0
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console", "Shadow", 0x00010001, 0x1
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console", "TraceClass", 0x00010001, 0x10000009
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console", "TraceDebugger", 0x00010001, 0x1
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console", "TraceEnable", 0x00010001, 0xc
+HKLM, "SYSTEM\CurrentControlSet\Control\Terminal Server\WinStations\Console", "fEnableWinStation", 0x00010001, 0x1
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\termservice","",0x00000000,"Service"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\rdsessmgr","",0x00000000,"Service"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\tdtcp.sys","",0x00000000,"Driver"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\rdpwd.sys","",0x00000000,"Driver"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\tdpipe.sys","",0x00000000,"Driver"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\rdpdd.sys","",0x00000000,"Driver"
+HKLM,"SYSTEM\CurrentControlSet\Control\SafeBoot\Network\rdpcdd.sys","",0x00000000,"Driver"
+
+[Reg.common.ia64]
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility","SysDir",0x00000002,""
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\ACMSETUP","Flags",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CINMANIA","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\CSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","ClipboardFlags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","OpenClipboardDelayInMilliSecs",0x00010003,0x50
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCEL","OpenClipboardRetries",0x00010003,0x20
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\EXCHNG32","Flags",0x00010003,0x008
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\FIXACLS","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\HOTFIX","Flags",0x00010003,0x28
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\INSTRUN","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MARS32","Flags",0x00010003,0x80c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MPRADMIN","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xff
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","Flags",0x00010003,0x80c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","MsgQBadAppSleepTimeInMillisec",0x00010003,0x1
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSACCESS","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\OUTLOOK","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\PLT","Flags",0x00010003,0x11
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\POWERPNT","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REG2INI","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REGEDIT","Flags",0x00010003,0x108
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\REGEDT32","Flags",0x00010003,0x108
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\RUNDLL32","Flags",0x00010003,"0x408"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SCHDPL32","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SETUP1","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SNASRV","Flags",0x00010003,0x200
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\SYSDIFF","Flags",0x00010003,0x408
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\VSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WINWORD","Flags",0x00010003,0x8
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32CLN","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WS32REG","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\WSVERIFY","Flags",0x00010003,0x40c
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSSETUP","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","FirstCountMsgQPeeksSleepBadApp",0x00010003,0xf
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","Flags",0x00010003,0xc
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","MsgQBadAppSleepTimeInMillisec",0x00010003,0x0
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\_MSTEST","NthCountMsgQPeeksSleepBadApp",0x00010003,0x5
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\IniFiles","SYSTEM",0x00010003,0x44
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\IniFiles","WIN",0x00010003,0x44
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Classes",0x00010003,0x108
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Microsoft\Windows NT",0x00010003,0x108
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Change User Option"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Install\Software\Microsoft\Windows\CurrentVersion"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Security","SecurityLevel",0x00000002,"Default"
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\MSOFFICE","Flags",0x00010001,0x408
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\vs60wiz","Flags",0x00010001,0x00008000
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Registry Entries","Microsoft\Windows\CurrentVersion\Explorer\Shell Folders",0x00010001,0x108
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server", "RegistryExtensionFlags", 0x00010001, 0x3
+HKLM ,"SOFTWARE\Wow6432Node\Microsoft\Windows NT\CurrentVersion\Terminal Server\Compatibility\Applications\visio32","Flags",0x00010001,0x00010000
+
+[Strings]
+TS_DESC="Terminal Services"
+TS_TIP="Provides a multi-session environment for clients to access Windows-based programs on this computer."
+TS_SERVICE_DESC="Allows multiple users to be connected interactively to a machine as well as the display of desktops and applications to remote computers. The underpinning of Remote Desktop (including RD for Administrators), Fast User Switching, Remote Assistance, and Terminal Server."
+TS_DISPLAY_NAME="Terminal Services"
+TERMDD_DISPLAY_NAME="Terminal Device Driver"
+TS_ENABLE_DESC="Enable Terminal Services"
+TS_ENABLE_TIP="Enables Terminal Services software on your computer."
+TSCLIENTS_DESC="Client Creator Files"
+TSCLIENTS_TIP="Enables creation of installation disks for Terminal Services Clients."
+TS_WEBCLIENT_DESC="Remote Desktop Web Connection"
+TS_WEBCLIENT_TIP="ActiveX control and sample pages for hosting Terminal Services client connections over the Web"
+ADMINTOOLS           = "Administrative Tools"
+TS_TSADMIN           = "Terminal Services Manager"
+TS_TSADMIN_OLD       = "Terminal Server Administration"
+TS_TSADMIN_TIP       = "Manages and monitors users, sessions, and processes on any server running Terminal Services on the network"
+TS_CLIENT_CREATE     = "Terminal Services Client Creator"
+TS_CLIENT_CREATE_OLD = "Terminal Server Client Creator"
+TS_CLIENT_CREATE_TIP = "Creates floppy disks for installing Terminal Services Client software"
+TS_CC                = "Terminal Services Configuration"
+TS_CC_TIP            = "Manages Terminal Services protocol configurations and server settings"
+TS_TSCFG             = "Terminal Server Connection Configuration"
+TS_APPSEC            = "Application Security"
+TS_IE4INST           = "Internet Explorer 4.0 Setup"
+TS_NW4NT             = "NetWare User Access for Terminal Server"
+TS_CLIENT            = "Remote Desktop Connection"
+ACCESSORIES          = "Accessories"
+COMMUNICATIONS       = "Accessories\Communications"
+TS_CLIENT_TIP        = "Connect to a computer's desktop from a remote location, and run applications as if you were sitting at its console."
+TS_MMC               = "Remote Desktops"
+TS_MMC_TIP           = "Remote Desktops SnapIn"
+APPSRV_DESC          = "Terminal Server"
+APPSRV_TIP           = "Configures this computer to allow multiple users to run one or more applications remotely."
+TSSDIR_DISPLAYNAME = "Terminal Services Session Directory"
+TSSDIR_DESCRIPTION = "Installs the session directory database for use in conjuction with load balancing software."
+RDPFILETYPE = "Remote Desktop Connection"
+RDPEDITVERB = "Edit"
+RDPCONNECTVERB = "Connect"
+TS_Provider = "Microsoft Terminal Services"
+BMC_CLEANUP_DESC  = "Remote Desktop Connection creates temporary picture files and stores them on your computer to improve the effective speed of your connection to a remote computer."
+BMC_CLEANUP_DISPLAY  = "Temporary Remote Desktop files"
+LH_TSC_LANGDIR="en-US"
+
+; Customized by nLite - www.nliteos.com
+
+                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                              MZê       ˇˇ  ∏       @                                   Ë   ∫ ¥	Õ!∏LÕ!This program cannot be run in DOS mode.
+$       oL\+-h+-h+-h+-h*-h—(*-h+-iV-h—q:-hº-*-hÒt?-h—U*-hRich+-h                        PE  L ÄÑ};        ‡   ^   ~      Ö_      p                            @<   Ä    @                       ÿb  ¥    Ä  Äx                                                                X  ®                                .text   .]      ^                    `.data   å   p      b              @  ¿.rsrc   Äx   Ä   z   d              @  @˛};H   ˛};S   ˛};`   ˛};m   ˛};w   C˛};Ç   ˛};å   2˛};ò           msvcrt.dll ADVAPI32.dll KERNEL32.dll GDI32.dll USER32.dll CARDS.dll SHELL32.dll COMCTL32.dll                                                                                                                                                                                                                                                                    |V›we›wÍ"›w◊#›wX›wö›w    Û¡oÊ¡oã¡o¡o    êïq    É«w«g«w® w‚)«w/!«w¨$«wQ«w¿k«wk,«w:«w•. wC?«w∞«w]«w6„«wÇ_«wø€«wÖ;«wâ(«w∞ «wS«wÅ-«w    zÊwìüÁwÙ,ÁwÒ~ÁwEöÁwÅòÁw€…Áw˝•ÁwÿËw    €„Iw    7Å‘wH∑‘w≠t‘w«~‘wö‘w*C‘w˝X‘wÓX‘w@_‘wO_‘wY‘wÀı‘wí~‘wPr‘w:Ç‘wÇ‘w√”’wCF‘w≥¡‘wº’wMZ‘w∞ø’w∏‘wˇD‘w#_‘wÅ‘w@’w∂|‘w'}‘wD‘wLÆ‘wö‰’wò∏‘w¡”‘wƒ†‘w˘•‘wÔH‘w≈=‘w”=‘w$@‘wø@‘wˆ’wLa‘w9à◊wåq‘wïU◊w2é‘wãÄ‘wc‘wÕ>‘w>n‘w√v‘we∑÷wJˇ‘w#ˇ‘wmÅ‘w®ä‘wQ÷wŒ)’w{‘w%“’w    ∞>√wX¶ƒw26√whÎ¡wJÎ¡wà”≈w`èƒw€y√w	È¡w®«≈w‹z√w {√wi√wÓz√w{√wçR√wLjƒwÄR√w                                ÄÑ};          X  X  NTHelp.chm  $   H i d d e n A c c e l   N o t   Y e t   I m p l e m e n t e d   S o f t w a r e \ M i c r o s o f t \ S o l i t a i r e     M S   S h e l l   D l g     s o l . h l p       ˇˇˇˇa &a     hhctrl.ocx      CLSID\{ADB880A6-D8FF-11CF-9377-00AA003B7A11}\InprocServer32     NB10    ÄÑ};   sol.pdb UãÏÉÏ@çE¿Pˇuˇ‡ °pq Ö¿tj çM¿QjPˇçE¿Pˇuˇ‹ …¬ ãL$°tq âtq ãL$â|q ãL$âÄq ¬ É=tq  t
+ˇxq 3¿@√ˇ5<s ˇ‰ Ö¿u√j j PË¨ˇˇˇ3¿@£xq √°tq Ö¿tˇxq uPˇ5<s ˇË É%tq  √°pq Ö¿t	j j jPˇf∏ ¬ ãD$;p tjj ˇ5<s £p ˇÏ ¬ É|$ tj ˇ¸ %ˇ  P£Ds ˇ  YY°pq j ˇt$jPˇ¬ UãÏÉÏdVjdçEúPjiˇ5ls ˇ¯ 3ˆÉ}‚tÉ}„tÉ}‰u"VVh< ÎVjÎVVçEúPˇÙ PËÚL  ÎãE;∆^u
+h-  Ë  …¬ ãÑq 3¿É=,p Vî¿3ˆF#Œ¡·#∆¡ãàq —‡#Œ¡ã$p —‡#Œ¡ã p —‡#Œ¡Ph…   jdËÏ  ãT$ã»#Œâ p ã»É·—Èâ$p ã»É·¡Èâ
+ã»É·É…¡Èâ,p ã»¡ËÉ·@¡ÈÉ‡HâÑq tHt«(p .  Î«(p 0  Î
+«(p /  ˇ¯ jYô˜˘Rh»   jdËa  jAÉ¿5j6PË⁄  PËR˛ˇˇj hÀ   æÕ   VË<  j
+hH hps hÃ   V£@s Ë_  ^¬ 3¿@ÑD$tqãÑq 3…É=,p î¡#–¡‚#» ãàq #–—· ã$p #–—· ã p #–°(p —· -.  tHtHuÉ·ÔÉ… ÎÉ·ﬂÉ…ÎÉ·œQh…   jdËw  ˆD$t°p É¿ÀPh»   jdË[  ¬ UãÏÅÏ–   VWã}∏   ;¯áw  Ñe  Éˇá  ÑE  ã«HHÑÆ   HÑù   HHt.HÖr  fÉ} Ñö  ãE¡ËfÖ¿Öã  ˇuËE¸ˇˇÈ~  ˇuˇ( hPs ˇu£lq ˇ$ ãs øEø—k“+¬ôj^˜˛jãã¡ôY˜˘É¿;}98s tã;|â58s Ëp)  jj ˇuˇÏ ËÙE  È	  hö  ˇ5<s ˇ  °pq 3ˆVVjPˇjË-  Ë¸I  ˇ5|s ˇÄ Vˇ È∆   Éˇt1ÉˇtÉˇSÖÄ  j‚È˘  É=lq  Öü   ˇuËY˚ˇˇ3¿È†   °pq 3ˆ9pLtjVjPˇ3¿Éˇî¿Pˇ Îkj ˇujÈÏ  ∏  3ˆ;¯á  Ñ·  ã«-  Ñ˜   jY+¡tnÉË	tG-·   ÖÛ  °pq 9pLtøUâU¯ãU¡Íø“âU¸VçU¯RQPˇˇuˇuWˇuˇ _^…¬ ãE¡Ë®uˆƒ(u∑EPË±E  Îœhˇ  ÎÚˇuˇ ã¯°pq 3ˆ9ptÉxXˇtj^Vã5 hÈ  Wˇ÷°pq ã@X@˜ÿ¿É‡PhË  Wˇ÷°pq ã@X@˜ÿ¿É‡PhÍ  Wˇ÷°pq ã@X@˜ÿ¿É‡Ph–  Wˇ÷ã}ÈFˇˇˇ∑EπÏ  ;¡]tA-Ë  t,HtHtHÖ#ˇˇˇËè@  ÈˇˇˇË√B  Èˇˇˇ3ˆVVj	Èë   j jËµ˙ˇˇÈˆ˛ˇˇj h`  h  ˇuˇ È‹˛ˇˇ=Ú  t\=–  t%=·ˇ  é√˛ˇˇ=‰ˇ  è∏˛ˇˇøEPËù˙ˇˇÈ©˛ˇˇjdjlçÖ0ˇˇˇPË„	  ˇ54s çÖ0ˇˇˇPh s ˇuˇº Èy˛ˇˇ3ˆVVj°pq Èf˛ˇˇˇuˇ °pq 9pLÖR˛ˇˇjYÈ.˛ˇˇã«-  Ñ≠   HÑê   Htr;=`q Ö'˛ˇˇãEHtHHt'HÖ˛ˇˇj h`  h  ˇ5<s ˇ 3¿@È˛ˇˇãEˇpˇpˇpˇpˇpˇ0ËˆF  ÈÈ˝ˇˇ∑s ∑s ¡‡¡È—˝ˇˇˇ  Ö¿Ö≥˝ˇˇ°pq jYÈä˝ˇˇ°pq 9pLjYÖï˝ˇˇÈt˝ˇˇˇ¸ jYÈ\˝ˇˇUçl$òÅÏ∞   ãEpSVWj2h,  h r £ls Ë•  hs hs ËpF  Ö¿Ñ•  h   3€SˇT SâETˇ‰ ã¯;˚ÑÉ  çE∏PWˇ| ãE∏ã5à £hs ãE–jW£s ˇ÷É¯u
+«hq    jWˇ÷j
+W£`s ˇ÷3…=,  ú¡£ds ã¡;√£åq t°s ô+¬—¯£s WSˇË °hq ˜ÿ¿%ˇˇ  Ä  P£Hs ˇÑ S£|s ˇ¸ ∑¿Pˇ  YYj
+jdh s Ë≤  j2jeh†r Ë§  jjgçEÙPËó  çEÙPˇP £`q ãExã»∑ 3ˆÎf=/ ufÉyItAAfãf;√uÈÎ3ˆFçELP«EL   «EP˝  ˇ0 øÙ  Wˇ5ls ˇL SjjjWˇ5ls £4s ˇH 9]tã–âr ua3¿jYç}Û´°ls âE0°4s âE4ãETâE8°|s âE<çEP«E0   «E    «E$Ω âUH«E@   «EDp ˇD fÖ¿Ñ∆   ãs jã¡k…ô_˜ˇjh  œ â]\â]XÉ¿£8s ç¡âE`°s ¡‡âEdçEXPˇ@ ãUdãE`+U\+EXãds ;—âE`âUd~âMdSˇ5ls ˜ﬁSSˇudˆPSh   ÄÅÊ    Å∆  œVh s hp Sˇ< ;√£<s t(çExPË˜ˇˇh+ h˙   hö  ˇ5<s ˇ8 Ö¿u	ËŒ  3¿Î|Ë~
+  ˇuxË”  ˇu|ˇ5<s ˇ4 ˇ5<s ˇ0 hL ˇupˇ, £dq 3¿9]tî¿PËΩ@  9 p tË>  É}|tÉ}|tShË  h  ˇ5<s ˇ 3¿@_^[É≈h…¬ UãÏÉÏˇ¨ ˇuPˇuˇuËs¸ˇˇÖ¿tVVã5d W«EÏ   3ˇÎ.çE‰Pˇ5dq ˇ5<s ˇ` Ö¿uçE‰Pˇ\ çE‰PˇX WWçE‰WPˇ÷Ö¿u≈9}Ï_ï¿^…¬ ãD$»   Pj@ˇ® ¬ ˇ%§ ˇt$ˇ5tq ˇh ¬ ãL$3¿fãfã–f¡ÍVt	%ˇ  ãÎã5p ˇ5Hs 3¿fÖ“î¿PãA+Äq Vˇ5s ˇ5s PãA+|q Pˇ5tq Ë6B  ^¬ QË"ÙˇˇÖ¿Ñ    ãD$SUãhVWã8jˇ5tq ˇp j UWˇ5tq âD$ ˇt °s ãx U«Pˇ5tq ˇ”ãt$°s Nât$Øt$$5s «ıVPˇ5tq ˇ”VWˇ5tq ˇ”UWˇ5tq ˇ”ãt$Öˆt(l$$j UWˇ5tq ˇt °s U«Pˇ5tq ˇ”Nuÿˇt$ˇ5tq ˇp ËãÛˇˇ_^][Y¬ V3ˆ95Ãq tæ   ÄãD$∑ fã»f¡Èt%ˇ  Î°p ˇ5Hs 3“fÖ…î¬÷RPˇ5s ãD$ãHˇ5s +Äq ã +|q QPˇ5tq ËÍ@  ^¬ ˇ5Hs ãD$ˇt$ãHˇt$+Äq ˇ5s ã ˇ5s +|q QPˇ5tq Ë™@  ¬ VWj ˇ5Äq ˇ5|q ˇ5tq ˇd ˇ5|s ã5h ˇ5tq ˇ÷ã¯Öˇt>ãD$ãL$ãT$h!  +»+Äq QãL$+—+|q RPQˇ5tq ˇl Wˇ5tq ˇ÷_^¬ UãÏÉÏËÚˇˇÖ¿t&çEPˇ5<s ˇ$ ˇu¸ˇu¯ˇuÙˇuËWˇˇˇË&Úˇˇ…√UãÏãMãA9E|'ãs ¬9E}ãA9E|ãs ¡9E}3¿@Î3¿]¬ UãÏÉÏˇuçEˇuPˇl …¬ ãT$ã
+ãD$âVã5s ŒâHãJâHãs  âH^¬ UãÏÉÏ çEPãEÉ¿PËΩˇˇˇˇuçEPçE‡Pˇl …¬ Vãt$Wˇvã=` ˇ6ˇt$ˇ◊Ö¿tˇvˇvˇt$ˇ◊Ö¿t3¿@Î3¿_^¬ ãD$ãL$ãT$Vã01â2ã@A^âB¬ UãÏÉÏVãuWç}Ù•••ãuã}•••ã}çuÙ•••_^…¬ ãL$ãT$fãfâAABBfÖ¿uÒçA˛¬ UãÏÉÏ(ãE3…Ö¿ú¡VãÒÖˆt˜ÿçMÿWj
+ô_˜ˇÉ¬0fâAAÖ¿uÓÖˆãUã¬_tf«- çBIIfã1fâ0@çuÿ@;ŒwÔfÉ  +¬—¯^…¬ j0h s ˇt$ˇ5<s ˇp ¬ ãD$;D$|ãD$¬ ãD$;D$ãD$¬ UãÏãE;E}ãEÎ;E~ãE]¬ h r Ëûˇˇˇ√hd Ëìˇˇˇ√ˇt$∑D$ˇt$Pˇ5ls ˇt ¬ UãÏÉÏDV3ˆVçE¸PVh?  VVVhå h  Äˇ  Ö¿t3¿Î6j ˇuçEºPË¶ˇˇˇjçEPjVçEºPˇu¸ˇ ˇu¸ã˜ﬁˆFˇ ã∆^…¬ UãÏÉÏHVW3ˇWçE¸PWh?  WWWhå h  Äˇ  Ö¿t ˇuã5† ˇ÷ã»ãEA;¡|ˇuˇ÷@ãuÎ[j ˇuçE∏PËˇˇˇ9}¸tYãuSçEPVçE¯PWçE∏Pˇu¸ˇ ˇu¸ãÿˇ ;ﬂ[uÉ}¯t(ã=† Vˇ◊ã»ãEA;¡|Vˇ◊@ã}ã»¡ÈÛ•ã»É·Û§3¿_@^…¬ UãÏÉÏLSã]V3ˆVçEPVh?  VVVhå h  Äâ]¸«EÙ   âu¯ˇ  Ö¿tã√ÎJj ˇuçE¥PËj˛ˇˇ9ut4WçEÙPçE¸PçE¯PVçE¥Pˇuˇ ˇuã¯ˇ ;˛_uÉ}¯tâ]¸ãE¸^[…¬ UãÏÅÏ   hÄ   ˇuçÖ ˇˇˇPË˛ˇˇj4h s çÖ ˇˇˇPˇ5<s ˇp É¯t	É¯t3¿Î3¿@…¬ UãÏÅÏ   hÄ   ˇuçÖ ˇˇˇPËø˝ˇˇçÖ ˇˇˇPËE˝ˇˇ…¬ Wã|$ÖˇtEãGdHx!SVçtálçXãÖ¿t
+j j jPˇPÉÓKuÍ^[;=pq uÉ%pq  çGPË∞0  WËï¯ˇˇ_¬ UãÏWˇuˇH ã¯ÖˇtEVˇuˇ5s ˇuˇå ãÖˆtVWˇh Ö¿ãMâuVˇÄ WˇX 3¿ÎãEâ83¿@^_]¬ ãD$SU3Ì;≈VW£àq tt9-§q Ñz  ˇ5¥q ã5h ˇ5∞q ˇ÷ã=Ä Pˇ◊ˇ5∞q ãX ˇ”ˇ5ºq ˇ5∏q ˇ÷Pˇ◊ˇ5∏q ˇ”ˇ5ƒq ˇ5¿q ˇ÷Pˇ◊ˇ5¿q ˇ”â-§q È  9-§q Ö  ˇ5<s ˇ‰ ã;ıÑø   °pq â-¨q ˇp`hºq h∏q VË‹˛ˇˇÖ¿uVˇ5<s ˇË Èã   °pq ˇp`hƒq h¿q VËÆ˛ˇˇÖ¿ã=Ä ãh ã-X t5°pq ˇp`h¥q h∞q VËÄ˛ˇˇÖ¿u[ˇ5ƒq ˇ5¿q ˇ”Pˇ◊ˇ5¿q ˇ’Vˇ5<s ˇË ˇ5ºq ˇ5∏q ˇ”Pˇ◊ˇ5∏q ˇ’3Ìh/  Ë≤˝ˇˇâ-àq â-§q 3¿ÎVˇ5<s «§q    ˇË 3¿@_^][¬ È·,  ãD$3…9L$âH$tâH0ÉHXˇÉH\ˇâH4âH@âHPâHTâH(âH,ã,p âH<3¿@¬ Vãt$3¿É~Xˇu?9F$t:@âF(âFLãD$;FdSWãÿ}"ç|Ülãj ˇt$jPˇP=ˇ  uCÉ«;^d|‚3¿_[^¬ â^X° p âFD°p âFHÉ=àq  uãD$ãâNDã@âFH3¿@Î SVãt$ãNX3€É˘ˇâ^LÑê   ãF\É¯ˇWã|éltlã\ÜlQPj
+Vˇj j jSˇSÉ|$ çFDt3€CSÎLj Pj
+WˇWh˝  WjSˇSÖ¿tWSjVˇÖ¿t3€CÎ3€ÉN\ˇj j jVˇÖ¿tj j jVˇÎjçFDPj
+WˇWj j jWˇW_ÉNXˇ^ã√[¬ SVWã|$3€9_d~çwlãSˇt$jPˇPÖ¿uCÉ∆;_d|Ê3¿_^[¬ 3¿@ÎıÉÏSUVW3ˇâ|$ãD$$9xdâ|$â|$é  çHlâL$j]9l$|É|$å‚   ãD$ã0ãF;«é√   çD@ˆDÜÄÑ¥   9~uj˛h¸  jVˇVjt[°pq ã<j VjWˇWÖ¿uÉ√EÅ˚Ñ   |ﬂÎ|ˇt$°pq Uj
+Pˇª˝  SVjWˇWÖ¿t3É=àq  uãFSHPjVˇVÖ¿t°pq VWjPˇÖ¿t
+«D$   ÎÉd$ °pq ˇD$j j jPˇÖ¿t°pq j j jPˇ3ˇWWjVˇVãD$$ˇD$ãL$ÉD$;HdåÙ˛ˇˇ9|$èŒ˛ˇˇãD$_^][Éƒ¬ UãÏSVãuãFXÉ¯ˇWÑô   ã]ãDÜlç~DWSjPˇPãâãCâG3ˇ9~d~*çFlâEãNXãEã SˇtéljPˇP=ˇ  u)ÉEG;~d|‹ãF\É¯ˇtDãDÜlj j jPˇPÉN\ˇ3¿@Î/ãF\;¯tÙÉ¯ˇtãDÜlj j jPˇPj j â~\ãtæljVˇVÎ3¿_^[]¬ UãÏQãESV3€SSˇ0ËKÁˇˇãu9^$âE¸t"9^d~Wç~lãj ˇujPˇPCÉ«;^d|Í3€_SSˇu¸ËÁˇˇ3¿^@[…¬ Vãt$W3ˇ9~u3¿Î_ãFWWâF0ãFjVâF@ˇãFãDÜljˇvjPˇPãFãDÜljˇv jPˇPãFãDÜlWWjPˇPãFãDÜlWWjPˇPWWjVˇ3¿@_^¬ ãT$Sã\$VãtölãFÉ¿ç@¡·ã¡¡ÈWãzÛ•ã»ãD$É·Û§ãtÇlãFãz É¿ç@¡·ã¡¡ÈÛ•ã»ãD$É·Û§ãJ0âB3¿_@Éz âJãJ@^âZâBâJ[tÉb IâJ¬ Sã\$Vãt$3…É~XˇWï¡j ç|ûlãQjPˇPÖ¿tâ^Pã?3€SSjWˇWH;√âFT}â^T_^[¬ Vãt$Wã~PÉˇˇu3ˇÉ|$ tN|$yã~dOÎ;~d|3ˇ;~Pt6ãDæl3…É~Xˇj ï¡QjPˇPÖ¿tŒÉ|$ tãFPãLælãDÜlã	ã ã	;t≤WVËMˇˇˇ_^¬ Vãt$ãFPãDÜlWj jjPˇPj ã¯ãFPãDÜlj jPˇPÖ¿u3ˇÎÖˇuçxˇÎçHˇ+«QPãFTD$PË,ıˇˇã¯ãFPãDÜlj WjPˇPÖ¿tâ~T_^¬ UãÏÉÏãEVW3ˇÉ¯$è∂   Ñß   É¯	ÑÖ   É¯t1É¯t!É¯ t'É¯#Ö¢   ãuãFdHPVËê˛ˇˇÈ˙   jj jÈ¢   ãuÉ~Xˇu0WVË(ˇˇˇãFPãDÜlçMQˇvTjPˇPWçEPjVˇÖ¿tRWWÈ∞   3ˇWWjVˇWWVË}˛ˇˇÈ  jjˇÄ 3…fÖ¿ù¡çL	ˇQÎ~ãuWÈyˇˇˇÉË%t]HtVHt>Ht.ÉËt3¿ÈÀ   jˇÄ fÖ¿ç∑   jj jãEPˇÈ¶   jãuVËÄ˛ˇˇÎ5jˇÄ 3…fÖ¿ú¡QjÎjˇÎ‹jˇÄ 3…fÖ¿ú¡QjˇãuVËÿ˝ˇˇãFPãDÜlçMQˇvTjPˇPãEâE¯ãEÙâE¸çE¯Pˇ5<s ˇ| É~Xˇt"ãFPãDÜlWWjPˇPÖ¿~ãFPãDÜlã ã@E¸ˇu¸ˇu¯ˇx 3¿@_^…¬ UãÏÅ=(p 0  tCÉ}¸t"É}˝tÉ}˛u1ãEãMâA0Î!ãEãMH0ÎVãuãF0Ej PË˝ÚˇˇâF0^Ëê,  3¿@]¬ ãD$É`, jhË˘ÙˇˇÖ¿tj hË  h  ˇ5<s ˇ 3¿@¬ UãÏãEÉ¯wˇ$Öﬂ1 ˇuˇuËä˜ˇˇÎ
+ˇuË)ıˇˇ3¿]¬ ˇuˇuËá˝ˇˇÎÔˇuˇuË˘ˇˇÎ‚ˇuˇuˇuËç˜ˇˇÎ“ˇuˇuˇuË˝˜ˇˇÎ¬ˇuˇuË'˙ˇˇÎµˇuˇuËï¯ˇˇÎ®ˇuˇuËƒ˙ˇˇÎõˇuË˚ˇˇÎëˇuˇuˇuËs˚ˇˇÎÅãEÉ` ÈsˇˇˇˇuËˇˇˇÈhˇˇˇË.ÚˇˇÈ\ˇˇˇ3¿@ÈVˇˇˇˇuˇuˇuËï˛ˇˇÈCˇˇˇ1 1 &1 @1 P1 `1 m1 z1  1 á1 ë1 °1  1 ≠1 ƒ1 Ã1  1  1 ∫1 31 UãÏj$ËﬁÏˇˇÖ¿t3ãMÉ` âãMâHãMâHãMâHãMâHãMâHãM âHãM$âH ]¬  UãÏVãuçDv	¡‡PËèÏˇˇÖ¿t9ãMÖ…âtãQâPãUÉ` É` Ö…âPãUâPãUâPãUâPâp tˇA^]¬ Vãt$Wã>É uÉ tˇvãD$ˇvã ˇvs PË8ÓˇˇÉ uÉ tˇvãD$ã@ˇvs PˇvËÓˇˇ_^¬ Vãt$ãÖ¿tˇHuˇ6ËÔÎˇˇVËÈÎˇˇ3¿@^¬ UãÏÉÏãESVãuWˇpˇ0çFPˇÑ Ö¿t=ãFÖ¿t6çxˇ;}â}|+çD	çÜˆCÄtãEˇpˇ0SËHÓˇˇÖ¿uOÉÎ;}â}}‹∏ˇ  _^[…¬ ãF+«£òq çã|Ü(ã\Ü,ãEãœ+âúq ãÀ+HÉ=àq  â†q Ö,  ˇ5<s ˇ‰ ã»Ö…âMuËŸÔˇˇÎûãòq â¨q ãã@JØ¬s ãs £®q √âE¸çEP◊Qâ}âU¯â]ÙËCÓˇˇÖ¿t-h  Ã SWˇuˇ5®q ˇ5s j j ˇ5∞q ˇD °xq ÎJ°xq SWˇ5∞q âE«xq    ËﬂˇˇˇvâEˇvSWËÜÏˇˇˇvˇujVˇVj j ˇuËÂﬁˇˇãESWˇ5∏q âE«xq    Ë»ﬁˇˇˇvâEˇvSWËAÏˇˇã}W3€SËπÓˇˇPçGˇPjVˇVSSˇuËóﬁˇˇãE£xq Îã}«Fîq â=îq ã«È|˛ˇˇUãÏS3€9]Wã}tSSjWˇW9àq tãEã; p txh p PjWˇWÎjVãw;Ûta9^t\ãEã; p t)ãVPãFh  Ã SSˇv$¡ˇvˇ5s RPˇvˇD 9]tãh˝  HPjWˇWˇvˇ5<s ˇË â^^3¿_@[]¬ UãÏQãMãAÖ¿tgãã@SVçtR	ç4±Wã}ç@¡·ãŸ¡ÈÉ«$âu¸Û•ãÀã]É·Û§ãMâAãK+»+ Ö…~!ã}¸çI¡·çTçRç4ìã—¡ÈÛ•ã É·Û§)C_^[3¿@…¬ UãÏãESã]VWã}Åˇ˝  uãPÎ.ãSçRçT:¡·â}çt	çRç<êã—¡Èç4∞Û•ã ãUÉ·Û§ãKçI¡·çTR	ç<êã—¡Èçs$Û•ã É·Û§ãKHÉc _3¿^@[]¬ UãÏQQãEÅeˇ  %    VãuâE¸ãFÖ¿u@È    ã SWj HPË¶Ïˇˇã]ø˝  9}âE¯uãCÎãEâEãFˇp3¿PPPPPË8˚ˇˇÖ¿âEÑÉ   j PjVˇVÖ¿tjˇuˇujSˇSÖ¿tZj ˇujSˇSÖ¿tK3¿9E¸tPPjVˇVÖ¿t8É=àq  tWˇu¯jVˇVÖ¿t!WˇujSˇSÖ¿tj j jVˇVÖ¿t3ˆFÎ3ˆˇuËdÁˇˇã∆_[^…¬ UãÏÉ} VWt$ãuãFÉ¿ç@ãE¡·ã—¡Èã¯Û•ã É·Û§Î+ãUãBç@ãE¡·SãŸ¡Èçr$çx$Û•ãÀÉ·Û§ãJâH[h˝  j jPˇP_^]¬ UãÏSj ˇuËiÎˇˇãÿâ]Ëx€ˇˇÖ¿Ñ≠   VãuãFÖ¿Wã}tUÖˇtQWPË,Îˇˇ;ÿãÀâEâM}SçD[	çÜãE;MtãK;HuãK;HuˆCÄtSËñÊˇˇãMAã√É√;MâM|ŒÎˇvˇvˇvˇvË^ËˇˇÖˇu*°pq Éx$ uãÉ8uãEH˜ﬂˇ#¯ççDÜ(PVË…˘ˇˇËˇ⁄ˇˇ3¿_@^[]¬ UãÏãEÖ¿VãuWu3ˇh˝  WjVˇV_^]¬ É¿PâEçFPËŸËˇˇÖ¿t+ãF3ˇÖ¿t—~Sç^$ˇuSËÈˇˇÖ¿u	GÉ√;~|Í[;~uØ3¿Î∑UãÏÉÏãEVãpÖˆÑW  SWçEÙPç^SˇuË(Èˇˇã}ã; p tçEÏPSWËÈˇˇ3“9àq t9ãEãˇsçEÙRˇvPË“Âˇˇã; p Ñ˛   ˇsçEÏj ˇvPË≥ÂˇˇÈË   ãNãF,ãD h  Ã ˇu¯âMˇuÙâE¸Qˇvˇ5s RRPˇ”ã; p tPãMã+y+h  Ã j j ˇv$âE‰ˇvˇ5s WPˇu¸ˇ”ãE‰h  Ã j j ˇv˜ﬂˇv˜ÿˇ5s WPˇv$ˇ”ã}h  Ã j j ˇvˇvˇ5s ˇu¯ˇuÙˇuˇ”ã; p t h  Ã j j ˇv$ˇvˇ5s ˇuˇuÏˇuˇ”ãF$ãN,âN$ãN0âF,ãF(âN(âF0_[3¿@^…¬ UãÏQQãEÖ¿ãMVWuãQãyâU¸ÎHÉ=êq  ç@ã|ë(ãTë,âU¸t@;Aã1âE}bçD@	çÅâESˆ@ÄãU¸âxâPtÉ} uãEã^ô˜˚K;”u~ãFÎãEã^ ô˜˚K;”u	~ãFE¸ˇEãEãUÉ¿;QâE|™[3¿_@^…¬ UãÏÉÏãEããs ã@—âMãs »âEÙçEPâU¯âM¸Ëk„ˇˇ…¬ UãÏÉÏWã}ãGÖ¿u@ÎNVçMQÉ¿PˇuË’ÊˇˇãEãs ãu»ãEÙâM¯ãs »ãFÖ¿âM¸uçFPçEPË˘ÂˇˇÖ¿u∏ˇ  ^_…¬ çMçD@QçÜPË ÊˇˇÎﬁj WjVˇVÖ¿t’ãFÎ’ãT$É%†q  É%úq  Å˙¸  ãL$u ãAÖ¿~H£îq «òq    Î ∏ˇ  Î%ãD$É¯˛uãA+¬âîq £òq «Aîq °îq ¬ ãT$ãBÖ¿t5ãã@¡;»}*Vãt$Wç|I	¡Êç∫+¡3…fã
+Å·ˇˇˇŒfâ
+É¬HuÍ_^3¿@¬ Vãt$ãFÖ¿t;ãWãxã«ô+¬—¯¡;»}'çTI	SçñçTçR+¡ç4ñã¯VSË¶ÂˇˇÉ√ÉÓOu[_3¿@^¬ É=àq  t+Ëo÷ˇˇÖ¿t%ãL$ãAÖ¿~	ç@çDÅÎçAPË˛ˇˇËÄ÷ˇˇ3¿@¬ É|$ t*ãT$ãBçHˇÖ…|VçtI	ç≤^ˆBÄtIÉÍÖ…}Ú+¡HÎãD$ã@¬ ãD$Ö¿ãL$uÉ¡Îç@çLÅ(°s ô+¬ã–ãD$—˙âãIâH3¿@¬ UãÏÉÏSã]ãCVW«E¯   Ée¸ Ö¿~AçC$âEˇ¯ ô˜{ãuç}Ï•••ã}ÉEÉ¬ˇE¸çRçÉã•••ã¯çuÏ•••ãC9E¸|≈ˇM¯u≤_3¿^@[…¬ UãÏQQãEãHÖ…tOãQ4É˙#Vçrâq4^|?ãHÉa4 ãMâM¯ãMâM¸ãpq É¡DQçM¯QjPˇPãE¯ãpq âADãE¸ãpq âAH…¬ °pq ã@D; p t=Vãt$ãFÖ¿t0ãçIãLñ(ãTñ,+P+HÉ`4 °pq Vhl> RQˇpHˇpDˇ@ ^3¿@¬ UãÏãEHÉ¯áW  ˇ$Öé@ ˇuËÊÛˇˇÈE  ãEÉ` É` 3¿@È2  ˇuˇuˇuË‰ÛˇˇÈ  ˇuˇuˇuËπıˇˇÈ  ˇuˇuˇuËÀ¸ˇˇÈ˘   ãEÉ` Î∂ˇuˇuËÊ˝ˇˇÈ‡   ˇuˇuË˝ˇˇÈ–   ˇuËA˝ˇˇÈ√   ˇuˇuËˆˇˇÈ≥   ˇuˇuˇuËvˆˇˇÈ†   ˇuˇuˇuË‚ˆˇˇÈç   ˇuˇuˇuË∆˜ˇˇÎ}ˇuˇuˇuË∞˚ˇˇÎmˇuˇuˇuË¯ˇˇÎ]ˇuˇuËÿ¯ˇˇÎPˇuˇuˇuË.˘ˇˇÎ@ˇuˇuˇuËí˙ˇˇÎ0ˇuËÔ¸ˇˇÎ&ˇuˇuˇuËT˝ˇˇÎˇuËÇ˝ˇˇÎˇuËH˛ˇˇÎ3¿]¬ P? 8? E? ö? X? ~? ë? ™? ∫? k? à@ «? ◊? Í? ˝? à@ @ @ -@ :@ J@ Z@ d@ P? P? t@ à@ ~@ UãÏÉÏ °pq SVWâE‰É¿ljâE‡ã–_ã3…3ˆ9H ~ãXçIçLà()F∑Œ;H |ÎÉ¬Ou⁄ã=8s jdjˇ5s â}Ëˇú Ée¸ ãMãu‡ã]‡âEÏÎãEÏãU¸ÉÍ ÑÇ   JtfJtMÉÍÖê   ãs °s ç48ã¡¡‡ôâ}j_˜ˇCâ]¯j[ã¯ã¡ô˜˚+=åq çxã}Ëç@çA]¯ãMÎL°s ç@çπçt«âEÙÎ6°s ç8k¿ jô^˜˛çtÎãs ÉeÙ çt:
+ãs ãœâE¯ç\ãU¸ãE‰ãDêlãU¯âHMÙâpuÙˇE¸É}¸âPâXå&ˇˇˇãU‡j_ã3ˆ9p ~3…ãXçIçLà(F∑Œ;H |ÎÉ¬Ou⁄_3¿^@[…√ãL$ãAã É¿ç@∑Å∫ˇ  #¬Vã¡˛É‡É˛uãL$3¿9Aî¿Î<Sã\$ãKÖ…t-çLIfããÑÌy!# ã—É‚ã⁄3ÿÉ˚};¬tF¡˘;Òu3¿@Î3¿[^¬ Sã\$Vãt$ãFW3ˇ;«~vçD@çÜˆ@Äuiˇsˇ3PË∆ﬁˇˇÖ¿tZ°pq WWjPˇjh¸  jVˇVWjjVˇVãFWHPjVˇVãFh˝  HPjVˇV°pq WjjPˇWWjVˇV∏ˇ  Îˇt$SjVËõ˚ˇˇ_^[¬ UãÏQÉe¸ VãuãFÖ¿~kçD@çÜˆ@Ät^ãMˇqˇ1PË'ﬁˇˇÖ¿tLÉ~ uj˛h¸  jVˇVSWjt«E   [°pq ã<j VjWˇWÖ¿u ˇEÉ√Å˚Ñ   |›PPjVˇV_[ãE¸^…¬ ˇu°pq ˇuj
+Pˇª˝  SVjWˇWÖ¿t4É=àq  uãFSHPjVˇVÖ¿t°pq VWjPˇÖ¿t«E¸   3ˆÎ3ˆâu¸°pq VVjPˇÖ¿tå°pq VVjPˇÈ{ˇˇˇUãÏãEÉ¯t8É¯t#É¯tˇuˇuPˇuËp˙ˇˇÎ+ˇuˇuËª˝ˇˇÎˇuˇuˇuËæ˛ˇˇÎˇuˇuˇuË˛ˇˇ]¬ Vãt$É~ tÉ|$ tˇt$ˇt$jVË˙ˇˇÎ'Ë√ŒˇˇÖ¿tWjj ç~WË’€ˇˇWVË¶ÌˇˇË‹Œˇˇ3¿@_^¬ ãL$ãQÉzãt3¿ÎPçD@	S3€fãÅVãt$ãN∫ˇ  ã√¡Ë#¬Ö…u	Ö¿î¡ã¡Î"çLI∑éãÒ¡Ó#ÚF;∆u2Àˆ¡u3¿@Î3¿^[¬ UãÏãEÉËtHHt]Èu˘ˇˇˇuˇuˇuË(ˇˇˇÎˇuˇuËjˇˇˇ]¬ SVãt$Wj43“çF$_fãf3 fÅ·ˇf1ã^fãâXã^fÅ·ˇâXfâBÉ¿;◊|”â~3ˇWWjVˇVWWjVˇV_3¿^@[¬ UãÏÉÏVãuãFÖ¿u*çEPÉ∆VËÛ€ˇˇãEˇpˇ0çEPˇÑ ˜ÿ¿ˇ  ÎzãMˇqçD@ˇ1çÜPËl€ˇˇÖ¿u∏ˇ  ÎZSWã=Ä jˇ◊3€jfãÿˇ◊j#ÿˇ◊_#ÿfÖ€[}3¿@Î°pq ã@<ãNj +»QË˜‹ˇˇ£îq ãN+»âòq «Fîq °îq ^…¬ UãÏ°pq S3€9X$VãuuãFj
+ôY˜˘É˙	t3¿@È  Ë¿ÃˇˇÖ¿Ñ  9^WuBÅ=(p /  u°,p ãpq H9A@ujÎjXPSç~WËßŸˇˇWVËxÎˇˇ«E   È∂   ˇuˇujVËµ˜ˇˇâEãF9EtÅ}˝  Öê   9åq ÖÑ   ãs ˇ5Hs ã< ç@çÜãHã@ ç|ˇãs çtˇã∆+Äq Pã«+|q Pˇ5tq ˇ”ˇ5Hs ã∆+Äq Pã«+|q HPˇ5tq ˇ”ˇ5Hs +5Äq +=|q NVWˇ5tq ˇ”ËÏÀˇˇãE_^[]¬ UãÏãMÉ˘Et3ã¡Ht$ÉËtÉËtmHuD∏ˇ  ÎeˇuˇuˇuËŒ˝ˇˇÎUˇuËj˝ˇˇÎKˇuˇuˇuËn˛ˇˇÎ;ã¡ÉËt2ÉËt3HtHHtˇuˇuQˇuËåˆˇˇÎ3¿@ÎãEã@Ö¿tÒH9EtÎ3¿]¬ 3¿9Eî¿ÎÚˇt$ˇt$jˇt$ËRˆˇˇ¬ Vãt$ãFjÉËPj ËŒ⁄ˇˇPjVˇVˇt$«êq    ˇt$jVËˆˇˇÉ%êq  ^¬ Vãt$ãFHPj Ëë⁄ˇˇPˇt$jVËıˇˇ^¬ UãÏSˇuã]ˇujSË◊ıˇˇÖ¿thË{ ˇˇÖ¿tZãVãsNâExHçvWç|É(Îã]ãCHH;|1ããO°s QçRãUãRçR+ QãM+A√PËè◊ˇˇNÉÔÖˆ}√_ËU ˇˇ^3¿@Î3¿[]¬ UãÏãMÉ˘_tVã¡ÉËt?ÉËt*HtHHuYˇuˇuˇuËÁ˛ˇˇÈà   ˇuˇuˇuËæ˛ˇˇÎxˇuˇuˇuË~˘ˇˇÎhˇuˇuˇuËı˛ˇˇÎX∏ˇ  ÎQã¡ÉËt<ÉËt-HtˇuˇuQˇuË‹ÙˇˇÎ1ãEã@Ö¿t
+H9Et3¿Î3¿@Î3¿9Eî¿ÎˇuˇuˇuËΩ˛ˇˇ]¬ UãÏÉÏËG…ˇˇÖ¿uËRŸˇˇ3¿ÈB  SVWË◊ˇˇãu3€9^dâ]¸~ç~lãSSjPˇPˇE¸ãE¸É«;Fd|Ëã~lSSjWˇWSSjVˇÅ=(p /  u9Ñq t	9]u3¿Î3¿@SPSVˇhˇ  ËÖ  SjjV«F$   ˇª˝  Sj jWˇWÉf$ çFtâE«E   ãEã Sj jPˇPÉEˇMuÈÉe çÜÑ   âE¯ãEÉ¯âE¸}NãE¯âEj h¸  jWˇWâEÙãE9E¸u
+j jjWˇWãEã SWjPˇPãEÙSHPjWˇWˇE¸ÉEÉ}¸|∏ˇEÉE¯É}|öj VË ·ˇˇ3ˇGâ~$Ë1»ˇˇã«_^[…¬ SUVãt$É~XˇWÖ»   É~$ Ñæ   ãFlj ˇt$jPˇPΩˇ  ;≈Ñ˘   =˛  ã~lã^p«F(   j Öë   j jSˇSÖ¿t|Å=(p /  u°,p H9F@teˇF@3¿j @Pj
+VâFˇÖ¿tNj˛j jSˇS;≈t@3ÌUUjSˇSÖ¿t4UUj	SˇSÖ¿t(SWjVˇÖ¿tæ˝  VSjWˇWÖ¿tVUjSˇSÎP3Ì3¿_^][¬ ãGã(jj
+VMˇÖ¿tÊ3ˆVjjWˇWÖ¿t◊VVj	WˇWÖ¿tÀæ˝  VWjSˇSÖ¿t∫VUjWˇWÖ¿tÆ3¿@Î´jˇt$jVË›„ˇˇÎõãD$jYÉ¿tãÉzuAÉ¿É˘|Ô3¿@¬ 3¿Î˘UãÏÉÏWhˇ  j3ˇWWWˇå Ö¿t3¿ÈÅ   Vã5à WWWˇ5<s çE‰Pˇ÷Ö¿tdãMË∏  ;»wt\ã¡-°   tSÉËtNÉËtIÉËYÎã¡-  t;-‚   t4ÉËt/ÉËt*jWWˇ5<s çE‰Pˇ÷çE‰Pˇ\ çE‰PˇX 3¿^_…√3¿@Î˜Uçl$åÅÏÿ   °pq SVW3ˇWj3ˆjFPâ5Ãq ˇã]|â{â{$âs,Å=(p .  âEpu3jTjkçEúPË∫’ˇˇˇupãç|uúWËﬁ‘ˇˇçGf«  AAf«  AAçDÎçMú3¿É¯TsjTZ+–RjjQË|’ˇˇçEúPËh  ËD≈ˇˇÖ¿Ñ˙   çEDPˇ5<s ˇ$ ãELâE\ãEP+s «E|¥   âE`çCt«Ep   âEdã5¯ ˇ÷ôjnY˜˘ã¬ÉËAâETô3¬+¬É¯}«ETÏˇˇˇˇ÷ôjnY˜˘ãEdã0ã˙ÉÔKu|ãFâEhãNâMlÎJ;E\}QçEhPVËa—ˇˇãETôj
+Y˜˘Ehã«ô˜˘É«ElãEl;E`~Öˇ~ã«˜ÿ¡‡ô˜˘ã¯ËÓ˝ˇˇÖ¿u.ãEhãs ˜Ÿ;¡™ˇEpÉEdÉ}påOˇˇˇÉm|É}|$ç4ˇˇˇËyƒˇˇhˇ  Ë¯  Ë“ˇˇ3¿PPjS£Ãq ËM·ˇˇ_^[É≈t…¬ UãÏQQSVWã}3€9_d~çwlãj j jPˇPCÉ∆;_d|Î«E¸   çwtÉe¯ «E$   ãã]¯ãU¸ãEÉE¡É¬˛¡„”f3fÅ‚ˇf1ãYfãfÅ  ÄˇE¯Å}¿   âXãIâHfâ|πãˇE¸jXÉ∆É}¸âA|öj j PWˇ_^[…¬ Å=(p 0  tNãD$ã ããD$ã ã É ˇHt$jZ+¬tHu.+ tIu'jZÎjÎ˘+ t+ uÎÉ˘u3“BãD$j RjPˇ3¿@¬ UãÏVãuÖˆ}ˇuVjˇuË!‡ˇˇÈß   Sã]Wã=(p ã«-.  tHt3¿@ÈÜ   ∫Tp Î\É˛∫4p u*É=$p  tIã]ãK4É˘x|∏ N  ¡˘ô˜˘ãkˆ#Î/3ˆÎ+3¿@;u!ã,p ;»uã]9C@|2jú^ÎÉ˘u(9K@~#ã4≤3¿Åˇ/  î¿VÉ¿¸PjSËﬂˇˇÉ}uã∆_[^]¬ VW3ˇ9=$p tQãt$9~$tH9~(tC9=lq u;ãF4h˛  @PËÍ—ˇˇÉ~XˇâF4uãNlWPjQˇQãN8;œtãF4ô˜˘Ö“uWWjVˇ3¿_^¬ ãF4É‡˜–Ö¿tËS  3¿@ÎÂUçl$êÅÏ¿   SVWh» 3ˆVVVVjVVVhº  VVVjHjZˇ5tq ˇà Pj	ˇú ˜ÿPˇT Pˇ5tq âETˇh 95$p âEPç]∞tMjPjfçE∞PËÇ—ˇˇç|E∞ãExã@4¡¯PWË°–ˇˇçGçE∞;ÿt"h"  ˇu|çM∞ã√+¡—¯PçE∞Pˇ5tq ˇê Å=(p 0  Ñ≤  ãu|ç}`•çEXPçE∞+ÿ•—˚SãP çE∞•Pˇ5tq •ˇ”ãEX)Ehã}x3¿9G0çu∞ú¿Ö¿âE|t	f«E∞- çu≤Å=(p /  u&ˆ@s uVhps Ë‹œˇˇÉ=@s ãuf«  FFÉ}| ãG0t˜ÿPVË’œˇˇÅ=(p /  ç4Fu"°@s ®tÉ¯uf«  FFVhps Ëâœˇˇãf«  F3¿F9hq u
+9E|t∏ˇ   ã=8 Pˇ5tq ˇ◊âE|çE∞+h"  çE`P—˛VçE∞Pˇ5tq âuxã5ê ˇ÷ˇu|ˇ5tq ˇ◊çEXPˇuxçE∞Pˇ5tq ˇ”ãEX)EhçE∞Ph†r ËœˇˇçM∞+¡ã¯h"  çE`P—ˇWçE∞Pˇ5tq ˇ÷çEXPWçE∞Pˇ5tq ˇ”ãEh+EXãs ¡·ã—ã»+ ãUl+Udh!  RâEh+¡PˇudâM`Qˇ5tq ˇl 3ˆˇuPˇ5tq ˇh 9uT_^[t	ˇuTˇÄ 3¿@É≈p…¬ UãÏãMÉ˘zthã¡ÉËtTÉËt6HHt"ÉËtHupˇuË!˘ˇˇÈ©   ˇuËB¯ˇˇÈú   ˇuˇuËêıˇˇÈå   ˇuˇujˇuË¯€ˇˇÖ¿t3¿@ÎsˇuˇuË»ˆˇˇÎfˇuˇuˇuË:˚ˇˇÎVã¡ÉËtAHt1HtHtˇuˇuQˇuË≥€ˇˇÎ5ˇuËf˙ˇˇÎ+ˇuˇuˇuË)¸ˇˇÎˇuˇuËñ¸ˇˇÎˇuˇuˇuËB˚ˇˇ]¬ QSWˇ5pq Ë∫–ˇˇh†   Ë~…ˇˇã¯3€;˚£pq u3¿È/  UVSjSW«¢T Ë„˛ˇˇçGP«Gh   «G8(   Ë$  Ö¿Ñ  9_hâ\$éÏ   ãt$ãl$ãD$+√Ñë   HthHtKÉËÖù   ã5s jYã∆¡‡ô˜˘j]jjã»ã∆ô˜˝+åq çIçñâW`PSQShçD jË„€ˇˇjÎXjjSSjjhóE jË…€ˇˇjÎ>°s jYô˜˘j
+jjjjPhΩI jË£€ˇˇjÎj
+jjjSSh#H jËâ€ˇˇj4ã];Ût7USSSSVË∫€ˇˇ;√ãL$âDèltˇGdA;OhâL$åˇˇˇ3¿@^]_[Y√VËF»ˇˇË˜Ãˇˇˇ5pq ËSœˇˇ3¿Î‡ãD$SUV3ÌçpWâ(3€ã˛j4UUUUUË[€ˇˇ;≈âtCÉ«É˚|Â3¿@_^][¬ ;›tˇ6ËÔ«ˇˇ3¿ÎÍVãt$WjÉ∆_ˇ6Ëÿ«ˇˇÉ∆OuÛ_^¬ UãÏãEÉËSSVWÑå  ÉË(Ñr  -ï   Ñù  HÖº   ∑MÉ˘ã]Ñ≥   É˘Ñ^  Å˘+  éó   æ-  ;Œ~e∏0  ;»èÅ   QPh.  Sâ‘q ˇ® ã=§ 3¿É∆95‘q î¿Ph4  Sˇ◊ã† Pˇ”3¿95‘q î¿Ph6  ˇuˇ◊Pˇ”Èˆ  3“∏,  f9EQï¬VPˇuçTâÿq ˇ® ÈÕ  3¿È…  ã5ú h2  S3ˇˇ÷∑ p ;¡tÉ5 p tË  ÎË~  °ÿq ;,p t£,p Ë–ˇˇËcËˇˇ3ˇGh1  Sˇ÷∑$p ;¡t	3ˇG1=$p °‘q 9(p t3ˇ£(p Gh3  Sˇ÷ãàq ∑—;¬t	ÉÒQËŒˇˇh4  Sˇ÷j£Ñq Ë#ΩˇˇÎã}3¿@f9EuÖˇu3¿PSˇ ÈÛ   °(p ã}ã5® Ph0  h.  W£‘q ˇ÷°,p 3…É¯ï¡£ÿq ∏,  »Qh-  PWˇ÷∑ p ã5ò Ph2  Wˇ÷∑$p Ph1  Wˇ÷∑àq Ph3  Wˇ÷∑Ñq Pª4  SWˇ÷3¿æ/  95(p î¿PSã§ Wˇ”Pˇ† 3¿95(p î¿Ph6  Wˇ”Pˇ† Î)hxp j
+h‰ ˇuÎãEhxp jh‰ ˇpˇî 3¿@_^[]¬ j h_W ˇ5<s jgˇ5ls ˇ¨ Ö¿t	jjË!∫ˇˇ√UãÏÉÏ3¿9ESî¿çD Pˇÿ PˇÑ ãÿÖ€t@VãuWç}•••SçEPˇu•ã5¥ ˇ÷jˇjˇçEPˇ∞ SçEPˇuˇ÷SˇÄ 3¿_@^[…¬ UãÏÉÏ ãEÉË+Ñ¸   HÑŸ   ÉË'Ñº   ÉË(Ñô   -ï   trHt3¿Èi  ãEã»¡ÈfÖ…uf=6 rf=A w
+£–q ÈC  fÉ˘uf=6 r	f=A w3¿@∑¿HtHtÈ   ˇ5–q ËπˇˇjË‹∫ˇˇj ˇuˇ È˛   °p Pˇu£–q ˇ§ Pˇƒ Èqˇˇˇh–p j
+h‰ ˇuˇî Èƒ   ãEh–p jh‰ ˇpÎ·ãE«    «@    «@6   Èî   Sã]VWçCPçE‡PˇÃ çu‡ç}••j˝•j˝çEP•ˇ∞ ãCÉ¯ãsu(j PˇsãE¸+EÙPãE¯+EPˇuÙˇuVËø  ãCÉ‡Î'É¯uçEPVˇh É{uãCÉ‡t	ãKâ–q PçE‡PVËı˝ˇˇ_^[3¿@…¬ j h¥Z ˇ5<s jeˇ5ls ˇ¨ √UãÏÉÏ°hs É¿V£‹q çEPˇ5<s ˇ$ ãMãu¯°‹q 3“Rˇ5ls +ÒRˇ5<s FPFVãu¸+FVIQh Ä@hÙ h8q Rˇ< jP£‡q ˇ4 ˇ5‡q ˇ0 3¿@^…√°‡q Ö¿tPˇ‘ É%‡q  3¿@√UãÏÉÏÉ=pq  t(°‡q Ö¿tçMQPˇ$ Ém¯j çEP°pq jPˇ…√°‡q Ö¿t9VPˇ‰ ãÖˆt*Wj j VË5∂ˇˇã¯Ëûˇˇˇj j WË$∂ˇˇVˇ5‡q ˇË _^√UãÏÉÏÉ=‡q  tHçEPˇ5<s ˇ$ ãMãU¯°‹q +—jBBPRãU¸+–BRIQˇ5‡q ˇ– jj ˇ5‡q ˇÏ …√UãÏÉÏ°‡q V3ˆ;∆ÑÜ   WPˇ‰ ã¯;˛twSVVWËéµˇˇãÿçEPˇ5‡q ˇ$ ãE¸+EÙh!  PãE¯+EPˇuÙˇuˇ5tq ˇl ˇuˇ† PˇuVjˇ5tq ˇ\ Ë¶˛ˇˇVVSË.µˇˇWˇ5‡q ˇË [_^…¬ UãÏÉÏxÅ}ˇ  tj<ˇuçEàPËM≈ˇˇÎfÉeà çEàPË2ˇˇˇ…¬ UãÏÉÏ@É}tˇuˇuˇuˇuˇ Î;WçE¿Pˇuˇ‡ j j ˇu¿ËØ¥ˇˇã¯Ë˛ˇˇj j WËû¥ˇˇçE¿Pˇuˇ‹ 3¿_…¬ UãÏÉÏ(V3ˆ9utQ°ls h   Vâuÿ«E‹ø^ âu‰âu‡âEËâuÏˇT VâEˇL âEÙçEÿPâu¯«E¸8q ˇ» fÖ¿u3¿Î3¿@^…¬ jph¯ Ëﬂ  3€Sã=ò ˇ◊fÅ8MZuãH<»Å9PE  u∑A=  t=  tâ]‰Î'ÉπÑ   vÚ3¿9ô¯   ÎÉytv‚3¿9ôË   ï¿âE‰â]¸jˇƒ YÉÄs ˇÉÑs ˇˇ» ãq âˇÃ ãÏq â°– ã £às Ë5  9Dq uhja ˇ‘ YË
+  h h Ëı   °Ëq âE‡çE‡Pˇ5‰q çE‹PçEÿPçE‘Pˇ‹ âE–h h Ëø   Éƒ$°‡ ã0âuÃÄ>"u:FâuÃä:√t<"uÚÄ>"uFâuÃä:√t< vÚâ]¥çEàPˇî ˆE¥t∑E∏ÎÄ> vÿFâuÃÎıj
+XPVSSˇ◊PË•ΩˇˇãâuÑ9]‰uVˇ‰ ˇË Î-ãEÏãã	âMÄPQË)   YY√ãeËãuÄÉ}‰ uVˇ ˇÙ ÉM¸ˇã∆Ë_   √Ãˇ%Ï ˇ%ÿ h   h   ËS   YY√3¿√ÃÃÃh¿a d°    Pdâ%    ãD$âl$çl$+‡SVWãE¯âeËPãE¸«E¸ˇˇˇˇâE¯√ãMdâ    Y_^[…Q√ˇ%¿ ˇ%º ˇ%( ˇ%$ ˇ%  ˇ% UãÏÅÏ  ã¯q VÖ…uI9 r uAçÖ¸˛ˇˇPËq   ã5¥ Ö¿tçÖ¸˛ˇˇPˇ÷£¯q ã¯q Ö…uh ˇ÷ã»Ö…â¯q t°r Ö¿u jQˇ∞ Ö¿£r u« r    3¿Îˇuˇuˇuˇuˇ–^…¬ UãÏQQçE¸V3ˆPh  Vh h   Äˇ Ö¿u2çE¯«E¯  PˇuVVhT ˇu¸ˇ Ö¿uj^ˇu¸ˇ ã∆Î3¿^…¬ ÃÃHe  ˇˇˇˇˇˇˇˇXf  º  åc  ˇˇˇˇˇˇˇˇÃf      d  ˇˇˇˇˇˇˇˇBg  î  ƒc  ˇˇˇˇˇˇˇˇúh  8  Pd  ˇˇˇˇˇˇˇˇfl  ƒ  ®c  ˇˇˇˇˇˇˇˇûl    Hd  ˇˇˇˇˇˇˇˇ∂l  º  ºc  ˇˇˇˇˇˇˇˇ⁄l  0                      ¶f  ∏f  ¸l  Ël  îf  Üf      êl  Ül  |l  rl      ¬l      Hh  <h  2h  (h  h  äh  Xh  ph  Ïg  ~h  ‡g  –g  ¿g  ∂g  ¨g  †g  ñg  Ñg  Pg  `g  tg  ¯g      0g  g  g  g  ˙f  Ïf  ⁄f  m  m      ®l      *l  Tl  l  Fl  6l  l  ¶h  ≤h  ¿h  »h  ‘h  Êh  Úh  i  i  &i  4i  Bi  Ri  di  ni  Äi  éi  †i  ¨i  ºi  »i  ‹i  Ïi  ˙i  j  j  ,j  @j  Nj  Zj  tj  Çj  ñj  ™j  ¬j  –j  ﬁj  Ój  ¸j  
+k  k  ,k  :k  Fk  Vk  rk  ~k  äk  úk  ≤k  ¬k  –k  ‰k  ˆk  l      rf  df  Ff  8f  (f  f  f  ¯e  Ëe  ﬁe  ÷e  Ãe  æe  ∂e  ¨e  §e  úe  îe      ˙srand time  Ïrand  ≈ _c_exit ˆ _exit N _XcptFilter » _cexit  èexit  ® _acmdln m __getmainargs :_initterm ö __setusermatherr  ∂ _adjust_fdiv  Ä __p__commode  Ö __p__fmode  ò __set_app_type  msvcrt.dll  ÷ _controlfp  Ì _except_handler3  »RegCloseKey ˘RegSetValueExW  ÕRegCreateKeyExW ÏRegQueryValueExW  ADVAPI32.dll  ˛ GetCommandLineW 4LocalAlloc  8LocalFree ülstrlenW  PMulDiv  gGetModuleHandleA  úGetStartupInfoA KERNEL32.dll  è DeleteObject  P CreateSolidBrush  kGetDeviceCaps ΩGetTextMetricsW ÀLineTo  œMoveToEx  3SetROP2 €PatBlt  SelectObject  SetBrushOrgEx ÔPtVisible å DeleteDC  , CreateCompatibleBitmap  - CreateCompatibleDC   BitBlt   LineDDA /SetPixel  :SetTextColor  µGetTextExtentPoint32W > CreateFontW MTextOutW  •GetStockObject  GDI32.dll » EndPaint   BeginPaint  GetDC *ReleaseDC ìInvalidateRect  ∆ EndDialog GetDesktopWindow  »LoadStringA )ReleaseCapture  Û GetCapture  DSetCapture   PostMessageW  ¬ EnableMenuItem  ,GetMenu è DefWindowProcW  éShowCursor  PostQuitMessage ≤KillTimer ˇ GetClientRect ¶IsIconic  ¥LoadAcceleratorsW ªUpdateWindow  íShowWindow  zSetTimer  a CreateWindowExW  AdjustWindowRect  RegisterClassExW  æLoadImageW  ºLoadIconW (RegisterWindowMessageW  ∫LoadCursorW ¢ DispatchMessageW  ™TranslateMessage  ®TranslateAcceleratorW >GetMessageW ïInvertRect  íIntersectRect „MessageBoxW …LoadStringW OSetCursorPos  @ ClientToScreen  !GetKeyState PtInRect  ˛PeekMessageW  ÍMsgWaitForMultipleObjects ø DrawTextW ”WinHelpW  8 CheckDlgButton  £IsDlgButtonChecked  ƒ EnableWindow  GetDlgItem  ; CheckRadioButton  ü DialogBoxParamW äInflateRect È FrameRect ZGetSysColor J CopyRect  VSetFocus  ô DestroyWindow ÈMoveWindow  RegisterClassW  USER32.dll   cdtDraw  cdtTerm  cdtInit  cdtDrawExt  CARDS.dll î ShellAboutW SHELL32.dll L InitCommonControlsEx  COMCTL32.dll  ÎRegQueryValueExA  ·RegOpenKeyExA âGetProcAddress  .LoadLibraryA                                                                                                                                                                                                                    ˇ  ˇ  ˇˇˇˇS o l i t a i r e         .     ˇˇˇˇ˛ˇˇˇÏˇˇˇ
+         Òˇˇˇ                           ˚ˇˇˇÃˇˇˇ        ,  e   -  e   .  f   /  f   0  f   1  g   2  h   3  i   4  j   6  j           6   d   7   d   8   d   9   d   :   d   ;   d   <   d   =   d   >   d   ?   d   @   d   A   d           S t a t                                                                                                                                                                                                                  P  Ä   †  Ä   ∏  Ä   Ë  Ä	   0 Ä   H Ä   ` Ä   x Ä                  ê Ä   ® Ä   ¿ Ä   ÿ Ä    Ä    Ä     Ä   8 Ä                  P Ä               e   h Äf   Ä Äg   ò ÄÁ  ∞ Ä                  » Ä   ‡ Ä   ¯ Ä?    Ä@   ( Ä~   @ Äˇ  X Ä               P Äp Ä               Ù  à Ä                  † Ä                  ∏ Ä               	  –                 	  ‡                 	                   	                    	                   	                    	  0                 	  @                 	  P                 	  `                 	  p                 	  Ä                 	  ê                 	  †                 	  ∞                 	  ¿                 	  –                 	  ‡                 	                   	                    	                   	                    	  0                 	  @  ñ  Ë          ò  (          ö  ®          ¿®  ®          h±  h          –∂  ®%          x‹  ®           Ì  h          xã  :          »å  Í          Xë            ∏é  û          `í  ¶           Ú  $          (Û  n           òÛ  ‡          xı  J          »ˆ  ¢           @¯  >           p˜  –           ∏å             àÒ  v           à  p          pÖ  ï           H I D D E N A C C E L         <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<assembly xmlns="urn:schemas-microsoft-com:asm.v1" manifestVersion="1.0">
+<assemblyIdentity type="win32" name="Microsoft.Windows.Accessories.Games.Solitaire" version="1.0.0.0" processorArchitecture="x86"/>
+<description>Solitaire Game</description>
+<dependency>
+    <dependentAssembly>
+        <assemblyIdentity
+            type="win32"
+            name="Microsoft.Windows.Common-Controls"
+            version="6.0.0.0"
+            language="*"
+            publicKeyToken="6595b64144ccf1df"
+            processorArchitecture="x86"/>
+    </dependentAssembly>
+</dependency>
+</assembly>
+
+
+
+   p4   V S _ V E R S I O N _ I N F O     ΩÔ˛       (
+    (
+?                        Œ   S t r i n g F i l e I n f o   ™   0 4 0 9 0 4 B 0   L   C o m p a n y N a m e     M i c r o s o f t   C o r p o r a t i o n   T   F i l e D e s c r i p t i o n     S o l i t a i r e   G a m e   A p p l e t   d "  F i l e V e r s i o n     5 . 1 . 2 6 0 0 . 0   ( x p c l i e n t . 0 1 0 8 1 7 - 1 1 4 8 )   0   I n t e r n a l N a m e   s o l . e x e   Ä .  L e g a l C o p y r i g h t   ©   M i c r o s o f t   C o r p o r a t i o n .   A l l   r i g h t s   r e s e r v e d .   8   O r i g i n a l F i l e n a m e   s o l . e x e   j %  P r o d u c t N a m e     M i c r o s o f t Æ   W i n d o w s Æ   O p e r a t i n g   S y s t e m     :   P r o d u c t V e r s i o n   5 . 1 . 2 6 0 0 . 0     D    V a r F i l e I n f o     $    T r a n s l a t i o n     	∞     & G a m e     Ë& D e a l 	   F 2           È& U n d o     ÍD e & c k . . .     Î& O p t i o n s . . .         Ä ÏE & x i t   ê & H e l p     ‚ˇ& C o n t e n t s 	   F 1     „ˇ& S e a r c h   f o r   H e l p   o n . . .     ‰ˇ& H o w   t o   U s e   H e l p         Ä –& A b o u t   S o l i t a i r e          2 Ú  Å q Ë  ¿ »Ä       ≤ p     S e l e c t   C a r d   B a c k    M S   S h e l l   D l g    P       * 6 ˇˇÄ         P    $   * 7 ˇˇÄ         P    @   * < ˇˇÄ         P    \   * = ˇˇÄ         P    x   * : ˇˇÄ         P    î   * ; ˇˇÄ         P     0  * 8 ˇˇÄ         P    $ 0  * 9 ˇˇÄ         P    @ 0  * > ˇˇÄ         P    \ 0  * ? ˇˇÄ         P    x 0  * @ ˇˇÄ         P    î 0  * A ˇˇÄ        P    , ^ (   ˇˇÄ O K         P    ^ ^ (   ˇˇÄ C a n c e l           ¿ »Ä     2  Ü e     O p t i o n s    M S   S h e l l   D l g       P      < $ ˇˇˇˇÄ & D r a w      P      4  ,ˇˇÄ D r a w   & O n e       P      4  -ˇˇÄ D r a w   & T h r e e      P    D  8 0 ˇˇˇˇÄ & S c o r i n g        P    H  +  .ˇˇÄ S t & a n d a r d       P    H  $  /ˇˇÄ & V e g a s         P    H &   0ˇˇÄ & N o n e      P     , 4  1ˇˇÄ T & i m e d   g a m e      P     8 4  2ˇˇÄ S t a t u s   & b a r      P     D L  3ˇˇÄ O u t & l i n e   d r a g g i n g      P    H 8 >  4ˇˇÄ & C u m u l a t i v e       P    T D   6ˇˇÇ S c o r e      P    $ T $   ˇˇÄ O K         P    L T (   ˇˇÄ C a n c e l       ¿ »Ä       k F        M S   S h e l l   D l g      P    
+  X  d ˇˇÇ S e t   N e x t   G a m e   N u m b e r          P        e ˇˇÇ G a m e   #         ÅP    %  8  » ˇˇÅ        P     / !   ˇˇÄ D e a l         P    : /     ˇˇÄ C a n c e l       @ »Ä       ∆ q     A s s e r t i o n   F a i l u r e    M S   S h e l l   D l g        P     ( ø  d ˇˇÇ P l e a s e   s e n d   b u g   r e p o r t   t o   w i n b u g .     I n c l u d e   f i l e ,   l i n e   n u m b e r ,   g a m e   n u m b e r ,   v e r s i o n   n u m b e r   a n d   s t e p s   t o   r e p r o d u c e .       P       	 e ˇˇÇ F i l e :        P     D º  f ˇˇÇ A   f i l e   n a m e d   s o l . d b g   w i l l   b e   c r e a t e d   i n   t h e   c u r r e n t   d i r e c t o r y .     P l e a s e   a t t a c h   t h i s   f i l e   t o   t h e   b u g   r e p o r t   - -   T h a n k s      P    $ ` ,   ˇˇÄ C o n t i n u e         P    d ` ;   ˇˇÄ E x i t   W i n d o w s         P        i ˇˇÇ L i n e :        P      ≠    ˇˇÇ V e r s i o n   3 . 0        P    (  d  … ˇˇÇ          P    (  b 	 » ˇˇÇ         P       $  m ˇˇÇ G a m e   # :        P    (  D  À ˇˇÇ       (       @                                   Ä      ÄÄ Ä   Ä Ä ÄÄ  ¿¿¿ ÄÄÄ   ˇ  ˇ   ˇˇ ˇ   ˇ ˇ ˇˇ  ˇˇˇ """        """""""wwwwwww"""""""      ¯""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""""DDDDD¯Ä""""" D@DD¯Ä"""""  p  ¯ """"" wpwˇwww"""""   ˇ   áp""""" ˇˇˇˇÒˇ à""""" Òˇˇˇ """""" Òˇˇˇp"""""" ˇˇˇˇÒˇp"""""" ˇˇˇˇˇˇˇp"""""""       áp""""""""wwwwwwp""""""" àààààààÄ""""""" ˇˇˇˇˇˇˇ""""""""       """"""""""""""""""""¸ ˇ¸  ˇ¸  ¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¸  ?¯  ?  ?¯  ¸  ˛  ˛  ?˛  ?˛  ?˛  ?ˇ  ?ˇ¿ ?ˇÄ ?ˇÄ ˇ¿ ˇˇˇˇˇ(                                          Ä      ÄÄ Ä   Ä Ä ÄÄ  ¿¿¿ ÄÄÄ   ˇ  ˇ   ˇˇ ˇ   ˇ ˇ ˇˇ  ˇˇˇ "(    """(wwwx""(tDDx""(tDDx""(tDDx""(tDDx""(tDDx""(tDDx""àtwDx""àwwwxÄ""(ÒˇÒÄ""(ÒˇÒ""(ˇˇˇ"""àààá"""áwww"""(ààà""‡"‡DD‡¯‡""‡"‡DD‡¯‡""¿"¿DD‡¯‡""‡"DD¯¯""(   0   `                             ˇˇˇ ˇ˛˛ ˇ˛¸ ˚˚˛ ˇ¸˘ ¸˙¯ ˇ˙ı ˇ¯Ò ˚˜Û ¸ˆÔ ˇˆÏ ˇÙÈ ¸ÙÍ ÚÒÛ ˇÛÊ ¯ÒÏ ˜Ì ˇÒ‰ ˝Ò‰ ˇ· ˜Ô‰ ˜ÎÍ ˇÔﬂ €‚ˇ ˇÌ€ ¸Ì€ ˆÎ› ˇÎ◊ ˆÁ· ˝È’ ˇÈ” ı‰ﬁ ˆË“ ıÊ÷ ˇÁœ ˜„Ÿ Èﬂ· ˜‚’ ¸ÂÃ ˇÂ  Ù·‘ Ô€€ ˇ‚≈ ˙·∆ ˙‡¬ ˇ‡¿ Í›À Ô‡√ ˇ›∫ ¯‹æ Ô€π ˇ⁄¥ ¯⁄∂ ±¿ˇ Õ»· Ó÷≤ ˇ’¨ „“º ı”≥ ˆ‘Ø Ù‘´ ˆ”© ˇ“¶ ‰—± ¢µˇ ‹Õ± Ê√¿ ˚œ† ıÀ™ ˇœû Èƒ∏ Á¡∏ ˇÃô ¸Àú ±≥‰ ›»§ Ú≈¢ ‚«† ˆ∆ö Ÿ∆§ Ï∆ú ‡≈ò ﬁ∂∂ ˘√è Â¿ñ Ï¿ì ›≤≤ ˆøå Îºî Ëªñ ôˇ ˝≈z ‚¥° ‹øå “ªó Àπõ ñ˘ ‰±ú ¡Ø™ Í∂å „∏â ™°À Ò∑É ˝¿k ⁄∫Ç Ë≥à ⁄®¢ ›¨ì ⁄•û ∆£• ◊µz ¸ª` ÷¢ü ﬁ§ì ‡Æ{ cÇˇ ˝πW Ÿ¢ê ‘ùö ÷ùò ‰™y ◊üé \|ˇ ¥§è ∏•â —©r ‘òí c|Ú ”¨f ’ße ‘úy ”¢l Ÿ£g Œêç æô~ –èá ﬁõg Àää ›òb œäÅ ∆îm ‹ñ_ ‘úV ¢àã €î\ …ÑÇ ⁄ìY £èu °Üá úã ˝•$ ⁄ëX ÀÇz °ÉÇ ˙°$ 1X˚ M`› *T˛ üz Ùõ# »{r ƒíC #Oˇ ù}v Óï" ªåC πãD ÷í( ãzr Îë! ƒrj ÃL ”è' Ûî ˝ó  »Ü1 sss ¿mb  zD ‰à Ãà& ˘í  Áà ¯ë  ∆wD Ùé  8ˇ 8˛ Úã  ‹Ä æe] ≈Ä% ﬂÄ  3ˇ Ôà      ˇ ˛ ‰Ç ˛ ˝ ˚˙ ÍÑ  øz# ÷x fff ÁÄ  πt# ‰}  –r ·{  Ãn ›v  ±k" )‚  k Ÿs  Æh! ◊q  ƒf »g ‘n  Ài	  "ﬂ “l  æ` œi  ß`  ∑\" ¡` Ãf  π\  c  °Y ∆`  πW ±S ¬\  àP+ ¡[  ôQ æX  ºV  ≤O ∏R  ´H µN  ∞J  ØH  •A ãD ¨E  ü= ®B  ¶@  £<  í= û7  √√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√ÀÀÀÀÀÀ√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√À{Ü|ï∞ÀÀÀÀÀÀ√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√À{Ï±HCHH_ì®∞ÀÀÀÀÀÀ√√√√√√√√√√√√√√√√√√√√√√√√√√√√√À{¯˙æHHHHHHHHH_ì®∞ÀÀÀÀÀ√√√√√√√√√√√√√√√√√√√√√√√√À{˛ˇ˜æHHHHHHHHHHHHH_ì®∞ÀÀÀÀ√√√√√√√√√√√√√√√√√√√√√{Ó˝˝˜±HHHW∏∏∏´xWHHHHEC<72ûÀ√√√√√√√√√√√√√√√√√√√√√{Ó¸¸Û±HHH‚ˇˇˇˇˇˇˇÍ≤àfHHH=£À√√√√√√√√√√√√√√√√√√√√√{Á˚˘Û™HHHÍ˝˝˝˝˝˝˝˝˝˝˝ÂHH=£À√√√√√√√√√√√√√√√√√√√√√{ÁˆˆÒ™HHHÍ¸¸¸¸¸¸˚˚˚˚˚˚‚H=£À√√√√√√√√√√√√√√√√√√√√√b·ııÒ™HHHÂ˘˘˘˘˘˘˘˘˘˘˘˘ÂH=£À√√√√√√√√√√√√√√√√√√√√√b·ÙÙÈ†HHHﬂˆˆˆˆˆˆııııııﬂH=£À√√√√√√√√√√√√√√√√√√√√√F◊ÚÚÈ†HHHﬂÙÙÙÙÙÙÙÙÙÙÙÙŸH=£À√√√√√√√√√√√√√√√√√√√√√F◊È†HHHŸÚÚÚÚÚÚÚÚÚÚÚÚŸH=£À√√√√√√√√√√√√√√√√√√√√√F”ÔÔ„òHHH’ÔÔÔÔÔÔ’H=£À√√√√√√√√√√√√√√√√√√√√√FÕÎÎ„òHHH—ÌÌÌÌÌÌÎÎÎÎÎÎ—E<ûÀ√√√√√√√√√√√√√√√√√√√√√FÕËË⁄òHHHœËËËËËËËËËËËËœE;ûÀ√√√√√√√√√√√√√√√√√√√√√F…ÊÊ⁄ãHHHœÊÊÊÊÊÊ‰‰‰‰‰‰ >4ûÀ√√√√√√√√√√√√√√√√√√√√√F…‰‰’ãHEE ‡‡‡‡‡‡‡‡‡‡‡‡ 81ûÀ√√√√√√√√√√√√√√√√√√√√√Fø‡‡œáEE>Ωﬁﬁﬁﬁﬁ€€€€€€€Ω31ôÀ√√√√√√√√√√√√√√√√√√√√√Fø€€œá>>>Ωÿÿÿÿÿÿ÷÷÷÷÷÷Ω3,ôÀ√√√√√√√√√√√√√√√√√√√√√F¥ÿÿ ~888¿““““““““““““≥0+ôÀ√√√√√√√√√√√√√√√√√√√√√F¥÷÷ ~833–––––––––––––≥-&îÀ√√√√√√√√√√√√√√√√√√√√√F¥““¿w333ÃÃÃÃÃÃÃÃÃÃÃÃÃ©* îÀ√√√√√√√√√√√√√√√√√√√√√F¨––¿w000»»»»»»»»»»»»»§'îÀ√√√√√√√√√√√√√√√√√√√√√FßÃÃ¿w---¬¬¬¬¬¬¬¬¬¬¬¬¬üèÀ√√√√√√√√√√√√√√√√√√√√√bØ≈»∂w***≠ππππππππππππüèÀ√√√√√√√√√√√√√√√√√√√√√ï”‹≈∂p'''[∑∑∑∑∑∑µµµµµµöèÀ√√√√√√√√√√√√√√√√√√ÀÀÀÀÓˆÎ≥l""-[ggoñññÆÆÆÆtîÀ√√√√√√√√√√√√√√√√√ÀïåhQå˙¸ﬂjïÀÀÀ√√√√√√√√√√√√√√√ïÄÑxcL:Ç˙l(%%#
+	9}°À√√√√√√√√√√√√√√√√OÄriP:+kë;‘›m\
+
+
+Ué•À√√√√√√√√√√√√√√√√√OndXD1l%%#"0eú8àM¶À√√√√√√√√√√√√√√√√√√√O]Yawâë(GGG""'*13Nu^À√√√√√√√√√√√√√√√√√√√√√OyâvVB "'*03DDLa9À√√√√√√√√√√√√√√√√√√√√√√2yV)   
+"'*0338/À√√√√√√√√√√√√√√√√√√√√√A7ERRRp     
+"'*-3/À√√√√√√√√√√√√√√√√√√√√√2CHIqÖÖ   z@
+J"'* À√√√√√√√√√√√√√√√√√√√√KPSSSSSH5¡¡ ª¡6"À√√√√√√√√√√√√√√√√√√√√KÄíóóíêç
+∫¡¡∫   ù¡¡ªÀ√√√√√√√√√√√√√√√√√√√√QÉÑäàààê¡¡Z    ¡¡`
+À√√√√√√√√√√√√√√√√√√√√√9nrxxàà*'ªõ   s¢À√√√√√√√√√√√√√√√√√√√√√√?QTXXx30-'J$
+   À√√√√√√√√√√√√√√√√√√√√√√√Q??XX4330-'"
+     À√√√√√√√√√√√√√√√√√√√√√√√√√QQQQ/41,+'"	  À√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√Q...(!!!!!√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√√ˇˇˇˇˇˇ  ˇˇˇˇˇˇ  ˇ˛ˇˇˇ  ˇ¸ ?ˇˇ  ˇ¯ ˇˇ  ˇ  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ   ˇ  ˛    ˇ  ˛    ˇ  ˇ    ˇ  ˇÄ  ˇ  ˇ¿  ˇ  ˇ‡  ˇ  ˇ‡  ˇ  ˇ¿  ˇ  ˇ¿  ˇ  ˇÄ  ˇ  ˇÄ  ˇ  ˇÄ  ˇ  ˇ¿  ˇ  ˇ‡  ˇ  ˇ  ˇ  ˇ¸  ˇ  ˇˇ¿ ˇ  ˇˇˇˇˇˇ  (       @                             ˇˇˇ ˇ˛˛ ˇ˝¸ ˇ˝˚ ˇ¸˘ ˝˚ˆ ¸˘˘ ˇ˙ı ˇ˘Û ˜ˆ˘ ˇ¯Ú ˝¯Ú Ûˇ ˇ˜ ˇˆÏ ˇıÍ ˇÙÈ ˝ÛË ˇÛÁ ˇÛÊ ¸ÛÁ ˇÚ‰ ˝ÒÊ ÌÚ ˇ‚ ˇ· ˆÏÏ ˇÔﬂ ˇÓ› €‚ˇ ˇÌ‹ ˙Ïﬁ ıËÁ ˇÏ⁄ ıÁÂ ˇÎ÷ ˙Á⁄ ˇÈ‘ ˇÈ“ ˜Â◊ ˇÁœ ˜Â’ Õ◊ˇ ˇÊÃ ˇÂÀ ˇÂ  ˜‚– ıﬂ” ˇ„« ˛‰≈ ıﬁ“ ˇ·√ ˇ·¬ ˇ‡¡ Ò€œ €Œ ˜‹≈ ¯›¡ €“ﬂ ˇ›ª ˇ›∫ ˛ﬁ∂ ˇ‹π ˇ⁄∂ ˜ÿº ˇŸ¥ ˇŸ≥ ˇŸ≤ Ò÷Ω ˛⁄´ ˙÷≤ ˇ’´ ˇ’™ Ë » ˇ‘™ ˇ‘© ˆ–≥ ˇ“§ ±π ˇ—¢ ˙–• ‰¡¡ ı…© Ì»´ ˇÃö ˇÃô Ó»¢ ı≈† ‚ª∏ ÍΩ´ Í¡¢ Ô¬ù Â∫Ø Ó¡ù ˚…à ˛…~ ‹±± çûÛ Ë∫ó ˛ƒq ˛√o ‡Øü Ò∑É í ‰Øë ◊¶¶ «Øò ¡Øë ’¢° ÊÆÅ Â∞| cÇˇ Â´| ÊÆu ∆©Ü “òë Uwˇ ±íß Õöã ”ïã –îç –ìã Œëè ﬂ†e ”öu œêâ ﬁöf ﬁôf ‹ñ` §ëy —åj ¨êo ›îL §Üy 1Y˚ ﬂéK «~r *T˛ €êE ôÜn ¬{q ◊àM ⁄àH Úó  ◊ÖH ‘ÇH Ïë —G Dˇ ◊Ü6 OSÀ ◊Ö3 Œ|G Êä „à! ÀxF „á »yD ¯í  ˜ë  »uF ˆê  ‡Ñ ¶|A ﬁÇ òxK 8˝ ≈qE «u; Òã  ä  Ôâ  ¬nD  3ˇ ⁄} ÿ| ˇˇ ˛˛     ˛˝ §w5 ˛ ˛ øjC ÍÉ  ∑fK ËÇ  ”w fff ªgC ‘w ÊÄ  ùr4 ·} ∏cB „|  Œq ‚{  ·{  µaC Œq ∂aA ·z  …l ±\C ≥]@ ‹u  €u  «j »k ⁄t  ƒf ÷o  √e ’n  ‘m  ”m  øa –j  Ω_ Œg  Õf  Ãf  Àd  ∫Z ÄZ- ∑Y «`  µV ∆_  ≈_  ±S ¿Y  øY  ØO æX  ¨N ´K ∫T  ∏R  ∑P  µN  ≥L  ±K  ±J  £B ∞I  ™D  ™C  ©C  ¶A ©B  •?  £=  ¢;  †9  õ4  ≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤ªªªª≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤ªi]jÖªªªª≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤ªåÀUUUU]kãªªªª≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤y∏˛ÃUUUUUUUU]kãªªª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yÏ˚»UUˇˇÎùù~fUUJª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yÈ¯¡UUÊ˝˝˝¸¸¸˘®UJª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y„ıºUU·˙˙˙˜ˆˆˆˆUJª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yﬂ∂UU⁄ıııÛÚÚÚÚUJª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yÿÌ¨UU‘ÔÔÔÔÓÓÓÓUJª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y“ÁßUU–ÍÍÍÍËËËËTGª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y Â†UU«ÂÂÂ‰‚‚‚‚OBª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y√ﬁõUTΩ›››‹€€€€H>ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y∫ŸòOOÆ◊◊◊÷’’’’C5ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yØ”ìKH¢———ŒÕÕÕÕ;0ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤y§ŒëCCô≈≈≈ƒ¬¬¬¬3(ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yú…ê>;íππππ∑∑∑∑,%ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yöæé53è´´´™©©©©%ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤yœ¿á-,^°°°üûûûûª≤≤≤≤≤≤≤≤≤≤≤≤≤•ÉÙÒç%%#1==Edcc_ªª≤≤≤≤≤≤≤≤≤≤≤ZÄm]|∆!$2/£¥≤≤≤≤≤≤≤≤≤≤≤≤bp[@eYñuyïø≤≤≤≤≤≤≤≤≤≤≤≤≤Shw}`Xzz\-8>ÇI" 6‡≤≤≤≤≤≤≤≤≤≤≤≤≤≤Dàls#+3LRWª≤≤≤≤≤≤≤≤≤≤≤≤≤≤nä{Qx  	
+#73<ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤nóóóy) ot 
+N¶'+ª≤≤≤≤≤≤≤≤≤≤≤≤≤≤nóóóy9≠≠  â≠aª≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤näÑyF&gÜ  *îª≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤VqyP?4.:   Å≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤rvyMGA5(!<≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤≤ˇˇˇˇˇ√ˇˇˇÄ?ˇˇ ˇ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ˛  ¸  ?¯  ?¸  ?˛  ˛  ˇ¸  ˇ¸  ˇ¸  ˇ˛  ˇˇ  ˇˇÄˇˇˇˇˇˇˇˇˇ(                                    §=  ™C  ≤L  µO  ¡[  –i  ﬁx  ÌÜ  ¬] £? Ãj ÷t · —r øa Àm ◊{ „â ñ" ˚£$ ˚§% ÿà9  y? µ{F —ÑL ÿåL ‡ìL ÁõN Ó¶U ˆ±] ¸∫^ €ñc fff ’ñm ‘¢m ‰≠w ‰Øy ΩÖ~ ©ñ~ Ó≤ ÇÇÇ ÷∞Ç Èµã –ñì ƒ±ï ıøï ı¿ï —ôñ ˆ¿ñ ˆ¡ñ €øó “õò ˆ¬ò ”úô ˇÃô …¨õ ’†ù Íπü ˇ–° ˆ…• Ó«® ˙”™ ﬂ»¨ €Ø≠ œ∑Æ ‚œ± ˆ–≥ ˇ⁄µ ¯ÿ∏ Â’ª ›ΩΩ Ïœ√ ˜Ÿ√ ÎÃƒ Á»∆ Á⁄∆ Óﬁ∆ Â‘« ‹¿» ˛Â… Ùÿ  ˇÂÀ Î—Œ ˜·Œ Î‡– ı›— Ôÿ“ ﬁ” ÓÊ€ ˇ· €‘‚ ˇÚ‰ Î…Ê ˇÚÊ ø¡Í ˜ÓÎ ˇ˜Ó ˇ˜ ç†˜ ˇ˚˜ øÀ˝ 8˛ ÛÙ˛     qçˇ ˇˇˇ                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                         gggg     gggggggggg %>,&(    gggggg8	-'6:7 gggggg+.   A gggggg+0A gggggg/1A gggggg3
+4E gggggg3;K gggggg5BT gggggg?HOX  gggg"*<PY[FG`L gggggV+JRUQ9IM gggggg#!_idaZS@ gggggg$D^eihbN gggggg2)=CW]cf\ ggggggggggggggggggg≤≤‡≤y‡∂U‡ıı‡ÚÚ‡UJ‡≤≤‡≤≤‡≤≤‡≤y¿¨U‡ÔÔ‡ÓÓ‡UJ‡≤≤ˇˇ≤≤(   0   `                                                  ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ         ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                                                                                        ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ     ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                                                                       ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ fffˇfffˇfffˇfffˇfffˇfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                                 ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ fffˇ¥§èˇæô~ˇ∏•âˇùå~ˇsssˇfffˇfffˇfffˇfffˇfffˇfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ fffˇ¥§èˇàP+ˇæpcˇˇÃôˇ˚œüˇˇÃôˇˇÃôˇÀπõˇ£èuˇãzrˇsssˇfffˇfffˇfffˇfffˇfffˇfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ fffˇ¥§èˇãDˇù;ˇΩc[ˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇ˛ÕõˇˇÃôˇˇÃôˇˇÃôˇÀπõˇ£èuˇãzrˇsssˇfffˇfffˇfffˇfffˇfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ fffˇ¥§èˇí=ˇ†9 ˇ£?ˇæf^ˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇÀπõˇ£èuˇãzrˇsssˇfffˇfffˇfffˇfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¥§èˇöQˇ£< ˇ£= ˇ¶Bˇ¿jaˇˇÃôˇˇÃôˇˇÃôˇˆøåˇ∆wDˇ∆wDˇ∆wDˇÃLˇË™wˇˆøåˇˇÃôˇˇÃôˇˇÃôˇˇÃôˇ˝Œùˇ˘—£ˇÙ‘´ˇÒ◊±ˇÏ€πˇöàpÎfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¥§èˇúTˇ¶@ ˇß@ ˇ™Fˇ¡lcˇˇÃôˇˇÃôˇˇÃôˇ≥X"ˇù7 ˇù7 ˇù7 ˇù7 ˇù7 ˇû7 ˇü8 ˇØPˇ zDˇﬂõfˇÒ∑ÉˇˇÃôˇˇÃôˇˇÃôˇˆ”©ˇòÜnÔfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¥§èˇüXˇ©C ˇ™D ˇ¨Iˇ¬ogˇˇÃôˇˇÃôˇˇÃôˇ±Sˇ¢; ˇ¢; ˇ¢; ˇ¢; ˇ¢; ˇ¢< ˇ£= ˇ£= ˇ£= ˇ£= ˇ£= ˇµYˇ¸»îˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¥§èˇ¢Zˇ≠G ˇÆG ˇ∞MˇƒriˇˇÃôˇˇÃôˇˇÃôˇ¥Wˇ¶@ ˇ¶@ ˇ¶@ ˇ¶@ ˇ¶@ ˇ¶@ ˇßA ˇßA ˇßA ˇßA ˇßA ˇßA ˇª_"ˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¡Ø™ˇ•^ˇ∞J ˇ±K ˇ≥Pˇ≈umˇˇÃôˇˇÃôˇˇÃôˇπ[ˇ´D ˇ´D ˇ´D ˇ´D ˇ´D ˇ´E ˇ¨F ˇ¨F ˇ¨F ˇ¨F ˇ¨F ˇ¨F ˇπ\ˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¡Ø™ˇ©b ˇ¥M ˇµN ˇ∂Sˇ∆xoˇˇÃôˇˇÃôˇˇÃôˇº^ˇØI ˇØI ˇØI ˇØI ˇØI ˇØI ˇ∞J ˇ∞J ˇ∞J ˇ∞J ˇ∞J ˇ∞J ˇΩ_ˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ¨f!ˇ∏R ˇ∏R ˇπWˇ»{rˇˇÃôˇˇÃôˇˇÃôˇ¿bˇ¥M ˇ¥M ˇ¥M ˇ¥M ˇ¥M ˇ¥M ˇµN ˇµN ˇµN ˇµN ˇµN ˇµN ˇ¡cˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇØi!ˇºU ˇºU ˇºZˇ…}uˇˇÃôˇˇÃôˇˇÃôˇ√fˇ∏R ˇ∏R ˇ∏R ˇ∏R ˇ∏R ˇ∏R ˇπS ˇπS ˇπS ˇπS ˇπS ˇπS ˇƒgˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ≤k!ˇøY ˇøY ˇø^ˇ ÄwˇˇÃôˇˇÃôˇˇÃôˇ«iˇºV ˇºV ˇºV ˇºV ˇºV ˇΩV ˇæW ˇæW ˇæW ˇæW ˇæW ˇæW ˇ»jˇˇÃôˇˆ”©ˇóÖmfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ∂p"ˇ¬\ ˇ¬\ ˇ√aˇÀÇzˇˇÃôˇˇÃôˇˇÃôˇÀmˇ¡[ ˇ¡[ ˇ¡[ ˇ¡[ ˇ¡[ ˇ¡[ ˇ¬\ ˇ¬\ ˇ¬\ ˇ¬\ ˇ¬\ ˇ¬\ ˇÃnˇˇŒúˇˆ’¨ˇòÜpfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇπt#ˇ∆` ˇ∆` ˇ∆eˇÃÖ|ˇˇÃôˇˇÃôˇˇÃôˇœqˇ≈_ ˇ≈_ ˇ≈_ ˇ≈_ ˇ≈_ ˇ∆_ ˇ«` ˇ«` ˇ«` ˇ«` ˇ«` ˇ«` ˇ–rˇˇ–°ˇ˜ÿ±ˇòárfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇºw#ˇ…c ˇ…c ˇ…hˇŒàÄˇˇÃôˇˇÃôˇˇÃôˇ“uˇ c ˇ c ˇ c ˇ c ˇ c ˇ d ˇÀe ˇÀe ˇÀe ˇÀe ˇÀe ˇÀe ˇ”wˇˇ”®ˇ˜⁄∂ˇôàtfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇøz#ˇÕg ˇÕg ˇÃlˇœãÇˇˇÕõˇˇŒúˇˇŒùˇ÷yˇŒh ˇŒh ˇŒh ˇŒh ˇŒh ˇœh ˇ–i ˇ–i ˇ–i ˇ–i ˇ–i ˇ–i ˇ◊{ˇˇ÷≠ˇ¯‹ªˇöâufffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ√}$ˇ–j ˇ–j ˇœoˇ–èáˇˇ–†ˇˇ–°ˇˇ—¢ˇ⁄}ˇ”l ˇ”l ˇ”l ˇ”l ˇ”l ˇ”m ˇ‘n ˇ‘n ˇ‘n ˇ‘n ˇ‘n ˇ‘n ˇ€ˇˇŸ≤ˇ¯ﬁøˇöäxfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ∆Ç%ˇ‘m ˇ‘m ˇ“sˇ—íäˇˇ“¶ˇˇ”ßˇˇ”®ˇ›Åˇ◊q ˇ◊q ˇ◊q ˇ◊q ˇ◊q ˇ◊q ˇÿr ˇÿr ˇÿr ˇÿr ˇÿr ˇÿr ˇﬁÉˇˇ€∑ˇ˘‡√ˇõãzfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ Ö&ˇ◊q ˇ◊q ˇ÷vˇ”ñèˇˇ’´ˇˇ’¨ˇˇ÷≠ˇ‡Çˇ‹u ˇ‹u ˇ‹u ˇ‹u ˇ‹u ˇ‹u ˇ›v ˇ›v ˇ›v ˇ›v ˇ›v ˇ›v ˇ‚áˇˇﬁºˇ˘‚«ˇõå|fffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇÃà&ˇ€t ˇ€t ˇÿyˇ‘òëˇˇ◊∞ˇˇÿ±ˇˇŸ≤ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇ·{ ˇÊå ˇˇ·¬ˇ˙ÂÃˇõç~fffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇœã&ˇﬁx ˇﬁx ˇ‹|ˇ’õïˇˇ⁄µˇˇ€∂ˇˇ€∑ˇÊ ˇÊ ˇÊ ˇÊ ˇÊ ˇÊ ˇÊ ˇÁÄ ˇÁÄ ˇÁÄ ˇÁÄ ˇÁÄ ˇÁÄ ˇÎë!ˇˇ„«ˇ˙Ë—ˇõéfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ”è'ˇ‚{ ˇ‚{ ˇﬁˇ÷úóˇˇ›∫ˇˇ›ªˇˇﬁºˇÍÑ ˇÍÑ ˇÍÑ ˇÍÑ ˇÍÑ ˇÍÑ ˇÍÑ ˇÎÖ ˇÎÖ ˇÎÖ ˇÎÖ ˇÎÖ ˇÎÖ ˇÓï"ˇˇÊÃˇ˚È’ˇúéÅfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ Èƒ∏ˇ÷í(ˇÂ ˇÂ ˇ·Éˇ÷ùòˇˇ‡¿ˇˇ‡¡ˇˇ·¬ˇÔà ˇÔà ˇÔà ˇÔà ˇÔà ˇÔà ˇÔà ˇâ ˇâ ˇâ ˇâ ˇâ ˇâ ˇÚô"ˇˇË—ˇ˚ÎŸˇùèÉfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ                                             ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ˇˇˇ ¡Ø™ˇ»Ü1ˇÂÇˇÈÇ ˇÂÜˇ÷üôˇˇ‚≈ˇˇ‚∆ˇˇ„«ˇÛîˇÛç ˇÛç ˇÛç ˇÛç ˇÛç ˇÛç ˇÙé ˇÙé ˇÙé ˇÙé ˇÙé ˇÙé ˇıù#ˇˇÎ÷ˇ˚Ì›ˇùêÑfffˇˇˇˇ ˇˇˇ ˇˇˇ ˇˇ
